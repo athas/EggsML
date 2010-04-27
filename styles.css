@@ -1,0 +1,38 @@
+body {
+    font-family: helvetica, verdana, tahoma, sans;
+    text-align: center;
+}
+
+table {
+    margin: 0 auto;
+    width: auto;
+    background: #d3d3d3;
+}
+
+table td {
+    padding: 2px 10px;
+    background: #ffffff;
+}
+
+table th {
+    padding: 2px 10px;
+    background: #a3a3a3;
+}
+
+.positive {
+    color: #00aa00;
+}
+
+.negative {
+    font-weight: bold;
+    color: #aa0000;
+}
+
+.ears {
+    margin-right: 5px;
+}
+
+#graph {
+    margin: 10px auto 0;
+    width: 810px;
+}

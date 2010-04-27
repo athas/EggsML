@@ -1,0 +1,393 @@
+::ALIAS::
+skinke, xben, eggsben, sben, dr_s, dr_x
+abll, dknuth, dr_a, üüüüüüü, !菲利普 J 弗莱
+drxl, fairchil, fairchild, slacker, grimvoksen, dr_komma
+bf, doktoren, dr_b, dr_komma_2.0, dr_doktor
+dybber, d, dr_d
+spægg©trum, spæk, spe©trum, s!, spectrum
+esbens_sidekick, andreggas, hippie, h, ☮
+esbens_sidekickv2, hartfelt, 熊, ☃, ☭, , bjørn
+johan, zerrez, rot13_eggspert
+christian, operalog
+svinedrengen, kim, babysæl
+brian, blian, ninja
+tm, thordenfucker, mozilla, thorlund, thormorten
+bp, michael, blackplague, brækpøl
+troels, athas, instruktorløjtnant, übermensch
+steenstrup, steeeeenstrup, steeeeeeeeenstrup!, sundstrøm
+henne, henrik, sherlock
+casper, matlab-hviskeren, zerob0y
+daisy, gamer, g4m3r_gurl, gaffa
+ronni, mohikaneren, skinhead, drupal-meister
+
+# Husk på, farvesektionen kan ikke have kommentarer, da det
+# kan indgå i farvesyntaksen.
+# Kommentarer i dette felt vil blive antaget som farver.
+::FARVER::
+eggsben: #116688
+dr_b: #10aa20
+dr_a: #deadbf
+dr_komma: #666666
+d: #aaaa00
+spectrum: #aa0000
+andreggas: #000000
+hartfelt: #DEADBE
+johan: #999999
+christian: #00ff00
+bp: #999933
+blian: #7b0056
+kim: #444444
+daisy: #CD5C5C
+steenstrup: #FFFFFF
+troels: #ABDEAF
+
+::MÅLTIDER::
+# X : 10, | : 1, ' : 0.5
+abll: CXXX||||||||'
+drxl: XX||||
+sben: C|||'
+bf:   XXXX|||||||||
+d:    XXXXX'
+spæk: |
+h:    XX
+hartfelt: X|||||||
+johan: |
+christian: '
+kim:  X
+brian: X|
+
+::INDKØBSØNSKER::
+Rugbrød (x2)
+Eggs
+Kippers
+Snackpeber
+Roastbeef
+Drue agurker
+Flere eggs
+Flere kippers
+Sild
+Løg
+Tomater
+Karrysalat
+Italiensk salat
+eggscetera
+
+::INDKØB::
+# I danske kroner, svin.
+2010-05-13, troels: 200
+2010-04-26, kim: 218.10
+2010-04-26, blian: 196.75
+2010-04-18, abll: 140.85
+2010-04-15, blian: 132.80
+2010-04-13, troels: 261.55
+2010-04-10, kim: 92
+2010-04-08, dybber: 165.70
+2010-04-06, fairchil: 116.8
+2010-04-06, bp: 73.35
+2010-04-03, abll: 30
+2010-03-31, brian: 148.20
+2010-03-31, kim: 152.55
+2010-03-26, abll: 113.5
+2010-03-19, bp: 117
+2010-03-20, dybber: 346.5
+2010-03-18, xben: 80.8
+2010-03-16, xben: 135.35
+2010-03-15, abll: 40
+2010-03-12, fairchil: 247.85
+2010-03-08, sben: 75
+2010-03-08, blian: 164.85
+2010-03-07, bp: 15.60 
+2010-03-05, abll: 209.9
+2010-02-23, svinedrengen: 259.10
+2010-02-15, abll: 155.9
+2010-02-15, sben: 9
+2010-02-15, dybber: 52.85
+2010-02-10, abll: 20
+2010-02-01, dybber: 106.65
+2010-02-01, brian: 10
+2010-02-01, abll: 30
+2010-02-01, brian: 194.55
+2010-01-27, abll: 52.00
+2010-01-26, babysæl: 172.15
+2010-01-21, dybber: 25.00
+2010-01-21, xben: 70.09
+2010-01-19, kim: 109.375
+2010-01-18, brian: 115.20
+2010-01-16, abll: 91
+2010-01-15, bf: 200 # til abll
+2010-01-15, abll: -200 # fra doktoren
+2010-01-12, sben: 97.5
+2010-01-11, abll: 70 # canadiske pølser :)
+2010-01-10, abll: 27
+2010-01-07, andreggas: 109.70
+2010-01-06, eggsben: 30
+2009-12-30, abll: 30
+2009-12-09, abll: 62
+2009-12-03, xben: 73.75
+2009-11-24, dybber: 204.46
+2009-11-17, abll: 143.35
+2009-11-13, doktoren: 105 # biobillet til 2012
+2009-11-13, dybber: -105 # biobillet til 2012
+2009-11-12, abll: 127.2
+2009-11-05, abll: 10.
+2009-09-29, abll: 92.35
+2009-10-30, eggsben: 32.85
+2009-10-28, dybber: 259.95
+2009-10-19, xben: 221.05
+2009-10-14, xben: 72.25
+2009-10-10, abll: 46.5
+2009-10-08, hartfelt: 25.90
+2009-10-08, hartfelt: 104.75
+2009-10-07, abll: 30
+2009-09-29, bf: 200
+2009-09-29, abll: -200
+2009-09-29, abll: 183
+2009-09-23, abll: 119
+2009-09-21, abll: 45.25
+2009-09-18, abll: 68
+2009-09-15, d: 108.41
+2009-09-08, xben: 176.25
+2009-09-05, abll: 29.5
+2009-09-02, abll: 5
+2009-08-27, d: 194
+2009-06-29, abll: 76.8
+2009-06-24, sben: 142.35
+2009-06-21, abll: 50.75
+2009-06-16, abll: 43
+2009-06-13, sben: 167.5
+2009-06-10, abll: 119
+2009-05-27, drxl: 158
+2009-05-27, drxl: 62.5
+2009-05-22, abll: 210
+2009-05-17, abll: 24
+2009-05-12, abll: 10
+2009-05-12, sben: 146.40
+2009-05-05, abll: 88.75
+2009-04-30, abll: 20.
+2009-04-26, abll: 72.40
+2009-04-22, sben: 163.55
+2009-04-17, abll: 21.0
+2009-04-11, abll: 113.75
+
+::MÅLTIDSDATA::
+2010-04-26, dybber, kim, brian
+2010-04-23, dybber, kim, brian, casper, tm, ronni
+2010-04-22, abll, dybber, kim, brian, fairchil, troels, casper
+2010-04-21, kim, brian, dybber, tm
+2010-04-20, abll, dybber, kim, brian, henne, fairchil, troels
+2010-04-19, abll, fairchil, troels, henne, kim, bp, brian, dybber
+2010-04-18, abll, bp, troels
+2010-04-17, abll, slacker, tm
+2010-04-15, abll, dybber, kim, brian, henne, bp
+2010-04-14, dybber, kim, brian, henne, bp, daisy, abll, slacker
+2010-04-13, dybber, kim, brian, troels, henne, bp, daisy, eggsben, abll, slacker(*2) # eggcelent
+2010-04-12, dybber, andreggas, bjørn, kim, brian, troels, henne, casper
+2010-04-11, abll(*2), dybber(*2), steenstrup(*2), daisy
+2010-04-10, abll, blian, kim, bp, troels, thormorten
+2010-04-09, abll, dybber, blian, kim, bp, henne, casper 
+2010-04-08, abll, dybber, blian, kim, bp, henne
+2010-04-07, abll, dybber, blian, kim, henne
+2010-04-06, abll, bp, henne, troels, dybber, fairchil, brian, kim
+2010-04-05, abll, bp, henne, troels
+2010-04-04, abll, bp, henne
+2010-04-02, abll, bp, fairchil, henne, troels
+2010-04-01, abll, bp # jk
+2010-03-31, abll(*2), kim, brian, tm
+2010-03-30, abll, fairchil, kim, brian, dybber
+2010-03-28, abll, fairchil, bf(*.5)
+2010-03-27, abll
+2010-03-26, kim, brian, abll, bp, fairchil, henne, troels
+2010-03-25, kim, brian, abll, steenstrup, bp
+2010-03-24, dybber, kim, brian
+2010-03-23, abll, dybber, ninja, kim, bp, johan, fairchil, troels(*.5)
+2010-03-22, abll, dybber, ninja, kim, eggsben
+2010-03-18, abll, dybber, bp, xben, ninja, kim
+2010-03-17, kim, brian, bp                                # skal bekræftes
+2010-03-16, xben, fairchil, abll, dybber, bp, kim, brian
+2010-03-15, kim(*2), blian, bf(*.5), xben
+2010-03-14, bp, abll
+2010-03-13, bp, abll
+2010-03-12, abll, bp, dybber, fairchil
+2010-03-11, abll, bp, kim, brian, dybber
+2010-03-10, sben, bf(*.5)
+2010-03-09, abll, brian, d, kim, tm, bp, xben, slacker(*.5) # Skandale! Hüggefrokosten har neglet vores køleskabsplads!
+2010-03-08, abll, slacker, brian, dybber, kim
+2010-03-07, abll
+2010-03-06, abll, eggsben, fairchil
+2010-03-05, abll, fairchil, brian, dybber 
+2010-03-04, abll, fairchil, eggsben, dybber 
+2010-03-03, abll, kim, blian, eggsben(*.5)
+2010-03-02, abll, kim, blian, dybber
+2010-02-26, abll, kim, dybber, blian, drxl(*2) # Vi generobrede køleskabets suverænt bedste pladser.
+2010-02-25, abll, kim, dybber, eggsben(*.5)
+2010-02-24, dybber, kim, drxl(*.5)
+2010-02-23, kim, brian, dybber, eggsben
+2010-02-19, abll
+2010-02-18, abll, brian, kim
+2010-02-17, sben, fairchil(*.5)
+2010-02-15, kim, brian, abll, dybber, sben, fairchil, bf
+2010-02-13, abll
+2010-02-12, kim, brian, abll, dybber
+2010-02-11, kim, brian, abll, dybber, thormorten
+2010-02-10, kim, brian, eggsben, bf
+2010-02-09, kim, brian, dybber, thormorten, drxl
+2010-02-08, kim, brian, abll, fairchil
+2010-02-05, kim, brian
+2010-02-04, kim, brian, abll, dybber, eggsben, tm
+2010-02-03, kim, brian, abll, andreggas, bjørn
+2010-02-02, kim, brian, eggsben, dybber
+2010-02-01, kim, brian
+2010-01-31, dybber(*3), sben, abll
+2010-01-29, abll, dybber, fairchild
+2010-01-28, abll, dybber, kim, brian, drxl
+2010-01-27, abll, dybber, kim, brian, drxl
+2010-01-26, abll, dybber, kim, brian, drxl
+2010-01-25, abll, dybber, kim, brian
+2010-01-24, abll, dybber, hartfelt
+2010-01-23, abll
+2010-01-22, dybber(*.5), fairchil(*.5)
+2010-01-21, abll, dybber, kim, fairchil
+2010-01-20, abll, dybber, eggsben, hartfelt
+2010-01-19, abll, dybber, brian, kim, eggsben(*.5), bf(*.5)
+2010-01-18, dybber, brian, kim
+2010-01-17, abll, dybber, brian, eggsben(*.5)
+2010-01-16, abll
+2010-01-14, abll, dybber, brian, kim, eggsben(*.5)  # den dag Anders - forædder som han er - ikke pakkede æggene ned i kassen!
+2010-01-13, abll, dybber, brian, kim
+2010-01-12, abll, dybber, brian, andreggas, eggsben(*.5)
+2010-01-11, abll, dybber, eggsben(*.5)
+2010-01-10, abll, xben, andreggas
+2010-01-09, abll(*2)
+2010-01-08, abll
+2010-01-07, abll, xben, andreggas
+2010-01-06, abll, xben, andreggas
+2010-01-02, abll
+2009-12-30, abll
+2009-12-21, abll
+2009-12-16, abll, dybber
+2009-12-15, abll, xben, bf
+2009-12-10, abll, xben
+2009-12-09, abll
+2009-12-07, abll
+2009-12-03, abll, xben
+2009-12-02, abll(*2), dybber,xben
+2009-12-01, abll, sben
+2009-11-30, abll, sben
+2009-11-27, abll, dybber, sben(*.5)
+2009-11-26, abll, sben
+2009-11-25, abll, dybber, sben, andreggas
+2009-11-24, abll, dybber, sben
+2009-11-23, abll, dybber, sben
+2009-11-18, abll, dybber, sben
+2009-11-18, abll
+2009-11-17, dybber(*2), abll(*2), sben, andreggas
+2009-11-16, dybber(*.5), sben, abll     # abll fik et C!!!11
+2009-11-13, abll, sben
+2009-11-12, abll, eggsben
+2009-11-11, dybber, abll, christian(*.5)
+2009-11-10, eggsben, abll
+2009-11-09, eggsben, abll
+2009-11-06, eggsben
+2009-11-04, d, abll, johan
+2009-11-03, sben, d(*.5), abll
+2009-11-02, sben, d, abll
+2009-10-30, sben, bf, d, abll #eggpic win frokost hvor vi fik opdateret 3 ugers eggsml
+2009-10-29, sben, d, abll, andreggas
+2009-10-28, sben, d, abll, ☭
+2009-10-27, sben(*2), bf, h, hartfelt(*2), d(*3)
+2009-10-26, abll(*1.5), eggsben
+2009-10-22, eggsben, andreggas, 熊, d, bf
+2009-10-21, eggsben, abll
+2009-10-20, eggsben, abll, d, hippie, 熊
+2009-10-19, eggsben, abll
+2009-10-16, eggsben, abll, hippie, 熊
+2009-10-15, eggsben, abll, hippie, 熊, d, bf, dr_komma
+2009-10-14, eggsben, abll
+2009-10-13, eggsben, abll, hippie, 熊, d
+2009-10-12, abll, eggsben (*1.5)
+2009-10-11, abll
+2009-10-10, abll,bf
+2009-10-09, abll
+2009-10-08, abll,dybber, esbens_sidekick, esbens_sidekickv2
+2009-10-07, abll,eggsben,bf # DEN MEST NEDEREN EGGSML _EVER_! eggsbens æggekogning suttede for vildt. Vi agter at eggskludere ham fra den højtærede frokostloge som straf.
+2009-10-06, abll,eggsben,bf,d,esbens_sidekickv2
+2009-10-04, abll,eggsben
+2009-10-01, abll,eggsben,d,esbens_sidekick,esbens_sidekickv2
+2009-09-29, abll,d,eggsben,esbens_sidekick, esbens_sidekickv2,dr_komma,bf
+2009-09-28, dybber
+2009-09-27, abll
+2009-09-26, abll, bf
+2009-09-25, dr_komma(*.5)
+2009-09-24, abll,d,eggsben,esbens_sidekick, esbens_sidekickv2
+2009-09-23, abll
+2009-09-22, bf, d, xben, esbens_sidekick, esbens_sidekickv2, abll
+2009-09-21, xben(*1.5), bf(*1.5), abll(*1.5)
+2009-09-18, abll, dybber, fairchil(*.5)
+2009-09-17, abll, xben, dybber, esbens_sidekick, esbens_sidekickv2
+2009-09-16, abll, skinke
+2009-09-15, abll, xben, dybber, esbens_sidekickv2
+2009-09-14, abll, xben, dybber
+2009-09-12, abll, bf, fairchil # the feast of a thousand beasts
+2009-09-11, abll, d # bf sov over sig, eggsben slacker :P
+2009-09-10, abll, xben, d, esbens_sidekick # ny logebror: andreggas aka. esbens_sidekick
+2009-09-09, abll, xben # bf var sur og gad ikke deltage
+2009-09-08, abll, bf, xben
+2009-09-07, abll, xben
+2009-09-06, bf
+2009-09-05, abll, bf
+2009-09-03, sben
+2009-09-02, bf, abll, dr_komma(*.5)
+2009-09-01, bf, d, sben, abll
+2009-08-31, bf, d, abll
+2009-07-07, bf, sben
+2009-07-05, bf
+2009-07-02, abll
+2009-06-30, abll,bf, skinke
+2009-06-29, abll, bf
+2009-06-28, bf(*2), abll
+2009-06-26, abll, bf
+2009-06-25, abll, sben, bf, spectrum
+2009-06-24, abll, dr_komma, skinke
+2009-06-23, abll(*.5)
+2009-06-22, abll, bf, dr_komma, skinke
+2009-06-21, abll(*1.5), bf(*2.0)
+2009-06-20, abll, bf
+2009-06-18, eggsben,dr_b,dr_komma,
+2009-06-17, abll(*.5),eggsben(*.5),dr_komma
+2009-06-16, abll,eggsben,dr_komma,dr_d
+2009-06-15, abll
+2009-06-14, abll,eggsben,bf,slacker
+2009-06-13, abll,eggsben,dybber,dr_komma,bf
+2009-06-12, abll,eggsben,dybber,dr_komma(*.5)
+2009-06-09, abll,eggsben,slacker
+2009-06-08, abll,bf
+2009-06-07, abll,xben,drxl,bf
+2009-06-06, abll(*1.5),xben(*1.5),bf(*.5)
+2009-06-05, abll,xben,drxl,bf
+2009-06-03, abll,xben,drxl,bf
+2009-06-02, abll,xben
+2009-06-01, abll
+2009-05-31, abll,sben,drxl
+2009-05-29, abll(*2),sben(*1.5),drxl(*.5)
+2009-05-27, abll,sben,drxl,bf(*.5)
+2009-05-25, abll
+2009-05-24, abll
+2009-05-22, sben, abll, bf
+2009-05-20, sben(*.5)
+2009-05-19, sben, abll, drxl
+2009-05-17, sben, abll
+2009-05-16, sben, abll, bf, drxl
+2009-05-15, sben(*1.5), abll(*1.5), bf(*.5), drxl(*.5)
+2009-05-13, sben(*.5)
+2009-05-12, abll, sben, drxl
+2009-05-11, abll, sben
+2009-05-09, abll, sben, bf
+2009-05-06, sben(*.5)
+2009-05-05, abll, sben
+2009-05-04, sben
+2009-04-26, abll, sben, bf
+2009-04-24, abll, sben, bf
+2009-04-23, abll, bf
+2009-04-17, abll
+2009-04-11, abll, sben
+1970-01-01, bf(*2),sben(*5),abll(*6),slacker
