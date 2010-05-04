@@ -19,6 +19,8 @@ henne, henrik, sherlock, android
 casper, matlab-hviskeren, zerob0y
 daisy, gamer, g4m3r_gurl, gaffa
 ronni, mohikaneren, skinhead, drupal-meister
+frej, soya
+manijeh, færingen, føroyingar, bloktilskud
 
 # Husk på, farvesektionen kan ikke have kommentarer, da det
 # kan indgå i farvesyntaksen.
@@ -75,6 +77,7 @@ eggscetera
 ::INDKØB::
 # I danske kroner, svin.
 2010-05-13, troels: 200
+2010-05-03, abll: 324.90
 2010-04-26, kim: 218.10
 2010-04-26, blian: 196.75
 2010-04-24, abll: 13
@@ -171,6 +174,9 @@ eggscetera
 2009-04-11, abll: 113.75
 
 ::MÅLTIDSDATA::
+2010-05-04, dybber, abll, henne, bp, troels, casper, kim, brian, frej, manijeh
+2010-05-03, dybber, abll, henne, bp, troels, frej
+2010-05-02, abll
 2010-04-30, abll
 2010-04-29, dybber, kim, brian, abll, henne, sben, casper
 2010-04-28, dybber, kim, brian, abll, daisy, bp
