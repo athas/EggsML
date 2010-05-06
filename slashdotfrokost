@@ -4,7 +4,7 @@ abll, dknuth, dr_a, üüüüüüü, !菲利普 J 弗莱
 drxl, dreggsl, fairchil, fairchild, slacker, grimvoksen, dr_komma
 bf, doktoren, dr_b, dr_komma_2.0, dr_doktor
 dybber, d, dr_d
-spægg©trum, spæk, spe©trum, s!, spectrum
+spægg©trum, spæk, spe©trum, s!, spectrum, sørøver
 esbens_sidekick, andreggas, hippie, h, ☮
 esbens_sidekickv2, hartfelt, 熊, ☃, ☭, , bjørn
 johan, zerrez, rot13_eggspert
@@ -19,7 +19,7 @@ henne, henrik, henregg, sherlock, android
 casper, matlab-hviskeren, zerob0y
 daisy, gamer, g4m3r_gurl, gaffa
 ronni, mohikaneren, skinhead, drupal-meister
-frej, soya
+frej, soya, lurendrejer
 manijeh, færingen, føroyingar, bloktilskud
 
 # Husk på, farvesektionen kan ikke have kommentarer, da det
@@ -59,24 +59,23 @@ kim:  X
 brian: X|
 
 ::INDKØBSØNSKER::
-Rugbrød (x2)
+Rugbrød (x4)
 Eggs
-Kippers
-Snackpeber
 Roastbeef
-Drue agurker
-Flere eggs
-Flere kippers
-Sild
+Sild (x3)
 Løg
-Tomater
 Karrysalat
-Italiensk salat
+Honning Sennep
+Ost
+Fiskefilet
+Sky
+Leverpostej
 eggscetera
 
 ::INDKØB::
 # I danske kroner, svin.
 2010-05-13, troels: 200
+2010-05-06, dybber: 18
 2010-05-03, abll: 324.90
 2010-04-26, kim: 218.10
 2010-04-26, blian: 196.75
@@ -174,6 +173,7 @@ eggscetera
 2009-04-11, abll: 113.75
 
 ::MÅLTIDSDATA::
+2010-05-06, dybber, abll, kim, brian, troels, henne, steenstrup, soya
 2010-05-05, dybber, abll(*2), bp, kim, brian, xben, bf, daisy
 2010-05-04, dybber, abll, henne, bp, troels, casper, kim, brian, frej, manijeh
 2010-05-03, dybber, abll, henne, bp, troels, frej
