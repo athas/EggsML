@@ -80,6 +80,10 @@ eggscetera
 2010-05-13, troels: 200
 2010-05-07, henne: 340.95
 2010-05-06, dybber: 18
+2010-05-04, bjoern: 100
+2010-05-04, sben: -100
+2010-05-04, andreggas: 150
+2010-05-04, sben: -150
 2010-05-03, abll: 324.90
 2010-04-26, kim: 218.10
 2010-04-26, blian: 196.75
@@ -177,7 +181,7 @@ eggscetera
 2009-04-11, abll: 113.75
 
 ::MÅLTIDSDATA::
-2010-05-17, abll, brian, kim, dybber, bp
+2010-05-17, abll(*2), brian, kim, dybber(*2), bp, sben, bjoern
 2010-05-16, abll, troels, daisy(*.5), brian, sben, dybber
 2010-05-14, abll, brian, kim, frej, dybber (*.5)
 2010-05-13, abll, brian, daisy, dybber
