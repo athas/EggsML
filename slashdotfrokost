@@ -71,8 +71,9 @@ eggscetera
 
 ::INDKØB::
 # I danske kroner, svin.
+2010-06-22, frej: 149.30
+2010-06-05, dybber: 66.75
 2010-06-03, frej: 219.30
-2010-06-03, frej: 149.30
 2010-06-03, frej: 141.95
 2010-05-24, bp: 452.85
 2010-05-24, abll: 8
@@ -186,6 +187,9 @@ eggscetera
 2009-04-11, abll: 113.75
 
 ::MÅLTIDSDATA::
+# Vi skylder 2 rugbrød til buffetten 
+2010-06-05, dybber, abll, bp
+2010-06-04, dybber, kim, brian, frej, bp, daisy, troels
 2010-06-03, dybber, kim, brian, frej, troels, daisy, bp
 2010-06-02, dybber, kim, brian, bp, henne
 2010-06-01, dybber(*2), kim, abll(*2), brian, henne, frej(*2), troels
