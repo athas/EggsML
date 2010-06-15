@@ -10,8 +10,8 @@ class update:
         temp = t.read()
         t.close()
 
-        content = system("cd /eggsml; git pull")
-
+        retval = system("cd /eggsml; git pull")
+        content = "Return value: " + str(retval)
         print "Content-type: text/html; charset=UTF-8\n"
         print temp.replace('{{CONTENT}}', content)
 
