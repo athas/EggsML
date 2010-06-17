@@ -16,7 +16,7 @@ class index:
         content = ""
         errorlog = ""
 
-        kindereggsize = "250x200"
+        kindereggsize = "256x192"
 
         s = server()
         colleggtion = s.get_get_data("colleggtion")
@@ -50,26 +50,27 @@ class index:
                     try:
                         descr = metadata["Exif.Image.ImageDescription"]
                     except KeyError:
-                        descr = "EEEGGGGS!!11!!"
+                        descr = "eggs?"
                 
                 if not os.path.isfile(kinderegg_path):
                     cmd = 'convert "' + jpegg_path + '" -resize ' + kindereggsize + '\> "' + kinderegg_path + '"'
                     retval = os.system(cmd)
                     if retval != 0:
-                        errorlog += "Couldn't create kinderegg for " + jpegg_path + " - return code (" + str(retval) + ")"
+                        errorlog += "Couldn't create kinderegg for '" + jpegg_path + "' (ImageMagick return code: " + str(retval) + ")"
                 
-                jpegg_html += '\t<a href="'  + jpegg_path + '">'
-                jpegg_html += '<img src="'+ kinderegg_path + '" title="'+ descr +'" class="jpegg" /></a>\n'
+                jpegg_html += '\t<a href="'  + jpegg_path + '" class="jpegg">'
+                jpegg_html += '<div><img src="'+ kinderegg_path + '" title="'+ descr +'" /><br />'+descr+'</div></a>\n'
 
                 jpegg_html_colleggtion[date] = jpegg_html
 
-            content += "<div>\n"
+            content += '<div id="colleggtion">\n'
             for date, html in sorted(jpegg_html_colleggtion.items(), reverse=True, key=lambda x: x[0]):
                 content += html
             content += "</div>"
             
         else:
-            colleggtions = [d for d in os.listdir(jpeggdir) 
+            content += "<h1>Jpegg colleggtion</h1>\n"
+            colleggtions = [d for d in os.listdir(jpeggdir)
                             if os.path.isdir(os.path.join(jpeggdir,d))]
             
             content += "<ul>\n"

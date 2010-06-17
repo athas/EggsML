@@ -36,7 +36,48 @@ table th {
     margin: 10px auto 0;
     width: 810px;
 }
-
-.jpegg {
-    float: left;
+/*
+@font-face {
+  font-family: "Sketchetik Light";
+  src: url("fonts/Sketchetik-Light.otf");
 }
+
+h1 {
+    font-family: "Sketchetik Light", sans, Helvetica, Verdana;
+    font-size: 6em;
+    margin-bottom: 0.1em;
+}
+*/
+a.jpegg {
+    display: block;
+    float: left;
+
+    width: 276px;
+    height: 208px;
+    margin: 1px;
+    padding: 10px;
+    padding-top:18px;
+
+    background-color: #DDD;
+}
+
+a.jpegg div {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space:nowrap;
+}
+
+#colleggtion {
+    max-width: 900px;
+    margin:auto;
+}
+
+a.jpegg:hover {
+
+}
+
+
+a.jpegg div img {
+    border: 0;
+}
+
