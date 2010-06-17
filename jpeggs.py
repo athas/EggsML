@@ -21,8 +21,6 @@ class index:
         s = server()
         colleggtion = s.get_get_data("colleggtion")
 
-        colleggtion = "Ikke økologisk og i bur"
-
         colleggtion_path = os.path.join(jpeggdir,colleggtion)
         if colleggtion != "" and os.path.isdir(colleggtion_path):
             content += "<h1>" + colleggtion + "</h1>\n"
