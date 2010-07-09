@@ -76,6 +76,8 @@ eggscetera
 ::INDKØB::
 # Vi skylder 1 (2?) rugbrød til kantinen 
 # I danske kroner, svin.
+2010-07-09, dybber: 273.30
+#eggsben mangler at skrive indkøb ind!
 2010-06-27, abll: 208.75
 2010-06-21, daisy: 95.35
 2010-06-22, frej: 149.30
@@ -198,6 +200,10 @@ eggscetera
 2009-04-11, abll: 113.75
 
 ::MÅLTIDSDATA::
+2010-07-09, abll, dybber, frej
+2010-07-08, abll, dybber, troels
+2010-07-07, abll, dybber, frej, sben
+2010-07-06, abll, dybber
 2010-07-05, abll, troels, bp, frej, dybber
 2010-07-03, abll, troels
 2010-07-01, abll, troels, fairchil(*2)
