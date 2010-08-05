@@ -22,6 +22,8 @@ ronni, mohikaneren, skinhead, drupal-meister
 frej, soya, lurendrejer
 manijeh, færingen, føroyingar, bloktilskud
 steph, beggar, señorita
+carlsen, ronni-wannabe
+dybbers_mor
 
 # Husk på, farvesektionen kan ikke have kommentarer, da det
 # kan indgå i farvesyntaksen.
@@ -76,6 +78,9 @@ eggscetera
 ::INDKØB::
 # Vi skylder 1 (2?) rugbrød til kantinen 
 # I danske kroner, svin.
+2010-08-05, dybber_mor: 20
+2010-08-05, kim: 72
+2010-08-04, tm: 283.10
 2010-07-21, abll: 14
 2010-07-12, abll: 82.5
 2010-07-09, bp: 46
@@ -203,6 +208,8 @@ eggscetera
 2009-04-11, abll: 113.75
 
 ::MÅLTIDSDATA::
+2010-08-05, abll, frej, dybber, brian, kim, carlsen 
+2010-08-04, abll, frej, tm, henne 
 2010-07-26, abll, frej
 2010-07-25, abll
 2010-07-23, abll
