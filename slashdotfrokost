@@ -79,6 +79,8 @@ eggscetera
 # Vi skylder 1 (2?) rugbrød til kantinen 
 # I danske kroner, svin.
 #2010-08-05, dybber_mor: 20
+2010-08-17, dybber: 20
+2010-08-17, blian: 391.20
 2010-08-10, abll: 177
 2010-08-05, kim: 72
 2010-08-04, tm: 283.10
@@ -209,7 +211,10 @@ eggscetera
 2009-04-11, abll: 113.75
 
 ::MÅLTIDSDATA::
-2010-08-15, abll, carlsen, frej, kim
+2010-08-18, abll, carlsen, frej, brian, dybber, henne, kim, troels
+2010-08-17, abll, carlsen, frej, brian, dybber, henne
+2010-08-16, abll, carlsen, frej, kim
+2010-08-13, carlsen, brian
 2010-08-12, abll, carlsen, henne, frej
 2010-08-11, abll, kim, frej, brian
 2010-08-10, abll, dybber, kim, carlsen, henne
