@@ -23,6 +23,7 @@ frej, soya, lurendrejer
 manijeh, færingen, føroyingar, bloktilskud
 steph, beggar, señorita
 carlsen, ronni-wannabe
+dirk
 #dybbers_mor
 
 # Husk på, farvesektionen kan ikke have kommentarer, da det
@@ -78,6 +79,7 @@ eggscetera
 ::INDKØB::
 # Vi skylder 1 (2?) rugbrød til kantinen 
 # I danske kroner, svin.
+2010-08-24, dybber: 248.35
 2010-08-21, abll: 100.5
 2010-08-17, dybber: 20
 2010-08-17, blian: 391.20
@@ -212,7 +214,8 @@ eggscetera
 2009-04-11, abll: 113.75
 
 ::MÅLTIDSDATA::
-2010-08-21, abll, dybber
+2010-08-24, abll, dybber, frej, blian, kim, dirk, henne, carlsen
+# ????
 2010-08-20, abll, carlsen, kim, brian, dybber, tm
 2010-08-19, abll, carlsen, frej, brian, dybber
 2010-08-18, abll, carlsen, frej, brian, dybber, henne, kim, troels
