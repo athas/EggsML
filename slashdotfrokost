@@ -24,6 +24,7 @@ manijeh, færingen, føroyingar, bloktilskud
 steph, beggar, señorita
 carlsen, ronni-wannabe
 dirk
+jakob
 #dybbers_mor
 
 # Husk på, farvesektionen kan ikke have kommentarer, da det
@@ -46,6 +47,7 @@ kim: #444444
 daisy: #CD5C5C
 steenstrup: #FFFFFF
 troels: #ABDEAF
+
 
 ::MÅLTIDER::
 # X : 10, | : 1, ' : 0.5
@@ -218,7 +220,7 @@ eggscetera
 
 ::MÅLTIDSDATA::
 2010-08-31, abll, dybber, frej, blian, carlsen, ronni, eggsben, daisy
-2010-08-30, abll, dybber, frej, blian, carlsen, ronni, droptables, daisy, jakob
+2010-08-30, abll(*2), dybber, frej, blian, carlsen, ronni, daisy, jakob
 2010-08-26, abll, dybber, frej, blian, carlsen
 2010-08-25, abll, dybber, frej, blian, dirk
 2010-08-24, abll, dybber, frej, blian, kim, dirk, henne, carlsen
