@@ -63,22 +63,24 @@ kim:  X
 brian: X|
 
 ::INDKØBSØNSKER::
-Rugbrød (4 stk.)
-Sild
-Fiskefiletter
-Eggs
-Makrel (massere: lageret er tømt!)
-Spotvarer fra ghetto
-Flere eggs
+Peberfrugt
+Kødpålæg
+Eggs^3
 Leverpostej
+Sild
+Italiensk
 Karrysalat
-Roastbeef
-Løg
+Fiskefiletter
+Rugbrød
+Kippers
+Tomater
+Agurk
 eggscetera
 
 ::INDKØB::
 # Vi skylder 1 (2?) rugbrød til kantinen 
 # I danske kroner, svin.
+2010-08-26, thorlund: 65
 2010-08-24, dybber: 248.35
 2010-08-22, abll: 100.5
 2010-08-18, kim: 34
@@ -215,6 +217,8 @@ eggscetera
 2009-04-11, abll: 113.75
 
 ::MÅLTIDSDATA::
+2010-08-31, abll, dybber, frej, blian, carlsen, ronni, eggsben, daisy
+2010-08-30, abll, dybber, frej, blian, carlsen, ronni, droptables, daisy, jakob
 2010-08-26, abll, dybber, frej, blian, carlsen
 2010-08-25, abll, dybber, frej, blian, dirk
 2010-08-24, abll, dybber, frej, blian, kim, dirk, henne, carlsen
