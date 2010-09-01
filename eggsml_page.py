@@ -38,26 +38,28 @@ class eggsml_page:
 	def balances(self):
 		balances = self.e.get_balances()
 		bl = sorted(balances.iteritems(), key=lambda (k,v):v['totalcount'], reverse=True)
-		#print bl
 		l = '<h2>Saldoer</h2>\n'
-		l += '<table>\n<tr>\n<th>Bruger</th><th>Saldo</th><th>Betalt ialt</th><th>Måltider</th><th>Ny Saldo</th>\n</tr>\n'
-		totalbalance = 0.0
+		l += '<table>\n<tr>\n<th>Bruger</th><th>Saldo</th><th>Betalt ialt</th><th>Måltider</th><th>Gns. pris</th>\n</tr>\n'
 		totalpaid = 0.0
 		totalcount = 0.0
 		new_balances = self.e.get_balances_new()
-		nybalance = 0
 		new_total = 0
 		for v in new_balances:
 			new_total += new_balances[v]
-		#print new_total
 		for b in bl:
 			alias = b[0]
 			data = b[1]
-			l += '<tr>\n<td>%s</td><td%s>%s</td><td>%s</td><td>%s</td><td%s>%s</td>\n</tr>\n' % (alias, self.negative(data['balance']), self.currency(data['balance']), self.currency(data['totalpaid']), self.pointer(data['totalcount']), self.negative(new_balances[alias]), self.currency(new_balances[alias]) )
-			totalbalance += data['balance']
+                        balance = new_balances[alias]
+                        avg_paid = (data['totalpaid'] - balance)/data['totalcount'];
+			l += '<tr>\n<td>%s</td><td%s>%s</td><td>%s</td><td>%s</td><td>%s</td>\n</tr>\n' % (alias, self.negative(balance), self.currency(balance),
+                                                                                                           self.currency(data['totalpaid']), self.pointer(data['totalcount']),
+                                                                                                           self.currency(avg_paid))
 			totalpaid += data['totalpaid']
 			totalcount += data['totalcount']
-		l += '<tr class="total">\n<td>Total</td><td%s>%s</td><td>%s</td><td>%s</td><td%s>%s</td>\n</tr>\n' % (self.negative(totalbalance), self.currency(totalbalance), self.currency(totalpaid), self.pointer(totalcount), self.negative(new_total), self.currency(new_total) )
+                #total_avg = (paid - data['totalpaid'])/data['totalcount'];
+		l += '<tr class="total">\n<td>Total</td><td%s>%s</td><td>%s</td><td>%s</td><td>%s</td>\n</tr>\n' % (self.negative(new_total), self.currency(new_total),
+                                                                                                                    self.currency(totalpaid), self.pointer(totalcount),
+                                                                                                                    self.currency(self.e.get_average_price()))
 		l += '</table>\n'
 		l += '<h3>Gennemsnitlig måltidspris: %s</h3>\n' % self.currency(self.e.get_average_price())
 #		l += '<div id="graph"><embed src="./graph.py" width="650" height="50" type="image/svg+xml" pluginspage="http://getfirefox.com" /></div>\n'
@@ -68,7 +70,7 @@ class eggsml_page:
 	def constructChartURL(self):
 		url = 'http://chart.apis.google.com/chart'
 		url += '?cht=p3' # Chart type
-		url += '&chs=500x200' # Chart size
+		url += '&chs=600x240' # Chart size
 		balances = self.e.get_balances()
 		users = sorted(balances.iteritems(), key=lambda (k,v):v['totalcount'], reverse=True)
 		cmap = self.e.get_colours()
