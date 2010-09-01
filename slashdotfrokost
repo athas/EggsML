@@ -25,8 +25,8 @@ steph, beggar, señorita
 carlsen, ronni-wannabe
 dirk
 jakob
-#dybbers_mor
 peter, muffin
+#dybbers_mor
 
 # Husk på, farvesektionen kan ikke have kommentarer, da det
 # kan indgå i farvesyntaksen.
@@ -83,8 +83,8 @@ eggscetera
 ::INDKØB::
 # Vi skylder 1 (2?) rugbrød til kantinen 
 # I danske kroner, svin.
-2010-09-01: blian: 341.85
-2010-09-01: abll: 40
+2010-09-01, blian: 341.85
+2010-09-01, abll: 40
 2010-08-26, thorlund: 65
 2010-08-24, dybber: 248.35
 2010-08-22, abll: 100.5
