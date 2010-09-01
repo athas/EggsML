@@ -26,6 +26,7 @@ carlsen, ronni-wannabe
 dirk
 jakob
 #dybbers_mor
+peter, muffin
 
 # Husk på, farvesektionen kan ikke have kommentarer, da det
 # kan indgå i farvesyntaksen.
@@ -82,6 +83,8 @@ eggscetera
 ::INDKØB::
 # Vi skylder 1 (2?) rugbrød til kantinen 
 # I danske kroner, svin.
+2010-09-01: blian: 341.85
+2010-09-01: abll: 40
 2010-08-26, thorlund: 65
 2010-08-24, dybber: 248.35
 2010-08-22, abll: 100.5
@@ -219,9 +222,10 @@ eggscetera
 2009-04-11, abll: 113.75
 
 ::MÅLTIDSDATA::
+2010-09-01, abll, dybber, frej, blian, ronni, kim, muffin(*.5)
 2010-08-31, abll, dybber, frej, blian, carlsen, ronni, eggsben, daisy
 2010-08-30, abll(*2), dybber, frej, blian, carlsen, ronni, daisy, jakob
-2010-08-26, abll, dybber, frej, blian, carlsen # Hüggefrokost besejret, vi indtager deres kasser og erobrer 3 pakker leverpostej
+2010-08-26, abll, dybber, frej, blian, carlsen # Hüggefrokost besejret, deres kasser blev indtaget!
 2010-08-25, abll, dybber, frej, blian, dirk
 2010-08-24, abll, dybber, frej, blian, kim, dirk, henne, carlsen
 2010-08-23, abll, dybber, kim, carlsen, frej, henne, troels(*.5)
