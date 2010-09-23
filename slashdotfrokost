@@ -85,6 +85,7 @@ eggscetera
 
 ::INDKØB::
 # I danske kroner, svin.
+2010-09-23, dybber: 107.00
 2010-09-21, abll: 314.00
 2010-09-16, frej: 303.80
 2010-09-07, carlsen: 202.75
@@ -227,11 +228,12 @@ eggscetera
 2009-04-11, abll: 113.75
 
 ::MÅLTIDSDATA::
+2010-09-23, abll, kim, frej, dybber, tm, bp, henne, truls
 2010-09-22, abll, kim, frej
 2010-09-21, abll, meggel, kim, tm, bp, henne
 2010-09-20, abll, frej, jakob, meggel, kim, brian, tm, troels, ronni, daisy
 2010-09-19, abll, bp, xben, steenstrup, fuldrik
-2010-09-18, abll 
+2010-09-18, abll
 2010-09-17, bp, henne, tm
 2010-09-16, troels, truls, brian, kim, frej, henne
 2010-09-14, abll, bp, brian, henne(*.5)
