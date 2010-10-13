@@ -12,7 +12,6 @@ class update:
 
         retval = system("cd /eggsml; git pull > /dev/null")
         content = "Return value: " + str(retval)
-        sys.stderr.write("Current user: " + str(geteuid()));
         print "Content-type: text/html; charset=UTF-8\n"
         print temp.replace('{{CONTENT}}', content)
 
