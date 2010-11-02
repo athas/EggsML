@@ -48,7 +48,7 @@ class eggsml_page:
 		uinfsorted0 = sorted(userinfo.iteritems(), key=lambda (k,v):v['eggscount'], reverse=True)
 		uinfsorted1 = sorted(uinfsorted0, key=lambda (k,v): -v['lasteggs'], reverse=True)
 		l = '<h2>Saldoer</h2>\n'
-		l += '<table>\n<tr>\n<th>Bruger</th><th>Saldo</th><th>Betalt ialt</th><th>Måltider</th><th>Gns. pris</th><th>Seneste eggs</th>\n</tr>\n'
+		l += '<table id="eggsdata" class="tablesorter"><thead>\n<tr>\n<th>Bruger</th><th>Saldo</th><th>Betalt ialt</th><th>Måltider</th><th>Gns. pris</th><th>Seneste eggs</th>\n</tr>\n</thead><tbody>\n'
 		totalpaid = 0.0
 		totalcount = 0.0
 		new_total = 0
@@ -69,10 +69,10 @@ class eggsml_page:
 			totalpaid += data['paid']
 			totalcount += data['eggscount']
                 #total_avg = (paid - data['totalpaid'])/data['totalcount'];
-		l += '<tr class="total">\n<td>Total</td><td%s>%s</td><td>%s</td><td>%s</td><td>%s</td><td>&nbsp;</td>\n</tr>\n' % (self.negative(new_total), self.currency(new_total),
+		l += '<tfoot><tr class="total">\n<td>Total</td><td%s>%s</td><td>%s</td><td>%s</td><td>%s</td><td>&nbsp;</td>\n</tr></tfoot>\n' % (self.negative(new_total), self.currency(new_total),
                                                                                                                     self.currency(totalpaid), self.pointer(totalcount),
                                                                                                                     self.currency(self.e.get_average_price()))
-		l += '</table>\n'
+		l += '</tbody></table>\n'
 		l += '<h3>Gennemsnitlig måltidspris: %s</h3>\n' % self.currency(self.e.get_average_price())
 #		l += '<div id="graph"><embed src="./graph.py" width="650" height="50" type="image/svg+xml" pluginspage="http://getfirefox.com" /></div>\n'
 		url = self.constructChartURL();

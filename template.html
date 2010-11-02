@@ -2,8 +2,39 @@
 <head>
 <title>EggsML</title>
 <link rel="stylesheet" href="styles.css" type="text/css" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
+<script type="text/javascript" src="http://tablesorter.com/jquery.tablesorter.min.js"></script> 
+<script type="text/javascript">
+    $.tablesorter.addParser({ 
+        id: 'latest', 
+        is: function(s) { 
+          return false;
+        }, 
+        format: function(s) {
+            var day;
+            if(s == "I dag") 
+              day = 0;
+            else if(s == "I går")
+              day = 1;
+            else
+              day = s.split(" ", 1)[0];
+            console.debug("ASD" + day);
+            return day;
+        }, 
+        type: 'numeric' 
+    }); 
+
+$(document).ready(function() 
+    { 
+        $("#eggsdata").tablesorter({ headers : {5: {sorter:"latest"} }});
+    } 
+); 
+
+</script>
+
 </head>
 <body>
+<p></p>
 {{CONTENT}}
 </body>
 </html>
