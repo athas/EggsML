@@ -89,12 +89,21 @@ class eggsml_page:
 		values = []
 		colours = []
 		aliases = []
+                novicetotalcount = 0
 		for u in users:
-			alias = u[0]
-			data = u[1]
-			aliases.append(alias)
-			values.append(data['eggscount'])
-			colours.append(self.e.get_colour(alias)[1:])
+		  alias = u[0]
+                  data = u[1]
+                  if data['eggscount'] >= 20:
+                    aliases.append(alias)
+                    values.append(data['eggscount'])
+                    colours.append(self.e.get_colour(alias)[1:])
+                  else:
+                    novicetotalcount += data['eggscount'];
+
+		aliases.append('Novices')
+		values.append(novicetotalcount)
+		colours.append('878787')
+
 		
 		url += '&chd=t:%s' % ",".join([str(s) for s in values]) # 52,47,46,47,117.5,191.5,86.5
 		url += '&chds=0,%s' % str(max(values)) # Scale values
