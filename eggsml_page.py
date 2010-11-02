@@ -48,7 +48,7 @@ class eggsml_page:
 		uinfsorted0 = sorted(userinfo.iteritems(), key=lambda (k,v):v['eggscount'], reverse=True)
 		uinfsorted1 = sorted(uinfsorted0, key=lambda (k,v): -v['lasteggs'], reverse=True)
 		l = '<h2>Saldoer</h2>\n'
-		l += '<table>\n<tr>\n<th>Bruger</th><th>Saldo</th><th>Betalt ialt</th><th>Måltider</th><th>Gns. pris</th><th>Seneste frokost</th>\n</tr>\n'
+		l += '<table>\n<tr>\n<th>Bruger</th><th>Saldo</th><th>Betalt ialt</th><th>Måltider</th><th>Gns. pris</th><th>Seneste eggs</th>\n</tr>\n'
 		totalpaid = 0.0
 		totalcount = 0.0
 		new_total = 0
