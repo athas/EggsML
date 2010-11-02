@@ -277,48 +277,46 @@ class eggsml:
 			half_meal_count += int(u['amount']*2)
 		return half_meal_count	
 	
-	def get_balances(self):
-		total = 0.0
-		users = {}
-		for p in self.purchases:
-			total += p['amount']
-			try:
-				users[p['alias']]['paid'] += float(p['amount'])
-			except:
-				users.update({p['alias'] : {'paid' : float(p['amount']), 'count' : 0}})
-		dates = self.dates[:]
-		dates.sort(self.datesort)
-		for d in dates:
-			for u in d['users']:
-				try:
-					users[u['user']]['count'] += u['amount']
-				except:
-					users.update({u['user'] : {'paid' : 0.0, 'count' : u['amount']}})
-		avg = self.get_average_price()
-		tmp = {}
-		for u in users:
-			tmp.update({u : {'balance' : round(users[u]['paid']-users[u]['count']*avg, 2), 'totalpaid' : users[u]['paid'], 'totalcount' : users[u]['count']}})
-		return tmp
-
-        def get_balances_new(self):
+        def get_userinfo(self):
                 prices = self.get_day_prices()
                 # Initialize balances to the users expenses
-                balances = {}
+                info = {}
                 
                 for u in self.get_users():
-                        balances[u] = 0;
+                        info[u] = {'balance' : 0.0,
+                                   'paid' : 0.0,
+                                   'eggscount' : 0,
+                                   'lasteggs' : None}
 
                 for p in self.get_purchases():
-                        balances[p['alias']] += float(p['amount'])
-                        
+                        info[p['alias']]['paid'] += float(p['amount'])
+                        info[p['alias']]['balance'] += float(p['amount'])
+                                                
                 for d in self.get_dates():
                         price = prices[d['date']]
                         for u in d['users']:
-                                balances[u['user']] -= price * u['amount']
+                                info[u['user']]['balance'] -= price * u['amount']
+                                info[u['user']]['eggscount'] += 1
 
-                                
-                return balances
-	
+                for useralias in info.keys():
+                  dates = self.get_dates()
+                  for d in reversed(dates):
+                    for u in d['users']:
+                      if useralias == u['user'] and info[useralias]['lasteggs'] == None:
+                          info[useralias]['lasteggs'] = (date.today() - d['date']).days
+                          break
+                                                      
+                return info
+
+        def get_latest_lunch_date(self, user):
+                dates = self.get_dates()
+                today = date.today()
+                for d in reversed(dates):
+                  for u in d['users']:
+                    if user == u['user']:
+                      diff = today - d['date']
+                      return diff.days
+        	
 	def get_average_price(self, enddate=None):
 		total = 0.0
 		users = {}

@@ -35,29 +35,41 @@ class eggsml_page:
 	def negative(self, b):
 		return (' class="negative"' if b<0 else ' class="positive"')
 
+        def niceDays(self, daycount):
+                if daycount == 0:
+                        return "I dag"
+                elif daycount == 1:
+                        return "I går"
+                else:
+                        return str(daycount) + " dage siden"
+
 	def balances(self):
-		balances = self.e.get_balances()
-		bl = sorted(balances.iteritems(), key=lambda (k,v):v['totalcount'], reverse=True)
+		userinfo = self.e.get_userinfo()
+		uinfsorted0 = sorted(userinfo.iteritems(), key=lambda (k,v):v['eggscount'], reverse=True)
+		uinfsorted1 = sorted(uinfsorted0, key=lambda (k,v): -v['lasteggs'], reverse=True)
 		l = '<h2>Saldoer</h2>\n'
-		l += '<table>\n<tr>\n<th>Bruger</th><th>Saldo</th><th>Betalt ialt</th><th>Måltider</th><th>Gns. pris</th>\n</tr>\n'
+		l += '<table>\n<tr>\n<th>Bruger</th><th>Saldo</th><th>Betalt ialt</th><th>Måltider</th><th>Gns. pris</th><th>Seneste frokost</th>\n</tr>\n'
 		totalpaid = 0.0
 		totalcount = 0.0
-		new_balances = self.e.get_balances_new()
 		new_total = 0
-		for v in new_balances:
-			new_total += new_balances[v]
-		for b in bl:
-			alias = b[0]
-			data = b[1]
-                        balance = new_balances[alias]
-                        avg_paid = (data['totalpaid'] - balance)/data['totalcount'];
-			l += '<tr>\n<td>%s</td><td%s>%s</td><td>%s</td><td>%s</td><td>%s</td>\n</tr>\n' % (alias, self.negative(balance), self.currency(balance),
-                                                                                                           self.currency(data['totalpaid']), self.pointer(data['totalcount']),
-                                                                                                           self.currency(avg_paid))
-			totalpaid += data['totalpaid']
-			totalcount += data['totalcount']
+		for v in userinfo:
+			new_total += userinfo[v]['balance']
+		for u in uinfsorted1:
+                        alias = u[0]
+                        data = u[1]
+			paid = data['paid']
+                        eggscount = data['eggscount']
+                        balance = data['balance']
+                        latest_lunch = self.niceDays(data['lasteggs'])
+                        avg_paid = (data['paid'] - balance)/data['eggscount'];
+			l += '<tr>\n<td>%s</td><td%s>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td>\n</tr>\n' % (alias, self.negative(balance), self.currency(balance),
+                                                                                                                      self.currency(data['paid']), self.pointer(data['eggscount']),
+                                                                                                                      self.currency(avg_paid),
+                                                                                                                      latest_lunch)
+			totalpaid += data['paid']
+			totalcount += data['eggscount']
                 #total_avg = (paid - data['totalpaid'])/data['totalcount'];
-		l += '<tr class="total">\n<td>Total</td><td%s>%s</td><td>%s</td><td>%s</td><td>%s</td>\n</tr>\n' % (self.negative(new_total), self.currency(new_total),
+		l += '<tr class="total">\n<td>Total</td><td%s>%s</td><td>%s</td><td>%s</td><td>%s</td><td>&nbsp;</td>\n</tr>\n' % (self.negative(new_total), self.currency(new_total),
                                                                                                                     self.currency(totalpaid), self.pointer(totalcount),
                                                                                                                     self.currency(self.e.get_average_price()))
 		l += '</table>\n'
@@ -71,8 +83,8 @@ class eggsml_page:
 		url = 'http://chart.apis.google.com/chart'
 		url += '?cht=p3' # Chart type
 		url += '&chs=600x240' # Chart size
-		balances = self.e.get_balances()
-		users = sorted(balances.iteritems(), key=lambda (k,v):v['totalcount'], reverse=True)
+		balances = self.e.get_userinfo()
+		users = sorted(balances.iteritems(), key=lambda (k,v):v['eggscount'], reverse=True)
 		cmap = self.e.get_colours()
 		values = []
 		colours = []
@@ -81,7 +93,7 @@ class eggsml_page:
 			alias = u[0]
 			data = u[1]
 			aliases.append(alias)
-			values.append(data['totalcount'])
+			values.append(data['eggscount'])
 			colours.append(self.e.get_colour(alias)[1:])
 		
 		url += '&chd=t:%s' % ",".join([str(s) for s in values]) # 52,47,46,47,117.5,191.5,86.5
