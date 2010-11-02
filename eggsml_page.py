@@ -100,7 +100,7 @@ class eggsml_page:
                   else:
                     novicetotalcount += data['eggscount'];
 
-		aliases.append('Novices')
+		aliases.append('Novices (<20 eggs)')
 		values.append(novicetotalcount)
 		colours.append('878787')
 
