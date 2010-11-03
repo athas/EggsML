@@ -26,10 +26,10 @@ class eggsml_page:
 		pl = self.e.get_purchases()
 		pl.reverse()
 		l = '<h2>Indkøb</h2>\n'
-		l += '<table>\n<tr>\n<th>Dato</th><th>Indkøber</th><th>Kroner</th>\n</tr>\n'
+		l += '<table id="eggspurchases">\n<thead><tr>\n<th>Dato</th><th>Indkøber</th><th>Kroner</th>\n</tr></thead><tbody>\n'
 		for p in pl:
 			l += '<tr>\n<td>%s</td><td>%s</td><td>%s</td>\n</tr>\n' % (p['date'], p['alias'], self.currency(p['amount']))
-		l += '</table>\n'
+		l += '</tbody></table>\n'
 		return l
 
 	def negative(self, b):
