@@ -134,7 +134,7 @@ class eggsml_page:
 		i = str(round(i,2)).split('.')
 		if len(i[1])==1:
 			i[1] = i[1]+'0'
-		return '%s,<span class="ears">%s</span>' % (i[0], i[1])
+		return '%s,%s' % (i[0], i[1])
 	
 	def pointer(self, i):
 		return str(i).replace('.', ',')

@@ -20,12 +20,27 @@
               day = s.split(" ", 1)[0];
             return day;
         }, 
-        type: 'numeric' 
+        type: "numeric" 
+    }); 
+
+    $.tablesorter.addParser({
+        id: "localNumeric", 
+        is: function(s) { 
+          return false;
+        }, 
+        format: function(s) {
+            return s.replace(",", ".");
+        }, 
+        type: "numeric" 
     }); 
 
 $(document).ready(function() 
     {
-        $("#eggsdata").tablesorter({ headers : {5: {sorter:"latest"} }});
+        $("#eggsdata").tablesorter({ headers : { 1: {sorter:"localNumeric"}
+                                               , 2: {sorter:"localNumeric"}
+                                               , 3: {sorter:"localNumeric"}
+                                               , 4: {sorter:"localNumeric"}
+                                               , 5: {sorter:"latest"} }});
         $("#eggspurchases").tablesorter();
     } 
 ); 
