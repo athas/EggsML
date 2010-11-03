@@ -296,7 +296,8 @@ class eggsml:
                         price = prices[d['date']]
                         for u in d['users']:
                                 info[u['user']]['balance'] -= price * u['amount']
-                                info[u['user']]['eggscount'] += 1
+                                print u
+                                info[u['user']]['eggscount'] +=  u['amount']
 
                 for useralias in info.keys():
                   dates = self.get_dates()
