@@ -6,7 +6,7 @@
 <script type="text/javascript" src="http://tablesorter.com/jquery.tablesorter.min.js"></script> 
 <script type="text/javascript">
     $.tablesorter.addParser({ 
-        id: 'latest', 
+        id: "latest", 
         is: function(s) { 
           return false;
         }, 
@@ -18,7 +18,6 @@
               day = 1;
             else
               day = s.split(" ", 1)[0];
-            console.debug("ASD" + day);
             return day;
         }, 
         type: 'numeric' 
@@ -29,7 +28,6 @@ $(document).ready(function()
         $("#eggsdata").tablesorter({ headers : {5: {sorter:"latest"} }});
     } 
 ); 
-
 </script>
 
 </head>
