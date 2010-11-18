@@ -113,7 +113,7 @@ class eggsml_page:
 	
 	def wishes(self):
 		wl = self.e.get_wishes()
-		l = '<h2>Indkøbsønsker</h2>\n'
+		l = '<h2 id="Ønsker">Indkøbsønsker</h2>\n'
 		l += '<ul>\n'
 		for w in wl:
 			l += '<li>%s</li>\n' % w
