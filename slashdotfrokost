@@ -84,6 +84,8 @@ Sennep
 
 ::INDKØB::
 # I danske kroner, svin.
+2010-11-30, operalog: 36.75
+2010-11-30, dybber: -36.75
 2010-11-30, jakob: 25.05
 2010-11-30, dybber: -25.05
 2010-11-30, dolle: 13.50
@@ -516,7 +518,7 @@ Sennep
 2009-11-16, dybber(*.5), sben, abll     # abll fik et C!!!11
 2009-11-13, abll, sben
 2009-11-12, abll, eggsben
-2009-11-11, dybber, abll, christian(*.5)
+2009-11-11, dybber, abll, christian(*3) # Egentlig kun ½ måltid til christian her, men han spiste med nogle andre dage i perioden vi ikke fik noteret
 2009-11-10, eggsben, abll
 2009-11-09, eggsben, abll
 2009-11-06, eggsben
