@@ -84,6 +84,8 @@ Sennep
 
 ::INDKØB::
 # I danske kroner, svin.
+2010-12-06, daisy: 207.85
+2010-12-03, abll: 15
 2010-12-02, carlsen: 20
 2010-12-02, dybber: 20
 2010-12-02, bloktilskud: 91.27
@@ -266,7 +268,8 @@ Sennep
 
 ::MÅLTIDSDATA::
 2010-12-06, abll, dybber, frej, ulrik, troels, daisy # shine som speggtator
-2010-12-02, dybber, abll, frej, bp, henne, troels
+2010-12-03, dybber, abll, mortenbp, troels
+2010-12-02, dybber, abll(*1.5), frej(*1.5), bp, henne, troels
 2010-12-01, dybber, abll, bp, kim, daisy, henne, troels
 2010-11-30, dybber, frej, abll, kim, daisy, tm, bp, henne, mikkel
 2010-11-25, dybber, frej, kim, reenberg, jakob, bp, truls, henne, abll
