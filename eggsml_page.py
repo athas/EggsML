@@ -48,7 +48,10 @@ class eggsml_page:
 		uinfsorted0 = sorted(userinfo.iteritems(), key=lambda (k,v):v['eggscount'], reverse=True)
 		uinfsorted1 = sorted(uinfsorted0, key=lambda (k,v): -v['lasteggs'], reverse=True)
 		l = '<h2>Saldoer</h2>\n'
-		l += '<table id="eggsdata" class="tablesorter"><thead>\n<tr>\n<th>Bruger</th><th>Saldo</th><th>Betalt ialt</th><th>Måltider</th><th>Gns. pris</th><th>Seneste eggs</th>\n</tr>\n</thead><tbody>\n'
+                alumne = '<h2>Alumne</h2>\n'
+		header = '<table id="eggsdata" class="tablesorter"><thead>\n<tr>\n<th>Bruger</th><th>Saldo</th><th>Betalt ialt</th><th>Måltider</th><th>Gns. pris</th><th>Seneste eggs</th>\n</tr>\n</thead><tbody>\n'
+                l += header
+                alumne += header
 		totalpaid = 0.0
 		totalcount = 0.0
 		new_total = 0
@@ -62,22 +65,27 @@ class eggsml_page:
                         balance = data['balance']
                         latest_lunch = self.niceDays(data['lasteggs'])
                         avg_paid = (data['paid'] - balance)/data['eggscount'];
-			l += '<tr>\n<td>%s</td><td%s>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td>\n</tr>\n' % (alias, self.negative(balance), self.currency(balance),
-                                                                                                                      self.currency(data['paid']), self.pointer(data['eggscount']),
-                                                                                                                      self.currency(avg_paid),
-                                                                                                                      latest_lunch)
+			row = '<tr>\n<td>%s</td><td%s>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td>\n</tr>\n' % (alias, self.negative(balance), self.currency(balance),
+                                                                                                                       self.currency(data['paid']), self.pointer(data['eggscount']),
+                                                                                                                       self.currency(avg_paid),
+                                                                                                                       latest_lunch)
+                        if data['lasteggs'] > 30 and abs(balance) < 10:
+                                alumne += row
+                        else:
+                                l += row
 			totalpaid += data['paid']
 			totalcount += data['eggscount']
                 #total_avg = (paid - data['totalpaid'])/data['totalcount'];
-		l += '<tfoot><tr class="total">\n<td>Total</td><td%s>%s</td><td>%s</td><td>%s</td><td>%s</td><td>&nbsp;</td>\n</tr></tfoot>\n' % (self.negative(new_total), self.currency(new_total),
+		l += '<tfoot><tr class="total">\n<td>Total (m. alumne)</td><td%s>%s</td><td>%s</td><td>%s</td><td>%s</td><td>&nbsp;</td>\n</tr></tfoot>\n' % (self.negative(new_total), self.currency(new_total),
                                                                                                                     self.currency(totalpaid), self.pointer(totalcount),
                                                                                                                     self.currency(self.e.get_average_price()))
 		l += '</tbody></table>\n'
+		alumne += '</tbody></table>\n'
 		l += '<h3>Gennemsnitlig måltidspris: %s</h3>\n' % self.currency(self.e.get_average_price())
 #		l += '<div id="graph"><embed src="./graph.py" width="650" height="50" type="image/svg+xml" pluginspage="http://getfirefox.com" /></div>\n'
 		url = self.constructChartURL();
-		l += '<div id="graph"><img src="' + url + '" alt="Måltidsgraf" title=""/></div>\n'
-		return l
+		graf = '<div id="graph"><img src="' + url + '" alt="Måltidsgraf" title=""/></div>\n'
+		return l + graf + alumne
 
 	def constructChartURL(self):
 		url = 'http://chart.apis.google.com/chart'
