@@ -49,9 +49,9 @@ class eggsml_page:
 		uinfsorted1 = sorted(uinfsorted0, key=lambda (k,v): -v['lasteggs'], reverse=True)
 		l = '<h2>Saldoer</h2>\n'
                 alumne = '<h2>Alumne</h2>\n'
-		header = '<table id="eggsdata" class="tablesorter"><thead>\n<tr>\n<th>Bruger</th><th>Saldo</th><th>Betalt ialt</th><th>Måltider</th><th>Gns. pris</th><th>Seneste eggs</th>\n</tr>\n</thead><tbody>\n'
-                l += header
-                alumne += header
+		header = '<thead>\n<tr>\n<th>Bruger</th><th>Saldo</th><th>Betalt ialt</th><th>Måltider</th><th>Gns. pris</th><th>Seneste eggs</th>\n</tr>\n</thead><tbody>\n'
+                l += '<table id="eggsdata" class="tablesorter">' + header
+                alumne += '<table id="alumne" class="tablesorter">' + header
 		totalpaid = 0.0
 		totalcount = 0.0
 		new_total = 0

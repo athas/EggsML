@@ -36,11 +36,13 @@
 
 $(document).ready(function() 
     {
-        $("#eggsdata").tablesorter({ headers : { 1: {sorter:"localNumeric"}
+        var sorterdef = { headers : { 1: {sorter:"localNumeric"}
                                                , 2: {sorter:"localNumeric"}
                                                , 3: {sorter:"localNumeric"}
                                                , 4: {sorter:"localNumeric"}
-                                               , 5: {sorter:"latest"} }});
+                                               , 5: {sorter:"latest"} }}
+        $("#eggsdata").tablesorter(sorterdef);
+        $("#alumne").tablesorter(sorterdef);
         $("#eggspurchases").tablesorter();
     } 
 ); 
