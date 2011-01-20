@@ -95,6 +95,8 @@ Agurkesalat
 
 ::INDKØB::
 # I danske kroner, svin.
+2011-01-20, carlsen: 25.00 # Frokostklubben(tm) annekteret
+2011-01-20, ulrik: 25.00 # Frokostklubben(tm) annekteret
 2011-01-19, frej: 161.10
 2011-01-13, henne: 325.6
 2011-01-08, dybber: 72
@@ -294,6 +296,7 @@ Agurkesalat
 2009-04-11, abll: 113.75
 
 ::MÅLTIDSDATA::
+2011-01-20, carlsen, ulrik, dybber, abll, troels, henne, daisy, bp
 2011-01-19, dybber, abll, brian, kim, daisy, carlsen, frej, bp(*.5), henne(*.5)
 2011-01-18, abll, troels, brian, frej, mikkel, carlsen, dybber, ulrik, daisy
 2011-01-16, dybber, henne
