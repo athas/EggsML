@@ -36,6 +36,7 @@ rune, skovper, daisysbff, love-meister, boytoy
 ulrik, dolle, google
 naja, måske, naja_som_i_nisse
 sune
+aleggsander, alexander
 
 # Husk på, farvesektionen kan ikke have kommentarer, da det
 # kan indgå i farvesyntaksen.
@@ -95,6 +96,7 @@ Gode sild (uden kommen)
 
 ::INDKØB::
 # I danske kroner, svin.
+2011-02-02, bp: 675.8
 2011-01-31, abll: 51
 2011-01-30, abll: 79
 2011-01-25, brian: 544.95
@@ -300,6 +302,8 @@ Gode sild (uden kommen)
 2009-04-11, abll: 113.75
 
 ::MÅLTIDSDATA::
+2011-02-02, abll, bp, ulrik, daisy, brian, dybber, reenberg, frej
+2011-02-01, abll, bp, henne, daisy, ulrik, carlsen, tm, dybber, troels, alexander, frej
 2011-01-30, abll, bp
 2011-01-28, abll, kim, carlsen, bp, daisy, troels, dybber
 2011-01-27, abll, kim, ulrik, carlsen, bp, mikkel
