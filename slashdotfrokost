@@ -96,6 +96,7 @@ Ost
 
 ::INDKØB::
 # I danske kroner, svin.
+2011-01-31, abll: 30 # Dyrlægen vender tilbage
 2011-02-09, troels: 428.35 # MAKRELZINVASION!
 2011-02-08, dybber: 20
 2011-02-03, dybber: 20
@@ -104,7 +105,7 @@ Ost
 2011-01-30, abll: 79
 2011-01-25, brian: 544.95
 2011-01-20, bp: 25.00
-2011-01-20, carlsen: 25.00 # Frokostklubben(tm) annekteret
+2011-01-20, carlsen: 25.00 # Frokostklubben(tm) annekteret # rettelse: det hedder anneggteret!
 2011-01-20, ulrik: 25.00 # Frokostklubben(tm) annekteret
 2011-01-19, frej: 161.10
 2011-01-13, henne: 325.6
@@ -305,6 +306,7 @@ Ost
 2009-04-11, abll: 113.75
 
 ::MÅLTIDSDATA::
+2011-02-12, abll, bp
 2011-02-11, dybber, abll(*.5), henne, frej, bp, jakob, carlsen, daisy, troels, fairchild
 2011-02-10, abll, ulrik, alexander, carlsen, henne, reenberg
 2011-02-09, bp, ulrik, reenberg, daisy, brian, abll, dybber, alexander, troels
@@ -322,7 +324,7 @@ Ost
 2011-01-23, daisy, bp
 2011-01-22, dybber, daisy, bp
 2011-01-21, dybber, daisy
-2011-01-20, carlsen, ulrik, dybber, abll(*2), troels, henne, daisy, bp, kim, mikkel
+2011-01-20, carlsen, ulrik, dybber, abll(*2), troels, henne, daisy, bp, kim, mikkel # vor værste og ældste fjende, frokostklubben, er anneggteret - slip fredsduerne løs!
 2011-01-19, dybber, abll, brian, kim, daisy, carlsen, frej, bp(*.5), henne(*.5)
 2011-01-18, abll, troels, brian, frej, mikkel, carlsen, dybber, ulrik, daisy
 2011-01-16, dybber, henne
