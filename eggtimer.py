@@ -5,87 +5,130 @@
 
 import sys
 import logging
-import random
 from eggsml import eggsml
 from sets import Set
 logging.basicConfig(level=logging.DEBUG)
  
 from pyjabberbot import PersistentJabberBot,botcmd
 
-#We don't have full/bare jid for know, only private. Boring xmpp stuff to figure out
-
-JID2ALIAS =  {'eggs@conference.jabber.dk/Frej Soya' : 'frej'
-              ,'eggs@conference.jabber.dk/Athas' : 'troels'
-              ,'eggs@conference.jabber.dk/Dybber' : 'dybber'
-              ,'eggs@conference.jabber.dk/BP'     : 'bp'
-              ,'eggs@conference.jabber.dk/live4adrenalin' : 'henne'
+JID2EGG =  {'frej@jabber.dk' : 'frej'
+              ,'athas@jabber.dk' : 'troels'
+              ,'anders.bll@gmail.com' : 'abll'
+              ,'live4adrenalin@gmail.com' : 'henne'
+              ,'jesper.reenberg@gmail.com' : 'reenberg'
+              ,'michael.blackplague.andersen@gmail.com' :'bp'
               }
-
 
 
 class EggTimer(PersistentJabberBot):
   """docstring for EggTimer"""
   def __init__(self, jid, password, res = None):
     super(EggTimer, self).__init__(jid, password, res)
-    self.eggs = eggsml() 
-    self.eggs.parse("slashdotfrokost")
-
+    self.eggsml = eggsml()
+    self.eggsml.parse("slashdotfrokost")
     #simplest bot possible
-    self.users = Set()
-  def jid2alias(self,jid):
-    """docstring for _jid2alias"""
-    lookfor = JID2ALIAS.get(jid,None)
-    if lookfor == None: return None
-    #ugly aliaslist, should be a dict of key,aliases,
-    for aliaslist in eggsml.aliases:
-      head = aliaslist[0]
-      print "HEAD", head
-      if head==lookfor:
-        print "ALIASLIST: ", aliaslist
-        return random.choice(aliaslist)
-    return None
+    self.lunch = Set()
+    # map from room jid to bare jid
+    self.fulljids = {} 
 
+  #def jid2alias(self,jid):
+    #"""docstring for _jid2alias"""
+    #lookfor = JID2ALIAS.get(jid,None)
+    #if lookfor == None: return None
+    #return None
+ 
+
+  def _get_eggname(self,nick):
+    '''returns a string with eggname'''
+    privjid = self.fulljids[nick]
+    eggname = JID2EGG[privjid] 
+    return eggname
+
+  def _lunch_add_egg(self,eggname):
+    if eggname in self.lunch:
+        return ("Only one eggs you can have %s" % eggname)
+    else:
+        self.log.debug("adding [%s]" % eggname)
+        self.lunch.add(eggname)
+        alias =  self.eggsml.get_alias_rand(eggname)
+        return ("Pay for eggs you will %s" % (alias))
+
+  @botcmd(name="!eggsguest")
+  def add_guest(self,msg,args):
+    """!eggsguest <eggpayer> <guest>"""
+    return "no eggguests yet"
+
+  @botcmd(name="!eggsother")
+  def add_egg_fixed(self,msg,args):
+    """!eggsother <eggname>"""
+    eggname = args.strip()
+    for aliaslist in eggsml.aliases:
+      if eggname==aliaslist[0]:
+        return self._lunch_add_egg(eggname)
+    
+    return ("No such egg [%s]" % eggname)
+    #No check for now 
+
+  @botcmd(name="!eggsme")
+  def add_egg(self, msg, args):
+    """docstring for adduser"""
+    nick = msg.getFrom().getResource()
+    
+    eggname = self._get_eggname(nick)
+    return self._lunch_add_egg(eggname)
+
+  @botcmd(name="!eggstat")
+  def stat(self,msg,args):
+    """Shows eggsmlers for today"""
+    users = [self.eggsml.get_alias_rand(egg) for egg in self.lunch]
+    return  ("%s eggsmlers today %s" % ( len(self.lunch),",".join(users) ) )
+ 
+
+  @botcmd(name="!eggsdone")
+  def clear(self, msg, args):
+    """docstring for reset"""
+    s = "eggs that ate eggs [%s]" % self.lunch
+    self.lunch.clear()
+    return s
+
+  @botcmd(name="!jids")
+  def jids(self,msg,args):
+    """docstring for jids2"""
+    return str(self.fulljids)
 
   @botcmd(name="!nexteggs")
   def set_next_lunch(self):
     """docstring for setNextLunchTime"""
     return "eggstimer does not grasp time"
 
-  
-  @botcmd(name="!eggsme")
-  def add_egg(self, msg, args):
-    """docstring for adduser"""
-    print "MSG",msg
-    user = msg.getFrom()
-    if user in self.users:
-        return ("Only one eggs you can have [%s]" % user)
-    else:
-        self.log.debug("adding [%s]" % user)
-        self.users.add(str(user))
-        print "USERS",self.users
-        alias =  self.jid2alias(user)
-        return ("Pay for eggs you will %s" % (alias))
+  '''
+  We need a map priv jid to map, it's unique,chatroom nick/resource isn't.
+  Further some clients it's hard to set (impossible?) to set nick/resource
+  Anoyingly we need state to handle this, because 
+  groupchat messages only contain chatroom jid/nick (reflected by server)
+  For every Presence we just update the map chat nick->priv jid (both text) 
+  '''
+  def callback_presence(self,conn,pre,
+              status_type_changed = None,status_msg_changed = None):    
+    """doccstring for callback presence"""
+    #yay oo crap
+    super(EggTimer, self).callback_presence(conn, pre)
 
-  @botcmd(name="!eggstat")
-  def stat(self,msg,args):
-    """Shows eggsmlers for today"""
-    users = [self.jid2alias(u) for u in self.users]
-    return  ("%s eggsmlers today %s" % ( len(self.users),",".join(users) ) )
-
-
-  @botcmd(name="!eggsdone")
-  def clear(self, msg, args):
-    """docstring for reset"""
-    s = "eggs that ate eggs [%s]" % self.users
-    self.users.clear()
-    return s
-
+    #Create mapping for group chat resource to private jid
+    nick =  pre.getFrom().getResource()
+    privjid =  pre.getJid() #presence>x>item#jid
+   
+    #update nick->jid
+    if privjid:
+      priv,_ = privjid.split("/")
+      self.log.debug("fulljids[%s] = %s" % (nick,priv))
+      self.fulljids[nick] =  priv
+ 
   #@botcmd
   #def hello(self,msg,args):
     #"""docstring for hello"""
     #user = msg.getFrom()
     #return "hello [%s]" % user
-
 
 def main():
   if len(sys.argv) < 4:
@@ -100,11 +143,14 @@ def main():
   room = sys.argv[3]
   
   def join():
+    bot.log.debug("Joining ROOM [%s]" % room)
     bot.join_room(room)
     bot.send(room, 'æææggscellent', 'groupchat')
+     
     
   
   bot.on_connect = join
+  bot.on_reconnect = join
   bot.serve_forever()
 
 
