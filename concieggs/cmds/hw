@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo "Hej $EGGS_USER!"
+echo "Parametrene var $EGGS_ARGS."
+echo "Den fulde linje var $EGGS_LINE."
