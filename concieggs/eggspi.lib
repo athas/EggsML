@@ -15,7 +15,7 @@ commasize() {
     awk '{if (out && last) { out = out ", " last; last = $0 }\
 else if (out) { last = $0 }\
 else { out = $0 } }\
-END{ if (last) { if (out) { out = out " and " last } else { out = last } };\
+END{ if (last) { if (out) { out = out " og " last } else { out = last } };\
 print out }'
 }
 
