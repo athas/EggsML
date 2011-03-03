@@ -153,7 +153,7 @@ listEggsers() {
     done
 }
 
-export -f listEggs
+export -f listEggsers
 
 describeEggs() {
     listEggsers $1 | enumerate
