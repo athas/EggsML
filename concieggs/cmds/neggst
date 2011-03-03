@@ -1,8 +1,8 @@
 #!/bin/sh
 
 next=$(nextEggs)
-if [ -n $next ]; then
-    echo -n "Der er eggs klokken $(timeToDate $(nowtime)), med "
+if [ "$next" != "" ]; then
+    echo -n "Der er eggs klokken $(timeToDate $(nowTime)), med "
     cat $CONCIEGGS_DB_DIR/eggs/$next | while read who; do
         echo -n $who
     done

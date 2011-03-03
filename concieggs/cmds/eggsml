@@ -5,8 +5,8 @@ if [ $# -lt 1 ]; then
 else
     alias=$(randomName $EGGS_USER)
     time=$(dateToTime $1)
-    if [ $time != "" ]; then
-        if [ $alias != "" ]; then
+    if [ "$time" != "" ]; then
+        if [ "$alias" != "" ]; then
             if addToEggs $1 $alias; then
                 echo "Javel! $alias spiser med i dag klokken $1!"
             else
