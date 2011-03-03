@@ -2,8 +2,7 @@
 
 lookup() {
     cat $CONCIEGGS_DB_DIR/fakta\
- | tr A-Z a-z\
- | fgrep "$(echo "$EGGS_ARGS" | tr A-Z a-z)"
+ | grep -F -i "$(echo "$EGGS_ARGS")"
 }
 
 if [ "$EGGS_ARGS" ]; then

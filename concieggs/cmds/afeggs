@@ -1,16 +1,17 @@
 #!/bin/sh
 
 if [ $# -lt 1 ]; then
-    echo "Brug: eggsml <tidspunkt>"
+    echo "Brug: afeggs <tidspunkt>"
 else
     alias=$(randomName $EGGS_USER)
     time=$(dateToTime $1)
     if [ "$time" != "" ]; then
         if [ "$alias" != "" ]; then
-            if [ "$(isInEggs $1 $alias)" != "" ]; then
-                echo "$alias spiser allerede med klokken $1!"
-            elif addToEggs "$1" "$alias"; then
-                echo "Javel! $alias spiser med i dag klokken $1!"
+           gut=$(isInEggs "$1" "$alias")
+            if [ "$gut" == "" ]; then
+                echo "$alias spiser alligevel ikke med klokken $1!"
+            elif rmFromEggs "$1" "$gut"; then
+                echo "Javel! $alias spiser ikke længere med i dag klokken $1!"
             else
                 exit 1
             fi
