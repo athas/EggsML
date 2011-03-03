@@ -1,13 +1,13 @@
 #!/bin/sh
 
 lookup() {
-    param=$(echo "$EGGS_ARGS"| awk '{print tolower($0)}')
+    param=$(echo "$1"| awk '{print tolower($0)}')
     cat $CONCIEGGS_DB_DIR/fakta | grep -F -i $param
 }
 
-if [ "$EGGS_ARGS" ]; then
+if [ "$1" ]; then
     if ! lookup; then
-        echo "Jeg ved ikke noget om $EGGS_ARGS."
+        echo "Jeg ved ikke noget om $1."
     fi
 else
     echo "Men hvad skal jeg forklare?"
