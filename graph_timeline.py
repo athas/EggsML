@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
-from eggsml import eggsml
+from eggslib.eggsml import eggsml
 import random
 import time
 import math

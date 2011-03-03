@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-from eggsml import eggsml
+from eggslib.eggsml import eggsml
 
 class eggsml_page:
 	e = None
