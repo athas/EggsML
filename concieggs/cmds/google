@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import urllib
 import urllib2
 import simplejson as json
 import sys
@@ -8,7 +9,7 @@ query = " ".join(sys.argv[1:])
 
 results = 1
 url = ('http://ajax.googleapis.com/ajax/services/search/web'
-       '?v=1.0&start=0&rsz=' + str(results) + '&q=' + query)
+       '?v=1.0&start=0&rsz=' + str(results) + '&q=' + urllib.quote(query))
 
 request = urllib2.Request(url, None, {'Referer': 'http://eggsml.dk'})
 response = urllib2.urlopen(request)
