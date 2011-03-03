@@ -81,27 +81,6 @@ ENV = {'CONCIEGGS_DIR' : DIR
 
 import re
 #concieggs emu
-def concieggs(user,line):
-  eggenv = ENV.copy()
-  eggenv['EGGS_USER'] = user
-  eggenv['EGGS_LINE']  = line
-  m = re.match("(\w+)\s?(.*)",line)
-  if m:
-    cmd = m.group(1)
-    args = m.group(2)
-    print "ARGS",args
-    eggenv['EGGS_ARGS'] = args
-    exe = [os.path.join(CMDDIR,cmd)] + [args]
-    try:
-      out = check_output(exe,env=eggenv)
-      return out
-    except OSError:
-      return "%s: Du bad mig om [%s], men den kommando har jeg ikke!" % (user,cmd)
-    except subprocess.CalledProcessError,e:
-      print e.returncode
-      return "Kommandoen fejlede [%s]!  Prøv at spørge mig om 'udu'." % (e.returncode)
-
-  return "not a command"  
   
   
     
@@ -123,6 +102,37 @@ class EggTimer(PersistentJabberBot):
     #if lookfor == None: return None
     #return None
  
+  def _concieggs(self,user,line):
+    self.log.debug("CONCIEGGS user[%s],line[%s]" % (user,line))
+    if user==None:
+      return "who are you?"
+
+    eggenv = ENV.copy()
+    eggenv['EGGS_USER'] = user
+    eggenv['EGGS_LINE']  = line
+    m = re.match("(\w+)\s?(.*)",line)
+    if m:
+      cmd = m.group(1)
+      args = m.group(2)
+      print "ARGS",args
+      eggenv['EGGS_ARGS'] = args
+      exe = [os.path.join(CMDDIR,cmd)] + [args]
+      try:
+        out = check_output(exe,env=eggenv)
+        return out
+      except OSError:
+        return "%s: Du bad mig om [%s], men den kommando har jeg ikke!" % (user,cmd)
+      except subprocess.CalledProcessError,e:
+        print e.returncode
+        return "Kommandoen fejlede [%s]!  Prøv at spørge mig om 'udu'." % (e.returncode)
+      except UnicodeEncodeError, e:
+        self.log.debug("unicodeerror [%s]" % e)
+        return "I have an issue with unicode"
+      except TypeError, e:
+        self.log.debug("TYPEERROR %s" % e)
+        return
+      
+    return "not a command"  
 
   def _get_eggname(self,nick):
     '''returns a string with eggname'''
@@ -204,7 +214,9 @@ class EggTimer(PersistentJabberBot):
     """Do whatever concieggs does"""
     nick = msg.getFrom().getResource()
     eggname = self._get_eggname(nick)
-    return concieggs(eggname,args) 
+    if eggname == None:
+      eggname = nick
+    return self._concieggs(eggname,args) 
     
   '''
   We need a map priv jid to map, it's unique,chatroom nick/resource isn't.
