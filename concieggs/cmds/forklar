@@ -2,9 +2,7 @@
 
 lookup() {
     param=$(echo "$EGGS_ARGS"| awk '{print tolower($0)}')
-    cat $CONCIEGGS_DB_DIR/fakta | while read faktum; do
-        echo "$faktum" | awk '{print tolower($0)}' | fgrep $param
-    done
+    cat $CONCIEGGS_DB_DIR/fakta | grep -F -i $param
 }
 
 if [ "$EGGS_ARGS" ]; then
