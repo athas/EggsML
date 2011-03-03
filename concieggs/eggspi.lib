@@ -1,2 +1,65 @@
 # Shell script function definitions
 
+aliases() {
+    $EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost aliases $1
+}
+
+primaryName() {
+    aliases "$1" | head -n 1
+}
+
+randomName() {
+    aliases "$1" | sort -r | head -n 1
+}
+
+dateToTime() {
+    date -d "$1" '+%s'
+}
+
+nowTime() {
+    date '+%s'
+}
+
+timeToDate() {
+    date -d "UTC 1970-01-01 $1 secs"
+}
+
+addToEggs() {
+    time=$(dateToTime "$1")
+    echo $2 >> $CONCIEGGS_DB_DIR/eggs/$time
+}
+
+isInEggs() {
+    time=$(dateToTime "$1")
+    if [ -s $CONCIEGGS_DB_DIR/eggs/$time ]; then
+        aliases $2 | while read alias; do
+            if fgrep $alias $CONCIEGGS_DB_DIR/eggs/$time; then
+                return 0
+            fi
+        done
+    fi
+    return 1
+}
+
+rmFromEggs() {
+    time=$(dateToTime "$1")
+    export TRAITOR=$2
+    tmpfile=$(mktemp)
+    cat $CONCIEGGS_DB_DIR/eggs/$time \
+        | awk '$1!=ENVIRON["TRAITOR"]' > $tmpfile
+    if [ -s $tmpfile ]; then
+        mv $tmpfile $CONCIEGGS_DB_DIR/eggs/$time
+    else
+        rm $tmpfile $CONCIEGGS_DB_DIR/eggs/$time
+    fi
+}
+
+nextEggs() {
+    export TIME=$(nowTime)
+    ls $CONCIEGGS_DB_DIR/eggs | awk '$1>=ENVIRON["TIME"]'
+}
+
+prevEggs() {
+    export TIME=$(nowTime)
+    ls $CONCIEGGS_DB_DIR/eggs | awk '$1<ENVIRON["TIME"]'
+}

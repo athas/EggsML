@@ -1,8 +1,21 @@
 #!/bin/sh
 
 if [ $# -lt 1 ]; then
-    echo "Brug: eggsml <navn>."
-    exit 1
+    echo "Brug: eggsml <tidspunkt>"
 else
-    $EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost aliases $1
+    alias=$(randomName $EGGS_USER)
+    time=$(dateToTime $1)
+    if [ -n $time ]; then
+        if [ -n $alias ]; then
+            if addToEggs $1 $EGGS_USER; then
+                echo "Javel! $alias spiser med i dag klokken $1!"
+            else
+                exit 1
+            fi
+        else
+            echo "Jeg kender dig ikke, $EGGS_USER!"
+        fi
+    else
+        echo "Det tidspunkt giver ingen mening!"
+    fi
 fi
