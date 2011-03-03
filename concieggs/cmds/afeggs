@@ -7,9 +7,10 @@ else
     time=$(dateToTime $1)
     if [ "$time" != "" ]; then
         if [ "$alias" != "" ]; then
-            if [ "$(isInEggs $1 $alias)" == "" ]; then
+           gut=$(isInEggs "$1" "$alias")
+            if [ "$gut" == "" ]; then
                 echo "$alias spiser alligevel ikke med klokken $1!"
-            elif rmFromEggs "$1" "$alias"; then
+            elif rmFromEggs "$1" "$gut"; then
                 echo "Javel! $alias spiser ikke længere med i dag klokken $1!"
             else
                 exit 1
