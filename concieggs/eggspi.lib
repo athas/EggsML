@@ -19,7 +19,13 @@ randomName() {
 export -f randomName
 
 dateToTime() {
-    date -d "$1" '+%s'
+    then=$(date -d "$1" '+%s')
+    now=$(nowTime)
+    if [ $then -lt $now ]; then
+        echo $(expr $then '*' 3600 '*' 24)
+    else
+        echo $then
+    fi
 }
 
 export -f dateToTime
@@ -30,8 +36,30 @@ nowTime() {
 
 export -f nowTime
 
+dateSecs() {
+    date -d "1970-01-01 UTC $1 seconds" "$2"
+}
+
+timeToFullDate() {
+    dateSecs $1 '+%c'
+}
+
+export -f timeToFullDate
+
 timeToDate() {
-    date -d "UTC 1970-01-01 $1 secs" +%R
+    thatday=$(dateSecs $1 '+%u')
+    today=$(dateSecs $(nowTime) '+%u')
+    if [ $1 -lt $(nowTime) ]; then
+        timeToFullDate $1
+    elif [ $1 -ge $(expr $(nowTime) + 3600 '*' 24 '*' 7 ) ]; then
+        timeToFullDate $1
+    elif [ $thatday == $today ]; then
+        dateSecs $1 '+i dag klokken %R'
+    elif [ $thatday == $(expr $today + 1) -o "(" $today == 7 -a $thatday == 1 ")" ]; then
+        dateSecs $1 '+i morgen klokken %R'
+    else
+        dateSecs $1 '+på %A klokken %R'
+    fi
 }
 
 export -f timeToDate
