@@ -81,7 +81,7 @@ def concieggs(user,line):
       return out
     except OSError:
       return "%s: Du bad mig om [%s], men den kommando har jeg ikke!" % (user,cmd)
-    except subprocess.CalledProcessError as e:
+    except subprocess.CalledProcessError,e:
       print e.returncode
       return "Kommandoen fejlede [%s]!  Prøv at spørge mig om 'udu'." % (e.returncode)
 
