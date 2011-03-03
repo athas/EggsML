@@ -9,9 +9,9 @@ else
         if [ "$alias" != "" ]; then
            gut=$(isInEggs "$1" "$alias")
             if [ "$gut" == "" ]; then
-                echo "$alias spiser alligevel ikke med klokken $1!"
+                echo "$alias spiser alligevel ikke med $(timeToDate $1)!"
             elif rmFromEggs "$1" "$gut"; then
-                echo "Javel! $alias spiser ikke længere med i dag klokken $1!"
+                echo "Javel! $alias spiser ikke længere med $(timeToDate $1)!"
             else
                 exit 1
             fi
