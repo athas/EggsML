@@ -31,6 +31,7 @@ tail -F -n 1 --max-unchanged-stats=1 out | while read line; do
         export EGGS_LINE=$line
         if [ "$cmd" -a "$EGGS_USER" != "$irc_username" ]; then
             if [ -x $cmddir/$cmd ]; then
+                source $CONCIEGGS_DIR/eggspi.lib
                 $cmddir/$cmd $EGGS_ARGS
             else
                 echo "$EGGS_USER: Du bad mig om $cmd, men den kommando har jeg ikke!"
