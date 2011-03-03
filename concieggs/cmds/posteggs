@@ -26,6 +26,7 @@ EOF
         if (git add slashdotfrokost && git commit -m woop && git push) > /dev/null; then
             echo "Succes!  Eggs $(timeToDate $lastEggs), med $(describeEggs $lastEggs) er nu bogført".
         else
+            git reset HEAD slashdotfrokost > /dev/null
             git checkout slashdotfrokost > /dev/null
             echo "Katastrofe!  Noget gik galt under opdatering!"
             exit 1
