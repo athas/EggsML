@@ -21,4 +21,6 @@ if len(results["responseData"]["results"]) == 0:
     print "Ingen resultater fra Google"
 else:
     first_result = results["responseData"]["results"][0];
-    print unicode(first_result["titleNoFormatting"] + " (" + first_result["url"] + ")")
+    unicodestr = first_result["titleNoFormatting"] + " (" + first_result["url"] + ")"
+    print unicodestr.encode('UTF-8')
+
