@@ -2,7 +2,7 @@
 
 prev=$(prevEggs)
 if [ "$prev" != "" ]; then
-    $(prevEggs) | while read eggs; do
+    prevEggs | while read eggs; do
         echo "Der var Eggs $(timeToDate $eggs), med "
         cat $CONCIEGGS_DB_DIR/eggs/$eggs | while read who; do
             echo $(randomName "$who")
