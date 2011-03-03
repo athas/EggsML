@@ -15,7 +15,7 @@ else
         echo "http://eggsml.dk/update.py meldte fejl!  Spørg mig om 'udu'."
     else
         cd $EGGS_DIR
-        ed slashdotfrokost <<EOF
+        ed slashdotfrokost > /dev/null <<EOF
 /::MÅLTIDSDATA::/
 +1
 i
@@ -23,7 +23,7 @@ $(formatEggs $lastEggs)
 .
 w
 EOF
-        if (git add slashdotfrokost && git commit -m woop && git push); then
+        if (git add slashdotfrokost && git commit -m woop && git push) > /dev/null; then
             echo "Succes!  Eggs $(timeToDate $lastEggs), med $(describeEggs $lastEggs) er nu bogført".
         else
             git checkout slashdotfrokost
