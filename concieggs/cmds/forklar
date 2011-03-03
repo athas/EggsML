@@ -2,6 +2,7 @@
 
 lookup() {
     cat $CONCIEGGS_DB_DIR/fakta\
+ | awk '{print tolower($0)}' \
  | fgrep "$(echo "$EGGS_ARGS"| awk '{print tolower($0)}')"
 }
 
