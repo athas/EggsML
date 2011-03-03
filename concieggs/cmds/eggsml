@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ $# -lt 1 ]; then
+    echo "Brug: eggsml <navn>."
+    exit 1
+else
+    $EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost aliases $1
+fi
