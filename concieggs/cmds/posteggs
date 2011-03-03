@@ -16,7 +16,7 @@ else
     else
         echo "Jeg vil indsætte følgende:"
         formatEggs $lastEggs
-        return 0
+        exit 0
         ed $EGGS_DIR/slashdotfrokost <<EOF
 /::MÅLTIDSDATA::/
 +1

@@ -162,8 +162,8 @@ describeEggs() {
 export -f describeEggs
 
 formatEggs() {
-    date=$(dateSecs '+%Y-%m-%d')
-    participants=$(listEggsers | commasize)
+    date=$(dateSecs $1 '+%Y-%m-%d')
+    participants=$(listEggsers $1 | commasize)
     echo "$date, $participants"
 }
 
