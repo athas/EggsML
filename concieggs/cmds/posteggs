@@ -6,9 +6,12 @@
 
 lastEggs=$(prevEggs | head -n 1)
 
+if [ ! "$lastEggs" ]; then
+    echo "Ingen Eggs mangler bogføring!"
+else
 ret=$(GET http://eggsml.dk/update.py | grep "Return value: " | sed 's/Return value: //')
 
-if [ ret != "0" ]; then
+if [ "$ret" != "0" ]; then
     echo "http://eggsml.dk/update.py meldte fejl!  Spørg mig om 'udu'."
 else
     echo "Jeg vil indsætte følgende:"
