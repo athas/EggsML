@@ -8,9 +8,9 @@ else
     if [ "$time" != "" ]; then
         if [ "$alias" != "" ]; then
             if [ "$(isInEggs $1 $alias)" != "" ]; then
-                echo "$alias spiser allerede med $(timeToDate $1)!"
+                echo "$alias spiser allerede med $(timeToDate $time)!"
             elif addToEggs "$1" "$alias"; then
-                echo "Javel! $alias spiser med $(timeToDate $1)!"
+                echo "Javel! $alias spiser med $(timeToDate $time)!"
             else
                 exit 1
             fi
