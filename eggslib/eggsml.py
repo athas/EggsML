@@ -19,7 +19,13 @@ class eggsml:
 	startdate = None
 	enddate = None
 	nodays = None
-	
+
+        def get_alias_rand(self,eggname):
+          for aliaslist in eggsml.aliases: 
+            if eggname==aliaslist[0]:
+              return random.choice(aliaslist)
+          return None
+
 	def set_startdate(self, somedate):
 		self.startdate = somedate
 	
