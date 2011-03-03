@@ -5,7 +5,7 @@
 
 if [ $# -lt 1 ]; then
     echo "Brug: hjælp <kommando>"
-elif [ -f $CONCIEGGS_DIR/cmds/$1 ]; then
+elif [ -f "$CONCIEGGS_DIR/cmds/$1" ]; then
     echo "$1: "
     cat $CONCIEGGS_DIR/cmds/$1 | docstring
 else
