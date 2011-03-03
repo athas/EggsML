@@ -15,11 +15,21 @@ commasize() {
     awk '{if (out && last) { out = out ", " last; last = $0 }\
 else if (out) { last = $0 }\
 else { out = $0 } }\
-END{ if (last) { if (out) { out = out " og " last } else { out = last } };\
+END{ if (last) { if (out) { out = out ", " last } else { out = last } };\
 print out }'
 }
 
 export -f commasize
+
+enumerate() {
+    awk '{if (out && last) { out = out ", " last; last = $0 }\
+else if (out) { last = $0 }\
+else { out = $0 } }\
+END{ if (last) { if (out) { out = out " og " last } else { out = last } };\
+print out }'
+}
+
+export -f enumerate
 
 aliases() {
     $EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost aliases "$1"
@@ -137,10 +147,24 @@ prevEggs() {
 
 export -f prevEggs
 
-describeEggs() {
+listEggsers() {
     cat $CONCIEGGS_DB_DIR/eggs/$1 | while read who; do
         echo $(randomName "$who")
-    done | commasize
+    done
+}
+
+export -f listEggs
+
+describeEggs() {
+    listEggsers $1 | enumerate
 }
 
 export -f describeEggs
+
+formatEggs() {
+    date=$(dateSecs '+%Y-%m-%d')
+    participants=$(listEggsers | commasize)
+    echo "$date, $participants"
+}
+
+export -f formatEggs
