@@ -40,6 +40,8 @@ dateSecs() {
     date -d "1970-01-01 UTC $1 seconds" "$2"
 }
 
+export -f dateSecs
+
 timeToFullDate() {
     dateSecs $1 '+%c'
 }
