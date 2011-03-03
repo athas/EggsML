@@ -4,6 +4,9 @@ import urllib
 import urllib2
 import simplejson as json
 import sys
+import codecs
+
+sys.stdout = codecs.getwriter('mbcs')(sys.stdout)
 
 query = " ".join(sys.argv[1:])
 
