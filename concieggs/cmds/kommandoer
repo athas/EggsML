@@ -1,2 +1,2 @@
 #!/bin/sh
-ls $CONCIEGGS_DIR/cmds
+ls $CONCIEGGS_DIR/cmds $*
