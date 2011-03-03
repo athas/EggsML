@@ -1,9 +1,9 @@
 #!/bin/sh
 
 lookup() {
-    cat $CONCIEGGS_DB_DIR/fakta\
- | awk '{print tolower($0)}' \
- | fgrep "$(echo "$EGGS_ARGS"| awk '{print tolower($0)}')"
+    param=$(echo "$EGGS_ARGS"| awk '{print tolower($0)}')
+    cat $CONCIEGGS_DB_DIR/fakta | while read faktum; do
+        echo "$faktum" | awk '{print tolower($0)}' | fgrep $param
 }
 
 if [ "$EGGS_ARGS" ]; then
