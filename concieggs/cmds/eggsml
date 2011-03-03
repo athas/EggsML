@@ -1,4 +1,5 @@
 #!/bin/sh
+source $CONCIEGGS_DIR/eggspi.lib
 
 if [ $# -lt 1 ]; then
     echo "Brug: eggsml <tidspunkt>"

@@ -1,4 +1,5 @@
 #!/bin/sh
+source $CONCIEGGS_DIR/eggspi.lib
 
 next=$(nextEggs)
 if [ "$next" != "" ]; then
