@@ -1,7 +1,7 @@
 # Shell script function definitions
 
 aliases() {
-    $EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost aliases $1
+    $EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost aliases "$1"
 }
 
 export -f aliases
@@ -13,7 +13,7 @@ primaryName() {
 export -f primaryName
 
 randomName() {
-    aliases "$1" | sort -r | head -n 1
+    aliases "$1" | sort -R | head -n 1
 }
 
 export -f randomName
@@ -43,16 +43,16 @@ addToEggs() {
 
 export -f addToEggs
 
-isInEggs() {
+isInEggs() { # Cannot trust return value due to subshell.
     time=$(dateToTime "$1")
     if [ -s $CONCIEGGS_DB_DIR/eggs/$time ]; then
         aliases $2 | while read alias; do
             if fgrep $alias $CONCIEGGS_DB_DIR/eggs/$time; then
-                return 1
+                return 0
             fi
         done
     fi
-    return 0
+    return 1
 }
 
 export -f isInEggs
