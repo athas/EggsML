@@ -139,6 +139,7 @@ class EggTimer(PersistentJabberBot):
     eggname = JID2EGG.get(privjid)
     return eggname
 
+   
   def _lunch_add_egg(self,eggname):
     eggname = eggname.lower() 
     if eggname in self.lunch:
@@ -149,7 +150,7 @@ class EggTimer(PersistentJabberBot):
         alias =  self.eggsml.get_alias_rand(eggname)
         return ("Pay for eggs you will %s" % (alias))
 
-  @botcmd(name="!eggsguest")
+  @botcmd(name="!est")
   def add_guest(self,msg,args):
     """!eggsguest <eggpayer> <guest>"""
     return "no eggguests yet"
@@ -208,7 +209,7 @@ class EggTimer(PersistentJabberBot):
     """docstring for setNextLunchTime"""
     return "eggstimer does not grasp time"
 
-  @botcmd(name="concieggs:")
+  @botcmd(name="egg:")
   def concieggs(self,msg,args):
     """Do whatever concieggs does"""
     nick = msg.getFrom().getResource()
