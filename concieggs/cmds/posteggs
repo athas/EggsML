@@ -14,15 +14,21 @@ else
     if [ "$ret" != "0" ]; then
         echo "http://eggsml.dk/update.py meldte fejl!  Spørg mig om 'udu'."
     else
-        echo "Jeg vil indsætte følgende:"
-        formatEggs $lastEggs
-        exit 0
-        ed $EGGS_DIR/slashdotfrokost <<EOF
+        cd $EGGS_DIR
+        ed slashdotfrokost <<EOF
 /::MÅLTIDSDATA::/
 +1
 i
 $(formatEggs $lastEggs)
 .
+w
 EOF
+        if (git add slashdotfrokost && git commit -m woop && git push); then
+            echo "Succes!  Eggs $(timeToDate $lastEggs), med $(describeEggs $lastEggs) er nu bogført".
+        else
+            git checkout slashdotfrokost
+            echo "Katastrofe!  Noget gik galt under opdatering!  Spørg mig om 'udu'."
+            exit 1
+        fi
     fi
 fi
