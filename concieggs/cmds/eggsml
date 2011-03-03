@@ -1,5 +1,5 @@
 #!/bin/sh
-# 
+#
 # Meld dig til at spise med på et givent tidspunkt.  Tidspunktet er
 # altid i fremtiden, og pt. aldrig mere end 24 timer fremme.  Således
 # kan du derfor kun melde dig til spisning i dag eller i morgen.
