@@ -1,0 +1,34 @@
+#!/bin/sh
+#
+# Bogfør den sidst udførte Eggs ved at indtaste alle de medspisende i
+# frokostdatabasen og skubbe den til Github.  Hvis der er konflikter
+# skal disse ordnes manuelt (øv!).
+
+lastEggs=$(prevEggs | head -n 1)
+
+if [ ! "$lastEggs" ]; then
+    echo "Ingen Eggs mangler bogføring!"
+else
+    ret=$(GET http://eggsml.dk/update.py | grep "Return value: " | sed 's/Return value: //')
+
+    if [ "$ret" != "0" ]; then
+        echo "http://eggsml.dk/update.py meldte fejl!  Spørg mig om 'udu'."
+    else
+        cd $EGGS_DIR
+        ed slashdotfrokost > /dev/null <<EOF
+/::MÅLTIDSDATA::/
++1
+i
+$(formatEggs $lastEggs)
+.
+w
+EOF
+        if (git add slashdotfrokost && git commit -m woop && git push) > /dev/null; then
+            echo "Succes!  Eggs $(timeToDate $lastEggs), med $(describeEggs $lastEggs) er nu bogført".
+        else
+            git checkout slashdotfrokost
+            echo "Katastrofe!  Noget gik galt under opdatering!  Spørg mig om 'udu'."
+            exit 1
+        fi
+    fi
+fi
