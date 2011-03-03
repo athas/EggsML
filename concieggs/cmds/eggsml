@@ -4,6 +4,8 @@
 # altid i fremtiden, og pt. aldrig mere end 24 timer fremme.  Således
 # kan du derfor kun melde dig til spisning i dag eller i morgen.
 
+source $CONCIEGGS_DIR/eggspi.lib
+
 if [ $# -lt 1 ]; then
     echo "Brug: eggsml <tidspunkt>"
 else

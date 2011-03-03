@@ -1,4 +1,5 @@
 #!/bin/sh
+source $CONCIEGGS_DIR/eggspi.lib
 
 prev=$(prevEggs)
 if [ "$prev" != "" ]; then
