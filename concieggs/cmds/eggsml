@@ -7,7 +7,9 @@ else
     time=$(dateToTime $1)
     if [ "$time" != "" ]; then
         if [ "$alias" != "" ]; then
-            if addToEggs $1 $alias; then
+            if isInEggs "$1" "$alias"; then
+                echo "$alias spiser allerede med klokken $1!"
+            elif addToEggs "$1" "$alias"; then
                 echo "Javel! $alias spiser med i dag klokken $1!"
             else
                 exit 1
