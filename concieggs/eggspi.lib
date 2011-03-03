@@ -43,7 +43,7 @@ dateSecs() {
 export -f dateSecs
 
 timeToFullDate() {
-    dateSecs $1 '+%c'
+    dateSecs $1 '+%D klokken %R'
 }
 
 export -f timeToFullDate
