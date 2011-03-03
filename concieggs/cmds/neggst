@@ -3,9 +3,9 @@ source $CONCIEGGS_DIR/eggspi.lib
 
 next=$(nextEggs)
 if [ "$next" != "" ]; then
-    echo $next | while read eggs; do
-        echo "Der er eggs klokken $(timeToDate $eggs), med "
-        cat $CONCIEGGS_DB_DIR/eggs/$next | while read who; do
+    nextEggs | while read eggs; do
+        echo "Der er Eggs $(timeToDate $eggs), med "
+        cat $CONCIEGGS_DB_DIR/eggs/$eggs | while read who; do
             echo $(randomName "$who")
         done
         echo "tilmeldt."

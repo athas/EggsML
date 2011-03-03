@@ -1,4 +1,9 @@
 #!/bin/sh
+#
+# Meld dig til at spise med på et givent tidspunkt.  Tidspunktet er
+# altid i fremtiden, og pt. aldrig mere end 24 timer fremme.  Således
+# kan du derfor kun melde dig til spisning i dag eller i morgen.
+
 source $CONCIEGGS_DIR/eggspi.lib
 
 if [ $# -lt 1 ]; then
@@ -9,9 +14,9 @@ else
     if [ "$time" != "" ]; then
         if [ "$alias" != "" ]; then
             if [ "$(isInEggs $1 $alias)" != "" ]; then
-                echo "$alias spiser allerede med $(timeToDate $1)!"
+                echo "$alias spiser allerede med $(timeToDate $time)!"
             elif addToEggs "$1" "$alias"; then
-                echo "Javel! $alias spiser med $(timeToDate $1)!"
+                echo "Javel! $alias spiser med $(timeToDate $time)!"
             else
                 exit 1
             fi

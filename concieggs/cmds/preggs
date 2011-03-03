@@ -2,9 +2,9 @@
 
 prev=$(prevEggs)
 if [ "$prev" != "" ]; then
-    echo $prev | while read eggs; do
+    prevEggs | while read eggs; do
         echo "Der var Eggs $(timeToDate $eggs), med "
-        cat $CONCIEGGS_DB_DIR/eggs/$prev | while read who; do
+        cat $CONCIEGGS_DB_DIR/eggs/$eggs | while read who; do
             echo $(randomName "$who")
         done
         echo "tilmeldt."
