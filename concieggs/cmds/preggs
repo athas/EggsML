@@ -4,11 +4,7 @@ source $CONCIEGGS_DIR/eggspi.lib
 prev=$(prevEggs)
 if [ "$prev" != "" ]; then
     prevEggs | while read eggs; do
-        echo "Der var Eggs $(timeToDate $eggs), med "
-        cat $CONCIEGGS_DB_DIR/eggs/$eggs | while read who; do
-            echo $(randomName "$who")
-        done | commasize
-        echo "tilmeldt."
+        echo "Der var Eggs $(timeToDate $eggs), med $(describeEggs $eggs) tilmeldt."
     done
 else
     echo "Alle Eggs er blevet bogført!"

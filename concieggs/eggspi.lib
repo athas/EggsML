@@ -136,3 +136,11 @@ prevEggs() {
 }
 
 export -f prevEggs
+
+describeEggs() {
+    cat $CONCIEGGS_DB_DIR/eggs/$1 | while read who; do
+        echo $(randomName "$who")
+    done | commasize
+}
+
+export -f describeEggs
