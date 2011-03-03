@@ -17,8 +17,42 @@ JID2EGG =  {'frej@jabber.dk' : 'frej'
               ,'live4adrenalin@gmail.com' : 'henne'
               ,'jesper.reenberg@gmail.com' : 'reenberg'
               ,'michael.blackplague.andersen@gmail.com' :'bp'
+              ,'dybber@dybber.dk' : 'dybber'
               }
 
+import datetime,os
+import subprocess,shlex
+import fileinput
+
+FILE = 'slashdotfrokost'
+REMOTE = "git@github.com:frejsoya/EggsML.git"
+BRANCH = "eggtimer" 
+#We could do git checkout file on error
+def commit(eggsers):
+  '''  
+    eggsers, Set of eggsers
+  '''
+  gitpull   = ['git','pull',REMOTE,BRANCH]
+  subprocess.call(gitpull)
+
+  date = datetime.date.today()
+  eaters = ", ".join(eggsers)  
+  meal =  "%s, %s" % (date,eaters)
+  fname = os.path.join(os.getcwd(),FILE)
+  #can crash, but who cares with git
+  for line in fileinput.input(fname,inplace=1):
+     if "::MÅLTIDSDATA::" == line.strip():
+        print line,
+        print meal
+     else:  
+       print line,
+  gitcommit = ['git','commit','slashdotfrokost','-m',meal]
+  subprocess.call(gitcommit)
+  gitpush  = ['git','push',REMOTE,BRANCH] 
+  subprocess.call(gitpush)
+  #execute "sed ::måltidsdata::\nmåltid slashdotfrokost"
+  #execute git commit slashdotfrokost "eggtimer update" 
+  
 
 class EggTimer(PersistentJabberBot):
   """docstring for EggTimer"""
@@ -41,10 +75,11 @@ class EggTimer(PersistentJabberBot):
   def _get_eggname(self,nick):
     '''returns a string with eggname'''
     privjid = self.fulljids[nick]
-    eggname = JID2EGG[privjid] 
+    eggname = JID2EGG.get(privjid)
     return eggname
 
   def _lunch_add_egg(self,eggname):
+    eggname = eggname.lower() 
     if eggname in self.lunch:
         return ("Only one eggs you can have %s" % eggname)
     else:
@@ -73,9 +108,10 @@ class EggTimer(PersistentJabberBot):
   def add_egg(self, msg, args):
     """docstring for adduser"""
     nick = msg.getFrom().getResource()
-    
     eggname = self._get_eggname(nick)
-    return self._lunch_add_egg(eggname)
+    if eggname:
+      return self._lunch_add_egg(eggname)
+    return ("Who are you! %s",eggname)
 
   @botcmd(name="!eggstat")
   def stat(self,msg,args):
@@ -83,11 +119,11 @@ class EggTimer(PersistentJabberBot):
     users = [self.eggsml.get_alias_rand(egg) for egg in self.lunch]
     return  ("%s eggsmlers today %s" % ( len(self.lunch),",".join(users) ) )
  
-
   @botcmd(name="!eggsdone")
   def clear(self, msg, args):
     """docstring for reset"""
-    s = "eggs that ate eggs [%s]" % self.lunch
+    s = "eggs that ate eggs [%s] (https://github.com/frejsoya/EggsML/blob/eggtimer/slashdotfrokost)" % self.lunch
+    commit(self.lunch)
     self.lunch.clear()
     return s
 
@@ -97,7 +133,7 @@ class EggTimer(PersistentJabberBot):
     return str(self.fulljids)
 
   @botcmd(name="!nexteggs")
-  def set_next_lunch(self):
+  def set_next_lunch(self,msg,args):
     """docstring for setNextLunchTime"""
     return "eggstimer does not grasp time"
 
