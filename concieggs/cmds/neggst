@@ -2,7 +2,7 @@
 
 next=$(nextEggs)
 if [ "$next" != "" ]; then
-    echo $next | while read eggs; do
+    $(nextEggs) | while read eggs; do
         echo "Der er Eggs $(timeToDate $eggs), med "
         cat $CONCIEGGS_DB_DIR/eggs/$eggs | while read who; do
             echo $(randomName "$who")
