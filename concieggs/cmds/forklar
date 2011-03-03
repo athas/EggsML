@@ -7,7 +7,7 @@ lookup() {
 
 if [ "$EGGS_ARGS" ]; then
     if ! lookup; then
-        echo "Det ved jeg ikke noget om."
+        echo "Jeg ved ikke noget om $EGGS_ARGS."
     fi
 else
     echo "Men hvad skal jeg forklare?"
