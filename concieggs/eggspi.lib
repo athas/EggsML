@@ -22,7 +22,7 @@ dateToTime() {
     then=$(date -d "$1" '+%s')
     now=$(nowTime)
     if [ $then -lt $now ]; then
-        echo $(expr $then '*' 3600 '*' 24)
+        echo $(expr $then '+' 3600 '*' 24)
     else
         echo $then
     fi
