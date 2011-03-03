@@ -9,7 +9,8 @@ def print_aliases(eggs, name):
         if name in user_aliases:
             for alias in user_aliases:
                 print alias
-            return
+            return True
+    return False
 
 if __name__ == '__main__':
     e = eggsml()
@@ -21,6 +22,7 @@ if __name__ == '__main__':
     if command == "aliases":
         if len(sys.argv) != 4:
             exit("Usage: %s %s %s <alias>" % (sys.argv[0], lunchfile, command))
-        print_aliases(e, sys.argv[3])
+        if not print_aliases(e, sys.argv[3]):
+            exit(1)
     else:
         exit("Unrecognized command %s" % command)
