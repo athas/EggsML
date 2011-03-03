@@ -2,7 +2,7 @@
 
 lookup() {
     cat $CONCIEGGS_DB_DIR/fakta\
- | grep -F -i "$(echo "$EGGS_ARGS")"
+ | fgrep "$(echo "$EGGS_ARGS"| awk '{print tolower($0)}')"
 }
 
 if [ "$EGGS_ARGS" ]; then
