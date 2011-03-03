@@ -48,11 +48,11 @@ isInEggs() {
     if [ -s $CONCIEGGS_DB_DIR/eggs/$time ]; then
         aliases $2 | while read alias; do
             if fgrep $alias $CONCIEGGS_DB_DIR/eggs/$time; then
-                return 0
+                return 1
             fi
         done
     fi
-    return 1
+    return 0
 }
 
 export -f isInEggs
