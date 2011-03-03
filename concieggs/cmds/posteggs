@@ -1,0 +1,24 @@
+#!/bin/sh
+#
+# Bogfør den sidst udførte Eggs ved at indtaste alle de medspisende i
+# frokostdatabasen og skubbe den til Github.  Hvis der er konflikter
+# skal disse ordnes manuelt (øv!).
+
+lastEggs=$(prevEggs | head -n 1)
+
+ret=$(GET http://eggsml.dk/update.py | grep "Return value: " | sed 's/Return value: //')
+
+if [ ret != "0" ]; then
+    echo "http://eggsml.dk/update.py meldte fejl!  Spørg mig om 'udu'."
+else
+    echo "Jeg vil indsætte følgende:"
+    formatEggs $lastEggs
+    return 0
+    ed $EGGS_DIR/slashdotfrokost <<EOF
+/::MÅLTIDSDATA::/
++1
+i
+$(formatEggs $lastEggs)
+.
+EOF
+fi
