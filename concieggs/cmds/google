@@ -15,11 +15,10 @@ request = urllib2.Request(url, None, {'Referer': u'http://eggsml.dk'})
 response = urllib2.urlopen(request)
 
 results = json.load(response)
-
-first_result = results["responseData"]["results"][0];
-
 #print json.dumps(results, sort_keys=True, indent=4)
 
-print unicode(first_result["titleNoFormatting"] + " (" + first_result["url"] + ")")
-
-
+if len(results["responseData"]["results"]) == 0:
+    print "Ingen resultater fra Google"
+else:
+    first_result = results["responseData"]["results"][0];
+    print unicode(first_result["titleNoFormatting"] + " (" + first_result["url"] + ")")
