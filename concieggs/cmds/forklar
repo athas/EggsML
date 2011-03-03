@@ -1,13 +1,12 @@
 #!/bin/sh
 
 lookup() {
-    cat $CONCIEGGS_DB_DIR/fakta\
- | grep -F -i "$(echo "$EGGS_ARGS")"
+     cat $CONCIEGGS_DB_DIR/fakta | grep -F -i "$EGGS_ARGS"
 }
 
 if [ "$EGGS_ARGS" ]; then
     if ! lookup; then
-        echo "Det ved jeg ikke noget om."
+        echo "Jeg ved ikke noget om $EGGS_ARGS."
     fi
 else
     echo "Men hvad skal jeg forklare?"
