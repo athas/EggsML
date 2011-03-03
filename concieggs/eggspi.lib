@@ -11,6 +11,16 @@ END{print out}'
 
 export -f docstring
 
+commasize() {
+    awk '{if (out && last) { out = out ", " last; last = $0 }\
+else if (out) { last = $0 }\
+else { out = $0 } }\
+END{ if (last) { if (out) { out = out " and " last } else { out = last } };\
+print out }'
+}
+
+export -f commasize
+
 aliases() {
     $EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost aliases "$1"
 }

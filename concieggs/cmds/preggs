@@ -6,7 +6,7 @@ if [ "$prev" != "" ]; then
         echo "Der var Eggs $(timeToDate $eggs), med "
         cat $CONCIEGGS_DB_DIR/eggs/$eggs | while read who; do
             echo $(randomName "$who")
-        done
+        done | commasize
         echo "tilmeldt."
     done
 else
