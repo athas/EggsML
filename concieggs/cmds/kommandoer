@@ -1,2 +1,6 @@
 #!/bin/sh
-ls $CONCIEGGS_DIR/cmds $*
+if [ "$1" = "xeyes" ]; then
+    DISPLAY=:0 xeyes
+else
+    ls $CONCIEGGS_DIR/cmds
+fi
