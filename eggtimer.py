@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- encoding: utf-8 -*-
+#-*- encoding: utf-8 -*-
 
 #I'm not in shell, i'm such a happy bot
 
@@ -109,13 +109,11 @@ class EggTimer(PersistentJabberBot):
 
     eggenv = ENV.copy()
     eggenv['EGGS_USER'] = user
-    eggenv['EGGS_LINE']  = line
-    m = re.match("(\w+)\s?(.*)",line)
+    eggenv['EGGS_LINE']  = line.encode('utf-8')
+    m = re.match("(\w+)\s?(.*)",line,re.U)
     if m:
       cmd = m.group(1)
       args = m.group(2)
-      print "ARGS",args
-      eggenv['EGGS_ARGS'] = args
       exe = [os.path.join(CMDDIR,cmd)] + [args]
       try:
         out = check_output(exe,env=eggenv)
@@ -125,9 +123,10 @@ class EggTimer(PersistentJabberBot):
       except subprocess.CalledProcessError,e:
         print e.returncode
         return "Kommandoen fejlede [%s]!  Prøv at spørge mig om 'udu'." % (e.returncode)
-      except UnicodeEncodeError, e:
-        self.log.debug("unicodeerror [%s]" % e)
-        return "I have an issue with unicode"
+#      except UnicodeEncodeError, e:
+#        self.log.debug("unicodeerror [%s]" % e)
+#        raise e
+#        return "I have an issue with unicode"
       except TypeError, e:
         self.log.debug("TYPEERROR %s" % e)
         return
