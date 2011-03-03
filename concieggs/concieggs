@@ -25,7 +25,7 @@ broke() {
     echo "Kommandoen fejlede!  Prøv at spørge mig om 'udu'."
 }
 
-export LC_ALL=da_DK
+export LC_ALL=da_DK.UTF-8
 
 tail -f -n 0 out | while read line; do
     rawcmd=$(echo "$line"|awk --posix "$awk_getcmd")
