@@ -7,7 +7,7 @@ else
     time=$(dateToTime $1)
     if [ $time != "" ]; then
         if [ $alias != "" ]; then
-            if addToEggs $1 $EGGS_USER; then
+            if addToEggs $1 $alias; then
                 echo "Javel! $alias spiser med i dag klokken $1!"
             else
                 exit 1
