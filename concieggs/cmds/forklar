@@ -1,8 +1,7 @@
 #!/bin/sh
 
 lookup() {
-    param=$(echo "$1"| awk '{print tolower($0)}')
-    cat $CONCIEGGS_DB_DIR/fakta | grep -F -i $param
+     cat $CONCIEGGS_DB_DIR/fakta | grep -F -i $1
 }
 
 if [ "$1" ]; then
