@@ -104,6 +104,16 @@ class EggTimer(PersistentJabberBot):
     return ("No such egg [%s]" % eggname)
     #No check for now 
 
+  @botcmd(name="!eggsno")
+  def add_rm_fixed(self,msg,args):
+    '''!eggsno <egg> (removes egg)'''
+    eggname = args.strip()
+    if eggname in self.lunch:
+      self.lunch.remove(eggname)
+      return "Egg %s starves" % self.eggsml.get_alias_rand(eggname)
+
+    return ("No such egg [%s]" % eggname)
+
   @botcmd(name="!eggsme")
   def add_egg(self, msg, args):
     """docstring for adduser"""
