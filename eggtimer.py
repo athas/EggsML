@@ -5,13 +5,13 @@
 
 import sys
 import logging
-from eggsml import eggsml
+from eggslib.eggsml import eggsml
 from sets import Set
 logging.basicConfig(level=logging.DEBUG)
  
 from pyjabberbot import PersistentJabberBot,botcmd
 
-JID2EGG =  {'frej@jabber.dk' : 'frej'
+JID2EGG =     {'frej@jabber.dk' : 'frej'
               ,'athas@jabber.dk' : 'troels'
               ,'anders.bll@gmail.com' : 'abll'
               ,'live4adrenalin@gmail.com' : 'henne'
@@ -52,8 +52,44 @@ def commit(eggsers):
   subprocess.call(gitpush)
   #execute "sed ::måltidsdata::\nmåltid slashdotfrokost"
   #execute git commit slashdotfrokost "eggtimer update" 
-  
+ 
 
+###conciegs emu####
+DIR = os.path.join(os.getcwd(),'concieggs')
+CMDDIR  = os.path.join(DIR,'cmds')
+ENV = {'CONCIEGGS_DIR' : DIR 
+      ,'CONCIEGGS_DB_DIR' : os.path.join(DIR,'db')
+      ,'EGGS_DIR'         : os.path.join(DIR,'..')
+      ,'EGGS_LIB_DIR'     : os .path.join(DIR,'..','eggslib')
+      }
+
+import re
+#concieggs emu
+def concieggs(user,line):
+  eggenv = ENV.copy()
+  eggenv['EGGS_USER'] = user
+  eggenv['EGGS_LINE']  = line
+  m = re.match("(\w+)\s?(.*)",line)
+  if m:
+    cmd = m.group(1)
+    args = m.group(2)
+    print "ARGS",args
+    eggenv['EGGS_ARGS'] = args
+    exe = [os.path.join(CMDDIR,cmd)] + [args]
+    try:
+      out = subprocess.check_output(exe,env=eggenv)
+      return out
+    except OSError:
+      return "%s: Du bad mig om [%s], men den kommando har jeg ikke!" % (user,cmd)
+    except subprocess.CalledProcessError as e:
+      print e.returncode
+      return "Kommandoen fejlede [%s]!  Prøv at spørge mig om 'udu'." % (e.returncode)
+
+  return "not a command"  
+  
+  
+    
+  
 class EggTimer(PersistentJabberBot):
   """docstring for EggTimer"""
   def __init__(self, jid, password, res = None):
@@ -98,8 +134,8 @@ class EggTimer(PersistentJabberBot):
     """!eggsother <eggname>"""
     eggname = args.strip()
     for aliaslist in eggsml.aliases:
-      if eggname==aliaslist[0]:
-        return self._lunch_add_egg(eggname)
+      if eggname in aliaslist:
+        return self._lunch_add_egg(aliaslist[0])
     
     return ("No such egg [%s]" % eggname)
     #No check for now 
@@ -147,6 +183,13 @@ class EggTimer(PersistentJabberBot):
     """docstring for setNextLunchTime"""
     return "eggstimer does not grasp time"
 
+  @botcmd(name="concieggs:")
+  def concieggs(self,msg,args):
+    """Do whatever concieggs does"""
+    nick = msg.getFrom().getResource()
+    eggname = self._get_eggname(nick)
+    return concieggs(eggname,args) 
+    
   '''
   We need a map priv jid to map, it's unique,chatroom nick/resource isn't.
   Further some clients it's hard to set (impossible?) to set nick/resource
@@ -178,10 +221,14 @@ class EggTimer(PersistentJabberBot):
 
 def main():
   if len(sys.argv) < 4:
-    print 'Usage: %s login@host password room' % sys.argv[0]
+    print 'Usage: %s login@host password room <resource>' % sys.argv[0]
     sys.exit(1)
- 
-  bot = EggTimer(sys.argv[1],sys.argv[2])
+  if len(sys.argv) >= 5:
+    resource = sys.argv[4]
+  else:
+    resource = None
+
+  bot = EggTimer(sys.argv[1],sys.argv[2],res=resource)
 
   bot.debug_heartbeat = False
   bot.syn_interval = 5
@@ -193,7 +240,6 @@ def main():
     bot.join_room(room)
     bot.send(room, 'æææggscellent', 'groupchat')
      
-    
   
   bot.on_connect = join
   bot.on_reconnect = join
