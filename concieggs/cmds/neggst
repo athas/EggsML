@@ -2,9 +2,9 @@
 
 next=$(nextEggs)
 if [ "$next" != "" ]; then
-    echo "Der er eggs klokken $(timeToDate $next), med "
+    echo -n "Der er eggs klokken $(timeToDate $next), med "
     cat $CONCIEGGS_DB_DIR/eggs/$next | while read who; do
-        echo $who
+        echo -n $(randomName "$who")
     done
     echo " tilmeldt."
 else
