@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import urllib2
-import cjson as json
+import simplejson as json
 import sys
 
 query = " ".join(sys.argv[1:])
