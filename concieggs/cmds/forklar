@@ -1,0 +1,15 @@
+#!/bin/sh
+
+lookup() {
+    cat $CONCIEGGS_DB_DIR/fakta\
+ | tr A-Z a-z\
+ | fgrep "$(echo "$EGGS_ARGS" | tr A-Z a-z)"
+}
+
+if [ "$EGGS_ARGS" ]; then
+    if ! lookup; then
+        echo "Det ved jeg ikke noget om."
+    fi
+else
+    echo "Men hvad skal jeg forklare?"
+fi 
