@@ -4,7 +4,7 @@
 import os
 import pyexiv2
 
-from server import server
+from eggslib.server import server
 
 class index:
     

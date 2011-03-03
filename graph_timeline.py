@@ -6,7 +6,7 @@ import random
 import time
 import math
 from datetime import date, datetime, timedelta
-from server import server
+from eggslib.server import server
 
 class graph:
 	e = None

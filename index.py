@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
-from eggsml_page import eggsml_page
+from eggslib.eggsml_page import eggsml_page
 
 class index:
     
