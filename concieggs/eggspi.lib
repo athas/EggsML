@@ -4,30 +4,44 @@ aliases() {
     $EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost aliases $1
 }
 
+export -f aliases
+
 primaryName() {
     aliases "$1" | head -n 1
 }
+
+export -f primaryName
 
 randomName() {
     aliases "$1" | sort -r | head -n 1
 }
 
+export -f randomName
+
 dateToTime() {
     date -d "$1" '+%s'
 }
+
+export -f dateToTime
 
 nowTime() {
     date '+%s'
 }
 
+export -f nowTime
+
 timeToDate() {
     date -d "UTC 1970-01-01 $1 secs"
 }
+
+export -f timeToDate
 
 addToEggs() {
     time=$(dateToTime "$1")
     echo $2 >> $CONCIEGGS_DB_DIR/eggs/$time
 }
+
+export -f addToEggs
 
 isInEggs() {
     time=$(dateToTime "$1")
@@ -40,6 +54,8 @@ isInEggs() {
     fi
     return 1
 }
+
+export -f isInEggs
 
 rmFromEggs() {
     time=$(dateToTime "$1")
@@ -54,12 +70,18 @@ rmFromEggs() {
     fi
 }
 
+export -f rmFromEggs
+
 nextEggs() {
     export TIME=$(nowTime)
     ls $CONCIEGGS_DB_DIR/eggs | awk '$1>=ENVIRON["TIME"]'
 }
 
+export -f nextEggs
+
 prevEggs() {
     export TIME=$(nowTime)
     ls $CONCIEGGS_DB_DIR/eggs | awk '$1<ENVIRON["TIME"]'
 }
+
+export -f prevEggs
