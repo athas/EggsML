@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ "$EGGS_ARGS" ]; then
+    echo "$EGGS_ARGS" >> $CONCIEGGS_DB_DIR/fakta
+    echo "Det er husket!"
+else
+    echo "Men hvad skal jeg huske?"
+fi 
