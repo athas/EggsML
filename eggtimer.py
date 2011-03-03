@@ -55,6 +55,22 @@ def commit(eggsers):
  
 
 ###conciegs emu####
+
+#from py2.7/py3.1
+def check_output(*popenargs, **kwargs):
+    if 'stdout' in kwargs:
+        raise ValueError('stdout argument not allowed, it will be overridden.')
+    process = subprocess.Popen(stdout=subprocess.PIPE, *popenargs, **kwargs)
+    output, unused_err = process.communicate()
+    retcode = process.poll()
+    if retcode:
+        cmd = kwargs.get("args")
+        if cmd is None:
+            cmd = popenargs[0]
+        raise subprocess.CalledProcessError(retcode, cmd, output=output)
+    return output
+
+
 DIR = os.path.join(os.getcwd(),'concieggs')
 CMDDIR  = os.path.join(DIR,'cmds')
 ENV = {'CONCIEGGS_DIR' : DIR 
@@ -77,7 +93,7 @@ def concieggs(user,line):
     eggenv['EGGS_ARGS'] = args
     exe = [os.path.join(CMDDIR,cmd)] + [args]
     try:
-      out = subprocess.check_output(exe,env=eggenv)
+      out = check_output(exe,env=eggenv)
       return out
     except OSError:
       return "%s: Du bad mig om [%s], men den kommando har jeg ikke!" % (user,cmd)
