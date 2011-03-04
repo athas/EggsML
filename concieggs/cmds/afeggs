@@ -9,10 +9,11 @@ if [ $# -lt 1 ]; then
     echo "Brug: afeggs <tidspunkt> [navn]"
 else
     if [ $# -ge 2 ]; then
-        alias=$(randomName $2)
+        username=$2
     else
-        alias=$(randomName $EGGS_USER)
+        username=$EGGS_USER
     fi
+    alias=$(randomName $username)
     time=$(dateToTime $1)
     if [ "$time" != "" ]; then
         if [ "$alias" != "" ]; then
@@ -25,7 +26,7 @@ else
                 exit 1
             fi
         else
-            echo "Jeg kender dig ikke, $EGGS_USER!"
+            echo "Jeg kender ikke $username!"
         fi
     else
         echo "Det tidspunkt giver ingen mening!"
