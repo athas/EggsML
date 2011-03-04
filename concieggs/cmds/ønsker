@@ -2,4 +2,4 @@
 #
 # Udskriv en liste over de nuværende indkøbsønsker
 
-$EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost wishes
+$EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost wishes | enumerate
