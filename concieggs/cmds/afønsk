@@ -21,7 +21,7 @@ $(echo "$wishes" | fgrep -i -v $wish)
 w
 EOF
             if tryGitChange woop slashdotfrokost; then
-                echo "Alle indkøbsønsker fjernet!"
+                echo "$* er ej længere ønsket!"
             else
                 gitRepair slashdotfrokost
                 echo "Katastrofe!  Noget gik galt med Git!"
