@@ -1,0 +1,33 @@
+#!/bin/sh
+#
+# Fjern blot et enkelt element fra listen over indkøbsønsker.
+
+if [ $# -lt 1 ]; then
+    echo "Brug: afønsk ønske..."
+else
+    if gitRefresh; then
+        $wish="$*"
+        $wishes=$($EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost wishes)
+        if ! (echo "$wishes" | fgrep -i $wish); then
+            echo "Der er ingen der ønsker $*!"
+        else
+            cd $EGGS_DIR
+            ed slashdotfrokost > /dev/null <<EOF
+/::INDKØBSØNSKER::/
++1,/^ *$/-1d
+i
+$(echo "$wishes" | fgrep -i -v $wish)
+w
+EOF
+            if tryGitChange woop slashdotfrokost; then
+                echo "Alle indkøbsønsker fjernet!"
+            else
+                gitRepair slashdotfrokost
+                echo "Katastrofe!  Noget gik galt med Git!"
+                exit 1
+            fi
+        fi
+    else
+        exit 1
+    fi
+fi
