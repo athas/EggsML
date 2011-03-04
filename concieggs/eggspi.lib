@@ -51,18 +51,23 @@ export -f randomName
 
 dateToTime() {
     now=$(nowTime)
-    then=$(date -d "$1" '+%s')
     if (echo "$1" | grep "^-"); then
-        if [ "$now" -lt "$then" ]; then
-            echo $(expr "$then" '-' 3600 '*' 24)
-        else
-            echo $then
-        fi  
+        then=$(date -d "$(echo $1|sed s/^-//)" '+%s')
+        if [ "$then" ]; then
+            if [ "$now" -lt "$then" ]; then
+                echo $(expr "$then" '-' 3600 '*' 24)
+            else
+                echo $then
+            fi
+        fi
     else
-        if [ "$then" -lt "$now" ]; then
-            echo $(expr "$then" '+' 3600 '*' 24)
-        else
-            echo $then
+        then=$(date -d "$1" '+%s')
+        if [ "$then" ]; then
+            if [ "$then" -lt "$now" ]; then
+                echo $(expr "$then" '+' 3600 '*' 24)
+            else
+                echo $then
+            fi
         fi
     fi
 }
