@@ -1,0 +1,3 @@
+#!/bin/sh
+
+cat $CONCIEGGS_DB_DIR/fakta | sort -R | head -n 1
