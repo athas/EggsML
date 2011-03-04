@@ -1,4 +1,6 @@
 #!/bin/sh
+#
+# Husk et givent faktum til senere opslag via 'forklar'.
 
 if [ "$EGGS_ARGS" ]; then
     echo "$EGGS_ARGS" >> $CONCIEGGS_DB_DIR/fakta

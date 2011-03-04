@@ -1,4 +1,6 @@
 #!/bin/sh
+#
+# Udskriv information om hvad der skal gøres hvis jeg er gået i udu.
 
 echo "Hvis jeg er gået i udu, så må du reparere mig.  \
 Minimum Troels, Dybber og Lindbo har adgang til at logge \

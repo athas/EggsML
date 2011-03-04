@@ -1,4 +1,7 @@
 #!/bin/sh
+#
+# Grundlæggende afprøvningsfunktion for at se om concieggs fungerer
+# nogenlunde.
 
 echo "Hej $EGGS_USER!"
 echo "Parametrene var $EGGS_ARGS."

@@ -1,4 +1,7 @@
 #!/bin/sh
+#
+# Foretag en søgning i concieggs' omfattende hukommelse efter detaljer
+# omkring et givent emne.
 
 lookup() {
      cat $CONCIEGGS_DB_DIR/fakta | grep -F -i "$EGGS_ARGS"

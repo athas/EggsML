@@ -1,3 +1,5 @@
 #!/bin/sh
+#
+# Uddel et enkelt kvantum af den opsamlede visdom.
 
 cat $CONCIEGGS_DB_DIR/fakta | sort -R | head -n 1
