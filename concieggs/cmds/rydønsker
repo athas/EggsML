@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# Alle har fået hvad de har brug for, og ryd derfor alle ønsker fra
+# indkøbslisten!
+
+if gitRefresh; then
+    cd $EGGS_DIR
+    ed slashdotfrokost > /dev/null <<EOF
+/::INDKØBSØNSKER::/
++1,/^ *$/-1d
+w
+EOF
+    if tryGitChange woop slashdotfrokost; then
+        echo "Alle indkøbsønsker fjernet!"
+    else
+        gitRepair slashdotfrokost
+        echo "Katastrofe!  Noget gik galt med Git!"
+        exit 1
+    fi
+else
+    exit 1
+fi
