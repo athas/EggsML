@@ -17,6 +17,7 @@ else
 +1,/^ *$/-1d
 i
 $(echo "$wishes" | fgrep -i -v $wish)
+.
 w
 EOF
             if tryGitChange woop slashdotfrokost; then
