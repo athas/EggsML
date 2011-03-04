@@ -194,6 +194,8 @@ gitRefresh() {
     fi    
 }
 
+export -f gitRefresh
+
 tryGitChange() {
     msg=$1
     shift
