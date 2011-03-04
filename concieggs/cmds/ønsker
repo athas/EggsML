@@ -4,7 +4,7 @@
 
 wishes=$($EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost wishes | enumerate)
 
-if [ "$wishes"]; then
+if [ "$wishes" ]; then
     echo "Indkøbsønsker: $wishes."
 else
     echo "Bred ymer!  Der er ingen indkøbsønsker!"
