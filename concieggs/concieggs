@@ -41,6 +41,7 @@ tail -f -n 0 out | while read line; do
             if [ -x $cmddir/$cmd ]; then
                 source $CONCIEGGS_DIR/eggspi.lib
                 $cmddir/$cmd $EGGS_ARGS || broke
+                /eggsml/fixperms
             else
                 echo "$EGGS_USER: Du bad mig om $cmd, men den kommando har jeg ikke!"
             fi
