@@ -51,7 +51,7 @@ export -f randomName
 
 dateToTime() {
     now=$(nowTime)
-    if (echo "$1" | grep "^-"); then
+    if (echo "$1" | grep "^-" > /dev/null); then
         then=$(date -d "$(echo $1|sed s/^-//)" '+%s')
         if [ "$then" ]; then
             if [ "$now" -lt "$then" ]; then
@@ -121,7 +121,7 @@ export -f addToEggs
 
 isInEggs() { # Cannot trust return value due to subshell.
     time=$(dateToTime "$1")
-    if [ -s $CONCIEGGS_DB_DIR/eggs/$time ]; then
+    if [ -s "$CONCIEGGS_DB_DIR/eggs/$time" ]; then
         aliases $2 | while read alias; do
             if fgrep "$alias" $CONCIEGGS_DB_DIR/eggs/$time; then
                 return 0
