@@ -1,4 +1,8 @@
 #!/bin/sh
+#
+# Afmeld den givne Eggs.  Kun eggs der endnu ikke er afholdt kan
+# afmeldes - bordet fanger!
+
 source $CONCIEGGS_DIR/eggspi.lib
 
 if [ $# -lt 1 ]; then
