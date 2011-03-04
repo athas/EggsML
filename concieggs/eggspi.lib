@@ -50,12 +50,20 @@ randomName() {
 export -f randomName
 
 dateToTime() {
-    then=$(date -d "$1" '+%s')
     now=$(nowTime)
-    if [ "$then" -lt "$now" ]; then
-        echo $(expr $then '+' 3600 '*' 24)
+    then=$(date -d "$1" '+%s')
+    if (echo "$1" | grep "^-"); then
+        if [ "$now" -lt "$then" ]; then
+            echo $(expr "$then" '-' 3600 '*' 24)
+        else
+            echo $then
+        fi  
     else
-        echo $then
+        if [ "$then" -lt "$now" ]; then
+            echo $(expr "$then" '+' 3600 '*' 24)
+        else
+            echo $then
+        fi
     fi
 }
 
@@ -88,6 +96,8 @@ timeToDate() {
         timeToFullDate $1
     elif [ $thatday == $today ]; then
         dateSecs $1 '+i dag klokken %R'
+    elif [ $thatday == $(expr $today - 1) -o "(" $today == 1 -a $thatday == 7 ")" ]; then
+        dateSecs $1 '+i går klokken %R'
     elif [ $thatday == $(expr $today + 1) -o "(" $today == 7 -a $thatday == 1 ")" ]; then
         dateSecs $1 '+i morgen klokken %R'
     else
