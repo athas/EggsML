@@ -23,7 +23,7 @@ $(formatEggs $lastEggs)
 .
 w
 EOF
-        if (git add slashdotfrokost && git commit -m woop && git push) > /dev/null; then
+        if (git add slashdotfrokost && git commit -m woop && git push git@github.com:Athas/EggsML.git) > /dev/null; then
             echo "Succes!  Eggs $(timeToDate $lastEggs), med $(describeEggs $lastEggs) er nu bogført".
             rm cat $CONCIEGGS_DB_DIR/eggs/$lastEggs
         else
