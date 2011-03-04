@@ -10,6 +10,7 @@ class update:
         temp = t.read()
         t.close()
 
+        system("/eggsml/fixperms")
         retval = system("cd /eggsml; umask 002; git pull > /dev/null")
         content = "Return value: " + str(retval)
         system("/eggsml/fixperms")
