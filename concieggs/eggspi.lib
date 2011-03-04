@@ -52,7 +52,7 @@ export -f randomName
 dateToTime() {
     then=$(date -d "$1" '+%s')
     now=$(nowTime)
-    if [ $then -lt $now ]; then
+    if [ "$then" -lt "$now" ]; then
         echo $(expr $then '+' 3600 '*' 24)
     else
         echo $then
@@ -108,7 +108,7 @@ isInEggs() { # Cannot trust return value due to subshell.
     time=$(dateToTime "$1")
     if [ -s $CONCIEGGS_DB_DIR/eggs/$time ]; then
         aliases $2 | while read alias; do
-            if fgrep $alias $CONCIEGGS_DB_DIR/eggs/$time; then
+            if fgrep "$alias" $CONCIEGGS_DB_DIR/eggs/$time; then
                 return 0
             fi
         done
