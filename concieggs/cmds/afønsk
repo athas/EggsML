@@ -6,8 +6,8 @@ if [ $# -lt 1 ]; then
     echo "Brug: afønsk ønske..."
 else
     if gitRefresh; then
-        $wish="$*"
-        $wishes=$($EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost wishes)
+        wish="$*"
+        wishes=$($EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost wishes)
         if ! (echo "$wishes" | fgrep -i "$wish"); then
             echo "Der er ingen der ønsker $*!"
         else
