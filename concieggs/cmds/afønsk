@@ -16,11 +16,11 @@ else
 /::INDKØBSØNSKER::/
 +1,/^ *$/-1d
 i
-$(echo "$wishes" | fgrep -i -v $wish)
+$(echo "$wishes" | fgrep -i -v "$wish")
 .
 w
 EOF
-            if tryGitChange woop slashdotfrokost; then
+            if tryGitChange "afønsk $*" slashdotfrokost; then
                 echo "$* er ej længere ønsket!"
             else
                 gitRepair slashdotfrokost
