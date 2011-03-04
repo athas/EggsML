@@ -9,11 +9,7 @@ lastEggs=$(prevEggs | head -n 1)
 if [ ! "$lastEggs" ]; then
     echo "Ingen Eggs mangler bogføring!"
 else
-    ret=$(GET http://eggsml.dk/update.py | grep "Return value: " | sed 's/Return value: //')
-
-    if [ "$ret" != "0" ]; then
-        echo "http://eggsml.dk/update.py meldte fejl!  Spørg mig om 'udu'."
-    else
+    if gitRefresh; then
         cd $EGGS_DIR
         ed slashdotfrokost > /dev/null <<EOF
 /::MÅLTIDSDATA::/
@@ -23,14 +19,15 @@ $(formatEggs $lastEggs)
 .
 w
 EOF
-        if (git add slashdotfrokost && git commit -m woop && git push git@github.com:Athas/EggsML.git) > /dev/null; then
+        if tryGitChange woop slashdotfrokost; then
             echo "Succes!  Eggs $(timeToDate $lastEggs), med $(describeEggs $lastEggs) er nu bogført".
             rm $CONCIEGGS_DB_DIR/eggs/$lastEggs
         else
-            git reset HEAD slashdotfrokost > /dev/null
-            git checkout slashdotfrokost > /dev/null
+            gitRepair slashdotfrokost
             echo "Katastrofe!  Noget gik galt under opdatering!"
             exit 1
         fi
+    else
+        exit 1
     fi
 fi

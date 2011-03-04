@@ -183,3 +183,27 @@ formatEggs() {
 }
 
 export -f formatEggs
+
+gitRefresh() {
+    ret=$(GET http://eggsml.dk/update.py | grep "Return value: " | sed 's/Return value: //')
+    if [ "$ret" != "0" ]; then
+        echo "http://eggsml.dk/update.py meldte fejl!"
+        return 1
+    else
+        return 0
+    fi    
+}
+
+tryGitChange() {
+    msg=$1
+    shift
+    (git add "$@" && git commit -m "$1" && git push git@github.com:Athas/EggsML.git) > /dev/null
+}
+
+export -f tryGitChange
+
+gitRepair() {
+    (git reset HEAD "$@" && git checkout "$@") > /dev/null
+}
+
+export -f gitRepair
