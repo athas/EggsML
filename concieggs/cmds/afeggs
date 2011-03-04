@@ -2,9 +2,13 @@
 source $CONCIEGGS_DIR/eggspi.lib
 
 if [ $# -lt 1 ]; then
-    echo "Brug: afeggs <tidspunkt>"
+    echo "Brug: afeggs <tidspunkt> [navn]"
 else
-    alias=$(randomName $EGGS_USER)
+    if [ $# -ge 2 ]; then
+        alias=$(randomName $2)
+    else
+        alias=$(randomName $EGGS_USER)
+    fi
     time=$(dateToTime $1)
     if [ "$time" != "" ]; then
         if [ "$alias" != "" ]; then
