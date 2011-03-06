@@ -32,16 +32,10 @@ print out }'
 export -f enumerate
 
 aliases() {
-    $EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost aliases "$1"
+    return $EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost aliases "$1"
 }
 
 export -f aliases
-
-knownUser() {
-    return aliases > /dev/null
-}
-
-export -f knownUser
 
 primaryName() {
     aliases "$1" | head -n 1

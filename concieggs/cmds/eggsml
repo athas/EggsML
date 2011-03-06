@@ -11,7 +11,7 @@ source $CONCIEGGS_DIR/eggspi.lib
 subscribeToEggs() {
     time=$1
     name=$2
-    if knownUser $username; then
+    if [ "$(aliases)" ]; then
         time=$(dateToTime $1)
         if [ "$time" != "" ]; then
             alias=$(randomName $name)
@@ -47,7 +47,7 @@ vil du være den første, så brug 'eggsml <tidspunkt>'."
 if [ $# -eq 0 ]; then
     time=$(checkNextEggs)
 elif [ $# -ge 1 ]; then
-    if [ "$(knownUser $1)" ]; then
+    if [ "$(aliases $1)" ]; then
         time=$(checkNextEggs)
     else
         time=$1
