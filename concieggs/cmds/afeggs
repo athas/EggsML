@@ -5,30 +5,22 @@
 
 source $CONCIEGGS_DIR/eggspi.lib
 
-if [ $# -lt 1 ]; then
-    echo "Brug: afeggs <tidspunkt> [navn]"
-else
-    if [ $# -ge 2 ]; then
-        username=$2
+unsubscribeFromEggs() {
+    time=$1
+    name=$2
+    gut=$(isInEggs "$time" "$alias")
+    if [ "$gut" == "" ]; then
+        echo "$alias spiser alligevel ikke med $(timeToDate $time)!"
+    elif rmFromEggs "$time" "$gut"; then
+        echo "Javel! $alias spiser ikke længere med $(timeToDate $time)!"
     else
-        username=$EGGS_USER
+        exit 1
     fi
-    alias=$(randomName $username)
-    time=$(dateToTime $1)
-    if [ "$time" != "" ]; then
-        if [ "$alias" != "" ]; then
-           gut=$(isInEggs "$1" "$alias")
-            if [ "$gut" == "" ]; then
-                echo "$alias spiser alligevel ikke med $(timeToDate $time)!"
-            elif rmFromEggs "$1" "$gut"; then
-                echo "Javel! $alias spiser ikke længere med $(timeToDate $time)!"
-            else
-                exit 1
-            fi
-        else
-            echo "Jeg kender ikke $username!"
-        fi
-    else
-        echo "Det tidspunkt giver ingen mening!"
-    fi
+}
+
+time=$(extractDate "$@")
+name=$(extractUsername "$@")
+if [ ! "$name" ]; then
+    echo "Jeg kender ikke $username!"
+    exit 0
 fi
