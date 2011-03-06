@@ -38,6 +38,7 @@ naja, måske, naja_som_i_nisse
 sune
 aleggsander, alexander, morpeggs, morpmex
 danni, dromi
+simon, g-mon, arhbidul
 
 # Husk på, farvesektionen kan ikke have kommentarer, da det
 # kan indgå i farvesyntaksen.
@@ -77,12 +78,20 @@ kim:  X
 brian: X|
 
 ::INDKØBSØNSKER::
+Phillips hjemmebagte rugbrød
+ristede løg
+2 dåser flået babysæl
+kiks
+agurkesalat
+ALTID MAKREL
+ost
 roastbeef
 
 
 
 ::INDKØB::
 # I danske kroner, svin.
+2011-03-05, abll: 60.7
 2011-03-01, frej: 216.25
 2011-02-23, kim: 51
 2011-02-23, alexander: 343.30
@@ -302,6 +311,7 @@ roastbeef
 2009-04-11, abll: 113.75
 
 ::MÅLTIDSDATA::
+2011-03-05, dknuth, simon
 2011-03-04, troels, andersbll, carlsen, dromi, live4adrenalin, dybber
 2011-03-03, frej, abll, henne, brian, svinedrengen, aleggsander, dybber
 2011-03-02, abll, dybber, henne, bp, brian, kim, reenberg, troels, manijeh(*.5)
