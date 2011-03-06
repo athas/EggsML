@@ -32,7 +32,7 @@ print out }'
 export -f enumerate
 
 aliases() {
-    return $EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost aliases "$1"
+    $EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost aliases "$1"
 }
 
 export -f aliases
