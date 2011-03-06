@@ -24,3 +24,4 @@ if [ ! "$name" ]; then
     echo "Jeg kender ikke $username!"
     exit 0
 fi
+unsubscribeFromEggs $time $name
