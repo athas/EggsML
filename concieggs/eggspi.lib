@@ -112,6 +112,43 @@ timeToDate() {
 
 export -f timeToDate
 
+checkNextEggs() {
+    time=$(nextEggs | head -n 1)
+    if [ ! "$time" ]; then
+        echo "Ingen har tilmeldt sig Eggs - \
+vil du være den første, så brug 'eggsml <tidspunkt>'."
+        exit 0
+    else
+        echo $time
+    fi
+}
+
+export -f checkNextEggs
+
+extractDate() {
+    while [ $# -ge 1 ]; do
+        time=$(dateToTime $1)
+        if [ "$time" ]; then
+            echo $time
+            return 0
+        fi
+        shift
+    done
+    checkNextEggs
+}
+
+extractUsername() {
+    while [ $# -ge 1 ]; do
+        name=$(randomName $1)
+        if [ "$name" ]; then
+            echo $name
+            return 0
+        fi
+        shift
+    done
+    randomName $EGGS_USER
+}
+
 addToEggs() {
     echo $2 >> $CONCIEGGS_DB_DIR/eggs/$1
 }

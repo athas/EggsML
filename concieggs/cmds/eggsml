@@ -23,36 +23,8 @@ subscribeToEggs() {
     fi
 }
 
-checkNextEggs() {
-    time=$(nextEggs | head -n 1)
-    if [ ! "$time" ]; then
-        echo "Ingen har tilmeldt sig Eggs - \
-vil du være den første, så brug 'eggsml <tidspunkt>'."
-        exit 0
-    else
-        echo $time
-    fi
-}
-
-if [ $# -eq 0 ]; then
-    time=$(checkNextEggs)
-elif [ $# -ge 1 ]; then
-    if [ "$(aliases $1)" ]; then
-        time=$(checkNextEggs)
-        username=$1
-    else
-        time=$(dateToTime $1)
-    fi
-fi
-if [ ! $time ]; then
-    echo "Tidspunktet '$giventime' giver ingen mening!"
-    exit 0
-fi
-if [ $# -ge 2 ]; then
-    name=$(randomName $2)
-else
-    name=$(randomName $EGGS_USER)
-fi
+time=extractDate "$@"
+name=extractUsername "$@"
 if [ ! "$name" ]; then
     echo "Jeg kender ikke $username!"
     exit 0
