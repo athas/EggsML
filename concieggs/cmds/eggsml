@@ -17,6 +17,9 @@ else
     alias=$(randomName $username)
     time=$(dateToTime $1)
     if [ "$time" != "" ]; then
+        if [ $(dateSecs "$time" '+%u') == "1" ]; then
+            echo "Det er en mandag!  Der er muligvis FF!"
+        fi
         if [ "$alias" != "" ]; then
             if [ "$(isInEggs $1 $alias)" != "" ]; then
                 echo "$alias spiser allerede med $(timeToDate $time)!"
