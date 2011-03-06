@@ -11,7 +11,7 @@ source $CONCIEGGS_DIR/eggspi.lib
 subscribeToEggs() {
     time=$1
     name=$2
-    if [ "$(aliases)" ]; then
+    if [ "$(aliases $name)" ]; then
         time=$(dateToTime $1)
         if [ "$time" != "" ]; then
             alias=$(randomName $name)
