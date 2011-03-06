@@ -156,9 +156,10 @@ addToEggs() {
 export -f addToEggs
 
 isInEggs() { # Cannot trust return value due to subshell.
-    time=$(dateToTime "$1")
+    time=$1
+    name=$2
     if [ -s "$CONCIEGGS_DB_DIR/eggs/$time" ]; then
-        aliases $2 | while read alias; do
+        aliases "$name" | while read alias; do
             if fgrep "$alias" $CONCIEGGS_DB_DIR/eggs/$time; then
                 return 0
             fi
@@ -170,7 +171,7 @@ isInEggs() { # Cannot trust return value due to subshell.
 export -f isInEggs
 
 rmFromEggs() {
-    time=$(dateToTime "$1")
+    time=$1
     export TRAITOR=$2
     tmpfile=$(mktemp)
     cat $CONCIEGGS_DB_DIR/eggs/$time \
