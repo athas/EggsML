@@ -37,6 +37,12 @@ aliases() {
 
 export -f aliases
 
+knownUser() {
+    aliases > /dev/null
+}
+
+export -f knownUser
+
 primaryName() {
     aliases "$1" | head -n 1
 }

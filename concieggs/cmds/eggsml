@@ -1,26 +1,23 @@
 #!/bin/sh
 #
-# Meld dig til at spise med på et givent tidspunkt.  Tidspunktet er
-# altid i fremtiden, og pt. aldrig mere end 24 timer fremme.  Således
-# kan du derfor kun melde dig til spisning i dag eller i morgen.
+# Meld dig til at spise med på et givent tidspunkt, der angives som et
+# klokkeslet.  Tidspunktet kan aldrig være mere end 24 timer fremme
+# eller tilbage.  Tidspunkter i fortiden angives ved at præfikse dem
+# med en bindestreg.  Således kan du derfor kun melde dig til spisning
+# i dag eller i morgen.
 
 source $CONCIEGGS_DIR/eggspi.lib
 
-if [ $# -lt 1 ]; then
-    echo "Brug: eggsml <tidspunkt> [navn]"
-else
-    if [ $# -ge 2 ]; then
-        username=$2
-    else
-        username=$EGGS_USER
-    fi
-    alias=$(randomName $username)
-    time=$(dateToTime $1)
-    if [ "$time" != "" ]; then
-        if [ $(dateSecs "$time" '+%u') == "1" ]; then
-            echo "Det er en mandag!  Der er muligvis FF!"
-        fi
-        if [ "$alias" != "" ]; then
+subscribeToEggs {
+    time=$1
+    name=$2
+    if knownUser $username; then
+        time=$(dateToTime $1)
+        if [ "$time" != "" ]; then
+            alias=$(randomName $name)
+            if [ $(dateSecs "$time" '+%u') == "1" ]; then
+                echo "Det er en mandag!  Der er muligvis FF!"
+            fi
             if [ "$(isInEggs $1 $alias)" != "" ]; then
                 echo "$alias spiser allerede med $(timeToDate $time)!"
             elif addToEggs "$1" "$alias"; then
@@ -29,9 +26,36 @@ else
                 exit 1
             fi
         else
-            echo "Jeg kender ikke $username!"
+            echo "Det tidspunkt giver ingen mening!"
         fi
     else
-        echo "Det tidspunkt giver ingen mening!"
+        echo "Jeg kender ikke $username!"
     fi
+}
+
+checkNextEggs() {
+    time=$(nextEggs | head -n 1)
+    if [ ! "$time" ]; then
+        echo "Ingen har tilmeldt sig Eggs - \
+vil du være den første, så brug 'eggsml <tidspunkt>'."
+        exit 0
+    else
+        echo $time
+    fi
+}
+
+if [ $# -eq 0 ]; then
+    time=$(checkNextEggs)
+elif [ $# -ge 1 ]
+    if [ "$(knownUser $1)" ]; then
+        time=$(checkNextEggs)
+    else
+        time=$1
+    fi
+    if [ $# -ge 2 ]; then
+        username=$2
+    else
+        username=$EGGS_USER
+    fi
+    subscribeToEggs $time $username
 fi
