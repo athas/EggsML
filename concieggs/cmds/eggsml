@@ -8,7 +8,7 @@
 
 source $CONCIEGGS_DIR/eggspi.lib
 
-subscribeToEggs {
+subscribeToEggs() {
     time=$1
     name=$2
     if knownUser $username; then
