@@ -8,11 +8,11 @@ source $CONCIEGGS_DIR/eggspi.lib
 unsubscribeFromEggs() {
     time=$1
     name=$2
-    gut=$(isInEggs "$time" "$alias")
+    gut=$(isInEggs "$time" "$name")
     if [ "$gut" == "" ]; then
-        echo "$alias spiser alligevel ikke med $(timeToDate $time)!"
+        echo "Men $name spiser jo alligevel ikke med $(timeToDate $time)!"
     elif rmFromEggs "$time" "$gut"; then
-        echo "Javel! $alias spiser ikke længere med $(timeToDate $time)!"
+        echo "Javel! $name spiser ikke længere med $(timeToDate $time)!"
     else
         exit 1
     fi
