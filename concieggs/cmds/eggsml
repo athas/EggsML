@@ -9,28 +9,19 @@
 source $CONCIEGGS_DIR/eggspi.lib
 
 subscribeToEggs() {
-    giventime=$1
+    time=$1
     name=$2
-    alias=$(randomName $name)
-    if [ "$alias" ]; then
-        time=$(dateToTime $giventime)
-        if [ "$time" != "" ]; then
-            if [ $(dateSecs "$time" '+%u') == "1" ]; then
-                echo "Det er en mandag!  Der er muligvis FF!"
-            fi
-            if [ "$(isInEggs $1 $alias)" != "" ]; then
-                echo "$alias spiser allerede med $(timeToDate $time)!"
-            elif addToEggs "$1" "$alias"; then
-                echo "Javel! $alias spiser med $(timeToDate $time)!"
-            else
-                exit 1
-            fi
-        else
-            echo "Tidspunktet '$giventime' giver ingen mening!"
+    if [ "$name" ]; then
+        if [ $(dateSecs "$time" '+%u') == "1" ]; then
+            echo "Det er en mandag!  Der er muligvis FF!"
         fi
-    else
-        echo "Jeg kender ikke $username!"
-    fi
+        if [ "$(isInEggs $1 $name)" != "" ]; then
+            echo "$name spiser allerede med $(timeToDate $time)!"
+        elif addToEggs "$1" "$name"; then
+            echo "Javel! $name spiser med $(timeToDate $time)!"
+        else
+            exit 1
+        fi
 }
 
 checkNextEggs() {
@@ -49,13 +40,22 @@ if [ $# -eq 0 ]; then
 elif [ $# -ge 1 ]; then
     if [ "$(aliases $1)" ]; then
         time=$(checkNextEggs)
+        username=$1
     else
-        time=$1
+        time=$(dateToTime $1)
     fi
 fi
+if [ ! $time ]; then
+    echo "Tidspunktet '$giventime' giver ingen mening!"
+    exit 0
+fi
 if [ $# -ge 2 ]; then
-    username=$2
+    name=$(randomName $2)
 else
-    username=$EGGS_USER
+    name=$(randomName $EGGS_USER)
+fi
+if [ ! "$name" ]; then
+    echo "Jeg kender ikke $username!"
+    exit 0
 fi
 subscribeToEggs $time $username
