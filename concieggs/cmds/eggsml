@@ -46,7 +46,7 @@ vil du være den første, så brug 'eggsml <tidspunkt>'."
 
 if [ $# -eq 0 ]; then
     time=$(checkNextEggs)
-elif [ $# -ge 1 ]
+elif [ $# -ge 1 ]; then
     if [ "$(knownUser $1)" ]; then
         time=$(checkNextEggs)
     else
