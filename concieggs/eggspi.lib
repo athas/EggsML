@@ -113,8 +113,7 @@ timeToDate() {
 export -f timeToDate
 
 addToEggs() {
-    time=$(dateToTime "$1")
-    echo $2 >> $CONCIEGGS_DB_DIR/eggs/$time
+    echo $2 >> $CONCIEGGS_DB_DIR/eggs/$1
 }
 
 export -f addToEggs
