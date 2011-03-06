@@ -52,10 +52,10 @@ elif [ $# -ge 1 ]; then
     else
         time=$1
     fi
-    if [ $# -ge 2 ]; then
-        username=$2
-    else
-        username=$EGGS_USER
-    fi
-    subscribeToEggs $time $username
 fi
+if [ $# -ge 2 ]; then
+    username=$2
+else
+    username=$EGGS_USER
+fi
+subscribeToEggs $time $username
