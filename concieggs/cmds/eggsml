@@ -11,17 +11,16 @@ source $CONCIEGGS_DIR/eggspi.lib
 subscribeToEggs() {
     time=$1
     name=$2
-    if [ "$name" ]; then
-        if [ $(dateSecs "$time" '+%u') == "1" ]; then
-            echo "Det er en mandag!  Der er muligvis FF!"
-        fi
-        if [ "$(isInEggs $1 $name)" != "" ]; then
-            echo "$name spiser allerede med $(timeToDate $time)!"
-        elif addToEggs "$1" "$name"; then
-            echo "Javel! $name spiser med $(timeToDate $time)!"
-        else
-            exit 1
-        fi
+    if [ $(dateSecs "$time" '+%u') == "1" ]; then
+        echo "Det er en mandag!  Der er muligvis FF!"
+    fi
+    if [ "$(isInEggs $1 $name)" != "" ]; then
+        echo "$name spiser allerede med $(timeToDate $time)!"
+    elif addToEggs "$1" "$name"; then
+        echo "Javel! $name spiser med $(timeToDate $time)!"
+    else
+        exit 1
+    fi
 }
 
 checkNextEggs() {
