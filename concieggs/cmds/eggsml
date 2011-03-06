@@ -11,7 +11,7 @@ source $CONCIEGGS_DIR/eggspi.lib
 subscribeToEggs() {
     time=$1
     name=$2
-    if [ $(dateSecs "$time" '+%u') == "1" ]; then
+    if [ "$(dateSecs "$time" '+%u')" == "1" ]; then
         echo "Det er en mandag!  Der er muligvis FF!"
     fi
     if [ "$(isInEggs $time "$name")" != "" ]; then
@@ -23,8 +23,8 @@ subscribeToEggs() {
     fi
 }
 
-time=extractDate "$@"
-name=extractUsername "$@"
+time=$(extractDate "$@")
+name=$(extractUsername "$@")
 if [ ! "$name" ]; then
     echo "Jeg kender ikke $username!"
     exit 0

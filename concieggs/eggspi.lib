@@ -97,13 +97,13 @@ timeToDate() {
     today=$(dateSecs $(nowTime) '+%u')
     if [ $1 -lt $(nowTime) ]; then
         timeToFullDate $1
-    elif [ $1 -ge $(expr $(nowTime) + 3600 '*' 24 '*' 7 ) ]; then
+    elif [ $1 -ge "$(expr $(nowTime) + 3600 '*' 24 '*' 7 )" ]; then
         timeToFullDate $1
-    elif [ $thatday == $today ]; then
+    elif [ "$thatday" == "$today" ]; then
         dateSecs $1 '+i dag klokken %R'
-    elif [ $thatday == $(expr $today - 1) -o "(" $today == 1 -a $thatday == 7 ")" ]; then
+    elif [ "$thatday" == "$(expr $today - 1)" -o "(" "$today" == 1 -a "$thatday" == 7 ")" ]; then
         dateSecs $1 '+i går klokken %R'
-    elif [ $thatday == $(expr $today + 1) -o "(" $today == 7 -a $thatday == 1 ")" ]; then
+    elif [ "$thatday" == "$(expr $today + 1)" -o "(" "$today" == 7 -a "$thatday" == 1 ")" ]; then
         dateSecs $1 '+i morgen klokken %R'
     else
         dateSecs $1 '+på %A klokken %R'
