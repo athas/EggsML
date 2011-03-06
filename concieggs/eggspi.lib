@@ -38,7 +38,7 @@ aliases() {
 export -f aliases
 
 knownUser() {
-    aliases > /dev/null
+    return aliases > /dev/null
 }
 
 export -f knownUser
