@@ -2,7 +2,11 @@
 #
 # Udskriv en liste over de nuværende indkøbsønsker
 
-wishes=$($EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost wishes | enumerate)
+wishes=$($EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost wishes \
+    | sort \
+    | uniq -c \
+    | sed 's/ *1 //' \
+    | enumerate)
 
 if [ "$wishes" ]; then
     echo "Indkøbsønsker: $wishes."
