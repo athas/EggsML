@@ -14,7 +14,7 @@ subscribeToEggs() {
     if [ "$(dateSecs "$time" '+%u')" == "1" ]; then
         echo "Det er en mandag!  Der er muligvis FF!"
     fi
-    if [ "$(isInEggs $time "$name")" != "" ]; then
+    if [ "$(isInEggs "$time" "$name")" != "" ]; then
         echo "$name spiser allerede med $(timeToDate $time)!"
     elif addToEggs "$time" "$name"; then
         echo "Javel! $name spiser med $(timeToDate $time)!"
@@ -28,9 +28,10 @@ name=$(extractUsername "$@")
 if [ ! "$time" ]; then
     echo "Ingen har tilmeldt sig Eggs - \
 vil du være den første, så brug 'eggsml <tidspunkt>'."
+    exit 0
 fi
 if [ ! "$name" ]; then
     echo "Jeg kender ikke $username!"
     exit 0
 fi
-subscribeToEggs $time $name
+subscribeToEggs "$time" "$name"

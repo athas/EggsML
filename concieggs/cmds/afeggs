@@ -27,4 +27,4 @@ if [ ! "$name" ]; then
     echo "Angiv et kendt navn!"
     exit 0
 fi
-unsubscribeFromEggs $time $name
+unsubscribeFromEggs "$time" "$name"
