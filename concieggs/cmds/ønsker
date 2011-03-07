@@ -5,7 +5,7 @@
 wishes=$($EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost wishes \
     | sort \
     | uniq -c \
-    | sed -e 's/ *1 //' -e 's/ *//'
+    | sed -e 's/ *1 //' -e 's/ *//' \
     | enumerate)
 
 if [ "$wishes" ]; then
