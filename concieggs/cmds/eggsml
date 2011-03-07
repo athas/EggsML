@@ -25,6 +25,10 @@ subscribeToEggs() {
 
 time=$(extractDate "$@")
 name=$(extractUsername "$@")
+if [ ! "$time" ]; then
+    echo "Ingen har tilmeldt sig Eggs - \
+vil du være den første, så brug 'eggsml <tidspunkt>'."
+fi
 if [ ! "$name" ]; then
     echo "Jeg kender ikke $username!"
     exit 0
