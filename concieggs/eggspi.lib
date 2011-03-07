@@ -234,7 +234,7 @@ export -f gitRefresh
 tryGitChange() {
     msg=$1
     shift
-    (git add "$@" && git commit -m "$(randomName $EGGS_USER): $1" && git push git@github.com:Athas/EggsML.git) > /dev/null
+    (git add "$@" && git commit -m "$(randomName $EGGS_USER): $msg" && git push git@github.com:Athas/EggsML.git) > /dev/null
 }
 
 export -f tryGitChange
