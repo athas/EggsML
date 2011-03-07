@@ -20,8 +20,11 @@ unsubscribeFromEggs() {
 
 time=$(extractDate "$@")
 name=$(extractUsername "$@")
+if [ ! "$time" ]; then
+    echo "Angiv et gyldigt tidspunkt!"
+fi
 if [ ! "$name" ]; then
-    echo "Jeg kender ikke $username!"
+    echo "Angiv et kendt navn!"
     exit 0
 fi
-unsubscribeFromEggs $time $name
+unsubscribeFromEggs "$time" "$name"

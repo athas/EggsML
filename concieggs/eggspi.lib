@@ -115,9 +115,7 @@ export -f timeToDate
 checkNextEggs() {
     time=$(nextEggs | head -n 1)
     if [ ! "$time" ]; then
-        echo "Ingen har tilmeldt sig Eggs - \
-vil du være den første, så brug 'eggsml <tidspunkt>'."
-        exit 0
+        return 1
     else
         echo $time
     fi
@@ -236,7 +234,7 @@ export -f gitRefresh
 tryGitChange() {
     msg=$1
     shift
-    (git add "$@" && git commit -m "$(randomName $EGGS_USER): $1" && git push git@github.com:Athas/EggsML.git) > /dev/null
+    (git add "$@" && git commit -m "$(randomName $EGGS_USER): $msg" && git push git@github.com:Athas/EggsML.git) > /dev/null
 }
 
 export -f tryGitChange
