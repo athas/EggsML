@@ -158,7 +158,7 @@ isInEggs() { # Cannot trust return value due to subshell.
     name=$2
     if [ -s "$CONCIEGGS_DB_DIR/eggs/$time" ]; then
         aliases "$name" | while read alias; do
-            if fgrep "$alias" $CONCIEGGS_DB_DIR/eggs/$time; then
+            if fgrep -x "$alias" $CONCIEGGS_DB_DIR/eggs/$time; then
                 return 0
             fi
         done
