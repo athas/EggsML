@@ -95,7 +95,7 @@ export -f timeToFullDate
 timeToDate() {
     thatday=$(dateSecs $1 '+%u')
     today=$(dateSecs $(nowTime) '+%u')
-    if [ $1 -lt $(nowTime) ]; then
+    if [ $1 -le "$(expr $(nowTime) - 3600 '*' 24 '*' 7 )" ]; then
         timeToFullDate $1
     elif [ $1 -ge "$(expr $(nowTime) + 3600 '*' 24 '*' 7 )" ]; then
         timeToFullDate $1
