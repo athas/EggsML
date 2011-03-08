@@ -6,7 +6,7 @@
 if [ $# -lt 1 ]; then
     echo "Brug: bf <program>"
 else
-    $prog=$1
+    $prog="$1"
     shift
 fi
-echo $1 | $EGGS_LIB_DIR/eggsbf "$*"
+echo "$prog" | $EGGS_LIB_DIR/eggsbf "$*"
