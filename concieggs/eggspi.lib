@@ -44,7 +44,7 @@ primaryName() {
 export -f primaryName
 
 randomName() {
-    aliases "$1" | sort -R | head -n 1
+    aliases "$1" | sort -R --random-source=/dev/random | head -n 1
 }
 
 export -f randomName
