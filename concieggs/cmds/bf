@@ -1,7 +1,7 @@
 #!/bin/sh
 #
-# Run the first argument as a Brainfuck program, with the remaining
-# arguments as input.
+# Afvikl første argument som et Brainfuck-program, med de resterende
+# argumenter som inddata.
 
 if [ $# -lt 1 ]; then
     echo "Brug: bf <program>"
