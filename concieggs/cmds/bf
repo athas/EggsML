@@ -9,4 +9,4 @@ else
     prog="$1"
     shift
 fi
-echo "$prog" | $EGGS_LIB_DIR/eggsbf "$*"
+echo "$prog" | $EGGS_LIB_DIR/eggsbf "$*" | cat -v
