@@ -39,7 +39,7 @@ int main(int argc, char** argv) {
         if (eggsecuted >= max_instructions) {
             printf("Program eggsecution halted: %d instruction limit eggceeded.",
                    max_instructions);
-            return 0;
+            goto stop;
         }
         switch(code[codep]) {
         case '+':
@@ -58,7 +58,7 @@ int main(int argc, char** argv) {
             if (outputted++ >= max_output) {
                 printf("Program eggsecution halted: %d output limit eggceeded.",
                        max_output);
-                return 0;
+                goto stop;
             }
             putchar(data[datap]);
             break;
@@ -91,4 +91,7 @@ int main(int argc, char** argv) {
             break;
         }
     }
+ stop:
+    puts("\n");
+    return 0;
 }
