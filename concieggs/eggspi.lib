@@ -4,6 +4,8 @@ randomise() {
     sort -R --random-source=/dev/urandom
 }
 
+export -f randomise
+
 docstring() {
     awk 'BEGIN{indoc=1}\
 /^#!/{next}\
