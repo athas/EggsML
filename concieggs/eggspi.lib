@@ -205,6 +205,12 @@ listEggsers() {
 
 export -f listEggsers
 
+countEggsers() {
+    listEggsers $1 | wc -l | sed 's/ *//'
+}
+
+export -f countEggsers
+
 describeEggs() {
     listEggsers $1 | enumerate
 }

@@ -6,7 +6,7 @@ source $CONCIEGGS_DIR/eggspi.lib
 next=$(nextEggs)
 if [ "$next" != "" ]; then
     nextEggs | while read eggs; do
-        echo "Der er Eggs $(timeToDate $eggs), med $(describeEggs $eggs) tilmeldt."
+        echo "Der er $(countEggsers $eggs) tilmeldt til Eggs $(timeToDate $eggs): $(describeEggs $eggs)."
     done
 else
     echo "Ingen har tilmeldt sig eggs!"
