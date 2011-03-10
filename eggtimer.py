@@ -8,25 +8,19 @@ import logging
 from eggslib.eggsml import eggsml
 from sets import Set
 logging.basicConfig(level=logging.DEBUG)
- 
+
+import simplejson as json
+
 from pyjabberbot import PersistentJabberBot,botcmd
 
-JID2EGG =     {'frej@jabber.dk' : 'frej'
-              ,'athas@jabber.dk' : 'troels'
-              ,'anders.bll@gmail.com' : 'abll'
-              ,'live4adrenalin@gmail.com' : 'henne'
-              ,'jesper.reenberg@gmail.com' : 'reenberg'
-              ,'michael.blackplague.andersen@gmail.com' :'bp'
-              ,'dybber@dybber.dk' : 'dybber'
-              }
 
 import datetime,os
 import subprocess,shlex
 import fileinput
 
 FILE = 'slashdotfrokost'
-REMOTE = "git@github.com:frejsoya/EggsML.git"
-BRANCH = "eggtimer" 
+REMOTE = "git@github.com:Athas/EggsML.git"
+BRANCH = "master" 
 #We could do git checkout file on error
 def commit(eggsers):
   '''  
@@ -50,10 +44,23 @@ def commit(eggsers):
   subprocess.call(gitcommit)
   gitpush  = ['git','push',REMOTE,BRANCH] 
   subprocess.call(gitpush)
-  #execute "sed ::måltidsdata::\nmåltid slashdotfrokost"
-  #execute git commit slashdotfrokost "eggtimer update" 
- 
 
+GITPULL = ['git','pull',REMOTE,BRANCH]
+def git_update():
+  ''' '''
+  out = check_output(gitpull)
+
+def git_commit_and_push(file):
+  ''' Commit and push a file'''
+  gitcommit = ['git','commit',file,'-m',"Commit by eggtimer"]
+  commitout = check_output(gitcommit)
+  
+  gitpush  = ['git','push',REMOTE,BRANCH] 
+  pushout  = check_output(gitpush)
+  return (commitout,pushout)
+
+
+  
 ###conciegs emu####
 
 #from py2.7/py3.1
@@ -73,17 +80,50 @@ def check_output(*popenargs, **kwargs):
 
 DIR = os.path.join(os.getcwd(),'concieggs')
 CMDDIR  = os.path.join(DIR,'cmds')
+DBDIR  = os.path.join(DIR,'db')
 ENV = {'CONCIEGGS_DIR' : DIR 
-      ,'CONCIEGGS_DB_DIR' : os.path.join(DIR,'db')
+      ,'CONCIEGGS_DB_DIR' : DBDIR
       ,'EGGS_DIR'         : os.path.join(DIR,'..')
-      ,'EGGS_LIB_DIR'     : os .path.join(DIR,'..','eggslib')
+      ,'EGGS_LIB_DIR'     : os.path.join(DIR,'..','eggslib')
       }
 
 import re
 #concieggs emu
   
   
-    
+### jid map handlers ###
+JIDDB = os.path.join(DBDIR,'jid2egg')
+
+def rm_jid(jid):
+  val = None
+  with open(JIDDB,'r') as f:
+    d = json.load(f)
+    val = d.pop(jid,None)
+
+  with open(JIDDB,'w+') as f:
+    json.dump(d,f,indent="")
+  return val 
+
+def add_jid(jid,eggname):
+  """docstring for add_jid"""
+  d = {} 
+  with open(JIDDB,'r') as f:
+    d = json.load(f)
+    d[jid] = eggname
+
+  with open(JIDDB,'w+') as f:
+    json.dump(d,f,indent="")
+
+def jid_whois(jid):
+  with open(JIDDB,'r') as f:
+    d = json.load(f)
+    return d.get(jid,None)
+
+def add_nick(user):
+  """docstring for add_nick"""
+  pass
+
+   
   
 class EggTimer(PersistentJabberBot):
   """docstring for EggTimer"""
@@ -129,14 +169,14 @@ class EggTimer(PersistentJabberBot):
 #        return "I have an issue with unicode"
       except TypeError, e:
         self.log.debug("TYPEERROR %s" % e)
-        return
+        return "python fails"
       
     return "not a command"  
 
   def _get_eggname(self,nick):
     '''returns a string with eggname'''
     privjid = self.fulljids[nick]
-    eggname = JID2EGG.get(privjid)
+    eggname = jid_whois(privjid)
     return eggname
 
    
@@ -194,11 +234,42 @@ class EggTimer(PersistentJabberBot):
   @botcmd(name="!eggsdone")
   def clear(self, msg, args):
     """docstring for reset"""
-    s = "eggs that ate eggs [%s] (https://github.com/frejsoya/EggsML/blob/eggtimer/slashdotfrokost)" % self.lunch
+    s = "eggs that ate eggs %s" % ([egg for egg in self.lunch])
     commit(self.lunch)
     self.lunch.clear()
     return s
 
+  @botcmd(name="!whoami")
+  def whoami(self,msg,args):
+    """docstring for whoami"""
+    nick = msg.getFrom().getResource()
+    privjid = self.fulljids[nick]
+
+    eggname = jid_whois(privjid)
+    if eggname:
+      return "Hi! %s (%s)" % (eggname,privjid) 
+    else:
+      return "not an egg %s? (!eggname %s)" % (privjid,EggTimer.eggjid.__doc__) 
+
+  @botcmd(name="!eggname")
+  def eggjid(self,msg,args):
+    """nick [jid]"""
+    #FIXME check if nick exists
+    m = re.match("(\w+)(\s(.+@.+))?",args,re.U)
+    if m:
+      (eggname,privjid,privjid2) = m.groups()
+      print "MATCHED", m.groups()
+#      self.log.debug("MATHCED %s" % ",".join(m.groups()))
+      if privjid==None:
+        nick = msg.getFrom().getResource()
+        privjid = self.fulljids.get(nick)
+      if privjid: 
+        add_jid(privjid,eggname)
+      return "Hi! %s (%s) (%s)" % (eggname,privjid,privjid2) 
+    else:
+      return EggTimer.eggjid.__doc__
+
+  
   @botcmd(name="!jids")
   def jids(self,msg,args):
     """docstring for jids2"""
@@ -234,7 +305,7 @@ class EggTimer(PersistentJabberBot):
     #Create mapping for group chat resource to private jid
     nick =  pre.getFrom().getResource()
     privjid =  pre.getJid() #presence>x>item#jid
-   
+    print  "TYPE",privjid
     #update nick->jid
     if privjid:
       priv,_ = privjid.split("/")
