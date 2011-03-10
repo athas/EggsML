@@ -22,7 +22,7 @@ umask 002
 
 awk_getcmd='/[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2} <[A-Za-z0-9_]*> '$irc_username': / { print $5; }'
 awk_getuser='{ print substr($3, 2, length($3)-2); }'
-awk_getline='{ print substr($0, index($0, ": "$5)+length($5)+3, length($0)) }'
+awk_getargs='{ print substr($0, index($0, " "$5)+length($5)+2, length($0)) }'
 
 broke() {
     echo "Kommandoen fejlede!  Prøv at spørge mig om 'udu'."
@@ -35,7 +35,7 @@ tail -f -n 0 out | while read line; do
     if [ "$rawcmd" ]; then
         cmd=$(basename $rawcmd)
         export EGGS_USER=$(echo "$line"|awk --posix "$awk_getuser"|sed 's/_$//')
-        export EGGS_ARGS=$(echo "$line"|awk --posix "$awk_getline")
+        export EGGS_ARGS=$(echo "$line"|awk --posix "$awk_getargs")
         export EGGS_LINE=$line
         if [ "$cmd" -a "$EGGS_USER" != "$irc_username" ]; then
             if [ -x "$cmddir/$cmd" -a -f "$cmddir/$cmd" ]; then

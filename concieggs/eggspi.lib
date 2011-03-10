@@ -1,5 +1,11 @@
 # Shell script function definitions
 
+randomise() {
+    sort -R --random-source=/dev/urandom
+}
+
+export -f randomise
+
 docstring() {
     awk 'BEGIN{indoc=1}\
 /^#!/{next}\
@@ -44,7 +50,7 @@ primaryName() {
 export -f primaryName
 
 randomName() {
-    aliases "$1" | sort -R --random-source=/dev/urandom | head -n 1
+    aliases "$1" | randomise | head -n 1
 }
 
 export -f randomName
@@ -95,7 +101,7 @@ export -f timeToFullDate
 timeToDate() {
     thatday=$(dateSecs $1 '+%u')
     today=$(dateSecs $(nowTime) '+%u')
-    if [ $1 -lt $(nowTime) ]; then
+    if [ $1 -le "$(expr $(nowTime) - 3600 '*' 24 '*' 7 )" ]; then
         timeToFullDate $1
     elif [ $1 -ge "$(expr $(nowTime) + 3600 '*' 24 '*' 7 )" ]; then
         timeToFullDate $1
@@ -205,8 +211,14 @@ listEggsers() {
 
 export -f listEggsers
 
+countEggsers() {
+    listEggsers $1 | wc -l | sed 's/ *//'
+}
+
+export -f countEggsers
+
 describeEggs() {
-    listEggsers $1 | enumerate
+    listEggsers $1 | randomise | enumerate
 }
 
 export -f describeEggs
