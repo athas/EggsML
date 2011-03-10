@@ -257,15 +257,15 @@ class EggTimer(PersistentJabberBot):
     #FIXME check if nick exists
     m = re.match("(\w+)(\s(.+@.+))?",args,re.U)
     if m:
-      (eggname,privjid,_) = m.groups()
+      (eggname,privjid,privjid2) = m.groups()
       print "MATCHED", m.groups()
 #      self.log.debug("MATHCED %s" % ",".join(m.groups()))
       if privjid==None:
         nick = msg.getFrom().getResource()
-        privjid = self.fulljids[nick]
-       
-      add_jid(privjid,eggname)
-      return "Hi! %s (%s)" % (eggname,privjid) 
+        privjid = self.fulljids.get(nick)
+      if privjid: 
+        add_jid(privjid,eggname)
+      return "Hi! %s (%s) (%s)" % (eggname,privjid,privjid2) 
     else:
       return EggTimer.eggjid.__doc__
 
