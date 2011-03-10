@@ -34,7 +34,7 @@ tail -f -n 0 out | while read line; do
     rawcmd=$(echo "$line"|awk --posix "$awk_getcmd")
     if [ "$rawcmd" ]; then
         cmd=$(basename $rawcmd)
-        export EGGS_USER=$(echo "$line"|awk --posix "$awk_getuser"|sed 's/_$//')
+        export EGGS_USER=$(echo "$line"|awk --posix "$awk_getuser"|sed 's/_*$//')
         export EGGS_ARGS=$(echo "$line"|awk --posix "$awk_getargs")
         export EGGS_LINE=$line
         if [ "$cmd" -a "$EGGS_USER" != "$irc_username" ]; then
