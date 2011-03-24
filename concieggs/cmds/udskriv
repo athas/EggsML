@@ -2,13 +2,14 @@
 #
 # Udskriv indkøbslisten i grimt format på s2a.
 
-wishes=$($EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost wishes \
-    | sort \
-    | uniq -c \
-    | sed -e 's/ *1 //' -e 's/ *//')
+wishes=$($EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost wishes)
 
 if [ "$wishes" ]; then
-    echo $wishes | ssh athas@brok.diku.dk 'lpr -Ps2a'
+    $EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost wishes \
+    | sort \
+    | uniq -c \
+    | sed -e 's/ *1 //' -e 's/ *//' -e 's/^/* /' \
+    | ssh athas@brok.diku.dk 'lpr -Ps2a'
     echo "Udskriver på s2a!"
 else
     echo "Nægter at udskrive: Der er ingen indkøbsønsker!"
