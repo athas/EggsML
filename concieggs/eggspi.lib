@@ -232,9 +232,9 @@ formatEggs() {
 export -f formatEggs
 
 gitRefresh() {
-    ret=$(GET http://eggsml.dk/update.py | grep "Return value: " | sed 's/Return value: //')
+    ret=$(GET http://eggsml.dk/update.aspeggs | grep "Return value: " | sed 's/Return value: //')
     if [ "$ret" != "0" ]; then
-        echo "http://eggsml.dk/update.py meldte fejl!"
+        echo "http://eggsml.dk/update.aspeggs meldte fejl!"
         return 1
     else
         return 0
