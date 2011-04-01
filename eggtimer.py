@@ -51,14 +51,14 @@ def git_fetch():
   ''' '''
   try:
       return check_output(GITFETCH)
-  except subprocess.CalledProcessError,e:
+  except CalledProcessError,e:
       return "Kommando fejlede, returkode [%s]\n%s" % (e.returncode,e.output)
 
 def git_merge():
   ''' '''
   try:
       return check_output(GITMERGE,stderr=subprocess.STDOUT)
-  except subprocess.CalledProcessError,e:
+  except CalledProcessError,e:
       return "Kommando fejlede, returkode [%s]\n%s" % (e.returncode,e.output)
 
 
