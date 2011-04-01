@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #-*- encoding: utf-8 -*-
 
-#I'm not in shell, i'm such a happy bot
+#I'm not in shell, i'm such a happy bot, really!
 
 import sys
 import logging
