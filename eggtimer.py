@@ -77,6 +77,19 @@ def git_commit_and_push(file):
 ###conciegs emu####
 
 #from py2.7/py3.1
+class CalledProcessError(Exception):
+  """This exception is raised when a process run by check_call() or
+  check_output() returns a non-zero exit status.
+  The exit status will be stored in the returncode attribute;
+  check_output() will also store the output in the output attribute.
+  """
+  def __init__(self, returncode, cmd, output=None):
+     self.returncode = returncode
+     self.cmd = cmd
+     self.output = output
+     def __str__(self):
+       return "Command '%s' returned non-zero exit status %d" % (self.cmd, self.returncode)
+
 def check_output(*popenargs, **kwargs):
     if 'stdout' in kwargs:
         raise ValueError('stdout argument not allowed, it will be overridden.')
@@ -88,7 +101,7 @@ def check_output(*popenargs, **kwargs):
         cmd = kwargs.get("args")
         if cmd is None:
             cmd = popenargs[0]
-        raise subprocess.CalledProcessError(retcode, cmd, output=output)
+        raise CalledProcessError(retcode, cmd, output=output)
     return output
 
 
@@ -174,7 +187,7 @@ class EggTimer(PersistentJabberBot):
         return out
       except OSError:
         return "%s: Du bad mig om [%s], men den kommando har jeg ikke!" % (user,cmd)
-      except subprocess.CalledProcessError,e:
+      except CalledProcessError,e:
         print e.returncode
         return "Kommandoen fejlede [%s]!  Prøv at spørge mig om 'udu'." % (e.returncode)
 #      except UnicodeEncodeError, e:

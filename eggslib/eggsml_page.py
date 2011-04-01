@@ -82,7 +82,7 @@ class eggsml_page:
 		l += '</tbody></table>\n'
 		alumne += '</tbody></table>\n'
 		l += '<h3>Gennemsnitlig måltidspris: %s</h3>\n' % self.currency(self.e.get_average_price())
-#		l += '<div id="graph"><embed src="./graph.py" width="650" height="50" type="image/svg+xml" pluginspage="http://getfirefox.com" /></div>\n'
+#		l += '<div id="graph"><embed src="./graph.aspeggs" width="650" height="50" type="image/svg+xml" pluginspage="http://getfirefox.com" /></div>\n'
 		url = self.constructChartURL();
 		graf = '<div id="graph"><img src="' + url + '" alt="Måltidsgraf" title=""/></div>\n'
 		return l + graf + alumne
@@ -130,7 +130,7 @@ class eggsml_page:
 	
 	def index(self):
 		o = '<h1>EggsML</h1>'
-		o += '<a href="./graph_timeline.py">Se graf over deltagelse til Eggs</a>.'
+		o += '<a href="./graph_timeline.aspeggs">Se graf over deltagelse til Eggs</a>.'
 		o += self.aliases()
 		o += self.balances()
 		o += self.wishes()
