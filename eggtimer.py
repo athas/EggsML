@@ -45,7 +45,7 @@ def commit(eggsers):
   subprocess.call(gitpush)
 
 GITFETCH =['git','fetch',REMOTE]
-GITMERGE = ['git','merge','origin',BRANCH]
+GITMERGE = ['git','merge','origin/master']
   
 def git_fetch():
   ''' '''
