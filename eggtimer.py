@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #-*- encoding: utf-8 -*-
-
+from __future__ import with_statement
 #I'm not in shell, i'm such a happy bot, really!
 
 import sys
