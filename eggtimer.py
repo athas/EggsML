@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #-*- encoding: utf-8 -*-
 
-#I'm not in shell, i'm such a happy bot
+#I'm not in shell, i'm such a happy bot, really!
 
 import sys
 import logging
@@ -12,7 +12,6 @@ logging.basicConfig(level=logging.DEBUG)
 import simplejson as json
 
 from pyjabberbot import PersistentJabberBot,botcmd
-
 
 import datetime,os
 import subprocess,shlex
@@ -45,10 +44,24 @@ def commit(eggsers):
   gitpush  = ['git','push',REMOTE,BRANCH] 
   subprocess.call(gitpush)
 
-GITPULL = ['git','pull',REMOTE,BRANCH]
-def git_update():
+GITFETCH =['git','fetch',REMOTE]
+GITMERGE = ['git','merge','origin',BRANCH]
+  
+def git_fetch():
   ''' '''
-  out = check_output(gitpull)
+  try:
+      return check_output(GITFETCH)
+  except subprocess.CalledProcessError,e:
+      return "Kommando fejlede, returkode [%s]\n%s" % (e.returncode,e.output)
+
+def git_merge():
+  ''' '''
+  try:
+      return check_output(GITMERGE,stderr=subprocess.STDOUT)
+  except subprocess.CalledProcessError,e:
+      return "Kommando fejlede, returkode [%s]\n%s" % (e.returncode,e.output)
+
+
 
 def git_commit_and_push(file):
   ''' Commit and push a file'''
@@ -69,6 +82,7 @@ def check_output(*popenargs, **kwargs):
         raise ValueError('stdout argument not allowed, it will be overridden.')
     process = subprocess.Popen(stdout=subprocess.PIPE, *popenargs, **kwargs)
     output, unused_err = process.communicate()
+    print "UUSED_ERROR",unused_err
     retcode = process.poll()
     if retcode:
         cmd = kwargs.get("args")
@@ -189,6 +203,14 @@ class EggTimer(PersistentJabberBot):
         self.lunch.add(eggname)
         alias =  self.eggsml.get_alias_rand(eggname)
         return ("Pay for eggs you will %s" % (alias))
+
+  @botcmd(name="!fetch")
+  def fetch(self,msg,args):
+    return git_fetch() 
+  
+  @botcmd(name="!merge")
+  def merge(self,msg,args):
+    return git_merge()
 
   @botcmd(name="!est")
   def add_guest(self,msg,args):
@@ -330,7 +352,7 @@ def main():
   bot = EggTimer(sys.argv[1],sys.argv[2],res=resource)
 
   bot.debug_heartbeat = False
-  bot.syn_interval = 5
+  bot.syn_interval = 30
 
   room = sys.argv[3]
   
