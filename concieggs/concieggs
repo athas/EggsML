@@ -33,7 +33,7 @@ export LC_ALL=da_DK.UTF-8
 tail -f -n 0 out | while read line; do
     rawcmd=$(echo "$line"|awk --posix "$awk_getcmd")
     if [ "$rawcmd" ]; then
-        cmd=$(basename -- $rawcmd)
+        cmd=$(basename -- "$rawcmd")
         export EGGS_USER=$(echo "$line"|awk --posix "$awk_getuser"|sed 's/_*$//')
         export EGGS_ARGS=$(echo "$line"|awk --posix "$awk_getargs")
         export EGGS_LINE=$line
