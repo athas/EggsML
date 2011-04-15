@@ -55,6 +55,12 @@ randomName() {
 
 export -f randomName
 
+cmpNames() {
+    [ $(aliases "$1") = $(aliases "$2") ]
+}
+
+export -f cmpNames
+
 dateToTime() {
     now=$(nowTime)
     if (echo "$1" | grep "^-" > /dev/null); then
@@ -155,6 +161,7 @@ extractUsername() {
 
 addToEggs() {
     echo $2 >> $CONCIEGGS_DB_DIR/eggs/$1
+    echo $2 $(nowTime) >> $CONCIEGGS_DB_DIR/eggsactly
 }
 
 export -f addToEggs
@@ -258,5 +265,13 @@ gitRepair() {
 export -f gitRepair
 
 parted() {
-    echo "$1 skred!"
+    name=$1
+    aliases "$name" | while read alias; do
+        fgrep -w "$name" $CONCIEGGS_DB_DIR/eggsactly\
+        | rev | cut -d ' ' -f 1 | rev | while read time; do
+            if [ "$(expr $(nowTime) - $time < 5 '*' 60)" ]; then
+                echo "$alias har begået en Reenberg!"
+            fi
+        done
+    done
 }
