@@ -12,15 +12,17 @@ export CONCIEGGS_DB_DIR=$dir/db
 export EGGS_DIR=$dir/..
 export EGGS_LIB_DIR=$EGGS_DIR/eggslib
 
-echo "Using channel in $irc_dir/localhost/&eggs"
-cd $irc_dir/localhost/'&eggs'
+echo "Using channel in $irc_dir/localhost/$irc_channel"
+cd $irc_dir/localhost/$irc_channel
 
 # Let all eggsml users touch our stuff.
 umask 002
 
 # Right on - read commands and be merry.
 
-awk_getcmd='/[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2} <[A-Za-z0-9_]*> '$irc_username': / { print $5; }'
+dateregex='[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}'
+awk_checkpart='/'$dateregex' -!- .* has left '$irc_channel'$/ { print substr($4, 0, index($4, "(")-1)}'
+awk_getcmd='/'$dateregex' <[A-Za-z0-9_]*> '$irc_username': / { print $5; }'
 awk_getuser='{ print substr($3, 2, length($3)-2); }'
 awk_getargs='{ print substr($0, index($0, " "$5)+length($5)+2, length($0)) }'
 
@@ -46,5 +48,9 @@ tail -f -n 0 out | while read line; do
                 echo "$EGGS_USER: Du bad mig om $cmd, men den kommando har jeg ikke!"
             fi
         fi
+    fi
+    part=$(echo "$line"|awk --posix "$awk_checkpart")
+    if [ "$part" ]; then
+        parted "$part"
     fi
 done > in
