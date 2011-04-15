@@ -49,7 +49,7 @@ tail -f -n 0 out | while read line; do
             fi
         fi
     fi
-    part=$(echo "$line"|awk --posix "$awk_checkpart")
+    part=$(echo "$line"|awk --posix "$awk_checkpart"|sed 's/_*$//')
     if [ "$part" ]; then
         parted "$part"
     fi
