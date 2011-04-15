@@ -275,3 +275,5 @@ parted() {
         done
     done
 }
+
+export -f parted
