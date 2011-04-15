@@ -267,7 +267,7 @@ export -f gitRepair
 parted() {
     name=$1
     aliases "$name" | while read alias; do
-        fgrep -w "$name" $CONCIEGGS_DB_DIR/eggsactly\
+        fgrep -w "$alias" $CONCIEGGS_DB_DIR/eggsactly\
         | rev | cut -d ' ' -f 1 | rev | while read time; do
             if [ "$(expr $(nowTime) - $time '<' 5 '*' 60)" ]; then
                 echo "$alias har begået en Reenberg!"
