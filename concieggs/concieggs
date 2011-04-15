@@ -33,6 +33,7 @@ broke() {
 export LC_ALL=da_DK.UTF-8
 
 tail -f -n 0 out | while read line; do
+    source $CONCIEGGS_DIR/eggspi.lib
     rawcmd=$(echo "$line"|awk --posix "$awk_getcmd")
     if [ "$rawcmd" ]; then
         cmd=$(basename -- "$rawcmd")
@@ -41,7 +42,6 @@ tail -f -n 0 out | while read line; do
         export EGGS_LINE=$line
         if [ "$cmd" -a "$EGGS_USER" != "$irc_username" ]; then
             if [ -x "$cmddir/$cmd" -a -f "$cmddir/$cmd" ]; then
-                source $CONCIEGGS_DIR/eggspi.lib
                 $cmddir/$cmd $EGGS_ARGS || broke
                 /eggsml/fixperms
             else
