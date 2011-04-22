@@ -2,4 +2,4 @@
 #
 # Uddel et enkelt kvantum af den opsamlede visdom.
 
-cat $CONCIEGGS_DB_DIR/fakta | grep ".*$1" | sort -R | head -n 1
+cat $CONCIEGGS_DB_DIR/fakta | grep -i ".*$1" | sort -R | head -n 1
