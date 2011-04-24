@@ -46,7 +46,7 @@ cmpNames() {
 }
 
 dateToTime() {
-    now=$(nowTime)
+    now="$(nowTime)"
     if (echo "$1" | grep "^-" > /dev/null); then
         then=$(date -d "$(echo $1|sed s/^-//)" '+%s')
         if [ "$then" ]; then
@@ -87,11 +87,11 @@ timeToDate() {
         timeToFullDate $1
     elif [ $1 -ge "$(expr $(nowTime) + 3600 '*' 24 '*' 7 )" ]; then
         timeToFullDate $1
-    elif [ "$thatday" == "$today" ]; then
+    elif [ "$thatday" = "$today" ]; then
         dateSecs $1 '+i dag klokken %R'
-    elif [ "$thatday" == "$(expr $today - 1)" -o "(" "$today" == 1 -a "$thatday" == 7 ")" ]; then
+    elif [ "$thatday" = "$(expr $today - 1)" -o "(" "$today" = 1 -a "$thatday" = 7 ")" ]; then
         dateSecs $1 '+i går klokken %R'
-    elif [ "$thatday" == "$(expr $today + 1)" -o "(" "$today" == 7 -a "$thatday" == 1 ")" ]; then
+    elif [ "$thatday" = "$(expr $today + 1)" -o "(" "$today" = 7 -a "$thatday" = 1 ")" ]; then
         dateSecs $1 '+i morgen klokken %R'
     else
         dateSecs $1 '+på %A klokken %R'
@@ -121,7 +121,7 @@ extractDate() {
 
 extractUsername() {
     while [ $# -ge 1 ]; do
-        name=$(randomName $1)
+        name="$(randomName $1)"
         if [ "$name" ]; then
             echo $name
             return 0
@@ -138,7 +138,7 @@ addToEggs() {
 
 isInEggs() { # Cannot trust return value due to subshell.
     time=$1
-    name=$2
+    name="$2"
     if [ -s "$CONCIEGGS_DB_DIR/eggs/$time" ]; then
         aliases "$name" | while read alias; do
             if fgrep -x "$alias" $CONCIEGGS_DB_DIR/eggs/$time; then
@@ -151,7 +151,7 @@ isInEggs() { # Cannot trust return value due to subshell.
 
 rmFromEggs() {
     time=$1
-    export TRAITOR=$2
+    export TRAITOR="$2"
     tmpfile=$(mktemp)
     cat $CONCIEGGS_DB_DIR/eggs/$time \
         | awk '$1!=ENVIRON["TRAITOR"]' > $tmpfile
@@ -163,12 +163,12 @@ rmFromEggs() {
 }
 
 nextEggs() {
-    export TIME=$(nowTime)
+    export TIME="$(nowTime)"
     ls $CONCIEGGS_DB_DIR/eggs | awk '$1>=ENVIRON["TIME"]'
 }
 
 prevEggs() {
-    export TIME=$(nowTime)
+    export TIME="$(nowTime)"
     ls $CONCIEGGS_DB_DIR/eggs | awk '$1<ENVIRON["TIME"]'
 }
 
