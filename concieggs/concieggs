@@ -4,7 +4,7 @@ set -e
 
 dir=$(dirname $0)
 cfg=$dir/concieggs.conf
-source $cfg
+. $cfg
 cmddir=$dir/cmds/
 
 export CONCIEGGS_DIR=$dir
@@ -33,7 +33,7 @@ broke() {
 export LC_ALL=da_DK.UTF-8
 
 tail -f -n 0 out | while read line; do
-    source $CONCIEGGS_DIR/eggspi.lib
+    . $CONCIEGGS_DIR/eggspi.lib
     rawcmd=$(echo "$line"|awk --posix "$awk_getcmd")
     if [ "$rawcmd" ]; then
         cmd=$(basename -- "$rawcmd")
