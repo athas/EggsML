@@ -1,7 +1,6 @@
 #!/bin/sh
 #
 # Udskriv alle kommende Eggs med tilmeldte deltagere.
-source $CONCIEGGS_DIR/eggspi.lib
 
 next=$(nextEggs)
 if [ "$next" != "" ]; then

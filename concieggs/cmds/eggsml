@@ -6,8 +6,6 @@
 # med en bindestreg.  Således kan du derfor kun melde dig til spisning
 # i dag eller i morgen.
 
-source $CONCIEGGS_DIR/eggspi.lib
-
 subscribeToEggs() {
     time=$1
     name=$2

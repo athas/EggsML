@@ -1,7 +1,6 @@
 #!/bin/sh
 #
 # Udskriv alle overståede Eggs der endnu ikke er blevet bogført.
-source $CONCIEGGS_DIR/eggspi.lib
 
 prev=$(prevEggs)
 if [ "$prev" != "" ]; then

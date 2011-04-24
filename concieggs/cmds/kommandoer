@@ -1,5 +1,4 @@
 #!/bin/sh
-source $CONCIEGGS_DIR/eggspi.lib
 
 if [ "$1" = "xeyes" ]; then
     DISPLAY=:0 xeyes
