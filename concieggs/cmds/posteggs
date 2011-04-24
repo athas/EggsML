@@ -4,6 +4,8 @@
 # frokostdatabasen og skubbe den til Github.  Hvis der er konflikter
 # skal disse ordnes manuelt (øv!).
 
+. $CONCIEGGS_DIR/eggspi.lib
+
 lastEggs=$(prevEggs | head -n 1)
 
 if [ ! "$lastEggs" ]; then

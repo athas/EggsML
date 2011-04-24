@@ -3,6 +3,8 @@
 # Få dokumentation til en given kommando (såfremt den dovne slubbert
 # der har skrevet kommandoen har husket at dokumentere den).
 
+. $CONCIEGGS_DIR/eggspi.lib
+
 if [ $# -lt 1 ]; then
     echo "Brug: hjælp <kommando>"
 elif [ -f "$CONCIEGGS_DIR/cmds/$1" ]; then

@@ -2,6 +2,8 @@
 #
 # Udskriv en liste over de nuværende indkøbsønsker
 
+. $CONCIEGGS_DIR/eggspi.lib
+
 wishes=$($EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost wishes \
     | sort \
     | uniq -c \

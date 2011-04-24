@@ -2,6 +2,8 @@
 #
 # Udskriv indkøbslisten i grimt format på s2a.
 
+. $CONCIEGGS_DIR/eggspi.lib
+
 wishes=$($EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost wishes)
 
 if [ "$wishes" ]; then

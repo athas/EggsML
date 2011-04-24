@@ -4,7 +4,9 @@
 # klokkeslet.  Tidspunktet kan aldrig være mere end 24 timer fremme
 # eller tilbage.  Tidspunkter i fortiden angives ved at præfikse dem
 # med en bindestreg.  Således kan du derfor kun melde dig til spisning
-# i dag eller i morgen.
+# i dag, i morgen eller i går.
+
+. $CONCIEGGS_DIR/eggspi.lib
 
 subscribeToEggs() {
     time=$1

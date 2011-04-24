@@ -2,6 +2,8 @@
 #
 # Udskriv alle kommende Eggs med tilmeldte deltagere.
 
+. $CONCIEGGS_DIR/eggspi.lib
+
 next=$(nextEggs)
 if [ "$next" != "" ]; then
     nextEggs | while read eggs; do

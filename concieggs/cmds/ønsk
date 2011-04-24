@@ -2,6 +2,8 @@
 #
 # Tilføj til listen over indkøbsønsker.
 
+. $CONCIEGGS_DIR/eggspi.lib
+
 if [ $# -lt 1 ]; then
     echo "Brug: ønsk ønske..."
 else
