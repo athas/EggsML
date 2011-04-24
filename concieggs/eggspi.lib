@@ -4,8 +4,6 @@ randomise() {
     sort -R --random-source=/dev/urandom
 }
 
-export -f randomise
-
 docstring() {
     awk 'BEGIN{indoc=1}\
 /^#!/{next}\
@@ -15,8 +13,6 @@ indoc{out = out substr($0, 3, length($0)) " "}\
 END{print out}'
 }
 
-export -f docstring
-
 commasize() {
     awk '{if (out && last) { out = out ", " last; last = $0 }\
 else if (out) { last = $0 }\
@@ -24,8 +20,6 @@ else { out = $0 } }\
 END{ if (last) { if (out) { out = out ", " last } else { out = last } };\
 print out }'
 }
-
-export -f commasize
 
 enumerate() {
     awk '{if (out && last) { out = out ", " last; last = $0 }\
@@ -35,31 +29,21 @@ END{ if (last) { if (out) { out = out " og " last } else { out = last } };\
 print out }'
 }
 
-export -f enumerate
-
 aliases() {
     $EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost aliases "$1"
 }
-
-export -f aliases
 
 primaryName() {
     aliases "$1" | head -n 1
 }
 
-export -f primaryName
-
 randomName() {
     aliases "$1" | randomise | head -n 1
 }
 
-export -f randomName
-
 cmpNames() {
     [ $(aliases "$1") = $(aliases "$2") ]
 }
-
-export -f cmpNames
 
 dateToTime() {
     now=$(nowTime)
@@ -84,25 +68,17 @@ dateToTime() {
     fi
 }
 
-export -f dateToTime
-
 nowTime() {
     date '+%s'
 }
-
-export -f nowTime
 
 dateSecs() {
     date -d "1970-01-01 UTC $1 seconds" "$2"
 }
 
-export -f dateSecs
-
 timeToFullDate() {
     dateSecs $1 '+%D klokken %R'
 }
-
-export -f timeToFullDate
 
 timeToDate() {
     thatday=$(dateSecs $1 '+%u')
@@ -122,8 +98,6 @@ timeToDate() {
     fi
 }
 
-export -f timeToDate
-
 checkNextEggs() {
     time=$(nextEggs | head -n 1)
     if [ ! "$time" ]; then
@@ -132,8 +106,6 @@ checkNextEggs() {
         echo $time
     fi
 }
-
-export -f checkNextEggs
 
 extractDate() {
     while [ $# -ge 1 ]; do
@@ -164,8 +136,6 @@ addToEggs() {
     echo $2 $(nowTime) >> $CONCIEGGS_DB_DIR/eggsactly
 }
 
-export -f addToEggs
-
 isInEggs() { # Cannot trust return value due to subshell.
     time=$1
     name=$2
@@ -178,8 +148,6 @@ isInEggs() { # Cannot trust return value due to subshell.
     fi
     return 1
 }
-
-export -f isInEggs
 
 rmFromEggs() {
     time=$1
@@ -194,21 +162,15 @@ rmFromEggs() {
     fi
 }
 
-export -f rmFromEggs
-
 nextEggs() {
     export TIME=$(nowTime)
     ls $CONCIEGGS_DB_DIR/eggs | awk '$1>=ENVIRON["TIME"]'
 }
 
-export -f nextEggs
-
 prevEggs() {
     export TIME=$(nowTime)
     ls $CONCIEGGS_DB_DIR/eggs | awk '$1<ENVIRON["TIME"]'
 }
-
-export -f prevEggs
 
 listEggsers() {
     cat $CONCIEGGS_DB_DIR/eggs/$1 | while read who; do
@@ -216,27 +178,19 @@ listEggsers() {
     done
 }
 
-export -f listEggsers
-
 countEggsers() {
     listEggsers $1 | wc -l | sed 's/ *//'
 }
 
-export -f countEggsers
-
 describeEggs() {
     listEggsers $1 | randomise | enumerate
 }
-
-export -f describeEggs
 
 formatEggs() {
     date=$(dateSecs $1 '+%Y-%m-%d')
     participants=$(listEggsers $1 | commasize)
     echo "$date, $participants"
 }
-
-export -f formatEggs
 
 gitRefresh() {
     ret=$(GET http://eggsml.dk/update.aspeggs | grep "Return value: " | sed 's/Return value: //')
@@ -248,21 +202,15 @@ gitRefresh() {
     fi    
 }
 
-export -f gitRefresh
-
 tryGitChange() {
     msg=$1
     shift
     (git add "$@" && git commit -m "$(randomName $EGGS_USER): $msg" && git push git@github.com:Athas/EggsML.git) > /dev/null
 }
 
-export -f tryGitChange
-
 gitRepair() {
     (git reset HEAD "$@" && git checkout "$@") > /dev/null
 }
-
-export -f gitRepair
 
 parted() {
     name=$1
@@ -275,5 +223,3 @@ parted() {
         done
     done
 }
-
-export -f parted
