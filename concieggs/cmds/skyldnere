@@ -1,5 +1,8 @@
 #!/bin/sh
+#
 # Bring offentlig skam til de som nasser på deres logebrødre!
+
+. $CONCIEGGS_DIR/eggspi.lib
 
 debtors () {
     $EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost balances \
