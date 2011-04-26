@@ -199,7 +199,7 @@ gitRefresh() {
         return 1
     else
         return 0
-    fi    
+    fi
 }
 
 tryGitChange() {
@@ -222,4 +222,14 @@ parted() {
             fi
         done
     done
+}
+
+debtors () {
+    $EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost balances \
+        | sort -n | head -n 5 | awk '$1 < 0 { print $0, -1*$1 "kr" }' \
+        | cut -d' ' -f 2- | commasize
+}
+
+setTopic () {
+    echo /t "Følgende misdædere er de største skyldnere til den ærede frokostloge: $(debtors)."
 }

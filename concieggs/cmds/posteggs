@@ -23,6 +23,7 @@ w
 EOF
         if tryGitChange woop slashdotfrokost; then
             echo "Succes!  Eggs $(timeToDate $lastEggs), med $(describeEggs $lastEggs) er nu bogført".
+            setTopic
             rm $CONCIEGGS_DB_DIR/eggs/$lastEggs
         else
             gitRepair slashdotfrokost
