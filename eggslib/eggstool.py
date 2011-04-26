@@ -16,6 +16,11 @@ def print_wishes(eggs):
     for wish in eggs.get_wishes():
         print wish
 
+def print_balances(eggs):
+    userinfo = eggs.get_userinfo()
+    for v in userinfo:
+        print round(userinfo[v]['balance'], 2), v
+
 if __name__ == '__main__':
     e = eggsml()
     if len(sys.argv) < 3:
@@ -30,5 +35,7 @@ if __name__ == '__main__':
             exit(1)
     elif command == "wishes":
         print_wishes(e)
+    elif command == "balances":
+        print_balances(e)
     else:
         exit("Unrecognized command %s" % command)
