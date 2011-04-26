@@ -19,7 +19,7 @@ def print_wishes(eggs):
 def print_balances(eggs):
     userinfo = eggs.get_userinfo()
     for v in userinfo:
-        print round(userinfo[v]['balance'], 2), v
+        print round(userinfo[v]['balance'], 2), eggs.get_alias_rand(v)
 
 if __name__ == '__main__':
     e = eggsml()
