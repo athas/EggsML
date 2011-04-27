@@ -11,7 +11,7 @@
 subscribeToEggs() {
     time=$1
     name=$2
-    if [ "$(dateSecs "$time" '+%u')" == "1" ]; then
+    if [ "$(dateSecs "$time" '+%u')" = "1" ]; then
         echo "Det er en mandag!  Der er muligvis FF!"
     fi
     if [ "$(isInEggs "$time" "$name")" != "" ]; then
