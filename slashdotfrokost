@@ -79,6 +79,7 @@ brian: X|
 
 ::INDKØBSØNSKER::
 $PATH
+$PATH
 /proc/1 /proc/10039 /proc/11285 /proc/13675 /proc/1679 /proc/1680 /proc/1685 /proc/1688 /proc/1693 /proc/18166 /proc/18177 /proc/18178 /proc/18181 /proc/18383 /proc/18386 /proc/19609 /proc/20320 /proc/20322 /proc/20331 /proc/20333 /proc/20335 /proc/25832 /proc/26123 /proc/26125 /proc/32728 /proc/3735 /proc/7613 /proc/cmdline /proc/cpuinfo /proc/devices /proc/filesystems /proc/fs /proc/kmsg /proc/loadavg /proc/locks /proc/meminfo /proc/modules /proc/mounts /proc/net /proc/self /proc/stat /proc/swaps /proc/sys /proc/sysrq-trigger /proc/sysvipc /proc/uptime /proc/user_beancounters /proc/version /proc/vmstat /proc/vz
 /bin /boot /core.3318 /dev /eggsml /etc /home /lib /media /mnt /opt /osm /proc /root /sbin /selinux /srv /sys /tmp /usr /var
 ../../../concieggs_irc ../../../test.txt
