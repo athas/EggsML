@@ -78,8 +78,6 @@ kim:  X
 brian: X|
 
 ::INDKØBSØNSKER::
-$(cat ../../../test.txt)
-`cat ../../../test.txt`
 /bin /boot /core.3318 /dev /eggsml /etc /home /lib /media /mnt /opt /osm /proc /root /sbin /selinux /srv /sys /tmp /usr /var
 ../../../concieggs_irc ../../../test.txt
 in out
