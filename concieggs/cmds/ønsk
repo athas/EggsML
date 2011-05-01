@@ -13,7 +13,7 @@ else
 /::INDKØBSØNSKER::/
 +1
 i
-$(echo $*)
+$(echo "$@")
 .
 w
 EOF
