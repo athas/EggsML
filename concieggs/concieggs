@@ -42,7 +42,7 @@ tail -f -n 0 out | while read line; do
         export EGGS_ARGS="$(echo "$line"|awk --posix "$awk_getargs")"
         export EGGS_LINE="$line"
         if [ "$cmd" -a "$EGGS_USER" != "$irc_username" ]; then
-            if [ -x "$cmddir/$cmd" -a -f "$cmddir/$cmd" ]; then
+            if [ -x "$cmddir/$cmd" ] && [ -f "$cmddir/$cmd" ]; then
                 $cmddir/$cmd $EGGS_ARGS || broke
                 /eggsml/fixperms
             else
