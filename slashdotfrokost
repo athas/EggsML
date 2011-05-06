@@ -39,6 +39,7 @@ sune
 aleggsander, alexander, morpeggs, morpmex
 danni, dromi
 simon, g-mon, arhbidul
+pilgård, pilen, søren, søren2, spejderen, mefisto
 
 # Husk på, farvesektionen kan ikke have kommentarer, da det
 # kan indgå i farvesyntaksen.
@@ -348,7 +349,7 @@ kalles kaviar
 2009-04-11, abll: 113.75
 
 ::MÅLTIDSDATA::
-2011-05-06, d, dknuth
+2011-05-06, dybber(*.5), abll(*.5) # Breggfast
 2011-05-05, dr_d, naja_som_i_nisse, soya, efebofil, instruktorløjtnant, plcplc
 2011-05-05, ⚣, måske, dr_f, dr_a, dr_t, ronni-wannabe
 2011-05-04, d, brækpøl, frej, bmathiasen, dr_a, aleggsander
