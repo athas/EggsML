@@ -6,7 +6,7 @@
 . $CONCIEGGS_DIR/eggspi.lib
 
 lookup() {
-     cat $CONCIEGGS_DB_DIR/fakta | grep -F -i "$EGGS_ARGS"
+     cat $CONCIEGGS_DB_DIR/fakta | grep -F -i "$EGGS_ARGS" | sort
 }
 
 if [ "$EGGS_ARGS" ]; then
