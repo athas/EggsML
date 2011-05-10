@@ -9,8 +9,7 @@ class update:
         t = open('template.html')
         temp = t.read()
         t.close()
-
-        retval = system("/eggsml/eggspull")
+        retval = system("date '+%Y-%m-%d %H:%M' <githook> concieggs: hiv")
         content = "Return value: " + str(retval)
         print "Content-type: text/html; charset=UTF-8\n"
         print temp.replace('{{CONTENT}}', content)

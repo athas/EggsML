@@ -6,4 +6,6 @@ cd /eggsml
 if [ "$(git pull)" != 'Already up-to-date.' ]; then
     /eggsml/fixperms
     echo 'Jeg har hentet de nyeste ændringer fra https://github.com/Athas/EggsML!'
+else
+    echo 'Jeg blev bedt om at hente ændringer fra Git, men der var ingen!'
 fi
