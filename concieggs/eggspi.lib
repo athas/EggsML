@@ -193,13 +193,8 @@ formatEggs() {
 }
 
 gitRefresh() {
-    ret=$(GET http://eggsml.dk/update.aspeggs | grep "Return value: " | sed 's/Return value: //')
-    if [ "$ret" != "0" ]; then
-        echo "http://eggsml.dk/update.aspeggs meldte fejl!"
-        return 1
-    else
-        return 0
-    fi
+    cd /eggsml
+    git pull
 }
 
 tryGitChange() {
