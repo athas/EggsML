@@ -2,7 +2,8 @@
 #
 # Hent de nyeste ændringer fra https://github.com/Athas/EggsML
 
-if [ "$(gitRefresh)" != 'Already up-to-date.' ]; then
+cd /eggsml
+if [ "$(git pull)" != 'Already up-to-date.' ]; then
     /eggsml/fixperms
     echo 'Jeg har hentet de nyeste ændringer fra https://github.com/Athas/EggsML!'
 else

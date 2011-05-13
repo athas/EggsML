@@ -194,7 +194,7 @@ formatEggs() {
 
 gitRefresh() {
     cd /eggsml
-    git pull
+    git pull > /dev/null
 }
 
 tryGitChange() {
