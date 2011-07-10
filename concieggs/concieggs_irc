@@ -2,7 +2,7 @@
 
 dir=$(dirname $0)
 cfg=$dir/concieggs.conf
-source $cfg
+. $cfg
 
 # Connect to Bitlbee.
 ii -s localhost -i $irc_dir -n $irc_username -f $irc_realname &
