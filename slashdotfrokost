@@ -91,6 +91,8 @@ karrysalat
 ::INDKØB::
 # I danske kroner, svin.
 2011-07-11, frej: 25
+2011-07-08, abll: 30
+2011-07-07, henne: 260
 2011-06-29, abll: 81.5
 2011-06-24, abll: 22
 2011-06-21, dybber: 317.90
@@ -372,6 +374,8 @@ karrysalat
 
 ::MÅLTIDSDATA::
 2011-07-11, dybber
+2011-07-10, abll, henne, fairchil(*.5)
+2011-07-09, abll, henne
 2011-07-07, dybber, dolle
 2011-07-05, henne, dr_f, andersbll
 2011-07-04, abll, d, henne
