@@ -83,6 +83,7 @@ rugbrød
 
 ::INDKØB::
 # I danske kroner, svin.
+2011-08-21, abll: 14
 2011-08-18, dybber: 250.15
 2011-08-16, troels: 28 # Rugbrød fra Phillip
 2011-08-11, dybber: 106.75
@@ -371,7 +372,8 @@ rugbrød
 2009-04-11, abll: 113.75
 
 ::MÅLTIDSDATA::
-2011-08-22, lindbo, brian, ⚣, dr_k, dr_j
+2011-08-22, lindbo, brian, ⚣, dr_k, dr_j(*.5)
+2011-08-20, lindbo
 2011-08-19, dr_a, blian, lurendrejer, ⚣, babysæl, pilgård
 2011-08-18, lindbo, kim, ⚣, mefisto
 2011-08-17, abll, d, alexander, slacker
