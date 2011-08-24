@@ -79,6 +79,7 @@ kim:  X
 brian: X|
 
 ::INDKØBSØNSKER::
+Y (lambda f x. f (x til f))
 lambda x y. x til y
 ost til kiks til kiks til ost
 kiks til ost
