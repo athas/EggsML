@@ -189,7 +189,13 @@ describeEggs() {
 formatEggs() {
     date=$(dateSecs $1 '+%Y-%m-%d')
     participants=$(listEggsers $1 | commasize)
-    echo "$date, $participants"
+    shift
+    comment="$*"
+    if [ -z $comment ]; then
+        echo "$date, $participants"
+    else
+        echo "$date, $participants # $comment"
+    fi
 }
 
 gitRefresh() {

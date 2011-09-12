@@ -17,7 +17,7 @@ else
 /::MÅLTIDSDATA::/
 +1
 i
-$(formatEggs $lastEggs)
+$(formatEggs $lastEggs $*)
 .
 w
 EOF
