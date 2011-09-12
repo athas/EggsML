@@ -1,0 +1,9 @@
+#!/bin/sh
+#
+# Skift den brugerbestemte del af topic
+
+. $CONCIEGGS_DIR/eggspi.lib
+
+echo "$*" > $CONCIEGGS_DB_DIR/topic
+
+setTopic

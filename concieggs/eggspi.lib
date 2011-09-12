@@ -225,6 +225,10 @@ debtors () {
         | cut -d' ' -f 2- | commasize
 }
 
+userSetTopic () {
+   cat $CONCIEGGS_DB_DIR/topic
+}
+
 setTopic () {
-    echo /t "Følgende misdædere er de største skyldnere til den ærede frokostloge: $(debtors)."
+    echo /t "$(userSetTopic)  --  Største skyldnere: $(debtors)."
 }
