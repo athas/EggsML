@@ -4,6 +4,8 @@
 
 . $CONCIEGGS_DIR/eggspi.lib
 
-echo "$*" > $CONCIEGGS_DB_DIR/topic
+if [ -n "$2" ]; then
+    echo "$*" > $CONCIEGGS_DB_DIR/topic
+fi
 
 setTopic
