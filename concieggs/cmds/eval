@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$(hostname)" = "sigkill.dk" ]; then
+if [ ! "$(hostname)" = "sigkill.dk" ]; then
     echo "Desværre ikke."
 else
     eval "$@"
