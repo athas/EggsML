@@ -95,7 +95,7 @@ def check_output(*popenargs, **kwargs):
         raise ValueError('stdout argument not allowed, it will be overridden.')
     process = subprocess.Popen(stdout=subprocess.PIPE, *popenargs, **kwargs)
     output, unused_err = process.communicate()
-    print "UUSED_ERROR",unused_err
+    print "UNUSED_ERROR",unused_err
     retcode = process.poll()
     if retcode:
         cmd = kwargs.get("args")
@@ -172,18 +172,20 @@ class EggTimer(PersistentJabberBot):
   def _concieggs(self,user,line):
     self.log.debug("CONCIEGGS user[%s],line[%s]" % (user,line))
     if user==None:
-      return "who are you?"
-
-    eggenv = ENV.copy()
-    eggenv['EGGS_USER'] = user
-    eggenv['EGGS_LINE']  = line.encode('utf-8')
+      return "who are you? add your eggsml alias with !eggname <eggsname>"
+    
+    os.environ.update(ENV)
+    #eggenv = ENV.copy()
+    os.environ['EGGS_USER'] = user
+    os.environ['EGGS_LINE']  = line.encode('utf-8')
     m = re.match("(\w+)\s?(.*)",line,re.U)
     if m:
-      cmd = m.group(1)
-      args = m.group(2)
-      exe = [os.path.join(CMDDIR,cmd)] + [args]
+      cmd = os.path.join(CMDDIR,m.group(1))
+      cmdline = shlex.split(line.encode('utf-8'))
+      self.log.debug("CONCIEGGS CMD=[%s] cmdline=[%s]" 
+                    % (cmd,cmdline))
       try:
-        out = check_output(exe,env=eggenv)
+        out = check_output(cmdline,executable=cmd) #,executable=cmd2) #,env=eggenv)
         return out
       except OSError:
         return "%s: Du bad mig om [%s], men den kommando har jeg ikke!" % (user,cmd)
@@ -225,54 +227,54 @@ class EggTimer(PersistentJabberBot):
   def merge(self,msg,args):
     return git_merge()
 
-  @botcmd(name="!est")
-  def add_guest(self,msg,args):
-    """!eggsguest <eggpayer> <guest>"""
-    return "no eggguests yet"
+  #@botcmd(name="!guest")
+  #def add_guest(self,msg,args):
+    #"""!eggsguest <eggpayer> <guest>"""
+    #return "no eggguests yet"
 
-  @botcmd(name="!eggsother")
-  def add_egg_fixed(self,msg,args):
-    """!eggsother <eggname>"""
-    eggname = args.strip()
-    for aliaslist in eggsml.aliases:
-      if eggname in aliaslist:
-        return self._lunch_add_egg(aliaslist[0])
+  #@botcmd(name="!eggsother")
+  #def add_egg_fixed(self,msg,args):
+    #"""!eggsother <eggname>"""
+    #eggname = args.strip()
+    #for aliaslist in eggsml.aliases:
+      #if eggname in aliaslist:
+        #return self._lunch_add_egg(aliaslist[0])
     
-    return ("No such egg [%s]" % eggname)
-    #No check for now 
+    #return ("No such egg [%s]" % eggname)
+    ##No check for now 
 
-  @botcmd(name="!eggsno")
-  def add_rm_fixed(self,msg,args):
-    '''!eggsno <egg> (removes egg)'''
-    eggname = args.strip()
-    if eggname in self.lunch:
-      self.lunch.remove(eggname)
-      return "Egg %s starves" % self.eggsml.get_alias_rand(eggname)
+  #@botcmd(name="!eggsno")
+  #def add_rm_fixed(self,msg,args):
+    #'''!eggsno <egg> (removes egg)'''
+    #eggname = args.strip()
+    #if eggname in self.lunch:
+      #self.lunch.remove(eggname)
+      #return "Egg %s starves" % self.eggsml.get_alias_rand(eggname)
 
-    return ("No such egg [%s]" % eggname)
+    #return ("No such egg [%s]" % eggname)
 
-  @botcmd(name="!eggsme")
-  def add_egg(self, msg, args):
-    """docstring for adduser"""
-    nick = msg.getFrom().getResource()
-    eggname = self._get_eggname(nick)
-    if eggname:
-      return self._lunch_add_egg(eggname)
-    return ("Who are you! %s",eggname)
+  #@botcmd(name="!eggsme")
+  #def add_egg(self, msg, args):
+    #"""docstring for adduser"""
+    #nick = msg.getFrom().getResource()
+    #eggname = self._get_eggname(nick)
+    #if eggname:
+      #return self._lunch_add_egg(eggname)
+    #return ("Who are you! %s",eggname)
 
-  @botcmd(name="!eggstat")
-  def stat(self,msg,args):
-    """Shows eggsmlers for today"""
-    users = [self.eggsml.get_alias_rand(egg) for egg in self.lunch]
-    return  ("%s eggsmlers today %s" % ( len(self.lunch),",".join(users) ) )
+  #@botcmd(name="!eggstat")
+  #def stat(self,msg,args):
+    #"""Shows eggsmlers for today"""
+    #users = [self.eggsml.get_alias_rand(egg) for egg in self.lunch]
+    #return  ("%s eggsmlers today %s" % ( len(self.lunch),",".join(users) ) )
  
-  @botcmd(name="!eggsdone")
-  def clear(self, msg, args):
-    """docstring for reset"""
-    s = "eggs that ate eggs %s" % ([egg for egg in self.lunch])
-    commit(self.lunch)
-    self.lunch.clear()
-    return s
+  #@botcmd(name="!eggsdone")
+  #def clear(self, msg, args):
+    #"""docstring for reset"""
+    #s = "eggs that ate eggs %s" % ([egg for egg in self.lunch])
+    #commit(self.lunch)
+    #self.lunch.clear()
+    #return s
 
   @botcmd(name="!whoami")
   def whoami(self,msg,args):
@@ -310,12 +312,12 @@ class EggTimer(PersistentJabberBot):
     """docstring for jids2"""
     return str(self.fulljids)
 
-  @botcmd(name="!nexteggs")
-  def set_next_lunch(self,msg,args):
-    """docstring for setNextLunchTime"""
-    return "eggstimer does not grasp time"
+  #@botcmd(name="!nexteggs")
+  #def set_next_lunch(self,msg,args):
+    #"""docstring for setNextLunchTime"""
+    #return "eggstimer does not grasp time"
 
-  @botcmd(name="egg:")
+  @botcmd(name="eggtimer:")
   def concieggs(self,msg,args):
     """Do whatever concieggs does"""
     nick = msg.getFrom().getResource()
