@@ -16,5 +16,5 @@ cd 'concieggs_irc/irc.freenode.net'
 sleep 2
 
 # Now join!
-echo "/j $irc_channel" > 'concieggs_irc/irc.freenode.net/in'
+echo "/j $irc_channel" > in
 echo "$irc_username connected!"
