@@ -5,19 +5,16 @@ cfg=$dir/concieggs.conf
 . $cfg
 
 # Connect to Bitlbee.
-ii -s localhost -i $irc_dir -n $irc_username -f $irc_realname &
+ii -s irc.freenode.net -i $irc_dir -n $irc_username -f $irc_realname &
 
 # Wait for connection to stabilize...
 sleep 2
 
-# Enter the directory containing the Bitlbee stuff.
-cd 'concieggs_irc/localhost/&bitlbee'
-
-# Auth.
-echo identify $irc_password > in
+# Enter the directory containing the IRC stuff.
+cd 'concieggs_irc/irc.freenode.net'
 
 sleep 2
 
-# Join channel.
-echo join_chat 0 eggs@conference.jabber.dk > in
+# Now join!
+echo "/j $irc_channel" > 'concieggs_irc/irc.freenode.net/in'
 echo "$irc_username connected!"

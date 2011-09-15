@@ -14,7 +14,7 @@ export EGGS_DIR=$dir/..
 export EGGS_LIB_DIR=$EGGS_DIR/eggslib
 
 echo "Using channel in $irc_dir/localhost/$irc_channel"
-cd $irc_dir/localhost/$irc_channel
+cd $irc_dir/irc.freenode.net/$irc_channel
 
 # Let all eggsml users touch our stuff.
 umask 002
