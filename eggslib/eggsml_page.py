@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 from eggsml import eggsml
-
+import concieggs_vm
 class eggsml_page:
 	e = None
 	
@@ -60,8 +60,6 @@ class eggsml_page:
 		for u in uinfsorted1:
                         alias = u[0]
                         data = u[1]
-			paid = data['paid']
-                        eggscount = data['eggscount']
                         balance = data['balance']
                         latest_lunch = self.niceDays(data['lasteggs'])
                         avg_paid = (data['paid'] - balance)/data['eggscount'];
@@ -93,7 +91,6 @@ class eggsml_page:
 		url += '&chs=600x240' # Chart size
 		balances = self.e.get_userinfo()
 		users = sorted(balances.iteritems(), key=lambda (k,v):v['eggscount'], reverse=True)
-		cmap = self.e.get_colours()
 		values = []
 		colours = []
 		aliases = []
@@ -127,10 +124,11 @@ class eggsml_page:
 			l += '<li>%s</li>\n' % w
 		l += '</ul>\n'
 		return l
-	
+		
 	def index(self):
 		o = '<h1>EggsML</h1>'
 		o += '<a href="./graph_timeline.aspeggs">Se graf over deltagelse til Eggs</a>.'
+		o += "<h2>Neggst</h2>" + "<p>" + self.neggst() + "</p>"
 		o += self.aliases()
 		o += self.balances()
 		o += self.wishes()
@@ -138,6 +136,9 @@ class eggsml_page:
 		self.output = o
 		return o
 	
+	def neggst(self):
+		return concieggs_vm.neggst()
+
 	def currency(self, i):
 		i = str(round(i,2)).split('.')
 		if len(i[1])==1:
