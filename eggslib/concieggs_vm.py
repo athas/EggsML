@@ -5,6 +5,7 @@ from subprocess import Popen
 import os
 
 DIR = os.path.join(os.getcwd(),'concieggs')
+#DIR = '/eggsml/concieggs'
 CMDDIR  = os.path.join(DIR,'cmds')
 DBDIR  = os.path.join(DIR,'db')
       
@@ -18,7 +19,7 @@ ENV = {'CONCIEGGS_DIR' : DIR
 import logging
 logging.basicConfig(level=logging.DEBUG)
 
-def concieggs_run(cmd,user):
+def run(cmd,user):
   os.environ.update(ENV)
   os.environ['EGGS_USER'] = user
   os.environ['EGGS_LINE'] = 'dummy'
@@ -35,7 +36,7 @@ def concieggs_run(cmd,user):
 
   
 def neggst():
-  return concieggs_run('neggst','dummy') 
+  return run('neggst','dummy') 
 
 def test():
   print neggst()
