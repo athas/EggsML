@@ -4,8 +4,8 @@ import subprocess
 from subprocess import Popen
 import os
 
-DIR = os.path.join(os.getcwd(),'concieggs')
-#DIR = '/eggsml/concieggs'
+#DIR = os.path.join(os.getcwd(),'concieggs')
+DIR = '/eggsml/concieggs/'
 CMDDIR  = os.path.join(DIR,'cmds')
 DBDIR  = os.path.join(DIR,'db')
       
