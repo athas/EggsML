@@ -4,17 +4,21 @@ dir=$(dirname $0)
 cfg=$dir/concieggs.conf
 . $cfg
 
+irc () {
 # Connect to Bitlbee.
-ii -s irc.freenode.net -i $irc_dir -n $irc_username -f $irc_realname &
+    ii -s irc.freenode.net -i $irc_dir -n $irc_username -f $irc_realname &
 
 # Wait for connection to stabilize...
-sleep 2
+    sleep 2
 
 # Enter the directory containing the IRC stuff.
-cd 'concieggs_irc/irc.freenode.net'
+    cd 'concieggs_irc/irc.freenode.net'
 
-sleep 2
+    sleep 2
 
 # Now join!
-echo "/j $irc_channel" > in
-echo "$irc_username connected!"
+    echo "/j $irc_channel" > in
+    echo "$irc_username connected!"
+}
+
+while true; do irc; done
