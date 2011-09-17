@@ -19,6 +19,9 @@ irc () {
 # Now join!
     echo "/j $irc_channel" > in
     echo "$irc_username connected!"
+
+# Wait for ii to die.
+    wait $!
 }
 
 while true; do irc; done
