@@ -10,13 +10,13 @@ DIR = '/eggsml/concieggs'
 CMDDIR  = os.path.join(DIR,'cmds')
 DBDIR  = os.path.join(DIR,'db')
       
-
 ENV = {'CONCIEGGS_DIR' : DIR 
       ,'CONCIEGGS_DB_DIR' : DBDIR
       ,'EGGS_DIR'         : os.path.join(DIR,'..')
       ,'EGGS_LIB_DIR'     : os.path.join(DIR,'..','eggslib')
       }
-
+#Intet kan antages
+PATH = "/bin:/usr/bin"
 import logging
 logging.basicConfig(level=logging.DEBUG)
 
@@ -25,6 +25,7 @@ def run(cmd,user,args=None):
   os.environ.update(ENV)
   os.environ['EGGS_USER'] = user
   os.environ['EGGS_LINE'] = 'dummy'
+  os.environ['PATH'] = PATH
   cmdline = os.path.join(CMDDIR,cmd)
   args = [str(int(time()))]
   process = Popen([cmdline]+args,stdout=subprocess.PIPE)
