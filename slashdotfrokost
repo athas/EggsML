@@ -7,7 +7,7 @@ dybber, d, dr_d, ⚣
 spægg©trum, spæk, spe©trum, s!, spectrum, sørøver
 andreggas, esbens_sidekick, hippie, h, ☮
 bjørn, hartfelt, esbens_sidekickv2, 熊, ☃, ☭, 
-johan, zerrez, rot13_eggspert, dr_j
+johan, zerrez, rot13_eggspert, dr_j, brinchj, mortens_sidekick
 christian, operalog
 svinedrengen, kim, babysæl, themota, dr_k
 brian, blian, ninja, bmathiasen, dr_bs
@@ -31,7 +31,7 @@ fuldrik, bonde
 mikkel, miggel, meggel, tropeOCD, kjmikkel, mikkelkjrjensen
 reenberg, jesper, nederen_jesper, jre, traktortræk, ⊥
 nana, mrs_slackware, sigøjneren, latina, nurse_n
-morten, mortenbp, instruktorkaptajn
+morten, mortenbp, instruktorkaptajn, br0ns, stupid_luser, pebkac, stuntdriver, sml_fetishist, johans_sidekick, næsten_bp
 rune, skovper, daisysbff, love-meister, boytoy
 ulrik, dolle, google, ulrikterprasmussen, dr_ü
 naja, måske, naja_som_i_nisse, snerpe
@@ -41,6 +41,7 @@ danni, dromi, baconkran
 simon, g-mon, arhbidul
 pilgård, pilen, søren, søren2, spejderen, mefisto, Thor
 roschnowski, handskedukkeføreren, jebus
+hardmann, mads, itudrengen, metroseksuel
 
 # Husk på, farvesektionen kan ikke have kommentarer, da det
 # kan indgå i farvesyntaksen.
@@ -80,21 +81,17 @@ kim:  X
 brian: X|
 
 ::INDKØBSØNSKER::
-steenstrip
-karrysalat
-ristede løg
-kiks
-fiskefilezzle
-ost
-hytteost
-leverpostej
-rødkål
-remoulade
-medister
-jordnøddesmør
 
 ::INDKØB::
 # I danske kroner, svin.
+2011-09-21, ulrik: 577
+2011-09-21, spectrum: 13.06
+2011-09-21, dybber: -13.06
+2011-09-21, rune: 21
+2011-09-21, dybber: -21
+2011-09-20, naja: 60 # Phillips rugbrød og jordnøddesmør
+2011-09-20, thormorten: 244.25
+2011-09-19, bp: 189.1
 2011-09-15, dybber: 235.75
 2011-09-14, carlsen: 370.40
 2011-09-13, frej: 206.35
@@ -395,6 +392,13 @@ jordnøddesmør
 2009-04-11, abll: 113.75
 
 ::MÅLTIDSDATA::
+2011-09-21, bp, andersbll, bmathiasen, lurendrejer
+2011-09-21, dr_d, android, carlsen, dolle, ptrf, instruktorløjtnant, nederen_jesper, mortens_sidekick, stupid_luser, metroseksuel
+2011-09-20, lindbo, google, brian, dr_j, ⊥, stupid_luser, dr_m
+2011-09-20, ronni-wannabe, d, måske, thorlund, sherlock
+2011-09-19, übermensch, andersbll(*.5), naja(*.5), bp, stenstrip, svinedrengen, pilen
+2011-09-19, dolle, muffin, zerrez, jesper, instruktorkaptajn
+2011-09-18, abll, bp
 2011-09-16, andersbll, live4adrenalin, baconkran, dr_d, thormorten, michael, nederen_jesper
 2011-09-15, michael, dr_d, λ, mrs_slackware, efebofil, thorlund, naja_som_i_nisse, henrik, carlsen
 2011-09-14, brian, steeeeenstrup, abll, Thor, dr_f

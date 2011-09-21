@@ -6,7 +6,7 @@ import sys
 
 def print_aliases(eggs, name):
     for user_aliases in eggs.aliases:
-        if name in user_aliases:
+        if name.lower() in map(lambda (x): x.lower(), user_aliases):
             for alias in user_aliases:
                 print alias
             return True
