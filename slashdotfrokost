@@ -41,6 +41,7 @@ danni, dromi, baconkran
 simon, g-mon, arhbidul
 pilgård, pilen, søren, søren2, spejderen, mefisto, Thor
 roschnowski, handskedukkeføreren, jebus
+hardmann, mads, itudrengen, metroseksuel
 
 # Husk på, farvesektionen kan ikke have kommentarer, da det
 # kan indgå i farvesyntaksen.
@@ -80,44 +81,12 @@ kim:  X
 brian: X|
 
 ::INDKØBSØNSKER::
-tomat
-saltkød
-remoulade
-dilddressing
-creme fraiche
-steenstrip
-ristede løg
-kiks
-fiskefilezzle
-ost
-hytteost
-leverpostej
-rødkål
-remoulade
-medister
-jordnøddesmør
-mere af alt
-pølse
-dobbelt op på alle indkøb
-løg
-karrysild
-peberfrugt
-dijon sennep
-leverpostej
-rugbrød
-rugbrød
-rugbrød
-kippers
-makrelz
-italiensk salat
-hamburgerryg
-agurkesalat
-nuggetz
 
 ::INDKØB::
 # I danske kroner, svin.
 2011-09-21, dirk: 22.62
 2011-09-21, dybber: -22.62
+2011-09-21, ulrik: 577
 2011-09-21, spectrum: 13.06
 2011-09-21, dybber: -13.06
 2011-09-21, rune: 21
@@ -425,6 +394,8 @@ nuggetz
 2009-04-11, abll: 113.75
 
 ::MÅLTIDSDATA::
+2011-09-21, bp, andersbll, bmathiasen, lurendrejer
+2011-09-21, dr_d, android, carlsen, dolle, ptrf, instruktorløjtnant, nederen_jesper, mortens_sidekick, stupid_luser, metroseksuel
 2011-09-20, lindbo, google, brian, dr_j, ⊥, stupid_luser, dr_m
 2011-09-20, ronni-wannabe, d, måske, thorlund, sherlock
 2011-09-19, übermensch, andersbll(*.5), naja(*.5), bp, stenstrip, svinedrengen, pilen
