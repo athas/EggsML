@@ -39,7 +39,7 @@ def run(cmd,user,args=None):
 
   
 def neggst():
-  return run('neggst','dummy') 
+  return run('neggst','dummy').replace("\n", "<br />\n");
 
 def test():
   print neggst()
