@@ -98,7 +98,6 @@ def usereggs():
   totals = {}
   for item in sorted(e.dates):
     d = jsondate(item['date']) 
-    if d < 0: continue
     for u in item['users']:
       name = u['user'] 
       if not name in totals.keys():        
@@ -133,7 +132,7 @@ DATA = \
 ]
 
 for key,data in usereggs().iteritems():
-  DATA.append({'data' : data, 'label' : key, 'yaxis' : 2 })
+  DATA.append({'data' : data[1:], 'label' : key, 'yaxis' : 2 })
    
 VARS = {
   'FLOT_DATA' :  json.dumps(DATA),
