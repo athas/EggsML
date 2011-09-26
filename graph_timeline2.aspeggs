@@ -132,7 +132,10 @@ DATA = \
 ]
 
 for key,data in usereggs().iteritems():
-  DATA.append({'data' : data[1:], 'label' : key, 'yaxis' : 2 })
+  d = {'data' : data[1:], 'label' : key, 'yaxis' : 2 }
+  if key in e.colours:
+      d['color'] = e.colours[key]
+  DATA.append(d)
    
 VARS = {
   'FLOT_DATA' :  json.dumps(DATA),
