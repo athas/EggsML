@@ -128,7 +128,7 @@ class eggsml_page:
 	def index(self):
 		o = '<h1>EggsML</h1>'
 		o += '<a href="./graph_timeline.aspeggs">Se graf over deltagelse til Eggs</a>.'
-		o += "<h2>Neggst</h2>" + "<p>" + self.neggst() + "</p>"
+		o += "<h2>Neggst 'n' preggs</h2>" + "<p>" + self.neggst() + "</p>" + "<p>" + self.preggs() + "</p>"
 		o += self.aliases()
 		o += self.balances()
 		o += self.wishes()
