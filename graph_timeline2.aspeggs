@@ -1,0 +1,141 @@
+#!/usr/bin/env python
+# -*- encoding: utf-8 -*-
+import cgitb; cgitb.enable()  # for troubleshooting
+from eggslib.eggsml import eggsml
+from string import Template
+import pyflot 
+import json
+import time
+TEMPLATE = '''
+<html>
+<head>
+<title>EggsML</title>
+<script language="javascript" type="text/javascript" src="http://people.iola.dk/olau/flot/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="http://people.iola.dk/olau/flot/jquery.flot.js"></script>
+<script language="javascript" type="text/javascript" src="http://people.iola.dk/olau/flot/jquery.flot.selection.js"></script>
+</head>
+<body>
+<div style="width:100px;float:right" id="legend"></div>
+<div style="width:800px;height:400px;" id="price"></div>
+<div id="overview" style="margin-left:50px;margin-top:20px;width:600px;height:50px"></div>
+<script id="source" language="javascript" type="text/javascript">
+$(function () {
+  var d = %(FLOT_DATA)s;
+  var options = {
+      xaxis : {mode : "time",minTickSize : [1,"day"]},
+      selection : { mode: "x" },
+      yaxes: [ {min : 0 }, { position: "right", min: 0 } ],
+      legend : { container: $("#legend") } 
+    }
+  var plot =  $.plot($("#price"),d,options);
+   
+  var overview = $.plot($("#overview"), d, {
+        series: {
+            lines: { show: true, lineWidth: 1 },
+            shadowSize: 0
+        },
+        xaxis: { ticks: [], mode: "time" },
+        yaxis: { ticks: [], min: 0, autoscaleMargin: 0.1 },
+        selection: { mode: "x" },
+        legend: { show : false }
+    });
+
+   function weekendAreas(axes) {
+        var markings = [];
+        var d = new Date(axes.xaxis.min);
+        // go to the first Saturday
+        d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 1) %% 7))
+        d.setUTCSeconds(0);
+        d.setUTCMinutes(0);
+        d.setUTCHours(0);
+        var i = d.getTime();
+        do {
+            // when we don't set yaxis, the rectangle automatically
+            // extends to infinity upwards and downwards
+            markings.push({ xaxis: { from: i, to: i + 2 * 24 * 60 * 60 * 1000 } });
+            i += 7 * 24 * 60 * 60 * 1000;
+        } while (i < axes.xaxis.max);
+
+        return markings;
+    }
+    
+
+ $("#price").bind("plotselected", function (event, ranges) {
+        // do the zooming
+        plot = $.plot($("#price"), d,
+                      $.extend(true, {}, options, {
+                          xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to }
+                      }));
+
+        // don't fire event on the overview to prevent eternal loop
+        overview.setSelection(ranges, true);
+    });
+    
+    $("#overview").bind("plotselected", function (event, ranges) {
+        plot.setSelection(ranges);
+    });
+
+});
+
+
+</script>
+
+</body>
+'''
+e = eggsml()
+e.parse('slashdotfrokost')
+average_day_price = sorted(
+      [(int(time.mktime(ts.timetuple()) * 1000),val)
+            for ts,val in e.get_day_prices().iteritems()
+      ]
+      )
+def jsondate(ts): 
+  return int(time.mktime(ts.timetuple()) * 1000) 
+
+def usereggs():
+  totals = {}
+  for item in sorted(e.dates):
+    d = jsondate(item['date']) 
+    if d < 0: continue
+    for u in item['users']:
+      name = u['user'] 
+      if not name in totals.keys():        
+          totals[name] = [(d,u['amount'])] 
+      else:
+          (_,acc) = totals[name][-1]
+          totals[name].append((d,acc+u['amount']))
+  return totals
+
+
+def eggscount():
+  totals = {}
+  for item in e.dates:
+    totals[item['date']] = reduce(lambda acc,x:acc+x['amount'],item['users'],0)
+  return [(int(time.mktime(ts.timetuple()) * 1000) ,val) 
+              for (ts,val) in totals.iteritems()]
+
+eggs_day_count = eggscount()
+DATA = \
+[
+{'label' : 'Pris/Eggs',
+ 'data'  : sorted(average_day_price)[1:],
+},
+{
+  'label' : '#Eggsers/dag',
+  'data' : sorted(eggs_day_count)[1:],
+  'bars' : {'show': True, 
+          'barWidth' : 20 * 60 * 60 * 1000,
+          'align' : 'right',
+          }
+    },
+]
+
+for key,data in usereggs().iteritems():
+  DATA.append({'data' : data, 'label' : key, 'yaxis' : 2 })
+   
+VARS = {
+  'FLOT_DATA' :  json.dumps(DATA),
+}
+print "Content-type: text/html; charset=UTF-8\n"
+print (TEMPLATE % VARS)
+
