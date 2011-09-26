@@ -41,6 +41,10 @@ def run(cmd,user,args=None):
 def neggst():
   return run('neggst','dummy').replace("\n", "<br />\n");
 
+def preggs():
+  return run('preggs','dummy').replace("\n", "<br />\n");
+
+
 def test():
   print neggst()
 
