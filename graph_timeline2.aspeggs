@@ -2,7 +2,10 @@
 # -*- encoding: utf-8 -*-
 import cgitb; cgitb.enable()  # for troubleshooting
 from eggslib.eggsml import eggsml
-import json
+try: 
+  import simplejson as json
+except ImportError: 
+  import json
 import time
 TEMPLATE = '''
 <html>
@@ -13,6 +16,7 @@ TEMPLATE = '''
 <script language="javascript" type="text/javascript" src="http://people.iola.dk/olau/flot/jquery.flot.selection.js"></script>
 </head>
 <body>
+<p>Click'n'zoom</p>
 <div style="width:100px;float:right" id="legend"></div>
 <div style="width:800px;height:400px;" id="price"></div>
 <div id="overview" style="margin-left:50px;margin-top:20px;width:600px;height:50px"></div>
@@ -135,5 +139,6 @@ VARS = {
   'FLOT_DATA' :  json.dumps(DATA),
 }
 print "Content-type: text/html; charset=UTF-8\n"
+print dir(json)
 print (TEMPLATE % VARS)
 
