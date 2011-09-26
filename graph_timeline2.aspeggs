@@ -2,8 +2,6 @@
 # -*- encoding: utf-8 -*-
 import cgitb; cgitb.enable()  # for troubleshooting
 from eggslib.eggsml import eggsml
-from string import Template
-import pyflot 
 import json
 import time
 TEMPLATE = '''
