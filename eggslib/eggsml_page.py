@@ -139,6 +139,9 @@ class eggsml_page:
 	def neggst(self):
 		return concieggs_vm.neggst()
 
+	def preggs(self):
+		return concieggs_vm.preggs()
+
 	def currency(self, i):
 		i = str(round(i,2)).split('.')
 		if len(i[1])==1:
