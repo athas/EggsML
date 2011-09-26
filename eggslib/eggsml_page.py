@@ -87,8 +87,8 @@ class eggsml_page:
 
 	def constructChartURL(self):
 		url = 'http://chart.apis.google.com/chart'
-		url += '?cht=p3' # Chart type
-		url += '&chs=600x240' # Chart size
+		url += '?cht=p' # Chart type
+		url += '&chs=750x400' # Chart size
 		balances = self.e.get_userinfo()
 		users = sorted(balances.iteritems(), key=lambda (k,v):v['eggscount'], reverse=True)
 		values = []
