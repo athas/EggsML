@@ -7,27 +7,37 @@ try:
 except ImportError: 
   import json
 import time
+from calendar import timegm # inverse of gmtime()
 TEMPLATE = '''
 <html>
 <head>
 <title>EggsML</title>
-<script language="javascript" type="text/javascript" src="http://people.iola.dk/olau/flot/jquery.js"></script>
-<script language="javascript" type="text/javascript" src="http://people.iola.dk/olau/flot/jquery.flot.js"></script>
-<script language="javascript" type="text/javascript" src="http://people.iola.dk/olau/flot/jquery.flot.selection.js"></script>
+<script language="javascript" type="text/javascript" src="https://raw.github.com/flot/flot/master/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="https://raw.github.com/flot/flot/master/jquery.flot.js"></script>
+<script language="javascript" type="text/javascript" src="https://raw.github.com/flot/flot/master/jquery.flot.selection.js"></script>
+<script language="javascript" type="text/javascript" src="https://raw.github.com/flot/flot/master/jquery.flot.resize.js"></script>
 </head>
 <body>
 <p>Click'n'zoom</p>
 <div style="width:100px;float:right" id="legend"></div>
-<div style="width:800px;height:400px;" id="price"></div>
-<div id="overview" style="margin-left:50px;margin-top:20px;width:600px;height:50px"></div>
+<div style="width:85%%;height:80%%;" id="price"></div>
+<div id="overview" style="margin-top:20px;width:85%%;height:50px"></div>
 <script id="source" language="javascript" type="text/javascript">
 $(function () {
   var d = %(FLOT_DATA)s;
   var options = {
-      xaxis : {mode : "time",minTickSize : [1,"day"]},
+      xaxis : {mode : "time", minTickSize: [1, "day"] },
       selection : { mode: "x" },
-      yaxes: [ {min : 0 }, { position: "right", min: 0 } ],
-      legend : { container: $("#legend") } 
+      yaxes: [
+             { min : 0, }, 
+             { position: "right",min : 0,
+               transform : function (v) { return Math.log(v < 1 ? 1 : v ); }, /* ugly... but somehow 0 < v < 1*/ 
+               inverseTransform: function (v) { return Math.exp(v); } 
+             } 
+             ],
+      legend : { container: $("#legend") },
+      grid: { markings: weekendAreas},
+      shadowSize: 0,
     }
   var plot =  $.plot($("#price"),d,options);
    
@@ -86,25 +96,31 @@ $(function () {
 '''
 e = eggsml()
 e.parse('slashdotfrokost')
+'''
+ * Needs to be in ms
+ * poor mans timezone, will break..
+'''
+def jsondate(ts): 
+  return int(timegm(ts.timetuple()) * 1000) 
+
 average_day_price = sorted(
-      [(int(time.mktime(ts.timetuple()) * 1000),val)
+      [(jsondate(ts),val)
             for ts,val in e.get_day_prices().iteritems()
       ]
       )
-def jsondate(ts): 
-  return int(time.mktime(ts.timetuple()) * 1000) 
 
 def usereggs():
   totals = {}
   for item in sorted(e.dates):
     d = jsondate(item['date']) 
     for u in item['users']:
-      name = u['user'] 
+      name = u['user']
       if not name in totals.keys():        
-          totals[name] = [(d,u['amount'])] 
+          totals[name] = [(d,1)] # [(d,u['amount'])] 
       else:
           (_,acc) = totals[name][-1]
-          totals[name].append((d,acc+u['amount']))
+          #totals[name].append((d,acc+u['amount']))
+          totals[name].append((d,acc+1))
   return totals
 
 
@@ -112,27 +128,31 @@ def eggscount():
   totals = {}
   for item in e.dates:
     totals[item['date']] = reduce(lambda acc,x:acc+x['amount'],item['users'],0)
-  return [(int(time.mktime(ts.timetuple()) * 1000) ,val) 
+
+  return [(jsondate(ts) ,val) 
               for (ts,val) in totals.iteritems()]
 
 eggs_day_count = eggscount()
 DATA = \
 [
 {'label' : 'Pris/Eggs',
+ 'color' : 'black',
  'data'  : sorted(average_day_price)[1:],
+ 'lines' : {'steps' : True}
 },
 {
   'label' : '#Eggsers/dag',
   'data' : sorted(eggs_day_count)[1:],
   'bars' : {'show': True, 
-          'barWidth' : 20 * 60 * 60 * 1000,
-          'align' : 'right',
+          'barWidth' : 24 * 60 * 60 * 1000,
+          'align' : 'left',
+          'fillColor': { 'colors': [ { 'opacity': 0.8 }, { 'opacity': 0.1 } ] }
           }
     },
 ]
 
 for key,data in usereggs().iteritems():
-  d = {'data' : data[1:], 'label' : key, 'yaxis' : 2 }
+  d = {'data' : data[1:], 'label' : key, 'yaxis' : 2, 'lines' : {'steps' : True} }
   if key in e.colours:
       d['color'] = e.colours[key]
   DATA.append(d)
