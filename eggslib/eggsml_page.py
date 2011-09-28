@@ -126,7 +126,7 @@ class eggsml_page:
 		return l
 		
 	def index(self):
-		o = '<h1>Brainfuck pr&ae;senterer Brainfuck\'s EggsML</h1>'
+		o = '<h1>Brainfuck pr&aelig;senterer Brainfuck\'s EggsML</h1>'
 		o += '<h2>Nu uden Brainfuck!</h2>'
 		o += '<a href="./graph_timeline.aspeggs">Se graf over deltagelse til Eggs</a>.'
 		o += "<h2>Neggst 'n' preggs</h2>" + "<p>" + self.neggst() + "</p>" + "<p>" + self.preggs() + "</p>"
