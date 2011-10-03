@@ -14,6 +14,17 @@ else
     exit
 fi
 
+if [ $user = concieggs ]; then
+    echo 'Orv ja, det kunne være vildt sjovt hvis jeg skrev "JEG KENDER IKKE CONCIEGGS!"'
+    sleep 2
+    echo 'LOL!'
+    sleep 1
+    echo 'ROFL!'
+    sleep 2
+    echo "LAD OS GRINE AF TROELS' DUMME BOT!  LOLDONGS!"
+    exit
+fi
+
 if cmpNames $user reenberg; then
     echo "$user er nederen."
     exit
