@@ -8,40 +8,197 @@ except ImportError:
   import json
 import time
 from calendar import timegm # inverse of gmtime()
+e = eggsml()
+e.parse('slashdotfrokost')
+def jsondate(ts): 
+  return int(timegm(ts.timetuple()) * 1000) 
+
+average_day_price = sorted(
+      [(jsondate(ts),val)
+            for ts,val in e.get_day_prices().iteritems()
+      ]
+      )
+# Number of times to indent output
+# A list is used to force access by reference
+__report_indent = [0]
+
+
+def usereggs():
+  totals = {}
+  for item in sorted(e.dates):
+    d = jsondate(item['date']) 
+    for u in item['users']:
+      name = u['user']
+      if not name in totals.keys():        
+          totals[name] = [(d,1)] # [(d,u['amount'])] 
+      else:
+          (_,acc) = totals[name][-1]
+          #totals[name].append((d,acc+u['amount']))
+          totals[name].append((d,acc+1))
+  return totals
+
+def sumdays(acc,purchase):
+  #print "ACC:", acc, "<br/>"
+  (ts,sumacc,result) = acc
+  
+  #print jsondate(purchase['date']),"==",ts," -> ",jsondate(purchase['date']) == ts,"<br/>"
+  if sumacc is None:
+    return (jsondate(purchase['date']),purchase['amount'],[])
+  if jsondate(purchase['date']) == ts:
+    #print "ADD: ",purchase['amount'] ,"<br/>"
+    return (ts,purchase['amount']+sumacc,result)
+  else:
+    result.append((ts,sumacc))
+    return (jsondate(purchase['date']),purchase['amount']
+           ,result)
+
+def purcheggs():
+  (ts,value,dailysum) = reduce(sumdays,sorted(e.purchases,key=lambda x:x['date'])
+            ,(None,None,[]))
+  dailysum.append((ts,value))
+  return dailysum
+
+def eggscount():
+  '''Count eggs per day
+     {string, float, date} -> (timestamp, int)
+  '''
+  totals = {}
+  for item in e.dates:
+    totals[item['date']] = reduce(lambda acc,x:acc+x['amount'],item['users'],0)
+
+  return [(jsondate(ts),val) 
+              for (ts,val) in totals.iteritems()]
+
+eggs_day_count = eggscount()
+TIME_DATA = \
+[
+{'label' : 'Pris/Eggs',
+ 'color' : 'black',
+ 'data'  : sorted(average_day_price)[1:],
+ 'lines' : {'steps' : False, 'lineWidth': 2 }
+},
+{
+  'label' : '#Eggsers/dag',
+  'data' : sorted(eggs_day_count)[1:],
+  'bars' : {'show': True, 
+          'barWidth' : 24 * 60 * 60 * 1000,
+          'align' : 'left',
+          #'fillColor': { 'colors': [ { 'opacity': 1 }, { 'opacity': 1 } ] }
+          }
+    },
+{
+  'label' : 'Purcheggs',
+  'data'  : sorted(purcheggs()),
+  'bars' : {'show': True, 
+          'barWidth' : 24 * 60 * 60 * 1000,
+          'align' : 'left',
+          #'fillColor': { 'colors': [ { 'opacity': 0.8 }, { 'opacity': 0.1 } ] }
+          },
+  'yaxis' : 2,
+}
+]
+RACE_DATA = []
+for key,data in usereggs().iteritems():
+  d = {'data' : data[1:], 'label' : key, 'yaxis' : 2, 'lines' : {'show': True ,'steps' : True}, 'points' : {'show' : False, 'symbol' : 'diamond', 'radius' : 2 } }
+  if key in e.colours:
+      d['color'] = e.colours[key]
+  RACE_DATA.append(d)
+   
+VARS = {
+  'RACE_DATA' :  json.dumps(RACE_DATA),
+  'TIME_DATA' :  json.dumps(TIME_DATA)
+}
 TEMPLATE = '''
 <html>
 <head>
 <title>EggsML</title>
 <script language="javascript" type="text/javascript" src="https://raw.github.com/flot/flot/master/jquery.js"></script>
 <script language="javascript" type="text/javascript" src="https://raw.github.com/flot/flot/master/jquery.flot.js"></script>
+<script language="javascript" type="text/javascript" src="https://raw.github.com/flot/flot/master/jquery.flot.symbol.js"></script>
 <script language="javascript" type="text/javascript" src="https://raw.github.com/flot/flot/master/jquery.flot.selection.js"></script>
 <script language="javascript" type="text/javascript" src="https://raw.github.com/flot/flot/master/jquery.flot.resize.js"></script>
 </head>
 <body>
 <p>Click'n'zoom</p>
-<div style="width:100px;float:right" id="legend"></div>
-<div style="width:85%%;height:80%%;" id="price"></div>
-<div id="overview" style="margin-top:20px;width:85%%;height:50px"></div>
+<h2>TimeLeggs</h2>
+<div style="width:95%%;height:60%%;" id="price"></div>
+<div id="overview" style="margin-top:20px;width:95%%;height:50px"></div>
+<br style="clear:both"/>
+<h2>EggRace</h2>
+<div style="float:left;width:85%%;height:90%%" id="race"></div>
+<div style="width:100px;float:right" id="race_legend"></div>
 <script id="source" language="javascript" type="text/javascript">
 $(function () {
-  var d = %(FLOT_DATA)s;
-  var options = {
-      xaxis : {mode : "time", minTickSize: [1, "day"] },
+  var race_data = %(RACE_DATA)s;
+  var race_options = { 
+      xaxis: { mode : "time",minTickSize: [1, "day"] },
+      yaxis: {  
+               transform : function (v) { return Math.log(v); }, /* ugly... but somehow 0 < v < 1*/ 
+               inverseTransform: function (v) { return Math.exp(v); },
+               min: 1
+             },
+      legend : { container: $("#race_legend") },
+      grid: { borderWidth: 0 },
+    };
+
+  var race_plot = $.plot($("#race"),race_data,race_options);
+
+  
+  var time_data = %(TIME_DATA)s;
+  var time_options = {
+      xaxis     : { mode : "time", minTickSize: [1, "day"] },
       selection : { mode: "x" },
-      yaxes: [
-             { min : 0, }, 
-             { position: "right",min : 0,
-               transform : function (v) { return Math.log(v < 1 ? 1 : v ); }, /* ugly... but somehow 0 < v < 1*/ 
-               inverseTransform: function (v) { return Math.exp(v); } 
-             } 
-             ],
-      legend : { container: $("#legend") },
-      grid: { markings: weekendAreas},
-      shadowSize: 0,
+      yaxes: [ { position: "left",max: 40 },
+               {position: "right",max: 1000,
+               transform : function (v) { return -v; },
+               inverseTransform: function (v) { return -v; },
+               } 
+                ],
+      grid: { markings: weekendAreas, hoverable: true
+            , clickable: true
+            , borderWidth: 0
+            },
+    };
+  var plot =  $.plot($("#price"),time_data,time_options);
+
+   function showTooltip(x, y, contents) {
+        $('<div id="tooltip">' + contents + '</div>').css( {
+            position: 'absolute',
+            display: 'none',
+            top: y + 5,
+            left: x + 5,
+            border: '1px solid #fdd',
+            padding: '2px',
+            'background-color': '#fee',
+            opacity: 0.80
+        }).appendTo("body").fadeIn(200);
     }
-  var plot =  $.plot($("#price"),d,options);
-   
-  var overview = $.plot($("#overview"), d, {
+
+  var previousPoint = null;
+    $("#price").bind("plothover", function (event, pos, item) {
+        $("#x").text(pos.x.toFixed(2));
+        $("#y").text(pos.y.toFixed(2));
+
+            if (item) {
+                if (previousPoint != item.dataIndex) {
+                    previousPoint = item.dataIndex;
+                    
+                    $("#tooltip").remove();
+                    var x = item.datapoint[0].toFixed(2),
+                        y = item.datapoint[1].toFixed(2);
+                    
+                    showTooltip(item.pageX, item.pageY,
+                                item.series.label + " of " + x + " = " + y);
+                }
+            }
+            else {
+                $("#tooltip").remove();
+                previousPoint = null;            
+            }
+    });
+
+  
+  var overview = $.plot($("#overview"), time_data, {
         series: {
             lines: { show: true, lineWidth: 1 },
             shadowSize: 0
@@ -49,7 +206,8 @@ $(function () {
         xaxis: { ticks: [], mode: "time" },
         yaxis: { ticks: [], min: 0, autoscaleMargin: 0.1 },
         selection: { mode: "x" },
-        legend: { show : false }
+        legend: { show : false },
+        grid: { borderWidth: 0 } 
     });
 
    function weekendAreas(axes) {
@@ -74,8 +232,8 @@ $(function () {
 
  $("#price").bind("plotselected", function (event, ranges) {
         // do the zooming
-        plot = $.plot($("#price"), d,
-                      $.extend(true, {}, options, {
+        plot = $.plot($("#price"), time_data,
+                      $.extend(true, {}, time_options, {
                           xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to }
                       }));
 
@@ -94,72 +252,7 @@ $(function () {
 
 </body>
 '''
-e = eggsml()
-e.parse('slashdotfrokost')
-'''
- * Needs to be in ms
- * poor mans timezone, will break..
-'''
-def jsondate(ts): 
-  return int(timegm(ts.timetuple()) * 1000) 
 
-average_day_price = sorted(
-      [(jsondate(ts),val)
-            for ts,val in e.get_day_prices().iteritems()
-      ]
-      )
-
-def usereggs():
-  totals = {}
-  for item in sorted(e.dates):
-    d = jsondate(item['date']) 
-    for u in item['users']:
-      name = u['user']
-      if not name in totals.keys():        
-          totals[name] = [(d,1)] # [(d,u['amount'])] 
-      else:
-          (_,acc) = totals[name][-1]
-          #totals[name].append((d,acc+u['amount']))
-          totals[name].append((d,acc+1))
-  return totals
-
-
-def eggscount():
-  totals = {}
-  for item in e.dates:
-    totals[item['date']] = reduce(lambda acc,x:acc+x['amount'],item['users'],0)
-
-  return [(jsondate(ts) ,val) 
-              for (ts,val) in totals.iteritems()]
-
-eggs_day_count = eggscount()
-DATA = \
-[
-{'label' : 'Pris/Eggs',
- 'color' : 'black',
- 'data'  : sorted(average_day_price)[1:],
- 'lines' : {'steps' : True}
-},
-{
-  'label' : '#Eggsers/dag',
-  'data' : sorted(eggs_day_count)[1:],
-  'bars' : {'show': True, 
-          'barWidth' : 24 * 60 * 60 * 1000,
-          'align' : 'left',
-          'fillColor': { 'colors': [ { 'opacity': 0.8 }, { 'opacity': 0.1 } ] }
-          }
-    },
-]
-
-for key,data in usereggs().iteritems():
-  d = {'data' : data[1:], 'label' : key, 'yaxis' : 2, 'lines' : {'steps' : True} }
-  if key in e.colours:
-      d['color'] = e.colours[key]
-  DATA.append(d)
-   
-VARS = {
-  'FLOT_DATA' :  json.dumps(DATA),
-}
 print "Content-type: text/html; charset=UTF-8\n"
 print (TEMPLATE % VARS)
 
