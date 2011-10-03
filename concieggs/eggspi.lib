@@ -238,3 +238,23 @@ userSetTopic () {
 setTopic () {
     echo /t "$(userSetTopic)  --  Største skyldnere: $(debtors)."
 }
+
+authedName () {
+    cd $CONCIEGGS_IRC_DIR
+    rm -rf nickserv
+    echo '/PRIVMSG nickserv :info '$1 > in
+    for i in $(seq 1 5); do
+        authed=$(awk '{ match($0, "account ([^)]+)", a); if (a[1]) { print a[1] }}' < nickserv/out)
+        if [ "$authed" ]; then
+            echo $authed
+            break
+        fi
+        unknown=$(awk '/is not registered' < nickserv/out)
+        if [ "$unknown" ]; then
+            echo ""
+            break
+        fi
+        sleep 1
+    done
+    echo ""
+}

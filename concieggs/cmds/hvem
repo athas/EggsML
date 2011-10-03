@@ -1,0 +1,30 @@
+#!/bin/sh
+#
+# Beskriv concieggs' opfattelse af en given brugers identitet.  Husk
+# at benytte komplette sætninger!
+
+. $CONCIEGGS_DIR/eggspi.lib
+
+if [ $# -eq 2 -a $1 = "er" -a $2 = "jeg" ]; then
+    user=$EGGS_USER
+elif [ $# -eq 2 -a $1 = "er" ]; then
+    user=$2
+else
+    echo "Brug: hvem er [navn|jeg]"
+    exit
+fi
+
+alias=$(randomName "$user")
+auth=$(authedName "$user")
+
+if [ "$alias" ]; then
+    echo -n "$EGGS_USER er $alias, og "
+else
+    echo -n "Jeg kender ikke $EGGS_USER, og vedkommende er "
+fi
+
+if [ "$auth" ]; then
+    echo "autenticeret som $auth ifølge Nickserv!"
+else
+    echo "ikke autenticeret ifølge Nickserv!"
+fi
