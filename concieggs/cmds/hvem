@@ -18,9 +18,9 @@ alias=$(randomName "$user")
 auth=$(authedName "$user")
 
 if [ "$alias" ]; then
-    echo -n "$EGGS_USER er $alias, og "
+    echo -n "$user er $alias, og "
 else
-    echo -n "Jeg kender ikke $EGGS_USER, og vedkommende er "
+    echo -n "Jeg kender ikke $user, og vedkommende er "
 fi
 
 if [ "$auth" ]; then

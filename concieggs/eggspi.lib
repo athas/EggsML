@@ -249,7 +249,7 @@ authedName () {
             echo $authed
             break
         fi
-        unknown=$(awk '/is not registered' < nickserv/out)
+        unknown=$(awk '/is not registered/' < nickserv/out)
         if [ "$unknown" ]; then
             echo ""
             break
