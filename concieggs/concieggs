@@ -13,8 +13,10 @@ export CONCIEGGS_DB_DIR=$dir/db
 export EGGS_DIR=$dir/..
 export EGGS_LIB_DIR=$EGGS_DIR/eggslib
 
-echo "Using channel in $irc_dir/localhost/$irc_channel"
+echo "Using channel in $irc_dir/irc.freenode.net/$irc_channel"
 cd $irc_dir/irc.freenode.net/$irc_channel
+
+export CONCIEGGS_IRC_DIR=$irc_dir/irc.freenode.net/
 
 # Let all eggsml users touch our stuff.
 umask 002
