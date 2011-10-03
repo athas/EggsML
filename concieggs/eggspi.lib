@@ -42,7 +42,7 @@ randomName() {
 }
 
 cmpNames() {
-    [ $(aliases "$1") = $(aliases "$2") ]
+    [ "$(aliases "$1")" = "$(aliases "$2")" ]
 }
 
 dateToTime() {
