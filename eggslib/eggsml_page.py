@@ -129,6 +129,8 @@ class eggsml_page:
 		o = '<h1>Brainfuck pr&aelig;senterer Brainfuck\'s EggsML</h1>'
 		o += '<h2>Nu uden Brainfuck!</h2>'
 		o += '<a href="./graph_timeline.aspeggs">Se graf over deltagelse til Eggs</a>.'
+		o += '<br/><a href="./graph_timeline2.aspeggs">Eggs Enterprise Beta v2 graf</a>.'
+
 		o += "<h2>Neggst 'n' preggs</h2>" + "<p>" + self.neggst() + "</p>" + "<p>" + self.preggs() + "</p>"
 		o += self.aliases()
 		o += self.balances()
@@ -137,7 +139,7 @@ class eggsml_page:
 		self.output = o
 		return o
 	
-	def neggst(self):
+	def neggst(self): 
 		return concieggs_vm.neggst()
 
 	def preggs(self):
