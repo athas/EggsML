@@ -19,3 +19,5 @@ if query != '':
     text += ' ' + query
 
 api.PostUpdate(text)
+
+print 'Truntealarmen er lydt!'
