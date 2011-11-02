@@ -1,18 +1,25 @@
 #!/bin/sh
 #
-# Udskriv indkøbslisten i grimt format på s2a.
+# Udskriv indkøbslisten i grimt format på den givne printer.  Gives
+# intet argument bruges s2a.
 
 . $CONCIEGGS_DIR/eggspi.lib
 
 wishes=$($EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost wishes)
+
+if [ "$1" ]; then
+    printer=$1
+else
+    printer=s2a
+fi
 
 if [ "$wishes" ]; then
     $EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost wishes \
     | sort \
     | uniq -c \
     | sed -e 's/ *1 //' -e 's/ *//' -e 's/^/* /' \
-    | ssh athas@brok.diku.dk 'lpr -Ps2a'
-    echo "Udskriver på s2a!"
+    | ssh athas@brok.diku.dk 'lpr -P'"$printer"
+    echo "Udskriver på $printer!"
 else
     echo "Nægter at udskrive: Der er ingen indkøbsønsker!"
 fi
