@@ -36,6 +36,15 @@ def print_lunches(eggs, name):
             if u['user'] in aliases:
                 print d['date']
 
+def print_eggscount(eggs, name):
+    info = eggs.get_userinfo()
+
+    for user in info.keys():
+        aliases = user_aliases(eggs,user)
+        if name.lower() in map(lambda (x): x.lower(), aliases):
+            print info[user]["eggscount"]
+            return
+
 if __name__ == '__main__':
     e = eggsml()
     if len(sys.argv) < 3:
@@ -57,5 +66,11 @@ if __name__ == '__main__':
             exit("Usage: %s %s %s <alias>" % (sys.argv[0], lunchfile, command))
         if not print_lunches(e, sys.argv[3]):
             exit(1)
+    elif command == "eggscount":
+        if len(sys.argv) != 4:
+            exit("Usage: %s %s %s <alias>" % (sys.argv[0], lunchfile, command))
+        if not print_eggscount(e, sys.argv[3]):
+            exit(1)
+
     else:
         exit("Unrecognized command %s" % command)

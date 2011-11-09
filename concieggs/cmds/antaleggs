@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+# Informér logen om hvor mange gange den angivne broder har spist med
+# til eggs
+
+. $CONCIEGGS_DIR/eggspi.lib
+
+if [ $# -eq 1 ]; then
+    user="$1"
+elif [ $# -eq 0 ]; then
+    user="$EGGS_USER"
+else
+    echo "Brug: antaleggs [navn]"
+    exit
+fi
+
+echo "Vent venligst, Brainfuck tænker..."
+
+n="$($EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost eggscount "$user" | wc -l)"
+
+if [ "$n" ]; then
+    echo "$(randomName "$user") har spist med til eggs $n gange."
+else
+    echo "$user har mig bekendt aldrig spist med."
+fi
