@@ -6,18 +6,18 @@
 . $CONCIEGGS_DIR/eggspi.lib
 
 if [ $# -eq 1 ]; then
-    user=$1
+    user="$1"
 elif [ $# -eq 0 ]; then
-    user=$EGGS_USER
+    user="$EGGS_USER"
 else
     echo "Brug: sidste [navn]"
     exit
 fi
 
-sidste=$($EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost lunches "$user" | head -n 1)
+sidste="$($EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost lunches "$user" | head -n 1)"
 
 if [ "$sidste" ]; then
-    echo $(randomName "$user") spiste sidst med $(timeToDate $sidste).
+    echo "$(randomName "$user") spiste sidst med for $(daysSince $sidste) siden."
 else
-    echo $user har mig bekendt aldrig spist med.
+    echo "$user har mig bekendt aldrig spist med."
 fi
