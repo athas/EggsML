@@ -1,0 +1,23 @@
+#!/bin/sh
+#
+# Informér logen om hvornår den angivne broder sidst har spist med, ud
+# fra hvilket man kan udlede en vægtning af hans bidrag til debatten.
+
+. $CONCIEGGS_DIR/eggspi.lib
+
+if [ $# -eq 1 ]; then
+    user=$1
+elif [ $# -eq 0 ]; then
+    user=$EGGS_USER
+else
+    echo "Brug: sidste [navn]"
+    exit
+fi
+
+sidste=$($EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost lunches "$user" | head -n 1)
+
+if [ "$sidste" ]; then
+    echo $(randomName "$user") spiste sidst med $(timeToDate $sidste).
+else
+    echo $user har mig bekendt aldrig spist med.
+fi
