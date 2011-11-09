@@ -49,6 +49,7 @@ tail -f -n 0 out | while read line; do
                 /eggsml/fixperms
             else
                 echo "$EGGS_USER: Du bad mig om $cmd, men den kommando har jeg ikke!"
+                echo "Skriv 'concieggs: kommandoer' for at få en liste over mulige kommandoer."
             fi
         fi
     fi
