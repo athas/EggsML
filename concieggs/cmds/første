@@ -17,7 +17,7 @@ fi
 sidste="$($EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost lunches "$user" | tail -n 1)"
 
 if [ "$sidste" ]; then
-    echo "$(randomName "$user") spiste første gang med for $(dayssince $sidste) siden."
+    echo "$(randomName "$user") spiste første gang med for $(daysSince $sidste) siden."
 else
     echo "$user har mig bekendt aldrig spist med."
 fi
