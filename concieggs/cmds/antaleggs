@@ -14,7 +14,7 @@ else
     exit
 fi
 
-echo "Vent venligst, Brainfuck tænker..."
+echo "Vent venligst, Brainfuck tæller..."
 
 n="$($EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost eggscount "$user")"
 
