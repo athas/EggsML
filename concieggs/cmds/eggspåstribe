@@ -1,30 +1,22 @@
-" Press ? for help
+#!/bin/sh
+#
+# Det højeste antal eggs på stribe 
 
-.. (up a dir)
-/Users/frej/Projects/EggsML/concieggs/cmds/
-|-afeggs*
-|-afønsk*
-|-antaleggs*
-|-bf*
-|-eggsml*
-|-forklar*
-|-første*
-|-google*
-|-hiv*
-|-hjælp*
-|-husk*
-|-hvem*
-|-hw*
-|-kommandoer*
-|-neggst*
-|-posteggs*
-|-preggs*
-|-rydønsker*
-|-sidste*
-|-skyldnere*
-|-topic*
-|-udskriv*
-|-udu*
-|-visdom*
-|-ønsk*
-`-ønsker*
+. $CONCIEGGS_DIR/eggspi.lib
+
+if [ $# -eq 1 ]; then
+    user="$1"
+elif [ $# -eq 0 ]; then
+    user="$EGGS_USER"
+else
+    echo "Brug: antaleggs [navn]"
+    exit
+fi
+
+n="$($EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost consecutive "$user")"
+
+if [ "$n" ]; then
+    echo "$(randomName "$user") har $n eggs på stribe."
+else
+    echo "$user har mig bekendt aldrig spist med."
+fi
