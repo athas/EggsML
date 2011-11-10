@@ -36,14 +36,18 @@ def print_lunches(eggs, name):
             if u['user'] in aliases:
                 print d['date']
 
-def print_eggscount(eggs, name):
-    info = eggs.get_userinfo()
+def print_eggscount(eggs,name):
+    '''[{date: ts ,users: [ {amount:int, user:string} ] }]  -> int
+    '''
+    aliases  = user_aliases(eggs,name)
+    if aliases == None:
+        return False
+    
+    def inner(items):
+      #swap x['amount'] with '1' to count partitipation 
+      return reduce(lambda acc,x: (x['amount'] if x['user']==aliases[0] else 0)+acc,items,0)
 
-    for user in info.keys():
-        aliases = user_aliases(eggs,user)
-        if name.lower() in map(lambda (x): x.lower(), aliases):
-            print info[user]["eggscount"]
-            return
+    print reduce(lambda acc,x: inner(x['users'])+acc,eggs.dates,0)
 
 if __name__ == '__main__':
     e = eggsml()
@@ -71,6 +75,5 @@ if __name__ == '__main__':
             exit("Usage: %s %s %s <alias>" % (sys.argv[0], lunchfile, command))
         if not print_eggscount(e, sys.argv[3]):
             exit(1)
-
     else:
         exit("Unrecognized command %s" % command)
