@@ -26,6 +26,39 @@ def print_balances(eggs):
     for v in userinfo:
         print round(userinfo[v]['balance'], 2), eggs.get_alias_rand(v)
 
+
+from datetime import timedelta
+def nextday(ds,d):
+  if ds == []:
+    return True
+  else:
+    return (ds[-1] + timedelta(days=1) == d)
+    
+
+def print_consecutive(eggs,name):
+  '''Eeek
+  '''
+  dates = e.get_dates()
+  aliases = user_aliases(eggs,name)
+  if aliases == None:
+    return False
+  n = aliases[0]
+  #acc = {}
+  acc = ([],[]) 
+  for d in dates:
+    for eggs in d['users']:
+      if eggs['user'] == n:
+       (current,longest) = acc 
+       if nextday(current,d['date']):
+          current.append(d['date'])
+       else:
+         acc = ([],current) if len(current) > len(longest) else ([],longest)
+  
+  if len(longest) > len(current):
+    print len(longest)
+  else:
+    print len(current)
+
 def print_lunches(eggs, name):
     dates = eggs.get_dates()
     aliases = user_aliases(eggs,name)
@@ -75,5 +108,11 @@ if __name__ == '__main__':
             exit("Usage: %s %s %s <alias>" % (sys.argv[0], lunchfile, command))
         if not print_eggscount(e, sys.argv[3]):
             exit(1)
+    elif command == "consecutive":
+        if len(sys.argv) != 4:
+            exit("Usage: %s %s %s <alias>" % (sys.argv[0], lunchfile, command))
+        if not print_consecutive(e, sys.argv[3]):
+            exit(1)
+
     else:
         exit("Unrecognized command %s" % command)
