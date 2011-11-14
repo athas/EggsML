@@ -1,0 +1,29 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# Foretag en søgning på Google.  Kan Google ej hjælpe dig (sker ofte),
+# prøv da min 'forklar'-kommando.
+
+import urllib
+import urllib2
+import simplejson as json
+import sys
+
+query = " ".join(sys.argv[1:])
+
+results = 1
+url = (u'http://ajax.googleapis.com/ajax/services/search/images'
+       u'?v=1.0&start=0&rsz=' + str(results) + u'&q=' + urllib.quote(query))
+
+request = urllib2.Request(url, None, {'Referer': u'http://eggsml.dk'})
+response = urllib2.urlopen(request)
+
+results = json.load(response)
+#print json.dumps(results, sort_keys=True, indent=4)
+
+if len(results["responseData"]["results"]) == 0:
+    print "Ingen resultater fra Google"
+else:
+    first_result = results["responseData"]["results"][0];
+    unicodestr = first_result["titleNoFormatting"] + " (" + first_result["url"] + ")"
+    print unicodestr.encode('UTF-8')
+
