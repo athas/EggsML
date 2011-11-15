@@ -1,4 +1,4 @@
 #!/bin/sh
 
 echo "ADVARSEL: Dette er en deprekeret legacy-kommando.  Brug 'mening' i stedet, dit oldtidslevn."
-$0/mening "$@"
+$(basedir "$0")/mening "$@"
