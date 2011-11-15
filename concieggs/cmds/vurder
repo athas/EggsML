@@ -14,6 +14,7 @@ def main():
         exit(0)
 
     trunte = sys.argv[1]
+    truntel = trunte.lower()
 
     try:
         stemme = float(sys.argv[2])
@@ -36,18 +37,18 @@ def main():
     db = json.load(dbfile)
     dbfile.close()
 
-    if trunte not in db:
+    if truntel not in db:
         print "Jeg kender ikke den trunte. Opret hende med 'nytrunte %s'." % trunte
         exit(0)
 
     eggser = environ['EGGS_USER']
 
-    db[trunte]['vurderinger'][eggser] = {'stemme': stemme, 'tidspunkt': time.time()}
+    db[truntel]['vurderinger'][eggser] = {'stemme': stemme, 'tidspunkt': time.time()}
 
     s = 0
     c = 0
-    for e in db[trunte]['vurderinger'].iterkeys():
-        s += db[trunte]['vurderinger'][e]['stemme']
+    for e in db[truntel]['vurderinger'].iterkeys():
+        s += db[truntel]['vurderinger'][e]['stemme']
         c += 1
 
     db[trunte]['gennemsnit'] = s/c
@@ -56,7 +57,7 @@ def main():
     json.dump(db, dbfile)
     dbfile.close()
     print "%s har nu et gennemsnit på %.3f/10 efter %d stemmer." % \
-            (trunte, db[trunte]['gennemsnit'], len(db[trunte]['vurderinger']))
+            (trunte, db[truntel]['gennemsnit'], len(db[truntel]['vurderinger']))
     dbfile.close()
 
 if __name__ == '__main__':

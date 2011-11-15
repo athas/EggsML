@@ -14,6 +14,7 @@ def main():
         exit(0)
 
     trunte = sys.argv[1]
+    truntel = trunte.lower()
 
     datafile = path.join(environ['CONCIEGGS_DB_DIR'], 'truntestats')
 
@@ -26,11 +27,11 @@ def main():
     db = json.load(dbfile)
     dbfile.close()
 
-    if trunte in db:
+    if truntel in db:
         print "Vi har allerede den trunte liggende!"
         exit(0)
 
-    db[trunte] = {
+    db[truntel] = {
         'kortNavn': trunte,
         'fuldtNavn': trunte,
         'beskrivelse': 'Ingen info.',

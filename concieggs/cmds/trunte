@@ -10,10 +10,11 @@ import sys
 
 def main():
     if len(sys.argv) < 2:
-        print "Du skal give trunten et navn. Ex: nytrunte redhead Hende den rødhårede"
+        print "Du skal give et navn på en trunte."
         exit(0)
 
     trunte = sys.argv[1]
+    truntel = trunte.lower()
 
     datafile = path.join(environ['CONCIEGGS_DB_DIR'], 'truntestats')
 
@@ -26,13 +27,13 @@ def main():
     db = json.load(dbfile)
     dbfile.close()
 
-    if not trunte in db:
+    if not truntel in db:
         print "Jeg kender ikke til %s." % trunte
         exit(0)
 
-    print "%s (%.3f/10): %s" % (db[trunte]['kortNavn'],
-                                db[trunte]['gennemsnit'],
-                                db[trunte]['beskrivelse'])
+    print "%s (%.3f/10): %s" % (db[truntel]['kortNavn'],
+                                db[truntel]['gennemsnit'],
+                                db[truntel]['beskrivelse'])
 
 if __name__ == '__main__':
     main()
