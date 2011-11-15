@@ -6,7 +6,7 @@ import simplejson as json
 from os import environ, path
 from sys import exit
 import sys
-
+import time
 
 def main():
     if len(sys.argv) < 3:
@@ -42,12 +42,12 @@ def main():
 
     eggser = environ['EGGS_USER']
 
-    db[trunte]['vurderinger'][eggser] = stemme
+    db[trunte]['vurderinger'][eggser] = {'stemme': stemme, 'tidspunkt': time.time()}
 
     s = 0
     c = 0
     for e in db[trunte]['vurderinger'].iterkeys():
-        s += db[trunte]['vurderinger'][e]
+        s += db[trunte]['vurderinger'][e]['stemme']
         c += 1
 
     db[trunte]['gennemsnit'] = s/c
