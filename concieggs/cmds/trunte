@@ -1,0 +1,38 @@
+#!/usr/bin/env python
+# vim: set fileencoding=utf-8 :
+# Forklar en trunte.
+
+import simplejson as json
+from os import environ, path
+from sys import exit
+import sys
+
+
+def main():
+    if len(sys.argv) < 2:
+        print "Du skal give trunten et navn. Ex: nytrunte redhead Hende den rødhårede"
+        exit(0)
+
+    trunte = sys.argv[1]
+
+    datafile = path.join(environ['CONCIEGGS_DB_DIR'], 'truntestats')
+
+    if not path.exists(datafile):
+        f = open(datafile, 'w+')
+        f.write('{}')
+        f.close()
+
+    dbfile = open(datafile, 'r')
+    db = json.load(dbfile)
+    dbfile.close()
+
+    if not trunte in db:
+        print "Jeg kender ikke til %s." % trunte
+        exit(0)
+
+    print "%s (%.3f/10): %s" % (db[trunte]['kortNavn'],
+                                db[trunte]['gennemsnit'],
+                                db[trunte]['beskrivelse'])
+
+if __name__ == '__main__':
+    main()
