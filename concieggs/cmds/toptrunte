@@ -20,7 +20,7 @@ def main():
     db = json.load(dbfile)
     dbfile.close()
 
-    topTrunter = sorted(db.items(), key=lambda e: attrgetter('gennemsnit'))[0:4]
+    topTrunter = sorted(db.items(), key=lambda e: attrgetter('gennemsnit'))[0:5]
     out = "TopTrunter: "
     p = 1
     for (_,trunte) in topTrunter:
