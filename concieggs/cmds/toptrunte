@@ -20,14 +20,14 @@ def main():
     db = json.load(dbfile)
     dbfile.close()
 
-    topTrunter = sorted(db.items(), key=lambda e: attrgetter('gennemsnit'))[0:5]
+    topTrunter = sorted(db.items(), key=lambda e: e[1]['gennemsnit'], reverse=True)[0:5]
     out = "TopTrunter: "
     p = 1
     for (_,trunte) in topTrunter:
         out += "#%d: %s (%.3f/10)" % (p, trunte['kortNavn'], trunte['gennemsnit'])
-        p += 1
         if p != 5: out += ", "
         else: out += "."
+        p += 1
 
     print out
 
