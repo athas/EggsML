@@ -1,39 +1,4 @@
-#!/usr/bin/env python
-# vim: set fileencoding=utf-8 :
-# Forklar en trunte.
+#!/bin/sh
 
-import simplejson as json
-from os import environ, path
-from sys import exit
-import sys
-
-
-def main():
-    if len(sys.argv) < 2:
-        print "Du skal give et navn på en trunte."
-        exit(0)
-
-    trunte = sys.argv[1]
-    truntel = trunte.lower()
-
-    datafile = path.join(environ['CONCIEGGS_DB_DIR'], 'truntestats')
-
-    if not path.exists(datafile):
-        f = open(datafile, 'w+')
-        f.write('{}')
-        f.close()
-
-    dbfile = open(datafile, 'r')
-    db = json.load(dbfile)
-    dbfile.close()
-
-    if not truntel in db:
-        print "Jeg kender ikke til %s." % trunte
-        exit(0)
-
-    print "%s (%.3f/10): %s" % (db[truntel]['kortNavn'],
-                                db[truntel]['gennemsnit'],
-                                db[truntel]['beskrivelse'])
-
-if __name__ == '__main__':
-    main()
+echo "ADVARSEL: Dette er en deprekeret legacy-kommando.  Brug 'mening' i stedet, dit oldtidslevn."
+$0/mening "$@"
