@@ -51,7 +51,7 @@ def main():
         s += db[truntel]['vurderinger'][e]['stemme']
         c += 1
 
-    db[trunte]['gennemsnit'] = s/c
+    db[truntel]['gennemsnit'] = s/c
 
     dbfile = open(datafile, 'w')
     json.dump(db, dbfile)
