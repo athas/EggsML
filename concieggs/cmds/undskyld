@@ -14,7 +14,7 @@ else
     exit
 fi
 
-case expr $RANDOM % 5 in
+case $(($(od -vAn -N4 -tu4 < /dev/urandom) % 5)) in
     0) echo "Kære $to... $from ved ikke hvordan han skal få det sagt, men har det virkelig dårligt med sin hidtidige opførsel, og håber at du kan finde tilgivelse i dit hjerte.";
         ;;
     1) echo "$to, kender du det når man har en følelse i sit hjerte der gør så ondt, men man ikke kan finde ord til at formulere den, så den kan komme ud?  Sådan har $from det med sin opførsel over for dig.";
