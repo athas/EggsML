@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# Vi kender det alle: Vi har gjort nogen ked af det, og vi kan ikke
+# finde ud af at sige undskyld.  Brug denne kommando til at få
+# concieggs til at fungere som mellemmand for dine dybfølte
+# undskyldninger.
+
+from=$EGGS_USER
+
+if [ $# -eq 1 ]; then
+    to="$1"
+else
+    echo "Brug: undskyld [navn]"
+    exit
+fi
+
+case $(($RANDOM % 5)) in
+    0) echo "Kære $to... $from ved ikke hvordan han skal få det sagt, men har det virkelig dårligt med sin hidtidige opførsel, og håber at du kan finde tilgivelse i dit hjerte.";
+        ;;
+    1) echo "$to, kender du det når man har en følelse i sit hjerte der gør så ondt, men man ikke kan finde ord til at formulere den, så den kan komme ud?  Sådan har $from det med sin opførsel over for dig.";
+        ;;
+    2) echo "$to, $from har det skidt med sin opførsel, og vil gøre hvad som helst for at gøre det godt igen - f.eks. være sub.";
+        ;;
+    3) echo "$from ved godt at han har lavet en Nederen-Jesper, men håber at du kan lave en Dybber og vise tilgivelse.";
+        ;;
+    4) echo "$from føler sig som en der har valgt at lave machine learning-øvelser i C, $to, og beder fra hjertet om tilgivelse og forståelse, selvom han godt ved at han ikke fortjener det."
+esac
