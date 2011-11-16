@@ -14,6 +14,11 @@ else
     exit
 fi
 
+if [ "$to" = "concieggs" ]; then
+    echo "Aldrig i livet.  Jeg vil aldrig tilgive dig for hvad du har gjort!"
+    exit
+fi
+
 case $(($(od -vAn -N4 -tu4 < /dev/urandom) % 5)) in
     0) echo "Kære $to... $from ved ikke hvordan han skal få det sagt, men har det virkelig dårligt med sin hidtidige opførsel, og håber at du kan finde tilgivelse i dit hjerte.";
         ;;
