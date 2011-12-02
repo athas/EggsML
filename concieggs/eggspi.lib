@@ -144,8 +144,12 @@ extractUsername() {
 }
 
 addToEggs() {
-    echo $2 >> $CONCIEGGS_DB_DIR/eggs/$1
-    echo $2 $(nowTime) >> $CONCIEGGS_DB_DIR/eggsactly
+    if [ $# -eq 3 ]; then
+        echo "$2, $3" >> $CONCIEGGS_DB_DIR/eggs/$1
+    else
+        echo "$2" >> $CONCIEGGS_DB_DIR/eggs/$1
+    fi
+    echo "$2" $(nowTime) >> $CONCIEGGS_DB_DIR/eggsactly
 }
 
 isInEggs() { # Cannot trust return value due to subshell.
@@ -153,7 +157,8 @@ isInEggs() { # Cannot trust return value due to subshell.
     name="$2"
     if [ -s "$CONCIEGGS_DB_DIR/eggs/$time" ]; then
         aliases "$name" | while read alias; do
-            if fgrep -x "$alias" $CONCIEGGS_DB_DIR/eggs/$time; then
+            if cat $CONCIEGGS_DB_DIR/eggs/$time | sed 's/,.*//' \
+                | fgrep -x "$alias"; then
                 return 0
             fi
         done
@@ -166,7 +171,7 @@ rmFromEggs() {
     export TRAITOR="$2"
     tmpfile=$(mktemp)
     cat $CONCIEGGS_DB_DIR/eggs/$time \
-        | awk '$1!=ENVIRON["TRAITOR"]' > $tmpfile
+        | awk -F, '$1!=ENVIRON["TRAITOR"]' > $tmpfile
     if [ -s $tmpfile ]; then
         mv $tmpfile $CONCIEGGS_DB_DIR/eggs/$time
     else
@@ -186,7 +191,13 @@ prevEggs() {
 
 listEggsers() {
     cat $CONCIEGGS_DB_DIR/eggs/$1 | while read who; do
-        echo $(randomName "$who")
+        name=$(echo "$who" | sed 's/,.*//')
+        fact=$(echo "$who" | grep "," | sed 's/.*, //')
+        if [ "$fact" ]; then
+            echo "$(randomName "$name")*($fact)"
+        else
+            echo $(randomName "$name")
+        fi
     done
 }
 

@@ -1,0 +1,33 @@
+#!/bin/sh
+#
+# Som eggsml, men for småtspisende eggsere.
+
+. $CONCIEGGS_DIR/eggspi.lib
+
+subscribeToEggs() {
+    time=$1
+    name=$2
+    if [ "$(dateSecs "$time" '+%u')" = "1" ]; then
+        echo "Det er en mandag!  Der er muligvis FF!"
+    fi
+    if [ "$(isInEggs "$time" "$name")" != "" ]; then
+        echo "$name spiser allerede med $(timeToDate $time)!"
+    elif addToEggs "$time" "$name" "0.5"; then
+        echo "Javel! $name truntespiser med $(timeToDate $time)!"
+    else
+        exit 1
+    fi
+}
+
+time=$(extractDate "$@")
+name=$(extractUsername "$@")
+if [ ! "$time" ]; then
+    echo "Ingen har tilmeldt sig Eggs - \
+vil du være den første, så brug 'eggsml <tidspunkt> [brugernavn]'."
+    exit 0
+fi
+if [ ! "$name" ]; then
+    echo "Giv mig et navn jeg kender!"
+    exit 0
+fi
+subscribeToEggs "$time" "$name"
