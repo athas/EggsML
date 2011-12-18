@@ -194,7 +194,7 @@ listEggsers() {
         name=$(echo "$who" | sed 's/,.*//')
         fact=$(echo "$who" | grep "," | sed 's/.*, //')
         if [ "$fact" ]; then
-            echo "$(randomName "$name")*($fact)"
+            echo "$(randomName "$name")(*$fact)"
         else
             echo $(randomName "$name")
         fi
