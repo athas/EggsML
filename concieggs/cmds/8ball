@@ -1,0 +1,29 @@
+#!/bin/sh
+#
+# Udnyt conciegg's spådomsfunktionalitet til at rådspørge den
+# alvidende eightball.
+
+answers() {
+    echo "Som jeg ser det, ja." # "As I see it, yes."
+    echo "Det er sikkert." # "It is certain."
+    echo "Sådan er det helt klart." # "It is decidedly so."
+    echo "Sandsynligvis." # "Most likely."
+    echo "Det ser godt ud." # "Outlook good."
+    echo "Alle tegn tyder på ja." # "Signs point to yes."
+    echo "Utvivlsomt." # "Without a doubt."
+    echo "Ja". # "Yes."
+    echo "Ja, absolut." # "Yes - definitely."
+    echo "Det kan du regne med." # "You may rely on it."
+    echo "Svar vagt, prøv igen." # "Reply hazy, try again."
+    echo "Spørg igen senere." # "Ask again later."
+    echo "Det bør jeg næppe fortælle dig." # "Better not tell you now."
+    echo "Det skal jeg ikke kunne sige." # "Cannot predict now."
+    echo "Koncentrér dig og spørg igen." # "Concentrate and ask again."
+    echo "Det skal du ikke regne med." # "Don't count on it."
+    echo "Mit svar er nej." # "My reply is no."
+    echo "Mine kilder siger nej." # "My sources say no."
+    echo "Det ser ikke for godt ud." # "Outlook not so good."
+    echo "Meget tvivlsomt." # "Very doubtful."
+}
+
+answers | sort -R --random-source=/dev/urandom | head -n 1
