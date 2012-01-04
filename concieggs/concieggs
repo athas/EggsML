@@ -25,7 +25,7 @@ umask 002
 
 dateregex='[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}'
 awk_checkpart='/'$dateregex' -!- .* has left '$irc_channel'$/ { print substr($4, 0, index($4, "(")-1)}'
-awk_getcmd='/'$dateregex' <[A-Za-z0-9_]*> '$irc_username'[:,] / { print $5; }'
+awk_getcmd='/'$dateregex' <[A-Za-z0-9_]*> '$irc_username'[:,!] / { print $5; }'
 awk_getuser='{ print substr($3, 2, length($3)-2); }'
 awk_getargs='{ print substr($0, index($0, " "$5)+length($5)+2, length($0)) }'
 
