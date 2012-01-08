@@ -34,13 +34,13 @@ alias=$(randomName "$user")
 auth=$(authedName "$user")
 
 if [ "$alias" ]; then
-    echo -n "$user er $alias, og "
+    aliasMsg="$user er $alias, og"
 else
-    echo -n "Jeg kender ikke $user, og vedkommende er "
+    aliasMsg="Jeg kender ikke $user, og vedkommende er"
 fi
 
 if [ "$auth" ]; then
-    echo "autenticeret som $auth ifølge Nickserv!"
+    echo "$aliasMsg autenticeret som $auth ifølge Nickserv!"
 else
-    echo "ikke autenticeret ifølge Nickserv!"
+    echo "$aliasMsg ikke autenticeret ifølge Nickserv!"
 fi
