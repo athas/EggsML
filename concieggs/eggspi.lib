@@ -1,5 +1,9 @@
 # Shell script function definitions
 
+decomment() {
+    sed 's/ *#.*//' 
+}
+
 randomise() {
     sort -R --random-source=/dev/urandom
 }
@@ -283,6 +287,6 @@ authedName () {
 isTrusted() {
     auth="$(authedName "$1")"
     if [ "$auth" ]; then
-        fgrep -x "$auth" "$CONCIEGGS_DB_DIR/mestre"
+        cat "$CONCIEGGS_DB_DIR/mestre" | decomment | fgrep -x "$auth"
     fi
 }
