@@ -1,0 +1,57 @@
+#!/bin/sh
+#
+# Notér i databasen at der er blevet foretaget et indkøb.  Man skal
+# være registreret hos Nickserv, med et kendt navn, før man får lov
+# til at notere et indkøb.  Man kan godt notere på andres vegne, men
+# det registreres i Git-beskeden hvem der sagde god for det ved at
+# køre kommandoen.
+
+. $CONCIEGGS_DIR/eggspi.lib
+
+if [ $# -lt 1 -o $# -gt 2 ]; then
+    echo 'Brug: indkøb <beløb> [hvem]'
+fi
+
+maybeamount=$1
+who=${2:-$EGGS_USER}
+
+auth="$(isTrusted "$EGGS_USER")"
+if ! [ "$auth" ]; then
+    echo "Jeg stoler ikke på folk som dig, $EGGS_USER."
+    exit 0
+fi
+
+amount=$(echo "$maybeamount" | egrep '^[0-9]+(\.[0-9][0-9])?$')
+if ! [ "$amount" ]; then
+    echo "$maybeamount synes ikke at være et gyldigt kronebeløb."
+    exit 0
+fi
+
+alias=$(randomName "$who")
+if ! [ "$alias" ]; then
+    echo "Jeg kender ikke $alias!  Logen accepterer på nuværende tidspunkt ikke anonyme donationer."
+    exit 0
+fi
+
+when=$(date '+%Y-%m-%d')
+
+if gitRefresh; then
+    cd $EGGS_DIR
+    ed slashdotfrokost > /dev/null <<EOF
+/::INDKØB::/
++2
+i
+$(echo "$when, $alias: $amount")
+.
+w
+EOF
+    if tryGitChange "Indkøb fra $alias, godkendt af $auth" slashdotfrokost; then
+        echo "Meget vel.  Lad det for stedse være nedfældet i logeprotokollen at $alias, $when, har bidraget med frokostaktiver svarende til ${amount}kr."
+    else
+        gitRepair slashdotfrokost
+        echo "Katastrofe!  Noget gik galt under opdatering!"
+        exit 1
+    fi
+else
+    exit 1
+fi
