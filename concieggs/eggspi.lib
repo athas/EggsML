@@ -267,17 +267,22 @@ authedName () {
     rm -rf nickserv
     echo '/PRIVMSG nickserv :info '$1 > in
     for i in $(seq 1 5); do
-        authed=$(awk '{ match($0, "account ([^)]+)", a); if (a[1]) { print a[1] }}' < nickserv/out)
+        authed=$(awk '{ match($0, "account[^a-zA-Z0-9_]+([a-zA-Z0-9_]+)", a); if (a[1]) { print a[1] }}' < nickserv/out)
         if [ "$authed" ]; then
             echo $authed
-            break
+            return
         fi
         unknown=$(awk '/is not registered/' < nickserv/out)
         if [ "$unknown" ]; then
-            echo ""
-            break
+            return
         fi
         sleep 1
     done
-    echo ""
+}
+
+isTrusted() {
+    auth="$(authedName "$1")"
+    if [ "$auth" ]; then
+        fgrep -x "$auth" "$CONCIEGGS_DB_DIR/mestre"
+    fi
 }
