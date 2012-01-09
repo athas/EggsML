@@ -5,8 +5,9 @@
 
 . $CONCIEGGS_DIR/eggspi.lib
 
-if ! [ $# -eq 4 -a $3 != til ]; then
+if ! [ $# -eq 4 -a $3 = til ]; then
     echo 'Brug: overfør <beløb> til <modtager>'
+    exit 0
 fi
 
 maybeamount=$1
@@ -37,7 +38,7 @@ fi
 
 to=$(randomName "$maybeto")
 if ! [ "$to" ]; then
-    echo "Jeg kender ikke $to!  Prøv med 'Athas' i stedet for."
+    echo "Jeg kender ikke $maybeto!  Prøv med 'Athas' i stedet for."
     exit
 fi
 
