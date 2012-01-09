@@ -29,7 +29,7 @@ fi
 
 alias=$(randomName "$who")
 if ! [ "$alias" ]; then
-    echo "Jeg kender ikke $alias!  Logen accepterer på nuværende tidspunkt ikke anonyme donationer."
+    echo "Jeg kender ikke $who!  Logen accepterer på nuværende tidspunkt ikke anonyme donationer."
     exit 0
 fi
 
