@@ -5,13 +5,13 @@
 
 . $CONCIEGGS_DIR/eggspi.lib
 
-if ! [ $# -eq 4 -a $3 = til ]; then
+if ! [ $# -eq 3 -a $2 = til ]; then
     echo 'Brug: overfør <beløb> til <modtager>'
     exit 0
 fi
 
 maybeamount=$1
-maybeto=$4
+maybeto=$3
 
 from=$(randomName $EGGS_USER)
 if ! [ "$from" ]; then
@@ -25,10 +25,20 @@ if ! [ "$auth" ]; then
     exit
 fi
 
-amount=$(echo "$maybeamount" | egrep '^[0-9]+(\.[0-9][0-9])?$')
+amount=$(echo "$maybeamount" | egrep '^-?[0-9]+(\.[0-9][0-9])?$')
 if ! [ "$amount" ]; then
     echo "$maybeamount synes ikke at være et gyldigt kronebeløb."
     exit
+fi
+
+if [ $amount -eq 0 ]; then
+    echo "Undlad venligst at spilde bankvæsenets tid på pjat."
+    exit 0
+elif [ $amount -lt 0 ]; then
+    $amount=$((-$amount))
+    tmp=$from
+    from=$to
+    to=$tmp
 fi
 
 if [ "$to" = concieggs ]; then
