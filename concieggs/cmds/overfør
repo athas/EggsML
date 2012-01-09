@@ -31,6 +31,11 @@ if ! [ "$amount" ]; then
     exit
 fi
 
+if [ "$maybeto" = concieggs ]; then
+    echo "Tak, men jeg er hævet over behovet for ussel mammon."
+    exit
+fi
+
 to=$(randomName "$maybeto")
 if ! [ "$to" ]; then
     echo "Jeg kender ikke $maybeto!  Prøv med 'Athas' i stedet for."
@@ -45,11 +50,6 @@ elif [ $amount -lt 0 ]; then
     tmp=$from
     from=$to
     to=$tmp
-fi
-
-if [ "$to" = concieggs ]; then
-    echo "Tak, men jeg er hævet over behovet for ussel mammon."
-    exit
 fi
 
 if cmpNames $from $to; then
