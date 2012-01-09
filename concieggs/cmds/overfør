@@ -1,0 +1,71 @@
+#!/bin/sh
+#
+# Foretag en monetær transaktion til en anden logebroder gennem EggsML
+# bankcentralen.  Denne facilitet er dog kun for logemestre.
+
+. $CONCIEGGS_DIR/eggspi.lib
+
+if ! [ $# -eq 4 -a $3 != til ]; then
+    echo 'Brug: overfør <beløb> til <modtager>'
+fi
+
+maybeamount=$1
+maybeto=$4
+
+from=$(randomName $EGGS_USER)
+if ! [ "$from" ]; then
+    echo "Dig kender jeg ikke.  Hvem skulle du forestille at være?"
+    exit
+fi
+
+auth="$(isTrusted "$EGGS_USER")"
+if ! [ "$auth" ]; then
+    echo "Jeg stoler ikke på folk som dig, $EGGS_USER."
+    exit
+fi
+
+amount=$(echo "$maybeamount" | egrep '^[0-9]+(\.[0-9][0-9])?$')
+if ! [ "$amount" ]; then
+    echo "$maybeamount synes ikke at være et gyldigt kronebeløb."
+    exit
+fi
+
+if [ "$to" = concieggs ]; then
+    echo "Tak, men jeg er hævet over behovet for ussel mammon."
+    exit
+fi
+
+to=$(randomName "$maybeto")
+if ! [ "$to" ]; then
+    echo "Jeg kender ikke $to!  Prøv med 'Athas' i stedet for."
+    exit
+fi
+
+if cmpNames $from $to; then
+    echo "Hold venligst den slags onanistiske gris ude af logen."
+    exit
+fi
+
+when=$(date '+%Y-%m-%d')
+
+if gitRefresh; then
+    cd $EGGS_DIR
+    ed slashdotfrokost > /dev/null <<EOF
+/::INDKØB::/
++2
+i
+$(echo "$when, $from: -$amount")
+$(echo "$when, $to: $amount")
+.
+w
+EOF
+    if tryGitChange "Overførsel fra $from til $to, godkendt af $auth" slashdotfrokost; then
+        echo "Lad det runge og gjalde i DIKUs sale at $from har overført ${amount}kr til $to, som betaling for indtil videre ukendte ydelser!"
+    else
+        gitRepair slashdotfrokost
+        echo "Katastrofe!  Noget gik galt under opdatering!"
+        exit 1
+    fi
+else
+    exit 1
+fi
