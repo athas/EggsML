@@ -1,0 +1,75 @@
+#!/bin/sh
+#
+# Tilføj et nyt alias til en EggsML-bruger.  Kun for logemestre.
+
+
+. $CONCIEGGS_DIR/eggspi.lib
+
+if ! [ $# -eq 3 -a $2 = som ]; then
+    echo 'Brug: tiltal <person> som <nytnavn>'
+    exit 0
+fi
+
+from=$(randomName $EGGS_USER)
+if ! [ "$from" ]; then
+    echo "Dig kender jeg ikke.  Hvem skulle du forestille at være?"
+    exit
+fi
+
+auth="$(isTrusted "$EGGS_USER")"
+if ! [ "$auth" ]; then
+    echo "Det har du på ingen måde bemyndigelse til."
+    exit
+fi
+
+newalias=$3
+who=$(randomName $1)
+taken=$(randomName $2)
+
+if ! [ "$who" ]; then
+    echo "$1 er ikke en kendt broder i logen."
+    exit
+fi
+
+if [ "$taken" ]; then
+    if cmpNames "$who" "$taken"; then
+        if cmpNames "$who" "$EGGS_USER"; then
+            echo "Du er allerede kendt som $newalias, broder dement."
+        else
+            echo "$who er allerede kendt som $newalias."
+        fi
+    else
+        echo "En anden broder tituleres allerede som $newalias."
+    fi
+    exit
+fi
+
+cd $EGGS_DIR
+
+aliases=$(aliases "$who" | commasize)
+lineno=$(cat slashdotfrokost | sed '/::FARVER::/q' | fgrep -n -m 1 -e "$aliases" | sed 's/:.*//')
+
+if ! [ "$lineno" ]; then
+    echo "Uha, jeg kan ikke finde linjen i datafilen."
+    exit 1
+fi
+
+if gitRefresh; then
+    ed slashdotfrokost > /dev/null <<EOF
+/::ALIAS::/
+$(echo $lineno)
+c
+$(echo $aliases, $newalias)
+.
+w
+EOF
+    if tryGitChange "Tilføj $newalias som alias til $who" slashdotfrokost; then
+        echo "Lad hermed $who være kendt som $newalias, fra tid til anden."
+    else
+        gitRepair slashdotfrokost
+        echo "Katastrofe!  Noget gik galt under opdatering!"
+        exit 1
+    fi
+else
+    exit 1
+fi
