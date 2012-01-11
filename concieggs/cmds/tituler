@@ -24,7 +24,7 @@ fi
 
 newalias=$3
 who=$(randomName $1)
-taken=$(randomName $2)
+taken=$(randomName $newalias)
 
 if ! [ "$who" ]; then
     echo "$1 er ikke en kendt broder i logen."
