@@ -38,7 +38,7 @@ if gitRefresh; then
     if tryGitChange "Ophøj $who til mester" $CONCIEGGS_DB_DIR/mestre; then
         echo "Ritualet er fuldendt.  $who regnes nu blandt mestrene udi frokostens kunst."
     else
-        gitRepair slashdotfrokost
+        gitRepair $CONCIEGGS_DB_DIR/mestre
         echo "Katastrofe!  Noget gik galt under opdatering!"
         exit 1
     fi
