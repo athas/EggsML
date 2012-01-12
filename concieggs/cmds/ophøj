@@ -1,0 +1,47 @@
+#!/bin/sh
+#
+# Ophøj en bruger til mester.  Kun for logemestre!
+
+
+. $CONCIEGGS_DIR/eggspi.lib
+
+if ! [ $# -lt 1 ]; then
+    echo 'Brug: ophøj <person> [kommentar]'
+    exit 0
+fi
+
+auth="$(isTrusted "$EGGS_USER")"
+if ! [ "$auth" ]; then
+    echo "Det har du på ingen måde bemyndigelse til."
+    exit
+fi
+
+who=$(randomName $1)
+
+if ! [ "$who" ]; then
+    echo "Umuligt; $1 er ikke kendt blandt logebrødrene."
+    exit
+fi
+
+if [ "$(isTrusted "$who")" ]; then
+    echo "$who er allerede en af vor respekterede logemestre."
+    exit
+fi
+
+if gitRefresh; then
+    shift
+    if [ $# -eq 0 ]; then
+        echo "$who" >> $CONCIEGGS_DB_DIR/mestre
+    else
+        echo "$who # $*" >> $CONCIEGGS_DB_DIR/mestre
+    fi
+    if tryGitChange "Ophøj $who til mester" $CONCIEGGS_DB_DIR/mestre; then
+        echo "Ritualet er fuldendt.  $who regnes nu blandt mestrene udi frokostens kunst."
+    else
+        gitRepair slashdotfrokost
+        echo "Katastrofe!  Noget gik galt under opdatering!"
+        exit 1
+    fi
+else
+    exit 1
+fi
