@@ -35,7 +35,7 @@ broke() {
 
 export LC_ALL=da_DK.UTF-8
 
-tail -f -n 0 out | while read line; do
+tail -f -n 0 out | while read -r line; do
     . $CONCIEGGS_DIR/eggspi.lib
     rawcmd=$(echo "$line"|awk --posix "$awk_getcmd")
     if [ "$rawcmd" ]; then
