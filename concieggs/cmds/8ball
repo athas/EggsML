@@ -11,7 +11,7 @@ answers() {
     echo "Det ser godt ud." # "Outlook good."
     echo "Alle tegn tyder på ja." # "Signs point to yes."
     echo "Utvivlsomt." # "Without a doubt."
-    echo "Ja". # "Yes."
+    echo "Ja." # "Yes."
     echo "Ja, absolut." # "Yes - definitely."
     echo "Det kan du regne med." # "You may rely on it."
     echo "Svar vagt, prøv igen." # "Reply hazy, try again."
