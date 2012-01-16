@@ -16,7 +16,7 @@ if ! [ "$auth" ]; then
     exit
 fi
 
-who=$(randomName $1)
+who=$(authedName $1)
 
 if ! [ "$who" ]; then
     echo "Umuligt; $1 er ikke kendt blandt logebrødrene."
