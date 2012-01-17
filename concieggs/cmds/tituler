@@ -12,13 +12,13 @@ fi
 
 from=$(randomName $EGGS_USER)
 if ! [ "$from" ]; then
-    echo "Dig kender jeg ikke.  Hvem skulle du forestille at være?"
+    echo "$EGGS_USER: Dig kender jeg ikke.  Hvem skulle du forestille at være?"
     exit
 fi
 
 auth="$(isTrusted "$EGGS_USER")"
 if ! [ "$auth" ]; then
-    echo "Det har du på ingen måde bemyndigelse til."
+    echo "$EGGS_USER: Det har du på ingen måde bemyndigelse til."
     exit
 fi
 
@@ -27,19 +27,19 @@ who=$(randomName $1)
 taken=$(randomName $newalias)
 
 if ! [ "$who" ]; then
-    echo "$1 er ikke en kendt broder i logen."
+    echo "$EGGS_USER: $1 er ikke en kendt broder i logen."
     exit
 fi
 
 if [ "$taken" ]; then
     if cmpNames "$who" "$taken"; then
         if cmpNames "$who" "$EGGS_USER"; then
-            echo "Du er allerede kendt som $newalias, broder dement."
+            echo "$EGGS_USER: Du er allerede kendt som $newalias, broder dement."
         else
-            echo "$who er allerede kendt som $newalias."
+            echo "$EGGS_USER: $who er allerede kendt som $newalias."
         fi
     else
-        echo "En anden broder tituleres allerede som $newalias."
+        echo "$EGGS_USER: En anden broder tituleres allerede som $newalias."
     fi
     exit
 fi

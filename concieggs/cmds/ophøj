@@ -12,19 +12,19 @@ fi
 
 auth="$(isTrusted "$EGGS_USER")"
 if ! [ "$auth" ]; then
-    echo "Det har du på ingen måde bemyndigelse til."
+    echo "$EGGS_USER: Det har du på ingen måde bemyndigelse til."
     exit
 fi
 
 who=$(authedName $1)
 
 if ! [ "$who" ]; then
-    echo "Umuligt; $1 er ikke kendt blandt logebrødrene."
+    echo "$EGGS_USER: Umuligt; $1 er ikke kendt blandt logebrødrene."
     exit
 fi
 
 if [ "$(isTrusted "$who")" ]; then
-    echo "$who er allerede en af vor respekterede logemestre."
+    echo "$EGGS_USER: $who er allerede en af vor respekterede logemestre."
     exit
 fi
 
