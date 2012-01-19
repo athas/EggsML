@@ -23,7 +23,7 @@ try:
                        "6.1; he; rv:1.9.2.8) Gecko/20100722 Firefox/3.6.8")
     request.add_header("Referer", "http://www.google.com")
     result = urllib2.urlopen(request)
-except Exception as e:
+except Exception:
     print "Problem ved forespørgsel til Google"
     sys.exit(-1)
 
