@@ -1,29 +1,50 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Foretag en søgning på Google.  Kan Google ej hjælpe dig (sker ofte),
-# prøv da min 'forklar'-kommando.
+# Foretag en billedsøgning på Google.
 
+import lxml.html
+from lxml import etree
 import urllib
 import urllib2
-import simplejson as json
 import sys
+import urlparse
 
 query = " ".join(sys.argv[1:])
 
-results = 1
-url = (u'http://ajax.googleapis.com/ajax/services/search/images'
-       u'?v=1.0&start=0&rsz=' + str(results) + u'&q=' + urllib.quote(query))
+# Create search URL
+# For some reason we have to tell the resolution of our monitor to get
+# any results. We specify 100x100 pixels
+search_url = ("http://www.google.com/search?hl=da&tbm=isch&q="+urllib.quote(query)
+     +"&as_qdr=all&biw=100&bih=100&safe=off")
 
-request = urllib2.Request(url, None, {'Referer': u'http://eggsml.dk'})
-response = urllib2.urlopen(request)
+# Query google
+try:
+    request = urllib2.Request(search_url)
+    request.add_header("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT "
+                       "6.1; he; rv:1.9.2.8) Gecko/20100722 Firefox/3.6.8")
+    request.add_header("Referer", "http://www.google.com")
+    result = urllib2.urlopen(request)
+except Exception as e:
+    print "Problem ved forespørgsel til Google"
+    sys.exit(-1)
 
-results = json.load(response)
-#print json.dumps(results, sort_keys=True, indent=4)
+# Parse HTML
+try:
+    parser = etree.HTMLParser()
+    tree = lxml.etree.parse(result, parser)
+except:
+    print "Fejl under parsing af Googles HTML-kode"
+    sys.exit(-1)
 
-if len(results["responseData"]["results"]) == 0:
-    print "Ingen resultater fra Google"
+# Extract results
+result_fields = tree.xpath('//li[@class="rg_li"]')
+
+if len(result_fields) > 0:
+    field = result_fields[0]
+    try:
+        url = field.xpath('a[@class="rg_l"]')[0].get('href')
+        print urlparse.parse_qs(urlparse.urlparse(url).query)["imgurl"][0]
+    except Exception as e:
+        print "Problem ved udtrækning af billed-URL fra HTML parsetræ"
 else:
-    first_result = results["responseData"]["results"][0];
-    unicodestr = first_result["titleNoFormatting"] + " (" + first_result["url"] + ")"
-    print unicodestr.encode('UTF-8')
-
+    print "Ingen resultater"
