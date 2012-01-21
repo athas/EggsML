@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# Find dine top bekendteggs
+
+. $CONCIEGGS_DIR/eggspi.lib
+
+if [ $# -eq 1 ]; then
+    user="$1"
+elif [ $# -eq 0 ]; then
+    user="$EGGS_USER"
+else
+    echo "Brug: bekendteggs <navn>"
+    exit
+fi
+
+n="$($EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost eggsmates "$user")"
+
+if [ "$n" ]; then
+    echo "$n"
+else
+    echo "$user har ingen bekendteggs"
+fi
