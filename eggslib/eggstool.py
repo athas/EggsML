@@ -55,7 +55,6 @@ def print_consecutive(eggs,name):
        else:
          acc = ([],current) if len(current) > len(longest) else ([],longest)
  
-  print longest
   if len(longest) > len(current):
     print len(longest)
   else:
@@ -96,7 +95,7 @@ def print_eggsmates(eggs,name):
   for (user,count) in eggsmates[0:5]:
       s += " {0} ({1})".format(choice(user_aliases(eggs,user)),count)
 
-  print s,
+  print s
   return True
 
 def print_eggscount(eggs,name):
