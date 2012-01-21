@@ -93,7 +93,7 @@ def print_eggsmates(eggs,name):
  
   s = choice(aliases) + 's top bekendteggs,'
   for (user,count) in eggsmates[0:5]:
-      s += " {0} ({1})".format(choice(user_aliases(eggs,user)),count)
+      s += " %s (%s)" % (choice(user_aliases(eggs,user)),count)
 
   print s
   return True
