@@ -1,5 +1,5 @@
 #!/bin/sh
-# Find dine bff
+# Find dine BFFs
 
 . $CONCIEGGS_DIR/eggspi.lib
 
