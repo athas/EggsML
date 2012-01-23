@@ -1,5 +1,5 @@
 #!/bin/sh
-# Find dine top bffs 
+# Find dine bffs
 
 . $CONCIEGGS_DIR/eggspi.lib
 
@@ -15,8 +15,8 @@ fi
 n="$($EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost eggsmates "$user")"
 
 if [ "$n" ]; then
-    echo "foo $n"
+    echo "$n"
 else
-    echo "$user har ingen bffs"
+    echo "$user spiser altid alene"
 
 fi
