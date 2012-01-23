@@ -2,8 +2,10 @@
 
 set -e
 set -f
+trap 'killall concieggs' EXIT # Kill all children when we quit.
 
-dir=$(dirname $0)
+dir=$(pwd)/$(dirname $0)
+
 cfg=$dir/concieggs.conf
 . $cfg
 cmddir=$dir/cmds/
@@ -12,11 +14,11 @@ export CONCIEGGS_DIR=$dir
 export CONCIEGGS_DB_DIR=$dir/db
 export EGGS_DIR=$dir/..
 export EGGS_LIB_DIR=$EGGS_DIR/eggslib
+export CONCIEGGS_IRC_DIR=$irc_dir/irc.freenode.net
+export LC_ALL=da_DK.UTF-8
 
 echo "Using channel in $irc_dir/irc.freenode.net/$irc_channel"
-cd $irc_dir/irc.freenode.net/$irc_channel
-
-export CONCIEGGS_IRC_DIR=$irc_dir/irc.freenode.net/
+cd $CONCIEGGS_IRC_DIR
 
 # Let all eggsml users touch our stuff.
 umask 002
@@ -33,28 +35,61 @@ broke() {
     echo "Kommandoen fejlede!  Prøv at spørge mig om 'udu'."
 }
 
-export LC_ALL=da_DK.UTF-8
+maybeaddnick() {
+    dir=$(basename $1)
+    if ! (echo "$dir" | grep '^#') > /dev/null; then
+        sed --unbuffered 's/<[A-Za-z0-9_]*>/\0 '$irc_username':/'
+    else
+        cat
+    fi
+}
 
-tail -f -n 0 out | while read -r line; do
-    . $CONCIEGGS_DIR/eggspi.lib
-    rawcmd=$(echo "$line"|awk --posix "$awk_getcmd")
-    if [ "$rawcmd" ]; then
-        cmd=$(basename -- "$rawcmd")
-        export EGGS_USER="$(echo "$line"|awk --posix "$awk_getuser"|sed 's/_*$//')"
-        export EGGS_ARGS="$(echo "$line"|awk --posix "$awk_getargs")"
-        export EGGS_LINE="$line"
-        if [ "$cmd" ] && [ "$EGGS_USER" != "$irc_username" ]; then
-            if [ -x "$cmddir/$cmd" ] && [ -f "$cmddir/$cmd" ]; then
-                $cmddir/$cmd $EGGS_ARGS || broke
-                /eggsml/fixperms
-            else
-                echo "$EGGS_USER: Du bad mig om $cmd, men den kommando har jeg ikke!"
-                echo "Skriv 'concieggs: kommandoer' for at få en liste over mulige kommandoer."
+# This process is run in every directory containing a conversation.
+reader() {
+    trap 'rm watched' EXIT
+    while read -r line; do
+        touch watched
+        . $CONCIEGGS_DIR/eggspi.lib
+        rawcmd=$(echo "$line"|awk --posix "$awk_getcmd")
+        if [ "$rawcmd" ]; then
+            cmd=$(basename -- "$rawcmd")
+            export EGGS_USER="$(echo "$line"|awk --posix "$awk_getuser"|sed 's/_*$//')"
+            export EGGS_ARGS="$(echo "$line"|awk --posix "$awk_getargs")"
+            export EGGS_LINE="$line"
+            if [ "$cmd" ] && [ "$EGGS_USER" != "$irc_username" ]; then
+                if [ -x "$cmddir/$cmd" ] && [ -f "$cmddir/$cmd" ]; then
+                    $cmddir/$cmd $EGGS_ARGS || broke
+                else
+                    echo "$EGGS_USER: Du bad mig om $cmd, men den kommando har jeg ikke!"
+                    echo "Skriv 'concieggs: kommandoer' for at få en liste over mulige kommandoer."
+                fi
             fi
         fi
+        part="$(echo "$line"|awk --posix "$awk_checkpart"|sed 's/_*$//')"
+        if [ "$part" ]; then
+            parted "$part"
+        fi
+    done
+}
+
+ls $CONCIEGGS_IRC_DIR | while read -r dir; do
+    dir=$(basename "$dir")
+    if [ -d "$dir" ]; then
+        touch "$dir/watched"
+        (cd "$dir"; touch out; (tail -f -n 0 out | maybeaddnick "$dir" | reader > in)) &
     fi
-    part="$(echo "$line"|awk --posix "$awk_checkpart"|sed 's/_*$//')"
-    if [ "$part" ]; then
-        parted "$part"
+done
+
+echo "$irc_greeting" > $irc_channel/in
+
+inotifywait -e create --monitor --format %w%f . \
+    | while read -r dir; do
+    echo inotify "$dir"
+    dir=$(basename "$dir")
+    if [ -d "$dir" ] && ! [ -r "$dir/watched" ]; then
+        touch "$dir/watched"
+        (cd "$dir"; touch out; (tail -f -n 10 out | maybeaddnick "$dir" | reader > in)) &
     fi
-done > in
+done
+
+
