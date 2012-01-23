@@ -91,7 +91,7 @@ def print_eggsmates(eggs,name):
 
   eggsmates = sorted(acc.items(),key=lambda i: i[1],reverse=True)
  
-  s = choice(aliases) + 's top bekendteggs,'
+  s = choice(aliases) + 's top bffs,'
   for (user,count) in eggsmates[0:5]:
       s += " %s (%s)" % (choice(user_aliases(eggs,user)),count)
 
