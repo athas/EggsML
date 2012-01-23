@@ -87,7 +87,7 @@ def print_eggsmates(eggs,name):
       if ate(l['users'],aliases[0]):
         for x in l['users']:
           if x['user'] <> aliases[0]:
-              acc[x['user']] = acc.get(x['user'],0) + x['amount']
+              acc[x['user']] = acc.get(x['user'],0) + 1
 
   eggsmates = sorted(acc.items(),key=lambda i: i[1],reverse=True)
  
