@@ -279,6 +279,10 @@ isTrusted() {
     fi
 }
 
+broke() {
+    echo "Kommandoen fejlede!  Prøv at spørge mig om 'udu'."
+}
+
 runcmd() {
     rawcmd=$1
     cmd=$(basename -- "$rawcmd")
