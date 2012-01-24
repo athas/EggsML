@@ -4,6 +4,10 @@ if echo "$EGGS_BODY" | grep "^concieggs[:,!] " > /dev/null; then
     exit
 fi
 
+if [ "$(echo $EGGS_BODY | wc -w)" -lt 3 ]; then
+    exit
+fi
+
 if [ "$(echo "$EGGS_BODY" | "$EGGS_LIB_DIR/DSHOIG" "$CONCIEGGS_DB_DIR/sjove_dshoig" "$CONCIEGGS_DB_DIR/usjove_dshoig")" ]; then
     echo "$EGGS_BODY" > "$CONCIEGGS_DB_DIR/last_dshoig"
     echo "$EGGS_USER: Det sagde hun også i går."
