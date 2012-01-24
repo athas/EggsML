@@ -16,9 +16,11 @@ else
     if (echo "$@" | grep -i -E '^ *er +jo +ikke +sjovt\.? *$') > /dev/null; then
         cat $CONCIEGGS_DB_DIR/last_dshoig >> $CONCIEGGS_DB_DIR/usjove_dshoig
         rm $CONCIEGGS_DB_DIR/last_dshoig
+        echo "Øv, jeg syntes ellers det var ret morsomt."
     elif echo "$@" | grep -i -E '^ *er +faktisk +ret +sjovt\.? *$' > /dev/null; then
         cat $CONCIEGGS_DB_DIR/last_dshoig >> $CONCIEGGS_DB_DIR/sjove_dshoig
         rm $CONCIEGGS_DB_DIR/last_dshoig
+        echo "Ja, ikke?"
     else
         echo "$EGGS_USER: Brug 'det er jo ikke sjovt', 'det er faktisk ret sjovt' eller 'det sagde hun i går:'."
     fi
