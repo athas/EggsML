@@ -1,11 +1,13 @@
 #!/bin/sh
 
+set -f
+
 awk_getcmd='{ print tolower($1); }'
 awk_getargs='{ print substr($0, index($0, " "$1)+length($1)+2, length($0)) }'
 
 . $CONCIEGGS_DIR/eggspi.lib
 rawcmd=$(echo "$EGGS_BODY"|awk --posix "$awk_getcmd")
 if [ "$rawcmd" ]; then
-    args="$(echo "$line"|awk --posix "$awk_getargs")"
+    args="$(echo "$EGGS_BODY"|awk --posix "$awk_getargs")"
     runcmd "$rawcmd" $args
 fi
