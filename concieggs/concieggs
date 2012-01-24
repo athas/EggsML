@@ -46,8 +46,8 @@ run_hooks() {
 
 # This process is run in every directory containing a conversation.
 reader() {
-    trap 'rm watched' EXIT
-    if (basename $(pwd) | grep -E '^#') > /dev/null; then
+    trap 'rm -f watched' EXIT
+    if (basename "$(pwd)" | grep -E '^#') > /dev/null; then
         hooktype='channel_message'
     else
         hooktype='private_message'
@@ -56,15 +56,15 @@ reader() {
         touch watched
         . $CONCIEGGS_DIR/eggspi.lib
         export EGGS_LINE="$line"
-        export EGGS_WHEN=$(echo "$EGGS_LINE" | awk --posix '/'"$dateregex"'/ { print $1, $2 }')
+        export EGGS_WHEN="$(echo "$EGGS_LINE" | awk --posix '/'"$dateregex"'/ { print $1, $2 }')"
         if (echo "$EGGS_LINE" | grep -E "$dateregex <[^>]*> ") > /dev/null; then
-            export EGGS_BODY=$(echo "$EGGS_LINE"|sed -r "s/^[^>]*> //")
-            export EGGS_USER=$(echo "$EGGS_LINE"|awk --posix "$awk_getuser"|sed 's/_*$//')
+            export EGGS_BODY="$(echo "$EGGS_LINE"|sed -r "s/^[^>]*> //")"
+            export EGGS_USER="$(echo "$EGGS_LINE"|awk --posix "$awk_getuser"|sed 's/_*$//')"
             if [ "$EGGS_USER" != "$CONCIEGGS_NAME" ]; then
                 run_hooks "$hooktype"
             fi
         else
-            export EGGS_USER=$(echo "$line"|awk --posix "$awk_checkpart")
+            export EGGS_USER="$(echo "$line"|awk --posix "$awk_checkpart")"
             if [ "$EGGS_USER" ]; then
                 run_hooks 'channel_part'
             fi
@@ -73,19 +73,19 @@ reader() {
 }
 
 ls $CONCIEGGS_IRC_DIR | while read -r dir; do
-    dir=$(basename "$dir")
+    dir="$(basename "$dir")"
     if [ -d "$dir" ]; then
         touch "$dir/watched"
         (cd "$dir"; touch out; (tail -f -n 0 out | reader > in)) &
     fi
 done
 
-echo "$irc_greeting" > $irc_channel/in
+#echo "$irc_greeting" > $irc_channel/in
 
 inotifywait -e create --monitor --format %w%f . \
     | while read -r dir; do
     echo inotify "$dir"
-    dir=$(basename "$dir")
+    dir="$(basename "$dir")"
     if [ -d "$dir" ] && ! [ -r "$dir/watched" ]; then
         touch "$dir/watched"
         (cd "$dir"; touch out; (tail -f -n 10 out | reader > in)) &
