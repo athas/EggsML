@@ -4,7 +4,7 @@
 
 . $CONCIEGGS_DIR/eggspi.lib
 
-if [ "$@" ]; then
+if [ $# -gt 0 ]; then
     echo "$@" >> $CONCIEGGS_DB_DIR/fakta
     echo "Det er husket!"
 else
