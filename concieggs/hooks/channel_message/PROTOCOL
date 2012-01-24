@@ -1,0 +1,3 @@
+The following environment variable is set in addition to the default:
+
+EGGS_BODY: the actual text.

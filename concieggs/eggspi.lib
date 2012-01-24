@@ -240,18 +240,6 @@ gitRepair() {
     (git reset HEAD "$@" && git checkout "$@") > /dev/null
 }
 
-parted() {
-    name=$1
-    aliases "$name" | while read alias; do
-        fgrep -w "$alias" $CONCIEGGS_DB_DIR/eggsactly\
-        | rev | cut -d ' ' -f 1 | rev | while read time; do
-            if [ "$(expr $(nowTime) - $time)" -lt $(expr 5 '*' 60) ]; then
-                echo "$alias har begået en Reenberg!"
-            fi
-        done
-    done
-}
-
 debtors () {
     $EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost balances \
         | sort -g | head -n 5 | awk '$1 < 0 { print $0, -1*$1 "kr" }' \
@@ -259,7 +247,7 @@ debtors () {
 }
 
 userSetTopic () {
-   cat $CONCIEGGS_DB_DIR/topic
+    cat $CONCIEGGS_DB_DIR/topic
 }
 
 setTopic () {
@@ -288,5 +276,20 @@ isTrusted() {
     auth="$(authedName "$1")"
     if [ "$auth" ]; then
         cat "$CONCIEGGS_DB_DIR/mestre" | decomment | fgrep -x "$auth"
+    fi
+}
+
+runcmd() {
+    rawcmd=$1
+    cmd=$(basename -- "$rawcmd")
+    cmddir=$CONCIEGGS_DIR/cmds
+    shift
+    if [ "$cmd" ] && [ "$EGGS_USER" != "$CONCIEGGS_NAME" ]; then
+        if [ -x "$cmddir/$cmd" ] && [ -f "$cmddir/$cmd" ]; then
+            "$cmddir/$cmd" "$@" || broke
+        else
+            echo "$EGGS_USER: Du bad mig om $cmd, men den kommando har jeg ikke!"
+            echo "Skriv 'concieggs: kommandoer' for at få en liste over mulige kommandoer."
+        fi
     fi
 }

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+awk_getcmd='/'$CONCIEGGS_NAME'[:,!] / { print tolower($2); }'
+awk_getargs='{ print substr($0, index($0, " "$2)+length($2)+2, length($0)) }'
+
+. $CONCIEGGS_DIR/eggspi.lib
+rawcmd=$(echo "$EGGS_BODY"|awk --posix "$awk_getcmd")
+if [ "$rawcmd" ]; then
+    args=$(echo "$line"|awk --posix "$awk_getargs")
+    runcmd "$rawcmd" "$args"
+fi

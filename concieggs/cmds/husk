@@ -4,8 +4,8 @@
 
 . $CONCIEGGS_DIR/eggspi.lib
 
-if [ "$EGGS_ARGS" ]; then
-    echo "$EGGS_ARGS" >> $CONCIEGGS_DB_DIR/fakta
+if [ "$@" ]; then
+    echo "$@" >> $CONCIEGGS_DB_DIR/fakta
     echo "Det er husket!"
 else
     echo "Men hvad skal jeg huske?"

@@ -1,0 +1,12 @@
+These environment variables are always set when hooks are executed.
+
+EGGS_USER: person who triggered the event.
+EGGS_LINE: The full IRC line.
+EGGS_WHEN: When the event happened.
+
+CONCIEGGS_DIR: main concieggs directory.
+CONCIEGGS_DB_DIR: writable data storage directory.
+CONCIEGGS_IRC_DIR: the ii directory.
+CONCIEGGS_NAME: name of the bot.
+EGGS_DIR: root EggsML directory.
+EGGS_LIB_DIR: location of useful commands.
