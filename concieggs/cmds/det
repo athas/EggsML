@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+# Giv feedback på concieggs's muntre løjer og skarnstreger.
+
+if echo "$@" | grep -i -E '^ *sagde +hun +i +går: *' > /dev/null; then
+    shift; shift; shift; shift
+    if [ $# -eq 0 ]; then
+        echo "Men hvad sagde hun?"
+    else
+        echo "$@" >> $CONCIEGGS_DB_DIR/sjove_dshoig
+        echo "Ok, hun sagde $@ i går."
+    fi
+elif ! [ -f $CONCIEGGS_DB_DIR/last_dshoig ]; then
+    echo 'Jeg har altså ikke sagt noget!'
+else
+    if (echo "$@" | grep -i -E '^ *er +jo +ikke +sjovt\.? *$') > /dev/null; then
+        cat $CONCIEGGS_DB_DIR/last_dshoig >> $CONCIEGGS_DB_DIR/usjove_dshoig
+        rm $CONCIEGGS_DB_DIR/last_dshoig
+    elif echo "$@" | grep -i -E '^ *er +faktisk +ret +sjovt\.? *$' > /dev/null; then
+        cat $CONCIEGGS_DB_DIR/last_dshoig >> $CONCIEGGS_DB_DIR/sjove_dshoig
+        rm $CONCIEGGS_DB_DIR/last_dshoig
+    else
+        echo "$EGGS_USER: Brug 'det er jo ikke sjovt', 'det er faktisk ret sjovt' eller 'det sagde hun i går:'."
+    fi
+fi
