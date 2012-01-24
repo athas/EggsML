@@ -10,7 +10,7 @@ lookup() {
 }
 
 if [ "$@" ]; then
-    if ! lookup; then
+    if ! lookup "$@"; then
         echo "Jeg ved ikke noget om $@."
     fi
 else
