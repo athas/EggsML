@@ -2,11 +2,6 @@
 #
 # Spørg om din gæld til frokostkassen
 
-EGGS_USER=$2
-EGGS_DIR=../../
-CONCIEGGS_DIR=../
-EGGS_LIB_DIR=../../eggslib
-
 . $CONCIEGGS_DIR/eggspi.lib
 
 if [ $# -eq 2 -a $1 = "skylder" -a $2 = "jeg" ]; then
