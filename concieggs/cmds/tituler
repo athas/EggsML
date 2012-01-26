@@ -44,6 +44,10 @@ if [ "$taken" ]; then
     exit
 fi
 
+if [ "$newalias" = concieggs ]; then
+    echo "$EGGS_USER: Haha.  Nej."
+fi
+
 cd $EGGS_DIR
 
 aliases=$(aliases "$who" | commasize)
