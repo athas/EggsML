@@ -7,7 +7,7 @@
 debt=$(lookupDebt $EGGS_USER)
 
 if [ -n "$debt" ]; then
-    if  [ $(echo "$debt > 0"|bc) -eq 1 ]; then
+    if  [ $(echo "0 $(echo $debt | sed s/\-/_/) [1p] sX >X" | dc) ]; then
         echo "Velkommen $EGGS_USER, du skylder $debt kr. til frokostkassen! Stram op!"
     fi
 fi
