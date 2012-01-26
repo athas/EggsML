@@ -1,0 +1,31 @@
+#!/bin/sh
+#
+# Spørg om din gæld til frokostkassen
+
+. $CONCIEGGS_DIR/eggspi.lib
+
+if [ $# -eq 2 -a $1 = "skylder" -a $2 = "jeg" ]; then
+    user=$EGGS_USER
+elif [ $# -eq 2 -a $1 = "skylder" ]; then
+    user=$2
+else
+    echo $@
+    echo "Brug: hvad skylder [navn|jeg]"
+    exit
+fi
+
+alias=$(randomName "$user")
+if [ ! "$alias" ]; then
+    echo "Jeg kender ikke $user"
+    exit
+fi
+
+debt=$(lookupDebt $user)
+
+if [ "$debt" ]; then
+    if [ $(echo "$debt > 0" | bc) -eq 1 ]; then
+        echo "$alias skylder $debt kr. til frokostkassen!"
+    else
+        echo "$alias har $debt kr. til gode i frokostkassen!"
+    fi
+fi
