@@ -28,4 +28,6 @@ if [ "$debt" ]; then
     else
         echo "$alias har $debt kr. til gode i frokostkassen!"
     fi
+else
+    echo "Fejl ved beregning af gæld for $user"
 fi
