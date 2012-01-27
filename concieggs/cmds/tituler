@@ -46,6 +46,7 @@ fi
 
 if [ "$newalias" = concieggs ]; then
     echo "$EGGS_USER: Haha.  Nej."
+    exit
 fi
 
 cd $EGGS_DIR
