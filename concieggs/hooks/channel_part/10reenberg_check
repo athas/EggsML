@@ -7,6 +7,8 @@ aliases "$EGGS_USER" | while read -r alias; do
     if [ "$time" ]
         if [ "$(expr $(nowTime) - $time)" -lt $(expr 5 '*' 60) ]; then
             echo "$(randomName $alias) har begået en Reenberg!"
+            echo "$(nowTime)" | dbWrite "$alias/reenberg/when"
+            echo "$(expr $(nowTime) - $time)" | dbWrite "$alias/reenberg/loss"
         fi
     fi
 done
