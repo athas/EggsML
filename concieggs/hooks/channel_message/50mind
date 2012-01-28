@@ -4,7 +4,7 @@
 
 aliases "$EGGS_USER" | while read -r alias; do
     for x in $(dbIterate "$alias/messages"); do
-        echo "$EGGS_USER: Besked fra $(dbRead $x/from): $(dbRead $x/msg)"
+        echo "$EGGS_USER: Besked fra $(dbRead $x/from): $(dbRead $x/message)"
         dbDelete "$x";
     done
 done
