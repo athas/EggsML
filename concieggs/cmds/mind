@@ -1,0 +1,32 @@
+#!/bin/sh
+#
+# Mind en given logebroder om noget næste gang han ytrer sig.
+
+. $CONCIEGGS_DIR/eggspi.lib
+
+if ! [ "$2" = "om" -a "$3" = "at" -a "$4" ]; then
+    echo "Brug: mind <person> om at <besked...>"
+    exit
+fi
+
+to="$(randomName "$1")"
+if ! [ "$to" ]; then
+    echo "Jeg kender ikke $1!"
+    exit
+fi
+from="$(randomName "$EGGS_USER")"
+if ! [ "$from" ]; then
+    echo "Jeg kender ikke dig!"
+    exit
+fi
+
+shift; shift; shift;
+
+msg="$@"
+
+msgnode=$(dbInsertNode "$to/messages")
+
+echo "$msg" | dbWrite "$msgnode/message"
+echo "$from" | dbWrite "$msgnode/from"
+
+echo "Aj-aj!  Næste gang $to blander sig i samtalen, vil jeg fortælle ham at $msg"

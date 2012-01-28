@@ -312,3 +312,56 @@ lookupDebt() {
      return 1
   fi
 }
+
+# Database layer
+
+dbRead() {
+     [ -f "$CONCIEGGS_DB_DIR/store/$1" ] && cat "$CONCIEGGS_DB_DIR/store/$1"
+}
+
+dbWrite() {
+    mkdir -p "$(dirname $1)"
+    cat > "$CONCIEGGS_DB_DIR/store/$1"
+}
+
+dbNewNode() {
+    mkdir -p "$CONCIEGGS_DB_DIR/store/$1"
+}
+
+dbWriteArg() {
+    [ -f "$CONCIEGGS_DB_DIR/store/$1" ] && echo "$@" > "$CONCIEGGS_DB_DIR/store/$1"
+}
+
+dbDelete() {
+    rm -rf "$CONCIEGGS_DB_DIR/store/$1"
+}
+
+dbIterate() {
+    [ -d "$CONCIEGGS_DB_DIR/store/$1" ] \
+        && ls "$CONCIEGGS_DB_DIR/store/$1" | while read -r child; do
+        echo "$1/$child"
+    done
+}
+
+dbGetFreeFilename() {
+    parent=$1
+    if [ -f "$CONCIEGGS_DB_DIR/store/$1" ] \
+        || ! mkdir -p "$CONCIEGGS_DB_DIR/store/$parent"; then
+        false
+    else
+        newfile="$(ls "$CONCIEGGS_DB_DIR/store/$parent" | \
+            egrep '^[0-9]+$'|sort -n| \
+            awk 'BEGIN { seen=-1 } { if ($0==seen+1) { seen++ } else { print seen+1; exit }} END { print seen+1 }')"
+        echo "$parent/$newfile"
+    fi
+}
+
+dbInsertNode() {
+    node=$(dbGetFreeFilename "$1")
+    dbNewNode "$node" && echo "$node"
+}
+
+dbInsertData() {
+    node=$(dbGetFreeFilename "$1")
+    dbWrite "$node" && echo "$node"
+}
