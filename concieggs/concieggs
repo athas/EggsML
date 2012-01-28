@@ -32,7 +32,7 @@ awk_checkpart='/'$dateregex' -!- .* has left .*/ { print substr($4, 0, index($4,
 awk_checkjoin='/'$dateregex' -!- .* has joined .*/ { print substr($4, 0, index($4, "(")-1)}'
 
 throttle() {
-    awk 'BEGIN {time=systime();n=0;max=3} { if (time!=systime()) \
+    awk 'BEGIN {time=systime();n=0;max=1} { if (time!=systime()) \
          { time=systime(); n=0 } else if (++n>max) { system("sleep 1"); } print}'
 }
 
