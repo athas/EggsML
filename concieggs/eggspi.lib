@@ -328,7 +328,7 @@ dbRead() {
 }
 
 dbWrite() {
-    mkdir -p "$(dirname $1)"
+    mkdir -p "$CONCIEGGS_DB_DIR/store/$(dirname $1)"
     cat > "$CONCIEGGS_DB_DIR/store/$1"
 }
 
