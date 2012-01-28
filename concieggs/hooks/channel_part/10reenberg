@@ -1,12 +1,10 @@
 #!/bin/sh
 
 . $CONCIEGGS_DIR/eggspi.lib
-name=$EGGS_USER
-aliases "$name" | while read alias; do
-    fgrep -w "$alias" $CONCIEGGS_DB_DIR/eggsactly\
-        | rev | cut -d ' ' -f 1 | rev | while read time; do
-        if [ "$(expr $(nowTime) - $time)" -lt $(expr 5 '*' 60) ]; then
-            echo "$alias har begået en Reenberg!"
-        fi
-    done
+
+aliases "$EGGS_USER" | while read -r alias; do
+    time=$(dbRead "$alias/eggsactly")
+    if [ "$time" -a "$(expr $(nowTime) - $time)" -lt $(expr 5 '*' 60) ]; then
+        echo "$(randomName alias) har begået en Reenberg!"
+    fi
 done

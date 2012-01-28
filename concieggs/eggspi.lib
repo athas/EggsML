@@ -147,13 +147,20 @@ extractUsername() {
     randomName $EGGS_USER
 }
 
+updateSubTime() {
+    aliases "$1" | while read -r alias; do
+        dbDelete "$alias/eggsactly";
+    done
+    dbWriteArg "$1/eggsactly" "$2"
+}
+
 addToEggs() {
     if [ $# -eq 3 ]; then
         echo "$2, $3" >> $CONCIEGGS_DB_DIR/eggs/$1
     else
         echo "$2" >> $CONCIEGGS_DB_DIR/eggs/$1
     fi
-    echo "$2" $(nowTime) >> $CONCIEGGS_DB_DIR/eggsactly
+    updateSubTime "$2" "$(nowTime)"
 }
 
 isInEggs() { # Cannot trust return value due to subshell.
@@ -181,6 +188,7 @@ rmFromEggs() {
     else
         rm $tmpfile $CONCIEGGS_DB_DIR/eggs/$time
     fi
+    updateSubTime "$TRAITOR" 0
 }
 
 nextEggs() {
@@ -300,23 +308,23 @@ runcmd() {
 }
 
 lookupDebt() {
-  name=$(primaryName $1)
-  if [ "$name" ]; then
+    name=$(primaryName $1)
+    if [ "$name" ]; then
     # ja, vi beregner alles gæld, selv om vi kun er interesseret 
     # i et enkelt af tallene
-    $EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost balances \
-          | grep $name \
-          | cut -d' ' -f 1 \
-          | awk '{ print -1*$0 }'
-  else
-     return 1
-  fi
+        $EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost balances \
+            | grep $name \
+            | cut -d' ' -f 1 \
+            | awk '{ print -1*$0 }'
+    else
+        return 1
+    fi
 }
 
 # Database layer
 
 dbRead() {
-     [ -f "$CONCIEGGS_DB_DIR/store/$1" ] && cat "$CONCIEGGS_DB_DIR/store/$1"
+    [ -f "$CONCIEGGS_DB_DIR/store/$1" ] && cat "$CONCIEGGS_DB_DIR/store/$1"
 }
 
 dbWrite() {
