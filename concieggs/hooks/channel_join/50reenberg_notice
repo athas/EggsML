@@ -4,7 +4,7 @@
 
 aliases "$EGGS_USER" | while read -r alias; do
     when=$(dbRead "$alias/reenberg/when")
-    if [ "$when" ]
+    if [ "$when" ]; then
         loss=$(expr $(dbRead "$alias/reenberg/loss") / 60 + 1)
         echo "$EGGS_USER: Skam dig!  Du begik en Reenberg $(timeToFullDate $when), da du forlod kanalen mindre end $loss minutter efter din frokosttilmelding!"
         dbDelete "$alias/reenberg"
