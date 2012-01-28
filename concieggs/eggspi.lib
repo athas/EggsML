@@ -337,7 +337,7 @@ dbNewNode() {
 }
 
 dbWriteArg() {
-    [ -f "$CONCIEGGS_DB_DIR/store/$1" ] && echo "$@" > "$CONCIEGGS_DB_DIR/store/$1"
+    echo "$@"| dbWrite "$CONCIEGGS_DB_DIR/store/$1"
 }
 
 dbDelete() {
