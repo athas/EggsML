@@ -43,7 +43,7 @@ ack() {
         echo "Roger";
         echo "Priset være Dybber") \
             | randomise | head -n 1 | xargs echo -n
-    (echo "!"; echo ".") | randomise | head -n 1
+    (echo "!  "; echo ".  ") | randomise | head -n 1
 }
 
 aliases() {
