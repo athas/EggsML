@@ -12,7 +12,7 @@ unsubscribeFromEggs() {
     if [ "$gut" = "" ]; then
         echo "Men $name spiser jo alligevel ikke med $(timeToDate $time)!"
     elif rmFromEggs "$time" "$gut"; then
-        echo "$(ack) $name spiser ikke længere med $(timeToDate $time)!"
+        echo "$(ack)  $name spiser ikke længere med $(timeToDate $time)!"
     else
         exit 1
     fi
