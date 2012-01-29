@@ -33,6 +33,19 @@ END{ if (last) { if (out) { out = out " og " last } else { out = last } };\
 print out }'
 }
 
+ack() {
+    (echo "Aj-aj";
+        echo "Javel";
+        echo "OK";
+        echo "Forstået";
+        echo "Accepteret";
+        echo "Det er i orden";
+        echo "Roger";
+        echo "Priset være Dybber") \
+            | randomise | head -n 1 | xargs echo -n
+    (echo "!"; echo ".") | randomise | head -n 1
+}
+
 aliases() {
     $EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost aliases "$1"
 }

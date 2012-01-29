@@ -13,7 +13,7 @@ subscribeToEggs() {
     if [ "$(isInEggs "$time" "$name")" != "" ]; then
         echo "$name spiser allerede med $(timeToDate $time)!"
     elif addToEggs "$time" "$name" "0.5"; then
-        echo "Javel! $name truntespiser med $(timeToDate $time)!"
+        echo "$(ack)  $name truntespiser med $(timeToDate $time)!"
     else
         exit 1
     fi
