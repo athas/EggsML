@@ -33,7 +33,7 @@ awk_checkjoin='/'$dateregex' -!- .* has joined .*/ { print substr($4, 0, index($
 
 throttle() {
     awk 'BEGIN {time=systime();n=0;max=1} { if (time!=systime()) \
-         { time=systime(); n=0 } else if (++n>max) { system("sleep 1"); } print}'
+         { time=systime(); n=0 } else if (++n>max) { system("sleep 1"); } print; fflush()}'
 }
 
 run_hooks() {
