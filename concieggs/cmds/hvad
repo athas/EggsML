@@ -4,12 +4,11 @@
 
 . $CONCIEGGS_DIR/eggspi.lib
 
-if [ $# -eq 2 -a $1 = "skylder" -a $2 = "jeg" ]; then
+if [ $# -eq 2 -a "$1" = "skylder" -a "$2" = "jeg" ]; then
     user=$EGGS_USER
-elif [ $# -eq 2 -a $1 = "skylder" ]; then
+elif [ $# -eq 2 -a "$1" = "skylder" ]; then
     user=$2
 else
-    echo $@
     echo "Brug: hvad skylder [navn|jeg]"
     exit
 fi
@@ -20,7 +19,7 @@ if [ ! "$alias" ]; then
     exit
 fi
 
-debt=$(lookupDebt $user)
+debt="$(lookupDebt "$user")"
 
 if [ "$debt" ]; then
     if [ $(echo $debt | grep "-") ]; then
