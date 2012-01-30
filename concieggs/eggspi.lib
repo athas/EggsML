@@ -41,7 +41,8 @@ ack() {
         echo "Accepteret";
         echo "Det er i orden";
         echo "Roger";
-        echo "Priset være Dybber") \
+        echo "Priset være Dybber";
+	echo "Dybber er en røvbanan") \
             | randomise | head -n 1 | xargs echo -n
     (echo "!"; echo ".") | randomise | head -n 1
 }
