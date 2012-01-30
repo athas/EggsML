@@ -5,7 +5,7 @@
 . $CONCIEGGS_DIR/eggspi.lib
 
 if [ -n "$1" ]; then
-    echo "$*" > $CONCIEGGS_DB_DIR/topic
+    echo "$@" | dbWrite topic
 fi
 
 setTopic
