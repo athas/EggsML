@@ -300,7 +300,7 @@ broke() {
 
 runcmd() {
     rawcmd=$1
-    cmd=$(basename -- "$rawcmd")
+    cmd="$(basename -- "$rawcmd")"
     cmddir=$CONCIEGGS_DIR/cmds
     shift
     if [ "$cmd" ] && [ "$EGGS_USER" != "$CONCIEGGS_NAME" ]; then
