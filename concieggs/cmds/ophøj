@@ -19,11 +19,11 @@ fi
 who=$(authedName $1)
 
 if ! [ "$who" ]; then
-    echo "$EGGS_USER: Umuligt; $1 er ikke kendt blandt logebrødrene."
+    echo "$EGGS_USER: Umuligt; $1 er ikke noteret i Nickserv-protokollen."
     exit
 fi
 
-if [ "$(isTrusted "$who")" ]; then
+if [ "$(isTrusted "$1")" ]; then
     echo "$EGGS_USER: $who er allerede en af vor respekterede logemestre."
     exit
 fi
