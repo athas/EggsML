@@ -39,7 +39,7 @@ def nextday(ds,d):
 def print_consecutive(eggs,name):
   '''Eeek
   '''
-  dates = e.get_dates()
+  dates = e.get_unique_dates()
   aliases = user_aliases(eggs,name)
   if aliases == None:
     return False
@@ -49,7 +49,7 @@ def print_consecutive(eggs,name):
   for d in dates:
     for eggs in d['users']:
       if eggs['user'] == n:
-       (current,longest) = acc 
+       (current,longest) = acc
        if nextday(current,d['date']):
           current.append(d['date'])
        else:

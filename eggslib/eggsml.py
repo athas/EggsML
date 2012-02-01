@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-
+# vim: noexpandtab :
 import time, re
 import eggsml_math
 from datetime import date
@@ -12,6 +12,8 @@ class eggsml:
 	wishes = []
 	purchases = []
 	dates = []
+	uniquedates_dict = {}
+	uniquedates = None
 	dayprices = {}
 	colours = {}
 	content = ''
@@ -56,6 +58,19 @@ class eggsml:
 		
 	def get_dates(self):
 		return self.dates
+
+	def datesort(self, x, y):
+		return (-1 if x['date']<y['date'] else 1)
+
+	def get_unique_dates(self):
+		if self.uniquedates == None:
+			self.uniquedates = [
+				{ 'date' : d, 'users': [
+					{ 'user' : u, 'amount' : a } for (u, a) in us.iteritems()
+				] } for (d, us) in self.uniquedates_dict.iteritems()
+			]
+			self.uniquedates.sort(self.datesort)
+		return self.uniquedates
 	
 	def get_count(self):
 		return self.count
@@ -84,9 +99,6 @@ class eggsml:
 			self.nodays = days
 		return self.nodays
 	
-	def datesort(self, x, y):
-		return (-1 if x['date']<y['date'] else 1)
-		
 	def get_first_date(self):
 		if self.startdate!=None:
 			return self.startdate
@@ -439,10 +451,21 @@ class eggsml:
 				continue
 			u.append({'user' : self.get_alias(name.strip()), 'amount' : amount})
 		t= thedate.split("-")
-		tmp = {'date' : date(int(t[0]), int(t[1]), int(t[2])), 'users' : u}
+		day = date(int(t[0]), int(t[1]), int(t[2]))
+		tmp = {'date' : day, 'users' : u}
 		self.dates.append(tmp)
 		self.dates.sort(self.datesort)
-	
+
+		if day not in self.uniquedates_dict:
+			self.uniquedates_dict[day] = {}
+		daydata = self.uniquedates_dict[day]
+		for usr in u:
+			uname = usr['user']
+			if uname not in daydata: daydata[uname] = 0
+			daydata[uname] += usr['amount']
+		
+
+
 	def add_colour(self, line):
 		tmp = line.strip()
 		if tmp=='':
