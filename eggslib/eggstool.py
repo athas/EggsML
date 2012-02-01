@@ -53,7 +53,7 @@ def print_consecutive(eggs,name):
        if nextday(current,d['date']):
           current.append(d['date'])
        else:
-         acc = ([],current) if len(current) > len(longest) else ([],longest)
+         acc = ([d['date']], current if len(current) > len(longest) else longest)
  
   if len(longest) > len(current):
     print len(longest)
