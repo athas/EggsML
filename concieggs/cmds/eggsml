@@ -17,7 +17,7 @@ subscribeToEggs() {
     if [ "$(isInEggs "$time" "$name")" != "" ]; then
         echo "$name spiser allerede med $(timeToDate $time)!"
     elif addToEggs "$time" "$name"; then
-        echo "$(ack)  $name spiser med $(timeToDate $time)!"
+        echo "$(ack) $name spiser med $(timeToDate $time)!"
     else
         exit 1
     fi
