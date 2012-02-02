@@ -10,7 +10,7 @@ import sys
 
 def main():
     if len(sys.argv) < 2:
-        print "Du skal give meningen et navn.  Ex: nymening redhead Hende den rødhårede"
+        print "Du skal give meningen et navn. Ex: nymening redhead Hende den rødhårede"
         exit(0)
 
     mening = sys.argv[1]
@@ -43,7 +43,7 @@ def main():
     dbfile = open(datafile, 'w')
     json.dump(db, dbfile)
     dbfile.close()
-    print "$(ack)  %s er nu oprettet i logeprotokollen." % mening
+    print "$(ack) %s er nu oprettet i logeprotokollen." % mening
     dbfile.close()
 
 if __name__ == '__main__':

@@ -26,7 +26,7 @@ EOF
                 echo "$* er ej længere ønsket!"
             else
                 gitRepair slashdotfrokost
-                echo "Katastrofe!  Noget gik galt med Git!"
+                echo "Katastrofe! Noget gik galt med Git!"
                 exit 1
             fi
         fi

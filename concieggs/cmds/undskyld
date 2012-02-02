@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # Vi kender det alle: Vi har gjort nogen ked af det, og vi kan ikke
-# finde ud af at sige undskyld.  Brug denne kommando til at få
+# finde ud af at sige undskyld. Brug denne kommando til at få
 # concieggs til at fungere som mellemmand for dine dybfølte
 # undskyldninger.
 
@@ -15,14 +15,14 @@ else
 fi
 
 if [ "$to" = "concieggs" ]; then
-    echo "Aldrig i livet.  Jeg vil aldrig tilgive dig for hvad du har gjort!"
+    echo "Aldrig i livet. Jeg vil aldrig tilgive dig for hvad du har gjort!"
     exit
 fi
 
 case $(($(od -vAn -N4 -tu4 < /dev/urandom) % 5)) in
     0) echo "Kære $to... $from ved ikke hvordan han skal få det sagt, men har det virkelig dårligt med sin hidtidige opførsel, og håber at du kan finde tilgivelse i dit hjerte.";
         ;;
-    1) echo "$to, kender du det når man har en følelse i sit hjerte der gør så ondt, men man ikke kan finde ord til at formulere den, så den kan komme ud?  Sådan har $from det med sin opførsel over for dig.";
+    1) echo "$to, kender du det når man har en følelse i sit hjerte der gør så ondt, men man ikke kan finde ord til at formulere den, så den kan komme ud? Sådan har $from det med sin opførsel over for dig.";
         ;;
     2) echo "$to, $from har det skidt med sin opførsel, og vil gøre hvad som helst for at gøre det godt igen - f.eks. være sub.";
         ;;

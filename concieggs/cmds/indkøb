@@ -1,8 +1,8 @@
 #!/bin/sh
 #
-# Notér i databasen at der er blevet foretaget et indkøb.  Man skal
+# Notér i databasen at der er blevet foretaget et indkøb. Man skal
 # være registreret hos Nickserv, med et kendt navn, før man får lov
-# til at notere et indkøb.  Man kan godt notere på andres vegne, men
+# til at notere et indkøb. Man kan godt notere på andres vegne, men
 # det registreres i Git-beskeden hvem der sagde god for det ved at
 # køre kommandoen.
 
@@ -29,7 +29,7 @@ fi
 
 alias=$(randomName "$who")
 if ! [ "$alias" ]; then
-    echo "Jeg kender ikke $who!  Logen accepterer på nuværende tidspunkt ikke anonyme donationer."
+    echo "Jeg kender ikke $who! Logen accepterer på nuværende tidspunkt ikke anonyme donationer."
     exit 0
 fi
 
@@ -46,10 +46,10 @@ $(echo "$when, $alias: $amount")
 w
 EOF
     if tryGitChange "Indkøb fra $alias, godkendt af $auth" slashdotfrokost; then
-        echo "Meget vel.  Lad det for stedse være nedfældet i logeprotokollen at $alias, $when, har bidraget med frokostaktiver svarende til ${amount}kr."
+        echo "Meget vel. Lad det for stedse være nedfældet i logeprotokollen at $alias, $when, har bidraget med frokostaktiver svarende til ${amount}kr."
     else
         gitRepair slashdotfrokost
-        echo "Katastrofe!  Noget gik galt under opdatering!"
+        echo "Katastrofe! Noget gik galt under opdatering!"
         exit 1
     fi
 else

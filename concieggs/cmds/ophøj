@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Ophøj en bruger til mester.  Kun for logemestre!
+# Ophøj en bruger til mester. Kun for logemestre!
 
 
 . $CONCIEGGS_DIR/eggspi.lib
@@ -36,10 +36,10 @@ if gitRefresh; then
         echo "$who # $*" >> $CONCIEGGS_DB_DIR/mestre
     fi
     if tryGitChange "Ophøj $who til mester" $CONCIEGGS_DB_DIR/mestre; then
-        echo "Ritualet er fuldendt.  $who regnes nu blandt mestrene udi frokostens kunst."
+        echo "Ritualet er fuldendt. $who regnes nu blandt mestrene udi frokostens kunst."
     else
         gitRepair $CONCIEGGS_DB_DIR/mestre
-        echo "Katastrofe!  Noget gik galt under opdatering!"
+        echo "Katastrofe! Noget gik galt under opdatering!"
         exit 1
     fi
 else
