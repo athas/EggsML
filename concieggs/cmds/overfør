@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # Foretag en monetær transaktion til en anden logebroder gennem EggsML
-# bankcentralen. Denne facilitet er dog kun for logemestre.
+# bankcentralen.  Denne facilitet er dog kun for logemestre.
 
 . $CONCIEGGS_DIR/eggspi.lib
 
@@ -15,7 +15,7 @@ maybeto=$3
 
 from=$(randomName $EGGS_USER)
 if ! [ "$from" ]; then
-    echo "Dig kender jeg ikke. Hvem skulle du forestille at være?"
+    echo "Dig kender jeg ikke.  Hvem skulle du forestille at være?"
     exit
 fi
 
@@ -38,7 +38,7 @@ fi
 
 to=$(randomName "$maybeto")
 if ! [ "$to" ]; then
-    echo "Jeg kender ikke $maybeto! Prøv med 'Athas' i stedet for."
+    echo "Jeg kender ikke $maybeto!  Prøv med 'Athas' i stedet for."
     exit
 fi
 
@@ -74,7 +74,7 @@ EOF
         echo "Lad det runge og gjalde i DIKUs sale at $from har overført ${amount}kr til $to, som betaling for indtil videre ukendte ydelser!"
     else
         gitRepair slashdotfrokost
-        echo "Katastrofe! Noget gik galt under opdatering!"
+        echo "Katastrofe!  Noget gik galt under opdatering!"
         exit 1
     fi
 else

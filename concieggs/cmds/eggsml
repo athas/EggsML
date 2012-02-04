@@ -1,9 +1,9 @@
 #!/bin/sh
 #
 # Meld dig til at spise med på et givent tidspunkt, der angives som et
-# klokkeslet. Tidspunktet kan aldrig være mere end 24 timer fremme
-# eller tilbage. Tidspunkter i fortiden angives ved at præfikse dem
-# med en bindestreg. Således kan du derfor kun melde dig til spisning
+# klokkeslet.  Tidspunktet kan aldrig være mere end 24 timer fremme
+# eller tilbage.  Tidspunkter i fortiden angives ved at præfikse dem
+# med en bindestreg.  Således kan du derfor kun melde dig til spisning
 # i dag, i morgen eller i går.
 
 . $CONCIEGGS_DIR/eggspi.lib
@@ -12,12 +12,12 @@ subscribeToEggs() {
     time=$1
     name=$2
     if [ "$(dateSecs "$time" '+%u')" = "1" ]; then
-        echo "Det er en mandag! Der er muligvis FF!"
+        echo "Det er en mandag!  Der er muligvis FF!"
     fi
     if [ "$(isInEggs "$time" "$name")" != "" ]; then
         echo "$name spiser allerede med $(timeToDate $time)!"
     elif addToEggs "$time" "$name"; then
-        echo "$(ack) $name spiser med $(timeToDate $time)!"
+        echo "$(ack)  $name spiser med $(timeToDate $time)!"
     else
         exit 1
     fi

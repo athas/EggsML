@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Foretag en beregning i Maxima. Lad være med at afvikle skadelige
+# Foretag en beregning i Maxima.  Lad være med at afvikle skadelige
 # programmer.
 
 maxima --very-quiet -r "$(echo "$@" | sed 's/\([^;]\)$/\0;/')" | sed 's/^ *//' 

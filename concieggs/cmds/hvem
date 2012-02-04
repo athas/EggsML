@@ -1,7 +1,7 @@
 #!/bin/sh
 #
-# Beskriv concieggs' opfattelse af en given brugers identitet. Husk at
-# benytte komplette sætninger!
+# Beskriv concieggs' opfattelse af en given brugers identitet.  Husk
+# at benytte komplette sætninger!
 
 . $CONCIEGGS_DIR/eggspi.lib
 
@@ -21,7 +21,7 @@ if [ $user = concieggs ]; then
     sleep 1
     echo 'ROFL!'
     sleep 2
-    echo "LAD OS GRINE AF TROELS' DUMME BOT! LOLDONGS!"
+    echo "LAD OS GRINE AF TROELS' DUMME BOT!  LOLDONGS!"
     exit
 fi
 

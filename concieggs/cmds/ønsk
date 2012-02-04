@@ -21,7 +21,7 @@ EOF
             echo "Det er noteret at $* er ønsket."
         else
             gitRepair slashdotfrokost
-            echo "Katastrofe! Noget gik galt med Git!"
+            echo "Katastrofe!  Noget gik galt med Git!"
             exit 1
         fi
     else

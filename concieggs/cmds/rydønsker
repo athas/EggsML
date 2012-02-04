@@ -16,7 +16,7 @@ EOF
         echo "Alle indkøbsønsker fjernet!"
     else
         gitRepair slashdotfrokost
-        echo "Katastrofe! Noget gik galt med Git!"
+        echo "Katastrofe!  Noget gik galt med Git!"
         exit 1
     fi
 else

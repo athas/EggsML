@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Tilføj et nyt alias til en EggsML-bruger. Kun for logemestre.
+# Tilføj et nyt alias til en EggsML-bruger.  Kun for logemestre.
 
 
 . $CONCIEGGS_DIR/eggspi.lib
@@ -12,7 +12,7 @@ fi
 
 from=$(randomName $EGGS_USER)
 if ! [ "$from" ]; then
-    echo "$EGGS_USER: Dig kender jeg ikke. Hvem skulle du forestille at være?"
+    echo "$EGGS_USER: Dig kender jeg ikke.  Hvem skulle du forestille at være?"
     exit
 fi
 
@@ -45,7 +45,7 @@ if [ "$taken" ]; then
 fi
 
 if [ "$newalias" = concieggs ]; then
-    echo "$EGGS_USER: Haha. Nej."
+    echo "$EGGS_USER: Haha.  Nej."
     exit
 fi
 
@@ -72,7 +72,7 @@ EOF
         echo "Lad hermed $who være kendt som $newalias, fra tid til anden."
     else
         gitRepair slashdotfrokost
-        echo "Katastrofe! Noget gik galt under opdatering!"
+        echo "Katastrofe!  Noget gik galt under opdatering!"
         exit 1
     fi
 else
