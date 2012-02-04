@@ -42,7 +42,7 @@ ack() {
         echo "Det er i orden";
         echo "Roger";
         echo "Priset være Dybber";
-	      echo "Dybber er en røvbanan";
+	echo "Dybber er en røvbanan";
         echo "Brian er en ost") \
             | randomise | head -n 1 | xargs echo -n
     (echo "!"; echo ".") | randomise | head -n 1
@@ -299,18 +299,22 @@ broke() {
     echo "Kommandoen fejlede!  Prøv at spørge mig om 'udu'."
 }
 
+fakebroke() {
+    echo "Arh... $EGGS_USER, noget gik galt, du må hellere prøve igen";
+    echo "Hm, jeg ved sgu ikke lige, men den gik ikke... prøv igen, $EGGS_USER";
+    echo "$EGGS_USER: Intern, nondeterministisk fejl.  Kør kommandoen igen.";
+    echo "$EGGS_USER: Noget gik galt.  Kør kommandoen igen.";
+    echo "Noget knækkede under kørsel af kommandoen, $EGGS_USER.  Det kan være det virker, hvis du prøver igen.";
+    echo
+}
+
 runcmd() {
     rawcmd=$1
     cmd="$(basename -- "$rawcmd")"
     cmddir=$CONCIEGGS_DIR/cmds
     shift
     if cmpNames "$EGGS_USER" "reenberg"; then
-        ex=$((echo "Arh... $EGGS_USER, noget gik galt, du må hellere prøve igen"; \
-                echo "Hm, jeg ved sgu ikke lige, men den gik ikke... prøv igen, $EGGS_USER"; \
-                echo "$EGGS_USER: Intern, nondeterministisk fejl.  Kør kommandoen igen."; \
-                echo "$EGGS_USER: Noget gik galt.  Kør kommandoen igen."; \
-                echo "Noget knækkede under kørsel af kommandoen, $EGGS_USER.  Det kan være det virker, hvis du prøver igen."; \
-                echo) | randomise | head -n 1)
+        ex=$(fakebroke | randomise | head -n 1)
         if [ "$ex" ]; then
             echo "$ex"
             exit
