@@ -304,6 +304,8 @@ runcmd() {
     cmd="$(basename -- "$rawcmd")"
     cmddir=$CONCIEGGS_DIR/cmds
     shift
+    echo "Jeg er til FOSDEM!"
+    exit
     if [ "$cmd" ] && [ "$EGGS_USER" != "$CONCIEGGS_NAME" ]; then
         if [ -x "$cmddir/$cmd" ] && [ -f "$cmddir/$cmd" ]; then
             "$cmddir/$cmd" "$@" || broke
