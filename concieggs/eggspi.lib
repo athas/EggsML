@@ -305,11 +305,11 @@ runcmd() {
     cmddir=$CONCIEGGS_DIR/cmds
     shift
     if cmpNames "$EGGS_USER" "reenberg"; then
-        ex=$((echo "Arh... $EGGS_USER, noget gik galt, du må hellere prøve igen";
-                echo "Hm, jeg ved sgu ikke lige, men den gik ikke... prøv igen, $EGGS_USER";
-                echo "$EGGS_USER: Intern, nondeterministisk fejl.  Kør kommandoen igen.";
-                echo "$EGGS_USER: Noget gik galt.  Kør kommandoen igen.";
-                echo "Noget knækkede under kørsel af kommandoen, $EGGS_USER.  Det kan være det virker, hvis du prøver igen.";
+        ex=$((echo "Arh... $EGGS_USER, noget gik galt, du må hellere prøve igen"; \
+                echo "Hm, jeg ved sgu ikke lige, men den gik ikke... prøv igen, $EGGS_USER"; \
+                echo "$EGGS_USER: Intern, nondeterministisk fejl.  Kør kommandoen igen."; \
+                echo "$EGGS_USER: Noget gik galt.  Kør kommandoen igen."; \
+                echo "Noget knækkede under kørsel af kommandoen, $EGGS_USER.  Det kan være det virker, hvis du prøver igen."; \
                 echo) | randomise | head -n 1)
         if [ "$ex" ]; then
             echo "$ex"
