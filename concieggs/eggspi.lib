@@ -311,7 +311,7 @@ runcmd() {
                 echo "$EGGS_USER: Noget gik galt.  Kør kommandoen igen.";
                 echo "Noget knækkede under kørsel af kommandoen, $EGGS_USER.  Det kan være det virker, hvis du prøver igen.";
                 echo) | randomise | head -n 1)
-        if [ "$ex" ];
+        if [ "$ex" ]; then
             echo "$ex"
             exit
         fi
