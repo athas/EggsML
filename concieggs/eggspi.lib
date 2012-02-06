@@ -366,13 +366,13 @@ runcmd() {
         if [ -x "$cmddir/$cmd" ] && [ -f "$cmddir/$cmd" ]; then
             "$cmddir/$cmd" "$@" || broke
         else
-            othercmd="$(commands|levenshtein "$1"|sort -n|head -n 1|cut -d ' ' -f 2-)"
+            othercmd="$(commands|levenshtein "$cmd"|sort -n|head -n 1|cut -d ' ' -f 2-)"
             if [ "$othercmd" ]; then
                 echo "Jeg antager at du mente $othercmd!"
                 "$cmddir/$othercmd" "$@" || broke
             else
-            echo "$EGGS_USER: Du bad mig om $cmd, men den kommando har jeg ikke!"
-            echo "Skriv 'concieggs: kommandoer' for at få en liste over mulige kommandoer."
+                echo "$EGGS_USER: Du bad mig om $cmd, men den kommando har jeg ikke!"
+                echo "Skriv 'concieggs: kommandoer' for at få en liste over mulige kommandoer."
             fi
         fi
     fi
