@@ -343,7 +343,7 @@ fakebroke() {
 }
 
 commands() {
-    ls $CONCIEGGS_DIR/cmds | while read -f cmd; do
+    ls $CONCIEGGS_DIR/cmds | while read -r cmd; do
         if [ -x "$cmddir/$cmd" ] && [ -f "$cmddir/$cmd" ]; then
             echo "$cmd"
         fi
