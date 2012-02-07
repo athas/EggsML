@@ -3,10 +3,10 @@
 . $CONCIEGGS_DIR/eggspi.lib
 
 aliases "$EGGS_USER" | while read -r alias; do
-    when=$(dbRead "$alias/reenberg/when")
+    when=$(dbRead "users/$alias/reenberg/when")
     if [ "$when" ]; then
-        loss=$(expr $(dbRead "$alias/reenberg/loss") / 60 + 1)
+        loss=$(expr $(dbRead "users/$alias/reenberg/loss") / 60 + 1)
         echo "$EGGS_USER: Skam dig!  Du begik en Reenberg $(timeToFullDate $when), da du forlod kanalen mindre end $loss minutter efter din frokosttilmelding!"
-        dbDelete "$alias/reenberg"
+        dbDelete "users/$alias/reenberg"
     fi
 done

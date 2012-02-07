@@ -3,7 +3,7 @@
 . $CONCIEGGS_DIR/eggspi.lib
 
 aliases "$EGGS_USER" | while read -r alias; do
-    for x in $(dbIterate "$alias/messages"); do
+    for x in $(dbIterate "users/$alias/messages"); do
         echo "$EGGS_USER: Besked fra $(dbRead $x/from): $(dbRead $x/message)"
         dbDelete "$x";
     done

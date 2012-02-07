@@ -3,12 +3,12 @@
 . $CONCIEGGS_DIR/eggspi.lib
 
 aliases "$EGGS_USER" | while read -r alias; do
-    time=$(dbRead "$alias/eggsactly")
+    time=$(dbRead "users/$alias/eggsactly")
     if [ "$time" ]; then
         if [ "$(expr $(nowTime) - $time)" -lt $(expr 5 '*' 60) ]; then
             echo "$(randomName $alias) har begået en Reenberg!"
-            echo "$(nowTime)" | dbWrite "$alias/reenberg/when"
-            echo "$(expr $(nowTime) - $time)" | dbWrite "$alias/reenberg/loss"
+            echo "$(nowTime)" | dbWrite "users/$alias/reenberg/when"
+            echo "$(expr $(nowTime) - $time)" | dbWrite "users/$alias/reenberg/loss"
         fi
     fi
 done

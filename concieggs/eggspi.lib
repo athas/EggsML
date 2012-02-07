@@ -194,9 +194,9 @@ extractUsername() {
 
 updateSubTime() {
     aliases "$1" | while read -r alias; do
-        dbDelete "$alias/eggsactly";
+        dbDelete "users/$alias/eggsactly";
     done
-    dbWriteArg "$1/eggsactly" "$2"
+    dbWriteArg "users/$1/eggsactly" "$2"
 }
 
 addToEggs() {
