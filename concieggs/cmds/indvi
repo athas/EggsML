@@ -1,0 +1,45 @@
+#!/bin/sh
+#
+# Indvi en lægmand i frokostens mysterier.
+
+
+. $CONCIEGGS_DIR/eggspi.lib
+
+if [ $# -lt 1 ]; then
+    echo 'Brug: indvi <person>'
+    exit 0
+fi
+
+auth="$(isTrusted "$EGGS_USER")"
+if ! [ "$auth" ]; then
+    echo "$EGGS_USER: Det har du på ingen måde bemyndigelse til."
+    exit
+fi
+
+who=$(randomName $1)
+
+if [ "$who" ]; then
+    echo "$EGGS_USER: $1 er allerede en af vore brødre."
+    exit
+fi
+
+if gitRefresh; then
+    cd $EGGS_DIR
+    ed slashdotfrokost > /dev/null <<EOF
+/::ALIAS::/
++1
+i
+$(echo $1)
+.
+w
+EOF
+    if tryGitChange woop slashdotfrokost; then
+        echo "$(ack)  $1 tælles nu blandt vore brødre.  Lad indvielsesfrokosten begynde!"
+    else
+        gitRepair slashdotfrokost
+        echo "Katastrofe!  Noget gik galt under opdatering!"
+        exit 1
+    fi
+else
+    exit 1
+fi
