@@ -33,7 +33,7 @@ $(echo $1)
 .
 w
 EOF
-    if tryGitChange woop slashdotfrokost; then
+    if tryGitChange "Indvielse af $1: Godkendt af $auth" slashdotfrokost; then
         echo "$(ack)  $1 tælles nu blandt vore brødre.  Lad indvielsesfrokosten begynde!"
     else
         gitRepair slashdotfrokost
