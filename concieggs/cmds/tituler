@@ -6,7 +6,7 @@
 . $CONCIEGGS_DIR/eggspi.lib
 
 if ! [ $# -eq 3 -a $2 = som ]; then
-    echo 'Brug: tiltal <person> som <nytnavn>'
+    echo 'Brug: tituler <person> som <nytnavn>'
     exit 0
 fi
 
