@@ -1,0 +1,30 @@
+#!/bin/sh
+#
+# Få concieggs' hjælp til at overtale en logebroder til at gå med på
+# dit forslag.
+
+from=$EGGS_USER
+
+if [ $# -eq 1 ]; then
+    to="$1"
+else
+    echo "Brug: tig [navn]"
+    exit
+fi
+
+if [ "$to" = "concieggs" ]; then
+    echo "$from: Så er det nok!  Hvis ikke du stopper, så drejer jeg frokostklubben rundt og kører hjem med det samme!"
+    exit
+fi
+
+case $(($(od -vAn -N4 -tu4 < /dev/urandom) % 5)) in
+    0) echo "$to, $from vil altså virkelig, virkelig gerne!  Kom nuuuu!";
+        ;;
+    1) echo "Ih, $to, det kunne bare være så rart, hvis du ville gøre det!  $from vil såååå gerne!  Kom nu!";
+        ;;
+    2) echo "Kom nu, $to, vi vil virkelig gerne!  Det er ikke kun $from!  Det bliver det bedste!";
+        ;;
+    3) echo "$to, kom nuuuuu, kom nu $to, vi skal, $to!  Nu, $to!  Vil du ikke nok?";
+        ;;
+    4) echo "Vi skal, $to, vi skal!  Med $from!  Hvorfor vil du heller aldrig noget?"
+esac
