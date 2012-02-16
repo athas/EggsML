@@ -4,7 +4,7 @@
 
 . $CONCIEGGS_DIR/eggspi.lib
 
-wishes=$($EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost wishes \
+wishes=$(eggstool wishes \
     | sort \
     | uniq -c \
     | sed -e 's/ *1 //' -e 's/ *//' \

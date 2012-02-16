@@ -13,7 +13,7 @@ else
     exit
 fi
 
-n="$($EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost consecutive "$user")"
+n="$(eggstool consecutive "$user")"
 
 if [ "$n" ]; then
     echo "$(randomName "$user") har $n eggs på stribe."

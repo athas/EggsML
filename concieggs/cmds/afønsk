@@ -9,7 +9,7 @@ if [ $# -lt 1 ]; then
 else
     if gitRefresh; then
         wish="$*"
-        wishes=$($EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost wishes)
+        wishes=$(eggstool wishes)
         if ! (echo "$wishes" | fgrep -i "$wish" > /dev/null); then
             echo "Der er ingen der ønsker $*!"
         else
