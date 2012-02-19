@@ -27,7 +27,7 @@ if gitRefresh; then
     cd $EGGS_DIR
     ed slashdotfrokost > /dev/null <<EOF
 /::ALIAS::/
-+1
+/^$/
 i
 $(echo $1)
 .
