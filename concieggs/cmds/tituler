@@ -49,6 +49,11 @@ if [ "$newalias" = concieggs ]; then
     exit
 fi
 
+if ! (echo "$newalias" | egrep '^[^, ]+$' > /dev/null); then
+    echo "$EGGS_USER: Føj!  Den slags fæle navne kan vi ikke lide."
+    exit
+fi
+
 cd $EGGS_DIR
 
 aliases=$(aliases "$who" | commasize)
