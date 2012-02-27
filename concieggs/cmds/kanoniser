@@ -18,7 +18,7 @@ fi
 
 what="$@"
 
-there="$(checkCatalogue $what)"
+there="$(checkCatalogue "$what")"
 if [ "$there" ]; then
     echo "$EGGS_USER: Det kender jeg allerede til i denne form: $there."
     exit
