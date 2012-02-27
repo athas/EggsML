@@ -6,7 +6,7 @@
 . $CONCIEGGS_DIR/eggspi.lib
 
 if [ $# -lt 1 ]; then
-    echo "Brug: indfør <ting>"
+    echo "Brug: kanoniser <ting>"
     exit
 fi
 
