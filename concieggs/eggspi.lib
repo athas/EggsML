@@ -393,7 +393,7 @@ lookupDebt() {
 }
 
 checkCatalogue() {
-    needle=$1
+    needle="$1"
     dbIterate katalog | while read -r item; do
         dbRead "$item"
     done | sort | fgrep -i "$needle" | head -n 1
@@ -406,7 +406,7 @@ dbRead() {
 }
 
 dbWrite() {
-    mkdir -p "$CONCIEGGS_DB_DIR/store/$(dirname $1)"
+    mkdir -p "$CONCIEGGS_DB_DIR/store/$(dirname "$1")"
     cat > "$CONCIEGGS_DB_DIR/store/$1"
 }
 
@@ -422,7 +422,7 @@ dbWriteArg() {
 
 dbDelete() {
     rm -rf "$CONCIEGGS_DB_DIR/store/$1"
-    parent="$(dirname $1)"
+    parent="$(dirname "$1")"
     if [ "$parent" != / -a "$parent" != . ]; then
         if ! [ "$(dbIterate $parent)" ]; then
             dbDelete "$parent"
