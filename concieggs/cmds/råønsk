@@ -1,0 +1,30 @@
+#!/bin/sh
+#
+# Tilføj til listen over indkøbsønsker.
+
+. $CONCIEGGS_DIR/eggspi.lib
+
+if [ $# -lt 1 ]; then
+    echo "Brug: råønsk ønske..."
+else
+    if gitRefresh; then
+        cd $EGGS_DIR
+        ed slashdotfrokost > /dev/null <<EOF
+/::INDKØBSØNSKER::/
++1
+i
+$(echo "$@")
+.
+w
+EOF
+        if tryGitChange woop slashdotfrokost; then
+            echo "Det er noteret at $* er ønsket."
+        else
+            gitRepair slashdotfrokost
+            echo "Katastrofe!  Noget gik galt med Git!"
+            exit 1
+        fi
+    else
+        exit 1
+    fi
+fi

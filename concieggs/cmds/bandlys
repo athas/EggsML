@@ -1,0 +1,31 @@
+#!/bin/sh
+#
+# Fjern en indkøbsmulighed fra kataloget.  Det anbefales at bruge
+# komplette navne for at undgå uheld.
+
+. $CONCIEGGS_DIR/eggspi.lib
+
+if [ $# -lt 1 ]; then
+    echo "Brug: bandlys <ting>"
+    exit
+fi
+
+auth="$(isTrusted "$EGGS_USER")"
+if ! [ "$auth" ]; then
+    echo "$EGGS_USER: Kun logemestre har bemyndigelse til at indskrænke vores begrebsverden."
+    exit
+fi
+
+what="$@"
+
+there="$(checkCatalogue $what)"
+if ! [ "$there" ]; then
+    echo "$EGGS_USER: Jeg kender overhovedet ikke noget til $what!"
+    exit
+fi
+dbIterate katalog | while read -r item; do
+    if (dbRead "$item" | fgrep -x "$there" > /dev/null); then
+        dbDelete "$item"
+    fi
+done
+echo "$(ack)  Lad $what være lyst i band, og enhver videre nævnelse straffes ved Reenberg."

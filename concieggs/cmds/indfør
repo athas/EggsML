@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# Tilføj en ny indkøbmulighed til kataloget.  Vælg så deskriptivt et
+# navn som muligt, gerne med kommentarer i parentes!
+
+. $CONCIEGGS_DIR/eggspi.lib
+
+if [ $# -lt 1 ]; then
+    echo "Brug: indfør <ting>"
+    exit
+fi
+
+auth="$(isTrusted "$EGGS_USER")"
+if ! [ "$auth" ]; then
+    echo "$EGGS_USER: Kun logemestre har bemyndigelse til at udvide vores begrebsverden."
+    exit
+fi
+
+what="$@"
+
+there="$(checkCatalogue $what)"
+if [ "$there" ]; then
+    echo "$EGGS_USER: Det kender jeg allerede til i denne form: $there."
+    exit
+fi
+
+(echo "$what" | dbInsertData "katalog" > /dev/null) && echo "$(ack)  Nu kan man også ønske '$what'."
