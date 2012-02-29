@@ -46,7 +46,7 @@ EOF
 
 if [ "$wishes" ]; then
     echo "$doc" \
-    | groff -m mandoc -D utf8
+    | groff -m mandoc -D utf8 \
     | ssh athas@brok.diku.dk 'lpr -P'"$printer"
     echo "Udskriver på $printer!"
 else
