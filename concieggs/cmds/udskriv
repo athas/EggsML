@@ -23,7 +23,7 @@ eggstool wishes \
 doc=$(cat <<EOF
 .TH EGGSML 7 indkøbliste\-$(date +'%d/%m %Y')
 .SH NAME
-Indkøbliste $(date +'%d/%m %Y')
+Indkøbsliste $(date +'%d/%m %Y')
 .SH SYNOPSIS
 .nh
 EggsML < Netto
