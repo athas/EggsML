@@ -81,7 +81,7 @@ reader() {
 
 ls $CONCIEGGS_IRC_DIR | while read -r dir; do
     dir="$(basename "$dir")"
-    if [ -d "$dir" ]; then
+    if [ -d "$dir" ] && [ "$dir" != "nickserv" ]; then
         touch "$dir/watched"
         (cd "$dir"; touch out; (tail -f -n 0 out | reader > in)) &
     fi
@@ -93,7 +93,7 @@ inotifywait -e create --monitor --format %w%f . \
     | while read -r dir; do
     echo inotify "$dir"
     dir="$(basename "$dir")"
-    if [ -d "$dir" ] && ! [ -r "$dir/watched" ]; then
+    if [ -d "$dir" ] && ! [ -r "$dir/watched" ] && [ "$dir" != "nickserv" ]; then
         touch "$dir/watched"
         (cd "$dir"; touch out; (tail -f -n 10 out | reader > in)) &
     fi
