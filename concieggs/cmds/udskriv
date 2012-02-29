@@ -13,11 +13,40 @@ else
     printer=s2a
 fi
 
-if [ "$wishes" ]; then
-    eggstool wishes \
+formatWishes() {
+eggstool wishes \
     | sort \
     | uniq -c \
-    | sed -e 's/ *1 //' -e 's/ *//' -e 's/^/* /' \
+    | sed -e 's/ *1 //' -e 's/ *//' -e 's/^/* /' -e 'i.TP' -e 's/^/.B /'
+}
+
+doc=$(cat <<EOF
+.TH EGGSML 7 indkøbliste\-$(date +'%d/%m %Y')
+.SH NAME
+Indkøbliste $(date +'%d/%m %Y')
+.SH SYNOPSIS
+.nh
+EggsML < Netto
+.SH DESCRIPTION
+.SS Overview
+Denne liste indeholder alt hvad der skal købes ind.  Som udgangspunkt
+kan det forventes at alt på listen kan købes i Netto på Jagtvej.  Husk
+at der ofte er mange der spiser med hver dag, så køb hellere for meget
+end for lidt.
+.SS Ønsker
+.TP
+$(formatWishes)
+.SH BUGS
+Nu og da er der udsolgt af visse varer.  Som workaround bør du efter
+indkøb genindtaste de manglende varer på ønskelisten.
+.SH SEE ALSO
+.BR dnur (1)
+EOF
+)
+
+if [ "$wishes" ]; then
+    echo "$doc" \
+    | groff -m mandoc -D utf8
     | ssh athas@brok.diku.dk 'lpr -P'"$printer"
     echo "Udskriver på $printer!"
 else
