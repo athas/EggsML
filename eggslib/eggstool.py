@@ -111,6 +111,9 @@ def print_eggscount(eggs,name):
     
     print reduce(lambda acc,x: inner(x['users'])+acc,eggs.dates,0)
 
+def same_eggser(eggs,x,y):
+    return user_aliases(eggs,x) == user_aliases(eggs,y)
+
 if __name__ == '__main__':
     e = eggsml()
     if len(sys.argv) < 3:
@@ -147,6 +150,12 @@ if __name__ == '__main__':
             exit("Usage: %s %s %s <alias>" % (sys.argv[0], lunchfile, command))
         if not print_consecutive(e, sys.argv[3]):
             exit(1)
-
+    elif command == "cmpnames":
+        if len(sys.argv) != 5:
+            exit("Usage: %s %s %s <name> <name>" % (sys.argv[0], lunchfile, command))
+        if same_eggser(e, sys.argv[3], sys.argv[4]):
+            exit(0)
+        else:
+            exit(1)
     else:
         exit("Unrecognized command %s" % command)

@@ -92,7 +92,7 @@ randomName() {
 }
 
 cmpNames() {
-    [ "$(aliases "$1")" = "$(aliases "$2")" ]
+    eggstool cmpnames "$1" "$2"
 }
 
 dateToTime() {
@@ -380,12 +380,12 @@ runcmd() {
 }
 
 lookupDebt() {
-    who=$1
+    who="$(aliases "$1")"
     # ja, vi beregner alles gæld, selv om vi kun er interesseret i et
     # enkelt af tallene
     eggstool balances | while read -r line; do
         name="$(echo "$line" | cut -d' ' -f 2)"
-        if cmpNames "$name" "$who"; then
+        if echo "$who" | fgrep -x "$name" > /dev/null; then
             echo "$line" | cut -d' ' -f 1 | awk '{ print -1*$0 }'
             return
         fi
