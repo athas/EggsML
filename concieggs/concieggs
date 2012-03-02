@@ -76,7 +76,9 @@ reader() {
                 fi
             fi
         fi
-    done | fmt -s --width=500 | throttle
+    done | while read -r line; do
+        echo "$line" | fmt -s --width=500
+    done | throttle
 }
 
 ls $CONCIEGGS_IRC_DIR | while read -r dir; do
