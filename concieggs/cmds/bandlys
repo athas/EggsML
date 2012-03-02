@@ -28,4 +28,4 @@ dbIterate katalog | while read -r item; do
         dbDelete "$item"
     fi
 done
-echo "$(ack)  Lad $what være lyst i band, og enhver videre nævnelse straffes ved Reenberg."
+echo "$(ack)  Lad $there være lyst i band, og enhver videre nævnelse straffes ved Reenberg."
