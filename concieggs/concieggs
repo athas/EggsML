@@ -76,7 +76,7 @@ reader() {
                 fi
             fi
         fi
-    done | throttle
+    done | fmt -s --width=500 | throttle
 }
 
 ls $CONCIEGGS_IRC_DIR | while read -r dir; do
