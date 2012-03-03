@@ -356,7 +356,7 @@ runcmd() {
     cmd="$(basename -- "$rawcmd")"
     cmddir=$CONCIEGGS_DIR/cmds
     shift
-    if cmpNames "$EGGS_USER" "reenberg"; then
+    if cmpNames "$EGGS_USER" "dromi"; then
         ex=$(fakebroke | randomise | head -n 1)
         if [ "$ex" ]; then
             echo "$ex"
