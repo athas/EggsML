@@ -11,7 +11,4 @@ if echo "$EGGS_BODY" | egrep 's/[^/]*/[^/]*/g?' > /dev/null; then
     else
         echo "$EGGS_USER: Men du har jo ikke sagt noget!"
     fi
-else
-    echo Næh
-    echo "$EGGS_BODY"
 fi
