@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# Simulate a concieggs environment.
+
+cmd=$1
+export CONCIEGGS_DIR="$(dirname $0)"
+export EGGS_DIR=$CONCIEGGS_DIR/..
+export EGGS_LIB_DIR=$EGGS_DIR/eggslib
+export CONCIEGGS_DB_DIR=$CONCIEGGS_DIR/db
+export EGGS_USER=${EGGS_USER:-$(whoami)}
+shift
+
+$cmd "$@"
