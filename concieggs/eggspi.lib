@@ -401,8 +401,12 @@ checkCatalogue() {
 
 # Database layer
 
+dbExists() {
+    [ -e "$CONCIEGGS_DB_DIR/store/$1" ]
+}
+
 dbRead() {
-    [ -f "$CONCIEGGS_DB_DIR/store/$1" ] && cat "$CONCIEGGS_DB_DIR/store/$1"
+    dbExists "$1" && cat "$CONCIEGGS_DB_DIR/store/$1"
 }
 
 dbWrite() {
@@ -458,4 +462,36 @@ dbInsertNode() {
 dbInsertData() {
     node=$(dbGetFreeFilename "$1")
     dbWrite "$node" && echo "$node"
+}
+
+dbUserGet() {
+    user="$1"
+    node="$2"
+    aliases "$1" | while read -r alias; do
+        if dbExists "users/$alias/$node"; then
+            echo "users/$alias/$node"
+            return
+        fi
+    done
+}
+
+dbUserRead() {
+    user="$1"
+    node="$2"
+    realnode="$(dbUserGet $1 $2)"
+    if [ "$realnode" ]; then
+        dbRead "$realnode"
+    fi
+}
+
+dbUserWrite() {
+    user="$1"
+    node="$2"
+    realnode="$(dbUserGet "$1" "$2")"
+    if [ "$realnode" ]; then
+        dbWrite "$realnode"
+    else
+        alias="$(randomName "$1")"
+        dbWrite "users/$alias/$node"
+    fi
 }

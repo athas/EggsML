@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -f
+
+. $CONCIEGGS_DIR/eggspi.lib
+
+if echo "$EGGS_BODY" | egrep 's/[^/]*/[^/]*/g?' > /dev/null; then
+    last=$(dbUserRead "$EGGS_USER" lastmsg)
+    if [ "$last" ]; then
+        echo "Rettet: <$EGGS_USER> $(echo "$last" | sed "$EGGS_BODY")"
+    else
+        echo "$EGGS_USER: Men du har jo ikke sagt noget!"
+    fi
+else
+    echo Næh
+    echo "$EGGS_BODY"
+fi

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+. $CONCIEGGS_DIR/eggspi.lib
+
+echo "$EGGS_BODY" | dbUserWrite "$EGGS_USER" lastmsg
