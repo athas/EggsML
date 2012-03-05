@@ -25,11 +25,35 @@ class eggsml_page:
 	def purchases(self):
 		pl = self.e.get_purchases()
 		pl.reverse()
+                n = len(pl)
 		l = '<h2>Indkøb</h2>\n'
 		l += '<table id="eggspurchases">\n<thead><tr>\n<th>Dato</th><th>Indkøber</th><th>Kroner</th>\n</tr></thead><tbody>\n'
-		for p in pl:
-			l += '<tr>\n<td>%s</td><td>%s</td><td>%s</td>\n</tr>\n' % (p['date'], p['alias'], self.currency(p['amount']))
+                i = 0
+                transactions=[]
+                while i < n:
+                        print i
+                        if i+1 < n and pl[i]['amount']==pl[i+1]['amount']*-1:
+                                if pl[i]['amount'] < 0:
+                                        transactions.append({'date': pl[i]['date'],
+                                                             'from': pl[i]['alias'],
+                                                             'to': pl[i+1]['alias'],
+                                                             'amount': pl[i+1]['amount']})
+                                else:
+                                        transactions.append({'date': pl[i]['date'],
+                                                             'from': pl[i+1]['alias'],
+                                                             'to': pl[i]['alias'],
+                                                             'amount': pl[i]['amount']})
+                                i += 2
+                        else:
+                                p=pl[i]
+                                l += '<tr>\n<td>%s</td><td>%s</td><td>%s</td>\n</tr>\n' % (p['date'], p['alias'], self.currency(p['amount']))
+                                i += 1
 		l += '</tbody></table>\n'
+                l += '<h2>Overførsler</h2>\n'
+                l += '<table id="eggstransactions">\n<thead><tr>\n<th>Dato</th><th>Fra</th><th>Til</th><th>Kroner</th>\n</tr></thead><tbody>\n'
+                for t in transactions:
+                        l += '<tr>\n<td>%s</td><td>%s</td><td>%s</td><td>%s</td>\n</tr>\n' % (t['date'], t['from'], t['to'], self.currency(t['amount']))
+                l += '</tbody></table>\n'
 		return l
 
 	def negative(self, b):
