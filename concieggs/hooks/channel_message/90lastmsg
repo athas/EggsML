@@ -2,4 +2,6 @@
 
 . $CONCIEGGS_DIR/eggspi.lib
 
-echo "$EGGS_BODY" | dbUserWrite "$EGGS_USER" lastmsg
+if [ "$(aliases "$EGGS_USER")" ]; then
+    echo "$EGGS_BODY" | dbUserWrite "$EGGS_USER" lastmsg
+fi
