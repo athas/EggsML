@@ -50,7 +50,7 @@ if [ "$athug" ]; then
             case "$what" in
                 sten) echo "$from vinder!";
                     ;;
-                papir) echo "$to vinder!";
+                papir) echo "$at vinder!";
                     ;;
                 saks) echo "Ingen vinder!";
                     ;;
