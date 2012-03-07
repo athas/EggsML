@@ -62,6 +62,7 @@ if [ "$athug" ]; then
     dbUserDelete "$from" hug
     dbUserDelete "$at" hug
 else
+    exec 1>"../#eggsml/in"
     echo "$what" | dbUserWrite "$from" hug
     echo "$(ack)  Du står nu parat med $what!"
     echo "$from står parat til sten-saks-papir!  Hvem tør hugge mod ham?"
