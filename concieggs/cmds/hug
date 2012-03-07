@@ -1,0 +1,65 @@
+#!/bin/sh
+#
+# Løs en konflikt som mænd.
+
+. $CONCIEGGS_DIR/eggspi.lib
+
+if ! [ "$2" = mod -a $# = 3 -a '(' "$1" = sten -o "$1" = saks -o "$1" = papir ')' ]; then
+    echo "Brug: hug <sten|saks|papir> mod <hvem>"
+    exit
+fi
+
+what=$1
+at=$(randomName $3)
+from=$(randomName $EGGS_USER)
+
+if ! [ "$from" ]; then
+    echo "Jeg kender ikke dif!  Kun logebrødre må deltage i denne dyst."
+fi
+
+if ! [ "$at" ]; then
+    echo "Jeg kender ikke $3!  Kun logebrødre må deltage i denne dyst."
+fi
+
+athug="$(dbUserRead "$at" hug)"
+
+if [ "$athug" ]; then
+    echo -n "${from}s $what møder ${at}s $athug!  "
+    case "$athug" in
+        sten)
+            case "$what" in
+                sten) echo "Ingen vinder!";
+                    ;;
+                papir) echo "$from vinder!";
+                    ;;
+                saks) echo "$at vinder!";
+                    ;;
+            esac;
+            ;;
+        papir)
+            case "$what" in
+                sten) echo "$at vinder!";
+                    ;;
+                papir) echo "Ingen vinder!";
+                    ;;
+                saks) echo "$from vinder!";
+                    ;;
+            esac;
+            ;;
+        saks)
+            case "$what" in
+                sten) echo "$from vinder!";
+                    ;;
+                papir) echo "$to vinder!";
+                    ;;
+                saks) echo "Ingen vinder!";
+                    ;;
+            esac;
+            ;;
+    esac
+    dbUserDelete "$from" hug
+    dbUserDelete "$at" hug
+else
+    echo "$what" | dbUserWrite "$from" hug
+    echo "$(ack)  Du står nu parat med $what!"
+fi
