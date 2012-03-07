@@ -17,9 +17,9 @@ while true; do
     last="$(echo "$who"|randomise|head -n 1)"
     iter=$(expr $iter + 1)
     echo "Flasken drejer videre til $last!"
+    sleep 5
     if [ $iter -gt 2 -a "$(printf '\n\n\n\n\nstop' | randomise)" = "stop" ]; then
         break;
     fi
-    sleep 5
 done
 echo "Flasken stopper!  Flaskehalsen peger på $last!"
