@@ -24,7 +24,6 @@ fi
 athug="$(dbUserRead "$at" hug)"
 
 if [ "$athug" ]; then
-    cd "../#eggsml"
     exec 1>"../#eggsml/in"
     echo -n "${from}s $what møder ${at}s $athug!  "
     case "$athug" in
