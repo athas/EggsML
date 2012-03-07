@@ -5,7 +5,7 @@
 . $CONCIEGGS_DIR/eggspi.lib
 
 if [ $# = 0 ]; then
-    who="$(tail -n 200 out|grep "<[^>]>"|sed -r 's/.*<([^>]*)>.*/\1/'|sort|uniq|fgrep -vx "$CONCIEGGS_NAME")"
+    who="$(tail -n 200 out|grep "<[^>]*>"|sed -r 's/.*<([^>]*)>.*/\1/'|sort|uniq|fgrep -vx "$CONCIEGGS_NAME")"
 else
     who="$(for x in $*; do echo $x; done)"
 fi
