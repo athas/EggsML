@@ -14,11 +14,11 @@ at=$(randomName $3)
 from=$(randomName $EGGS_USER)
 
 if ! [ "$from" ]; then
-    echo "Jeg kender ikke dif!  Kun logebrødre må deltage i denne dyst."
+    echo "Jeg kender ikke dig!  Kun logebrødre må deltage i denne ædle dyst."
 fi
 
 if ! [ "$at" ]; then
-    echo "Jeg kender ikke $3!  Kun logebrødre må deltage i denne dyst."
+    echo "Jeg kender ikke $3!  Kun logebrødre må deltage i denne ædle dyst."
 fi
 
 athug="$(dbUserRead "$at" hug)"
@@ -65,5 +65,5 @@ else
     echo "$what" | dbUserWrite "$from" hug
     echo "$(ack)  Du står nu parat med $what!"
     exec 1>"../#eggsml/in"
-    echo "$from står parat til sten-saks-papir!  Hvem tør hugge mod ham?"
+    echo "$from står parat til sten-saks-papir!  Hvem tør hugge mod ham?  Brug 'hug'-kommandoen!"
 fi
