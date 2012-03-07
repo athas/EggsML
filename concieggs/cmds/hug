@@ -65,5 +65,5 @@ else
     echo "$what" | dbUserWrite "$from" hug
     echo "$(ack)  Du står nu parat med $what!"
     exec 1>"../#eggsml/in"
-    echo "$from står parat til sten-saks-papir og fronter mod $at!  Hvem tør hugge mod ham?  Brug 'hug'-kommandoen!"
+    echo "$EGGS_USER står parat til sten-saks-papir og fronter mod $3!  Hvem tør hugge mod ham?  Brug 'hug'-kommandoen!"
 fi
