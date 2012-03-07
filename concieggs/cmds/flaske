@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# Spin flasken og find ud af noget!
+
+. $CONCIEGGS_DIR/eggspi.lib
+
+if [ $# = 0 ]; then
+    who="$(tail -n 200 out|sed -r 's/.*<([^>]*)>.*/\1/'|sort|uniq|fgrep -vx "$CONCIEGGS_NAME")"
+else
+    who="$(for x in $*; do echo $x; done)"
+fi
+
+echo "Flasken drejer!"
+sleep 2
+echo "Flasken drejer forbi $(echo "$who"|randomise|head -n 1)!"
+sleep 2
+echo "Flasken drejer forbi $(echo "$who"|randomise|head -n 1)!"
+sleep 2
+echo "Flasken stopper og peger på $(echo "$who"|randomise|head -n 1)!"
