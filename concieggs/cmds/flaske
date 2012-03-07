@@ -1,19 +1,25 @@
 #!/bin/sh
 #
-# Spin flasken og find ud af noget!
+# Snur flasken rundt og find ud af noget!
 
 . $CONCIEGGS_DIR/eggspi.lib
 
 if [ $# = 0 ]; then
-    who="$(tail -n 200 out|sed -r 's/.*<([^>]*)>.*/\1/'|sort|uniq|fgrep -vx "$CONCIEGGS_NAME")"
+    who="$(tail -n 200 out|grep "<[^>]>"|sed -r 's/.*<([^>]*)>.*/\1/'|sort|uniq|fgrep -vx "$CONCIEGGS_NAME")"
 else
     who="$(for x in $*; do echo $x; done)"
 fi
 
-echo "Flasken drejer!"
-sleep 2
-echo "Flasken drejer forbi $(echo "$who"|randomise|head -n 1)!"
-sleep 2
-echo "Flasken drejer forbi $(echo "$who"|randomise|head -n 1)!"
-sleep 2
-echo "Flasken stopper og peger på $(echo "$who"|randomise|head -n 1)!"
+echo "$(ack)  Jeg sætter flasken i gang!"
+sleep 3
+iter=0
+while true; do
+    last="$(echo "$who"|randomise|head -n 1)"
+    iter=$(expr $iter + 1)
+    echo "Flasken drejer videre til $last!"
+    if [ $iter -gt 2 -a "$(printf '\n\n\n\n\nstop' | randomise)" = "stop" ]; then
+        break;
+    fi
+    sleep 5
+done
+echo "Flasken stopper!  Flaskehalsen peger på $last!"
