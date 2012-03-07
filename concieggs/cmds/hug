@@ -25,6 +25,7 @@ athug="$(dbUserRead "$at" hug)"
 
 if [ "$athug" ]; then
     cd "../#eggsml"
+    exec 1>"../#eggsml/in"
     echo -n "${from}s $what møder ${at}s $athug!  "
     case "$athug" in
         sten)
@@ -63,6 +64,5 @@ if [ "$athug" ]; then
 else
     echo "$what" | dbUserWrite "$from" hug
     echo "$(ack)  Du står nu parat med $what!"
-    cd "../#eggsml"
     echo "$from står parat til sten-saks-papir!  Hvem tør hugge mod ham?"
 fi
