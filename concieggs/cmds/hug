@@ -15,10 +15,12 @@ from=$(randomName $EGGS_USER)
 
 if ! [ "$from" ]; then
     echo "Jeg kender ikke dig!  Kun logebrødre må deltage i denne ædle dyst."
+    exit
 fi
 
 if ! [ "$at" ]; then
     echo "Jeg kender ikke $3!  Kun logebrødre må deltage i denne ædle dyst."
+    exit
 fi
 
 athug="$(dbUserRead "$at" hug)"
