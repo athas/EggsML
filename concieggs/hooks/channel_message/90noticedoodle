@@ -2,7 +2,7 @@
 
 . $CONCIEGGS_DIR/eggspi.lib
 
-doodle="$(echo "$EGGS_BODY" | egrep -o 'doodle\.com/[a-z0-9]+')"
+doodle="$(echo "$EGGS_BODY" | egrep -o 'http://doodle\.com/[a-z0-9]+')"
 
 alreadyHasDoodle() {
     dbRead doodles | cut -d' ' -f 1 | fgrep -x "$1" > /dev/null
