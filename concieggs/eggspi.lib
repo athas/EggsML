@@ -507,4 +507,3 @@ dbUserDelete() {
         dbDelete "$realnode"
     fi
 }
-
