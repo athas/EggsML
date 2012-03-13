@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$EGGS_USER" = hej_fra_github ] && (echo "$EGGS_BODY" | grep '^\[EggsML\]' > /dev/null); then
+if [ "$EGGS_USER" = hej_fra_github ] && (echo "$EGGS_BODY" | grep '^\[EggsML\]' | grep -v 'concieggs pushed' > /dev/null); then
     exec >'../#eggsml/in'
     cd /eggsml
     if git pull > /dev/null; then
