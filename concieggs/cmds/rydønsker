@@ -12,7 +12,7 @@ if gitRefresh; then
 +1,/^ *$/-1d
 w
 EOF
-    if tryGitChange woop slashdotfrokost; then
+    if tryGitChange "$EGGS_USER: Fjern alle indkøbsønsker" slashdotfrokost; then
         echo "Alle indkøbsønsker fjernet!"
     else
         gitRepair slashdotfrokost
