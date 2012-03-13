@@ -24,6 +24,10 @@ cd $CONCIEGGS_IRC_DIR
 # Let all eggsml users touch our stuff.
 umask 002
 
+# Write all errors here
+
+exec 2>$irc_error_channel/in
+
 # Right on - read commands and be merry.
 
 dateregex='[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}'
