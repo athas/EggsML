@@ -9,7 +9,7 @@ alreadyHasDoodle() {
 }
 
 titleOfDoodle() {
-    curl "$1" | grep -o '<title>.*</title>' | sed -r 's,</?title>,,g'
+    curl -L "$1" | grep -o '<title>.*</title>' | sed -r 's,</?title>,,g'
 }
 
 if [ "$doodle" ]; then
