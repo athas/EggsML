@@ -17,7 +17,7 @@ $(echo "$@")
 .
 w
 EOF
-        if tryGitChange "$EGGS_USER: $@" slashdotfrokost; then
+        if tryGitChange "ønsk $*" slashdotfrokost; then
             echo "Det er noteret at $* er ønsket."
         else
             gitRepair slashdotfrokost

@@ -288,7 +288,10 @@ tryGitChange() {
     msg=$1
     shift
     name="$(randomName $EGGS_USER)"
-    (git add "$@" && git commit -m "${name:-$EGGS_USER}: $msg" && git push git@github.com:Athas/EggsML.git) > /dev/null
+    if ! [ "$name" ]; then
+        name="$EGGS_USER"
+    fi
+    (git add "$@" && git commit -m "$name: $msg" && git push git@github.com:Athas/EggsML.git) > /dev/null
 }
 
 gitRepair() {

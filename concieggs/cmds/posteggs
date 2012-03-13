@@ -22,7 +22,7 @@ $(formatEggs $lastEggs $*)
 .
 w
 EOF
-        if tryGitChange "$EGGS_USER: Eggs $(timeToDate $lastEggs), med $(describeEggs $lastEggs)" slashdotfrokost; then
+        if tryGitChange "Eggs $(timeToDate $lastEggs), med $(describeEggs $lastEggs)" slashdotfrokost; then
             echo "Succes!  Eggs $(timeToDate $lastEggs), med $(describeEggs $lastEggs) er nu bogført".
             setTopic
             rm $CONCIEGGS_DB_DIR/eggs/$lastEggs
