@@ -84,7 +84,7 @@ reader() {
 # Write all errors here
 
 tmpfile=$(mktemp)
-cat $tmpfile | throttle $irc_error_channel/in
+cat $tmpfile | throttle > $irc_error_channel/in
 exec 2>$tmpfile
 rm $tmpfile
 
