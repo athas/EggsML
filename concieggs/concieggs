@@ -24,13 +24,6 @@ cd $CONCIEGGS_IRC_DIR
 # Let all eggsml users touch our stuff.
 umask 002
 
-# Write all errors here
-
-tmpfile=$(mktemp)
-cat $tmpfile | throttle $irc_error_channel/in
-exec 2>$tmpfile
-rm $tmpfile
-
 # Right on - read commands and be merry.
 
 dateregex='[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}'
@@ -87,6 +80,13 @@ reader() {
         echo "$line" | fmt -s --width=400
     done | throttle
 }
+
+# Write all errors here
+
+tmpfile=$(mktemp)
+cat $tmpfile | throttle $irc_error_channel/in
+exec 2>$tmpfile
+rm $tmpfile
 
 ls $CONCIEGGS_IRC_DIR | while read -r dir; do
     dir="$(basename "$dir")"
