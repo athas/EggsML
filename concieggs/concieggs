@@ -83,10 +83,12 @@ reader() {
 
 # Write all errors here
 
-tmpfile=$(mktemp)
-cat $tmpfile | throttle > $irc_error_channel/in
-exec 2>$tmpfile
-rm $tmpfile
+tmpdir=$(mktemp -d) || exit 1
+mkfifo $tmpdir/stderr
+(cat $tmpdir/stderr | throttle > $irc_error_channel/in) &
+exec 2>$tmpdir/stderr
+rm $tmpdir/stderr
+rmdir $tmpdir
 
 ls $CONCIEGGS_IRC_DIR | while read -r dir; do
     dir="$(basename "$dir")"
