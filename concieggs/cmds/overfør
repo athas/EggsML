@@ -42,10 +42,10 @@ if ! [ "$to" ]; then
     exit
 fi
 
-if [ $amount -eq 0 ]; then
+if [ "$amount" -eq 0 ]; then
     echo "Undlad venligst at spilde bankvæsenets tid på pjat."
     exit 0
-elif [ $amount -lt 0 ]; then
+elif [ "$amount" -lt 0 ]; then
     amount=$(($amount*-1))
     tmp=$from
     from=$to
