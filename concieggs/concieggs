@@ -26,7 +26,10 @@ umask 002
 
 # Write all errors here
 
-exec 2>$irc_error_channel/in
+tmpfile=$(mktemp)
+cat $tmpfile | throttle $irc_error_channel/in
+exec 2>$tmpfile
+rm $tmpfile
 
 # Right on - read commands and be merry.
 
