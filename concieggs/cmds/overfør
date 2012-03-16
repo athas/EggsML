@@ -46,7 +46,7 @@ if [ "$amount" -eq 0 ]; then
     echo "Undlad venligst at spilde bankvæsenets tid på pjat."
     exit 0
 elif [ "$amount" -lt 0 ]; then
-    amount=$(($amount*-1))
+    amount="$(echo $amount '*' -1|bc)"
     tmp=$from
     from=$to
     to=$tmp
