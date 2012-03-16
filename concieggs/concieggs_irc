@@ -20,6 +20,7 @@ irc () {
 
 # Now join!
     echo "/j $irc_channel" > in
+    echo "/j $irc_error_channel" > in
     echo "$irc_username connected!"
 
 # Wait for ii to die.
