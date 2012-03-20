@@ -34,7 +34,7 @@ print out }'
 }
 
 ack() {
-    (echo "Aj-aj";
+    (echo "ACK-ACK";
         echo "Javel";
         echo "OK";
         echo "Forstået";
