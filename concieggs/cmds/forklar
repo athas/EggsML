@@ -9,11 +9,6 @@ lookup() {
      cat $CONCIEGGS_DB_DIR/fakta | sort | grep -F -i "$*"
 }
 
-if echo "$*" | egrep -i '^naja?' > /dev/null; then
-    echo "Nej, lad nu være."
-    exit
-fi
-
 if [ "$*" ]; then
     if ! lookup "$*"; then
         echo "Jeg ved ikke noget om $*."
