@@ -11,7 +11,7 @@ lookup() {
 
 if echo "$*" | egrep -i '^naja?' > /dev/null; then
     echo "Nej, lad nu være."
-    exite
+    exit
 fi
 
 if [ "$*" ]; then
