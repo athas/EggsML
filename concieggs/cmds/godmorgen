@@ -1,0 +1,4 @@
+#!/bin/sh
+# Hils pænt på concieggs.
+
+echo "Og $(basename $0) til dig, $EGGS_USER!"
