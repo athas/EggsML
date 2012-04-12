@@ -8,11 +8,15 @@ import urllib
 
 ytvids = re.finditer(r'\b(?:youtube.com/watch.*?\bv=|youtu.be/)([A-Z0-9-_]{11})', os.getenv('EGGS_BODY'), re.IGNORECASE)
 
+vids = []
+
 for vid in ytvids:
     vidid = vid.group(1)
 
     url = "http://gdata.youtube.com/feeds/api/videos/%s?v=2&alt=json" % vidid
     try:
+        print url
+
         result = json.load(urllib.urlopen(url))
         entry = result['entry']
 
@@ -23,7 +27,7 @@ for vid in ytvids:
         uploader = entry['author'][0]['name']['$t']
         views = int(entry['yt$statistics']['viewCount'])
 
-        print "%s (%.2f/%d efter %d stemmer, %d visninger, uploadet af %s)" % (title, uploader, rating, maxrating, numratings, views)
+        print "%s (%.2f/%d efter %d stemmer, %d visninger, uploadet af %s)" % (title, rating, maxrating, numratings, views, uploader)
     except:
         print u"Den dér YouTube video er vist ikke helt i orden."
 
