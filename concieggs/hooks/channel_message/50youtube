@@ -13,8 +13,6 @@ for vid in ytvids:
 
     url = "http://gdata.youtube.com/feeds/api/videos/%s?v=2&alt=json" % vidid
     try:
-        print url
-
         result = json.load(urllib.urlopen(url))
         entry = result['entry']
 
