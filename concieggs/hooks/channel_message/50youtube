@@ -12,8 +12,6 @@ vids = []
 
 for vid in ytvids:
     vidid = vid.group(1)
-
-    url = "http://gdata.youtube.com/feeds/api/videos/%s?v=2&alt=json" % vidid
     try:
         print url
 
