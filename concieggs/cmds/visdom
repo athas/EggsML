@@ -4,4 +4,9 @@
 
 . $CONCIEGGS_DIR/eggspi.lib
 
-cat $CONCIEGGS_DB_DIR/fakta | grep -i ".*$1" | sort -R | head -n 1
+visdom="$(cat $CONCIEGGS_DB_DIR/fakta | grep -i ".*$1" | sort -R | head -n 1)"
+if [ "$visdom" ]; then
+    echo $visdom
+else
+    echo "Hm, tjah... næh."
+fi
