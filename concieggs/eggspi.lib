@@ -360,13 +360,13 @@ runcmd() {
     cmd="$(basename -- "$rawcmd")"
     cmddir=$CONCIEGGS_DIR/cmds
     shift
-    if cmpNames "$EGGS_USER" "reenberg"; then
-        ex=$(fakebroke | randomise | head -n 1)
-        if [ "$ex" ]; then
-            echo "$ex"
-            exit
-        fi
-    fi
+#    if cmpNames "$EGGS_USER" "reenberg"; then
+#        ex=$(fakebroke | randomise | head -n 1)
+#        if [ "$ex" ]; then
+#            echo "$ex"
+#            exit
+#        fi
+#    fi
     if [ "$cmd" ] && [ "$EGGS_USER" != "$CONCIEGGS_NAME" ]; then
         if [ -x "$cmddir/$cmd" ] && [ -f "$cmddir/$cmd" ]; then
             "$cmddir/$cmd" "$@" || broke
