@@ -8,10 +8,16 @@ if [ $# -lt 1 ]; then
     echo "Brug: ønsk ønske..."
 else
     what="$@"
-    there="$(checkCatalogue "$what")"
-    if ! [ "$there" ]; then
-        echo "$EGGS_USER: '$@' er ikke i kataloget.  Prøv min 'katalog'-kommando for at se hvad der er af muligheder, eller brug 'kanoniser' til at tilføje en ny."
-        exit
+    # Fuck kataloget
+    if cmpNames $user dybber; then
+        $CONCIEGGS_DIR/cmds/råønsk "$what"
+    else
+        there="$(checkCatalogue "$what")"
+
+        if ! [ "$there" ]; then
+            echo "$EGGS_USER: '$@' er ikke i kataloget.  Prøv min 'katalog'-kommando for at se hvad der er af muligheder, eller brug 'kanoniser' til at tilføje en ny."
+            exit
+        fi
+        $CONCIEGGS_DIR/cmds/råønsk "$there"
     fi
-    $CONCIEGGS_DIR/cmds/råønsk "$there"
 fi
