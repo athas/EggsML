@@ -9,7 +9,7 @@ if [ $# -lt 1 ]; then
 else
     what="$@"
     # Fuck kataloget
-    if cmpNames $user dybber; then
+    if cmpNames $EGGS_USER dybber; then
         $CONCIEGGS_DIR/cmds/råønsk "$what"
     else
         there="$(checkCatalogue "$what")"
