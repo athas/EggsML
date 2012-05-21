@@ -7,15 +7,7 @@
 prev=$(prevEggs)
 if [ "$prev" != "" ]; then
     prevEggs | while read eggs; do
-        hour="$(dateSecs $eggs +%H)"
-        if [ $hour = 13 ]; then
-            desc="gentleman Eggs"
-        elif [ $hour = 14 ]; then
-            desc="Eggs royale"
-        else
-            desc="Eggs"
-        fi
-        echo "Der var $(countEggsers $eggs) tilmeldt til $desc $(titleEggs $eggs): $(describeEggs $eggs)."
+        echo "Der var $(countEggsers $eggs) tilmeldt til $(titleEggs $eggs): $(describeEggs $eggs)."
     done
 else
     echo "Alle Eggs er blevet bogført!"
