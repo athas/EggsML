@@ -15,7 +15,7 @@ if [ "$prev" != "" ]; then
         else
             desc="Eggs"
         fi
-        echo "Der var $(countEggsers $eggs) tilmeldt til $desc $(timeToDate $eggs): $(describeEggs $eggs)."
+        echo "Der var $(countEggsers $eggs) tilmeldt til $desc $(titleEggs $eggs): $(describeEggs $eggs)."
     done
 else
     echo "Alle Eggs er blevet bogført!"
