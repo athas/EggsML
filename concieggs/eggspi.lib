@@ -150,7 +150,7 @@ timeToRelDay() {
 
 timeToDate() {
     rel="$(timeToRelDay $1)"
-    dateSecs $1 "$rel klokken %R"
+    dateSecs $1 +"$rel klokken %R"
 }
 
 daysSince() {
