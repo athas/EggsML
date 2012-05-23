@@ -127,7 +127,7 @@ dateSecs() {
 }
 
 timeToFullDate() {
-    dateSecs $1 '+%D klokken %R'
+    dateSecs "$1" '+%D klokken %R'
 }
 
 timeToRelDay() {
@@ -150,7 +150,7 @@ timeToRelDay() {
 
 timeToDate() {
     rel="$(timeToRelDay $1)"
-    dateSecs $1 +"$rel klokken %R"
+    dateSecs "$1" +"$rel klokken %R"
 }
 
 daysSince() {
@@ -275,11 +275,11 @@ describeEggs() {
 titleEggs() {
     hour="$(dateSecs $1 +%H)"
     if [ $hour = 13 ]; then
-        echo "gentleman Eggs $(timeToRelDay $eggs)"
+        echo "gentleman Eggs $(timeToRelDay $1)"
     elif [ $hour = 14 ]; then
-        echo "Eggs royale $(timeToRelDay $eggs)"
+        echo "Eggs royale $(timeToRelDay $1)"
     else
-        echo "Eggs $(timeToDate $eggs)"
+        echo "Eggs $(timeToDate $1)"
     fi
 }
 
