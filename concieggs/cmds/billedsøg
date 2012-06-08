@@ -43,7 +43,8 @@ if len(result_fields) > 0:
     field = result_fields[0]
     try:
         url = field.xpath('a[@class="rg_l"]')[0].get('href')
-        print urlparse.parse_qs(urlparse.urlparse(url).query)["imgurl"][0]
+        res = urlparse.parse_qs(urlparse.urlparse(url).query)["imgurl"][0]
+        print res.encode('iso-8859-1')
     except Exception:
         print "Problem ved udtrækning af billed-URL fra HTML parsetræ"
 else:
