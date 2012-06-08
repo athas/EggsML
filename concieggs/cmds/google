@@ -52,7 +52,7 @@ for field in result_fields:
     except Exception as e:
         print "Problem ved udtrækning af søgeresultat fra HTML-parsetræ"
         sys.stderr.write(str(e) + "\n")
-        traceback.print_exception(file=sys.stderr)
+        traceback.print_exc(file=sys.stderr)
     i+=1
     if i == results_per_page:
         break
