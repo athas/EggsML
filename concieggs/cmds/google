@@ -8,6 +8,7 @@ from lxml import etree
 import urllib
 import urllib2
 import sys
+import traceback
 
 results_per_page = 1
 query = " ".join(sys.argv[1:])
@@ -51,6 +52,7 @@ for field in result_fields:
     except Exception as e:
         print "Problem ved udtrækning af søgeresultat fra HTML-parsetræ"
         sys.stderr.write(str(e) + "\n")
+        traceback.print_exception(file=sys.stderr)
     i+=1
     if i == results_per_page:
         break
