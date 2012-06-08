@@ -127,10 +127,10 @@ dateSecs() {
 }
 
 timeToFullDate() {
-    dateSecs $1 '+%D klokken %R'
+    dateSecs "$1" '+%D klokken %R'
 }
 
-timeToDate() {
+timeToRelDay() {
     thatday=$(dateSecs $1 '+%u')
     today=$(dateSecs $(nowTime) '+%u')
     if [ $1 -le "$(expr $(nowTime) - 3600 '*' 24 '*' 7 )" ]; then
@@ -138,14 +138,19 @@ timeToDate() {
     elif [ $1 -ge "$(expr $(nowTime) + 3600 '*' 24 '*' 7 )" ]; then
         timeToFullDate $1
     elif [ "$thatday" = "$today" ]; then
-        dateSecs $1 '+i dag klokken %R'
+        dateSecs $1 '+i dag'
     elif [ "$thatday" = "$(expr $today - 1)" -o "(" "$today" = 1 -a "$thatday" = 7 ")" ]; then
-        dateSecs $1 '+i går klokken %R'
+        dateSecs $1 '+i går'
     elif [ "$thatday" = "$(expr $today + 1)" -o "(" "$today" = 7 -a "$thatday" = 1 ")" ]; then
-        dateSecs $1 '+i morgen klokken %R'
+        dateSecs $1 '+i morgen'
     else
-        dateSecs $1 '+på %A klokken %R'
+        dateSecs $1 '+på %A'
     fi
+}
+
+timeToDate() {
+    rel="$(timeToRelDay $1)"
+    dateSecs "$1" +"$rel klokken %R"
 }
 
 daysSince() {
@@ -265,6 +270,17 @@ countEggsers() {
 
 describeEggs() {
     listEggsers $1 | randomise | enumerate
+}
+
+titleEggs() {
+    hour="$(dateSecs $1 +%H)"
+    if [ $hour = 13 ]; then
+        echo "gentleman Eggs $(timeToRelDay $1)"
+    elif [ $hour = 14 ]; then
+        echo "Eggs royale $(timeToRelDay $1)"
+    else
+        echo "Eggs $(timeToDate $1)"
+    fi
 }
 
 formatEggs() {

@@ -1,6 +1,6 @@
 ::ALIAS::
 eggsben, xben, skinke, sben, dr_s, dr_x
-abll, dknuth, dr_a, lindbo, andersbll, efebofil, børnepiller, dr_eggsclusive, don_smoke, Dromi_enabler
+abll, dknuth, dr_a, lindbo, andersbll, efebofil, børnepiller, dr_eggsclusive, don_smoke, Dromi_enabler, svinedrengen_2.0
 fairchil, drxl, dreggsl, fairchild, slacker, grimvoksen, dr_komma, seggfault, slaskenosse
 brainfuck, bf, doktoren, dr_b, dr_komma_2.0, dr_doktor, svip
 dybber, d, dr_d, ⚣, <3_breaker, døbber, dykker-dybber
@@ -13,7 +13,7 @@ svinedrengen, kim, babysæl, themota, dr_k
 brian, blian, ninja, bmathiasen, dr_bs, BriAndroid, agent_dr_bs, brie_jan, brie-jan, Science-IT
 tm, thordenfucker, mozilla, thorlund, thormorten, ThordenM, thordenskinke
 bp, michael, blackplague, brækpøl, dr_m, gentleman, Koncern-IT
-troels, athas, instruktorløjtnant, übermensch, henreggsen, dr_t, λ, plan9, Haskell-hviskeren, 💩, Shell-hviskeren, Skaldyrs-hviskeren, atlas, dr_downs_handikaphjælper
+troels, athas, instruktorløjtnant, übermensch, henreggsen, dr_t, λ, plan9, Haskell-hviskeren, 💩, Shell-hviskeren, Skaldyrs-hviskeren, atlas, dr_downs_handikaphjælper, røvpianisten
 steenstrup, steeeeenstrup, steeeeeeeeenstrup!, sundstrøm, stenstrip, pulemanden
 henne, henrik, henregg, sherlock, android, live4adrenalin, badutspringer
 casper, matlab-hviskeren, zerob0y
@@ -92,22 +92,35 @@ kim:  X
 brian: X|
 
 ::INDKØBSØNSKER::
-ost (til kiks)
-Tuc kiks
+fizzlefrikadizzles
+minieggs (kaviar)
+brieost (til kiks)
+Jalapeño
+eggs (ikke økologisk og i bur)
+eggs (ikke økologisk og i bur)
+saltkød
+TUC-kiks
+Remoulade (fuldfed)
+brieost (til kiks)
+hotwings
 mayonnaise (fuldfed)
-tomater (helst de røde og smagfulde af slagsen, f.eks. cocktailtomater)
-kødpålæg
-karrysalat
-rugbrød (ikke Kohberg)
-rugbrød (ikke Kohberg)
 spegepølse
-eggs (ikke økologisk og i bur)
-eggs (ikke økologisk og i bur)
-fjaßizz
-frikadizzles
 
 ::INDKØB::
 # I danske kroner, svin.
+2012-06-08, gentleman: -24
+2012-06-08, arhbidul: 24
+2012-06-06, google: 327
+2012-06-05, Koncern-IT: 36.20
+2012-06-04, ⚣: -8
+2012-06-04, Koncern-IT: 8
+2012-05-31, thorlund: 264.17
+2012-05-29, zera: 203.33
+2012-05-28, gentleman: 97.20
+2012-05-22, ⚣: 230.11
+2012-05-21, blackplague: 89.69
+2012-05-19, blackplague: 27.90
+2012-05-18, d: -2
 2012-05-17, <3_breaker: 17
 2012-05-15, snowgoon: 15.95
 2012-05-15, ornitolog: 199.03
@@ -574,6 +587,29 @@ frikadizzles
 2009-04-11, abll: 113.75
 
 ::MÅLTIDSDATA::
+2012-06-08, soerend, oleggs # (13:30)
+2012-06-08, omegahm, dr_downs, døbber, dr_m, plcplc # (12:00)
+2012-06-07, google, michael, trylle, instruktorløjtnant # (12:00)
+2012-06-06, dr_p, google, oleks, snowgoon, gentleman, troels, tryls # (12:00)
+2012-06-05, plcplc # (12:16)
+2012-06-05, blackplague, dr_p, plc # (12:15)
+2012-06-05, dolle # (12:00)
+2012-06-04, dolle, grisefar, baconkran, bp, røvpianisten # (13:00)
+2012-06-01, zera, truls, dykker-dybber, Ωhm, gentleman, andersbll, røvpianisten, baconkran # (12:00)
+2012-05-31, grisefar, michael, tryls, google, brian2, übermensch, pulemanden # (12:00)
+2012-05-30, blackplague, dolle, ThordenM, dybber, påleggs, ptrf, fleshlight_luvr # (12:00)
+2012-05-29, gentleman, thordenfucker, cultura_afhængig, ⚣, atlas, dromi, dr_ü, ScumbagJesper # (12:00)
+2012-05-28, google, bp, Mads_Hartmann # (12:00)
+2012-05-26, døbber(*0.5), brækpøl(*0.5) # (11:30)
+2012-05-25, dybber, dr_a # (14:00)
+2012-05-25, grisefar, ulrik, headbanger, dr_m # (12:20)
+2012-05-24, ⚣, tryls, soerend, ptrf, ulrikterprasmussen, brian2 # (12:00)
+2012-05-23, ptrf, ronni-wannabe, thordenskinke, 💩, cultura_afhængig, ulrikterprasmussen(*0.5) # (12:00)
+2012-05-22, ulrik, gentleman, sune, thorlund, roleggs # (12:00)
+2012-05-21, ⚣, ulrikterprasmussen, oleks, svinedrengen, ThordenM, truls, grisefar # (13:00)
+2012-05-20, br0ns # (15:00)
+2012-05-20, dykker-dybber, Dromi_enabler, michael, arhbidul # (15:00)
+2012-05-19, d, gentleman # (12:00)
 2012-05-18, Koncern-IT, atlas, ornitolog, <3_breaker, oleks # (12:00)
 2012-05-17, <3_breaker, michael, oleggs # (12:00)
 2012-05-16, plan9, handskedukkeføreren, doktoren # (13:00)

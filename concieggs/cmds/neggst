@@ -7,7 +7,7 @@
 next=$(nextEggs)
 if [ "$next" != "" ]; then
     nextEggs | while read eggs; do
-        echo "Der er $(countEggsers $eggs) tilmeldt til Eggs $(timeToDate $eggs): $(describeEggs $eggs)."
+        echo "Der er $(countEggsers $eggs) tilmeldt til $(titleEggs $eggs): $(describeEggs $eggs)."
     done
 else
     echo "Ingen har tilmeldt sig eggs!"

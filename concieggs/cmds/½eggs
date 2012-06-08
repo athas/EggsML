@@ -11,9 +11,9 @@ subscribeToEggs() {
         echo "Det er en mandag!  Der er muligvis FF!"
     fi
     if [ "$(isInEggs "$time" "$name")" != "" ]; then
-        echo "$name spiser allerede med $(timeToDate $time)!"
+        echo "$name spiser allerede med til $(titleEggs $time)!"
     elif addToEggs "$time" "$name" "0.5"; then
-        echo "$(ack)  $name truntespiser med $(timeToDate $time)!"
+        echo "$(ack)  $name truntespiser med til $(titleEggs $time)!"
     else
         exit 1
     fi

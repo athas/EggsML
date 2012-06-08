@@ -7,7 +7,7 @@
 prev=$(prevEggs)
 if [ "$prev" != "" ]; then
     prevEggs | while read eggs; do
-        echo "Der var $(countEggsers $eggs) tilmeldt til Eggs $(timeToDate $eggs): $(describeEggs $eggs)."
+        echo "Der var $(countEggsers $eggs) tilmeldt til $(titleEggs $eggs): $(describeEggs $eggs)."
     done
 else
     echo "Alle Eggs er blevet bogført!"
