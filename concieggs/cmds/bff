@@ -12,7 +12,7 @@ else
     exit
 fi
 
-n="$(eggsmates "$user")"
+n="$(eggstool eggsmates "$user")"
 
 if [ "$n" ]; then
     echo "$n"
