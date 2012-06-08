@@ -48,7 +48,7 @@ for field in result_fields:
     try:
         url = field.xpath('div/h3/a[@class="l"]')[0].get('href')
         title = u''.join(field.xpath('div/h3/a[@class="l"]/descendant-or-self::*/text()'))
-        print title + u" - " + url
+        print title + u" - " + unicode(url)
     except Exception as e:
         print "Problem ved udtrækning af søgeresultat fra HTML-parsetræ"
         sys.stderr.write(str(e) + "\n")
