@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 # Encoding: UTF-8
-# Foretag en søgning på Urban Dictionary
+# Foretag en søgning på Urban Dictionary.
+# Er sidste tegn et heltal vil dette blive brugt til at bestemme antal resultater
 
 require 'open-uri'
 
@@ -29,7 +30,7 @@ results = []
 begin
   open(page) do |doc|
     doc.each_line do |l|
-       results << l.scan(/div class="definition">(.*?)</)
+       results << l.scan(/div class="definition">(.*?)<\/div/)
     end
   end
 rescue
@@ -45,8 +46,13 @@ if results.empty?
 end
 
 begin
-  results.each_with_index do |x,i|
-    puts x.gsub(/&quot;/, '"').chomp unless i >= max_output
+  results.each_with_index do |result, i|
+    result.gsub!(/&quot;/, '"')
+    result.gsub!(/<a.*?>(.*?)<\/a>/, '\1')
+    result.gsub!(/<br\s*\/>/, ' ')
+    result.gsub!(/\r/, '')
+
+    puts result.chomp unless i >= max_output
     sleep 1
   end
 rescue
