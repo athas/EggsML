@@ -41,20 +41,19 @@ end
 results.flatten!
 
 if results.empty?
-  puts "Fandt ingen ting..." 
-  exit(-1)
-end
+  puts "Fandt ingenting..." 
+else
+  begin
+    results.each_with_index do |result, i|
+      result.gsub!(/&quot;/, '"')
+      result.gsub!(/<a.*?>(.*?)<\/a>/, '\1')
+      result.gsub!(/<br\s*\/>/, ' ')
+      result.gsub!(/\r/, '')
 
-begin
-  results.each_with_index do |result, i|
-    result.gsub!(/&quot;/, '"')
-    result.gsub!(/<a.*?>(.*?)<\/a>/, '\1')
-    result.gsub!(/<br\s*\/>/, ' ')
-    result.gsub!(/\r/, '')
-
-    puts result.chomp unless i >= max_output
-    sleep 1
+      puts result.chomp unless i >= max_output
+      sleep 1
+    end
+  rescue
+    puts "Fejl ved udskrivelse af resultat"
   end
-rescue
-  puts "Fejl ved udskrivelse af resultat"
 end
