@@ -4,6 +4,7 @@
 # Er sidste tegn et heltal vil dette blive brugt til at bestemme antal resultater
 
 require 'open-uri'
+require 'uri'
 
 class String
     def is_i?
@@ -22,8 +23,8 @@ if ARGV[-1].is_i?
   max_output = ARGV.pop.to_i
 end
 
-term = ARGV.join("%20")
-page = "http://www.urbandictionary.com/define.php?term=#{term}"
+term = ARGV.join(" ")
+page = URI.encode("http://www.urbandictionary.com/define.php?term=#{term}")
 
 results = []
 
