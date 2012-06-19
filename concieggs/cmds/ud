@@ -47,9 +47,8 @@ else
   begin
     results.each_with_index do |result, i|
       result.gsub!(/&quot;/, '"')
-      result.gsub!(/<a.*?>(.*?)<\/a>/, '\1')
-      result.gsub!(/<br\s*\/>/, ' ')
       result.gsub!(/\r/, '')
+      result.gsub!(/<[^>]*>/, '')
 
       puts result.chomp unless i >= max_output
       sleep 1
