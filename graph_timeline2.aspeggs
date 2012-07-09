@@ -114,6 +114,7 @@ TEMPLATE = '''
 <title>EggsML</title>
 <script language="javascript" type="text/javascript" src="https://raw.github.com/flot/flot/master/jquery.js"></script>
 <script language="javascript" type="text/javascript" src="https://raw.github.com/flot/flot/master/jquery.flot.js"></script>
+<script language="javascript" type="text/javascript" src="https://raw.github.com/flot/flot/master/jquery.flot.time.js"></script>
 <script language="javascript" type="text/javascript" src="https://raw.github.com/flot/flot/master/jquery.flot.symbol.js"></script>
 <script language="javascript" type="text/javascript" src="https://raw.github.com/flot/flot/master/jquery.flot.selection.js"></script>
 <script language="javascript" type="text/javascript" src="https://raw.github.com/flot/flot/master/jquery.flot.resize.js"></script>
