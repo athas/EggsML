@@ -1,6 +1,5 @@
 #!/bin/sh
 
-. $CONCIEGGS_DIR/eggspi.lib
 
 doodle="$(echo "$EGGS_BODY" | egrep -o 'https?://(www\.)?(doodle\.com/[a-z0-9]+|dudle\.inf\.tu-dresden\.de/[a-zA-Z0-9]+)' | sed 's/www.//')"
 

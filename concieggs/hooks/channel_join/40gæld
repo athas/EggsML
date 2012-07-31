@@ -2,7 +2,6 @@
 #
 # Påmind om gæld ved join
 
-. $CONCIEGGS_DIR/eggspi.lib
 
 debt=$(lookupDebt $EGGS_USER)
 

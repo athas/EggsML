@@ -2,7 +2,6 @@
 
 set -f
 
-. $CONCIEGGS_DIR/eggspi.lib
 
 if echo "$EGGS_BODY" | egrep '[^ :]*: ' > /dev/null; then
     who="$(echo "$EGGS_BODY" | cut -d ':' -f 1)"
