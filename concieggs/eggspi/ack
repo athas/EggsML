@@ -1,0 +1,11 @@
+#!/bin/sh
+
+(echo "ACK-ACK";
+    echo "Javel";
+    echo "OK";
+    echo "Forstået";
+    echo "Accepteret";
+    echo "Det er i orden";
+    echo "Roger") \
+        | randomise | head -n 1 | xargs echo -n
+(echo "!"; echo ".") | randomise | head -n 1

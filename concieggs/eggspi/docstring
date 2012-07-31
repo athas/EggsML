@@ -1,0 +1,8 @@
+#!/bin/sh
+
+awk 'BEGIN{indoc=1}\
+/^#!/{next}\
+/^[^#]/{indoc=0}\
+/^# ?$/{next}\
+indoc{out = out substr($0, 3, length($0)) " "}\
+END{print out}'

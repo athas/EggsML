@@ -1,0 +1,6 @@
+#!/bin/sh
+
+[ -d "$CONCIEGGS_DB_DIR/store/$1" ] \
+    && ls "$CONCIEGGS_DB_DIR/store/$1" | while read -r child; do
+    echo "$1/$child"
+done

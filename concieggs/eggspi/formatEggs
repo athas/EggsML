@@ -1,0 +1,12 @@
+#!/bin/sh
+
+date=$(dateSecs $1 '+%Y-%m-%d')
+hourmin=$(dateSecs $1 '+%k:%M')
+participants=$(listEggsers $1 | commasize)
+shift
+comment="$*"
+if [ -z $comment ]; then
+    echo "$date, $participants # ($hourmin)"
+else
+    echo "$date, $participants # ($hourmin) $comment"
+fi

@@ -3,7 +3,6 @@
 # Informér logen om hvornår den angivne broder sidst har spist med, ud
 # fra hvilket man kan udlede en vægtning af hans bidrag til debatten.
 
-. $CONCIEGGS_DIR/eggspi.lib
 
 if [ $# -eq 1 ]; then
     user="$1"

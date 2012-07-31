@@ -2,7 +2,6 @@
 #
 # Skift den brugerbestemte del af topic
 
-. $CONCIEGGS_DIR/eggspi.lib
 
 if [ -n "$1" ]; then
     echo "$@" | dbWrite topic

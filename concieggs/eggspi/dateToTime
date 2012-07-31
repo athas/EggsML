@@ -1,0 +1,22 @@
+#!/bin/sh
+
+now="$(nowTime)"
+if (echo "$1" | grep "^-" > /dev/null); then
+    then=$(date -d "$(echo $1|sed s/^-//)" '+%s')
+    if [ "$then" ]; then
+        if [ "$now" -lt "$then" ]; then
+            echo $(expr "$then" '-' 3600 '*' 24)
+        else
+            echo $then
+        fi
+    fi
+else
+    then=$(date -d "$1" '+%s')
+    if [ "$then" ]; then
+        if [ "$then" -lt "$now" ]; then
+            echo $(expr "$then" '+' 3600 '*' 24)
+        else
+            echo $then
+        fi
+    fi
+fi

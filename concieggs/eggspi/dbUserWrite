@@ -1,0 +1,11 @@
+#!/bin/sh
+
+user="$1"
+node="$2"
+realnode="$(dbUserGet "$1" "$2")"
+if [ "$realnode" ]; then
+    dbWrite "$realnode"
+else
+    alias="$(randomName "$1")"
+    dbWrite "users/$alias/$node"
+fi

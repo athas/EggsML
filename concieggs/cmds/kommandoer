@@ -1,5 +1,4 @@
 #!/bin/sh
 
-. $CONCIEGGS_DIR/eggspi.lib
 
 ls $CONCIEGGS_DIR/cmds | enumerate

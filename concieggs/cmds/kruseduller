@@ -3,6 +3,5 @@
 # Er du sulten, men er der ingen eggs?  Se om der er noget spændende
 # du kan melde dig til ved at undersøge nyligt udsendte kruseduller.
 
-. $CONCIEGGS_DIR/eggspi.lib
 
 dbRead doodles

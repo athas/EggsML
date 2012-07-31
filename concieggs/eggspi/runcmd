@@ -1,0 +1,41 @@
+#!/bin/sh
+
+broke() {
+    echo "Kommandoen fejlede!  Prøv at spørge mig om 'udu'."
+}
+
+fakebroke() {
+    echo "Arh... $EGGS_USER, noget gik galt, du må hellere prøve igen";
+    echo "Hm, jeg ved sgu ikke lige, men den gik ikke... prøv igen, $EGGS_USER";
+    echo "$EGGS_USER: Intern, nondeterministisk fejl.  Kør kommandoen igen.";
+    echo "$EGGS_USER: Noget gik galt.  Kør kommandoen igen.";
+    echo "Noget knækkede under kørsel af kommandoen, $EGGS_USER.  Det kan være det virker, hvis du prøver igen.";
+    echo
+}
+
+
+rawcmd=$1
+cmd="$(basename -- "$rawcmd")"
+cmddir=$CONCIEGGS_DIR/cmds
+shift
+#    if cmpNames "$EGGS_USER" "reenberg"; then
+#        ex=$(fakebroke | randomise | head -n 1)
+#        if [ "$ex" ]; then
+#            echo "$ex"
+#            exit
+#        fi
+#    fi
+if [ "$cmd" ] && [ "$EGGS_USER" != "$CONCIEGGS_NAME" ]; then
+    if [ -x "$cmddir/$cmd" ] && [ -f "$cmddir/$cmd" ]; then
+        "$cmddir/$cmd" "$@" || broke
+    else
+        othercmd="$(commands|levenshtein "$cmd"|sort -n|head -n 1|cut -d ' ' -f 2-)"
+        if [ "$othercmd" ]; then
+            echo "Jeg antager at du mente $othercmd!"
+            "$cmddir/$othercmd" "$@" || broke
+        else
+            echo "$EGGS_USER: Du bad mig om $cmd, men den kommando har jeg ikke!"
+            echo "Skriv 'concieggs: kommandoer' for at få en liste over mulige kommandoer."
+        fi
+    fi
+fi

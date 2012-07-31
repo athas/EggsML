@@ -1,0 +1,4 @@
+#!/bin/sh
+
+export TIME="$(nowTime)"
+ls $CONCIEGGS_DB_DIR/eggs | awk '$1<ENVIRON["TIME"]'

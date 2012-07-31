@@ -1,0 +1,13 @@
+#!/bin/sh
+
+time=$1
+name="$2"
+if [ -s "$CONCIEGGS_DB_DIR/eggs/$time" ]; then
+    aliases "$name" | while read alias; do
+        if cat $CONCIEGGS_DB_DIR/eggs/$time | sed 's/,.*//' \
+            | fgrep -x "$alias"; then
+            return 0
+        fi
+    done
+fi
+return 1

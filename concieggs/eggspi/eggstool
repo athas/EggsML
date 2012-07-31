@@ -1,0 +1,3 @@
+#!/bin/sh
+
+$EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost "$@"

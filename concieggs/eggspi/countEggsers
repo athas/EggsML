@@ -1,0 +1,3 @@
+#!/bin/sh
+
+listEggsers $1 | wc -l | sed 's/ *//'

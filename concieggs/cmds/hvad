@@ -2,7 +2,6 @@
 #
 # Spørg om din gæld til frokostkassen
 
-. $CONCIEGGS_DIR/eggspi.lib
 
 if [ $# -eq 2 -a "$1" = "skylder" -a "$2" = "jeg" ]; then
     user=$EGGS_USER

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+echo /t "$(dbRead topic)  --  Største skyldnere: $(debtors)."

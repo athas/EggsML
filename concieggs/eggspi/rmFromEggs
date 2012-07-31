@@ -1,0 +1,13 @@
+#!/bin/sh
+
+time=$1
+export TRAITOR="$2"
+tmpfile=$(mktemp)
+cat $CONCIEGGS_DB_DIR/eggs/$time \
+    | awk -F, '$1!=ENVIRON["TRAITOR"]' > $tmpfile
+if [ -s $tmpfile ]; then
+    mv $tmpfile $CONCIEGGS_DB_DIR/eggs/$time
+else
+    rm $tmpfile $CONCIEGGS_DB_DIR/eggs/$time
+fi
+updateSubTime "$TRAITOR" 0

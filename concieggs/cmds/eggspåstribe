@@ -2,7 +2,6 @@
 #
 # Det højeste antal eggs på stribe 
 
-. $CONCIEGGS_DIR/eggspi.lib
 
 if [ $# -eq 1 ]; then
     user="$1"

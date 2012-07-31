@@ -3,7 +3,6 @@
 # Afmeld den givne Eggs.  Kun eggs der endnu ikke er afholdt kan
 # afmeldes - bordet fanger!
 
-. $CONCIEGGS_DIR/eggspi.lib
 
 unsubscribeFromEggs() {
     time=$1

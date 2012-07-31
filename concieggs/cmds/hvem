@@ -3,7 +3,6 @@
 # Beskriv concieggs' opfattelse af en given brugers identitet.  Husk
 # at benytte komplette sætninger!
 
-. $CONCIEGGS_DIR/eggspi.lib
 
 if [ $# -eq 2 -a $1 = "er" -a $2 = "jeg" ]; then
     user=$EGGS_USER

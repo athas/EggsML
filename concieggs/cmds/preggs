@@ -2,7 +2,6 @@
 #
 # Udskriv alle overståede Eggs der endnu ikke er blevet bogført.
 
-. $CONCIEGGS_DIR/eggspi.lib
 
 prev=$(prevEggs)
 if [ "$prev" != "" ]; then

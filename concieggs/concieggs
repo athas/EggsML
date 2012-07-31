@@ -12,6 +12,7 @@ cmddir=$dir/cmds/
 
 export CONCIEGGS_DIR=$dir
 export CONCIEGGS_DB_DIR=$dir/db
+export CONCIEGGS_LIB_DIR=$dir/eggspi
 export EGGS_DIR=$dir/..
 export EGGS_LIB_DIR=$EGGS_DIR/eggslib
 export CONCIEGGS_IRC_DIR=$irc_dir/irc.freenode.net
@@ -40,7 +41,7 @@ run_hooks() {
     ls "$CONCIEGGS_DIR/hooks/$hooks/" | while read -r f; do
         hook=$CONCIEGGS_DIR/hooks/$hooks/$f
         if [ -x "$hook" ]; then
-            "$hook" || true
+            PATH=$CONCIEGGS_LIB_DIR:$PATH "$hook" || true
         fi
     done
 }

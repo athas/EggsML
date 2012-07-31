@@ -1,0 +1,9 @@
+#!/bin/sh
+
+rm -rf "$CONCIEGGS_DB_DIR/store/$1"
+parent="$(dirname "$1")"
+if [ "$parent" != / -a "$parent" != . ]; then
+    if ! [ "$(dbIterate $parent)" ]; then
+        dbDelete "$parent"
+    fi
+fi

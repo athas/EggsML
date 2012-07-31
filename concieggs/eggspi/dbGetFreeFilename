@@ -1,0 +1,12 @@
+#!/bin/sh
+
+parent=$1
+if [ -f "$CONCIEGGS_DB_DIR/store/$1" ] \
+    || ! mkdir -p "$CONCIEGGS_DB_DIR/store/$parent"; then
+    false
+else
+    newfile="$(ls "$CONCIEGGS_DB_DIR/store/$parent" | \
+        egrep '^[0-9]+$'|sort -n| \
+        awk 'BEGIN { seen=-1 } { if ($0==seen+1) { seen++ } else { exit }} END { print seen+1 }')"
+    echo "$parent/$newfile"
+fi

@@ -2,7 +2,6 @@
 #
 # Udskriv en liste over de nuværende indkøbsønsker
 
-. $CONCIEGGS_DIR/eggspi.lib
 
 wishes=$(eggstool wishes \
     | sort \

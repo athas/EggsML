@@ -1,0 +1,9 @@
+#!/bin/sh
+
+msg=$1
+shift
+name="$(randomName $EGGS_USER)"
+if ! [ "$name" ]; then
+    name="$EGGS_USER"
+fi
+(git add "$@" && git commit -m "$name: $msg" && git push git@github.com:Athas/EggsML.git) > /dev/null

@@ -3,7 +3,6 @@
 # Foretag en monetær transaktion til en anden logebroder gennem EggsML
 # bankcentralen.  Denne facilitet er dog kun for logemestre.
 
-. $CONCIEGGS_DIR/eggspi.lib
 
 if ! [ $# -eq 3 -a $2 = til ]; then
     echo 'Brug: overfør <beløb> til <modtager>'

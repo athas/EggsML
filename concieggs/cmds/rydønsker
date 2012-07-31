@@ -3,7 +3,6 @@
 # Alle har fået hvad de har brug for, og ryd derfor alle ønsker fra
 # indkøbslisten!
 
-. $CONCIEGGS_DIR/eggspi.lib
 
 if gitRefresh; then
     cd $EGGS_DIR

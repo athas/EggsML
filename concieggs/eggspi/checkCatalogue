@@ -1,0 +1,6 @@
+#!/bin/sh
+
+needle="$1"
+dbIterate katalog | while read -r item; do
+    dbRead "$item"
+done | sort | fgrep -i "$needle" | head -n 1

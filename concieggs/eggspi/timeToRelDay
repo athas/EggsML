@@ -1,0 +1,17 @@
+#!/bin/sh
+
+thatday=$(dateSecs $1 '+%u')
+today=$(dateSecs $(nowTime) '+%u')
+if [ $1 -le "$(expr $(nowTime) - 3600 '*' 24 '*' 7 )" ]; then
+    timeToFullDate $1
+elif [ $1 -ge "$(expr $(nowTime) + 3600 '*' 24 '*' 7 )" ]; then
+    timeToFullDate $1
+elif [ "$thatday" = "$today" ]; then
+    dateSecs $1 '+i dag'
+elif [ "$thatday" = "$(expr $today - 1)" -o "(" "$today" = 1 -a "$thatday" = 7 ")" ]; then
+    dateSecs $1 '+i går'
+elif [ "$thatday" = "$(expr $today + 1)" -o "(" "$today" = 7 -a "$thatday" = 1 ")" ]; then
+    dateSecs $1 '+i morgen'
+else
+    dateSecs $1 '+på %A'
+fi

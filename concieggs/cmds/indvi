@@ -3,7 +3,6 @@
 # Indvi en lægmand i frokostens mysterier.
 
 
-. $CONCIEGGS_DIR/eggspi.lib
 
 if [ $# -lt 1 ]; then
     echo 'Brug: indvi <person>'

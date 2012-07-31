@@ -1,0 +1,3 @@
+#!/bin/sh
+
+eggstool cmpnames "$1" "$2"

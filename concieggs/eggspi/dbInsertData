@@ -1,0 +1,4 @@
+#!/bin/sh
+
+node=$(dbGetFreeFilename "$1")
+dbWrite "$node" && echo "$node"

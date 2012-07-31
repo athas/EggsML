@@ -1,0 +1,8 @@
+#!/bin/sh
+
+time=$(nextEggs | head -n 1)
+if [ ! "$time" ]; then
+    return 1
+else
+    echo $time
+fi

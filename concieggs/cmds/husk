@@ -2,7 +2,6 @@
 #
 # Husk et givent faktum til senere opslag via 'forklar'.
 
-. $CONCIEGGS_DIR/eggspi.lib
 
 if [ $# -gt 0 ]; then
     echo "$@" >> $CONCIEGGS_DB_DIR/fakta

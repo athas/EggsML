@@ -3,7 +3,6 @@
 # Fjern en indkøbsmulighed fra kataloget.  Det anbefales at bruge
 # komplette navne for at undgå uheld.
 
-. $CONCIEGGS_DIR/eggspi.lib
 
 if [ $# -lt 1 ]; then
     echo "Brug: bandlys <ting>"

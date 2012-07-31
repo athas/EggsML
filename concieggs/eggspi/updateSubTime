@@ -1,0 +1,6 @@
+#!/bin/sh
+
+aliases "$1" | while read -r alias; do
+    dbDelete "users/$alias/eggsactly";
+done
+dbWriteArg "users/$1/eggsactly" "$2"

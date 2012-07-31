@@ -3,7 +3,6 @@
 # Informér logen om hvornår den angivne broder først blev indlemmet i
 # frokostbroderskabet.
 
-. $CONCIEGGS_DIR/eggspi.lib
 
 if [ $# -eq 1 ]; then
     user="$1"

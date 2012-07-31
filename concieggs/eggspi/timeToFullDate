@@ -1,0 +1,3 @@
+#!/bin/sh
+
+dateSecs "$1" '+%D klokken %R'

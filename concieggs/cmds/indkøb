@@ -6,7 +6,6 @@
 # det registreres i Git-beskeden hvem der sagde god for det ved at
 # køre kommandoen.
 
-. $CONCIEGGS_DIR/eggspi.lib
 
 if [ $# -lt 1 -o $# -gt 2 ]; then
     echo 'Brug: indkøb <beløb> [hvem]'

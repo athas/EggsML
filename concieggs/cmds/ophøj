@@ -3,7 +3,6 @@
 # Ophøj en bruger til mester.  Kun for logemestre!
 
 
-. $CONCIEGGS_DIR/eggspi.lib
 
 if [ $# -lt 1 ]; then
     echo 'Brug: ophøj <person> [kommentar]'

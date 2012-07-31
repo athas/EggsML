@@ -3,7 +3,6 @@
 # Afvikl første argument som et Brainfuck-program, med de resterende
 # argumenter som inddata.
 
-. $CONCIEGGS_DIR/eggspi.lib
 
 if [ $# -lt 1 ]; then
     echo "Brug: bf <program>"

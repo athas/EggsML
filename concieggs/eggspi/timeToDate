@@ -1,0 +1,4 @@
+#!/bin/sh
+
+rel="$(timeToRelDay $1)"
+dateSecs "$1" +"$rel klokken %R"

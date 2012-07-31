@@ -1,0 +1,10 @@
+#!/bin/sh
+
+hour="$(dateSecs $1 +%H)"
+if [ $hour = 13 ]; then
+    echo "gentleman Eggs $(timeToRelDay $1)"
+elif [ $hour = 14 ]; then
+    echo "Eggs royale $(timeToRelDay $1)"
+else
+    echo "Eggs $(timeToDate $1)"
+fi

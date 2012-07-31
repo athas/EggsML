@@ -1,0 +1,3 @@
+#!/bin/sh
+
+dbExists "$1" && cat "$CONCIEGGS_DB_DIR/store/$1"

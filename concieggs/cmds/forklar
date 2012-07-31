@@ -3,7 +3,6 @@
 # Foretag en søgning i concieggs' omfattende hukommelse efter detaljer
 # omkring et givent emne.
 
-. $CONCIEGGS_DIR/eggspi.lib
 
 lookup() {
      cat $CONCIEGGS_DB_DIR/fakta | sort | grep -F -i "$*"

@@ -2,7 +2,6 @@
 #
 # Som eggsml, men for småtspisende eggsere.
 
-. $CONCIEGGS_DIR/eggspi.lib
 
 subscribeToEggs() {
     time=$1

@@ -2,7 +2,6 @@
 #
 # Mind en given logebroder om noget næste gang han ytrer sig.
 
-. $CONCIEGGS_DIR/eggspi.lib
 
 if ! [ "$2" = "om" -a "$3" = "at" -a "$4" ]; then
     echo "Brug: mind <person> om at <besked...>"

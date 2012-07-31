@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ $# -eq 3 ]; then
+    echo "$2, $3" >> $CONCIEGGS_DB_DIR/eggs/$1
+else
+    echo "$2" >> $CONCIEGGS_DB_DIR/eggs/$1
+fi
+updateSubTime "$2" "$(nowTime)"

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+while [ $# -ge 1 ]; do
+    name="$(randomName $1)"
+    if [ "$name" ]; then
+        echo $name
+        return 0
+    fi
+    shift
+done
+randomName $EGGS_USER

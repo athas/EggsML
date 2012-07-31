@@ -1,0 +1,11 @@
+#!/bin/sh
+
+then=$(date +%s -d "$1")
+now=$(nowTime)
+if [ "$then" -gt "$(expr $now - 3600 '*' 24)" ]; then
+    echo "under et døgn"
+elif [ "$then" -gt "$(expr $now - 3600 '*' 24 '*' 2)" ]; then
+    echo "omkring et døgn"
+else
+    echo "$(expr '(' $now - $then ')' / '(' 3600 '*' 24 ')') dage"
+fi

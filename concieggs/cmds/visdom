@@ -2,7 +2,6 @@
 #
 # Uddel et enkelt kvantum af den opsamlede visdom.
 
-. $CONCIEGGS_DIR/eggspi.lib
 
 visdom="$(cat $CONCIEGGS_DB_DIR/fakta | grep -i ".*$1" | sort -R | head -n 1)"
 if [ "$visdom" ]; then
