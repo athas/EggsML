@@ -5,7 +5,7 @@
 
 
 lookup() {
-     cat $CONCIEGGS_DB_DIR/fakta | sort | grep -F -i "$*"
+     cat $CONCIEGGS_DB_DIR/fakta |  grep -F -i "$*" | sort -V
 }
 
 if [ "$*" ]; then
