@@ -1,6 +1,8 @@
 #!/bin/sh
 
-ls $CONCIEGGS_DIR/cmds | while read -r cmd; do
+cmddir=$CONCIEGGS_DIR/cmds
+
+ls $cmddir | while read -r cmd; do
     if [ -x "$cmddir/$cmd" ] && [ -f "$cmddir/$cmd" ]; then
         echo "$cmd"
     fi
