@@ -1,19 +1,12 @@
 #!/bin/sh
 
-minutes() {
-    minute="$(dateSecs $1 +%M)"
-    if [ $minute != 0 ]; then
-        echo -n "$minute minutter efter "
-    fi
-}
-
 hour="$(dateSecs $1 +%H)"
+minute="$(dateSecs $1 +%M)"
 
-
-if [ $hour = 13 ]; then
+if [ $hour = 13 -a $minute = 0 ]; then
     minutes
     echo "gentleman Eggs $(timeToRelDay $1)"
-elif [ $hour = 14 ]; then
+elif [ $hour = 14 -a $minute = 0 ]; then
     minutes
     echo "Eggs royale $(timeToRelDay $1)"
 else
