@@ -1,9 +1,20 @@
 #!/bin/sh
 
+minutes() {
+    minute="$(dateSecs $1 +%M)"
+    if [ $minute != 0 ]; then
+        echo -n "$minute minutter efter "
+    fi
+}
+
 hour="$(dateSecs $1 +%H)"
+
+
 if [ $hour = 13 ]; then
+    minutes
     echo "gentleman Eggs $(timeToRelDay $1)"
 elif [ $hour = 14 ]; then
+    minutes
     echo "Eggs royale $(timeToRelDay $1)"
 else
     echo "Eggs $(timeToDate $1)"
