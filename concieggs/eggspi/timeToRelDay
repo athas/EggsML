@@ -12,6 +12,8 @@ elif [ "$thatday" = "$(expr $today - 1)" -o "(" "$today" = 1 -a "$thatday" = 7 "
     dateSecs $1 '+i går'
 elif [ "$thatday" = "$(expr $today + 1)" -o "(" "$today" = 7 -a "$thatday" = 1 ")" ]; then
     dateSecs $1 '+i morgen'
+elif [ "$thatday" -lt "$today" ]; then
+    dateSecs $1 '+i %As'
 else
     dateSecs $1 '+på %A'
 fi
