@@ -2,16 +2,26 @@
 
 set -f
 
-fuck() {
-    echo "JEG HADER DIG $1."
+sviner() {
+    who=$1
+    when=$2
+    echo "$who: JEG HADER DIG."
+    echo "$who: Hvad sker der med $(titleEggs $when)?  Kom i sving!"
+    echo "$who: Forventer du at jeg posteggser $(titleEggs $when) for dig?"
+    echo "$who: Din mor spiser her ikke.  Du var med til $(titleEggs $when), så post den eggs!"
+    echo "$who: Du er spild af Jordens sparsomme ilt.  Se så at få gjort noget ved $(titleEggs $when), den er stadigvæk ikke blevet postet."
 }
 
-names="$(aliases $EGGS_USER)"
+fuck() {
+    ex=$(sviner $1 $2 | randomise | head -n 1)
+    if [ "$ex" ]; then
+        echo "$ex"
+        exit
+    fi
+}
 
 prevEggs | while read eggs; do
-    listEggsers $eggs | while read who; do
-        if [ "$names" = "$(aliases $who)" ]; then
-            fuck $EGGS_USER
-        fi
-    done
+    if isInEggs $eggs $EGGS_USER; then
+        fuck $EGGS_USER $eggs
+    fi
 done

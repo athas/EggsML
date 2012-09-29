@@ -122,10 +122,13 @@ if __name__ == '__main__':
     command = sys.argv[2]
     e.parse(lunchfile)
     if command == "aliases":
-        if len(sys.argv) != 4:
-            exit("Usage: %s %s %s <alias>" % (sys.argv[0], lunchfile, command))
-        if not print_aliases(e, sys.argv[3]):
-            exit(1)
+        if len(sys.argv) < 4:
+            exit("Usage: %s %s %s <alias1> [more aliases...]" % (sys.argv[0], lunchfile, command))
+        for i in range(len(sys.argv)-3):
+            if not print_aliases(e, sys.argv[i+3]):
+                exit(1)
+            if i != len(sys.argv)-4:
+                print
     elif command == "wishes":
         print_wishes(e)
     elif command == "balances":
