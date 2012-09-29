@@ -3,8 +3,8 @@
 set -f
 
 sviner() {
-    who=$1
-    when=$2
+    when=$1
+    who=$2
     echo "$who: JEG HADER DIG."
     echo "$who: Hvad sker der med $(titleEggs $when)?  Kom i sving!"
     echo "$who: Forventer du at jeg posteggser $(titleEggs $when) for dig?"
@@ -13,15 +13,14 @@ sviner() {
 }
 
 fuck() {
-    ex=$(sviner $1 $2 | randomise | head -n 1)
+    ex="$(sviner $1 $2 | randomise | head -n 1)"
     if [ "$ex" ]; then
         echo "$ex"
-        exit
     fi
 }
 
 prevEggs | while read eggs; do
     if isInEggs $eggs $EGGS_USER; then
-        fuck $EGGS_USER $eggs
+        fuck $eggs $EGGS_USER
     fi
 done
