@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -f
+
+fuck() {
+    echo "JEG HADER DIG $1."
+}
+
+names="$(aliases $EGGS_USER)"
+
+prevEggs | while read eggs; do
+    listEggsers $eggs | while read who; do
+        if [ "$names" = "$(aliases $who)" ]; then
+            fuck $EGGS_USER
+        fi
+    done
+done
