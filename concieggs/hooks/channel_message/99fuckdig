@@ -20,7 +20,7 @@ fuck() {
 }
 
 prevEggs | while read eggs; do
-    if isInEggs $eggs $EGGS_USER; then
+    if [ "$(isInEggs $eggs $EGGS_USER)" ]; then
         fuck $eggs $EGGS_USER
     fi
 done
