@@ -13,6 +13,9 @@ sviner() {
     echo "$who: Følgende sjuskede svin spiste $(titleEggs $eggs): $(describeEggs $eggs).  Hvorfor fanden har I ikke postet?"
     echo "$who: Se så at få postet $(titleEggs $eggs)!  Du er den sygdom der inficerer frokostlogen."
     echo "$who: Selv et slamkodet shell script kan se at du ikke har styr på en skid!  Hvorfor har du ikke postet $(titleEggs $eggs)?!"
+    echo "$who: SVIN!"
+    echo "$who: Man skulle tro du var rus!"
+    echo "$who: IDIOT!"
 }
 
 fuck() {
