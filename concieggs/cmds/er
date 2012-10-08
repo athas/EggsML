@@ -11,12 +11,16 @@ else
     exit
 fi
 
-if [ $user1 = $user2 ]; then
-    echo "Hmm... nej, jeg kan slet ikke se hvad de to navne skulle have tilfælles."
-elif [ $user1 = concieggs -o $user2 = concieggs ]; then
+if [ $user1 = concieggs -o $user2 = concieggs ]; then
     echo "Nej, Der er KUN ÉN CONCIEGGS!"
+elif [ $user1 = $user2 ]; then
+    echo "Hmm... nej, jeg kan slet ikke se hvad de to navne skulle have tilfælles."
+elif ! [ "$(aliases $user1)" ]; then
+    echo "Jeg aner ikke hvem $user1 skulle være."
+elif ! [ "$(aliases $user2)" ]; then
+    echo "$user2?  Hvem er det?"
 elif cmpNames $user1 $user2; then
-    echo "Jep, det er den samme."
+    echo "Jep, $(randomName "$user1") og $(randomName "$user2") er den samme."
 else
     echo "Nej, $(randomName "$user1") og $(randomName "$user2") er ikke samme person."
 fi
