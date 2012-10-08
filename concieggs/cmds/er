@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# Spørg det sociale centerpunkt, concieggs, om to navne dækker over samme misdæder.
+
+
+if [ $# -eq 3 -a "$2" = "bare" ]; then
+    user1=$1
+    user2=$3
+else
+    echo "Brug: er <navn> bare <navn>"
+    exit
+fi
+
+if cmpNames $user1 $user2; then
+    echo "Jep, det er den samme."
+else
+    echo "Nej, $(randomName "$user1") og $(randomName "$user2") er ikke samme person."
+fi
