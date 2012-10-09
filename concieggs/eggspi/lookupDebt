@@ -7,6 +7,6 @@ eggstool balances | while read -r line; do
     name="$(echo "$line" | cut -d' ' -f 2)"
     if echo "$who" | fgrep -x "$name" > /dev/null; then
         echo "$line" | cut -d' ' -f 1 | awk '{ print -1*$0 }'
-        return
+        exit
     fi
 done
