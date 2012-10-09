@@ -24,7 +24,13 @@ if [ "$debt" ]; then
     if [ "$(echo "$debt" | grep "-")" ]; then
         echo "$alias har $(echo $debt | sed 's/-//') kr. til gode i frokostkassen!"
     else
-        echo "$alias skylder $debt kr. til frokostkassen!"
+        wish=$(eggstool wishes | sort -R | head -n 1)
+        echo -n "$alias skylder $debt kr. til frokostkassen!  "
+        if [ "$wish" ]; then
+            echo "Vekommende kunne overveje at købe $wish."
+        else
+            echo
+        fi
     fi
 else
     echo "Fejl ved beregning af gæld for $user"
