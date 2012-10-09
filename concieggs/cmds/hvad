@@ -27,7 +27,7 @@ if [ "$debt" ]; then
         wish=$(eggstool wishes | sort -R | head -n 1)
         echo -n "$alias skylder $debt kr. til frokostkassen!  "
         if [ "$wish" ]; then
-            echo "Vekommende kunne overveje at købe $wish."
+            echo "Vedkommende kunne overveje at købe $wish."
         else
             echo
         fi
