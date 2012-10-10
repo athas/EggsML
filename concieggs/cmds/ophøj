@@ -29,6 +29,7 @@ fi
 
 if gitRefresh; then
     shift
+    cd $EGGS_DIR
     if [ $# -eq 0 ]; then
         echo "$who" >> $CONCIEGGS_DB_DIR/mestre
     else
