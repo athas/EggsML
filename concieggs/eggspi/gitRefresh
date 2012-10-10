@@ -1,4 +1,4 @@
 #!/bin/sh
 
-cd /eggsml
+cd $EGGS_DIR
 git pull > /dev/null

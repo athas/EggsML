@@ -6,5 +6,5 @@ name="$(randomName $EGGS_USER)"
 if ! [ "$name" ]; then
     name="$EGGS_USER"
 fi
-cd /eggsml
-(git add "$@" && git commit -m "$name: $msg" && git push git@github.com:Athas/EggsML.git) > /dev/null
+cd $EGGS_DIR
+(git add "$@" && git commit -m "$name: $msg" && git push git@github.com:Athas/EggsML.git) >&2
