@@ -4,7 +4,7 @@ while [ $# -ge 1 ]; do
     name="$(randomName $1)"
     if [ "$name" ]; then
         echo $name
-        return 0
+        exit
     fi
     shift
 done

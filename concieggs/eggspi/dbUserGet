@@ -5,6 +5,6 @@ node="$2"
 aliases "$1" | while read -r alias; do
     if dbExists "users/$alias/$node"; then
         echo "users/$alias/$node"
-        return
+        exit
     fi
 done

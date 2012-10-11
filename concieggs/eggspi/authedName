@@ -7,11 +7,11 @@ for i in $(seq 1 5); do
     authed=$(awk '{ match($0, "account[^a-zA-Z0-9_]+([a-zA-Z0-9_]+)", a); if (a[1]) { print a[1] }}' < nickserv/out)
     if [ "$authed" ]; then
         echo $authed
-        return
+        exit
     fi
     unknown=$(awk '/is not registered/' < nickserv/out)
     if [ "$unknown" ]; then
-        return
+        exit
     fi
     sleep 1
 done
