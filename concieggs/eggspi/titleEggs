@@ -3,11 +3,9 @@
 hour="$(dateSecs $1 +%H)"
 minute="$(dateSecs $1 +%M)"
 
-if [ $hour = 13 -a $minute = 0 ]; then
-    minutes
+if [ $hour -eq 13 -a $minute -eq 0 ]; then
     echo "gentleman Eggs $(timeToRelDay $1)"
-elif [ $hour = 14 -a $minute = 0 ]; then
-    minutes
+elif [ $hour -eq 14 -a $minute -eq 0 ]; then
     echo "Eggs royale $(timeToRelDay $1)"
 else
     echo "Eggs $(timeToDate $1)"
