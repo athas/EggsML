@@ -21,6 +21,7 @@ time=$(extractDate "$@")
 name=$(extractUsername "$@")
 if [ ! "$time" ]; then
     echo "Angiv et gyldigt tidspunkt!"
+    exit 0
 fi
 if [ ! "$name" ]; then
     echo "Angiv et kendt navn!"
