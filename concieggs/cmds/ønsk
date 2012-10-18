@@ -12,5 +12,5 @@ else
         echo "$EGGS_USER: '$@' er ikke i kataloget.  Prøv min 'katalog'-kommando for at se hvad der er af muligheder, eller brug 'kanoniser' til at tilføje en ny."
         exit
     fi
-    $CONCIEGGS_DIR/cmds/råønsk "$there"
+    $CONCIEGGS_DIR/cmds/unsafePerformRåønsk "$there"
 fi
