@@ -3,4 +3,6 @@
 needle="$1"
 dbIterate katalog | while read -r item; do
     dbRead "$item"
-done | sort | fgrep -i "$needle" | head -n 1
+done \
+    | awk '{print length($0), $0}' | sort -n \
+    | cut -d' ' -f 2- | fgrep -i "$needle" | head -n 1
