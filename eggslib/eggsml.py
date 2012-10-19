@@ -307,8 +307,12 @@ class eggsml:
                                    'lasteggs' : None}
 
                 for p in self.get_purchases():
-                        info[p['alias']]['paid'] += float(p['amount'])
-                        info[p['alias']]['balance'] += float(p['amount'])
+                        if p['alias'] in info: # HACK because
+                                               # get_users fails for
+                                               # people who've never
+                                               # attended a lunch.
+                                info[p['alias']]['paid'] += float(p['amount'])
+                                info[p['alias']]['balance'] += float(p['amount'])
                                                 
                 for d in self.get_dates():
                         price = prices[d['date']]
