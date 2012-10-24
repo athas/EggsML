@@ -16,7 +16,7 @@ ENV = {'CONCIEGGS_DIR' : DIR
       ,'EGGS_LIB_DIR'     : os.path.join(DIR,'..','eggslib')
       }
 #Intet kan antages
-PATH = "/bin:/usr/bin"
+PATH = os.path.join(DIR,'eggspi')+"/bin:/usr/bin:"
 import logging
 logging.basicConfig(level=logging.DEBUG)
 
