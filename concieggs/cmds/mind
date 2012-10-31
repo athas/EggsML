@@ -28,4 +28,4 @@ msgnode=$(dbInsertNode "users/$to/messages")
 echo "$msg" | dbWrite "$msgnode/message"
 echo "$from" | dbWrite "$msgnode/from"
 
-echo "$(ack)  Næste gang $to blander sig i samtalen, vil jeg fortælle ham at $msg"
+echo "$(ack)  Næste gang $to blander sig i samtalen, vil jeg minde ham om at $msg"
