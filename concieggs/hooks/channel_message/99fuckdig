@@ -16,6 +16,9 @@ sviner() {
     echo "$who: SVIN!"
     echo "$who: Man skulle tro du var rus!"
     echo "$who: IDIOT!"
+    echo "$who: Du har begået en frygtelig Ulrik!  Hvordan kan du leve med dig selv?"
+    echo "$who: ANTIFROKOST!"
+    echo "$who: Du har glemt at posteggse OG DIN MOR ER SIKKERT TYK!"
 }
 
 fuck() {
