@@ -1,9 +1,7 @@
 #!/bin/sh
 
-cur="$(isInEggs $1 $2)"
-if [ "$cur" ]; then
-    num=$(fgrep "$cur" $CONCIEGGS_DB_DIR/eggs/$1 | sed 's/^.*, //')
-else
+factor="$(eggsFactor $1 $2)"
+if ! [ "$factor" ]; then
     num=0
 fi
 
