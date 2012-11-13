@@ -3,7 +3,7 @@
 cat $CONCIEGGS_DB_DIR/eggs/$1 | while read who; do
     name=$(echo "$who" | sed 's/,.*//')
     fact=$(echo "$who" | grep "," | sed 's/.*, //')
-    if [ "$fact" ]; then
+    if [ "$fact" -a "$fact" != 1 ]; then
         echo "$(randomName "$name")(*$fact)"
     else
         echo $(randomName "$name")

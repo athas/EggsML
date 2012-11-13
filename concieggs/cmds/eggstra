@@ -1,0 +1,30 @@
+#!/bin/sh
+#
+# Forøg en allerede eksisterende tilmelding.  Praktisk hvis man har
+# gæster.  Brug eggsml eller ½eggs til første tildelingn.
+
+
+moreEggs() {
+    time=$1
+    name=$2
+    if [ "$(isInEggs "$time" "$name")" = "" ]; then
+        echo "$name spiser jo ikke ikke med til $(titleEggs $time)!  Brug 'eggsml' til første tilmeling."
+    elif addToEggs "$time" "$name"; then
+        echo "$(ack)  $name har forøget sin eggsfaktor til $(titleEggs $time)!"
+    else
+        exit 1
+    fi
+}
+
+time=$(extractDate "$@")
+name=$(extractUsername "$@")
+if [ ! "$time" ]; then
+    echo "Ingen har tilmeldt sig Eggs - \
+vil du være den første, så brug 'eggsml <tidspunkt> [brugernavn]'."
+    exit 0
+fi
+if [ ! "$name" ]; then
+    echo "Giv mig et navn jeg kender!"
+    exit 0
+fi
+moreEggs "$time" "$name"
