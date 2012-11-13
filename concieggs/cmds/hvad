@@ -3,7 +3,7 @@
 # Spørg om din gæld til frokostkassen
 
 
-if [ $# -eq 2 -a "$1" = "skylder" -a "$2" = "jeg" ]; then
+if [ $# -eq 2 -a "$1" = "skylder" -a '(' "$2" = "jeg" -o "$2" = "jeg?" ')' ]; then
     user=$EGGS_USER
 elif [ $# -eq 2 -a "$1" = "skylder" ]; then
     user=$2
