@@ -2,7 +2,7 @@
 
 cur="$(isInEggs $1 $2)"
 if [ "$cur" ]; then
-    num=$(cat $CONCIEGGS_DB_DIR/eggs/$1 | sed 's/^.*, //')
+    num=$(fgrep "$cur" $CONCIEGGS_DB_DIR/eggs/$1 | sed 's/^.*, //')
 else
     num=0
 fi
