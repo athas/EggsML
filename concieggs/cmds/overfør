@@ -4,7 +4,7 @@
 # bankcentralen.  Denne facilitet er dog kun for logemestre.
 
 
-if ! [ $# -eq 3 -a $2 = til ]; then
+if ! [ $# -eq 3 -a "$2" = til ]; then
     echo 'Brug: overfør <beløb> til <modtager>'
     exit 0
 fi
