@@ -1,0 +1,12 @@
+#!/bin/bash
+
+today=`date +%m%d`
+
+# Følgende dage er greltegnsdage:
+# 28. juni, 22. august og 22. oktober
+if [ $today == "0628" -o $today == "0822" -o $today == "1022" ]
+then
+  /bin/echo $* | tr [a-zæøåéà] [A-ZÆØÅÉÀ]
+else
+  /bin/echo $*
+fi
