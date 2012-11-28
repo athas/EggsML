@@ -2,7 +2,7 @@
 
 prog=$(cat <<"EOF"
 function frob(s) {
-  if (length(s) > 3 && rand() > 0.9 && match(s, "^[a-zA-ZæøåÆØÅ]*$") > 0) {
+  if (length(s) > 3 && rand() > 0.8 && match(s, "^[a-zA-ZæøåÆØÅ]*$") > 0) {
     return "jule-" s
   } else {
     return s
