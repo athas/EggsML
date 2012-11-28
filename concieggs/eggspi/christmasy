@@ -15,8 +15,10 @@ if (NF > 1) {
     out = out " " frob($i);
   }
   print out;
-  } else
+} else {
   print;
+}
+fflush(); 
 }
 EOF
 )
