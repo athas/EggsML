@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ $(date +%m) = 12 -a $(date +%d) -lt 25 \
+    -o $(date +%m) = 11 -a $(date +%d) -gt 23 ]; then
+    exit 0
+else
+    exit 1
+fi

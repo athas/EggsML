@@ -1,0 +1,24 @@
+#!/bin/sh
+
+prog=$(cat <<"EOF"
+function frob(s) {
+  if (length(s) > 3 && rand() > 0.9 && match(s, "^[a-zA-ZæøåÆØÅ]*$") > 0) {
+    return "jule-" s
+  } else {
+    return s
+  }
+}
+{
+if (NF > 1) {
+  out=$1;
+  for (i = 2; i <= NF; i++) {
+    out = out " " frob($i);
+  }
+  print out;
+  } else
+  print;
+}
+EOF
+)
+
+awk -- "$prog"
