@@ -1,45 +1,60 @@
 #!/bin/sh
 #
 # Beskriv concieggs' opfattelse af en given brugers identitet.  Husk
-# at benytte komplette sætninger!
+# at benytte komplette sætninger!  Alternativt, spørg hvem der skal
+# købe ind.
 
 
-if [ $# -eq 2 -a $1 = "er" -a $2 = "jeg" ]; then
-    user=$EGGS_USER
-elif [ $# -eq 2 -a $1 = "er" ]; then
-    user=$2
+if [ $# -eq 2 -a $1 = "er" ]; then
+    if [ $2 = "jeg" ]; then
+        user=$EGGS_USER
+    elif [ $1 = "er" ]; then
+        user=$2
+    fi
+
+    if [ $user = concieggs ]; then
+        echo 'Orv ja, det kunne være vildt sjovt hvis jeg skrev "JEG KENDER IKKE CONCIEGGS!"'
+        sleep 2
+        echo 'LOL!'
+        sleep 1
+        echo 'ROFL!'
+        sleep 2
+        echo "LAD OS GRINE AF TROELS' DUMME BOT!  LOLDONGS!"
+        exit
+    fi
+
+    if cmpNames $user reenberg; then
+        echo "$user er nederen."
+        exit
+    fi
+
+    alias=$(randomName "$user")
+    auth=$(authedName "$user")
+
+    if [ "$alias" ]; then
+        aliasMsg="$user er $alias, og"
+    else
+        aliasMsg="Jeg kender ikke $user, og vedkommende er"
+    fi
+
+    if [ "$auth" ]; then
+        echo "$aliasMsg autenticeret som $auth ifølge Nickserv!"
+    else
+        echo "$aliasMsg ikke autenticeret ifølge Nickserv!"
+    fi
+elif [ $# -eq 2 -a $1 = "køber" -a $2 = "ind" ]; then
+    neggst=$(nextEggs | head -n 1)
+    if [ "$neggst" ]; then
+        echo "Vent venligst medens jeg overvejer dette fundamentale moralske dilemma..."
+        listEggsers $neggst | while read -r eggser; do
+            echo $(lookupDebt "$eggser") "$eggser"
+        done | sort -g -r | cut -d' ' -f2- | head -n 1 | while read -r debtor; do
+            echo "$debtor bør købe ind!"
+        done
+    else
+        echo "Der er ingen tilmeldt Eggs, så jeg går ud fra at ingen køber ind."
+    fi
 else
-    echo "Brug: hvem er [navn|jeg]"
+    echo "Brug: hvem [er [navn|jeg]|køber ind]"
     exit
-fi
-
-if [ $user = concieggs ]; then
-    echo 'Orv ja, det kunne være vildt sjovt hvis jeg skrev "JEG KENDER IKKE CONCIEGGS!"'
-    sleep 2
-    echo 'LOL!'
-    sleep 1
-    echo 'ROFL!'
-    sleep 2
-    echo "LAD OS GRINE AF TROELS' DUMME BOT!  LOLDONGS!"
-    exit
-fi
-
-if cmpNames $user reenberg; then
-    echo "$user er nederen."
-    exit
-fi
-
-alias=$(randomName "$user")
-auth=$(authedName "$user")
-
-if [ "$alias" ]; then
-    aliasMsg="$user er $alias, og"
-else
-    aliasMsg="Jeg kender ikke $user, og vedkommende er"
-fi
-
-if [ "$auth" ]; then
-    echo "$aliasMsg autenticeret som $auth ifølge Nickserv!"
-else
-    echo "$aliasMsg ikke autenticeret ifølge Nickserv!"
 fi
