@@ -4,7 +4,7 @@ hour="$(dateSecs $1 +%H)"
 minute="$(dateSecs $1 +%M)"
 
 if [ $hour -eq 13 -a $minute -eq 0 ]; then
-    if christmas; do
+    if christmas; then
         echo "juleman Eggs $(timeToRelDay $1)"
     else
         echo "gentleman Eggs $(timeToRelDay $1)"
