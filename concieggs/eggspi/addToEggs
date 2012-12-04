@@ -10,9 +10,9 @@ if [ "$num" != 0 ]; then
 fi
 
 if [ $# -eq 3 ]; then
-    new="$2, $(($num + $3))"
+    new="$2, $(echo $num+$3 | bc)"
 else
-    new="$2, $(($num + 1))"
+    new="$2, $(echo $num + 1 | bc)"
 fi
 echo "$new" >> $CONCIEGGS_DB_DIR/eggs/$1
 updateSubTime "$2" "$(nowTime)"
