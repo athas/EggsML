@@ -5,7 +5,7 @@
 # købe ind.
 
 
-if [ $# -eq 2 -a $1 = "er" ]; then
+if [ $# -eq 2 -a "$1" = "er" ]; then
     if [ $2 = "jeg" ]; then
         user=$EGGS_USER
     elif [ $1 = "er" ]; then
@@ -42,7 +42,7 @@ if [ $# -eq 2 -a $1 = "er" ]; then
     else
         echo "$aliasMsg ikke autenticeret ifølge Nickserv!"
     fi
-elif [ $# -eq 2 -a $1 = "køber" -a $2 = "ind" ]; then
+elif [ $# -eq 2 -a "$1" = "køber" -a "$2" = "ind" ]; then
     neggst=$(nextEggs | head -n 1)
     if [ "$neggst" ]; then
         echo "Vent venligst medens jeg overvejer dette fundamentale moralske dilemma..."
