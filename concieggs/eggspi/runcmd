@@ -17,7 +17,7 @@ run() {
     cmd="$1"
     shift
     case "$cmd" in
-        hvem|hvad|hvor*)
+        er|hvem|hvad|hvor*)
             "$cmddir/$cmd" $(echo "$@" | sed 's/\?*$//')
             ;;
         *)
