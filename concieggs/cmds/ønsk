@@ -3,14 +3,15 @@
 # Tilføj til listen over indkøbsønsker.  Kun katalogmuligheder tillades!
 
 
-if [ "$1" = det -a "$2" = sædvanlige -a '(' $# = 2 -o $# = 4 -a "$3" = til ')' ]; then
-    if [ $# = 4 ]; then
+eval "$(echo "$@" | parse 'det (?<usual>sædvanlige)( for (?<who>.*))|(?<what>.*)')"
+if [ "$usual" ]; then
+    if [ "$who" ]; then
         who=$(randomName $4)
     else
         who=$(randomName $EGGS_USER)
     fi
     if ! [ "$who" ]; then
-        echo "Jeg kender ikke til nogetn '$4'"
+        echo "Jeg kender ikke til nogen '$4'"
     fi
     did=$(for x in $(dbUserIterate "$who" "preferences/food"); do
         $CONCIEGGS_DIR/cmds/unsafePerformRåønsk $(dbRead "$x") > /dev/null
@@ -21,8 +22,7 @@ if [ "$1" = det -a "$2" = sædvanlige -a '(' $# = 2 -o $# = 4 -a "$3" = til ')' 
     else
         echo "$(ack)  Der er nu ønsket $did."
     fi
-elif [ $# -ge 1 ]; then
-    what="$@"
+elif [ "$what" ]; then
     there="$(checkCatalogue "$what")"
     if ! [ "$there" ]; then
         echo "$EGGS_USER: '$@' er ikke i kataloget.  Prøv min 'katalog'-kommando for at se hvad der er af muligheder, eller brug 'kanoniser' til at tilføje en ny."

@@ -1,0 +1,17 @@
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+
+die("Call script with: $0 <regex>\n") unless $#ARGV == 0;
+
+my $rawregex = $ARGV[0];
+my $regex = qr/$rawregex/;
+my $data = join("\n", <STDIN>);
+
+if ($data =~ $regex) {
+    for my $key (keys %+) {
+        my $val = $+{$key};
+        $val =~ s/(['\\])/\\$1/g;
+        print "$key=\$(cat <<\"EOF\"\n$val\nEOF\n)\n"
+    }
+}
