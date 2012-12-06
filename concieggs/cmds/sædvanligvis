@@ -1,0 +1,45 @@
+#!/bin/sh
+#
+# Informér frokostlogen om dine sædvanlige præferencer.  Mangen en
+# adfærd kan potentielt set indstilles via denne kommando.
+
+if [ "$1" = spiser -a $# -ge 3 ]; then
+    shift
+    if [ "$1" = jeg ]; then
+        who=$EGGS_USER
+    else
+        who=$1
+    fi
+    who=$(randomName "$who")
+    if ! [ "$who" ]; then
+        echo "$EGGS_USER: Jeg tager kun hensyn til kendte logebrødres præferencer."
+        exit
+    fi
+    shift
+    if [ "$1" = ikke ]; then
+        remove=1
+        shift
+    fi
+    pref=$(for x in $(dbUserIterate "$who" "preferences/food"); do
+        if dbRead "$x" | fgrep "$@" > /dev/null; then
+            echo "$x"
+        fi
+        done)
+    if [ "$pref" ]; then
+        if [ "$remove" ]; then
+            echo "$(ack)  $(Din $who) begejstring for $@ har aftaget."
+            dbDelete "$x"
+        else
+            echo "$EGGS_USER: Ja, det ved jeg da godt."
+        fi
+    else
+        if [ "$remove" ]; then
+            echo "$EGGS_USER: Logeprotokollen anfører i forvejen ikke, at $(du $who) skulle have den slags tilbøjeligheder."
+        else
+            echo "$@" | dbUserInsertData $who "preferences/food/" > /dev/null
+            echo "$(ack)  Jeg vil nedfælde at $(du $who) ynder at indtage $@."
+        fi
+    fi
+else
+    echo "Brug: sædvanligvis spiser jeg [ikke] <hvad...>"
+fi

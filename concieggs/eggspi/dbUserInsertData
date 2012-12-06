@@ -1,0 +1,11 @@
+#!/bin/sh
+
+user="$1"
+node="$2"
+realnode="$(dbUserGet "$1" "$2")"
+if [ "$realnode" ]; then
+    dbInsertData "$realnode"
+else
+    alias="$1"
+    dbInsertData "users/$alias/$node"
+fi

@@ -3,9 +3,25 @@
 # Tilføj til listen over indkøbsønsker.  Kun katalogmuligheder tillades!
 
 
-if [ $# -lt 1 ]; then
-    echo "Brug: ønsk ønske..."
-else
+if [ "$1" = det -a "$2" = sædvanlige -a '(' $# = 2 -o $# = 4 -a "$3" = til ')' ]; then
+    if [ $# = 4 ]; then
+        who=$(randomName $4)
+    else
+        who=$(randomName $EGGS_USER)
+    fi
+    if ! [ "$who" ]; then
+        echo "Jeg kender ikke til nogetn '$4'"
+    fi
+    did=$(for x in $(dbUserIterate "$who" "preferences/food"); do
+        $CONCIEGGS_DIR/cmds/unsafePerformRåønsk $(dbRead "$x") > /dev/null
+        dbRead "$x"
+    done | enumerate)
+    if ! [ "$did" ]; then
+        echo "$who har ingen særlige indkøbspræferencer"
+    else
+        echo "$(ack)  Der er nu ønsket $did."
+    fi
+elif [ $# -ge 1 ]; then
     what="$@"
     there="$(checkCatalogue "$what")"
     if ! [ "$there" ]; then
@@ -13,4 +29,6 @@ else
         exit
     fi
     $CONCIEGGS_DIR/cmds/unsafePerformRåønsk "$there"
+else
+    echo "Brug: ønsk <ØNSKE...|det sædvanlige [til NAVN]>"
 fi

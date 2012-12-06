@@ -1,0 +1,8 @@
+#!/bin/sh
+
+user="$1"
+node="$2"
+realnode="$(dbUserGet "$1" "$2")"
+if [ "$realnode" ]; then
+    dbIterate "$realnode"
+fi

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if cmpNames "$1" "$EGGS_USER"; then
+    echo $(basename "$0")
+else
+    echo "$1"
+fi
