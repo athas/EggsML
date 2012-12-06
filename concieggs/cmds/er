@@ -20,7 +20,7 @@ if [ $# -eq 3 -a "$2" = "bare" ]; then
         echo "Nej, $(randomName "$user1") og $(randomName "$user2") er ikke samme person."
     fi
 elif [ $# -gt 1 ]; then
-    8ball "$@"
+    runcmd 8ball "$@"
 else
     echo "Brug: er <navn> bare <navn>"
 fi
