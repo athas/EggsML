@@ -4,7 +4,7 @@ prog=$(cat <<"EOF"
 function frobword(s) {
   fst = substr(s,1,1)
   prefix = toupper(fst) == fst ? "Jule-" : "jule-"
-  if (match(s, "^[jJ]ul") == 0 && length(s) > 3 && rand() > 0.75) {
+  if (match(s, "[jJ]ul") != 1 && length(s) > 3 && rand() > 0.75) {
     return prefix s
   } else {
     return s
