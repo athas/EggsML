@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-use 5.012;
+use 5.01;
 use warnings;
 
 die("Call script with: $0 <regex>\n") unless $#ARGV == 0;
