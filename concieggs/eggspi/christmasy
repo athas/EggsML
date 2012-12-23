@@ -1,11 +1,18 @@
 #!/bin/sh
 
 prog=$(cat <<"EOF"
-function frobword(s) {
+function frobword_inner(s) {
   fst = substr(s,1,1)
   prefix = toupper(fst) == fst ? "Jule-" : "jule-"
-  if (match(s, "[jJ]ul") != 1 && length(s) > 3 && rand() > 0.75) {
-    return prefix s
+  if (length(s) > 3 && rand() > 0.1) {
+    return frobword_inner(prefix s)
+  } else {
+    return s
+  }
+}
+function frobword(s) {
+  if (match(s, "[jJ]ul") != 1 && rand() > 0.25) {
+    return frobword_inner(s)
   } else {
     return s
   }
