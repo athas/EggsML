@@ -36,7 +36,7 @@ awk_checkpart='/'$dateregex' -!- .* has left .*/ { print substr($4, 0, index($4,
 awk_checkjoin='/'$dateregex' -!- .* has joined .*/ { print substr($4, 0, index($4, "(")-1)}'
 
 throttle() {
-    awk '{print; fflush(); system("sleep 1")}' | christmasy
+    awk '{print; fflush(); system("sleep 1")}'
 }
 
 run_hooks() {
