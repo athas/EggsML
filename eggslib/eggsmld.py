@@ -44,8 +44,7 @@ if __name__ == '__main__':
                     for i in range(len(words)-1):
                         if not print_aliases(e, words[i+1]):
                             exit = 1
-                            continue
-                        if i != len(words)-2:
+                        elif i != len(words)-2:
                             print
             elif command == "wishes":
                 print_wishes(e)
