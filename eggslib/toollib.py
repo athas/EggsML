@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # encoding: utf8
 
-from eggsml import eggsml
 from random import choice
 import sys
 
@@ -34,7 +33,6 @@ def nextday(ds,d):
     return True
   else:
     return (ds[-1] + timedelta(days=1) == d)
-    
 
 def print_consecutive(eggs,name):
   '''Eeek
