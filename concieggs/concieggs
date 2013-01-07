@@ -15,7 +15,7 @@ export CONCIEGGS_DB_DIR=$dir/db
 export CONCIEGGS_LIB_DIR=$dir/eggspi
 export EGGS_DIR=$dir/..
 export EGGS_LIB_DIR=$EGGS_DIR/eggslib
-export EGGS_DAEMON_SOCKET=$CONCIEGGS_DIR=eggsmld.socket
+export EGGS_DAEMON_SOCKET=$CONCIEGGS_DIR/eggsmld.socket
 export CONCIEGGS_IRC_DIR=$irc_dir/irc.freenode.net
 export CONCIEGGS_NAME=$irc_username
 export LC_ALL=da_DK.UTF-8
