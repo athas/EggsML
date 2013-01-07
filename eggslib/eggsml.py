@@ -483,6 +483,20 @@ class eggsml:
 		return round(f, 2)
 
 	def parse(self, filename):
+		self.aliases = []
+		self.count = {}
+		self.wishes = []
+		self.purchases = []
+		self.dates = []
+		self.uniquedates_dict = {}
+		self.uniquedates = None
+		self.dayprices = {}
+		self.colours = {}
+		self.content = ''
+		self.users = []
+		self.startdate = None
+		self.enddate = None
+		self.nodays = None
 		r = re.compile(r"#.*?$", re.MULTILINE | re.UNICODE)
 		self.content = open(filename).read()
 		block = ''
