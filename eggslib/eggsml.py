@@ -23,7 +23,7 @@ class eggsml:
 	nodays = None
 
         def get_alias_rand(self,eggname):
-          for aliaslist in eggsml.aliases: 
+          for aliaslist in self.aliases: 
             if eggname==aliaslist[0]:
               return random.choice(aliaslist)
           return None
