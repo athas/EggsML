@@ -97,7 +97,7 @@ rmdir $tmpdir
 # Start up the EggsML daemon.
 eggsmld() {
     while true; do
-        echo "Starting eggsmld!" >&2
+        echo "Starting eggsmld at $EGGS_DAEMON_SOCKET!" >&2
         rm -f $EGGS_DAEMON_SOCKET
         $EGGS_LIB_DIR/eggsmld.py $EGGS_DIR/slashdotfrokost $EGGS_DAEMON_SOCKET
         # If we get here, the daemon must have crashed.
