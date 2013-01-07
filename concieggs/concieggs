@@ -15,6 +15,7 @@ export CONCIEGGS_DB_DIR=$dir/db
 export CONCIEGGS_LIB_DIR=$dir/eggspi
 export EGGS_DIR=$dir/..
 export EGGS_LIB_DIR=$EGGS_DIR/eggslib
+export EGGS_DAEMON_SOCKET=$CONCIEGGS_DIR=eggsmld.socket
 export CONCIEGGS_IRC_DIR=$irc_dir/irc.freenode.net
 export CONCIEGGS_NAME=$irc_username
 export LC_ALL=da_DK.UTF-8
@@ -93,6 +94,18 @@ exec 2>$tmpdir/stderr
 rm $tmpdir/stderr
 rmdir $tmpdir
 
+# Start up the EggsML daemon.
+eggsmld() {
+    while true; do
+        echo "Starting eggsmld!" >&2
+        rm -f $EGGS_DAEMON_SOCKET
+        $EGGS_LIB_DIR/eggsmld.py $EGGS_DIR/slashdotfrokost $EGGS_DAEMON_SOCKET
+        # If we get here, the daemon must have crashed.
+        sleep 1
+    done
+}
+eggsmld &
+
 ls $CONCIEGGS_IRC_DIR | while read -r dir; do
     dir="$(basename "$dir")"
     if [ -d "$dir" ] && [ "$dir" != "nickserv" ]; then
@@ -112,5 +125,3 @@ inotifywait -e create --monitor --format %w%f . \
         (cd "$dir"; touch out; (tail -f -n 10 out | reader > in)) &
     fi
 done
-
-
