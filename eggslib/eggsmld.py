@@ -3,6 +3,7 @@
 
 from eggsml import eggsml
 from toollib import *
+import StringIO
 import socket
 import sys
 import os
@@ -28,7 +29,8 @@ if __name__ == '__main__':
             sys.stderr.write(str(e.aliases))
             lunchfile_changetime = statinfo.st_mtime
         conn.close() # fd keeps the socket alive.
-        sys.stdout = fd
+        sys.stdout = StringIO.StringIO()
+        exit = 0
         words = fd.readline().split()
         if len(words) == 0:
             print "No command!"
@@ -37,9 +39,11 @@ if __name__ == '__main__':
             if command == "aliases":
                 if len(words) < 1:
                     sys.stderr.write("Usage: %s <alias1> [more aliases...]\n" % (command,))
+                    exit = 1
                 else:
                     for i in range(len(words)-1):
                         if not print_aliases(e, words[i+1]):
+                            exit = 1
                             continue
                         if i != len(words)-2:
                             print
@@ -50,32 +54,40 @@ if __name__ == '__main__':
             elif command == "lunches":
                 if len(words) != 2:
                     sys.stderr.write("Usage: %s <alias>" % (command,))
-                    continue
+                    exit = 1
                 else:
-                    print_lunches(e, words[1])
+                    if not print_lunches(e, words[1]):
+                        exit = 1
             elif command == "eggsmates":
                 if len(words) != 2:
                     sys.stderr.write("Usage: %s <alias>" % (command,))
-                    continue
+                    exit = 1
                 else:
-                    print_eggsmates(e, words[1])
+                    if not print_eggsmates(e, words[1]):
+                        exit = 1
             elif command == "eggscount":
                 if len(words) != 2:
                     sys.stderr.write("Usage: %s <alias>" % (command,))
-                    continue
+                    exit = 1
                 else:
                     print_eggscount(e, words[1])
             elif command == "consecutive":
                 if len(words) != 2:
                     sys.stderr.write("Usage: %s <alias>" % (command,))
-                    continue
+                    exit = 1
                 else:
-                    print_consecutive(e, words[1])
+                    if not print_consecutive(e, words[1]):
+                        exit = 1
             elif command == "cmpnames":
                 if len(words) != 3:
                     sys.stderr.write("Usage: %s <name> <name>" % (command,))
                 else:
-                    same_eggser(e, words[1], words[2])
+                    if (same_eggser(e, words[1], words[2])):
+                        exit = 0
+                    else:
+                        exit = 1
             else:
                 sys.stderr.write("Unrecognized command %s" % command)
+        fd.write(str(int(exit))+'\n')
+        fd.write(sys.stdout.getvalue())
         fd.close()

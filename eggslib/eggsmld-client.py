@@ -14,4 +14,9 @@ if __name__ == '__main__':
     fd = s.makefile()
     fd.write(' '.join(sys.argv[2:])+'\n')
     fd.flush()
-    sys.stdout.write(fd.read())
+    resp=fd.read().split('\n')
+    if len(resp) == 0:
+        exit(1)
+    else:
+        sys.stdout.write('\n'.join(resp[1:]))
+        exit(int(resp[0]))
