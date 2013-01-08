@@ -37,7 +37,7 @@ def nextday(ds,d):
 def print_consecutive(eggs,name):
   '''Eeek
   '''
-  dates = e.get_unique_dates()
+  dates = eggs.get_unique_dates()
   aliases = user_aliases(eggs,name)
   if aliases == None:
     return False
