@@ -4,12 +4,11 @@
 # at benytte komplette sætninger!  Alternativt, spørg hvem der skal
 # købe ind.
 
+eval "$(echo "$@" | parse 'er (?<user>[^ ]+)|(?<buy>(køber ind|skal købe ind))')"
 
-if [ $# -eq 2 -a "$1" = "er" ]; then
-    if [ $2 = "jeg" ]; then
-        user=$EGGS_USER
-    elif [ $1 = "er" ]; then
-        user=$2
+if [ "$user" ]; then
+    if [ $user = jeg ]; then
+        $user=$EGGS_USER
     fi
 
     if [ $user = concieggs ]; then
@@ -42,7 +41,7 @@ if [ $# -eq 2 -a "$1" = "er" ]; then
     else
         echo "$aliasMsg ikke autenticeret ifølge Nickserv!"
     fi
-elif [ $# -eq 2 -a "$1" = "køber" -a "$2" = "ind" ]; then
+elif [ "$buy" ]; then
     neggst=$(nextEggs | head -n 1)
     if [ "$neggst" ]; then
         echo "Vent venligst medens jeg overvejer dette fundamentale moralske dilemma..."
@@ -55,6 +54,6 @@ elif [ $# -eq 2 -a "$1" = "køber" -a "$2" = "ind" ]; then
         echo "Der er ingen tilmeldt Eggs, så jeg går ud fra at ingen køber ind."
     fi
 else
-    echo "Brug: hvem [er [navn|jeg]|køber ind]"
+    echo "Brug: hvem <er [navn|jeg]|skal købe ind|køber ind>"
     exit
 fi
