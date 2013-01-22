@@ -26,7 +26,6 @@ if __name__ == '__main__':
         statinfo = os.stat(lunchfile)
         if statinfo.st_mtime != lunchfile_changetime:
             e.parse(lunchfile)
-            sys.stderr.write(str(e.aliases))
             lunchfile_changetime = statinfo.st_mtime
         conn.close() # fd keeps the socket alive.
         sys.stdout = StringIO.StringIO()
