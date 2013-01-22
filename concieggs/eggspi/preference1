@@ -1,0 +1,3 @@
+#!/bin/sh
+
+dbUserRead $1 pref | sed -r -e 's/\bmin\b/din/g' -e 's/\bmine\b/dine/g' -e 's/\bmit\b/dit/g'
