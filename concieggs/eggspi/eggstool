@@ -1,5 +1,9 @@
 #!/bin/sh
 
 # For far more speed, use the EggsML daemon if it works!
-$EGGS_LIB_DIR/eggsmld-client.py $EGGS_DAEMON_SOCKET "$@" || \
-$EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost "$@"
+if [ -S "$EGGS_DAEMON_SOCKET" ]; then
+    $EGGS_LIB_DIR/eggsmld-client.py $EGGS_DAEMON_SOCKET "$@" \
+        || $EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost "$@"
+else
+    $EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost "$@"
+fi

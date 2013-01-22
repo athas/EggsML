@@ -1,6 +1,6 @@
 #!/bin/sh
 
-factor="$(eggsFactor $1 $2)"
+num="$(eggsFactor $1 $2)"
 if ! [ "$factor" ]; then
     num=0
 fi
@@ -10,7 +10,7 @@ if [ "$num" != 0 ]; then
 fi
 
 if [ $# -eq 3 ]; then
-    new="$2, $(echo $num+$3 | bc)"
+    new="$2, $(echo $num + $3 | bc)"
 else
     new="$2, $(echo $num + 1 | bc)"
 fi

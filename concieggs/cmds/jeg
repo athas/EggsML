@@ -1,0 +1,31 @@
+#!/bin/sh
+# Nedfæld essentielle personlige fakta og præferencer i logeprotokollen.
+
+eval "$(echo "$@" | parse 'er ((?<beneggter>beneggter)|(?<eggsalteret>eggsalteret))|foretrækker ((?<nothing>intet)|(?<pref>.+))')"
+
+who=$(randomName $EGGS_USER)
+if ! [ "$who" ]; then
+    echo "$EGGS_USER: Jeg kender dig slet ikke.  Dine præferencer er uden betydning for denne frokostloge."
+    exit
+fi
+
+if [ "$beneggter" ]; then
+    if [ "$(dbUserGet $who beneggter)" ]; then
+        echo "Jeg er allerede bekendt med dine afvigelser, $EGGS_USER."
+    else
+        dbUserWrite $who beneggter < /dev/null
+        echo "$(ack)  Meget vel, $EGGS_USER, under antagelse af at logebrødrene gør deres forabejde, vil der ikke længere tilberedes æg til dig."
+    fi
+elif [ "$eggsalteret" ]; then
+    if [ "$(dbUserGet $who beneggter)" ]; then
+        echo "$(ack)  Velkommen tilbage i folden, $EGGS_USER!  Under antagelse af at logebrødrene gør deres forabejde, vil der igen være æg at finde til dig."
+        dbUserDelete $who beneggter
+    else
+        echo "Jovist, $EGGS_USER, det ved jeg skam allerede.  Er der et formål med denne udmelding?"
+    fi
+elif [ "$pref" ]; then
+    echo "$pref" | dbUserWrite $who pref
+    echo "$(ack)  For fremtiden vil jeg minde logebrødrene om, at du foretrækker $(preference $who)"
+else
+    echo "Brug: jeg <er <beneggter|eggsalteret>|foretrækker <præference>"
+fi

@@ -1,0 +1,44 @@
+#!/bin/sh
+# Benyt denne udenlandsk lydende kommando til at få detaljer omkring
+# forberedelsen af en given frokost.
+
+next=$(nextEggs)
+
+if [ $# = 0 ]; then
+    neggst=$(checkNextEggs)
+    if ! [ "$neggst" ]; then
+        echo "$EGGS_USER: Der er ingen kommende eggs.  Måske bør du angive et specifikt tidspunkt?"
+        exit
+    else
+        eggs=$neggst
+    fi
+elif [ $# = 1 ]; then
+    time=$(dateToTime "$1")
+
+    if [ $time ]; then
+        if eggsists $time; then
+            eggs=$time
+        else
+            echo "$EGGS_USER: Der er ingen eggs på det tidspunkt."
+            exit
+        fi
+    else
+        echo "$EGGS_USER: Det tidspunkt giver ikke mening."
+        exit
+    fi
+else
+    echo "Brug: eggsplain [tidspunkt]"
+    exit
+fi
+
+all="$(listEggsers $eggs)"
+
+numbeneggters="$(echo "$all" | while read -r who; do
+        if [ "$(dbUserGet $who beneggter)" ]; then
+            echo $who
+        fi
+    done| wc -l)"
+
+numeggs=$(($(echo "$all"|wc -l) - $numbeneggters))
+
+echo "Der er $(countEggsers $eggs) tilmeldt til $(titleEggs $eggs): $(describeEggs $eggs).  Der skal tilberedes $numeggs eggs."

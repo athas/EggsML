@@ -1,0 +1,3 @@
+#!/bin/sh
+
+[ -f $CONCIEGGS_DB_DIR/eggs/$1 ]
