@@ -23,8 +23,13 @@ elif [ "$eggsalteret" ]; then
     else
         echo "Jovist, $EGGS_USER, det ved jeg skam allerede.  Er der et formål med denne udmelding?"
     fi
-elif [ "$pref" = "intet" ]; then
-    echo "$(ack)  Der vil ikke for fremtiden ikke tages usædvanlige hensyn til dig, $EGGS_USER."
+elif [ "$nothing" ]; then
+    if ! [ "$(dbUserGet $who pref)" ]; then
+        echo "Jeg er allerede ikke bekendt med nogen særlige præferencer fra din side af, broder $EGGS_USER."
+    else
+        dbUserDelete $who pref
+        echo "$(ack)  Der vil ikke for fremtiden ikke tages usædvanlige hensyn til dig, $EGGS_USER."
+    fi
 elif [ "$pref" ]; then
     echo "$pref" | dbUserWrite $who pref
     echo "$(ack)  For fremtiden vil jeg minde logebrødrene om, at du foretrækker $(preference $who)."
