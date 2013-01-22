@@ -62,7 +62,7 @@ prefs="$(prefs | enumerate)"
 echo -n "Der er $(countEggsers $eggs) tilmeldt til $(titleEggs $eggs): $(describeEggs $eggs).  Der skal tilberedes $numeggs eggs.  "
 
 if [ "$prefs" ]; then
-    echo "Endvidere: $prefs"
+    echo "Endvidere: $prefs."
 else
     echo
 fi
