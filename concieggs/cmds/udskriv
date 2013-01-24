@@ -12,7 +12,7 @@ else
     printer=s2a
 fi
 
-if [ echo "$printer" | egrep -v '^[a-z][0-9][a-z]$' > /dev/null ]; then
+if echo "$printer" | egrep -v '^[a-z][0-9][a-z]$' > /dev/null; then
     echo "$printer?  Er det virkelig en printer?"
     exit
 fi
