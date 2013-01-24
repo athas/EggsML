@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Udskriv indkøbslisten i grimt format på den givne printer.  Gives
+# Udskriv indkøbslisten i pænt format på den givne printer.  Gives
 # intet argument bruges s2a.
 
 
@@ -10,6 +10,11 @@ if [ "$1" ]; then
     printer=$1
 else
     printer=s2a
+fi
+
+if [ echo "$printer" | egrep -v '^[a-z][0-9][a-z]$' > /dev/null ]; then
+    echo "$printer?  Er det virkelig en printer?"
+    exit
 fi
 
 formatWishes() {
