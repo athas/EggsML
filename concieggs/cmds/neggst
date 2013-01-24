@@ -5,43 +5,7 @@
 
 next=$(nextEggs)
 if [ "$next" != "" ]; then
-    nextEggs | while read eggs; do
-        all="$(listEggsers $eggs)"
-
-        numbeneggters="$(echo "$all" | while read -r who; do
-        if [ "$(dbUserGet $who beneggter)" ]; then
-            echo $who
-        fi
-    done| wc -l)"
-
-        numeggs=$(($(echo "$all"|wc -l) - $numbeneggters))
-
-        prefs () {
-            echo "$all" | while read -r who; do
-                pref=$(preference $who)
-                if [ "$pref" ]; then
-                    case "$(random 0 1)" in
-                        0)
-                            echo "$(randomName $who)" vil gerne have "$pref"
-                            ;;
-                        *)
-                            echo "$(randomName $who)" foretrækker "$pref"
-                            ;;
-                    esac
-                fi
-            done
-        }
-
-        prefs="$(prefs | enumerate)"
-
-        echo -n "Der er $(countEggsers $eggs) tilmeldt til $(titleEggs $eggs): $(describeEggs $eggs).  Der skal tilberedes $numeggs eggs.  "
-
-        if [ "$prefs" ]; then
-            echo "Endvidere: $prefs."
-        else
-            echo
-        fi
-    done
+    nextEggs | xargs eggsplain
 else
     echo "Ingen har tilmeldt sig eggs!"
 fi
