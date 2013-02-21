@@ -53,11 +53,9 @@ EOF
 
 process() {
     if [ "$mail" ]; then
-        (   echo 'From: Concieggs <concieggs@eggsml.dk>'
-            echo
-            echo 'Find indkøbslisten vedhæftet.'
+        (   echo 'Find indkøbslisten vedhæftet.'
             cat | ps2pdf - - | uuencode indkøbsliste.pdf
-        ) | mailx -s "Indkøbsliste til EggsML" "$mail"
+        ) | mailx -s "Indkøbsliste til EggsML" "$mail" -- -r concieggs@eggsml.dk
         echo "Sender til $mail!"
     else
         ssh athas@brok.diku.dk 'lpr -P'"$printer"
