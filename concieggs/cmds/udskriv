@@ -54,7 +54,7 @@ EOF
 process() {
     if [ "$mail" ]; then
         (  echo "Find indkøbslisten vedhæftet."
-           uuencode
+           uuencode indkøbsliste.pdf
         ) | mailx -s "Indkøbslisten" "$mail"
         echo "Sender til $mail!"
     else
