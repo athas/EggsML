@@ -1,7 +1,8 @@
 #!/bin/sh
 #
 # Udskriv indkøbslisten i pænt format på den givne printer.  Gives
-# intet argument bruges s2a.
+# intet argument bruges s2a.  Givet et argument der indeholder et @
+# vil PDFen blive sendt som email til den givne adresse.
 
 
 wishes=$(eggstool wishes)
@@ -12,7 +13,9 @@ else
     printer=s2a
 fi
 
-if echo "$printer" | egrep -v '^[a-z][0-9][a-z]$' > /dev/null; then
+if echo "$printer" | fgrep '@' > /dev/null; then
+    mail="$printer"
+elif echo "$printer" | egrep -v '^[a-z][0-9][a-z]$' > /dev/null; then
     echo "$printer?  Er det virkelig en printer?"
     exit
 fi
@@ -48,11 +51,22 @@ indkøb genindtaste de manglende varer på ønskelisten.
 EOF
 )
 
+process() {
+    if [ "$mail" ]; then
+        (  echo "Find indkøbslisten vedhæftet."
+           uuencode
+        ) | mailx -s "Indkøbslisten" "$mail"
+        echo "Sender til $mail!"
+    else
+        ssh athas@brok.diku.dk 'lpr -P'"$printer"
+        echo "Udskriver på $printer!"
+    fi
+}
+
 if [ "$wishes" ]; then
     echo "$doc" \
     | groff -m mandoc -D utf8 \
-    | ssh athas@brok.diku.dk 'lpr -P'"$printer"
-    echo "Udskriver på $printer!"
+    | process
 else
     echo "Nægter at udskrive: Der er ingen indkøbsønsker!"
 fi
