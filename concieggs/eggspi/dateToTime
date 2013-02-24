@@ -3,7 +3,7 @@
 now="$(nowTime)"
 if [ "$1" = nu ]; then
     echo "$(($now / 60 * 60))"
-elif (echo "$1" | egrep "^-[0-9][0-9]?$" > /dev/null); then
+elif (echo "$1" | egrep "^-[0-9][0-9]?:?([0-9][0-9])?$" > /dev/null); then
     then=$(date -d "$(echo $1|sed s/^-//)" '+%s')
     if [ "$then" ]; then
         if [ "$now" -lt "$then" ]; then
@@ -12,7 +12,7 @@ elif (echo "$1" | egrep "^-[0-9][0-9]?$" > /dev/null); then
             echo $then
         fi
     fi
-elif (echo "$1" | egrep "^[0-9][0-9]?$" > /dev/null); then
+elif (echo "$1" | egrep "^[0-9][0-9]?:?([0-9][0-9])?$" > /dev/null); then
     then=$(date -d "$1" '+%s')
     if [ "$then" ]; then
         if [ "$then" -lt "$now" ]; then
