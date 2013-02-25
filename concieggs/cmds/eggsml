@@ -10,8 +10,8 @@
 subscribeToEggs() {
     time=$1
     name=$2
-    if [ "$(dateSecs "$time" '+%u')" = "1" ]; then
-        echo "Det er en mandag!  Der er muligvis FF!"
+    if [ "$(dateSecs "$time" '+%u')" = "5" ]; then
+        echo "Det er en fredag!  Der er muligvis FF!"
     fi
     if [ "$(isInEggs "$time" "$name")" != "" ]; then
         echo "$name spiser allerede med til $(titleEggs $time)!"
