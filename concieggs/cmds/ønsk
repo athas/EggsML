@@ -3,7 +3,7 @@
 # Tilføj til listen over indkøbsønsker.  Kun katalogmuligheder tillades!
 
 
-eval "$(echo "$@" | parse 'det (?<usual>sædvanlige)( for (?<who>.*))|(?<what>.*)')"
+eval "$(echo "$@" | parse 'det (?<usual>sædvanlige)( for (?<who>.*))?|(?<what>.*)')"
 if [ "$usual" ]; then
     if [ "$who" ]; then
         who=$(randomName $4)
