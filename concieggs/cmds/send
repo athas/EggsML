@@ -2,12 +2,10 @@
 
 set -f
 
-awk_getargs='{ print substr($0, index($0, " "$2)+length($2)+2, length($0)) }'
-
 eval "$(echo "$@" | parse '(?<rawcmd>.+)( til (?<addr>.+@.+))')"
 
 cmd=$(echo "$rawcmd" | cut -d' ' -f 1)
-args="$(echo "$rawcmd"|awk --posix "$awk_getargs")"
+args=$(echo "$rawcmd"| sed 's/[^ ]*//')
 
 echo Send $cmd med $args til $addr
 
