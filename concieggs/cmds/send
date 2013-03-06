@@ -1,12 +1,19 @@
 #!/bin/sh
+#
+# Udfør en kommando og send resultatet via elektropost til den givne
+# adresse.
 
 set -f
 
 eval "$(echo "$@" | parse '(?<rawcmd>.+)( til (?<addr>.+@.+))')"
 
-cmd=$(echo "$rawcmd" | cut -d' ' -f 1)
-args=$(echo "$rawcmd"| sed 's/[^ ]*//')
+if [ "$rawcmd" ]; then
+    cmd=$(echo "$rawcmd" | cut -d' ' -f 1)
+    args=$(echo "$rawcmd"| sed 's/[^ ]*//')
 
-echo Sender $cmd $args til $addr!
+    echo Sender $cmd $args til $addr!
 
-runcmd "$cmd" $args | mailx -s "Afvikling af $cmd $args, anmodet af $EGGS_USER" "$addr" -- -r concieggs@eggsml.dk
+    runcmd "$cmd" $args | mailx -s "Afvikling af $cmd $args, anmodet af $EGGS_USER" "$addr" -- -r concieggs@eggsml.dk
+else
+    echo 'Brug: send <kommando> til <hvem@hvor>'
+fi
