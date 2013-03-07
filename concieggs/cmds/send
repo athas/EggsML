@@ -9,7 +9,7 @@ eval "$(echo "$@" | parse '(?<rawcmd>.+)( til (?<addr>.+@.+))')"
 
 if [ "$rawcmd" ]; then
     cmd=$(echo "$rawcmd" | cut -d' ' -f 1)
-    args=$(echo "$rawcmd"| sed 's/[^ ]*//')
+    args=$(echo "$rawcmd"| sed 's/[^ ]* *//')
 
     echo Sender $cmd $args til $addr!
 
