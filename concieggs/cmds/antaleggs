@@ -13,7 +13,11 @@ else
     exit
 fi
 
-echo "Vent venligst, Brainfuck tæller..."
+if [ $EGGS_USER = svip ]; then
+    echo "Vent venligst, du tæller..."
+else
+    echo "Vent venligst, Brainfuck tæller..."
+fi
 
 n="$(eggstool eggscount "$user")"
 
