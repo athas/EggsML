@@ -19,4 +19,9 @@ if [ "$(echo "$debt" | grep -v "-")" ]; then
         echo "Hvis $(du $who) mødte op med $wish, så kan det være dine logebrødre vil tolerere dit skammelige mislighold af din gæld."
     fi
     echo "Ender $(du $who) ikke snart i 'Luksusfælden'?"
+    echo "Og de $debt kroner $(du $who) allerede skylder?  Hvor er de?"
+    echo "Det kan ikke blive ved på den her måde - $(du $who) bør få et job!"
+    echo "Tror du ikke hellere $(du $who) bør skralde den i dag?  Gælden er allerede på $debt kroner."
+    echo "Og hvordan regner $(du $who) med at betale for det?"
+    echo "Og i modsætning til al tilgængelig evidens, så påstår $(du $who) naturligvis at $(du $who) vil betale denne gang, ikke?"
 fi | randomise | head -n 1
