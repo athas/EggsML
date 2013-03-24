@@ -122,14 +122,14 @@ class eggsml_page:
 		for u in users:
 		  alias = u[0]
                   data = u[1]
-                  if data['eggscount'] >= 20:
+                  if data['eggscount'] >= 50:
                     aliases.append(alias)
                     values.append(data['eggscount'])
                     colours.append(self.e.get_colour(alias)[1:])
                   else:
                     novicetotalcount += data['eggscount'];
 
-		aliases.append('Novices (<20 eggs)')
+		aliases.append('Novices (<30 eggs)')
 		values.append(novicetotalcount)
 		colours.append('878787')
 
