@@ -1,0 +1,10 @@
+#!/bin/sh
+#
+# Levér fantastisk Apina-link med en snedig og ustyrligt komisk
+# kommentar!
+
+kommentar=$(cat $CONCIEGGS_DB_DIR/fakta | sed 's/[.:!].*//' | grep -v http | sort -R | head -n 1)
+
+linkid=$(random 10000 80000)
+
+echo $kommentar: http://apina.biz/$linkid
