@@ -9,7 +9,8 @@ if ! [ "$2" = mod -a $# = 3 -a '(' "$1" = sten -o "$1" = saks -o "$1" = papir ')
 fi
 
 if cmpNames "$EGGS_USER" "dolle"; then
-    echo Nej, du må ikke.
+    echo "Nej, du må ikke."
+    exit 0
 fi
 
 what=$1
