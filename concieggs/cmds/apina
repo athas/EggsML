@@ -7,19 +7,20 @@ kommentar=$(cat $CONCIEGGS_DB_DIR/fakta | sed 's/[.:!?].*//' | fgrep "$1" | grep
 
 linkid() {
     if [ $1 -ne 0 ]; then
-        id=$(random 10000 80000)
-        if wget --load-cookies $CONCIEGGS_DB_DIR/concieggs_cookies.txt -O /dev/stdout --quiet http://apina.biz/$id | grep 'Entry not found' > /dev/null; then
-            linkid $(($id-1))
+        link="http://apina.biz/"$(random 10000 80000)
+        if wget --load-cookies $CONCIEGGS_DB_DIR/concieggs_cookies.txt -O /dev/stdout --quiet $link | grep 'Entry not found' > /dev/null; then
+            linkid $(($1-1))
         else
-            echo $id
+            echo $link
         fi
     fi
 }
 
-id=$(linkid 10)
+# id=$(linkid 10)
+link=$(cat $CONCIEGGS_DB_DIR/fakta | egrep -o 'http://apina\.biz/[0-9]+')
 
-if [ "$id" ]; then
-    echo $kommentar: http://apina.biz/$id
+if [ "$link" ]; then
+    echo $kommentar: $link
 else
     echo "Næh, ingen Apina til dig."
 fi
