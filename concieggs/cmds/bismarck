@@ -1,0 +1,30 @@
+#!/bin/sh
+
+(cat | randomise | head -n 1) <<EOF
+A government must not waiver once it has chosen it's course. It must not look to the left or right but go forward.
+A journalist is a person who has mistaken their calling.
+A statesman... must wait until he hears the steps of God sounding through events, then leap up and grasp the hem of His garment.
+All treaties between great states cease to be binding when they come in conflict with the struggle for existence.
+An appeal to fear never finds an echo in German hearts.
+Anyone who has ever looked into the glazed eyes of a soldier dying on the battlefield will think hard before starting a war.
+Be polite; write diplomatically; even in a declaration of war one observes the rules of politeness.
+I have seen three emperors in their nakedness, and the sight was not inspiring.
+Laws are like sausages, it is better not to see them being made.
+Never believe anything in politics until it has been officially denied.
+No civilization other than that which is Christian, is worth seeking or possessing.
+People never lie so much as after a hunt, during a war or before an election.
+Politics is not an exact science.
+Politics is the art of the next best.
+Politics is the art of the possible.
+Politics ruins the character.
+The great questions of the day will not be settled by means of speeches and majority decisions but by iron and blood.
+The main thing is to make history, not to write it.
+The secret of politics? Make a good treaty with Russia.
+There is a Providence that protects idiots, drunkards, children and the United States of America.
+To retain respect for sausages and laws, one must not watch them in the making.
+When a man says he approves of something in principle, it means he hasn't the slightest intention of carrying it out in practice.
+When you want to fool the world, tell the truth.
+Whoever speaks of Europe is wrong: it is a geographical expression.
+With a gentleman I am always a gentleman and a half, and with a fraud I try to be a fraud and a half.
+EOF
+
