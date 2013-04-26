@@ -4,7 +4,7 @@ time=$1
 name="$2"
 if [ -s "$CONCIEGGS_DB_DIR/eggs/$time" ]; then
     aliases "$name" | while read alias; do
-        res=$(mawk -F ', ' '$1==WHO { print ($2 || 1) }' "WHO=$alias" $CONCIEGGS_DB_DIR/eggs/$time)
+        res=$(awk -F ', ' '$1==WHO { print ($2 || 1) }' "WHO=$alias" $CONCIEGGS_DB_DIR/eggs/$time)
         if [ "$res" ]; then
             echo "$res"
             exit
