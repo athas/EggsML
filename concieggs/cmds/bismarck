@@ -1,4 +1,7 @@
 #!/bin/sh
+#
+# Søg rådgivning hos det 19. århundredes mest betydningsfulde
+# europæiske statsmand.
 
 (cat | randomise | head -n 1) <<EOF
 A government must not waiver once it has chosen it's course. It must not look to the left or right but go forward.
