@@ -3,7 +3,7 @@
 # Levér fantastisk Apina-link med en snedig og ustyrligt komisk
 # kommentar!
 
-kommentar=$(cat $CONCIEGGS_DB_DIR/fakta | sed 's/[.:!?].*//' | fgrep "$1" | grep -v http | randomise | head -n 1)
+kommentar=$(cat $CONCIEGGS_DB_DIR/fakta | sed 's/[.:!?].*//' | fgrep "$@" | grep -v http | randomise | head -n 1)
 
 linkid() {
     if [ $1 -ne 0 ]; then
