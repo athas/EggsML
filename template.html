@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="styles.css" type="text/css" />
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
 <script type="text/javascript" src="/js/jquery.tablesorter.min.js"></script> 
+<script type="text/javascript"  src="/js/fartscroll.js"></script>
 <script type="text/javascript">
     $.tablesorter.addParser({ 
         id: "latest", 
@@ -45,6 +46,8 @@ $(document).ready(function()
         $("#alumne").tablesorter(sorterdef);
         $("#eggspurchases").tablesorter();
         $("#eggstransactions").tablesorter();
+
+        fartscroll(250);
     } 
 ); 
 </script>
