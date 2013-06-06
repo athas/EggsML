@@ -31,7 +31,6 @@ class eggsml_page:
                 i = 0
                 transactions=[]
                 while i < n:
-                        print i
                         if i+1 < n and pl[i]['amount']==pl[i+1]['amount']*-1:
                                 if pl[i]['amount'] < 0:
                                         transactions.append({'date': pl[i]['date'],
