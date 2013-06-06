@@ -4,7 +4,7 @@ set -e
 set -f
 trap 'killall concieggs' EXIT # Kill all children when we quit.
 
-dir=$(dirname $0)
+dir=$(readlink -f $(dirname $0))
 
 cfg=$dir/concieggs.conf
 . $cfg
