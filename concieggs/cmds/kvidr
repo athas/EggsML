@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# Lav en statusbesked på Twitter.  https://twitter.com/concieggs
+
+if [ $# -lt 1 ]; then
+    echo 'Brug: kvidr <besked>'
+    exit 0
+fi
+
+. $CONCIEGGS_DIR/concieggs.conf
+
+auth="$(isTrusted "$EGGS_USER")"
+if ! [ "$auth" ]; then
+    echo "$EGGS_USER: Du er ikke mester nok, mester."
+    exit 0
+fi
+
+ssh concieggs@hongabar.org ./kvidr.py "$@" #> $CONCIEGGS_IRC_DIR/$irc_channel/in
