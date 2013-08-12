@@ -15,4 +15,4 @@ if ! [ "$auth" ]; then
     exit 0
 fi
 
-curl hongabar.org/~concieggs/kvidr.php --data-urlencode "'""message=$@""'"
+eval `echo curl hongabar.org/~concieggs/kvidr.php --data-urlencode message="'""$@""'"`
