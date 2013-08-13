@@ -1,0 +1,163 @@
+#!/bin/sh
+#
+# Spørg den danske Wikipedia om nyttig viden.  Brug: autoviden [emne]
+
+tail -n +8 "$0" | python - "$@"
+exit 0
+
+# -*- coding: utf-8 -*-
+
+import sys
+import re
+import random
+import urllib
+from htmlentitydefs import name2codepoint
+from functools import partial
+import itertools
+
+minimum_length = 40
+
+_int16 = partial(int, base=16)
+
+_entity_text = re.compile('&(%s);' % '|'.join(name2codepoint))
+_entity_base10 = re.compile('&#(\d+);')
+_entity_base16 = re.compile('&#x([0-9a-fA-F]+);')
+
+_entity_text_decode = lambda m: unichr(name2codepoint[m.group(1)])
+_entity_base10_decode = lambda m: unichr(int(m.group(1)))
+_entity_base16_decode = lambda m: unichr(_int16(m.group(1)))
+
+_entity_text_sub = partial(_entity_text.sub, _entity_text_decode)
+_entity_base10_sub = partial(_entity_base10.sub,
+                             _entity_base10_decode)
+_entity_base16_sub = partial(_entity_base16.sub,
+                             _entity_base16_decode)
+
+def decode_html_entities(text):
+    """Decode html entities."""
+    return _entity_base10_sub(_entity_base16_sub(_entity_text_sub(text)))
+
+
+class MozillaOpener(urllib.FancyURLopener):
+    version = 'Mozilla/5.0 (X11; Linux x86_64; rv:10.0.11) Gecko/20100101 conkeror/1.0pre (Debian-1.0~~pre+git120527-1)'
+_opener = MozillaOpener()
+urlopen = _opener.open
+base_url = 'http://da.wikipedia.org/'
+
+
+def get_search_url(term):
+    return base_url + 'w/index.php?%s' \
+        % urllib.urlencode([('fulltext', 'Search'), ('search', term)])
+
+def request(url):
+    r = urlopen(url)
+    if r.getcode() != 200:
+        print 'Jeg fik ikke 200 tilbage!'
+        sys.exit()
+    return r.read()
+
+def get_page(term):
+    data = request(get_search_url(term))
+    urls = re.findall('<div class=\'mw-search-result-heading\'><a href="(.+?)"', data)
+    try:
+        url = random.choice(urls[:5])
+    except IndexError:
+        print 'Jeg kan ikke finde viden.'
+        sys.exit()
+    url = base_url + url[1:]
+    return request(url)
+
+def get_random_page():
+    data = request(base_url + 'wiki/Speciel:Tilfældig_side')
+    return data
+
+def get_paragraphs(page):
+    paragraphs = re.findall(r'<p>(.+?)</p>', page)
+    paragraphs = map(lambda s: decode_html_entities(re.sub('<.+?>', '', s).decode('utf-8')), paragraphs)
+    return paragraphs
+
+def get_sentences(paragraph):
+    sentences = filter(lambda s: len(s) >= minimum_length,
+                       re.split(pre_rules_formatted + '\. (?=[A-ZÆØÅ])', paragraph))
+    return sentences
+
+
+pre_rules = [
+    'bl.a',
+    'f.eks',
+    'ph.d',
+    'adm',
+    'adr',
+    'afd',
+    'afs',
+    'alm',
+    'ca',
+    'd.d',
+    'dep',
+    'd.s',
+    'd.s.s',
+    'dvs',
+    'e.l',
+    'el.lign',
+    'e.v.t',
+    'evt',
+    'osv',
+    'fhv',
+    'f.Kr',
+    'f.o.m',
+    'frk',
+    'fr',
+    'f.v.t',
+    'gl',
+    'hr',
+    'ifm',
+    'ift',
+    'iht',
+    'inkl',
+    'eksl',
+    'jap',
+    'amrk',
+    'jr',
+    'km/t',
+    'spsk',
+    'tsk',
+    'kr',
+    'm.m',
+    'nr',
+    'opg',
+    'orig',
+    'pct',
+    'pers',
+    'pga',
+    'p.g.a',
+    'p.v.a',
+    'q.e.d',
+    'ref',
+    'repr',
+    'sekr',
+    'stud',
+    'suppl',
+    'sædv',
+    'vha',
+    'vejl',
+    'øvr',
+    'årg',
+    ]
+pre_rules_formatted = ''.join(map(lambda r: '(?<! %s)' % r.replace('.', '\\.'), pre_rules))
+
+def run_main(args):
+    term = ' '.join(args[1:]).strip()
+    page = get_page(term) if term else get_random_page()
+    paragraphs = get_paragraphs(page)
+    sentences = list(itertools.chain(*map(get_sentences, paragraphs)))
+    try:
+        s = random.choice(sentences).strip()
+    except IndexError:
+        print 'Jeg kan ikke finde viden.'
+        sys.exit()
+    if not (s.endswith('.') or s.endswith(':')):
+        s += '.'
+    print s
+
+if __name__ == '__main__':
+    run_main(sys.argv)
