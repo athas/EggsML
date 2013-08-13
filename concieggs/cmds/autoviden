@@ -2,7 +2,7 @@
 #
 # Spørg den danske Wikipedia om nyttig viden.  Brug: autoviden [emne]
 
-tail -n +8 "$0" | python - "$@"
+tail -n +8 "$0" | exec python - "$@"
 exit 0
 
 # -*- coding: utf-8 -*-
