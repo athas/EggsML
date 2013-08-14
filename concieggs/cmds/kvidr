@@ -2,6 +2,8 @@
 #
 # Lav en statusbesked på Twitter.  https://twitter.com/concieggs
 
+. $CONCIEGGS_DIR/concieggs.conf
+
 if [ $# -lt 1 ]; then
     echo 'Brug: kvidr <besked>'
     exit 0
@@ -13,4 +15,4 @@ if ! [ "$auth" ]; then
     exit 0
 fi
 
-curl hongabar.org/~concieggs/kvidr.php --data-urlencode message="$*"
+curl hongabar.org/~concieggs/kvidr.php --data-urlencode message="$*" > $CONCIEGGS_IRC_DIR/$irc_channel/in
