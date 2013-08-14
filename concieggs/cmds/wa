@@ -4,13 +4,13 @@
 
 use strict;
 use warnings;
-use lib "$ENV{HOME}/.perl/lib/perl/5.10.1/";
-use Net::WolframAlpha;
+#use lib "$ENV{HOME}/.perl/lib/perl/5.10.1/";
+use WWW::WolframAlpha;
 
 # https://developer.wolframalpha.com/portal/myapps/
 # user: concieggs@coq.dk
 # password: the usual
-my $wa = Net::WolframAlpha->new(
+my $wa = WWW::WolframAlpha->new(
     appid => 'UE3A9Y-HT8WR4VVV7'
 );
 
@@ -27,7 +27,7 @@ unless ($query->success) {
 foreach my $pod (@{$query->pods}[0 .. 5]) {
     next unless $pod;
 
-    my $contents = join ", ", map { $_->plaintext } @{$pod->subpods};
+    my $contents = join ", ", map { $_->plaintext // '' } @{$pod->subpods};
 
     next if $contents =~ /HASH\(0x[0-9a-f]+\)/;
 
