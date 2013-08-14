@@ -139,6 +139,7 @@ pre_rules = [
     'vejl',
     '\xc3\xb8vr',
     '\xc3\xa5rg',
+    'f'
     ]
 pre_rules_formatted = u''.join(map(lambda r: u'(?<! %s)' % r.decode('utf-8').replace(u'.', u'\\.'), pre_rules))
 
