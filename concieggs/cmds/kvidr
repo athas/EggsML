@@ -7,12 +7,10 @@ if [ $# -lt 1 ]; then
     exit 0
 fi
 
-. $CONCIEGGS_DIR/concieggs.conf
-
 auth="$(isTrusted "$EGGS_USER")"
 if ! [ "$auth" ]; then
     echo "$EGGS_USER: Du er ikke mester nok, mester."
     exit 0
 fi
 
-eval `echo curl hongabar.org/~concieggs/kvidr.php --data-urlencode message="'""$@""'"`
+curl hongabar.org/~concieggs/kvidr.php --data-urlencode message="$*"
