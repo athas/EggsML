@@ -48,7 +48,7 @@ def get_search_url(term):
 def request(url):
     r = urlopen(url)
     if r.getcode() != 200:
-        print u'Jeg fik ikke 200 tilbage!'
+        print u'Jeg fik ikke 200 tilbage!'.encode('utf-8')
         sys.exit()
     return r.read().decode('utf-8')
 
@@ -58,7 +58,7 @@ def get_page(term):
     try:
         url = random.choice(urls[:5])
     except IndexError:
-        print u'Jeg kan ikke finde viden.'
+        print u'Jeg kan ikke finde viden.'.encode('utf-8')
         sys.exit()
     url = base_url + url[1:]
     return request(url)
@@ -151,11 +151,11 @@ def run_main(args):
     try:
         s = random.choice(sentences).strip()
     except IndexError:
-        print u'Jeg kan ikke finde viden.'
+        print u'Jeg kan ikke finde viden.'.encode('utf-8')
         sys.exit()
     if not (s.endswith(u'.') or s.endswith(u':')):
         s += u'.'
-    print s
+    print s.encode('utf-8')
 
 if __name__ == '__main__':
     run_main(sys.argv)
