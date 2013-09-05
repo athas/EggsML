@@ -25,6 +25,99 @@ EOF
             echo "Succes!  Eggs $(timeToDate $lastEggs), med $(describeEggs $lastEggs) er nu bogført".
             setTopic
             rm $CONCIEGGS_DB_DIR/eggs/$lastEggs
+
+            if [ ! "$*" ]; then
+                dumme=`(cat | randomise | head -n 1) <<EOF
+dumme
+stupide
+træge
+ghettoskabende
+trampolinfaldende
+antimajestætiske
+umuskuløse
+slatne
+politiske
+upolitiske
+glassmadrende
+noob
+newb
+n00b
+skinkede
+tunge
+beskidthårede
+barbariske
+åndsforsnoskede
+flommefede
+modbydelige
+plottende
+lavpraktiske
+endelige
+dårlige
+grinagtige
+kakkerlakkede
+forlorne
+shellede
+pythonske
+haskellske
+cplusplussede
+åndssvage
+sandalbærende
+barfodede
+beskidte
+EOF`
+                bavianer=`(cat | randomise | head -n 1) <<EOF
+bavianer
+kameler
+øldrikkere
+tennis suckers
+bubbibjørne
+kamæleoner
+ågerkarle
+burgøjsere
+idioter
+hackerz
+newbs
+noobs
+n00bs
+skinker
+NOT-porte
+slaver
+dovenlarser
+pivstilker
+basilisker
+dinosaurer
+banditter
+kaffejunkies
+colaafhængige
+GT-vrag
+Leffe-luffer
+mindstenævnere
+overløbere
+ildfluer
+fluesmækkere
+campingvogne
+Ladaer
+dogmemagere
+fysiker wannabees
+myg
+biolog wannabees
+kursusdumpere
+vim-brugere
+anti-dataloger
+fæpander
+motorbøller
+luskebukser
+luksusdyr
+proletarudnyttere
+asfaltcowboys
+spegesild
+shell script-idioter
+EOF`
+                comment="De har spist af mig igen, disse $dumme $bavianer."
+            else
+                comment="$*"
+            fi
+            kvidr "$comment"
         else
             gitRepair slashdotfrokost
             echo "Katastrofe!  Noget gik galt under opdatering!"
