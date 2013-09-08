@@ -11,8 +11,8 @@ fi
 
 auth="$(isTrusted "$EGGS_USER")"
 if ! [ "$auth" ]; then
-    echo "$EGGS_USER: Du er ikke mester nok, mester."
+    echo "$EGGS_USER: Du er ikke mester nok, mesterfidus."
     exit 0
 fi
 
-curl hongabar.org/~concieggs/kvidr.php --data-urlencode message="$*" > $CONCIEGGS_IRC_DIR/$irc_channel/in
+kvidr "$*" > $CONCIEGGS_IRC_DIR/$irc_channel/in
