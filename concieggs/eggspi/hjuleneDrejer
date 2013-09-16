@@ -1,0 +1,26 @@
+#!/bin/sh
+
+hjulene=`(cat | randomise | head -n 1) <<EOF
+hjulende
+Illuminati
+menneskeheden
+dyret i os
+dataloger
+fysikere
+biologer
+EOF`
+
+drejer=`(cat | randomise | head -n 1) <<EOF
+drejer
+styrer
+leder verden
+komplementerer bits
+sover
+spiser giftig kage
+grinte ondt
+taster
+vader rundt
+tilbad hedenske guder
+EOF`
+
+echo $hjulene $drejer

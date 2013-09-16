@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Spørg concieggs om verdens spørgsmål.
+
+echo "Fordi `hjuleneDrejer`."
