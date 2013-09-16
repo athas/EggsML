@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+# Sig ja til din concieggs!
+
+(cat | randomise | head -n 1) <<EOF
+Næ.
+Nå.
+EOF
