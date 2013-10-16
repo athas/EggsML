@@ -1,5 +1,5 @@
 #!/bin/sh
 
-if (echo "$EGGS_BODY" | grep -i tissemand) > /dev/null; then
+if (echo "$EGGS_BODY" | grep -qi tissemand); then
     echo 'Du sagde pik!!'
 fi
