@@ -2,6 +2,8 @@
 #
 # Tøjet!
 
+shuttingUpComplain && exit
+
 (randomElement | sed "s/TING/`tøj`/g") <<EOF
 /me tager miTING af.
 Kun hvis du tager diTING af...
