@@ -5,19 +5,21 @@ import json
 import os
 import re
 import sys
-import urllib
+import random
+
 
 # Afkommentér næste linje hvis det bliver for irriterende.
 # sys.exit()
+
 
 corrections = [
     ('computer', 'datamat'),
     ('debugger', 'afluser'),
     ('debugging', 'aflusning'),
-    ('ram', 'arbejdslager'),
+    (('ram', True), 'arbejdslager'),
     ('whitespace', 'blanktegn'),
     ('firewall', 'brandmur'),
-    ('cpu', 'cbe'),
+    (('cpu', True), 'centrale beregningsenhed'),
     ('smartphone', 'datafon'),
     ('storage', 'datalager'),
     ('web', 'spindel'),
@@ -29,12 +31,12 @@ corrections = [
     ('free food', 'gratis mad'),
     ('free software', 'fri software'),
     ('force', 'gennemtving'),
-    ('capital|uppercase', 'greltegn'),
+    ('uppercase', 'greltegn'),
     ('hashtag', 'gullashetiket'),
     ('push', 'skub'),
     ('pull', 'hal'),
-    ('pc', 'hjemmedatamat'),
-    ('web\s?site', 'hjemmeside'),
+    (('pc', True), 'hjemmedatamat'),
+    ('web ?site', 'hjemmeside'),
     ('standby', 'hviletilstand'),
     ('database', 'kartotek'),
     ('source code', 'kildetekst'),
@@ -49,7 +51,7 @@ corrections = [
     ('software', 'programmel'),
     ('namespace', 'navnerum'),
     ('compiler', 'oversætter'),
-    ('qr', 'prikkode'),
+    (('qr', True), 'prikkode'),
     ('plain text', 'råtekst'),
     ('backup', 'sikkerhedskopi'),
     ('shell script', 'skalprogram'),
@@ -59,8 +61,7 @@ corrections = [
     ('screenshot', 'skærmbillede'),
     ('garbage collector', 'spildopsamler'),
     ('web browser', 'spindellæser'),
-    ('link', 'hægte'),
-    ('tab', 'tabulator'),
+    (('link', True), 'hægte'),
     ('keyboard', 'tastatur'),
     ('tablet', 'tavledatamat'),
     ('(text ?)?editor', 'tekstredigeringsprogram'),
@@ -81,7 +82,6 @@ corrections = [
     ('interpreter', 'fortolker'),
     ('race condition', 'kapløbsstrid'),
     ('laptop|bærbare?', 'mappedatamat'),
-    ('set', 'mængde'),
     ('partitioner', 'opdel'),
     ('git repo(sitory)?', 'skvatgrube'),
     ('pivot', 'svingtap'),
@@ -103,11 +103,21 @@ body = os.getenv('EGGS_BODY', '')
 if body.startswith('concieggs:') or body.startswith('concieggs,'):
     sys.exit()
 
-# Sloow...
 body1 = body
 for a, b in corrections:
-    body1 = re.sub('(?<!")' + a + '(?!")',
-                   lambda a: fix_casing(a, b), body1, flags=re.I)
+    try:
+        a, t = a
+        if t is not True:
+            raise ValueError
+        a = '(?<!["\w])' + a + '(?!["\w])'
+    except ValueError:
+        a = '(?<!")' + a + '(?!")'
+    body1 = re.sub(a, lambda a: fix_casing(a, b), body1, flags=re.I)
 
 if body1 != body:
-    print '%s mener nok: %s' % (user, body1)
+    x = random.choice([user + ' mener nok',
+                       '/me foretrækker nu',
+                       user + ', her på dansk',
+                       '/me oversætter',
+                       'Nejnej, på dansk'])
+    print '%s: %s' % (x, body1)
