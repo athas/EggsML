@@ -1,0 +1,9 @@
+#!/usr/bin/env python
+
+# Return 0 if everything's okay, 1 if it's not.
+
+import sys
+import random
+
+prob = float(sys.argv[1])
+sys.exit(int(prob < random.random()))
