@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# Få concieggs til at holde sin kæft i ti minutter.
+
+eval "$(echo "$@" | tolower | parse '.* (?<shutUp>kæft)[!.]*')"
+
+if [ "$shutUp" ]; then
+    duration=$((60*10))
+
+    echo $(($(nowTime) + $duration)) | dbWrite shutUpUntil
+
+    echo "$(ack)  Jeg skal nok tie stille."
+else
+    echo "Hold min hvad?"
+fi

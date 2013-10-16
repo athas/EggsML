@@ -1,5 +1,7 @@
 #!/bin/sh
 
+shuttingUp && exit
+
 if christmas && [ $(random 0 1) = 0 ]; then
    echo $EGGS_USER: Hohoho!  Glædelig jul!
 fi

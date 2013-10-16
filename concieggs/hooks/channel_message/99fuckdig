@@ -2,6 +2,8 @@
 
 set -f
 
+shuttingUp && exit
+
 sviner() {
     when=$1
     who=$2

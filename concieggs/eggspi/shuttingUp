@@ -1,0 +1,13 @@
+#!/bin/sh
+
+time=$(dbRead shutUpUntil)
+
+if [ "$time" ]; then
+    if [ "$(nowTime)" -lt "$time" ]; then
+        exit 0
+    else
+        exit 1
+    fi
+else
+    exit 1
+fi
