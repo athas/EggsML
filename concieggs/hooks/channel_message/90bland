@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Bland dig i debatten.
+
+set -e
+
+maybeGood .09 # Sjældent!
+
+echo "$EGGS_USER: `tærteKommentar`"

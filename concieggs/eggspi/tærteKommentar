@@ -1,0 +1,85 @@
+#!/bin/sh
+
+ungerne=`randomElement <<EOF
+ungerne
+børnene
+Java
+NemID
+HTML5
+CSS3
+loginportalerne
+statens overvågning
+kønsdelene
+monader
+forretningsmodeller
+fri software
+open source
+Facebook
+Instagram
+JavaScript
+EOF`
+
+enHipster=`randomElement <<EOF
+en hipster
+en humanist
+en fysiker
+en brillemager
+en "it-professionel"
+en idiot
+et gadekryds
+en frihedsevangelist
+EOF`
+
+styre=`randomElement <<EOF
+styre
+kontrollere
+have kontrol over
+håndtere
+EOF`
+
+klikkeHer=`randomElement <<EOF
+klikke her
+trykke på _den_ knap
+være en $hipster for at forstå det
+afhænge af $ungerne
+EOF`
+
+lort=`randomElement <<EOF
+lort
+søm
+skuer
+tis
+EOF`
+
+menHvadMedUngerne=`randomElement <<EOF
+Men hvad med $ungerne?
+Kan du give et eksempel?
+Jeg er ikke tryg ved fokus på $ungerne.
+Jeg er ikke tryg ved mangel af fokus på $ungerne.
+Stoler du da ikke på $ungerne?
+Jeg har nu ret svært ved det.
+Man er nok $enHipster der går op i $ungerne...
+Fuck dig.
+Hvorfor er du så begejstret for $ungerne?
+For fanden, smid dem nu bare ud.
+Hvorfor skal jeg $klikkeHer?
+EOF`
+
+deSkalVelHaveMad=`randomElement <<EOF
+De skal vel også spise!
+Slår du dine venner?
+Det er urealistisk.
+Din hippie-optimist.
+Ligner jeg måske $enHipster?
+Jeg kan selv $styre mit liv.
+Husk at gemme. ;-)
+*Jeg* bruger ikke buzzwords!!!
+Danmark har ikke brug for endnu $enHipster.
+Det virker i Ubuntu.
+Det virker på Windows.
+Du styer får vilt!! XD
+Skal det forstås sådan?
+Spis $lort.
+EOF`
+
+echo "$menHvadMedUngerne  $deSkalVelHaveMad"

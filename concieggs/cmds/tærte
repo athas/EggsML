@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Få concieggs til at komme med en meningsfyldt kommentar til alle
+# slags debatter.  Tager ingen argumenter.
+
+shuttingUpComplain && exit
+
+tærteKommentar
