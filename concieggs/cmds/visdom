@@ -3,7 +3,7 @@
 # Uddel et enkelt kvantum af den opsamlede visdom.
 
 
-visdom="$(cat $CONCIEGGS_DB_DIR/fakta | grep -i ".*$1" | sort -R | head -n 1)"
+visdom="$(cat $CONCIEGGS_DB_DIR/fakta | grep -i ".*$1" | randomElement)"
 if [ "$visdom" ]; then
     echo $visdom
 else

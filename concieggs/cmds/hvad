@@ -24,7 +24,7 @@ if [ "$debt" ]; then
     if [ "$(echo "$debt" | grep "-")" ]; then
         echo "$alias har $(echo $debt | sed 's/-//') kr. til gode i frokostkassen!"
     else
-        wish=$(eggstool wishes | sort -R | head -n 1)
+        wish=$(eggstool wishes | randomElement)
         echo -n "$alias skylder $debt kr. til frokostkassen!  "
         if [ "$wish" ]; then
             if [ "$2" = jeg ]; then

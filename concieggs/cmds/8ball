@@ -26,4 +26,4 @@ answers() {
     echo "Meget tvivlsomt." # "Very doubtful."
 }
 
-answers | sort -R --random-source=/dev/urandom | head -n 1
+answers | randomElement
