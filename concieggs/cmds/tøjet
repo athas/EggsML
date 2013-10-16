@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# Tøjet!
+
+(randomElement | sed "s/TING/`tøj`/g") <<EOF
+/me tager miTING af.
+Kun hvis du tager diTING af...
+/me giver dig miTING.
+Ad, jeg er ikke til sådan noget.  Skal man så smide siTING?
+Jeg giver dig miTING hvis du giver mig diTING.
+Vrinsk.
+Hvor længe har du siddet der uden diTING?
+MiTING... miTING?
+MiTING... miTING?  Hvad med din?
+Det er for privat at give dig miTING.
+Dig først.
+Puha, ulækker datalog med diTING.
+EOF
