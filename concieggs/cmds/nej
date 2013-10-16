@@ -2,7 +2,7 @@
 #
 # Fortæl concieggs at han/hun tager fejl.
 
-(cat | randomise | head -n 1) <<EOF
+randomElement <<EOF
 Jo.
 Nå.
 Som om.

@@ -28,7 +28,7 @@ undskyldninger() {
     echo "$to, jeg har en besked fra $from... han har det som en bamse der er kommet til at spise al honningen, men vil virkelig gerne være ven igen."
 }
 
-u="$(undskyldninger $1 $2 | randomise | head -n 1)"
+u="$(undskyldninger $1 $2 | randomElement)"
 if [ "$u" ]; then
     echo "$u"
 fi

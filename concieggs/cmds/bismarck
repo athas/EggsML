@@ -3,7 +3,7 @@
 # Søg rådgivning hos det 19. århundredes mest betydningsfulde
 # europæiske statsmand.
 
-(cat | randomise | head -n 1) <<EOF
+randomElement <<EOF
 A government must not waiver once it has chosen it's course. It must not look to the left or right but go forward.
 A journalist is a person who has mistaken their calling.
 A statesman... must wait until he hears the steps of God sounding through events, then leap up and grasp the hem of His garment.

@@ -2,7 +2,13 @@
 #
 # Sig ja til din concieggs!
 
-(cat | randomise | head -n 1) <<EOF
+randomElement <<EOF
 Næ.
+Næh.
 Nå.
+Nåh.
+Nø.
+Nøh.
+Tjo.
+Tjoo.
 EOF

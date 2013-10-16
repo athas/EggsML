@@ -13,7 +13,7 @@ echo "$(ack)  Jeg sætter flasken i gang!"
 sleep 3
 iter=0
 while true; do
-    last="$(echo "$who"|randomise|head -n 1)"
+    last="$(echo "$who" | randomElement)"
     iter=$(expr $iter + 1)
     echo "Flasken drejer videre til $last!"
     sleep 5
