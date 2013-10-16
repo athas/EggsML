@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Spred glæde på #eggsml.
+
+set -e
+
+maybeGood .05 # Men kun sjældent.
+
+rar=(randomElement <<EOF
+rar
+sød
+behagelig
+venlig
+det modsatte af ond
+unedern
+den bedste ven en IRC-bot kan ønske sig
+EOF
+
+echo $EGGS_USER: Jeg synes at du er $rar.
