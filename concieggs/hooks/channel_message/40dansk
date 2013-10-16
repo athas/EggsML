@@ -1,0 +1,107 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import json
+import os
+import re
+import sys
+import urllib
+
+corrections = [
+    ('computer', 'datamat'),
+    ('debugger', 'afluser'),
+    ('debugging', 'aflusning'),
+    ('ram', 'arbejdslager'),
+    ('whitespace', 'blanktegn'),
+    ('firewall', 'brandmur'),
+    ('cpu', 'cbe'),
+    ('smartphone', 'datafon'),
+    ('storage', 'datalager'),
+    ('web', 'spindel'),
+    ('e-?mail', 'elektropost'),
+    ('harddisk', 'fastpladelager'),
+    ('merge', 'flet'),
+    ('quick', 'kvik'),
+    ('escape', 'flygt'),
+    ('free food', 'gratis mad'),
+    ('free software', 'fri software'),
+    ('force', 'gennemtving'),
+    ('capital|uppercase', 'greltegn'),
+    ('hashtag', 'gullashetiket'),
+    ('push', 'skub'),
+    ('pull', 'hal'),
+    ('pc', 'hjemmedatamat'),
+    ('web\s?site', 'hjemmeside'),
+    ('standby', 'hviletilstand'),
+    ('database', 'kartotek'),
+    ('source code', 'kildetekst'),
+    ('lowercase', 'klejntegn'),
+    ('repository', 'grube'),
+    ('tweet', 'kvidr'),
+    ('printer', 'linjeskriver'),
+    ('bug', 'lus'),
+    ('exception', 'undtagelse'),
+    ('password', 'løsen'),
+    ('hardware', 'maskinel'),
+    ('software', 'programmel'),
+    ('namespace', 'navnerum'),
+    ('compiler', 'oversætter'),
+    ('qr', 'prikkode'),
+    ('plain text', 'råtekst'),
+    ('backup', 'sikkerhedskopi'),
+    ('shell script', 'skalprogram'),
+    ('shell', 'konsol'),
+    ('caps lock', 'skiftelås'),
+    ('cloud', 'sky'),
+    ('screenshot', 'skærmbillede'),
+    ('garbage collector', 'spildopsamler'),
+    ('web browser', 'spindellæser'),
+    ('link', 'hægte'),
+    ('tab', 'tabulator'),
+    ('keyboard', 'tastatur'),
+    ('tablet', 'tavledatamat'),
+    ('(text ?)?editor', 'tekstredigeringsprogram'),
+    ('supercomputer', 'topdatamat'),
+    ('version', 'udgave'),
+    ('exploit', 'udnyttelse'),
+    ('scope', 'virkefelt'),
+    ('carriage return', 'vognretur'),
+    ('open source', 'åbent stads'),
+    ('test', 'afprøvning'),
+    ('seed', 'bestøvning'),
+    ('backtracking', 'blindgydesøgning'),
+    ('divide and conquer', 'del og hersk'),
+    ('branch and bound', 'del og begræns'),
+    ('deadline', 'dødslinje'),
+    ('escape sequence', 'flugttegn'),
+    ('hash function', 'gullaschfunktion'),
+    ('interpreter', 'fortolker'),
+    ('race condition', 'kapløbsstrid'),
+    ('laptop|bærbare?', 'mappedatamat'),
+    ('set', 'mængde'),
+    ('partitioner', 'opdel'),
+    ('git repo(sitory)?', 'skvatgrube'),
+    ('pivot', 'svingtap'),
+    ('tuple', 'tupel')
+]
+
+def fix_casing(a, b):
+    s = a.group(0)
+    if s.isupper():
+        return b.upper()
+    elif s[0].isupper():
+        return b[0].upper() + b[1:]
+    else:
+        return b
+
+user = os.getenv('EGGS_USER', '')
+body = os.getenv('EGGS_BODY', '')
+
+# Sloow...
+body1 = body
+for a, b in corrections:
+    body1 = re.sub('(?<!")' + a + '(?!")',
+                   lambda a: fix_casing(a, b), body1, flags=re.I)
+
+if body1 != body:
+    print '%s mener nok: %s' % (user, body1)
