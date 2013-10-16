@@ -1,15 +1,27 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import json
+import sys
 import os
 import re
-import sys
 import random
 
 
 # Afkommentér næste linje hvis det bliver for irriterende.
 # sys.exit()
+
+
+if os.system('shuttingUp') != 0:
+    sys.exit()
+
+user = os.getenv('EGGS_USER', '')
+body = os.getenv('EGGS_BODY', '')
+
+if user == 'hej_fra_github':
+    sys.exit()
+
+if body.startswith('concieggs:') or body.startswith('concieggs,'):
+    sys.exit()
 
 
 corrections = [
@@ -95,12 +107,6 @@ def fix_casing(a, b):
         return b[0].upper() + b[1:]
     else:
         return b
-
-user = os.getenv('EGGS_USER', '')
-body = os.getenv('EGGS_BODY', '')
-
-if body.startswith('concieggs:') or body.startswith('concieggs,'):
-    sys.exit()
 
 body1 = body
 for a, b in corrections:
