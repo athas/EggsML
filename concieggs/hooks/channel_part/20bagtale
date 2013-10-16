@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+user=$EGGS_USER
+lookupDebt $user | grep -
+
+maybeGood .33 # Only continue in a third of all cases.
+
+randomElement <<<EOF
+/me ved at $user er i negativ.
+Hmm... Med alle de penge $user skylder, får vi mon $user at se igen?
+$user: Du skylder pengeeeeeee.
+Penge penge penge.  Til mig.  Fra $user.  Snart.  Ellers.
+EOF
