@@ -71,7 +71,6 @@ corrections = [
     ('scope', 'virkefelt'),
     ('carriage return', 'vognretur'),
     ('open source', 'åbent stads'),
-    ('test', 'afprøvning'),
     ('seed', 'bestøvning'),
     ('backtracking', 'blindgydesøgning'),
     ('divide and conquer', 'del og hersk'),
