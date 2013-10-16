@@ -7,6 +7,9 @@ import re
 import sys
 import urllib
 
+# Afkommentér næste linje hvis det bliver for irriterende.
+# sys.exit()
+
 corrections = [
     ('computer', 'datamat'),
     ('debugger', 'afluser'),
@@ -96,6 +99,9 @@ def fix_casing(a, b):
 
 user = os.getenv('EGGS_USER', '')
 body = os.getenv('EGGS_BODY', '')
+
+if body.startswith('concieggs:') or body.startswith('concieggs,'):
+    sys.exit()
 
 # Sloow...
 body1 = body
