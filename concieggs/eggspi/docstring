@@ -5,4 +5,4 @@ awk 'BEGIN{indoc=1}\
 /^[^#]/{indoc=0}\
 /^# ?$/{next}\
 indoc{out = out substr($0, 3, length($0)) " "}\
-END{print out}'
+END{print out}' | sed 's/-*- coding: utf-8 -*-//'
