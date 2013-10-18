@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# Bed concieggs om at begrunde et udsagn om ord.  Brug: begrund UDTRYK
+#
+# UDTRYK ::= ord '<' ord  # mindre end
+#          | ord '>' ord  # større end
+#          | ord '=' ord  # lighed
+#          | ord '!=' ord # ulighed
+
+word0=$1
+word1=$3
+word=`randomElement <<EOF
+$word0
+$word1
+EOF`
+reason=$(autoviden $word)
+
+echo "Det er jo fordi: $reason"
