@@ -1,11 +1,19 @@
 #!/bin/sh
 
-(echo "ACK-ACK";
-    echo "Javel";
-    echo "OK";
-    echo "Forstået";
-    echo "Accepteret";
-    echo "Det er i orden";
-    echo "Roger") \
-        | randomise | head -n 1 | xargs echo -n
-(echo "!"; echo ".") | randomise | head -n 1
+(echo "ACK-ACK"
+ echo "Javel"
+ echo "OK"
+ echo "Forstået"
+ echo "Accepteret"
+ echo "Det er i orden"
+ echo "Roger"
+ echo "10-4"
+ echo "Den er fin"
+ echo "Den er fino"
+ echo "Den er fin-fin"
+ echo "Den er fjong"
+ echo "Jep, det siger vi"
+ echo "Jep, det siger vi bare"
+ echo "Ja, herre"
+) | randomElement | xargs echo -n
+(echo "!"; echo ".") | randomElement
