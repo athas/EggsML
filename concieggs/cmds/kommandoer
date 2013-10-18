@@ -1,4 +1,5 @@
 #!/bin/sh
-
+#
+# Viser kommandoer.
 
 ls $CONCIEGGS_DIR/cmds | enumerate
