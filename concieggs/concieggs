@@ -19,6 +19,7 @@ export EGGS_DAEMON_SOCKET=$CONCIEGGS_DIR/eggsmld.socket
 export CONCIEGGS_IRC_DIR=$irc_dir/irc.freenode.net
 export CONCIEGGS_NAME=$irc_username
 export LC_ALL=da_DK.UTF-8
+(echo $PYTHONPATH | grep -qv $CONCIEGGS_LIB_DIR) && export PYTHONPATH=$CONCIEGGS_LIB_DIR:$PYTHONPATH
 
 echo "Using channel in $irc_dir/irc.freenode.net/$irc_channel"
 cd $CONCIEGGS_IRC_DIR

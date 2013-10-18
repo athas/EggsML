@@ -3,12 +3,20 @@
 # Simulate a concieggs environment.
 
 cmd=$1
-export CONCIEGGS_DIR="$(readlink -f $(dirname $0))"
-export EGGS_DIR=$CONCIEGGS_DIR/..
+
+dir=$(readlink -f $(dirname $0))
+cmddir=$dir/cmds/
+
+export CONCIEGGS_DIR=$dir
+export CONCIEGGS_DB_DIR=$dir/db
+export CONCIEGGS_LIB_DIR=$dir/eggspi
+export EGGS_DIR=$dir/..
 export EGGS_LIB_DIR=$EGGS_DIR/eggslib
+export LC_ALL=da_DK.UTF-8
 export CONCIEGGS_DB_DIR=$CONCIEGGS_DIR/db
 export EGGS_USER=${EGGS_USER:-$(whoami)}
 export PATH=$CONCIEGGS_DIR/eggspi:$PATH
+(echo $PYTHONPATH | grep -qv $CONCIEGGS_LIB_DIR) && export PYTHONPATH=$CONCIEGGS_LIB_DIR:$PYTHONPATH
 shift
 
-$cmd "$@"
+$cmddir/$cmd "$@"
