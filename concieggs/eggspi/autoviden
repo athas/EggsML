@@ -1,159 +1,43 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 #
 # Modtag nyttig viden fra den danske Wikipedia.  Brug: autoviden [emne]
 
-
 import sys
-import re
-import random
-import urllib
-from htmlentitydefs import name2codepoint
+import os
 from functools import partial
 import itertools
+import random
 
-minimum_length = 40
+from eggsthon.url_open import request
+from eggsthon.wikipedia import get_page_urls, get_paragraphs, get_sentences
 
-_int16 = partial(int, base=16)
-
-_entity_text = re.compile('&(%s);' % '|'.join(name2codepoint))
-_entity_base10 = re.compile('&#(\d+);')
-_entity_base16 = re.compile('&#x([0-9a-fA-F]+);')
-
-_entity_text_decode = lambda m: unichr(name2codepoint[m.group(1)])
-_entity_base10_decode = lambda m: unichr(int(m.group(1)))
-_entity_base16_decode = lambda m: unichr(_int16(m.group(1)))
-
-_entity_text_sub = partial(_entity_text.sub, _entity_text_decode)
-_entity_base10_sub = partial(_entity_base10.sub,
-                             _entity_base10_decode)
-_entity_base16_sub = partial(_entity_base16.sub,
-                             _entity_base16_decode)
-
-def decode_html_entities(text):
-    """Decode html entities."""
-    return _entity_base10_sub(_entity_base16_sub(_entity_text_sub(text)))
-
-
-class MozillaOpener(urllib.FancyURLopener):
-    version = 'Mozilla/5.0 (X11; Linux x86_64; rv:10.0.11) Gecko/20100101 conkeror/1.0pre (Debian-1.0~~pre+git120527-1)'
-_opener = MozillaOpener()
-urlopen = _opener.open
 base_url = 'http://da.wikipedia.org/'
+random_page_url = base_url + 'wiki/Speciel:Tilfældig_side'
+get_random_page = lambda: request(random_page_url)
+with open(os.getenv('CONCIEGGS_DB_DIR') + '/forkortelser') as f:
+    pre_rules = filter(lambda x: x.endswith('.'), f.read().split('\n'))
 
-
-def get_search_url(term):
-    return base_url + 'w/index.php?%s' \
-        % urllib.urlencode([('fulltext', 'Search'), ('search', term.encode('utf-8'))])
-
-def request(url):
-    r = urlopen(url)
-    if r.getcode() != 200:
-        print u'Jeg fik ikke 200 tilbage!'.encode('utf-8')
-        sys.exit()
-    return r.read().decode('utf-8')
-
-def get_page(term):
-    data = request(get_search_url(term))
-    urls = re.findall(u'<div class=\'mw-search-result-heading\'><a href="(.+?)"', data)
-    try:
-        url = random.choice(urls[:5])
-    except IndexError:
-        print u'Jeg kan ikke finde viden.'.encode('utf-8')
-        sys.exit()
-    url = base_url + url[1:]
-    return request(url)
-
-def get_random_page():
-    url = base_url + 'wiki/Speciel:Tilf\xc3\xa6ldig_side'
-    return request(url)
-
-def get_paragraphs(page):
-    paragraphs = re.findall(ur'<p>(.+?)</p>', page)
-    paragraphs = map(lambda s: decode_html_entities(re.sub(u'<.+?>', '', s)),
-                     paragraphs)
-    return paragraphs
-
-def get_sentences(paragraph):
-    sentences = filter(lambda s: len(s) >= minimum_length,
-                       re.split(pre_rules_formatted + ur'\. (?=[A-Z\xc3\x86\xc3\x98\xc3\x85])', paragraph))
-    return sentences
-
-
-pre_rules = [
-    'bl.a',
-    'f.eks',
-    'ph.d',
-    'adm',
-    'adr',
-    'afd',
-    'afs',
-    'alm',
-    'ca',
-    'd.d',
-    'dep',
-    'd.s',
-    'd.s.s',
-    'dvs',
-    'e.l',
-    'el.lign',
-    'e.v.t',
-    'evt',
-    'osv',
-    'fhv',
-    'f.Kr',
-    'f.o.m',
-    'frk',
-    'fr',
-    'f.v.t',
-    'gl',
-    'hr',
-    'ifm',
-    'ift',
-    'iht',
-    'inkl',
-    'eksl',
-    'jap',
-    'amrk',
-    'jr',
-    'km/t',
-    'spsk',
-    'tsk',
-    'kr',
-    'm.m',
-    'nr',
-    'opg',
-    'orig',
-    'pct',
-    'pers',
-    'pga',
-    'p.g.a',
-    'p.v.a',
-    'q.e.d',
-    'ref',
-    'repr',
-    'sekr',
-    'stud',
-    'suppl',
-    's\xc3\xa6dv',
-    'vha',
-    'vejl',
-    '\xc3\xb8vr',
-    '\xc3\xa5rg',
-    'f'
-    ]
-pre_rules_formatted = u''.join(map(lambda r: u'(?<! %s)' % r.decode('utf-8').replace(u'.', u'\\.'), pre_rules))
+def complain():
+    print 'Jeg kan ikke finde viden.'
 
 def run_main(args):
-    args = map(lambda a: a.decode('utf-8'), args)
+    args = map(lambda a: a.decode('utf-8', 'ignore'), args)
     term = u' '.join(args[1:]).strip()
-    page = get_page(term) if term else get_random_page()
-    paragraphs = get_paragraphs(page)
-    sentences = list(itertools.chain(*map(get_sentences, paragraphs)))
+    urls = get_page_urls(term, base_url) if term else get_random_page()
+    pages = request(urls[:5])
+    if not pages:
+        return complain()
+    paragraphs = itertools.chain(*map(get_paragraphs, pages))
+    sentences = filter(lambda s: len(s) > 20 and term.lower() in s.lower(),
+                       (itertools.chain(*map(partial(get_sentences,
+                                                     pre_rules=pre_rules,
+                                                     split_regex=ur'\. *(?=[A-ZæøåÆØÅ])'),
+                                             paragraphs))))
     try:
         s = random.choice(sentences).strip()
     except IndexError:
-        print u'Jeg kan ikke finde viden.'.encode('utf-8')
-        sys.exit()
+        return complain()
     if not (s.endswith(u'.') or s.endswith(u':')):
         s += u'.'
     print s.encode('utf-8')
