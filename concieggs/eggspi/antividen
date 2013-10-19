@@ -14,7 +14,6 @@ from eggsthon.wikipedia import get_page_urls, get_paragraphs, get_sentences
 
 base_url = 'http://conservapedia.com/'
 random_page_url = base_url + 'Special:Random'
-get_random_page = lambda: request(random_page_url)
 pre_rules = [
     'eg',
     'e.g',
@@ -39,7 +38,7 @@ def run_main(args):
     urls = get_page_urls(term, base_url,
                          link_regex=u'<li><a href="(.+?)"',
                          search_url='Special:Search?%s') \
-        if term else [get_random_page()]
+        if term else [random_page_url]
     pages = request(urls[:5])
     if not pages:
         return complain()

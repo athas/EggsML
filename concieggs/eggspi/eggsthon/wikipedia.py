@@ -22,9 +22,11 @@ def get_page_urls(term,
                   base_url,
                   link_regex=u'<div class=\'mw-search-result-heading\'><a href="(.+?)"',
                   search_url=None):
+    print 333
     data = request(get_search_url(term, base_url, search_url))
     if data is None:
-        return
+        return []
+    print re.findall(link_regex, data)
     urls = map(lambda u: base_url + u[1:], re.findall(link_regex, data))
     return urls
 
