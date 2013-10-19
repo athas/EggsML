@@ -36,6 +36,6 @@ def get_sentences(paragraph, pre_rules=[], split_regex=ur'\. *(?=[A-Z])'):
     pre_rules_formatted = u''.join(
         map(lambda r: u'(?<! %s)' % r.rstrip('.').decode('utf-8', 'ignore').replace(u'.', ur'\.'),
             pre_rules))
-    sentences = re.split(pre_rules_formatted + split_regex,
+    sentences = re.split(pre_rules_formatted + u'(?<! \w)' + split_regex,
                          paragraph, re.DOTALL)
     return [s.replace(u'\n', u' ') for s in sentences]
