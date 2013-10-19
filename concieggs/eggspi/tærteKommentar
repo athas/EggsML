@@ -28,6 +28,10 @@ en "it-professionel"
 en idiot
 et gadekryds
 en frihedsevangelist
+en business man
+en popstjerne
+en Windows-bruger
+en Mac-fanatiker
 EOF`
 
 styre=`randomElement <<EOF
@@ -35,6 +39,7 @@ styre
 kontrollere
 have kontrol over
 håndtere
+migrere
 EOF`
 
 klikkeHer=`randomElement <<EOF
@@ -42,6 +47,7 @@ klikke her
 trykke på _den_ knap
 være en $hipster for at forstå det
 afhænge af $ungerne
+indtaste *den* kommando
 EOF`
 
 lort=`randomElement <<EOF
@@ -49,6 +55,7 @@ lort
 søm
 skuer
 tis
+klamhed
 EOF`
 
 menHvadMedUngerne=`randomElement <<EOF
@@ -63,6 +70,8 @@ Fuck dig.
 Hvorfor er du så begejstret for $ungerne?
 For fanden, smid dem nu bare ud.
 Hvorfor skal jeg $klikkeHer?
+Så du siger at jeg skal $klikkeHer?
+Ikke $ungerne igen...
 EOF`
 
 deSkalVelHaveMad=`randomElement <<EOF
@@ -77,9 +86,10 @@ Husk at gemme. ;-)
 Danmark har ikke brug for endnu $enHipster.
 Det virker i Ubuntu.
 Det virker på Windows.
-Du styer får vilt!! XD
-Skal det forstås sådan?
+Man kan sige at "Du styer får vilt!! XD"
+Skal det da forstås sådan?
 Spis $lort.
+Det oversætter jo ikke.
 EOF`
 
 echo "$menHvadMedUngerne  $deSkalVelHaveMad"
