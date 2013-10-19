@@ -25,7 +25,6 @@ def get_page_urls(term,
     data = request(get_search_url(term, base_url, search_url))
     if data is None:
         return []
-    print re.findall(link_regex, data)
     urls = map(lambda u: base_url + u[1:], re.findall(link_regex, data))
     return urls
 

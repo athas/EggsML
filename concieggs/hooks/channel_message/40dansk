@@ -6,6 +6,9 @@ import os
 import re
 import random
 
+from eggsthon import *
+
+
 os.system('maybeGood .5')
 
 if os.system('shuttingUp') != 0:
@@ -20,9 +23,9 @@ if user == 'hej_fra_github':
 if body.startswith('concieggs:') or body.startswith('concieggs,'):
     sys.exit()
 
-with open(os.getenv('CONCIEGGS_DB_DIR') + '/ordbog-engelsk-dansk') as f:
+with open(CONCIEGGS_DB_DIR + '/ordbog-engelsk-dansk') as f:
     eng_dan = [map(eval, x.split()) for x in f.read().split('\n')]
-with open(os.getenv('CONCIEGGS_DB_DIR') + '/ordbog-engelsk-forkortelser') as f:
+with open(CONCIEGGS_DB_DIR + '/ordbog-engelsk-forkortelser') as f:
     eng_special = set(f.read().split('\n'))
 
 def fix_casing(a, b):

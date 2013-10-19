@@ -9,12 +9,13 @@ from functools import partial
 import itertools
 import random
 
+from eggsthon import *
 from eggsthon.url_open import request
 from eggsthon.wikipedia import get_page_urls, get_paragraphs, get_sentences
 
 base_url = 'http://da.wikipedia.org/'
 random_page_url = base_url + 'wiki/Speciel:Tilfældig_side'
-with open(os.getenv('CONCIEGGS_DB_DIR') + '/forkortelser') as f:
+with open(CONCIEGGS_DB_DIR + '/forkortelser') as f:
     pre_rules = filter(lambda x: x.endswith('.'), f.read().split('\n'))
 
 def complain():
