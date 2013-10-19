@@ -19,4 +19,4 @@ export PATH=$CONCIEGGS_DIR/eggspi:$PATH
 (echo $PYTHONPATH | grep -qv $CONCIEGGS_LIB_DIR) && export PYTHONPATH=$CONCIEGGS_LIB_DIR:$PYTHONPATH
 shift
 
-$cmddir/$cmd "$@"
+$cmd "$@"
