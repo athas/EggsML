@@ -28,7 +28,8 @@ def get_page_urls(term,
 
 def get_paragraphs(page):
     paragraphs = re.findall(ur'<p>(.+?)</p>', page, re.DOTALL)
-    paragraphs = map(lambda s: decode_html_entities(re.sub(ur'<.+?>|\[\d+\]', u'', s)),
+    paragraphs = map(lambda s: decode_html_entities(re.sub(ur'<.+?>|\[\d+\]', u'',
+                                                           re.sub(ur'<b>(.+?)</b>', ur'*\1*', s))),
                      paragraphs)
     return paragraphs
 
