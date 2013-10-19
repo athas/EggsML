@@ -10,8 +10,7 @@ from=$EGGS_USER
 if [ $# -eq 1 ]; then
     to="$1"
 else
-    echo "Brug: undskyld [navn]"
-    exit
+    to="concieggs"
 fi
 
 if [ "$to" = "concieggs" ]; then
