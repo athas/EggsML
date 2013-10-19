@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-#
-# Modtag nyttig viden fra den danske Wikipedia.
 
 import sys
 import re

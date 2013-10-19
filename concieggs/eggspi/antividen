@@ -10,7 +10,7 @@ import itertools
 import random
 
 from eggsthon.url_open import request
-from eggsthon.wikipedia import get_page_urls, get_paragraphs, get_sentences
+from eggsthon.mediawiki import get_page_urls, get_paragraphs, get_sentences
 
 base_url = 'http://conservapedia.com/'
 random_page_url = base_url + 'Special:Random'
