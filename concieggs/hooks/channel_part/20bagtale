@@ -5,7 +5,7 @@ set -e
 user=$EGGS_USER
 lookupDebt $user | grep -
 
-maybeGood .33 # Only continue in a third of all cases.
+maybeGood .33 || exit # Only continue in a third of all cases.
 
 randomElement <<EOF
 /me ved at $user er i negativ.

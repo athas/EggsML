@@ -4,7 +4,7 @@
 
 set -e
 
-maybeGood .05 # Men kun sjældent.
+maybeGood .2 || exit # Men ikke *så* ofte.
 
 rar=(randomElement <<EOF
 rar
@@ -14,6 +14,9 @@ venlig
 det modsatte af ond
 unedern
 den bedste ven en IRC-bot kan ønske sig
+helt ok
+slet ikke et svin
+velduftende
 EOF
 
 echo $EGGS_USER: Jeg synes at du er $rar.

@@ -15,8 +15,8 @@ fi
 
 if [ "$to" = "concieggs" ]; then
     echo "Aldrig i livet.  Jeg vil aldrig tilgive dig for hvad du har gjort!"
-    maybeGood .1 && (sleep 3 && echo "... Ahr, okay så.  Du er tilgivet!") || true
-    exit
+    maybeGood .1 && sleep 3 && echo "... Ahr, okay så.  Du er tilgivet!"
+    exit 0
 fi
 
 undskyldninger() {

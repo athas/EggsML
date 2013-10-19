@@ -9,8 +9,6 @@ import random
 from eggsthon import *
 
 
-os.system('maybeGood .7')
-
 if os.system('shuttingUp') != 0:
     sys.exit()
 
