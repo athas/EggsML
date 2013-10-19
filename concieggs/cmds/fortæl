@@ -1,0 +1,86 @@
+#!/bin/sh
+#
+# Spørg concieggs om at fortælle dig hvad du skal gøre.
+# Brug: fortæl mig hvordan|hvorfor|hvornår <bruger>|jeg <handling>
+
+eval "$(echo "$@" | tolower | parse 'mig (?<hv>hvordan|hvorfor|hvornår) +(?<bruger>[a-zA-ZæøåÆØÅ]+)( +(?<handling>.+))?')"
+
+if [ ! "$bruger" ]; then
+    exit
+fi
+
+echo -n "$EGGS_USER: "
+
+if [ "$bruger" = "concieggs" -o "$bruger" = "du" ]; then
+    if [ $hv = hvorfor ]; then
+        randomElement <<EOF
+Det... taler vi ikke om.
+Det er fordi jeg er sej.
+Hvorfor spørger du mig om det?
+Husk at tale pænt til mig, ellers kommer der rod i dit regnskab.
+Fordi.
+Bare fordi.
+Det kan jeg heller ikke.
+Det kan jeg ej.  Det hele er en illusion.
+Hmm.
+EOF
+    elif [ $hv = hvordan ]; then
+        randomElement <<EOF
+Det kan jeg bare.
+Det ved jeg ikke.
+Tja.
+EOF
+    elif [ $hv = hvornår ]; then
+        randomElement <<EOF
+Altid.
+I morgen.
+Det sluttede i går.
+Omtrent nu.
+EOF
+    fi
+    exit
+fi
+
+if [ "$bruger" != "jeg" ]; then
+    echo "Spørg dog denne \"$bruger\" selv, eller få denne \"person\" til at spørge mig!"
+    exit
+fi
+
+if [ ! "$handling" ]; then
+    echo "$hv du hvad?"
+    exit
+fi
+
+alle_ord="$(echo $handling | tr ' ' '\n' | sort)"
+
+ord="$(echo $alle_ord | tr ' ' '\n' | join - $CONCIEGGS_DB_DIR/ordbog-dansk-navneord | randomElement)"
+
+if [ ! "$ord" ]; then
+    ord="$(echo $alle_ord | tr ' ' '\n' | join - $CONCIEGGS_DB_DIR/ordbog-dansk-udsagnsord | randomElement)"
+fi
+
+if [ ! "$ord" ]; then
+    echo "Hmm, $hv?  Øh... Læs det her: $(autoviden)"
+    exit
+fi
+
+if [ $hv = hvorfor ]; then
+    pre=`randomElement <<EOF
+Det er jo nok fordi
+Det er klart fordi
+Måske fordi
+EOF`
+    echo "$pre: $(autoviden $ord)"
+elif [ $hv = hvordan ]; then
+    pre=`randomElement <<EOF
+Med denne viden i baglommen
+Når du har fattet det her
+EOF`
+    echo "$pre: $(autoviden $ord)"
+elif [ $hv = hvornår ]; then
+    pre=`randomElement <<EOF
+Når dette gælder
+Når dette ikke gælder længere
+EOF`
+    echo "$pre: $(autoviden $ord)"
+fi
