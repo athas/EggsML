@@ -9,10 +9,10 @@ import random
 from eggsthon import *
 
 
-# os.system('maybeGood .5')
+os.system('maybeGood .7')
 
-# if os.system('shuttingUp') != 0:
-#     sys.exit()
+if os.system('shuttingUp') != 0:
+    sys.exit()
 
 user = os.getenv('EGGS_USER')
 body = os.getenv('EGGS_BODY')
