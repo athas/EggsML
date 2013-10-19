@@ -4,6 +4,6 @@
 
 set -e
 
-maybeGood .09 # Sjældent!
+maybeGood .02 # Virkelig sjældent!
 
 echo "$EGGS_USER: `tærteKommentar`"
