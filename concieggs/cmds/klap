@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# Få concieggs til at klappe hesten.
+
+eval "$(echo "$@" | tolower | parse '(?<ting>(karry|i|hesten|geden))!*')"
+
+echo "Klap selv $ting!"
