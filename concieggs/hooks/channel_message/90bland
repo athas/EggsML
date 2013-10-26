@@ -2,8 +2,8 @@
 
 # Bland dig i debatten.
 
-set -e
+shuttingUp && exit
 
-maybeGood .02 || exit # Virkelig sjældent!
+maybeGood .01 || exit # Virkelig sjældent!
 
 echo "$EGGS_USER: `tærteKommentar`"
