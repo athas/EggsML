@@ -7,7 +7,7 @@ if [ $# -eq 2 -a "$1" = "skylder" -a '(' "$2" = "jeg" -o "$2" = "jeg?" ')' ]; th
     user=$EGGS_USER
 elif [ $# -eq 2 -a "$1" = "skylder" ]; then
     user=$2
-elif [ "$*" = "er klokken?" ]; then # påskeæg
+elif [ "$*" = "er klokken" ]; then # påskeæg
     date +%H:%M:%S
     exit
 else
