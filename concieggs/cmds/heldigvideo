@@ -1,0 +1,8 @@
+#!/usr/bin/env python
+
+import sys
+import json
+import random
+import urllib
+
+print 'En heldig video?  Se https://youtu.be/' + random.choice(json.loads(urllib.urlopen('http://gdata.youtube.com/feeds/api/videos?v=2&racy=include&orderby=viewCount&duration=short&alt=json&' + urllib.urlencode([('q', ' '.join(sys.argv[1:]))])).read())['feed']['entry'])['id']['$t'].rsplit(':', 1)[1]
