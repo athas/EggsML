@@ -1,0 +1,8 @@
+#!/bin/sh
+# Sig godmorgen til concieggs, agtigt.
+
+randomElement <<EOF
+En mår?  $(sayYes)
+Mår til frokost?  $(sayNo)
+Mår-tergranat, haha.  Hah.  $(tærteKommentar)
+EOF
