@@ -1,0 +1,14 @@
+#!/bin/sh
+
+randomElement <<EOF
+Jo.
+Nå.
+Som om.
+Det sagde hun også i går.
+Okay så.
+Jooh, mon ikke?
+Den er god med dig.
+Sagde du noget?
+Jojo.
+Det kan vi vel tale om.
+EOF

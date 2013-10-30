@@ -2,13 +2,4 @@
 #
 # Sig ja til din concieggs!
 
-randomElement <<EOF
-Næ.
-Næh.
-Nå.
-Nåh.
-Nø.
-Nøh.
-Tjo.
-Tjoo.
-EOF
+sayYes

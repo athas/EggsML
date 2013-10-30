@@ -1,0 +1,12 @@
+#!/bin/sh
+
+randomElement <<EOF
+Næ.
+Næh.
+Nå.
+Nåh.
+Nø.
+Nøh.
+Tjo.
+Tjoo.
+EOF

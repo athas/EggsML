@@ -28,6 +28,7 @@ run() {
 
 rawcmd=$1
 cmd="$(basename -- "$rawcmd")"
+cmd="$(echo "$cmd" | sed 's/,$//')"
 cmddir=$CONCIEGGS_DIR/cmds
 shift
 #    if cmpNames "$EGGS_USER" "reenberg"; then
