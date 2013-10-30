@@ -1,0 +1,12 @@
+#!/bin/sh
+# Sig Jolly til din concieggs!
+
+nam=`randomElement <<EOF
+Ja, det kan du lide
+Nam-nam
+Jep, jolly
+EOF`
+
+echo -n "$nam: "
+
+seq 1 $(random 1 100) | sed s'/.*/jolly/' | enumerate
