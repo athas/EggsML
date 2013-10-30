@@ -1,6 +1,6 @@
 #!/bin/sh
 
-hjulene=`(cat | randomise | head -n 1) <<EOF
+hjulene=`randomElement <<EOF
 hjulende
 Illuminati
 menneskeheden
@@ -10,7 +10,7 @@ fysikere
 biologer
 EOF`
 
-drejer=`(cat | randomise | head -n 1) <<EOF
+drejer=`randomElement <<EOF
 drejer
 styrer
 leder verden

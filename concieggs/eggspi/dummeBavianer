@@ -1,6 +1,6 @@
 #!/bin/sh
 
-dumme=`(cat | randomise | head -n 1) <<EOF
+dumme=`randomElement <<EOF
 dumme
 stupide
 træge
@@ -39,7 +39,7 @@ barfodede
 beskidte
 EOF`
 
-bavianer=`(cat | randomise | head -n 1) <<EOF
+bavianer=`randomElement <<EOF
 bavianer
 kameler
 øldrikkere

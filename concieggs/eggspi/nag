@@ -3,7 +3,7 @@
 who=$1
 
 debt=$(lookupDebt $who)
-wish=$(eggstool wishes | sort -R | head -n 1)
+wish=$(eggstool wishes | randomElement)
 
 if [ "$(echo "$debt" | grep -v "-")" ]; then
     echo "På kredit igen?  Javel ja..."
@@ -24,4 +24,6 @@ if [ "$(echo "$debt" | grep -v "-")" ]; then
     echo "Tror du ikke hellere $(du $who) bør skralde den i dag?  Gælden er allerede på $debt kroner."
     echo "Og hvordan regner $(du $who) med at betale for det?"
     echo "Og i modsætning til al tilgængelig evidens, så påstår $(du $who) naturligvis at $(du $who) vil betale denne gang, ikke?"
-fi | randomise | head -n 1
+    echo "Jeg er blot en bot, men $(du $who) skylder råt."
+    echo "$(Du $who) skylder altså over 0 kr.  Jeg tolererer det ikke."
+fi | randomElement
