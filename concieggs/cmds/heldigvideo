@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
 # Giv en god video.  Brug: heldigvideo SØGEORD
 
 import sys
