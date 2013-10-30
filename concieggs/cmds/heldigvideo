@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Giv en god video.  Brug: heldigvideo SØGEORD
 
 import sys
 import json

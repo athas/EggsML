@@ -7,6 +7,4 @@ Nam-nam
 Jep, jolly
 EOF`
 
-echo -n "$nam: "
-
-seq 1 $(random 1 100) | sed s'/.*/jolly/' | enumerate
+echo "$nam: $(seq 1 $(random 1 100) | sed s'/.*/jolly/' | enumerate)."
