@@ -12,11 +12,7 @@ else
     exit
 fi
 
-n="$(eggstool consecutive "$user")"
-
-echo TEST
-echo "$n"
-echo TEST
+n="$(eggstool consecutive "$user" | head -n 1)"
 
 if [ "$n" ]; then
     echo "$(randomName "$user") har $n eggs på stribe."
