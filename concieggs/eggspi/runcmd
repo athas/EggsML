@@ -21,7 +21,8 @@ run() {
     # pre_args=$(echo "$@" | sed -r 's/\$\(([^\)]+)\)/$(runcmd -q \1)/g')
 
     # A slightly better idea.
-    pre_args=$(echo "$@" | sed -r "s/\\\$\(([^\)]+)\)/\$($CONCIEGGS_LIB_DIR/\1)/g")
+    lib_dir=$(echo $CONCIEGGS_LIB_DIR | sed 's/\//\\\\\\\//g')
+    pre_args=$(echo "$@" | sed -r "s/\\\$\(([^\)]+)\)/\$($lib_dir\/1)/g")
     eval "args=\"$pre_args\""
     case "$cmd" in
         er|hvem|hvad|hvor*)
