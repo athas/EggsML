@@ -22,7 +22,7 @@ run() {
 
     # A slightly better idea.
     lib_dir=$(echo $CONCIEGGS_LIB_DIR | sed 's/\//\\\\\\\//g')
-    pre_args=$(echo "$@" | sed -r "s/\\\$\(([^\)]+)\)/\$($lib_dir\/1)/g")
+    pre_args=$(echo "$@" | sed -r "s/\\\$\(([^\)]+)\)/\$($lib_dir\/\1)/g")
     eval "args=\"$pre_args\""
     case "$cmd" in
         er|hvem|hvad|hvor*)
