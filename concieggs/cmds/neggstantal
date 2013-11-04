@@ -2,4 +2,6 @@
 #
 # Udskriv antal medspisere til næste Eggs.
 
-(nextEggs; echo 0 tilmeldt) | head -n 1 | grep -Eo '[0-9]+ tilmeldt' | grep -Eo [0-9]+
+nextEggs
+
+#(nextEggs; echo 0 tilmeldt) | head -n 1 | grep -Eo '[0-9]+ tilmeldt' | grep -Eo [0-9]+
