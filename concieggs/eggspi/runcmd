@@ -24,15 +24,17 @@ run() {
 
     # (By the way, I know that I could have used another sed delimiter than '/',
     # e.g. '-', but that wouldn't have been as ugly.  --Anonymous)
-    lib_dir=$(echo $CONCIEGGS_LIB_DIR | sed 's/\//\\\\\\\//g')
-    pre_args=$(echo "$@" | sed -r "s/\\\$\(([^\)]+)\)/\$($lib_dir\/\1)/g")
-    eval "args=\"$pre_args\""
+
+    # Disabled for now, anyway
+    # lib_dir=$(echo $CONCIEGGS_LIB_DIR | sed 's/\//\\\\\\\//g')
+    # pre_args=$(echo "$@" | sed -r "s/\\\$\(([^\)]+)\)/\$($lib_dir\/\1)/g")
+    # eval "args=\"$pre_args\""
     case "$cmd" in
         er|hvem|hvad|hvor*)
-            "$cmddir/$cmd" $(echo "$args" | sed 's/\?*$//')
+            "$cmddir/$cmd" $(echo "$@" | sed 's/\?*$//')
             ;;
         *)
-            "$cmddir/$cmd" "$args"
+            "$cmddir/$cmd" "$@"
             ;;
     esac || broke
 }
