@@ -21,6 +21,9 @@ run() {
     # pre_args=$(echo "$@" | sed -r 's/\$\(([^\)]+)\)/$(runcmd -q \1)/g')
 
     # A slightly better idea.
+
+    # (By the way, I know that I could have used another sed delimiter than '/',
+    # e.g. '-', but that wouldn't have been as ugly.  --Anonymous)
     lib_dir=$(echo $CONCIEGGS_LIB_DIR | sed 's/\//\\\\\\\//g')
     pre_args=$(echo "$@" | sed -r "s/\\\$\(([^\)]+)\)/\$($lib_dir\/\1)/g")
     eval "args=\"$pre_args\""
