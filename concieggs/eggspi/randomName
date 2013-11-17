@@ -1,3 +1,9 @@
 #!/bin/sh
 
+user="$1"
+
+if [ "$user" = "mig" ]; then
+    user="$EGGS_USER"
+fi
+
 aliases "$1" | randomElement
