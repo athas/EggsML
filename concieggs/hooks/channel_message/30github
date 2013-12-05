@@ -1,11 +1,16 @@
 #!/bin/sh
 
-if [ "$EGGS_USER" = hej_fra_github ] && (echo "$EGGS_BODY" | grep '^\[EggsML\]' | grep -v 'concieggs pushed' > /dev/null); then
-    exec >'../#eggsml/in'
-    cd /eggsml
-    if git pull >&2; then
-        echo 'Jeg har hentet de nyeste ændringer fra https://github.com/Athas/EggsML!'
-    else
-        echo 'Noget gik galt da jeg lavede git pull.'
+if [ "$EGGS_USER" = hej_fra_github ]; then
+    if echo "$EGGS_BODY" | grep '^\[EggsML\]' | grep -v 'concieggs pushed' > /dev/null; then
+        exec >'../#eggsml/in'
+        cd /eggsml
+        if git pull >&2; then
+            echo 'Jeg har hentet de nyeste ændringer fra https://github.com/Athas/EggsML!'
+        else
+            echo 'Noget gik galt da jeg lavede git pull.'
+        fi
+    elif echo "$EGGS_BODY" | grep '^\[L0Language\]' > /dev/null; then
+        # Concieggs - the HIPERFIT continuous integration server.
+        ( cd /home/concieggs/l0language; tools/ci.sh .) &
     fi
 fi
