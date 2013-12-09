@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 static const unsigned int max_instructions = 10000;
 static const unsigned int max_output = 300;
-static const unsigned int data_size;
+static const unsigned int data_size = 10000;
 
 char* readfile(FILE* file) {
     size_t bufsiz = 80, len = 0;
@@ -29,6 +30,7 @@ char* readfile(FILE* file) {
 
 int main(int argc, char** argv) {
     unsigned char data[data_size];
+    memset(data, 0, data_size*sizeof(*data));
     char* code = readfile(stdin);
     char* input = argc > 1 ? argv[1] : "";
     unsigned int datap = 0;
