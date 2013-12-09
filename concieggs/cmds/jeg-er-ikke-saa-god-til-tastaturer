@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# Kan du heller ikke finde ud af tastaturer?  Det er også svært.  Men
+# frygt ej, brug blot denne kommando, der kører en anden kommando,
+# hvor 'ae', 'aa' og 'oe' først er omdannet til hhv. 'æ', 'ø' og 'å'.
+# Hvis dit tastatur ikke har disse nymodens taster, så er resten af
+# dit udstyr sandsynligvis også forældet, hvorfor en simplificering af
+# kommandoens uddata ligeledes udføres.
+
+if [ $# -lt 1 ]; then
+    echo "Brug: $0 <kommando> [argumenter]"
+    exit
+fi
+
+runcmd $(echo "$@" | sed -e 's/aa/å/g' -e 's/ae/æ/g' -e 's/oe/ø/g') \
+    | sed -e 's/å/aa/g' -e 's/æ/ae/g' -e 's/ø/oe/g' \
+    | toupper
