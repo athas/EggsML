@@ -2,6 +2,12 @@
 
 shuttingUp && exit
 
-if christmas && [ $(random 0 1) = 0 ]; then
-   echo $EGGS_USER: Hohoho!  Glædelig jul!
+if christmas && maybeGood .7; then
+   randomElement <<EOF
+$EGGS_USER: Hohoho!  Glædelig jul!
+$EGGS_USER, det er jul!
+$EGGS_USER, jul-jul-jul!
+Husk nu at det er jul, $EGGS_USER!
+DET ER LISSOM JUL $EGGS_USER!
+EOF
 fi
