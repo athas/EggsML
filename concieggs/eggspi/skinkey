@@ -31,7 +31,7 @@ function knowsword(s) {
   return 1==0
 }
 function frobword(s) {
-  if ((match(s, "[sS]kinke") != 1 && rand() > 0.90) || knowsword(s)) {
+  if ((match(s, "[sS]kinke") != 1 && rand() > 0.75) || knowsword(s)) {
     return frobword_inner(s)
   } else {
     skinker[s] = 1==0
