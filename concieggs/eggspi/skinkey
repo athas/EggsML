@@ -1,0 +1,62 @@
+#!/bin/sh
+
+prog=$(cat <<"EOF"
+BEGIN {
+  skinker[""] = 0==1
+}
+function frobword_inner(s) {
+  fst = substr(s,1,1)
+  word = toupper(fst) == fst ? "Skinke" : "skinke"
+  if (s in skinker) {
+    if (skinker[s])
+      return word
+    else
+      return s
+  } else {
+    if (length(s) > 5) {
+      skinker[s] = 1==1
+      return word
+    } else {
+      skinker[s] = 1==0
+      return s
+    }
+  }
+}
+function knowsword(s) {
+  for (i in skinker) {
+    if (i == s) {
+      return skinker[i]
+    }
+  }
+  return 1==0
+}
+function frobword(s) {
+  if ((match(s, "[sS]kinke") != 1 && rand() > 0.90) || knowsword(s)) {
+    return frobword_inner(s)
+  } else {
+    skinker[s] = 1==0
+    return s
+  }
+}
+function frob(s) {
+  match(s, "[a-zA-ZæøåÆØÅ]+")
+  if (RSTART == 0) {
+    return s
+  } else {
+    pre=substr(s,1,RSTART-1)
+    post=substr(s,RSTART+RLENGTH,length(s))
+    return pre frobword(substr(s,RSTART,RLENGTH)) frob(post)
+  }
+}
+{
+srand()
+skinker[""] = 0
+for (i in skinker)
+  delete skinker[i]
+print frob($0)
+fflush(); 
+}
+EOF
+)
+
+awk -- "$prog"
