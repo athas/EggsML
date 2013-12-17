@@ -7,5 +7,5 @@ maybeGood .1 || exit
 postskinke=$(echo "$EGGS_BODY" | skinkey)
 
 if [ "$EGGS_BODY" != "$postskinke" ]; then
-    echo "$EGGS_USER: $(echo $EGGS_BODY | skinkey)"
+    echo "$EGGS_BODY" | skinkey
 fi
