@@ -4,9 +4,10 @@ prog=$(cat <<"EOF"
 function frobword_inner(s) {
   fst = substr(s,1,1)
   prefix = toupper(fst) == fst ? "Jule-" : "jule-"
-  if (length(s) > 3) {
-    return prefix s
-  } else if (length(s) > 3 && rand() > 0.75) {
+#  if (length(s) > 3) {
+#   return prefix s
+#  } else
+if (length(s) > 3 && rand() > 0.25) {
     return frobword_inner(prefix s)
   } else {
     return s
