@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+# Giv noget til nogen.  Brug: giv TING til BRUGER
+
+eval "$(echo "$@" | tolower | parse '(?<thing>[^ ]+) til (?<user>[^ ]+)')"
+
+if [ "$user" ]; then
+    echo "$user" | dbWrite "has_$thing"
+    echo "$user har nu $thing!"
+else
+    echo "Brug: giv TING til BRUGER"
+fi

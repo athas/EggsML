@@ -2,9 +2,9 @@
 #
 # Beskriv concieggs' opfattelse af en given brugers identitet.  Husk
 # at benytte komplette sætninger!  Alternativt, spørg hvem der skal
-# købe ind.
+# købe ind eller hvem der har en ting.
 
-eval "$(echo "$@" | parse 'er (?<user>[^ ]+)|(?<buy>(køber ind|skal købe ind))')"
+eval "$(echo "$@" | parse 'er (?<user>[^ ]+)|(?<buy>(køber ind|skal købe ind))|har (?<thing>[^ ]+)')"
 
 if [ "$user" ]; then
     if [ $user = jeg ]; then
@@ -53,6 +53,8 @@ elif [ "$buy" ]; then
     else
         echo "Der er ingen tilmeldt Eggs, så jeg går ud fra at ingen køber ind."
     fi
+elif [ "$thing" ]; then
+    dbRead "has_$thing" || echo "Ingen!"
 else
     echo "Brug: hvem <er [navn|jeg]|skal købe ind|køber ind>"
     exit
