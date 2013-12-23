@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# Tag noget og kast det ad helvede til!
+
+eval "$(echo "$@" | tolower | parse '(?<thing>[^ ]+) ad helvede til')"
+
+if [ "$thing" ]; then
+    who="$(dbRead has_$thing)"
+    if [ "$who" ]; then
+        echo "$(ack)  Du skal ikke bekymre dig mere om $thing, omend $who måske bliver skuffet."
+        dbDelete "has_$thing"
+    else
+        echo "Ingen har $thing, så det er nemt gjort."
+    fi
+else
+    echo "$EGGS_USER: Kast hvad, hvorledes og hvorfor?  Brug 'kast <ting> ad helvede til'"
+fi
