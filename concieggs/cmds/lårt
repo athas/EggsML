@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Kør en kommando /jyde-style/.
+
+runcmd "$@" | jyskifize
