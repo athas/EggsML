@@ -4,8 +4,10 @@ shuttingUp && exit
 
 maybeGood .1 || exit
 
+grep '^concieggs[:,] ' "$EGGS_BODY" && exit
+
 postskinke=$(echo "$EGGS_BODY" | skinkey)
 
-if [ "$EGGS_BODY" != "$postskinke" ] && [ "$EGGS_USER" != concieggs ]; then
+if [ "$EGGS_BODY" != "$postskinke" ]; then
     echo "$postskinke"
 fi
