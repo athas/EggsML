@@ -58,6 +58,18 @@ tis
 klamhed
 EOF`
 
+egerntype=`randomElement <<EOF
+
+jord
+flyve
+EOF`
+
+nuttedeDyr=`randomElement <<EOF
+${egerntype}egern
+kaniner
+katte
+EOF`
+
 menHvadMedUngerne=`randomElement <<EOF
 Men hvad med $ungerne?
 Kan du give et eksempel?
@@ -66,7 +78,7 @@ Jeg er ikke tryg ved mangel af fokus på $ungerne.
 Stoler du da ikke på $ungerne?
 Jeg har nu ret svært ved det.
 Man er nok $enHipster der går op i $ungerne...
-Fuck dig.
+Fuck dig.  Tænk på $ungerne.
 Hvorfor er du så begejstret for $ungerne?
 For fanden, smid dem nu bare ud.
 Hvorfor skal jeg $klikkeHer?
@@ -90,6 +102,21 @@ Man kan sige at "Du styer får vilt!! XD"
 Skal det da forstås sådan?
 Spis $lort.
 Det oversætter jo ikke.
+Fuck dig!
+Dræber du måske $nuttedeDyr?
 EOF`
 
-echo "$menHvadMedUngerne  $deSkalVelHaveMad"
+erDuMaaskeDum=`randomElement <<EOF
+Er du måske dum?
+Spis tis.
+GAY!
+Din mor.
+Din mormor!
+For fanden...
+EOF`
+
+randomElement <<EOF
+$menHvadMedUngerne  $deSkalVelHaveMad  $erDuMaaskeDum
+$menHvadMedUngerne  $erDuMaaskeDum  $deSkalVelHaveMad
+$erDuMaaskeDum
+EOF
