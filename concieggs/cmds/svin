@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# Brug concieggs' tid på at svine folk til.
+
+ass=$EGGS_USER
+
+if [ $# -gt 0 ]; then
+    swine="$1"
+else
+    echo "Brug: svin <navn> [til]"
+    exit
+fi
+
+if [ "$swine" = "concieggs" ]; then
+    echo "$ass: Nej."
+    exit
+fi
+
+echo "$swine: Din mor!"
