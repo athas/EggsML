@@ -10,10 +10,13 @@ eval "$(echo "$@" | parse '(?<rawcmd>.+)( til (?<addr>.+@.+))')"
 if [ "$rawcmd" ]; then
     cmd=$(echo "$rawcmd" | cut -d' ' -f 1)
     args=$(echo "$rawcmd"| sed 's/[^ ]* *//')
+    if [ $args ]; then
+        args=" $args"
+    fi
 
-    echo Sender $cmd $args til $addr!
+    echo Sender $cmd$args til $addr!
 
-    runcmd "$cmd" $args | mailx -s "Afvikling af $cmd $args, anmodet af $EGGS_USER" "$addr" -- -r concieggs@eggsml.dk
+    runcmd "$cmd" $args | mailx -s "Afvikling af $cmd$args, anmodet af $EGGS_USER" "$addr" -- -r concieggs@eggsml.dk
 else
     echo 'Brug: send <kommando> til <hvem@hvor>'
 fi
