@@ -2,4 +2,10 @@
 #
 # Kør en kommando /jyde-style/.
 
-runcmd "$@" | jyskifize
+if [ $# -gt 1 ]; then
+    runcmd "$@" | jyskifize
+else
+    echo jyskifize | dbWrite outFilter
+    duration=$((60*1))
+    echo $(($(nowTime) + $duration)) | dbWrite outFilterUntil
+fi

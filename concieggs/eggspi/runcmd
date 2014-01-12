@@ -1,37 +1,42 @@
 #!/bin/sh
 
 broke() {
-    echo "Kommandoen fejlede!  Prøv at spørge mig om 'udu'."
+    echo "Kommandoen fejlede!  Du kan prøve at spørge mig om 'udu', men det hjælper nok ikke."
 }
 
-fakebroke() {
-    echo "Arh... $EGGS_USER, noget gik galt, du må hellere prøve igen";
-    echo "Hm, jeg ved sgu ikke lige, men den gik ikke... prøv igen, $EGGS_USER";
-    echo "$EGGS_USER: Intern, nondeterministisk fejl.  Kør kommandoen igen.";
-    echo "$EGGS_USER: Noget gik galt.  Kør kommandoen igen.";
-    echo "Noget knækkede under kørsel af kommandoen, $EGGS_USER.  Det kan være det virker, hvis du prøver igen.";
-    echo
-}
+# fakebroke() {
+#     echo "Arh... $EGGS_USER, noget gik galt, du må hellere prøve igen";
+#     echo "Hm, jeg ved sgu ikke lige, men den gik ikke... prøv igen, $EGGS_USER";
+#     echo "$EGGS_USER: Intern, nondeterministisk fejl.  Kør kommandoen igen.";
+#     echo "$EGGS_USER: Noget gik galt.  Kør kommandoen igen.";
+#     echo "Noget knækkede under kørsel af kommandoen, $EGGS_USER.  Det kan være det virker, hvis du prøver igen.";
+#     echo
+# }
 
 run() {
     cmd="$1"
     shift
 
+    filter=$(dbRead outFilter)
+    if [ ! "$filter" ]; then
+        filter=cat
+    fi
     case "$cmd" in
         er|hvem|hvad|hvor*)
-            "$cmddir/$cmd" $(echo "$@" | sed 's/\?*$//')
+            eval "$cmddir/$cmd" $(echo "$@" | sed 's/\?*$//') "|" $filter
             ;;
         *)
-            "$cmddir/$cmd" "$@"
+            eval "$cmddir/$cmd" "$@" "|" $filter
             ;;
     esac || broke
 }
 
-if [ "$1" = "-q" ]; then
-    verbose=false
-    shift
-else
-    verbose=true
+time=$(dbRead outFilterUntil)
+if [ "$time" ]; then
+    if [ "$(nowTime)" -gt "$time" ]; then
+        dbDelete outFilter
+        dbDelete outFilterUntil
+    fi
 fi
 
 rawcmd=$1
@@ -47,6 +52,7 @@ shift
 #            exit
 #        fi
 #    fi
+
 if [ "$cmd" ] && [ "$EGGS_USER" != "$CONCIEGGS_NAME" ]; then
     if [ -x "$cmddir/$cmd" ] && [ -f "$cmddir/$cmd" ]; then
         run "$cmd" "$@"
@@ -55,13 +61,11 @@ if [ "$cmd" ] && [ "$EGGS_USER" != "$CONCIEGGS_NAME" ]; then
     else
         othercmd="$(commands|levenshtein "$cmd"|sort -n|head -n 1|cut -d ' ' -f 2-)"
         if [ "$othercmd" ]; then
-            `$verbose` && echo "Jeg antager at du mente $othercmd!"
+            echo "Jeg antager at du mente $othercmd!"
             run "$othercmd" "$@"
         else
-            `$verbose` && (
-                echo "$EGGS_USER: Du bad mig om $cmd, men den kommando har jeg ikke!";
-                echo "Skriv 'concieggs: kommandoer' for at få en liste over mulige kommandoer."
-            )
+            echo "$EGGS_USER: Du bad mig om $cmd, men den kommando har jeg ikke!";
+            echo "Skriv 'concieggs: kommandoer' for at få en liste over mulige kommandoer."
         fi
     fi
 fi
