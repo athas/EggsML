@@ -2,10 +2,10 @@
 
 set -e
 
-user=$EGGS_USER
-lookupDebt $user | grep -
+maybeGood .7 || exit
 
-maybeGood .33 || exit # Only continue in a third of all cases.
+user=$EGGS_USER
+lookupDebt $user | grep -q -
 
 randomElement <<EOF
 /me ved at $user er i negativ.
