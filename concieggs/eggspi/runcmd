@@ -18,15 +18,21 @@ run() {
     shift
 
     filter=$(dbRead outFilter)
-    if [ ! "$filter" ]; then
-        filter=cat
-    fi
     case "$cmd" in
         er|hvem|hvad|hvor*)
-            eval "$cmddir/$cmd" $(echo "$@" | sed 's/\?*$//') "|" $filter
+            if [ ! "$filter" ]; then
+                "$cmddir/$cmd" $(echo "$@" | sed 's/\?*$//')
+            else
+                eval "$cmddir/$cmd" $(echo "$@" | sed 's/\?*$//') "|" "$filter"
+            fi
             ;;
         *)
-            eval "$cmddir/$cmd" "$@" "|" $filter
+            if [ ! "$filter" ]; then
+                "$cmddir/$cmd" "$@"
+            else
+                eval "$cmddir/$cmd" "$@" "|" "$filter"
+            fi
+
             ;;
     esac || broke
 }
