@@ -1,6 +1,6 @@
 #!/usr/bin/env tclsh
 
-catch {exec ./test.sh} {} options
+catch {exec shuttingUp} {} options
 if {![dict get $options -code]} {exit 0}
 
 set nick $::env(EGGS_USER)
