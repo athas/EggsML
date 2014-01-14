@@ -2,7 +2,7 @@
 #
 # Kør en kommando /jyde-style/.
 
-if [ $# -gt 1 ]; then
+if [ $# -gt 0 ]; then
     runcmd "$@" | jyskifize
 else
     echo jyskifize | dbWrite outFilter
