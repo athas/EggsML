@@ -1,0 +1,27 @@
+#!/usr/bin/env tclsh
+
+set nick $::env(EGGS_USER)
+set text $::env(EGGS_BODY)
+set t [clock format [clock seconds] -format %H]
+
+set replies {
+    "Det er alt for tidligt at være så aktiv!"
+    "Svin!"
+}
+
+set goodreplies {
+    "Hvad er der så godt ved den?"
+    "Du skulle have en præmie for at være så positiv."
+    "God morgen!!!"
+}
+
+set latereplies {
+    "Se dét er et tidspunkt at stå op på."
+    "Et eller andet sted i verden, måske."
+}
+
+if {[regexp -nocase {^(g(?:o?'?|od)?)?[ \t]*mo(?:rn|rgen)} $text {} g]} {
+    if {$g != ""} {set replies [concat $replies $goodreplies]}
+    if {$t > 12}  {set replies [concat $replies $latereplies]}
+    puts "$nick: [lindex $replies [expr {int(rand()*[llength $replies])}]]"
+}
