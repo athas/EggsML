@@ -54,7 +54,12 @@ elif [ "$buy" ]; then
         echo "Der er ingen tilmeldt Eggs, så jeg går ud fra at ingen køber ind."
     fi
 elif [ "$thing" ]; then
-    dbRead "has_$thing" || echo "Ingen!"
+    who=$(dbRead "has_$thing")
+    if [ "$who" ]; then
+        echo "$who har $thing!"
+    else
+        echo "Ingen!"
+    fi
 else
     echo "Brug: hvem <er [navn|jeg]|skal købe ind|køber ind>"
     exit
