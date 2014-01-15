@@ -19,7 +19,7 @@ run() {
 
     filter=$(dbRead outFilter)
     case "$cmd" in
-        er|hvem|hvad|hvor*)
+        er|hvem|hvad|hvor|har*)
             if [ ! "$filter" ]; then
                 "$cmddir/$cmd" $(echo "$@" | sed 's/\?*$//')
             else
