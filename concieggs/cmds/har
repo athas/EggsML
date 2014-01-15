@@ -5,7 +5,7 @@
 eval "$(echo "$@" | parse '(?<tome>du +(?<prog>[^/]+)( +installeret)?)')"
 
 if [ "$prog" ]; then
-    file=$(which "$prog")
+    file=$(which $(echo "$prog" | tolower))
     if [ "$file" ]; then
         (
             echo "Jep, det ligger trygt og godt i $file."
