@@ -1,10 +1,10 @@
 #!/bin/sh
 
-# Spred glæde på #eggsml.
+# Spred glæde på chatten.
 
 set -e
 
-maybeGood .2 || exit # Men ikke *så* ofte.
+maybeGood .7 || exit
 
 rar=(randomElement <<EOF
 rar
@@ -17,6 +17,10 @@ den bedste ven en IRC-bot kan ønske sig
 helt ok
 slet ikke et svin
 velduftende
+en god person
+menneskehedens håb
+glad
+bedre end mig :-(
 EOF
 
 echo $EGGS_USER: Jeg synes at du er $rar.
