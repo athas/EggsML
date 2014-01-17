@@ -9,4 +9,7 @@ rawcmd=$(echo "$EGGS_BODY"|awk --posix "$awk_getcmd")
 if [ "$rawcmd" ]; then
     args="$(echo "$EGGS_BODY"|awk --posix "$awk_getargs")"
     runcmd "$rawcmd" $args
+    if [ "$rawcmd" = "maxima" ]; then
+        echo "$EGGS_USER skriver farlige ting til mig privat!" > $CONCIEGGS_IRC_DIR/$irc_channel/in
+    fi
 fi
