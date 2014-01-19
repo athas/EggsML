@@ -2,6 +2,8 @@
 #
 # Brug concieggs' tid på at svine folk til.
 
+. $CONCIEGGS_DIR/concieggs.conf
+
 ass=$EGGS_USER
 
 if [ $# -gt 0 ]; then
