@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+# Kør en kommando /jyde-style/.
+
+if [ $# -gt 0 ]; then
+    runcmd "$@" | jyskifize
+else
+    echo jyskifize | dbWrite outFilter
+    duration=$((60*1))
+    echo $(($(nowTime) + $duration)) | dbWrite outFilterUntil
+fi

@@ -1,0 +1,40 @@
+#!/usr/bin/env tclsh
+
+catch {exec shuttingUp} {} options
+if {![dict get $options -code]} {exit 0}
+
+set nick $::env(EGGS_USER)
+set text $::env(EGGS_BODY)
+set t [clock format [clock seconds] -format %H]
+
+set replies {
+    "Svin! <3"
+    "Morgenkrammer!"
+    "God morgen. Sikke et dejligt vejr udenfor!"
+}
+lappend replies "Der er 1 tilmeldt til Eggs i dag klokken [expr {$t+1}]:00:\
+                 $nick.  Der skal tilberedes 1 eggs."
+
+set goodreplies {
+    "Hvad er der så godt ved den?"
+    "Du skulle have en præmie for at være så positiv."
+    "Hvilken strålende morgen! God morgen til dig!"
+    "God morgen!!!"
+}
+
+set earlyreplies {
+    "Gaaaab!"
+    "Det er alt for tidligt at være så aktiv!"
+}
+
+set latereplies {
+    "Se dét er et tidspunkt at stå op på."
+    "Et eller andet sted i verden, måske."
+}
+
+if {[regexp -nocase {^(g(?:o?'?|od)?)?[ \t]*m[oå](?:rn|rgen)} $text {} g]} {
+    if {$g != ""}          {set replies [concat $replies $goodreplies]}
+    if {$t > 13}           {set replies [concat $replies $latereplies]}
+    if {$t > 6 && $t < 13} {set replies [concat $replies $earlyreplies]}
+    puts "$nick: [lindex $replies [expr {int(rand()*[llength $replies])}]]"
+}

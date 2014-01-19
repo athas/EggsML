@@ -21,10 +21,14 @@ sviner() {
     echo "$who: Du har begået en frygtelig Ulrik!  Hvordan kan du leve med dig selv?"
     echo "$who: ANTIFROKOST!"
     echo "$who: Du har glemt at posteggse OG DIN MOR ER SIKKERT TYK!"
+    echo "$who: Du er værre end den værste!"
+    echo "$who: Jeg mangler ord til at beskrive MIT HAD over $when!"
+    echo "$who: Jeg troede at vi var venner, men tydeligvis ikke efter $(titleEggs $when) :'("
+    echo "$who: Du er et monster."
 }
 
 fuck() {
-    ex="$(sviner $1 $2 | randomise | head -n 1)"
+    ex="$(sviner $1 $2 | randomElement)"
     if [ "$ex" ]; then
         echo "$ex"
     fi

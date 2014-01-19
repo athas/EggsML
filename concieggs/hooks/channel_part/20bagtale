@@ -2,14 +2,30 @@
 
 set -e
 
-user=$EGGS_USER
-lookupDebt $user | grep -
+maybeGood .9 || exit
 
-maybeGood .33 || exit # Only continue in a third of all cases.
+user=$EGGS_USER
+lookupDebt $user | grep -q '\-' - || exit
+
+penge=`randomElement <<EOF
+penge
+moneter
+danske kroner
+Danskens Valuta
+gysser
+mønter
+kronesedler
+EOF`
 
 randomElement <<EOF
 /me ved at $user er i negativ.
-Hmm... Med alle de penge $user skylder, får vi mon $user at se igen?
-$user: Du skylder pengeeeeeee.
-Penge penge penge.  Til mig.  Fra $user.  Snart.  Ellers.
+Hmm... Med alle de $penge $user skylder, får vi mon $user at se igen?
+$user: Du skylder pengeeeeeee.  Så smutter $user bare.
+Penge, $penge, penge.  Til mig.  Fra $user.  Snart.  Ellers.
+$user bør snart betale sin gæld til samfundet.
+$user er en nasserøv, nasserøv, nasserøv.
+$user giver mig ikke nok $penge.
+Hvilken verden lever $user i?  Betal så de $penge!
+/me gider ikke være inkasso, men $user mangler altså at give nogle $penge.
+$user: Fy!
 EOF

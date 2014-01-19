@@ -8,6 +8,12 @@ if ! [ "$2" = "om" -a "$3" = "at" -a "$4" ]; then
     exit
 fi
 
+if [ "$1" = mig ]; then
+    shift; shift; shift;
+    echo "Okay: Husk at $@"
+    exit
+fi
+
 to="$(randomName "$1")"
 if ! [ "$to" ]; then
     echo "Jeg kender ikke $1!"

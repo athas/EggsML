@@ -2,6 +2,10 @@
 #
 # Få concieggs til at klappe hesten.
 
-eval "$(echo "$@" | tolower | parse '(?<ting>(karry|i|hesten|geden))!*')"
+eval "$(echo "$@" | tolower | parse '.*(?<ting>(karry|kaje|i|hesten|geden))!*')"
 
-echo "Klap selv $ting!"
+if [ ! "$ting" ]; then
+    echo "$EGGS_USER: Du er dum!"
+else
+    echo "$EGGS_USER: Klap selv $ting!"
+fi

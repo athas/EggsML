@@ -38,8 +38,7 @@ EggsML < Netto
 .SS Overview
 Denne liste indeholder alt hvad der skal købes ind.  Som udgangspunkt
 kan det forventes at alt på listen kan købes i Netto på Jagtvej.  Husk
-at der ofte er mange der spiser med hver dag, så køb hellere for meget
-end for lidt.
+at købe fornuftigt.
 .SS Ønsker
 .TP
 $(formatWishes)
@@ -54,7 +53,7 @@ EOF
 process() {
     if [ "$mail" ]; then
         (   echo 'Find indkøbslisten vedhæftet.'
-            cat | ps2pdf - - | uuencode indkøbsliste.pdf
+            ps2pdf - - | uuencode indkøbsliste.pdf
         ) | mailx -s "Indkøbsliste til EggsML" "$mail" -- -r concieggs@eggsml.dk
         echo "Sender til $mail!"
     else

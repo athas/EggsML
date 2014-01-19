@@ -1,36 +1,56 @@
 #!/bin/sh
 
 broke() {
-    echo "Kommandoen fejlede!  Prøv at spørge mig om 'udu'."
+    echo "Kommandoen fejlede!  Du kan prøve at spørge mig om 'udu', men det hjælper nok ikke."
 }
 
-fakebroke() {
-    echo "Arh... $EGGS_USER, noget gik galt, du må hellere prøve igen";
-    echo "Hm, jeg ved sgu ikke lige, men den gik ikke... prøv igen, $EGGS_USER";
-    echo "$EGGS_USER: Intern, nondeterministisk fejl.  Kør kommandoen igen.";
-    echo "$EGGS_USER: Noget gik galt.  Kør kommandoen igen.";
-    echo "Noget knækkede under kørsel af kommandoen, $EGGS_USER.  Det kan være det virker, hvis du prøver igen.";
-    echo
-}
+# fakebroke() {
+#     echo "Arh... $EGGS_USER, noget gik galt, du må hellere prøve igen";
+#     echo "Hm, jeg ved sgu ikke lige, men den gik ikke... prøv igen, $EGGS_USER";
+#     echo "$EGGS_USER: Intern, nondeterministisk fejl.  Kør kommandoen igen.";
+#     echo "$EGGS_USER: Noget gik galt.  Kør kommandoen igen.";
+#     echo "Noget knækkede under kørsel af kommandoen, $EGGS_USER.  Det kan være det virker, hvis du prøver igen.";
+#     echo
+# }
 
 run() {
     cmd="$1"
     shift
+
+    filter=$(dbRead outFilter)
     case "$cmd" in
-        er|hvem|hvad|hvor*)
-            "$cmddir/$cmd" $(echo "$@" | sed 's/\?*$//')
+        er|hvem|hvad|hvor|har*)
+            if [ ! "$filter" ]; then
+                "$cmddir/$cmd" $(echo "$@" | sed 's/\?*$//')
+            else
+                eval "$cmddir/$cmd" $(echo "$@" | sed 's/\?*$//') "|" "$filter"
+            fi
             ;;
         *)
-            "$cmddir/$cmd" "$@"
+            if [ ! "$filter" ]; then
+                "$cmddir/$cmd" "$@"
+            else
+                eval "$cmddir/$cmd" "$@" "|" "$filter"
+            fi
+
             ;;
     esac || broke
 }
+
+time=$(dbRead outFilterUntil)
+if [ "$time" ]; then
+    if [ "$(nowTime)" -gt "$time" ]; then
+        dbDelete outFilter
+        dbDelete outFilterUntil
+    fi
+fi
 
 rawcmd=$1
 cmd="$(basename -- "$rawcmd")"
 cmd="$(echo "$cmd" | sed 's/,$//')"
 cmddir=$CONCIEGGS_DIR/cmds
 shift
+    
 #    if cmpNames "$EGGS_USER" "reenberg"; then
 #        ex=$(fakebroke | randomise | head -n 1)
 #        if [ "$ex" ]; then
@@ -38,6 +58,7 @@ shift
 #            exit
 #        fi
 #    fi
+
 if [ "$cmd" ] && [ "$EGGS_USER" != "$CONCIEGGS_NAME" ]; then
     if [ -x "$cmddir/$cmd" ] && [ -f "$cmddir/$cmd" ]; then
         run "$cmd" "$@"
@@ -49,7 +70,7 @@ if [ "$cmd" ] && [ "$EGGS_USER" != "$CONCIEGGS_NAME" ]; then
             echo "Jeg antager at du mente $othercmd!"
             run "$othercmd" "$@"
         else
-            echo "$EGGS_USER: Du bad mig om $cmd, men den kommando har jeg ikke!"
+            echo "$EGGS_USER: Du bad mig om $cmd, men den kommando har jeg ikke!";
             echo "Skriv 'concieggs: kommandoer' for at få en liste over mulige kommandoer."
         fi
     fi

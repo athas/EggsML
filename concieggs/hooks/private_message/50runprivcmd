@@ -1,5 +1,7 @@
 #!/bin/sh
 
+irc_channel="#eggsml" # Ugly
+
 set -f
 
 awk_getcmd='{ print tolower($1); }'
@@ -9,4 +11,7 @@ rawcmd=$(echo "$EGGS_BODY"|awk --posix "$awk_getcmd")
 if [ "$rawcmd" ]; then
     args="$(echo "$EGGS_BODY"|awk --posix "$awk_getargs")"
     runcmd "$rawcmd" $args
+    if [ "$rawcmd" = "maxima" ]; then
+        echo "$EGGS_USER skriver måske farlige ting til mig privat!" > "../$irc_channel/in"
+    fi
 fi

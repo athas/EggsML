@@ -4,6 +4,6 @@
 
 shuttingUp && exit
 
-maybeGood .01 || exit # Virkelig sjældent!
+maybeGood .005 || exit # *Virkelig* sjældent!
 
 echo "$EGGS_USER: `tærteKommentar`"

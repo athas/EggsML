@@ -1,0 +1,13 @@
+#!/bin/sh
+
+shuttingUp && exit
+
+maybeGood .1 || exit
+
+echo "$EGGS_BODY" | grep -q '^concieggs[:,] ' && exit
+
+postskinke=$(echo "$EGGS_BODY" | skinkey)
+
+if [ "$EGGS_BODY" != "$postskinke" ]; then
+    echo "$postskinke"
+fi

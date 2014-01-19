@@ -1,0 +1,30 @@
+#!/bin/sh
+#
+# Spørg om concieggs har et givent program installeret.
+
+eval "$(echo "$@" | parse '(?<tome>du +(?<prog>[^/]+)( +installeret)?)')"
+
+if [ "$prog" ]; then
+    file=$(which $(echo "$prog" | tolower))
+    if [ "$file" ]; then
+        (
+            echo "Jep, det ligger trygt og godt i $file."
+            echo "Ja, det ser ud til at være i $file."
+            echo "Ja: $file."
+            echo "Det ligner $file, så ja."
+        )
+    else
+        (
+            echo "Desværre, der må jeg skuffe."
+            echo "Det ser ikke sådan ud."
+            echo "Hmm... nope."
+            echo "Ak, nej, $prog er ikke en del af min værktøjskasse."
+            echo "Nej, men har du virkelig brug for det?"
+            echo "$prog?  Lyder ubehageligt.  Jeg tror jeg holder mig fra det."
+        )
+    fi | randomElement
+elif [ "$tome" ]; then
+    echo "Har jeg hvad?  Brug 'har du <program> installeret'."
+else
+    echo "Har hvem hvad?  Brug 'har du <program> installeret'."
+fi

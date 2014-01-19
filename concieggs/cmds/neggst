@@ -5,7 +5,7 @@
 
 next=$(nextEggs)
 if [ "$next" != "" ]; then
-    nextEggs | while read eggs; do eggsplain $eggs; done
+    echo "$next" | while read eggs; do eggsplain $eggs; done
 else
     echo "Ingen har tilmeldt sig eggs!"
 fi
