@@ -16,4 +16,4 @@ if [ "$swine" = "concieggs" ]; then
     exit
 fi
 
-echo "$swine: Din mor!"
+echo "$swine: Din mor!" > $CONCIEGGS_IRC_DIR/$irc_channel/in

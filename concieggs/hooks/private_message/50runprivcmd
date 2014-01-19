@@ -1,6 +1,6 @@
 #!/bin/sh
 
-irc_channel="#eggsml" # Ugly
+. $CONCIEGGS_DIR/concieggs.conf
 
 set -f
 
@@ -12,6 +12,7 @@ if [ "$rawcmd" ]; then
     args="$(echo "$EGGS_BODY"|awk --posix "$awk_getargs")"
     runcmd "$rawcmd" $args
     if [ "$rawcmd" = "maxima" ]; then
-        echo "$EGGS_USER skriver måske farlige ting til mig privat!" > "../$irc_channel/in"
+        echo "$EGGS_USER skriver måske farlige ting til mig privat!" > \
+            $CONCIEGGS_IRC_DIR/$irc_channel/in
     fi
 fi
