@@ -3,15 +3,22 @@ program Skinkefy;
   {$MODE DELPHI}
 {$ENDIF}
 
-uses Classes, RegExpr;
+uses Classes, RegExpr, SysUtils;
 
-const SkinkeFactor: Integer = 60;
+const
+  // Chance of skinke in percentage
+  SkinkeFactor: Integer = 25;
+  // Required number of letters before turning it into skinke.
+  SkinkeLength: Integer = 3;
 
 type
+  TSkinkeCondition = (scRegular, scCapitalised, scFullUpper);
+  
   TSkinke = class(TObject)
   private
     Skinker: TStringList;
     IkkeSkinker: TStringList;
+    function OneSkinke(Cnd: TSkinkeCondition; Multi: boolean): string;
     function Skinkefy(ObjR: TRegExpr): string;
     function IsSkinke(Str: string): boolean;
     function IsNotSkinke(Str: string): boolean;
@@ -56,15 +63,39 @@ begin
   end;
 end;
 
+function TSkinke.OneSkinke(Cnd: TSkinkeCondition; Multi: boolean): string;
+begin
+  if Multi then
+    Result := 'skinker'
+  else
+    Result := 'skinke';
+  case Cnd of
+    scFullUpper:
+      Result := UpperCase(Result);
+    scCapitalised:
+      Result[1] := 'S';
+  end;
+end;
+
 function TSkinke.Skinkefy(ObjR: TRegExpr): string;
 var
   Str: string;
+  Cnd: TSkinkeCondition;
 begin
   Str := ObjR.Match[1];
   Result := Str;
-  if ((Random(100) > SkinkeFactor) and not IsNotSkinke(str)) or IsSkinke(Str) then begin
+  if ((Random(100) <= SkinkeFactor)
+      and not IsNotSkinke(str)
+      and (Length(str) > SkinkeLength))
+    or IsSkinke(Str) then begin
     Skinker.Add(Str);
-    Result := 'skinke';
+    if UpperCase(str) = str then
+      Cnd := scFullUpper
+    else if UpperCase(str[1]) = str[1] then
+      Cnd := scCapitalised
+    else
+      Cnd := scRegular;
+    Result := OneSkinke(Cnd, UpperCase(str[Length(str)]) = 'R')
   end else
     IkkeSkinker.Add(Str);
 end;
