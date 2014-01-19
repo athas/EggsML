@@ -45,6 +45,7 @@ function TSkinke.IsSkinke(Str: string): Boolean;
 var
   J: Integer;
 begin
+  Str := UpperCase(Str);
   Result := false;
   for J := 0 to Skinker.Count - 1 do begin
     if Skinker.Strings[J] = Str then
@@ -56,6 +57,7 @@ function TSkinke.IsNotSkinke(Str: string): boolean;
 var
   J: Integer;
 begin
+  Str := UpperCase(Str);
   Result := false;
   for J := 0 to IkkeSkinker.Count - 1 do begin
     if IkkeSkinker.Strings[J] = Str then
@@ -81,23 +83,37 @@ function TSkinke.Skinkefy(ObjR: TRegExpr): string;
 var
   Str: string;
   Cnd: TSkinkeCondition;
+  camelCaseCheckR, camelCaseR: TRegExpr;
 begin
   Str := ObjR.Match[1];
   Result := Str;
-  if ((Random(100) <= SkinkeFactor)
-      and not IsNotSkinke(str)
-      and (Length(str) > SkinkeLength))
-    or IsSkinke(Str) then begin
-    Skinker.Add(Str);
-    if UpperCase(str) = str then
-      Cnd := scFullUpper
-    else if UpperCase(str[1]) = str[1] then
-      Cnd := scCapitalised
-    else
-      Cnd := scRegular;
-    Result := OneSkinke(Cnd, UpperCase(str[Length(str)]) = 'R')
-  end else
-    IkkeSkinker.Add(Str);
+  camelCaseCheckR := TRegExpr.Create;
+  camelCaseR := TRegExpr.Create;
+  try
+    camelCaseCheckR.Expression := '[a-z][A-Z][a-zA-Z]+';
+    camelCaseR.Expression := '([A-Z][a-z]+|[A-Z]+)';
+    if camelCaseCheckR.Exec(Str) then
+      Result := camelCaseR.ReplaceEx(Str, Skinkefy)
+    else begin
+      if ((Random(100) <= SkinkeFactor)
+          and not IsNotSkinke(str)
+          and (Length(str) >= SkinkeLength))
+        or IsSkinke(Str) then begin
+        Skinker.Add(UpperCase(Str));
+        if UpperCase(str) = str then
+          Cnd := scFullUpper
+        else if UpperCase(str[1]) = str[1] then
+          Cnd := scCapitalised
+        else
+          Cnd := scRegular;
+        Result := OneSkinke(Cnd, UpperCase(str[Length(str)]) = 'R');
+      end else
+        IkkeSkinker.Add(UpperCase(Str));
+    end;
+  finally
+    camelCaseCheckR.Free;
+    camelCaseR.Free;
+  end;
 end;
 
 function TSkinke.ToSkinke: string;
