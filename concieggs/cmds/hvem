@@ -30,10 +30,16 @@ if [ "$user" ]; then
     alias=$(randomName "$user")
     auth=$(authedName "$user")
 
-    if [ "$alias" ]; then
-        aliasMsg="$user er $alias, og"
+    if [ ! "$alias" -a ! "$auth" -o "$alias" -a "$auth" ]; then
+        conj="og"
     else
-        aliasMsg="Jeg kender ikke $user, og vedkommende er"
+        conj="men"
+    fi
+
+    if [ "$alias" ]; then
+        aliasMsg="$user er $alias, $conj"
+    else
+        aliasMsg="Jeg kender ikke $user, $conj vedkommende er"
     fi
 
     if [ "$auth" ]; then
