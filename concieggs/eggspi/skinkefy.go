@@ -32,7 +32,7 @@ func main() {
 	rand.Seed(time.Now().Unix())
 	// Using bufio.Reader, because we cannot bufio.Scanner,
 	// because the machine uses go 1.0.2.
-	// And Debian is a filthy old system.
+	// And Debian is a classy gentleman system.
 	read := bufio.NewReader(os.Stdin)
 	str, _ := read.ReadString('\n')
 	// Match all words! \p{L} is all unicode letters.
