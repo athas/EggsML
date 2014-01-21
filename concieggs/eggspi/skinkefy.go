@@ -14,7 +14,9 @@ import (
 )
 
 const (
+	// Percentage chance for a word to become a skinke.
 	skinkeFactor = 25
+	// Minimum length of a word allowed to be skinke.
 	skinkeLength = 4
 	scRegular    = iota + 1
 	scCapitalised
@@ -28,8 +30,12 @@ var IkkeSkinker skinkeList
 
 func main() {
 	rand.Seed(time.Now().Unix())
+	// Using bufio.Reader, because we cannot bufio.Scanner,
+	// because the machine uses go 1.0.2.
+	// And Debian is a filthy old system.
 	read := bufio.NewReader(os.Stdin)
 	str, _ := read.ReadString('\n')
+	// Match all words! \p{L} is all unicode letters.
 	r, _ := regexp.Compile("([\\p{L}]+)")
 	out := strings.Trim(r.ReplaceAllStringFunc(str, skinkefy), "\n ")
 	fmt.Println(out)
@@ -38,6 +44,7 @@ func main() {
 func oneSkinke(condition int, plural bool, definitive bool) string {
 	var word string
 	switch {
+	// Maybe also in verb form?  e.g. 'skinkede'
 	case plural:
 		word = "skinker"
 	case definitive:
@@ -52,6 +59,7 @@ func oneSkinke(condition int, plural bool, definitive bool) string {
 		// Get first rune
 		r, s := utf8.DecodeRuneInString(word)
 		rs := strconv.QuoteRune(unicode.ToUpper(r))
+		// And put it together with the word.
 		word = rs[1:len(rs)-1] + word[s:]
 	}
 	return word
@@ -67,6 +75,7 @@ func skinkefy(word string) string {
 			!IkkeSkinker.Contains(word) &&
 			len(word) >= skinkeLength) ||
 			Skinker.Contains(word) {
+			// Yes, we got a skinke, let's add the word.
 			Skinker.Append(word)
 			var skinkeCondition int
 			first, _ := utf8.DecodeRuneInString(word)
@@ -78,12 +87,17 @@ func skinkefy(word string) string {
 			default:
 				skinkeCondition = scRegular
 			}
+			// Get the last two letters of the word.
 			end, size := utf8.DecodeLastRuneInString(word)
 			end2, _ := utf8.DecodeLastRuneInString(word[:len(word)-size])
 			end = unicode.ToUpper(end)
 			end2 = unicode.ToUpper(end2)
+			// If it ends on R, it's plural.  That's our rule!
+			// If it ends on ET/EN, it's definitive.
 			word = oneSkinke(skinkeCondition, end == 'R', end2 == 'E' && (end == 'T' || end == 'N'))
 		} else {
+			// Not a skinke word.  If it appears again, it should remain
+			// not skinke.
 			IkkeSkinker.Append(word)
 		}
 	}
