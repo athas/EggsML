@@ -28,11 +28,11 @@ var IkkeSkinker skinkeList
 
 func main() {
 	rand.Seed(time.Now().Unix())
-	sc := bufio.NewScanner(os.Stdin)
+	read := bufio.NewReader(os.Stdin)
+	str, _ := read.ReadString('\n')
 	r, _ := regexp.Compile("([\\p{L}]+)")
-	for sc.Scan() {
-		fmt.Println(r.ReplaceAllStringFunc(sc.Text(), skinkefy))
-	}
+	out := strings.Trim(r.ReplaceAllStringFunc(str, skinkefy), "\n ")
+	fmt.Println(out)
 }
 
 func oneSkinke(condition int, plural bool, definitive bool) string {
