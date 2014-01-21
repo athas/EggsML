@@ -1,10 +1,10 @@
 #!/bin/sh
 #
-# Slå et uskyldigt dyr ihjel!
+# Få concieggs til at slå et uskyldigt dyr ihjel!
 
 if [ $# -eq 0 ]; then
     echo "Dræb hvad?"
     exit
 fi
 
-echo "$(ack)  Du har dræbt $@!"
+echo "$(ack)  Jeg har dræbt $@!"
