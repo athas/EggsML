@@ -1,0 +1,10 @@
+#!/bin/sh
+#
+# Handle RPC input.
+
+. $(dirname "$0")/http.conf
+
+read line
+
+cd $(dirname "$0")/..
+EGGS_USER=$user ./fakeconcieggs runcmd $line
