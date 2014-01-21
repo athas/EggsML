@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# Send a command to concieggs and get its reply.
+
+. $(dirname "$0")/irc.conf
+
+# Enter the directory containing the IRC stuff.
+cd $irc_dir/irc.freenode.net/$irc_channel
+
+# Run command.
+echo "$@" > in
+
+# Wait for concieggs to answer (this will take a while, so it's okay to not
+# listen to "out" beforehand).
+while [ 1 ]; do
+    inotifywait -e modify -q out | (read a; tail -n 1 out | grep "<$irc_bot>") \
+        && exit
+done

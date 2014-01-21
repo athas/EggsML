@@ -1,0 +1,20 @@
+#!/bin/sh
+#
+# Initiate a remote connection with concieggs.
+
+. $(dirname "$0")/irc.conf
+
+# Connect.  Just reconnect if an error happens.
+while [ 1 ]; do
+    ii -s irc.freenode.net -i $irc_dir -n $irc_username -f $irc_realname
+    sleep 1
+done &
+
+# Wait for connection to stabilize...
+sleep 2
+
+# Enter the directory containing the IRC stuff.
+cd $irc_dir/irc.freenode.net
+
+# Now join!
+echo "/j $irc_channel" > in
