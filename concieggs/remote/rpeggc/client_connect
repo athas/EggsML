@@ -6,6 +6,11 @@
 
 addr="$1"
 
+if [ ! "$addr" ]; then
+    echo "Missing address!"
+    exit 1
+fi
+
 rm -f commands outputs
 mkfifo commands outputs
 

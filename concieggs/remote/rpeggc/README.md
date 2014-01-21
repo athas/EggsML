@@ -11,7 +11,7 @@ On the client, run
 
     ./client_connect <server address>
 
-and then
+and then, in another window
 
     ./client <message>
 
