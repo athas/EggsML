@@ -1,0 +1,9 @@
+#!/bin/sh
+#
+# Communicate with an already connected RPC server.  Do not run multiple
+# instances at the same time.
+
+. $(dirname "$0")/http.conf
+
+echo "$@" > commands
+head -n 1 outputs

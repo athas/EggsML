@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# Connect to an RPC server.
+
+. $(dirname "$0")/http.conf
+
+addr="$1"
+
+if [ ! "$addr" ]; then
+    echo "Missing address!"
+    exit 1
+fi
+
+rm -f commands outputs
+mkfifo commands outputs
+
+nc "$addr" "$port" < commands > outputs &
+
+cat > commands

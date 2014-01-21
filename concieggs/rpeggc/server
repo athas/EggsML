@@ -1,9 +1,0 @@
-#!/bin/sh
-#
-# Run an RPC server.
-
-. $(dirname "$0")/http.conf
-
-while true; do
-    nc -l -p $port -c $(dirname "$0")/server_handle
-done
