@@ -1,11 +1,9 @@
 #!/bin/sh
 #
-# Connect to an RPC server.  Times out after 5 seconds.  Creates a new TCP
-# connection for every command sent, but works.
+# Send commands to an RPC server.
 
 . $(dirname "$0")/http.conf
 
 addr="$1"
-shift
 
-echo "$@" | nc -w 5 "$addr" "$port"
+nc "$addr" "$port"
