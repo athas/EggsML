@@ -4,6 +4,8 @@
 
 . $(dirname "$0")/http.conf
 
-while true; do
-    nc -l -p $port -c $(dirname "$0")/server_handle
-done
+handle=$(pwd)/$(dirname "$0")/server_handle
+
+cd $(dirname "$0")/../..
+
+nc -l -p $port -c "$handle"

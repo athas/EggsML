@@ -4,8 +4,6 @@
 
 . $(dirname "$0")/http.conf
 
-cd $(dirname "$0")/..
-
 while read line; do
     EGGS_USER=$user ./fakeconcieggs runcmd $line
 done

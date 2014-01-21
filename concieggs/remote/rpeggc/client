@@ -1,9 +1,9 @@
 #!/bin/sh
 #
-# Send commands to an RPC server.
+# Communicate with an already connected RPC server.  Do not run multiple
+# instances at the same time.
 
 . $(dirname "$0")/http.conf
 
-addr="$1"
-
-nc "$addr" "$port"
+echo "$@" > commands
+head -n 1 outputs
