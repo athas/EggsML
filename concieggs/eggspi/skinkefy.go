@@ -1,22 +1,22 @@
 package main
 
 import (
-	"regexp"
+	"bufio"
 	"fmt"
-	"strings"
 	"math/rand"
+	"os"
+	"regexp"
+	"strconv"
+	"strings"
+	"time"
 	"unicode"
 	"unicode/utf8"
-	"strconv"
-	"os"
-	"bufio"
-	"time"
 )
 
 const (
-	skinkeFactor  = 25
-	skinkeLength  = 4
-	scRegular     = iota + 1
+	skinkeFactor = 25
+	skinkeLength = 4
+	scRegular    = iota + 1
 	scCapitalised
 	scFullUpper
 )
@@ -38,21 +38,21 @@ func main() {
 func oneSkinke(condition int, plural bool, definitive bool) string {
 	var word string
 	switch {
-		case plural:
-			word = "skinker"
-		case definitive:
-			word = "skinken"
-		default:
-			word = "skinke"
+	case plural:
+		word = "skinker"
+	case definitive:
+		word = "skinken"
+	default:
+		word = "skinke"
 	}
 	switch condition {
-		case scFullUpper:
-			word = strings.ToUpper(word)
-		case scCapitalised:
-			// Get first rune
-			r, s := utf8.DecodeRuneInString(word)
-			rs := strconv.QuoteRune(unicode.ToUpper(r))
-			word = rs[1:len(rs)-1]+word[s:]
+	case scFullUpper:
+		word = strings.ToUpper(word)
+	case scCapitalised:
+		// Get first rune
+		r, s := utf8.DecodeRuneInString(word)
+		rs := strconv.QuoteRune(unicode.ToUpper(r))
+		word = rs[1:len(rs)-1] + word[s:]
 	}
 	return word
 }
@@ -71,18 +71,18 @@ func skinkefy(word string) string {
 			var skinkeCondition int
 			first, _ := utf8.DecodeRuneInString(word)
 			switch {
-				case strings.ToUpper(word) == word:
-					skinkeCondition = scFullUpper
-				case unicode.ToUpper(first) == first:
-					skinkeCondition = scCapitalised
-				default:
-					skinkeCondition = scRegular
+			case strings.ToUpper(word) == word:
+				skinkeCondition = scFullUpper
+			case unicode.ToUpper(first) == first:
+				skinkeCondition = scCapitalised
+			default:
+				skinkeCondition = scRegular
 			}
 			end, size := utf8.DecodeLastRuneInString(word)
 			end2, _ := utf8.DecodeLastRuneInString(word[:len(word)-size])
 			end = unicode.ToUpper(end)
 			end2 = unicode.ToUpper(end2)
-			word = oneSkinke(skinkeCondition, end=='R', end2=='E' && (end=='T' || end=='N'))
+			word = oneSkinke(skinkeCondition, end == 'R', end2 == 'E' && (end == 'T' || end == 'N'))
 		} else {
 			IkkeSkinker.Append(word)
 		}
