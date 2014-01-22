@@ -7,4 +7,6 @@ if [ $# -eq 0 ]; then
     exit
 fi
 
-echo "$(ack)  Jeg har dræbt $@!"
+echo -n "$(ack)  Jeg har dræbt "
+echo "$@" | sed -E 's/di([ntg])/Mi\1/g' | sed -E 's/mi([ntg])/di\1/g' \
+    | sed -E 's/Mi([ntg])/mi\1/g'
