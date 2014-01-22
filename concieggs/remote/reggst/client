@@ -1,0 +1,10 @@
+#!/bin/sh
+#
+# Send commands to an REST server.  Convert to base64 because it's easy.
+
+. $(dirname "$0")/http.conf
+
+addr="$1"
+shift
+
+echo "GET $(echo "$@" | base64) HTTP/1.1" | nc "$addr" "$port"

@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+# Handle REST input.
+
+. $(dirname "$0")/http.conf
+
+read req msg proto
+echo "HTTP/1.1 200 OK\r"
+echo "Content-Type: text/plain; charset=utf-8\r\n\r"
+
+EGGS_USER=$user ./fakeconcieggs runcmd $(echo "$msg" | sed 's-^/--' | base64 -d) | sed "s/^$user: //"

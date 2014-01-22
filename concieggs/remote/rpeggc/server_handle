@@ -5,5 +5,5 @@
 . $(dirname "$0")/http.conf
 
 while read line; do
-    EGGS_USER=$user ./fakeconcieggs runcmd $line
+    EGGS_USER=$user ./fakeconcieggs runcmd $line | sed "s/^$user: //"
 done
