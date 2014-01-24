@@ -2,7 +2,7 @@
 
 shuttingUp && exit
 
-maybeGood .1 || exit
+maybeGood .05 || exit
 
 echo "$EGGS_BODY" | grep -q '^concieggs[:,] ' && exit
 
