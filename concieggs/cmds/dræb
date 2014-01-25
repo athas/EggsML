@@ -7,6 +7,14 @@ if [ $# -eq 0 ]; then
     exit
 fi
 
-echo -n "$(ack)  Jeg har dræbt "
-echo "$@!" | sed -E 's/di([ntg])/Mi\1/g' | sed -E 's/mi([ntg])/di\1/g' \
-    | sed -E 's/Mi([ntg])/mi\1/g'
+details='(ikke|bare|nu|snart|lidt|kun|endelig|ondskabsfuldt)'
+detail=$(echo "$*" | grep -Eo "^$details")
+msg=$(echo "$*" | sed -r "s/^$details //")
+
+if [ "$detail" ]; then
+    echo -n "$(ack)  Jeg har $detail dræbt "
+else
+    echo -n "$(ack)  Jeg har dræbt $*"
+fi
+echo "$msg!" | sed -r -e 's/di([ntg])/mi\1/g' -e 's/mi([ntg])/di\1/g' \
+    -e 's/ spis/ spist/g'
