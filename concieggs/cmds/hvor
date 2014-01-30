@@ -2,7 +2,7 @@
 #
 # Spørg hvor mange ...
 
-unit=`randomElement <<EOF
+factor=`randomElement <<EOF
 millioner
 tusinde
 milliarder
@@ -10,4 +10,19 @@ tusindedele
 hundrededele
 EOF`
 
-echo "$EGGS_USER: $(random 2 1337) $unit!"
+eval "$(echo "$@" | parse '^ *(?<gammel>gammel).*')"
+
+if [ "$gammel" ]; then
+    unit=$(randomElement <<EOF
+år
+dage
+sekunder
+livstider
+uger
+måneder
+EOF
+)
+    echo "$EGGS_USER: $(random 2 1337) $factor $unit!"
+else
+    echo "$EGGS_USER: $(random 2 1337) $factor!"
+fi
