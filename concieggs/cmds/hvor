@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# Spørg hvor mange ...
+
+unit=`randomElement <<EOF
+millioner
+tusinde
+milliarder
+tusindedele
+hundrededele
+EOF`
+
+echo "$EGGS_USER: $(random 2 1337) $unit!"
