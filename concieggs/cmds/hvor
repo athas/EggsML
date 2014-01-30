@@ -10,7 +10,7 @@ tusindedele
 hundrededele
 EOF`
 
-eval "$(echo "$@" | parse '^ *(?<gammel>gammel).*')"
+eval "$(echo "$@" | parse '^ *((?<gammel>(gammel|ung))|(?<afstand>(lang|kort))|(?<tyngde>(tung|let))|(?<klogskab>(dum|klog))).*')"
 
 if [ "$gammel" ]; then
     unit=$(randomElement <<EOF
@@ -22,6 +22,34 @@ uger
 måneder
 EOF
 )
+elif [ "$afstand" ]; then
+    unit=$(randomElement <<EOF
+centimeter
+millimeter
+kilometer
+meter
+Planck-distancer
+kussehår
+lysår
+EOF
+)
+elif [ "$tyngde" ]; then
+       unit=$(randomElement <<EOF
+kilo
+gram
+ton
+skæppepund
+EOF
+)
+elif [ "$klogskab" ]; then
+       unit=$(randomElement <<EOF
+gange så klog som Brainfuck
+gange så dum som John Strand
+EOF
+)
+fi
+
+if [ "$unit" ]; then
     echo "$EGGS_USER: $(random 2 1337) $factor $unit!"
 else
     echo "$EGGS_USER: $(random 2 1337) $factor!"
