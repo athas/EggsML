@@ -48,7 +48,7 @@ elif [ "$klog" ]; then
        unit=$(randomElement <<EOF
 gange så klog som Brainfuck
 gange så dum som John Strand
-gange så svinsk som Troels
+gange så klogdum som Troels
 EOF
 )
 elif [ "$stor" ]; then
