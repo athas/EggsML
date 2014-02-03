@@ -1,8 +1,10 @@
 #!/bin/sh
-
-# Spred glæde på chatten.
+#
+# Spred glæde på chatten når folk logger på.
 
 set -e
+
+isCool "$EGGS_USER" && setCooldown "$EGGS_USER" 5 || exit
 
 maybeGood .7 || exit
 
@@ -23,4 +25,12 @@ glad
 bedre end mig :-(
 EOF
 )
-echo $EGGS_USER: Jeg synes at du er $rar.
+
+synes=(randomElement <<EOF
+synes
+har opfattelsen
+mener
+EOF
+)
+
+echo "$EGGS_USER: Jeg $synes at du er $rar."
