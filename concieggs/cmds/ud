@@ -7,9 +7,9 @@ require 'open-uri'
 require 'uri'
 
 class String
-    def is_i?
-       !!(self =~ /^[-+]?[0-9]+$/)
-    end
+  def is_i?
+    !!(self =~ /^[-+]?[0-9]+$/)
+  end
 end
 
 if ARGV.length < 1
@@ -17,43 +17,38 @@ if ARGV.length < 1
   exit(-1)
 end
 
-max_output = 3
-
-if ARGV[-1].is_i? 
-  max_output = ARGV.pop.to_i
-end
+max_output = ARGV.pop.to_i if ARGV[-1].is_i?
+max_output ||= 3
 
 term = ARGV.join(" ")
-page = URI.encode("http://www.urbandictionary.com/define.php?term=#{term}")
+page = URI.parse(URI.encode("http://www.urbandictionary.com/define.php?term=#{term}"))
 
 results = []
 
 begin
-  open(page) do |doc|
-    doc.each_line do |l|
-       results << l.scan(/div class="definition">(.*?)<\/div/)
-    end
-  end
-rescue
+  doc     = page.read
+  results = doc.scan(/div class=["']meaning["']>(.*?)<\/div/m).flatten!
+rescue RuntimeError => e
   puts "Fejl ved forespørgsel til Urban Dictionary"
+  $stderr.puts "Fejl: #{e}"
   exit(-1)
 end
 
-results.flatten!
-
 if results.empty?
-  puts "Fandt ingenting..." 
+  puts "Fandt ingenting..."
 else
   begin
-    results.each_with_index do |result, i|
+    results.take(max_output).each do |result|
       result.gsub!(/&quot;/, '"')
       result.gsub!(/\r/, '')
-      result.gsub!(/<[^>]*>/, '')
+      result.gsub!(/<[^>]*>/, '') # Erstat html-tags med ingenting
 
-      puts result.chomp unless i >= max_output
+      puts result.chomp
       sleep 1
     end
-  rescue
+  rescue RuntimeError => e
     puts "Fejl ved udskrivelse af resultat"
+    $stderr.puts "Fejl: #{e}"
+    exit(-1)
   end
 end
