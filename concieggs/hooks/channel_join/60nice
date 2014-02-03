@@ -4,7 +4,7 @@
 
 set -e
 
-isCool "$EGGS_USER" && setCooldown "$EGGS_USER" 5 || exit
+isCool "$EGGS_USER" && setCooldown "$EGGS_USER" 120 || exit
 
 maybeGood .7 || exit
 
