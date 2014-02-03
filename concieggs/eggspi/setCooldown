@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+# Set the cooldown time for a user.  See also `isCool'.
+#
+# Usage: setCooldown USER MINUTES
+
+duration=$((60*$2))
+echo $(($(nowTime) + $duration)) | dbWrite "cooldown_$1"

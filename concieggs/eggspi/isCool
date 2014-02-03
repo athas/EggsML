@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# Check if a user has achieved cooldown.  See also `setCooldown'.
+#
+# Usage: isCool USER
+
+time=$(dbRead "cooldown_$1")
+if [ "$time" ]; then
+    if [ "$(nowTime)" -gt "$time" ]; then
+        exit
+    fi
+fi
+
+exit 1
