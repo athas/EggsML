@@ -6,7 +6,7 @@ set -e
 
 maybeGood .7 || exit
 
-rar=(randomElement <<EOF
+rar=$(randomElement <<EOF
 rar
 sød
 behagelig
