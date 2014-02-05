@@ -13,11 +13,11 @@ if echo "$@" | grep -i -E '^ *sagde +hun +i +går: *' > /dev/null; then
 elif ! [ -f $CONCIEGGS_DB_DIR/last_dshoig ]; then
     echo 'Jeg har altså ikke sagt noget!'
 else
-    if (echo "$@" | grep -i -E '^  *(var|er) +(jo|slet) +ikke +sjovt\.? *$') > /dev/null; then
+    if (echo "$@" | grep -i -E '^ (der)? *(var|er) +(jo|slet) +ikke +sjovt\.? *$') > /dev/null; then
         echo "Øv, jeg syntes ellers det var et ret morsomt svar til $(cat $CONCIEGGS_DB_DIR/last_dshoig)."
         cat $CONCIEGGS_DB_DIR/last_dshoig >> $CONCIEGGS_DB_DIR/usjove_dshoig
         rm $CONCIEGGS_DB_DIR/last_dshoig
-    elif echo "$@" | grep -i -E '^ *(var|er) +faktisk +(ret|pænt) +sjovt\.? *$' > /dev/null; then
+    elif echo "$@" | grep -i -E '^ (der)? *(var|er) +faktisk +(ret|pænt) +sjovt\.? *$' > /dev/null; then
         echo "Ja, pænt sjovt svar til $(cat $CONCIEGGS_DB_DIR/last_dshoig), ikke?"
         cat $CONCIEGGS_DB_DIR/last_dshoig >> $CONCIEGGS_DB_DIR/sjove_dshoig
         rm $CONCIEGGS_DB_DIR/last_dshoig
