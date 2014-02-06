@@ -5,7 +5,7 @@ set -e
 maybeGood .9 || exit
 
 user=$EGGS_USER
-lookupDebt $user | grep -q '\-' - || exit
+lookupDebt $user | grep -vq '\-' - || exit
 
 penge=`randomElement <<EOF
 penge
