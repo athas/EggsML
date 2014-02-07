@@ -22,7 +22,7 @@ sviner() {
     echo "$who: ANTIFROKOST!"
     echo "$who: Du har glemt at posteggse OG DIN MOR ER SIKKERT TYK!"
     echo "$who: Du er værre end den værste!"
-    echo "$who: Jeg mangler ord til at beskrive MIT HAD over $when!"
+    echo "$who: Jeg mangler ord til at beskrive MIT HAD over $(titleEggs $when)!"
     echo "$who: Jeg troede at vi var venner, men tydeligvis ikke efter $(titleEggs $when) :'("
     echo "$who: Du er et monster."
 }
