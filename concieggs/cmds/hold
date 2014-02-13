@@ -5,7 +5,8 @@
 eval "$(echo "$@" | tolower | parse '.* (?<shutUp>kæft)[!.]*')"
 
 if [ "$shutUp" ]; then
-    duration=$((60*10))
+    count=$(echo "$@" |  sed 's/[^!]*//g' |wc -c)
+    duration=$((60*10*$count))
 
     echo $(($(nowTime) + $duration)) | dbWrite shutUpUntil
 
