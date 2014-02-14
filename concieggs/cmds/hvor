@@ -72,5 +72,36 @@ fi
 if [ "$unit" ]; then
     echo "$EGGS_USER: $(random 2 1337) $factor $unit!"
 else
-    echo "$EGGS_USER: $(random 2 1337) $factor!"
+    prep=`randomElement <<EOF
+På
+I
+Over
+Under
+EOF
+`
+    place=`randomElement <<EOF
+Danmark
+Sverige
+Norge
+Tyskland
+Finland
+Island
+Polen
+Frankrig
+Italien
+Portugal
+Spanien
+Egypten
+Rusland
+Hviderusland
+Ukraine
+Litauen
+Letland
+Estland
+Grøndland
+Færøerne
+Bornholm
+Skagen
+EOF`
+    echo "$EGGS_USER: $prep $place!"
 fi
