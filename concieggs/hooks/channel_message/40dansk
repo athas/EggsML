@@ -9,7 +9,7 @@ import random
 from eggsthon import *
 
 
-if os.system('shuttingUp') != 0:
+if os.system('shuttingUp') == 0:
     sys.exit()
 
 user = os.getenv('EGGS_USER')
