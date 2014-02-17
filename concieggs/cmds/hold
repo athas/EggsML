@@ -7,10 +7,11 @@ eval "$(echo "$@" | tolower | parse '.* (?<shutUp>kæft)[!.]*')"
 if [ "$shutUp" ]; then
     count=$(echo "$@" |  sed 's/[^!]*//g' |wc -c)
     duration=$((60*10*$count))
+    time=$(($(nowTime) + $duration))
 
-    echo $(($(nowTime) + $duration)) | dbWrite shutUpUntil
+    echo $time | dbWrite shutUpUntil
 
-    echo "$(ack)  Jeg skal nok tie stille."
+    echo "$(ack)  Jeg skal nok tie stille (indtil $(timeToDate $time))."
 else
     echo "Hold min hvad?"
 fi
