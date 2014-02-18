@@ -27,8 +27,12 @@ if [ "$user" ]; then
         exit
     fi
 
-    alias=$(randomName "$user")
-    auth=$(authedName "$user")
+    if [ "$user" = Spartacus -o "$user" = spartacus ]; then
+        alias=$(eggstool balances | cut -d' ' -f 2 | randomElement)
+    else
+        alias=$(randomName "$user")
+        auth=$(authedName "$user")
+    fi
 
     if [ ! "$alias" -a ! "$auth" -o "$alias" -a "$auth" ]; then
         conj="og"
