@@ -9,7 +9,7 @@ if [ "$EGGS_USER" = hej_fra_github ]; then
         else
             echo 'Noget gik galt da jeg lavede git pull.'
         fi
-    elif echo "$EGGS_BODY" | grep '^\[L0Language\]' | grep pushed > /dev/null; then
+    elif echo "$EGGS_BODY" | grep '^\[L0Language\]' | egrep 'pushed|merged' > /dev/null; then
         # Concieggs - the HIPERFIT continuous integration server.
         ( cd /home/concieggs/l0language; tools/ci.sh .) >&2 &
     fi
