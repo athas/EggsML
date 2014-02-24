@@ -14,7 +14,7 @@ msg=$(echo "$*" | sed -r "s/^$details //")
 if [ "$detail" ]; then
     echo -n "$(ack)  Jeg har $detail dræbt "
 else
-    echo -n "$(ack)  Jeg har dræbt $*"
+    echo -n "$(ack)  Jeg har dræbt "
 fi
 echo "$msg!" | sed -r -e 's/di([ntg])/mi\1/g' -e 's/mi([ntg])/di\1/g' \
     -e 's/ spis/ spist/g'
