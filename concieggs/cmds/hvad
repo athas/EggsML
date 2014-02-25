@@ -1,6 +1,7 @@
 #!/bin/sh
 #
-# Spørg om din gæld til frokostkassen
+# Spørg om din gæld til frokostkassen, eller få hjælp til diverse
+# personlighedsfremmende gøremål.
 
 
 if [ $# -eq 2 -a "$1" = "skylder" -a '(' "$2" = "jeg" -o "$2" = "jeg?" ')' ]; then
@@ -9,6 +10,9 @@ elif [ $# -eq 2 -a "$1" = "skylder" ]; then
     user=$2
 elif [ "$*" = "er klokken" ]; then # påskeæg
     date +%H:%M:%S
+    exit
+elif [ "$*" = "mangler jeg" ]; then # påskeæg++
+    echo "Du mangler $(randomElement < "$CONCIEGGS_DB_DIR/ordbog-dansk-navneord")!"
     exit
 else
     echo "Brug: hvad skylder [navn|jeg]"
