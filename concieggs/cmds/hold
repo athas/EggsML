@@ -2,7 +2,7 @@
 #
 # Få concieggs til at holde sin kæft i ti minutter.
 
-eval "$(echo "$@" | tolower | parse '.* (?<shutUp>kæft)[!.]*')"
+eval "$(echo "$@" | tolower | parse '.*(?<shutUp>kæ+ft)[!.]*')"
 
 if [ "$shutUp" ]; then
     count=$(echo "$@" |  sed 's/[^!]*//g' |wc -c)
