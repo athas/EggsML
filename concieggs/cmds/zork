@@ -1,0 +1,15 @@
+#!/bin/bash
+
+FIFO=/tmp/zork
+ZORKDIR=$CONCIEGGS_LIB_DIR/zork
+
+if [ ! -p $FIFO ]
+then
+    killall -q dungeon
+    rm -f $FIFO
+    mkfifo $FIFO
+    cd $ZORKDIR
+    tail -f $FIFO | ./dungeon &
+fi
+
+echo "$@" > $FIFO
