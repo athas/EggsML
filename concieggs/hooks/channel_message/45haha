@@ -2,9 +2,9 @@
 #
 # Grin højlydt.
 
-shuttingUp && exit
+# shuttingUp && exit
 
-maybeGood .4 || exit
+# maybeGood .4 || exit
 
 ha=$(for i in $(random 4 20); do echo -n HA; if [ $(random 0 1) ]; then echo -n HR; fi; done)
 
