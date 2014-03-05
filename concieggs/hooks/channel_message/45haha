@@ -15,7 +15,8 @@ ROFLENDE
 MEGA
 LOLLENDE 
 EOF
-
+)
+    
 sjov="$foranSjov $(randomElement <<EOF
 GRINERN
 SJOVT
