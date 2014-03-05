@@ -26,4 +26,4 @@ ROFLCOPTER
 EOF
 )"
 
-echo "$EGGS_BODY" | sed -i -e "s/(ha)+/$ha/" -e "s/(sjovt?|grinern?|morsomt?|skægt?)/$sjov/"
+echo "$EGGS_BODY" | sed -r -e "s/(ha)+/$ha/i" -e "s/(sjovt?|grinern?|morsomt?|skægt?)/$sjov/i"
