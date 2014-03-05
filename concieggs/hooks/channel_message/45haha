@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# Grin højlydt.
+
+shuttingUp && exit
+
+maybeGood .4 || exit
+
+ha=$(for i in $(random 4 20); do echo -n HA; if [ $(random 0 1) ]; then echo -n HR; fi; done)
+
+foranSjov=$(randomElement <<EOF
+VILDT
+ULTRA
+ROFLENDE
+MEGA
+LOLLENDE 
+EOF
+
+sjov="$foranSjov $(randomElement <<EOF
+GRINERN
+SJOVT
+MORSOMT
+LOLZ
+ROFLCOPTER
+EOF
+)"
+
+echo "$EGGS_BODY" | sed -i -e "s/(ha)+/$ha/" -e "s/(sjovt?|grinern?|morsomt?|skægt?)/$sjov/"

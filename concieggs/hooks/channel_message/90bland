@@ -1,9 +1,9 @@
 #!/bin/sh
-
+#
 # Bland dig i debatten.
 
 shuttingUp && exit
 
-maybeGood .005 || exit # *Virkelig* sjældent!
+maybeGood .001 || exit # **Virkelig** sjældent!
 
 echo "$EGGS_USER: `tærteKommentar`"
