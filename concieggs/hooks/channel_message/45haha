@@ -2,13 +2,16 @@
 #
 # Grin højlydt.
 
-exit
+shuttingUp && exit
 
-# shuttingUp && exit
+maybeGood .4 || exit
 
-# maybeGood .4 || exit
-
-ha=$(for i in $(random 4 20); do echo -n HA; if [ $(random 0 1) ]; then echo -n HR; fi; done)
+ha=$(for i in $(seq 1 $(random 4 20)); do
+    echo -n HA
+    if [ $(random 0 5) = 0 ]; then
+        echo -n HR
+    fi
+    done)
 
 foranSjov=$(randomElement <<EOF
 VILDT
@@ -28,4 +31,8 @@ ROFLCOPTER
 EOF
 )"
 
-echo "$EGGS_BODY" | sed -r -e "s/(ha)+/$ha/i" -e "s/(sjovt?|grinern?|morsomt?|skægt?)/$sjov/i"
+new=$(echo "$EGGS_BODY" | sed -r -e "s/(ha){2,}/$ha/i" -e "s/(sjovt?|grinern?|morsomt?|skægt?)/$sjov/i")
+
+if [ "$new" != "$EGGS_BODY" ]; then
+    echo "$new"
+fi
