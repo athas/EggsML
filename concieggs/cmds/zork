@@ -3,11 +3,13 @@
 FIFO=/tmp/zork
 ZORKDIR=$CONCIEGGS_LIB_DIR/zork
 RUNNING=$(ps aux | grep dungeon | grep -v grep | wc -l)
+TAILS=$( ps aux | grep tail | grep zork | wc -l )
 
-if [ -p $FIFO -a $RUNNING -gt 0 ]
+if [ -p $FIFO -a $RUNNING -eq 1 -a $TAILS -eq 1  ]
 then
     echo "$@" > $FIFO
 else
+    pkill -f "tail -f $FIFO"
     killall -q dungeon
     rm -f $FIFO
     mkfifo $FIFO
