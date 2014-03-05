@@ -12,5 +12,5 @@ else
     rm -f $FIFO
     mkfifo $FIFO
     cd $ZORKDIR
-    tail -f $FIFO | ./dungeon &
+    tail -f $FIFO | ./dungeon | sed -e 's/>//' &
 fi
