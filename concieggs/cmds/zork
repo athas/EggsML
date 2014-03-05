@@ -2,16 +2,15 @@
 
 FIFO=/tmp/zork
 ZORKDIR=$CONCIEGGS_LIB_DIR/zork
+RUNNING=$(ps aux | grep dungeon | grep -v grep | wc -l)
 
-if [ ! -p $FIFO ]
+if [ -p $FIFO -a $RUNNING -gt 0 ]
 then
+    echo "$@" > $FIFO
+else
     killall -q dungeon
     rm -f $FIFO
     mkfifo $FIFO
     cd $ZORKDIR
     tail -f $FIFO | ./dungeon &
-else
-    echo "$@" > $FIFO
 fi
-
-
