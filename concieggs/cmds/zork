@@ -10,6 +10,8 @@ then
     mkfifo $FIFO
     cd $ZORKDIR
     tail -f $FIFO | ./dungeon &
+else
+    echo "$@" > $FIFO
 fi
 
-echo "$@" > $FIFO
+
