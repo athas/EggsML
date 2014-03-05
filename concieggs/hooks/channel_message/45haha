@@ -2,6 +2,8 @@
 #
 # Grin højlydt.
 
+exit
+
 # shuttingUp && exit
 
 # maybeGood .4 || exit
