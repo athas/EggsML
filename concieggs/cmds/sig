@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# Sig noget til en ven via concieggs.
+
+. $CONCIEGGS_DIR/concieggs.conf
+
+ass=$EGGS_USER
+
+if [ $# -lt 3 ]; then
+    echo "Brug: sig <ting> til <navn>"
+    exit
+fi
+
+ting="$1"
+navn="$3"
+
+ord="$(randomElement < "$CONCIEGGS_DB_DIR/ordbog-dansk-navneord")"
+
+echo "$navn: $ord!" #> $CONCIEGGS_IRC_DIR/$irc_channel/in
