@@ -5,7 +5,7 @@
 eval "$(echo "$@" | tolower | parse '.*(?<shutUp>[kK][æÆ]+[fF][tT])[!.]*')"
 
 if [ "$shutUp" ]; then
-    count=$(echo "$@" |  sed 's/[^!]*//g' |wc -c)
+    count=$(echo "$@" |  sed 's/[^!æÆ]*//g' |wc -c)
     duration=$((60*10*$count))
     time=$(($(nowTime) + $duration))
 
