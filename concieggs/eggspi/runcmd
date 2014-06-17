@@ -65,7 +65,7 @@ if [ "$cmd" ] && [ "$EGGS_USER" != "$CONCIEGGS_NAME" ]; then
     elif $(echo "$@" | grep '\?$' > /dev/null); then
         run 8ball "$@"
     else
-        othercmd="$(commands|levenshtein "$cmd"|sort -n|head -n 1|cut -d ' ' -f 2-)"
+        othercmd="$(commands|danishToEnglish|levenshtein "$cmd"|sort -n|head -n 1|cut -d ' ' -f 2-)"
         if [ "$othercmd" ]; then
             echo "Jeg antager at du mente $othercmd!"
             run "$othercmd" "$@"
