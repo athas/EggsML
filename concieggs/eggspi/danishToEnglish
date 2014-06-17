@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+# Translate a line from Danish to English via Google Translate.
+
+read -r line
+gawk -f /home/concieggs/google-translate-cli/translate.awk '{da=en}' "$line"
