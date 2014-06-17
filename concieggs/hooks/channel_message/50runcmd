@@ -8,5 +8,10 @@ awk_getargs='{ print substr($0, index($0, " "$2)+length($2)+2, length($0)) }'
 rawcmd=$(echo "$EGGS_BODY"|tolower|awk --posix "$awk_getcmd")
 if [ "$rawcmd" ]; then
     args="$(echo "$EGGS_BODY"|awk --posix "$awk_getargs")"
-    runcmd "$rawcmd" $args || runcmd $(echo "$rawcmd"|englishToDanish|tolower) $args
+    out=$(runcmd "$rawcmd" $args)
+    if [ $? != 0 ]; then
+        runcmd $(echo "$rawcmd"|englishToDanish|tolower) $args
+    else
+        echo "$out"
+    fi
 fi
