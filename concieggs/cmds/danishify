@@ -2,5 +2,4 @@
 #
 # Oversæt fra engelsk til dansk via Google Translate.
 
-read -r line
-gawk -f /home/concieggs/google-translate-cli/translate.awk '{en=da}' "$line"
+gawk -f /home/concieggs/google-translate-cli/translate.awk '{en=da}' "$@"
