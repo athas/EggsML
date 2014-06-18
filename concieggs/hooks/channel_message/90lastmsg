@@ -1,6 +1,8 @@
 #!/bin/sh
 
 
-if [ "$(aliases "$EGGS_USER")" ] || true; then
+if [ "$(aliases "$EGGS_USER")" ]; then
     echo "$EGGS_BODY" | dbUserWrite "$EGGS_USER" lastmsg
+else
+    echo "$EGGS_BODY" | dbWrite "strangers/$EGGS_USER" lastmsg
 fi

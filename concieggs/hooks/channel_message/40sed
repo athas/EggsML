@@ -11,6 +11,9 @@ fi
 
 if echo "$EGGS_BODY" | egrep -x '^ *s/[^/]*/[^/]*(/g?)? *' > /dev/null; then
     last=$(dbUserRead "$who" lastmsg)
+    if ! [ "$last" ]; then
+        last=$(dbRead "strangers/$who" lastmsg)
+    fi
     if echo "$EGGS_BODY" | egrep '/g?$' > /dev/null; then
         exp="$EGGS_BODY"
     else
