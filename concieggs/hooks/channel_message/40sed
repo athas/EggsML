@@ -2,6 +2,7 @@
 
 set -f
 
+exec > in
 
 if echo "$EGGS_BODY" | egrep '[^ :]*: ' > /dev/null; then
     who="$(echo "$EGGS_BODY" | cut -d ':' -f 1)"
