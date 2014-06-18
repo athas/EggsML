@@ -10,7 +10,7 @@ if [ "$rawcmd" ]; then
     args="$(echo "$EGGS_BODY"|awk --posix "$awk_getargs")"
     out=$(runcmd "$rawcmd" $args)
     if [ $? != 0 ]; then
-        runcmd $(echo "$rawcmd"|englishToDanish|tolower) $args
+        runcmd $(echo "$rawcmd"|germanToDanish|tolower) $args
     else
         echo "$out"
     fi
