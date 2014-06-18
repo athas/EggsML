@@ -2,8 +2,6 @@
 
 set -f
 
-exec > in
-
 if echo "$EGGS_BODY" | egrep '[^ :]*: ' > /dev/null; then
     who="$(echo "$EGGS_BODY" | cut -d ':' -f 1)"
     EGGS_BODY="$(echo "$EGGS_BODY" | cut -d ' ' -f 2-)"
@@ -19,6 +17,7 @@ if echo "$EGGS_BODY" | egrep -x '^ *s/[^/]*/[^/]*(/g?)? *' > /dev/null; then
         exp="$EGGS_BODY/"
     fi
     if [ "$last" ]; then
+        exec > in
         echo "Rettet: <$who> $(echo "$last" | sed -r "$exp")"
     elif [ "$EGGS_USER" = "$who" ]; then
         echo "$EGGS_USER: Men du har jo ikke sagt noget!"
