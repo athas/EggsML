@@ -20,8 +20,9 @@ if echo "$EGGS_BODY" | egrep -x '^ *s/[^/]*/[^/]*(/g?)? *' > /dev/null; then
         exp="$EGGS_BODY/"
     fi
     if [ "$last" ]; then
+        echo -n "Rettet: "
         exec > in
-        echo "Rettet: <$who> $(echo "$last" | sed -r "$exp")"
+        echo "<$who> $(echo "$last" | sed -r "$exp")"
     elif [ "$EGGS_USER" = "$who" ]; then
         echo "$EGGS_USER: Men du har jo ikke sagt noget!"
     else
