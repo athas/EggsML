@@ -90,7 +90,7 @@ reader() {
         fi
     done | while read -r line; do
         echo "$line" | fmt -s --width=400
-    done | throttle | translate "$(basename "$(pwd)")"
+    done | throttle #| translate "$(basename "$(pwd)")"
 }
 
 # Write all errors here
