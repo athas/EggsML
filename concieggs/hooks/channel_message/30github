@@ -4,7 +4,7 @@ if [ "$EGGS_USER" = hej_fra_github ]; then
     if echo "$EGGS_BODY" | grep '^\[EggsML\]' | grep pushed | grep -v 'concieggs pushed' > /dev/null; then
         exec >'../#eggsml/in'
         cd /eggsml
-        if git pull >&2; then
+        if git pull; then
             echo 'Jeg har hentet de nyeste ændringer fra https://github.com/Athas/EggsML!'
         else
             echo 'Noget gik galt da jeg lavede git pull.'
