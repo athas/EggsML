@@ -1,3 +1,43 @@
-#!/bin/sh
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-curl hongabar.org/~concieggs/kvidr.php --data-urlencode message="$1"
+import sys
+import os.path
+from twitter import *
+
+
+root = '/home/concieggs/concieggs-kvidring/'
+
+def create_connection():
+    app_name = 'EggsML'
+
+    with open(root + 'key') as f:
+        consumer_key = f.read().strip()
+    with open(root + 'secret') as f:
+        consumer_secret = f.read().strip()
+
+    creds_filename = root + 'credentials'
+    if not os.path.exists(creds_filename):
+        oauth_dance(app_name, consumer_key,
+                    consumer_secret, creds_filename)
+
+    oauth_token, oauth_secret = read_token_file(creds_filename)
+
+    t = Twitter(auth=OAuth(oauth_token, oauth_secret,
+                           consumer_key, consumer_secret))
+    return t
+
+def send_message(t, msg):
+    j = t.statuses.update(status=msg)
+    print 'Jeg har kvidret: https://twitter.com/concieggs/status/%d' % j[u'id']
+
+def run_main():
+    msg = sys.stdin.read().strip()
+    if not msg:
+        print 'Der er jo ingen besked!'
+    else:
+        c = create_connection()
+        send_message(c, msg)
+
+if __name__ == '__main__':
+    run_main()
