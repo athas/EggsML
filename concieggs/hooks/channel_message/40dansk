@@ -45,8 +45,8 @@ for a, b in eng_dan:
 
 if body1 != body:
     x = random.choice([user + ' mener nok',
-                       '/me foretrÃ¦kker nu',
-                       user + ', her pÃ¥ dansk',
-                       '/me oversÃ¦tter',
-                       'Nejnej, pÃ¥ dansk'])
+                       '/me foretrækker nu',
+                       user + ', her på dansk',
+                       '/me oversætter',
+                       'Nejnej, på dansk'])
     print '%s: %s' % (x, body1)
