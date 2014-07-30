@@ -5,9 +5,9 @@ if [ "$EGGS_USER" = hej_fra_github ]; then
         cd $EGGS_DIR
         git pull
         if [ $? == 0 ]; then
-            echo 'Jeg har hentet de nyeste ændringer fra https://github.com/Athas/EggsML!' > '/home/concieggs_irc/irc.freenode.net/#eggsml/in'
+            echo 'Jeg har hentet de nyeste ændringer fra https://github.com/Athas/EggsML!' > '/home/concieggs/concieggs_irc/irc.freenode.net/#eggsml/in'
         else
-            echo 'Noget gik galt da jeg lavede git pull.' > '/home/concieggs_irc/irc.freenode.net/#eggsml/in'
+            echo 'Noget gik galt da jeg lavede git pull.' > '/home/concieggs/concieggs_irc/irc.freenode.net/#eggsml/in'
         fi
     elif echo "$EGGS_BODY" | grep '^\[futhark\]' | egrep 'pushed|merged' > /dev/null; then
         # Concieggs - the HIPERFIT continuous integration server.
