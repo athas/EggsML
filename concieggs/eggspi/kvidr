@@ -9,7 +9,7 @@
 
 import sys
 import os.path
-from twitter import *
+from eggsthon.twitter import *
 
 
 root = '/home/concieggs/concieggs-kvidring/'
