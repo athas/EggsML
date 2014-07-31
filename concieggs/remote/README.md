@@ -6,3 +6,5 @@ work when updating database.
 
 Fancy: use server-client infrastructure in "reggst/" (HTTP), or alternatively in
 "rpeggc/" (different).
+
+Also bitlbee proof of concept for chatting directly with concieggs.
