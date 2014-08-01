@@ -23,7 +23,7 @@ def run_main(args):
     if len(args) != 4:
         forklarSig()
     else:
-        string = args[2] + ": " + user + "ville gerne sige " + args[0] + " " + args[1] + " dig."
+        string = args[3] + ": " + user + " ville gerne sige " + args[1] + " " + args[2] + " dig."
         print string.encode('utf-8')
 
 if __name__ == '__main__':
