@@ -1,19 +1,31 @@
-#!/bin/sh
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 #
-# Sig noget til en ven via concieggs.
+# Modtag data fra Conservapedia.  Brug: antividen [emne]
 
-. $CONCIEGGS_DIR/concieggs.conf
+import sys
+import os
+from functools import partial
+import itertools
+import random
 
-ass=$EGGS_USER
+from eggsthon.url_open import request
+from eggsthon.mediawiki import get_page_urls, get_paragraphs, get_sentences
 
-if [ $# -lt 3 ]; then
-    echo "Brug: sig <ting> til <navn>"
-    exit
-fi
+def forklarSig():
+    print "Brug kommandoen korrekt:"
+    print "sig <ting> til <person>"
 
-ting="$1"
-navn="$3"
 
-ord="$(randomElement < "$CONCIEGGS_DB_DIR/ordbog-dansk-navneord")"
+def run_main(args):
+    user = os.getenv("EGGS_USER")
+    args = map(lambda a: a.decode('utf-8', 'ignore'), args)
 
-echo "$navn: $ord!" #> $CONCIEGGS_IRC_DIR/$irc_channel/in
+    if len(args) != 3 or args[1] != "til":
+        forklarSig()
+    else:
+        string = args[2] + ": " + user + "ville gerne sige " + args[0] + " til dig."
+        print string.encode('utf-8')
+
+if __name__ == '__main__':
+    run_main(sys.argv)
