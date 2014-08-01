@@ -4,8 +4,7 @@
 # nogenlunde.
 
 echo "Hej $EGGS_USER!"
-echo "Parametrene var $EGGS_ARGS."
+echo "Parametrene var $@."
 echo "Den fulde linje var $EGGS_LINE."
-echo "Argv er $*."
 echo "PATH er $PATH"
 echo "CONCIEGGS_DIR $CONCIEGGS_DIR"
