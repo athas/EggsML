@@ -40,7 +40,7 @@ def run_main(args):
 def reminder():
     rms = ["spørge en voksen",
                 "låne penge i banken" ,
-                "slette din gamle bitcoin-wallet" ,
+                "slette din gamle bitcoin-tegnebog" ,
                 "opsige dit job" ,
                 "tale med en privatøkonom" ,
                 "smile" ,
