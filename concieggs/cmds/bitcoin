@@ -23,9 +23,11 @@ def run_main(args):
     priceInUSD = float(priceInUSD.replace(",","."))
     dollarkurz = dollarkurs()
     priceInDKK = priceInUSD * (dollarkurz / 100.0)
-
-    antalBitcoin = args[2] / priceInDKK
-
+    try:
+        antalBitcoin = args[2] / priceInDKK
+    except TypeError:
+        fejl()
+        return
     user = os.getenv("EGGS_USER")
     if user is None:
         user = "min ven"
@@ -62,12 +64,13 @@ def dollarkurs(valuta="USD"):
 def parseArgs(args):
     if args[1] != "for" or args[3] != "kroner":
         fejl()
-        return
+        sys.exit(0)
 
     try:
         args[2] = float(args[2])
     except ValueError:
         fejl()
+        sys.exit(0)
     return args
 
 def fejl():
