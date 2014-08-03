@@ -129,5 +129,6 @@ if __name__ == '__main__':
 			#sys.stderr.write('ircdecode input: {!r}\n'.format(linje))
 			skinke = ircdecode(linje)
 			sys.stdout.write(skinke.encode('utf8'))
+			sys.stdout.flush()
 	except KeyboardInterrupt:
 		pass
