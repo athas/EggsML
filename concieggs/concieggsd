@@ -5,8 +5,8 @@ set -f
 
 trace=""
 if [ "x$1" = "x--trace" ]; then
-	trace=1
-	set -x
+    trace=1
+    set -x
 fi
 
 setTrap() {
@@ -120,15 +120,15 @@ reader() {
 # Write all errors here
 
 if [ -z "$trace" ]; then
-	tmpdir=$(mktemp -d) || exit 1
-	mkfifo $tmpdir/stderr
-	mkfifo $tmpdir/stderr2
-	(cat $tmpdir/stderr | tee $tmpdir/stderr2 | throttle > $irc_error_channel/in) &
-	cat $tmpdir/stderr2 1>&2 &
-	exec 2>$tmpdir/stderr
-	rm $tmpdir/stderr
-	rm $tmpdir/stderr2
-	rmdir $tmpdir
+    tmpdir=$(mktemp -d) || exit 1
+    mkfifo $tmpdir/stderr
+    mkfifo $tmpdir/stderr2
+    (cat $tmpdir/stderr | tee $tmpdir/stderr2 | throttle > $irc_error_channel/in) &
+    cat $tmpdir/stderr2 1>&2 &
+    exec 2>$tmpdir/stderr
+    rm $tmpdir/stderr
+    rm $tmpdir/stderr2
+    rmdir $tmpdir
 fi
 
 # Start up the EggsML daemon.
