@@ -1,0 +1,7 @@
+#!/bin/sh
+pidfile="$(mktemp)"
+echo $pidfile
+
+trap 'kill $(cat "$pidfile") 2> /dev/null; rm $pidfile' INT QUIT TERM EXIT
+
+/bin/sh -c -i "$(printf '/bin/sh ./concieggsd &\necho $! > '"$pidfile"'\nfg')"
