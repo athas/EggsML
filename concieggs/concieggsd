@@ -2,7 +2,25 @@
 
 set -e
 set -f
-trap 'killall concieggs' EXIT # Kill all children when we quit.
+
+setTrap() {
+	# Kill all children when we quit.
+    trap 'exit' INT QUIT TERM
+	trap 'cleanup' EXIT
+}
+
+setTrap
+
+cleanup() {
+#    jobsfile="$(mktemp)"
+#    jobs -p > "$jobsfile" #dash be silly
+#    pids="$(cat $jobsfile)"
+#    rm "$jobsfile"
+#
+#    echo "Jeg er $$. Dette er mine børn: $pids"
+#    [ -n "$pids" ] && kill $pids
+	kill 0
+}
 
 dir=$(readlink -f $(dirname $0))
 
@@ -97,9 +115,12 @@ reader() {
 
 tmpdir=$(mktemp -d) || exit 1
 mkfifo $tmpdir/stderr
-(cat $tmpdir/stderr | throttle > $irc_error_channel/in) &
+mkfifo $tmpdir/stderr2
+(cat $tmpdir/stderr | tee $tmpdir/stderr2 | throttle > $irc_error_channel/in) &
+cat $tmpdir/stderr2 1>&2 &
 exec 2>$tmpdir/stderr
 rm $tmpdir/stderr
+rm $tmpdir/stderr2
 rmdir $tmpdir
 
 # Start up the EggsML daemon.
