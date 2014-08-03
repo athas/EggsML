@@ -1,6 +1,18 @@
 #!/bin/sh
 
-trap 'kill $(jobs -p) 2>/dev/null' EXIT # Kill all children when we quit.
+trap 'exit' INT QUIT TERM
+trap 'cleanup' EXIT
+
+cleanup() {
+    jobsfile="$(mktemp)"
+    jobs -p > "$jobsfile" #dash be silly
+    pids="$(cat $jobsfile)"
+    rm "$jobsfile"
+
+    #echo "Jeg er $$. Dette er mine børn: $pids"
+    [ -n "$pids" ] && kill $pids
+    kill 0
+}
 
 dir=$(dirname $0)
 cfg=$dir/concieggs.conf
