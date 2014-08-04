@@ -27,5 +27,5 @@ for vid in ytvids:
 
         print "%s (%.2f/%d efter %d stemmer, %d visninger, uploadet af %s)" % (title, rating, maxrating, numratings, views, uploader)
     except:
-        print u"Den dér YouTube video er vist ikke helt i orden."
+        print u"Den dér YouTube video er vist ikke helt i orden.".encode("utf8")
 
