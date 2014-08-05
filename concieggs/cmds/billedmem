@@ -16,7 +16,7 @@ from lxml import html
 
 def run_main(args):
 
-    if (len(args) > 2):
+    if (len(args) >= 2):
         specifik = True
         list = specifiktMem(args) 
     else:
