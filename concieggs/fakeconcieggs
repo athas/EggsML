@@ -7,6 +7,7 @@ cmd=$1
 dir=$(readlink -f $(dirname $0))
 cmddir=$dir/cmds/
 
+export CONCIEGGS_NAME=concieggs
 export CONCIEGGS_DIR=$dir
 export CONCIEGGS_DB_DIR=$dir/db
 export CONCIEGGS_LIB_DIR=$dir/eggspi
