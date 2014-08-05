@@ -20,9 +20,12 @@ def forklarSig():
 def run_main(args):
     user = os.getenv("EGGS_USER")
     args = map(lambda a: a.decode('utf-8', 'ignore'), args)
+    me = os.getenv("CONCIEGGS_NAME")
 
     if len(args) != 4 or args[2] != "til":
         forklarSig()
+    elif args[3] == me:
+        print user + ": Hvis du vil mig noget, så sig det direkte."
     else:
         string = args[3] + ": " + user + " ville gerne sige " + args[1] + " " + args[2] + " dig."
         print string.encode('utf-8')
