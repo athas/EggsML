@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# Bed concieggs om at finde et muligvis grineren billede
+# Bed concieggs om at finde et potentielt grineren billede
+# Ved flere argumenter, kan du søge på specifik sjov.
+# Brug concieggs, billedmem <søgetermer> 
 
 import sys
 import os
@@ -10,17 +12,40 @@ import itertools
 import random
 import urllib2
 import re
-
+from lxml import html
 
 def run_main(args):
-    list = urllib2.urlopen("http://imgur.com/hot/viral/")
+
+    if (len(args) > 2):
+        specifik = True
+        list = specifiktMem(args) 
+    else:
+        specifik = False
+        list = urllib2.urlopen("http://imgur.com/hot/viral/")
     content = list.read()
-    funnyPics = re.findall("i.imgur.com/\w+.jpg" , content)
-    pic = funnyPics[random.randint(0, (len(funnyPics) - 1))]
+       
+    tree = html.fromstring(content)
+    
+    if specifik:
+        hits = tree.xpath("//div[@class='post-details textbox']")
+    else: 
+        hits = tree.xpath("//div[@class='post']")
 
-    print "ha ha det her billede er bare " + kompliment() + " " + smiley() + " http://" + pic.replace(".jpg","")
+    pick = hits[random.randint(0, (len(hits) - 1))]
+    (tekst, link) = behandlHit(pick, specifik)
+
+    print "ha ha det her billede er bare " + kompliment() + " " + smiley()
+    print "http:" + link.replace(".jpg","") + ' :  "' + tekst + '"'
 
 
+def behandlHit(hit , Bool):
+    if Bool:
+        link = hit.xpath("./a/img/@src")[0]
+        tekst = hit.xpath("./a/img/@alt")[0]
+    else:
+        tekst = hit.xpath("./div/p/text()")[0]
+        link = hit.xpath("./a/img/@src")[0]
+    return (tekst, link)
 def kompliment():
     komplimenter = ["nice" , 
                     "mega nice" , 
@@ -30,7 +55,8 @@ def kompliment():
                     "fantastisk", 
                     "kanon" , 
                     "dejligt" , 
-                    "hyggeligt"]
+                    "hyggeligt" ,
+                    "sigende"]
     k = komplimenter[random.randint(0, (len(komplimenter) - 1))]
     return k
 
@@ -48,6 +74,20 @@ def smiley():
     sm = smileyer[random.randint(0, (len(smileyer) - 1))]
     return sm
 
+def specifiktMem(args):
+
+#skal det være en rigtig slager?
+    
+    query = ""
+    for arg in args[1:]:
+        query = query + "+" + arg
+    query = query[1:]
+
+    if (random.randint(0,2)):
+        query = "http://imgur.com/search/score?q=" + query
+    else:
+        query = "http://imgur.com/search/relevance?q=" + query
+    return urllib2.urlopen(query)
 
 
 if __name__ == '__main__':
