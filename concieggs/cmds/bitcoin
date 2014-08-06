@@ -62,11 +62,10 @@ def dollarkurs(valuta="USD"):
 
 
 def parseArgs(args):
-    if args[1] != "for" or args[3] != "kroner":
-        fejl()
-        sys.exit(0)
+    
 
     try:
+        assert (args[1] == "for" or args[3] == "kroner")
         args[2] = float(args[2])
     except ValueError:
         fejl()
