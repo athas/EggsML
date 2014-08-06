@@ -8,9 +8,7 @@ import os
 from functools import partial
 import itertools
 import random
-
-from eggsthon.url_open import request
-from eggsthon.mediawiki import get_page_urls, get_paragraphs, get_sentences
+from time import sleep
 
 def forklarSig():
     print "Brug kommandoen korrekt:"
@@ -22,13 +20,24 @@ def run_main(args):
     args = map(lambda a: a.decode('utf-8', 'ignore'), args)
     me = os.getenv("CONCIEGGS_NAME")
 
-    if len(args) != 4 or args[2] != "til":
+    if len(args) < 2:
+        print "NAL!"
+    elif args[-2] != "til":
         forklarSig()
     elif args[3] == me:
         print user + ": Hvis du vil mig noget, så sig det direkte."
     else:
-        string = args[3] + ": " + user + " ville gerne sige " + args[1] + " " + args[2] + " dig."
-        print string.encode('utf-8')
+        sentence = " ".join(args[1:-2])
+        string = args[-1] + ": " + sentence
+        if random.randint(0,5):
+            print string.encode('utf-8')
+        else: 
+            sleep(random.randint(20,40))
+            print string.upper().encode('utf-8')
+            print "AAAAAAAAAAAAAAAAAAAAAAAARGH!"
+            sleep(random.randint(0,4))
+            print "undskyld " + user.encode('utf-8') + ", jeg ved ikke lige hvad der gik af mig der."
+
 
 if __name__ == '__main__':
     run_main(sys.argv)
