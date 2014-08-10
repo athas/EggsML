@@ -25,7 +25,9 @@ for vid in ytvids:
         uploader = entry['author'][0]['name']['$t']
         views = int(entry['yt$statistics']['viewCount'])
 
-        print "%s (%.2f/%d efter %d stemmer, %d visninger, uploadet af %s)" % (title, rating, maxrating, numratings, views, uploader)
+        print u"%s (%.2f/%d efter %d stemmer, %d visninger, uploadet af %s)" % (title, rating, maxrating, numratings, views, uploader)
+    except (KeyError, IndexError):
+        print u"Den dér YouTube-video er vist ikke helt i orden.".encode("utf8")
     except:
-        print u"Den dér YouTube video er vist ikke helt i orden.".encode("utf8")
+        print u"Jeg er slet ikke skrevet godt nok til at håndtere UTF-8-tegn der er mere end 8 bit!".encode("utf8")
 
