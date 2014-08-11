@@ -67,7 +67,7 @@ gange så irriterende som kode der fejler
 gange så udmattende som din mor
 EOF
 )
-elif [ "$dum" ]; then
+elif [ "$grim" ]; then
        unit=$(randomElement <<EOF
 gange grimmere end dig selv
 gange pænere end fingermaling
