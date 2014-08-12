@@ -11,25 +11,27 @@ set replies {
     "Svin! <3"
     "Morgenkrammer!"
     "God morgen. Sikke et dejligt vejr udenfor!"
+    "Guten Morgen, meinen Freund!"
+    "¡Hola! Ándale, ándale!"
 }
-lappend replies "Der er 1 tilmeldt til Eggs i dag klokken [expr {$t+1}]:00:\
-                 $nick.  Der skal tilberedes 1 eggs."
 
 set goodreplies {
     "Hvad er der så godt ved den?"
     "Du skulle have en præmie for at være så positiv."
     "Hvilken strålende morgen! God morgen til dig!"
-    "God morgen!!!"
+    "GOD morgen!!!"
 }
 
 set earlyreplies {
     "Gaaaab!"
     "Det er alt for tidligt at være så aktiv!"
+    "ER DU A_MENNESKEÆÆ?"
 }
 
 set latereplies {
     "Se dét er et tidspunkt at stå op på."
     "Et eller andet sted i verden, måske."
+    "Jeg tror også at jeg tager en eftermiddagslur."
 }
 
 if {[regexp -nocase {^(g(?:o?'?|od)?)?[ \t]*m[oå](?:rn|rgen)} $text {} g]} {
