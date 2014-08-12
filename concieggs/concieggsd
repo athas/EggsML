@@ -88,7 +88,7 @@ finalFilter() {
             echo "$line"
         else
             # Final filter on ordinary messages.
-            translate "$(basename "$(pwd)")"
+            echo "$line" | translate "$(basename "$(pwd)")"
         fi
     done
 }
