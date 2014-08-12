@@ -84,7 +84,7 @@ translate() {
 
 finalFilter() {
     while read -r line; do
-        if [ $(cut -b1 "$line") = '/' ]; then
+        if [ $(echo "$line" | cut -b1) = '/' ]; then
             echo "$line"
         else
             # Final filter on ordinary messages.
