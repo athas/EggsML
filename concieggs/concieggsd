@@ -89,7 +89,7 @@ filter_non_commands() {
 
 ircdecode_forever() {
     # Useful but in shoddy Python.
-    while 1; do
+    while [ 1 ]; do
         "$(dirname "$0")"/ircdecode
     done
 }
