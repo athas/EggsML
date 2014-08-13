@@ -78,7 +78,7 @@ run_hooks() {
 translate() {
     channel=$1
     while read -r line; do
-        gawk -f /home/concieggs/google-translate-cli/translate.awk '{en=da}' `gawk -f /home/concieggs/google-translate-cli/translate.awk '{da=en}'` "$line"
+        gawk -f /home/concieggs/google-translate-cli/translate.awk '{en=da}' `gawk -f /home/concieggs/google-translate-cli/translate.awk '{da=en}' "$line"`
     done
 }
 
