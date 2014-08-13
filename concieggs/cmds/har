@@ -2,7 +2,7 @@
 #
 # Spørg om concieggs har et givent program installeret.
 
-eval "$(echo "$@" | parse '(?<tome>du +(?<prog>[^/]+)( +installeret)?)')"
+eval "$(echo "$@" | parse '(?<tome>du( det)? +(?<prog>[^/]+)( +installeret)?)')"
 
 if [ "$prog" ]; then
     file=$(which $(echo "$prog" | tolower))
