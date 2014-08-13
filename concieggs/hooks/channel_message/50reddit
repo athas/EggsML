@@ -1,0 +1,22 @@
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+
+use Env qw/EGGS_BODY/;
+
+use LWP::Simple;
+use JSON qw/from_json/;
+use URI;
+
+my @links = $EGGS_BODY =~ m{https?://(?:\w+\.)?reddit\.com/r/[\w\d]+/comments/\S+}g;
+
+for my $link (@links) {
+    my $uri = URI->new($link);
+    $uri->path($uri->path() . ".json");
+    my $json = get($uri);
+    my $data = from_json($json);
+
+    my $elm = $data->[0]->{data}->{children}->[0]->{data};
+    my $url = $elm->{is_self} ? "http://reddit.com/" . $elm->{permalink} : $elm->{url};
+    printf("%s: %s (score: %d)\n", $elm->{title}, $url, $elm->{score});
+}
