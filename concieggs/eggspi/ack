@@ -15,5 +15,6 @@
  echo "Jep, det siger vi"
  echo "Jep, det siger vi bare"
  echo "Ja, herre"
+ echo "Det er dandy"
 ) | randomElement | xargs echo -n
 (echo "!"; echo ".") | randomElement

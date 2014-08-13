@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# This script is run on all non-command output from the IRC bot.
+
+set -e
+
+translate() {
+    while read -r line; do
+        echo "$line" \
+            | gawk -f /home/concieggs/google-translate-cli/translate.awk '{da=ja}' - \
+            | gawk -f /home/concieggs/google-translate-cli/translate.awk '{ja=da}' -
+    done
+}
+
+translate
