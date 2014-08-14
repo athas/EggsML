@@ -7,9 +7,9 @@ while (<>) {
     s/cks?/x/;
     s/eggs?/x/;
     s/ow/pw/;
-    s/æ/ae/;
-    s/ø/oe/;
-    s/å/aa/;
-    tr/aeios/4310$/;
+    s/[æÆ]/ae/;
+    s/[øØ]/oe/;
+    s/[åÅ]/aa/;
+    tr/aAeEiIoOsS/44331100$$/;
     print
 }
