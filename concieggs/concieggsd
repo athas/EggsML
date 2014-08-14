@@ -62,9 +62,7 @@ awk_checkpart='/'$dateregex' -!- .* has left .*/ { print substr($4, 0, index($4,
 awk_checkjoin='/'$dateregex' -!- .* has joined .*/ { print substr($4, 0, index($4, "(")-1)}'
 
 throttle() {
-    while read -r line; do
-        echo "$line" | awk '{print; fflush(); system("sleep 1")}'
-    done
+    awk '{print; fflush(); system("sleep 1")}'
 }
 
 run_hooks() {
@@ -89,7 +87,7 @@ filter_non_commands() {
             if [ $? = 0 ]; then
                 user=''
             fi
-            (echo "$line" | "$(dirname "$0")"/outfilter "$(basename "$PWD")" $user) \
+            ("$(dirname "$0")"/outfilter "$(basename "$PWD")" $user "$line") \
                 || echo "$line"
         fi
     done

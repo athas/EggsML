@@ -6,14 +6,14 @@ set -e
 
 channel=$1
 destuser=$2 # empty if it's not a 'user: message' message.
+line="$3"
 
 translate_example() {
     # Example.
-    translate da ja da
+    echo "$line" | translate da ja da
 }
 
 apply_db_filter() {
-    read -r line
     cmd=''
     if [ $destuser ]; then
         cmd=$(dbRead outfilter_command_$destuser || echo -n '')
@@ -32,4 +32,4 @@ apply_db_filter
 
 # translate_example
 
-# cat
+# echo "$line"
