@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 use 5.012;
 use warnings;
+use utf8::all;
 
 while (<>) {
     s/(?<=\w)er\b/0r/;
