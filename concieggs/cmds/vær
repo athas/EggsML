@@ -17,6 +17,7 @@ fi
 
 save() {
     echo "$1" | dbWrite $file
+    ack
 }
 
 case "$*" in
@@ -27,7 +28,7 @@ case "$*" in
         save 'filter grinern';;
     *)
         s='translate da'
-        while [ "$1" ]; do
+        while [ "$1" != '' ]; do
             lc=$(langcode "$1")
             if [ $? == 0 ]; then
                 s="$s $lc"
