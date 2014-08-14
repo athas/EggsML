@@ -61,6 +61,10 @@ awk_getuser='{ print substr($3, 2, length($3)-2); }'
 awk_checkpart='/'$dateregex' -!- .* has left .*/ { print substr($4, 0, index($4, "(")-1)}'
 awk_checkjoin='/'$dateregex' -!- .* has joined .*/ { print substr($4, 0, index($4, "(")-1)}'
 
+# Global variable.  Whatever.
+data_save=$(mktemp)
+
+
 throttle() {
     awk '{print; fflush(); system("sleep 1")}'
 }
@@ -76,19 +80,18 @@ run_hooks() {
 }
 
 filter_non_commands() {
-    while read -r line; do
-        iscmd="$(echo "$line" | cut -b1)"
-        if [ '/' = "$iscmd" ]; then
-            echo "$line"
-        else
-            user="$(echo "$line" | sed -r 's/: .+//')"
-            if (echo "$user" | grep -q ' '); then
-                user=''
-            fi
-            ("$(dirname "$0")"/outfilter "$(basename "$PWD")" "$user" "$line") \
-                || echo "$line"
+    read -r line
+    iscmd="$(echo "$line" | cut -b1)"
+    if [ '/' = "$iscmd" ]; then
+        echo "$line"
+    else
+        user="$(echo "$line" | sed -r 's/: .+//')"
+        if (echo "$user" | grep -q ' '); then
+            user=''
         fi
-    done
+        ("$(dirname "$0")"/outfilter "$(basename "$PWD")" $(cat "$data_save") "$user" "$line") \
+            || echo "$line"
+    fi
 }
 
 ircdecode_forever() {
@@ -128,9 +131,10 @@ reader() {
                 fi
             fi
         fi
+        echo "$EGGS_USER" > "$data_save"
     done | while read -r line; do
-        echo "$line" | fmt -s --width=400
-    done | filter_non_commands | throttle
+        echo "$line" | filter_non_commands | fmt -s --width=400
+    done | throttle
 }
 
 # Write all errors here
