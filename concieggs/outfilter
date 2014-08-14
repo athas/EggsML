@@ -19,6 +19,9 @@ apply_db_filter() {
         cmd=$(echo -n $(dbRead outfilter_command_$destuser))
     fi
     if [ '' = "$cmd" ]; then
+        cmd=$(echo -n $(dbRead outfilter_command_$EGGS_USER))
+    fi
+    if [ '' = "$cmd" ]; then
         cmd=$(echo -n $(dbRead outfilter_command))
     fi
     if [ '' = "$cmd" ]; then
