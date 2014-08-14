@@ -94,9 +94,10 @@ filter_non_commands() {
 
 ircdecode_forever() {
     # Useful but in shoddy Python.
-    while [ 1 ]; do
-        "$(dirname "$0")"/ircdecode
-    done
+    cat
+    # while [ 1 ]; do
+    #     "$(dirname "$0")"/ircdecode
+    # done
 }
 
 # This process is run in every directory containing a conversation.
@@ -129,7 +130,7 @@ reader() {
                 fi
             fi
         fi
-    done | ircdecode_forever | while read -r line; do
+    done | while read -r line; do
         echo "$line" | fmt -s --width=400
     done | filter_non_commands | throttle
 }
