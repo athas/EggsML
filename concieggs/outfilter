@@ -32,6 +32,6 @@ apply_db_filter() {
     done
 }
 
-apply_db_filter
+#apply_db_filter
 
 # translate_example
