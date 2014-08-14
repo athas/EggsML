@@ -2,3 +2,6 @@ concieggs afhænger af:
 
   + ii
   + sharutils
+
+De eneste scripts der må være i rodmappen er dem der bliver brugt direkte af
+concieggsd.
