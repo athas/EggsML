@@ -4,16 +4,16 @@
 # chain.
 
 t() {
-    filter="$(dirname "$0")/filters/$1"
+    filter="$(dirname "$0")/filters/$2"
     if test -x "$filter"; then
         "$filter"
     else
-        gawk -f $HOME/bin/google-translate.awk "$1" -
+        gawk -f $HOME/bin/google-translate.awk "{$1=$2}" -
     fi
 }
 
 eval $(python - "$@" <<EOF
 import sys
-print ' | '.join("t '{%s=%s}'" % t for t in zip(sys.argv[1:], sys.argv[2:]))
+print ' | '.join("t '%s' '%s'" % t for t in zip(sys.argv[1:], sys.argv[2:]))
 EOF
 )
