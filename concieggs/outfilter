@@ -15,7 +15,6 @@ translate_example() {
 }
 
 apply_db_filter() {
-    # not done yet
     while read -r line; do
         cmd=''
         if [ $destuser ]; then
@@ -35,4 +34,4 @@ apply_db_filter() {
 
 apply_db_filter
 
-#translate_example
+# translate_example

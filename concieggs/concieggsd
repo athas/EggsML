@@ -84,7 +84,7 @@ filter_non_commands() {
             # Not command
             user=$(echo "$line" | sed 's/: .+//')
             echo "$user" | grep -q ' '
-            if [ $? != 0 ] then
+            if [ $? != 0 ]; then
                 user=''
             fi
             echo "$line" | "$(dirname "$0")"/outfilter "$(basename "$PWD")" $user
