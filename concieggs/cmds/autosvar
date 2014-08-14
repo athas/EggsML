@@ -1,9 +1,0 @@
-#!/bin/sh
-#
-# Sæt concieggs på autosvar.
-
-echo autosvar | dbWrite outFilter
-duration=$((60*1))
-echo $(($(nowTime) + $duration)) | dbWrite outFilterUntil
-
-echo "Sagde du noget?"

@@ -8,33 +8,15 @@ run() {
     cmd="$1"
     shift
 
-    filter=$(dbRead outFilter)
     case "$cmd" in
         er|hvem|hvad|hvor|har*)
-            if [ ! "$filter" ]; then
-                "$cmddir/$cmd" $(echo "$@" | sed 's/\?*$//')
-            else
-                eval "$cmddir/$cmd" $(echo "$@" | sed 's/\?*$//') "|" "$filter"
-            fi
+            "$cmddir/$cmd" $(echo "$@" | sed 's/\?*$//')
             ;;
         *)
-            if [ ! "$filter" ]; then
-                "$cmddir/$cmd" "$@"
-            else
-                eval "$cmddir/$cmd" "$@" "|" "$filter"
-            fi
-
+            "$cmddir/$cmd" "$@"
             ;;
     esac || broke
 }
-
-time=$(dbRead outFilterUntil)
-if [ "$time" ]; then
-    if [ "$(nowTime)" -gt "$time" ]; then
-        dbDelete outFilter
-        dbDelete outFilterUntil
-    fi
-fi
 
 rawcmd=$1
 cmd="$(basename -- "$rawcmd")"

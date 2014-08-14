@@ -22,10 +22,11 @@ save() {
 
 case "$*" in
     normal)
-        save ''
-        exit;;
+        save '';;
     "ultra grinern")
         save 'filter grinern';;
+    jysk)
+        save 'filter jysk';;
     *)
         s='translate da'
         while [ "$1" != '' ]; do
