@@ -16,24 +16,17 @@ translate_example() {
 
 apply_db_filter() {
     while read -r line; do
-        echo "$line" >&2
-        echo "$destuser" >&2
         cmd=''
         if [ $destuser ]; then
-            echo 0 >&2
             cmd=$(dbRead outfilter_command_$destuser || echo -n '')
-            echo "A $cmd A" >&2
         fi
         if [ ! "$cmd" ]; then
-            echo 1 >&2
             cmd=$(dbRead outfilter_command || echo -n '')
         fi
         if [ ! "$cmd" ]; then
-            echo 2 >&2
             echo "$line"
             continue
         fi
-        echo "$cmd" >&2
         echo "$line" | $cmd
     done
 }
@@ -41,3 +34,5 @@ apply_db_filter() {
 apply_db_filter
 
 # translate_example
+
+# cat

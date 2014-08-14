@@ -3,8 +3,6 @@
 # Bed concieggs om at være på en bestemt led.  Brug: 'vær MÅDE' eller 'vær mod
 # BRUGER MÅDE'.  Der er mange MÅDER.
 
-echo "FEJL" >&2
-
 if [ ! "$1" ]; then
     echo "Du mangler en væremåde."
     exit
@@ -32,7 +30,7 @@ case "$*" in
         s='translate da'
         while [ "$1" != '' ]; do
             lc=$(langcode "$1")
-            if [ $lc != '' ]; then
+            if [ "$lc" != '' ]; then
                 s="$s $lc"
             else
                 echo "$1 er ikke et sprog!"
