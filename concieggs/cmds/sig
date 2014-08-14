@@ -10,6 +10,10 @@ import itertools
 import random
 from time import sleep
 
+def fork_away():
+    if os.fork():
+        sys.exit()
+
 def forklarSig():
     print "Brug kommandoen korrekt:"
     print "sig <ting> til <person>"
@@ -31,7 +35,8 @@ def run_main(args):
         string = args[-1] + ": " + sentence
         if random.randint(0,5):
             print string.encode('utf-8')
-        else: 
+        else:
+            fork_away()
             sleep(random.randint(20,40))
             print string.upper().encode('utf-8')
             print "AAAAAAAAAAAAAAAAAAAAAAAARGH!"
