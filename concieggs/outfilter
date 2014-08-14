@@ -4,12 +4,25 @@
 
 set -e
 
-translate() {
+translate_example() {
+    # Example.
     while read -r line; do
-        echo "$line" \
-            | gawk -f /home/concieggs/google-translate-cli/translate.awk '{da=ja}' - \
-            | gawk -f /home/concieggs/google-translate-cli/translate.awk '{ja=da}' -
+        echo "$line" | translate da ja da
     done
 }
 
-translate
+apply_db_filter() {
+    # not done yet
+    while read -r line; do
+        cmd=$(dbRead outfilter_command) # command with args
+        if [ "$cmd" ]; then
+            echo "$line" | $cmd
+        else
+            echo "$line"
+        fi
+    done
+}
+
+#apply_db_filter
+
+translate_example
