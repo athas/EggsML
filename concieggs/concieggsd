@@ -87,8 +87,7 @@ filter_non_commands() {
             if (echo "$user" | grep -q ' '); then
                 user=''
             fi
-            ("$(dirname "$0")"/outfilter "$(basename "$PWD")" "$user" "$line") \
-                || echo "$line"
+            "$(dirname "$0")"/outfilter "$(basename "$PWD")" "$user" "$line"
         fi
     } || echo "$line"
 }
