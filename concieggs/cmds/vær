@@ -22,9 +22,8 @@ save() {
 
 case "$*" in
     normal)
-        save '';;
-        exit
-        ;;
+        save ''
+        exit;;
     "ultra grinern")
         save 'filter grinern';;
     *)
