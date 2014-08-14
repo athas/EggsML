@@ -27,6 +27,8 @@ case "$*" in
         save 'filter grinern';;
     jysk)
         save 'filter jysk';;
+    leet)
+        save 'filter leet';;
     *)
         s='translate da'
         while [ "$1" != '' ]; do
