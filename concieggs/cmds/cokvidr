@@ -1,0 +1,37 @@
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+use Net::Twitter;
+use IO::All;
+use Try::Tiny;
+use utf8::all;
+
+my $query = @ARGV ? $ARGV[0] : 'concieggs';
+
+my $prefix = '/home/concieggs/concieggs-kvidring';
+my $consumer_key = io("$prefix/key")->slurp;
+my $consumer_secret = io("$prefix/secret")->slurp;
+my ($token, $token_secret) = io("$prefix/credentials")->slurp;
+
+chomp $consumer_key;
+chomp $consumer_secret;
+chomp $token;
+chomp $token_secret;
+
+my $twit = Net::Twitter->new(
+    traits              => [qw/API::RESTv1_1/],
+    consumer_key        => $consumer_key,
+    consumer_secret     => $consumer_secret,
+    access_token        => $token,
+    access_token_secret => $token_secret,
+    ssl                 => 1,
+);
+try {
+    my $res = $twit->user_timeline({ screen_name => $query });
+
+    print $res->[0]->{text} . "\n";
+} catch {
+    print "Nej. Du gør det forkert\n";
+    print STDERR "Fejl i cokvidr: $_\n";
+};
+
