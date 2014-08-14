@@ -5,9 +5,8 @@
 set -e
 
 channel="$1"
-srcuser="$2"
-destuser="$3" # empty if it's not a 'user: message' message.
-line="$4"
+destuser="$2" # empty if it's not a 'user: message' message.
+line="$3"
 
 translate_example() {
     # Example.
@@ -18,9 +17,6 @@ apply_db_filter() {
     cmd=''
     if [ "$destuser" != '' ]; then
         cmd=$(echo -n $(dbRead outfilter_command_$destuser))
-    fi
-    if [ '' = "$cmd" ]; then
-        cmd=$(echo -n $(dbRead outfilter_command_$srcuser))
     fi
     if [ '' = "$cmd" ]; then
         cmd=$(echo -n $(dbRead outfilter_command))
