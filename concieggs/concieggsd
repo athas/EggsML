@@ -78,23 +78,25 @@ run_hooks() {
 
 filter_non_commands() {
     read -r line
-    iscmd="$(echo "$line" | cut -b1)"
-    if [ '/' = "$iscmd" ]; then
-        echo "$line"
-    else
-        user="$(echo "$line" | sed -r 's/: .+//')"
-        if (echo "$user" | grep -q ' '); then
-            user=''
+    {
+        iscmd="$(echo "$line" | cut -b1)"
+        if [ '/' = "$iscmd" ]; then
+            echo "$line"
+        else
+            user="$(echo "$line" | sed -r 's/: .+//')"
+            if (echo "$user" | grep -q ' '); then
+                user=''
+            fi
+            ("$(dirname "$0")"/outfilter "$(basename "$PWD")" "$user" "$line") \
+                || echo "$line"
         fi
-        ("$(dirname "$0")"/outfilter "$(basename "$PWD")" "$user" "$line") \
-            || echo "$line"
-    fi
+    } || echo "$line"
 }
 
 ircdecode_forever() {
     # Useful but in shoddy Python.
     while [ 1 ]; do
-        "$(dirname "$0")"/ircdecode
+        "$(dirname "$0")"/ircdecode || true
     done
 }
 
