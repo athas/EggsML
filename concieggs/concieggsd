@@ -77,7 +77,8 @@ run_hooks() {
 
 filter_non_commands() {
     while read -r line; do
-        if [ "$(echo "$line" | cut -b1)" = '/' ]; then
+        a="$(echo "$line" | cut -b1)"
+        if [ '/' = "$a" ]; then
             # Command
             echo "$line"
         else
