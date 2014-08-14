@@ -1,0 +1,15 @@
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+
+while (<>) {
+    s/(?=\w)er\b/0r/;
+    s/cks?/x/;
+    s/eggs?/x/;
+    s/ow/pw/;
+    s/æ/ae/;
+    s/ø/oe/;
+    s/å/aa/;
+    tr/aeios/4310$/;
+    print
+}
