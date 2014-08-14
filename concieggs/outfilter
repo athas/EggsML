@@ -31,7 +31,7 @@ apply_db_filter() {
         if [ ! "$cmd" ]; then
             echo 2 >&2
             echo "$line"
-            exit
+            continue
         fi
         echo "$cmd" >&2
         echo "$line" | $cmd
