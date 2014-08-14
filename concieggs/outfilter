@@ -16,10 +16,10 @@ translate_example() {
 apply_db_filter() {
     cmd=''
     if [ $destuser ]; then
-        cmd=$(dbRead outfilter_command_$destuser || echo -n '')
+        cmd=$(echo -n $(dbRead outfilter_command_$destuser))
     fi
     if [ ! "$cmd" ]; then
-        cmd=$(dbRead outfilter_command || echo -n '')
+        cmd=$(echo -n $(dbRead outfilter_command))
     fi
     if [ ! "$cmd" ]; then
         echo "$line"
