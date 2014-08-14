@@ -1,0 +1,16 @@
+#!/bin/sh
+
+end="\([,.;.!? ]\)"
+
+  sed "s/or/år/g" \
+| sed "s/ j/ dj/g" \
+| sed "s/v/w/g" \
+| sed "s/d${end}/tj\1/g" \
+| sed "s/ g/ dj/g" \
+| sed "s/ t/ tj/g" \
+| sed "s/ke${end}/k\1/g" \
+| sed "s/ k/ tj/g" \
+| sed "s/gt${end}/gtj\1/g" \
+| sed "s/e/æ/g" \
+| sed "s/ir/er/g" \
+| sed "s/and${end}/ajn\1/g"
