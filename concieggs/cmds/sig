@@ -33,7 +33,7 @@ def run_main(args):
     else:
         sentence = " ".join(args[1:-2])
         string = args[-1] + ": " + sentence
-        if random.randint(0,5):
+        if random.randint(0,40):
             print string.encode('utf-8')
         else:
             fork_away()
