@@ -15,12 +15,16 @@ else
     file=outfilter_command
 fi
 
+save() {
+    echo "$1" | dbWrite $file
+}
+
 case "$*" in
     normal)
         exit
         ;;
     "ultra grinern")
-        echo 'filter grinern';;
+        save 'filter grinern';;
     *)
         s='translate da'
         while [ "$1" ]; do
@@ -33,5 +37,5 @@ case "$*" in
             fi
             shift
         done
-        echo "$s"
-esac | dbWrite $file
+        save "$s"
+esac
