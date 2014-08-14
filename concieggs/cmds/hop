@@ -9,6 +9,6 @@ else
     if [ "$1" = "på" ]; then
         echo /join "$2"
     elif [ "$2" = "af" ]; then
-        echo /part "$2"
+        echo /leave "$2"
     fi
 fi
