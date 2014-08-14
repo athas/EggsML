@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# Få concieggs til at lave drive-by-kanal-hop.  Brug: 'hop på KANAL' eller 'hop
+# af KANAL'.
+
+if [ $# -lt 2 ]; then
+    echo "???"
+else
+    if [ "$1" = "på" ]; then
+        echo /join "$2"
+    elif [ "$2" = "af" ]; then
+        echo /part "$2"
+    fi
+fi

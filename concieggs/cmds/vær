@@ -1,14 +1,14 @@
 #!/bin/sh
 #
 # Bed concieggs om at være på en bestemt led.  Brug: 'vær MÅDE' eller 'vær mod
-# BRUGER MÅDE'.  Der er mange MÅDER.
+# BRUGER MÅDE' eller 'vær på KANAL MÅDE'.  Der er mange MÅDER.
 
 if [ ! "$1" ]; then
     echo "Du mangler en væremåde."
     exit
 fi
 
-if [ "$1" = mod ]; then
+if [ "$1" = mod ] || [ "$1" = "på" ]; then
     file=outfilter_command_$2
     shift 2
 else
