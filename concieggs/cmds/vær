@@ -31,7 +31,7 @@ case "$*" in
         s='translate da'
         while [ "$1" != '' ]; do
             lc=$(langcode "$1")
-            if [ $? = 0 ]; then
+            if [ $lc != '' ]; then
                 s="$s $lc"
             else
                 echo "$1 er ikke et sprog!"
