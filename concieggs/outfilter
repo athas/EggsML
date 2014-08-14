@@ -23,9 +23,11 @@ apply_db_filter() {
             cmd=$(dbRead outfilter_command_$destuser)
         fi
         if [ ! "$cmd" ]; then
+            echo Nå0 >&2
             cmd=$(dbRead outfilter_command)
         fi
         if [ ! "$cmd" ]; then
+            echo Nå1 >&2
             echo "$line"
             exit
         fi
