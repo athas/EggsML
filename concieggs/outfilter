@@ -21,12 +21,12 @@ apply_db_filter() {
         cmd=''
         if [ $destuser ]; then
             echo 0 >&2
-            cmd=$(dbRead outfilter_command_$destuser)
+            cmd=$(dbRead outfilter_command_$destuser || echo -n '')
             echo "A $cmd A" >&2
         fi
         if [ ! "$cmd" ]; then
             echo 1 >&2
-            cmd=$(dbRead outfilter_command)
+            cmd=$(dbRead outfilter_command || echo -n '')
         fi
         if [ ! "$cmd" ]; then
             echo 2 >&2
