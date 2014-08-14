@@ -6,7 +6,7 @@ set -e
 
 translate_example() {
     # Example.
-    echo "$line" | translate da ja da
+    translate da ja da
 }
 
 apply_db_filter() {
