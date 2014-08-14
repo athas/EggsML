@@ -9,26 +9,23 @@ destuser=$2 # empty if it's not a 'user: message' message.
 
 translate_example() {
     # Example.
-    while read -r line; do
-        echo "$line" | translate da ja da
-    done
+    translate da ja da
 }
 
 apply_db_filter() {
-    while read -r line; do
-        cmd=''
-        if [ $destuser ]; then
-            cmd=$(dbRead outfilter_command_$destuser || echo -n '')
-        fi
-        if [ ! "$cmd" ]; then
-            cmd=$(dbRead outfilter_command || echo -n '')
-        fi
-        if [ ! "$cmd" ]; then
-            echo "$line"
-            continue
-        fi
-        echo "$line" | $cmd
-    done
+    read -r line
+    cmd=''
+    if [ $destuser ]; then
+        cmd=$(dbRead outfilter_command_$destuser || echo -n '')
+    fi
+    if [ ! "$cmd" ]; then
+        cmd=$(dbRead outfilter_command || echo -n '')
+    fi
+    if [ ! "$cmd" ]; then
+        echo "$line"
+        exit
+    fi
+    echo "$line" | $cmd
 }
 
 apply_db_filter
