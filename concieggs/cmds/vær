@@ -22,6 +22,7 @@ save() {
 
 case "$*" in
     normal)
+        save '';;
         exit
         ;;
     "ultra grinern")
@@ -30,10 +31,10 @@ case "$*" in
         s='translate da'
         while [ "$1" != '' ]; do
             lc=$(langcode "$1")
-            if [ $? == 0 ]; then
+            if [ $? = 0 ]; then
                 s="$s $lc"
             else
-                echo "$lc er ikke et sprog!"
+                echo "$1 er ikke et sprog!"
                 exit
             fi
             shift
