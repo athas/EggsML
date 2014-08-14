@@ -4,9 +4,7 @@
 # chain.
 
 t() {
-    while read -r line; do
-        echo "$line" | gawk -f $HOME/bin/google-translate.awk "$1" -
-    done
+    gawk -f $HOME/bin/google-translate.awk "$1" -
 }
 
 eval $(python - "$@" <<EOF

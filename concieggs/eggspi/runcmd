@@ -1,17 +1,8 @@
 #!/bin/sh
 
 broke() {
-    echo "Kommandoen fejlede!  Du kan prøve at spørge mig om 'udu', men det hjælper nok ikke."
+    echo "Kommandoen fejlede!  Du kan prøve at spørge mig om 'udu', men det hjælper næsten helt sikkert ikke."
 }
-
-# fakebroke() {
-#     echo "Arh... $EGGS_USER, noget gik galt, du må hellere prøve igen";
-#     echo "Hm, jeg ved sgu ikke lige, men den gik ikke... prøv igen, $EGGS_USER";
-#     echo "$EGGS_USER: Intern, nondeterministisk fejl.  Kør kommandoen igen.";
-#     echo "$EGGS_USER: Noget gik galt.  Kør kommandoen igen.";
-#     echo "Noget knækkede under kørsel af kommandoen, $EGGS_USER.  Det kan være det virker, hvis du prøver igen.";
-#     echo
-# }
 
 run() {
     cmd="$1"
