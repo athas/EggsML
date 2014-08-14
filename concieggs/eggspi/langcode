@@ -1,0 +1,137 @@
+#!/bin/sh
+#
+# Attempt to return the language code for a language name.  Supports Google
+# Translate's codes.
+
+case "$1" in
+    af|afrikaans|boersprog*)
+        echo af;;
+    sq|albansk)
+        echo sq;;
+    ar|arabisk)
+        echo ar;;
+    az|aserbajdsjansk)
+        echo az;;
+    eu|baskisk)
+        echo eu;;
+    bn|bengalsk)
+        echo bn;;
+    be|hviderussisk)
+        echo be;;
+    bg|bulgarsk)
+        echo bg;;
+    ca|katalansk)
+        echo ca;;
+    zh-CN|kinesisk|"simplificeret kinesisk")
+        echo zh-CN;;
+    zh-TW|"traditionel kinesisk")
+        echo zh-TW;;
+    hr|kroatisk)
+        echo hr;;
+    cs|tjekkisk)
+        echo cs;;
+    da|dansk)
+        echo da;;
+    nl|hollandsk|nederlandsk)
+        echo nl;;
+    en|engelsk|angelsaksisk)
+        echo en;;
+    eo|esperanto)
+        echo eo;;
+    et|estisk)
+        echo et;;
+    tl|filipinsk)
+        echo tl;;
+    fi|finsk)
+        echo fi;;
+    fr|fransk)
+        echo fr;;
+    gl|galisisk)
+        echo gl;;
+    ka|georgisk)
+        echo ka;;
+    de|tysk)
+        echo de;;
+    el|græsk)
+        echo el;;
+    gu|gurajati)
+        echo gu;;
+    ht|"haitisk creole")
+        echo ht;;
+    iw|hebraisk)
+        echo iw;;
+    hi|hindi)
+        echo hi;;
+    hu|hungarsk)
+        echo hu;;
+    is|islandsk)
+        echo is;;
+    id|indonesisk)
+        echo id;;
+    ga|irsk)
+        echo ga;;
+    it|italiensk)
+        echo it;;
+    ja|japansk)
+        echo ja;;
+    kn|kannada)
+        echo kn;;
+    ko|koreansk)
+        echo ko;;
+    la|latinsk)
+        echo la;;
+    lv|lettisk)
+        echo lv;;
+    lt|litausk)
+        echo lt;;
+    mk|makedonisk)
+        echo mk;;
+    ms|malajsisk)
+        echo ms;;
+    mt|maltesisk)
+        echo mt;;
+    no|norsk|nordmandsk)
+        echo no;;
+    fa|persisk)
+        echo fa;;
+    pl|polsk)
+        echo pl;;
+    pt|portugesisk)
+        echo pt;;
+    ro|romænsk)
+        echo ro;;
+    ru|russisk)
+        echo ru;;
+    sr|serbisk)
+        echo sr;;
+    sk|slovakisk)
+        echo sk;;
+    sl|slovensk)
+        echo sl;;
+    es|spansk)
+        echo es;;
+    sw|swahili)
+        echo sw;;
+    sv|svensk)
+        echo sv;;
+    ta|tamilsk)
+        echo ta;;
+    te|telugu)
+        echo te;;
+    th|thai)
+        echo th;;
+    tr|tyrkisk)
+        echo tr;;
+    uk|ukrainsk)
+        echo uk;;
+    ur|urdu)
+        echo ur;;
+    vi|vietnamesisk)
+        echo vi;;
+    cy|walisisk)
+        echo cy;;
+    yi|jiddisch)
+        echo yi;;
+    *)
+        exit 1
+esac

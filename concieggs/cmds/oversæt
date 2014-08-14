@@ -1,0 +1,21 @@
+#!/bin/sh
+#
+# Oversæt fra et sprog til et andet.  Brug: oversæt fra SPROG til SPROG: TEKST
+
+eval "$(echo "$@" | parse 'fra (?<fra>[^ ]+) til (?<til>[^ ]+): (?<tekst>.+)')"
+
+if [ $fra ] && [ $til ] && [ "$tekst" ]; then
+    fra=$(langcode $fra)
+    if [ $? != 0 ]; then
+        echo "Sproget $fra findes ikke!"
+        exit
+    fi
+    til=$(langcode $til)
+    if [ $? != 0 ]; then
+        echo "Sproget $til findes ikke!"
+        exit
+    fi
+    echo -n "$tekst" | translate $fra $til
+else
+    echo "Fejl ved parsningen, læs dog dokumentationen!"
+fi

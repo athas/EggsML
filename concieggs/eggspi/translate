@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# Translate from any Google Translate-supported language to another through a
+# chain.
+
+t() {
+    gawk -f $HOME/bin/google-translate.awk "$1" -
+}
+
+eval $(python - "$@" <<EOF
+import sys
+print ' | '.join("t '{%s=%s}'" % t for t in zip(sys.argv[1:], sys.argv[2:]))
+EOF
+)

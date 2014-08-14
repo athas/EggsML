@@ -1,5 +1,0 @@
-#!/bin/sh
-#
-# Oversæt fra engelsk til dansk via Google Translate.
-
-gawk -f /home/concieggs/google-translate-cli/translate.awk '{en=da}' "$*"
