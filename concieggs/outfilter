@@ -22,6 +22,7 @@ apply_db_filter() {
         if [ $destuser ]; then
             echo 0 >&2
             cmd=$(dbRead outfilter_command_$destuser)
+            echo "A $cmd A" >&2
         fi
         if [ ! "$cmd" ]; then
             echo 1 >&2
