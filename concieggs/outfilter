@@ -27,7 +27,7 @@ apply_db_filter() {
             echo "$line"
             exit
         fi
-
+        echo "$cmd" > &2
         echo "$line" | $cmd
     done
 }
