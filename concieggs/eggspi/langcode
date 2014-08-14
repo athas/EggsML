@@ -22,9 +22,9 @@ case "$1" in
         echo bg;;
     ca|katalansk)
         echo ca;;
-    zh-CN|kinesisk|"simplificeret kinesisk")
+    zh-CN|kinesisk|"simplificeret kinesisk"|simplificeret-kinesisk)
         echo zh-CN;;
-    zh-TW|"traditionel kinesisk")
+    zh-TW|"traditionel kinesisk"|traditionel-kinesisk)
         echo zh-TW;;
     hr|kroatisk)
         echo hr;;

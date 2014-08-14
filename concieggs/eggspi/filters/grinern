@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Make something more grinern through simple rules.
+
+sed 's/ / heHA /g' # forbedr det her!

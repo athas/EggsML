@@ -4,6 +4,9 @@
 
 set -e
 
+channel=$1
+destuser=$2 # empty if it's not a 'user: message' message.
+
 translate_example() {
     # Example.
     while read -r line; do
@@ -14,15 +17,22 @@ translate_example() {
 apply_db_filter() {
     # not done yet
     while read -r line; do
-        cmd=$(dbRead outfilter_command) # command with args
-        if [ "$cmd" ]; then
-            echo "$line" | $cmd
-        else
-            echo "$line"
+        cmd=''
+        if [ $destuser ]; then
+            cmd=$(dbRead outfilter_command_$destuser)
         fi
+        if [ ! "$cmd" ]; then
+            cmd=$(dbRead outfilter_command)
+        fi
+        if [ ! "$cmd" ]; then
+            echo "$line"
+            exit
+        fi
+
+        echo "$line" | $cmd
     done
 }
 
-#apply_db_filter
+apply_db_filter
 
-translate_example
+#translate_example

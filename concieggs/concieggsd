@@ -82,7 +82,11 @@ filter_non_commands() {
             echo "$line"
         else
             # Not command
-            echo "$line" | "$(dirname "$0")"/outfilter
+            user=$(echo "$line" | sed 's/: .+//')
+            if grep -q ' ' "$user"; then
+                user=''
+            fi
+            echo "$line" | "$(dirname "$0")"/outfilter "$(basename "$PWD")" $user
         fi
     done
 }

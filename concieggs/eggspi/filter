@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Run a filter from the filters directory on input.
+
+"$(dirname "$0")/$1"
