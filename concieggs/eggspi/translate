@@ -4,7 +4,12 @@
 # chain.
 
 t() {
-    gawk -f $HOME/bin/google-translate.awk "$1" -
+    filter="$(dirname "$0")/filters/$1"
+    if test -x "$filter"; then
+        "$filter"
+    else
+        gawk -f $HOME/bin/google-translate.awk "$1" -
+    fi
 }
 
 eval $(python - "$@" <<EOF

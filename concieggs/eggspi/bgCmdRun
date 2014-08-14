@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+id="$1"
+fun="$2"
+line="$3"
+brugikkefoersteinput="$4"
+
+cat <<EOF
+(bgCmdIsRunning "$id" && bgCmdWrite "$id" "$line") || \
+    (bgCmdSetup "$id" && (if [ '' = "$brugikkefoersteinput" ]; then bgCmdWrite "$id" "$line"; fi) && tail -f "$(bgCmdPath "$id")" | ($fun; bgCmdEnd "$id")) &
+EOF

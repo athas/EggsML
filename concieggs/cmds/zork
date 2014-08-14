@@ -1,18 +1,11 @@
-#!/bin/bash
+#!/bin/sh
 
-FIFO=/tmp/zork
-ZORKDIR=$CONCIEGGS_LIB_DIR/zork
-RUNNING=$(ps aux | grep dungeon | grep -v grep | wc -l)
-TAILS=$( ps aux | grep tail | grep zork | wc -l )
+set -e
+id="$(basename "$0")"
 
-if [ -p $FIFO -a $RUNNING -eq 1 -a $TAILS -eq 1  ]
-then
-    echo "$@" > $FIFO
-else
-    pkill -f "tail -f $FIFO"
-    killall -q dungeon
-    rm -f $FIFO
-    mkfifo $FIFO
-    cd $ZORKDIR
-    tail -f $FIFO | ./dungeon | sed -e 's/>/\n/' &
-fi
+zorkdir=$CONCIEGGS_DB_DIR/zork/
+zork() {
+    $zorkdir/adventure
+}
+
+eval $(bgCmdRun "$id" zork "$*" falskt)

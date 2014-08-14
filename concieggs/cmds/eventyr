@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+id="$(basename "$0")"
+
+adventure=$CONCIEGGS_DB_DIR/adventure
+eventyr() {
+    $adventure
+}
+
+eval $(bgCmdRun "$id" eventyr "$*" falskt)

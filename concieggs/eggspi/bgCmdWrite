@@ -3,9 +3,6 @@
 set -e
 
 id="$1"
+line="$2"
 
-{
-    cat "$(bgCmdPath "$id")_write"
-    cat > "$(bgCmdPath "$id")_buffer"
-    echo whatever > "$(bgCmdPath "$id")_read" &
-} &
+echo "$line" > "$(bgCmdPath "$id")" &
