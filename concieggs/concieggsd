@@ -87,6 +87,7 @@ filter_non_commands() {
             if [ $? = 0 ]; then
                 user=''
             fi
+            user=''
             ("$(dirname "$0")"/outfilter "$(basename "$PWD")" "$user" "$line") \
                 || echo "$line"
         fi
