@@ -15,7 +15,7 @@ if [ $fra ] && [ $til ] && [ "$tekst" ]; then
         echo "Sproget $til findes ikke!"
         exit
     fi
-    echo -n $(echo "$tekst" | translate $fra $til)
+    echo $(echo "$tekst" | translate $fra $til)
 else
     echo "Fejl ved parsningen, læs dog dokumentationen!"
 fi
