@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -e
+
+id="$1"
+
+cat "$(bgCmdPath "$id")_read" >&2
+cat "$(bgCmdPath "$id")_buffer"
+echo whatever > "$(bgCmdPath "$id")_write" &

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+id="$1"
+
+touch "$(bgCmdPath "$id")_buffer"
+mkfifo "$(bgCmdPath "$id")_write"
+mkfifo "$(bgCmdPath "$id")_read"
+
+echo whatever > "$(bgCmdPath "$id")_write" &

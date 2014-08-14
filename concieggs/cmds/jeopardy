@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# MASSER AF KAPLØBSSTRIDE
+
+set -e
+
+id="$(basename "$0")"
+rl() {bgCmdRead "$id";}
+
+jeopardy() {
+    # kun en test indtil videre
+    a="$(rl)"
+    b="$(rl)"
+    echo "Færdig."
+    echo "$a"
+    echo "$b"
+}
+
+(bgCmdIsRunning "$id" && (echo "$*" | bgCmdWrite "$id")) || \
+    (bgCmdSetup "$id" && (echo "$*" | bgCmdWrite "$id") && (jeopardy; bgCmdEnd "$id") &

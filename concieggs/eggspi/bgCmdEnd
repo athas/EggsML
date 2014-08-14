@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -e
+
+id="$1"
+
+rm "$(bgCmdPath "$id")_buffer"
+rm "$(bgCmdPath "$id")_write"
+rm "$(bgCmdPath "$id")_read"

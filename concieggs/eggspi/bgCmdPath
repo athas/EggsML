@@ -1,0 +1,7 @@
+#!/bin/sh
+
+set -e
+
+id="$1"
+
+echo "$CONCIEGGS_DB_DIR/store/bgcmd_$id_"
