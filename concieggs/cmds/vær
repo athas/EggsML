@@ -21,14 +21,17 @@ save() {
 }
 
 case "$*" in
+    # Gå tilbage til normal kedsomhed.
     normal)
         save '';;
+
+    # Specielle ord.
     "ultra grinern")
         save 'filter grinern';;
-    jysk)
-        save 'filter jysk';;
-    leet)
+    1337)
         save 'filter leet';;
+
+    # Sprog el.lign.
     *)
         s='translate da'
         while [ "$1" != '' ]; do
