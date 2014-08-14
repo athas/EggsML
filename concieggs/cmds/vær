@@ -17,7 +17,7 @@ fi
 
 save() {
     echo "$1" | dbWrite $file
-    ack
+    echo "$(ack)  Væremåden er sat!"
 }
 
 case "$*" in
