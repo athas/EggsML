@@ -16,9 +16,9 @@ translate_example() {
 apply_db_filter() {
     cmd=''
     if [ "$destuser" != '' ]; then
-        cmd=$(echo -n $(dbRead outfilter_command_$channel))
-    elif [ "$channel" != '' ]; then
         cmd=$(echo -n $(dbRead outfilter_command_$destuser))
+    elif [ "$channel" != '' ]; then
+        cmd=$(echo -n $(dbRead outfilter_command_$channel))
     fi
     if [ '' = "$cmd" ]; then
         cmd=$(echo -n $(dbRead outfilter_command))
