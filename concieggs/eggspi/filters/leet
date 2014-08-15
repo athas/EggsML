@@ -4,13 +4,13 @@ use warnings;
 use utf8::all;
 
 while (<>) {
-    s/(?<=\w)er\b/0r/;
-    s/cks?/x/;
-    s/eggs?/x/;
-    s/ow/pw/;
-    s/[æÆ]/ae/;
-    s/[øØ]/oe/;
-    s/[åÅ]/aa/;
+    s/(?<=\w)er\b/0r/g;
+    s/cks?/x/g;
+    s/eggs?/x/g;
+    s/ow/pw/g;
+    s/[æÆ]/ae/g;
+    s/[øØ]/oe/g;
+    s/[åÅ]/aa/g;
     tr/aAeEiIoOsS/44331100$$/;
     print
 }
