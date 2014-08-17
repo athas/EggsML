@@ -1,0 +1,8 @@
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+use Try::Tiny;
+
+try {
+    print pack("H*", <>);
+};
