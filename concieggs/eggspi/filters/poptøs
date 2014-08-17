@@ -1,0 +1,13 @@
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+use utf8::all;
+
+while (<>) {
+    tr/sSkKgG/zZqQqQ/;
+    s/(?<=q)u//gi;
+    s/$/ lizzom/;
+    s/\bh//gi;
+    print
+}
+
