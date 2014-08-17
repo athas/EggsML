@@ -4,10 +4,14 @@ use warnings;
 use utf8::all;
 
 while (<>) {
-    tr/sSkKgG/zZqQqQ/;
-    s/(?<=q)u//gi;
-    s/$/ lizzom/;
-    s/\bh//gi;
+    lc;
+    tr/skg/zq/;
+    s/q(?:nne|')//g;
+    s/iq/iiq/g;
+    s/(?<=q)u//g;
+    s/\?/???/g;
+    s/(\W*)\S$/ lizzom\1/;
+    s/\bh//g;
     print
 }
 
