@@ -2,7 +2,7 @@
 #
 # Oversæt fra et sprog til et andet.  Brug: oversæt fra SPROG til SPROG: TEKST
 
-eval "$(echo "$@" | parse 'fra (?<fra>[^ ]+) til (?<til>[^ ]+): (?<tekst>.+)|(?<sep>[\'"]?)(?<tekst>.+)\g{sep} fra (?<fra>[^ ]+) til (?<til>[^ ]+)\\W*\$')"
+eval "$(echo "$@" | parse 'fra (?<fra>[^ ]+) til (?<til>[^ ]+): (?<tekst>.+)|(?<tekst>.+) fra (?<fra>[^ ]+) til (?<til>[^ ]+)\W*$')"
 
 if [ $fra ] && [ $til ] && [ "$tekst" ]; then
     fra=$(langcode $fra)
