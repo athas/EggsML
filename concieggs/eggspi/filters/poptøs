@@ -11,7 +11,7 @@ while (<>) {
     s/(?<=q)u//g;
     s/\?/???/g;
     s/(\W*)\S$/ lizzom$1/;
-    s/\bh//g;
+    s/\bh(?=v)//g;
     print
 }
 
