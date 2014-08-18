@@ -6,7 +6,7 @@ use utf8::all;
 # baseret på http://www.classy.dk/download/styrelizer.asp
 
 while (my $text = <>) {
-    $text =~ s/ kræver / vil ha&apos; sygt meget /g;
+    $text =~ s/ kræver / vil ha' sygt meget /g;
     $text =~ s/ jeg / denne dogg her /g;
     $text =~ s/, /, øh, /g;
     $text =~ s/\. /, dér\. /g;
@@ -171,7 +171,7 @@ while (my $text = <>) {
     $text =~ s/\. H/\. Hvor svedigt, egentlig\. H/g;
     $text =~ s/\. I/\. Gad jeg nok godt se\. I/g;
     $text =~ s/\. J/\. Lissom din mor, mand! J/g;
-    $text =~ s/\. K/\. Fuck, det&apos; ked&apos;lig! K/g;
+    $text =~ s/\. K/\. Fuck, det' ked'lig! K/g;
     $text =~ s/\. L/\. Fuck det! L/g;
     $text =~ s/\. M/\. Fuck nu det! M/g;
     $text =~ s/\. N/\. Fuck\. N/g;
@@ -179,7 +179,7 @@ while (my $text = <>) {
     $text =~ s/\. P/\. For femte gang\. P/g;
     $text =~ s/\. Q/\. For første gang\. Q/g;
     $text =~ s/\. R/\. For sidste gang\. R/g;
-    $text =~ s/\. S/\. Og jeg genta&apos;r: S/g;
+    $text =~ s/\. S/\. Og jeg genta'r: S/g;
     $text =~ s/\. T/\. Lissom sidst :\) T/g;
     $text =~ s/\. U/\. Nu igen! U/g;
     $text =~ s/direktør/chief/g;
