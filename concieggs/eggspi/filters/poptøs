@@ -5,12 +5,16 @@ use utf8::all;
 
 while (<>) {
     s/^(.*)$/\L$1/;
-    tr/skg/zq/;
+    s/ det / d /g;
+    s/sgu /sq /g;
+    s/g([^ ])/q$1/g;
+    s/ikke/ik/g;
+    s/en hamster/et hamster/g;
     s/q(?:nne|')//g;
     s/iq/iiq/g;
     s/(?<=q)u//g;
     s/\?/???/g;
-    s/(\W*)\S$/ lizzom$1/;
+    s/(\W*)(\S)$/$2 lizzom$1/;
     s/\bh(?=v)//g;
     print
 }
