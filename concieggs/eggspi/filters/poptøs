@@ -22,7 +22,7 @@ while (<>) {
     s/!/ !/g;
     s/(\W*)\s*$/ lizzom$1/;
     s/\bh(?=v)//g;
-    s/\./" " . $smilies[rand @smilies] x (int(rand(2)) + 1)/ge;
+    s/\.(?= |$)/" " . $smilies[rand @smilies] x (int(rand(2)) + 1)/ge;
     print
 }
 
