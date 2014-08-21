@@ -12,7 +12,8 @@ while (<>) {
     s/en hamster/et hamster/g;
     s/q(?:nne|')//g;
     s/iq/iiq/g;
-    s/(?<=q)u//g;
+    s/u\b/uuh/g;
+    s/(?<=q)u(?!u)//g;
     s/\?/???/g;
     s/(\W*)\s*$/ lizzom$1/;
     s/\bh(?=v)//g;
