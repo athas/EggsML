@@ -3,6 +3,8 @@ use 5.012;
 use warnings;
 use utf8::all;
 
+my @smilies = qw/ :i <3 /; 
+
 while (<>) {
     s/^(.*)$/\L$1/;
     s/ det / d /g;
@@ -20,6 +22,7 @@ while (<>) {
     s/!/ !/g;
     s/(\W*)\s*$/ lizzom$1/;
     s/\bh(?=v)//g;
+    s/\./" " . $smilies[rand @smilies] x (int(rand(2)) + 1)/ge;
     print
 }
 
