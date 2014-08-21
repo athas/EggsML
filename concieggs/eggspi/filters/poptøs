@@ -6,6 +6,7 @@ use utf8::all;
 while (<>) {
     s/^(.*)$/\L$1/;
     s/ det / d /g;
+    s/t\b/th/g;
     s/sgu /sq /g;
     s/g/q/g;
     s/ikke/ik/g;
@@ -15,6 +16,7 @@ while (<>) {
     s/u\b/uuh/g;
     s/(?<=q)u(?!u)//g;
     s/\?/???/g;
+    s/!/ !/g;
     s/(\W*)\s*$/ lizzom$1/;
     s/\bh(?=v)//g;
     print
