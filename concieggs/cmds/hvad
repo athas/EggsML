@@ -14,6 +14,30 @@ elif [ "$*" = "er klokken" ]; then # påskeæg
 elif [ "$*" = "mangler jeg" ]; then # påskeæg++
     echo "Du mangler $(randomElement < "$CONCIEGGS_DB_DIR/ordbog-dansk-navneord")!"
     exit
+elif [ "$*" = "hulen" ]; then
+    behaviour=$(dbRead outfilter_command)
+    user_behaviour=$(dbRead "outfilter_$EGGS_USER")
+    channel_behaviour=$(dbRead "outfilter_$(ircChannel)")
+    if [ "$user_behaviour" = "$channel_behaviour" ]; then
+        unset $channel_behaviour
+    fi
+    if [ "$behaviour" ]; then
+        echo -n "Mit kulturelle islæt er $behaviour.  "
+        if [ "$user_behaviour" ]; then
+            echo "Men for din skyld er jeg også $user_behaviour."
+        elif [ "$channel_behaviour" ]; then
+            echo "Men i disse kamre forsøger jeg passe ind ved $channel_behaviour."
+        else
+            echo
+        fi
+    elif [ "$user_behaviour" ]; then
+        echo "$EGGS_USER: Som forespurgt, så behandles du efter normerne for $user_behaviour."
+    elif [ "$channel_behaviour" ]; then
+        echo "$EGGS_USER: Skik følge eller land fly, og i dette land er normen $channel_behaviour."
+    else
+        echo "$EGGS_USER: Hvad er det helt præcist, der forvirrer dig?  Min adfærd er ganske konventionel."
+    fi
+    exit
 else
     echo "Brug: hvad skylder [navn|jeg]"
     exit
