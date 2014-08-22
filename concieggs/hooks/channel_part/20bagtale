@@ -2,6 +2,8 @@
 
 set -e
 
+onEggsChannel || exit
+
 maybeGood .9 || exit
 
 user=$EGGS_USER

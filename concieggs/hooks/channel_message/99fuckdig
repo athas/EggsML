@@ -2,7 +2,7 @@
 
 set -f
 
-shuttingUp && exit
+(notOnEggsChannel || shuttingUp) && exit
 
 sviner() {
     when=$1

@@ -1,5 +1,6 @@
 #!/bin/sh
 
+onEggsChannel || exit
 
 aliases "$EGGS_USER" | while read -r alias; do
     time=$(dbRead "users/$alias/eggsactly")

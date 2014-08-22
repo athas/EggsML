@@ -2,6 +2,7 @@
 #
 # Påmind om gæld ved join
 
+notOnEggsChannel && exit
 
 debt=$(lookupDebt $EGGS_USER)
 

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+. $CONCIEGGS_DIR/concieggs.conf
+[ "$(ircChannel)" = "$irc_channel" ]
