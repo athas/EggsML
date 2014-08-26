@@ -105,7 +105,6 @@ while (my $text = <>) {
     $text =~ s/ irriterer/ pisser off/g;
     $text =~ s/ irriteret/ pissed off/g;
     $text =~ s/ irriter/ piss off/g;
-    $text =~ s/\.\s*$/\. *LOL* :\)\)/g;
     $text =~ s/ foreslår/ totalt meget KRÆVER/g;
     $text =~ s/ bedst/ *MEST* styrernde/g;
     $text =~ s/ var / hvar /g;
