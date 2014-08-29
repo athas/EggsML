@@ -21,7 +21,7 @@ if echo "$EGGS_BODY" | egrep -x '^ *s/[^/]*/[^/]*(/g?)? *' > /dev/null; then
     fi
     if [ "$last" ]; then
         exec > in
-        echo "Rettet: <$who> $(echo "$last" | perl -lne "$exp && print")"
+        echo "Rettet: <$who> $(echo "$last" | perl -Mutf8::all -lne "$exp && print")"
     elif [ "$EGGS_USER" = "$who" ]; then
         echo "$EGGS_USER: Men du har jo ikke sagt noget!"
     else
