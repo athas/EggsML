@@ -31,7 +31,7 @@ EOF
             else
                 comment="$*"
             fi
-            kvidr "$comment"
+            echo "$comment" | kvidr
         else
             gitRepair slashdotfrokost
             echo "Katastrofe!  Noget gik galt under opdatering!"
