@@ -1,0 +1,18 @@
+#!/usr/bin/env perl
+
+use Env qw/EGGS_BODY EGGS_USER/;
+use utf8::all;
+
+if (my ($who, $from, $to) =
+            $EGGS_BODY =~ qr{^(?:([^ :]+):)?\s*tr/([^/]+)/([^/]+)/?\s*$}) {
+    $who ||= $EGGS_USER;
+    my $last = `dbUserRead "$who" lastmsg` || `dbRead "strangers/$who" lastmsg`;
+
+    if ($last) {
+        $last =~ tr/$from/$to/;
+        print "Rettet: <$who> $last\n";
+    } else {
+        printf("$EGGS_USER: Men %s har jo ikke sagt noget!\n",
+               (lc $who) eq (lc $EGGS_USER) ? "du" : $who);
+    }
+}
