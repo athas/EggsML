@@ -9,7 +9,7 @@ if (my ($who, $from, $to) =
     my $last = `dbUserRead "$who" lastmsg` || `dbRead "strangers/$who" lastmsg`;
 
     if ($last) {
-        $last =~ tr/$from/$to/;
+        eval "\$last =~ tr/$from/$to/";
         print "Rettet: <$who> $last\n";
     } else {
         printf("$EGGS_USER: Men %s har jo ikke sagt noget!\n",
