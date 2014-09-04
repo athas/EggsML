@@ -9,7 +9,7 @@ else
     who="$EGGS_USER"
 fi
 
-if echo "$EGGS_BODY" | egrep -x '^ *s/[^/]*/[^/]*(/g?)? *' > /dev/null; then
+if echo "$EGGS_BODY" | egrep -x '^ *[sy]/[^/]*/[^/]*(/g?)? *' > /dev/null; then
     last=$(dbUserRead "$who" lastmsg)
     if ! [ "$last" ]; then
         last=$(dbRead "strangers/$who" lastmsg)
