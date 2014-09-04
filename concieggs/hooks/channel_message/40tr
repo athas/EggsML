@@ -4,7 +4,7 @@ use Env qw/EGGS_BODY EGGS_USER/;
 use utf8::all;
 
 if (my ($who, $from, $to) =
-            $EGGS_BODY =~ qr{^(?:([^ :]+):)?\s*tr/([^/]+)/([^/]+)/?\s*$}) {
+            $EGGS_BODY =~ qr{^(?:([^ :]+):)?\s*(?:tr|y)/([^/]+)/([^/]+)/?\s*$}) {
     $who ||= $EGGS_USER;
     my $last = `dbUserRead "$who" lastmsg` || `dbRead "strangers/$who" lastmsg`;
 
