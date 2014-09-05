@@ -2,4 +2,4 @@
 #
 # CARVE LIKE A VIKING!
 
-sed -e s/th/þ/g | tr abcdefghijklmnoprstuvxyzæøå ᚨᛒᚲᛞᛖᚠᚷᚻᛁᛃᚲᛚᛗᚾᛟᛈᚱᛊᛏᚢᚢᛉᚣᛉᛇᚯᚨᚨ
+tolower | sed -e s/th/þ/g | perl -pe 'tr/abcdefghijklmnoprstuvxyzæøå/ᚨᛒᚲᛞᛖᚠᚷᚻᛁᛃᚲᛚᛗᚾᛟᛈᚱᛊᛏᚢᚢᛉᚣᛉᛇᚯᚨᚨ/'
