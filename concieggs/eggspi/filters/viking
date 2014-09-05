@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# CARVE LIKE A VIKING!
+
+sed -e s/th/þ/g | tr abcdefghijklmnoprstuvxyzæøå ᚨᛒᚲᛞᛖᚠᚷᚻᛁᛃᚲᛚᛗᚾᛟᛈᚱᛊᛏᚢᚢᛉᚣᛉᛇᚯᚨᚨ
