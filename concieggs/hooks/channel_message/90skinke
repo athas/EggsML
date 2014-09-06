@@ -1,6 +1,6 @@
 #!/bin/sh
 
-shuttingUp && exit
+(notOnEggsChannel || shuttingUp) && exit
 
 maybeGood .05 || exit
 
