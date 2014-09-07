@@ -5,7 +5,7 @@
 
 set -f
 
-eval "$(echo "$@" | parse '(?<rawcmd>.+)( til (?<addr>.+@.+))')"
+eval "$(echo "$@" | parse '(?<rawcmd>.+)( til (?<addr>.+@.+|twitter))')"
 
 if [ "$rawcmd" ]; then
     cmd=$(echo "$rawcmd" | cut -d' ' -f 1)
