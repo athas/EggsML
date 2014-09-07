@@ -20,6 +20,7 @@ my @lines = io("$CONCIEGGS_DB_DIR/fakta")->slurp;
 
 my $line = $lines[rand @lines];
 
+$line =~ tr/<>/()/;
 my ($first, $second) = $line =~ qr/^([^\.!\?:]+[\.!\?:]) ([^\.!\?:]+[\.!\?]?)\s*$/;
 
 my $page = int( rand() * 10 );
