@@ -11,7 +11,7 @@ fi
 
 auth="$(isTrusted "$EGGS_USER")"
 if ! [ "$auth" ]; then
-    echo "$EGGS_USER: Du er ikke mester nok, mesterfidus."
+    echo "$EGGS_USER: Almindeligt rakkerpak har ikke bemyndigelse til at betjene denne funktionalitet."
     exit 0
 fi
 
