@@ -1,0 +1,14 @@
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+
+use utf8::all;
+use IO::All;
+use Env qw/CONCIEGGS_DB_DIR/;
+
+my @lines = io("$CONCIEGGS_DB_DIR/fakta")->slurp;
+@lines = grep { $_ =~ qr/^[^\.!\?]+[\.!\?] [^\.!\?]+[\.!\?]/ } @lines;
+
+my $line = $lines[rand @lines];
+
+print $line;
