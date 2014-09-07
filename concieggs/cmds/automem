@@ -4,11 +4,18 @@ use warnings;
 
 use utf8::all;
 use IO::All -utf8;
+use LWP::Simple;
+use JSON;
 use Env qw/CONCIEGGS_DB_DIR/;
 
 my @lines = io("$CONCIEGGS_DB_DIR/fakta")->slurp;
-@lines = grep { $_ =~ qr/^[^\.!\?]+[\.!\?] [^\.!\?]+[\.!\?]/ } @lines;
+@lines = grep { $_ =~ qr/^[^\.!\?]+[\.!\?] [^\.!\?]+[\.!\?]/ && length($_) < 150 } @lines;
 
 my $line = $lines[rand @lines];
 
-print $line;
+my ($first, $second) = $line =~ qr/^([^\.!\?]+[\.!\?]) ([^\.!\?]+[\.!\?])/;
+
+my $mem = from_json( get('http://version1.api.memegenerator.net/Generators_Select_ByPopular?pageIndex=0&pageSize=24&days=7') );
+$mem = $mem->{'result'};
+$mem = $mem->[rand @$mem];
+print $mem->{'displayName'};
