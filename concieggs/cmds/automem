@@ -20,6 +20,11 @@ my $query = join(" ", @ARGV);
 @lines = grep { $_ =~ qr/$query/i } @lines;
 @lines = grep { $_ =~ qr/^[^\.!\?:]+[\.!\?:](?<!\d\.) [^\.!\?:]+[\.!\?]?\s*$/ && length($_) < 150 } @lines;
 
+unless (@lines) {
+    print "Jeg kan altså ikke lave memer om det, fister.";
+    exit;
+}
+
 my $line = $lines[rand @lines];
 
 $line =~ tr/<>/()/;
