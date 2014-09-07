@@ -3,7 +3,7 @@ use 5.012;
 use warnings;
 
 use utf8::all;
-use IO::All;
+use IO::All -utf8;
 use Env qw/CONCIEGGS_DB_DIR/;
 
 my @lines = io("$CONCIEGGS_DB_DIR/fakta")->slurp;
