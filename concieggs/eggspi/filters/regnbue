@@ -10,7 +10,15 @@ my @rainbow = map { "\cC$_\cB\cB" } qw(04 07 08 09 11 06 13);
 while (my $line = <>) {
     chomp $line;
     my $n = ceil(length($line) / @rainbow);
-    my @msg = unpack("(a$n)*", $line);
+    my $d = length($line) - scalar(@rainbow) * ($n-1);
+    my @lens = ( ($n+0) x $d , ($n-1) x (scalar(@rainbow) - $d) );
+
+    my @msg;
+    my $i = 0;
+    for my $l (@lens) {
+        push(@msg, substr($line, $i, $l));
+        $i+=$l;
+    }
 
     print join("", zip(@rainbow, @msg)) . "\cO";
 }
