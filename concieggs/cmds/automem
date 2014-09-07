@@ -25,7 +25,9 @@ my ($first, $second) = $line =~ qr/^([^\.!\?:]+[\.!\?:]) ([^\.!\?:]+[\.!\?]?)\s*
 
 my $page = int( rand() * 10 );
 
-my $mem = from_json( get("http://version1.api.memegenerator.net/Generators_Select_ByPopular?pageIndex=$page&pageSize=24&days=7") );
+my $json = get("http://version1.api.memegenerator.net/Generators_Select_ByPopular?pageIndex=$page&pageSize=24&days=7"); 
+my $mem = from_json($json);
+print STDERR "$json\n" unless ($mem->{success});
 $mem = $mem->{'result'};
 $mem = $mem->[rand @$mem];
 
@@ -43,7 +45,7 @@ my %params = ( username     => $USER,
 my $uri = URI->new($url);
 $uri->query_form(%params);
 
-my $json = get($uri->as_string);
+$json = get($uri->as_string);
 my $response = from_json($json);
 print STDERR "$json\n" unless ($response->{success});
 printf("%s\n", $response->{result}->{instanceImageUrl} // "Det gik galt.");
