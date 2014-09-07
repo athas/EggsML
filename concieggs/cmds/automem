@@ -2,20 +2,45 @@
 use 5.012;
 use warnings;
 
+=pod
+Depends on: /home/concieggs/credentials/memegenerator.net
+=cut
+
 use utf8::all;
 use IO::All -utf8;
 use LWP::Simple;
 use JSON;
+use URI;
 use Env qw/CONCIEGGS_DB_DIR/;
 
+my ($USER, $PASS) = io("/home/concieggs/credentials/memegenerator.net")->slurp =~ /^(\w+):(\w+)$/;
+
 my @lines = io("$CONCIEGGS_DB_DIR/fakta")->slurp;
-@lines = grep { $_ =~ qr/^[^\.!\?]+[\.!\?] [^\.!\?]+[\.!\?]/ && length($_) < 150 } @lines;
+@lines = grep { $_ =~ qr/^[^\.!\?]+[\.!\?] [^\.!\?]+[\.!\?]$/ && length($_) < 150 } @lines;
 
 my $line = $lines[rand @lines];
 
-my ($first, $second) = $line =~ qr/^([^\.!\?]+[\.!\?]) ([^\.!\?]+[\.!\?])/;
+my ($first, $second) = $line =~ qr/^([^\.!\?]+[\.!\?]) ([^\.!\?]+[\.!\?])$/;
 
-my $mem = from_json( get('http://version1.api.memegenerator.net/Generators_Select_ByPopular?pageIndex=0&pageSize=24&days=7') );
+my $page = int( rand() * 10 );
+
+my $mem = from_json( get("http://version1.api.memegenerator.net/Generators_Select_ByPopular?pageIndex=$page&pageSize=24&days=7") );
 $mem = $mem->{'result'};
 $mem = $mem->[rand @$mem];
-print $mem->{'displayName'};
+
+my $generator = $mem->{'generatorID'};
+my ($imageid) = $mem->{'imageUrl'} =~ qr/(\d+)\.\w+$/;
+
+my $url = "http://version1.api.memegenerator.net/Instance_Create";
+my %params = ( username     => $USER,
+               password     => $PASS,
+               languageCode => 'en',
+               generatorID  => $generator,
+               imageID      => $imageid,
+               text0        => $first,
+               text1        => $second );
+my $uri = URI->new($url);
+$uri->query_form(%params);
+
+my $response = from_json( get($uri->as_string) );
+print $response->{result}->{instanceImageUrl} . "\n";
