@@ -14,9 +14,14 @@ if [ "$rawcmd" ]; then
         args=" $args"
     fi
 
-    echo Sender $cmd$args til $addr!
+    result=$(runcmd "$cmd" $args)
+    if [ "$addr" = "twitter" ]; then
+        runcmd kvidr "$result"
+    else
+        echo Sender $cmd$args til $addr!
 
-    runcmd "$cmd" $args | mailx -s "Afvikling af $cmd$args, anmodet af $EGGS_USER" "$addr" -- -r concieggs@eggsml.dk
+        echo $result | mailx -s "Afvikling af $cmd$args, anmodet af $EGGS_USER" "$addr" -- -r concieggs@eggsml.dk
+    fi
 else
     echo 'Brug: send <kommando> til <hvem@hvor>'
 fi
