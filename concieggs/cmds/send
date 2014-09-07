@@ -5,13 +5,17 @@
 
 set -f
 
-eval "$(echo "$@" | parse '(?<rawcmd>.+)( til (?<addr>.+@.+|twitter))')"
+eval "$(echo "$@" | parse '(?<rawcmd>.+)( til (?<addr>.+@.+|twitter|spiltirsdag\$))')"
 
 if [ "$rawcmd" ]; then
     cmd=$(echo "$rawcmd" | cut -d' ' -f 1)
     args=$(echo "$rawcmd"| sed 's/[^ ]* *//')
     if [ $args ]; then
         args=" $args"
+    fi
+
+    if [ "$addr" = "spiltirsdag" ]; then
+        addr="concieggs@spiltirsdag.dk"
     fi
 
     result=$(runcmd "$cmd" $args)
