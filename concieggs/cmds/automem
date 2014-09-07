@@ -42,5 +42,7 @@ my %params = ( username     => $USER,
 my $uri = URI->new($url);
 $uri->query_form(%params);
 
-my $response = from_json( get($uri->as_string) );
+my $json = get($uri->as_string);
+my $response = from_json($json);
+print STDERR "$json\n" unless (($response->{success} // '') eq 'true');
 printf("%s\n", $response->{result}->{instanceImageUrl} // "Det gik galt.");
