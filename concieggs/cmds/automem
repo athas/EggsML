@@ -45,5 +45,5 @@ $uri->query_form(%params);
 
 my $json = get($uri->as_string);
 my $response = from_json($json);
-print STDERR "$json\n" unless (($response->{success} // '') eq 'true');
+print STDERR "$json\n" unless ($response->{success});
 printf("%s\n", $response->{result}->{instanceImageUrl} // "Det gik galt.");
