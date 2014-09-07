@@ -1,0 +1,9 @@
+#!/bin/sh
+# Afvikl SML-kode i gudernes SML-fortolker
+
+if [ $# -eq 0 ]; then
+   echo "$EGGS_USER: Jeg er bange for at jeg har brug for mere information."
+   exit
+fi
+
+echo "$@" | timeout -s HUP 5s mosml -P full | tail -n -2 | head -n -1
