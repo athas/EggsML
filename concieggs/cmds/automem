@@ -43,4 +43,4 @@ my $uri = URI->new($url);
 $uri->query_form(%params);
 
 my $response = from_json( get($uri->as_string) );
-print $response->{result}->{instanceImageUrl} . "\n";
+print ($response->{result}->{instanceImageUrl} // "Det gik galt.") . "\n";
