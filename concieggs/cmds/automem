@@ -16,6 +16,8 @@ use Env qw/CONCIEGGS_DB_DIR/;
 my ($USER, $PASS) = io("/home/concieggs/credentials/memegenerator.net")->slurp =~ /^(\w+):(\w+)$/;
 
 my @lines = io("$CONCIEGGS_DB_DIR/fakta")->slurp;
+my $query = join(" ", @ARGV);
+@lines = grep { $_ =~ qr/$query/i } @lines;
 @lines = grep { $_ =~ qr/^[^\.!\?:]+[\.!\?:](?<!\d\.) [^\.!\?:]+[\.!\?]?\s*$/ && length($_) < 150 } @lines;
 
 my $line = $lines[rand @lines];
