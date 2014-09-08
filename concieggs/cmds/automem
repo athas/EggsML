@@ -21,7 +21,7 @@ my $query = join(" ", @ARGV);
 @lines = grep { $_ =~ qr/^[^\.!\?:]+[\.!\?:](?<!\d\.) [^\.!\?:]+[\.!\?]?\s*$/ && length($_) < 150 } @lines;
 
 unless (@lines) {
-    print "Jeg kan altså ikke lave memer om det, fister.";
+    print "Jeg kan altså ikke lave memer om det, fister.\n";
     exit;
 }
 
