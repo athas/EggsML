@@ -2,4 +2,4 @@
 #
 # CARVE LIKE A VIKING!
 
-tolower | sed -e s/th/þ/g | perl -pe 'tr/abcdefghijklmnoprstuvxyzæøå/ᚨᛒᚲᛞᛖᚠᚷᚻᛁᛃᚲᛚᛗᚾᛟᛈᚱᛊᛏᚢᚢᛉᚣᛉᛇᚯᚨᚨ/'
+tolower | sed -e s/th/þ/g | perl -Mutf8::all -pe 'tr/abcdefghijklmnoprstuvxyzæøå/ᚨᛒᚲᛞᛖᚠᚷᚻᛁᛃᚲᛚᛗᚾᛟᛈᚱᛊᛏᚢᚢᛉᚣᛉᛇᚯᚨᚨ/'
