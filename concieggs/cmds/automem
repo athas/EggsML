@@ -17,7 +17,7 @@ my ($USER, $PASS) = io("/home/concieggs/credentials/memegenerator.net")->slurp =
 
 my @lines = io("$CONCIEGGS_DB_DIR/fakta")->slurp;
 my $query = join(" ", @ARGV);
-@lines = grep { $_ =~ qr/$query/i } @lines;
+@lines = grep { $_ =~ qr/$query/i } @lines if $query;
 @lines = grep { $_ =~ qr/^[^\.!\?:]+[\.!\?:](?<!\d\.) [^\.!\?:]+[\.!\?]?\s*$/ && length($_) < 150 } @lines;
 
 unless (@lines) {
