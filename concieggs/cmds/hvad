@@ -16,8 +16,8 @@ elif [ "$*" = "mangler jeg" ]; then # påskeæg++
     exit
 elif [ "$*" = "hulen" ]; then
     behaviour=$(dbRead outfilter_command)
-    user_behaviour=$(dbRead "outfilter_$EGGS_USER")
-    channel_behaviour=$(dbRead "outfilter_$(ircChannel)")
+    user_behaviour=$(dbRead "outfilter_command_$EGGS_USER")
+    channel_behaviour=$(dbRead "outfilter_command_$(ircChannel)")
     if [ "$user_behaviour" = "$channel_behaviour" ]; then
         unset $channel_behaviour
     fi
