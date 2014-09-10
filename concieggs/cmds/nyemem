@@ -21,8 +21,8 @@ my $fb = Facebook::Graph->new(
 } catch {
 #    warn "caught error $_\n";
     print "Mine Facebook credentials er udløbet. :(\n";
-    print STDERR, "En eller anden log ind som concieggs på fjæseren, gå ind på https://developers.facebook.com/tools/explorer/702475036512546/ og tryk 'Get Access Token' i toppen.\n";
-    print STDERR, "Den skal så smides ind i $configuration_file.\n";
+    print STDERR "En eller anden log ind som concieggs på fjæseren, gå ind på https://developers.facebook.com/tools/explorer/702475036512546/ og tryk 'Get Access Token' i toppen.\n";
+    print STDERR "Den skal så smides ind i $configuration_file.\n";
     exit();
 };
 $config->{seen_memes} //= [];
