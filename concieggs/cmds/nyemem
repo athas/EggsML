@@ -7,6 +7,7 @@ use Facebook::Graph;
 use YAML::Tiny;
 use experimental qw(smartmatch autoderef);
 use Try::Tiny;
+use utf8::all;
 
 my $configuration_file = '/home/concieggs/credentials/facebook.yaml';
 my $ext_token_script = '/home/concieggs/credentials/facebook_ext_token.pl';
