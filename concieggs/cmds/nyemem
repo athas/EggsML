@@ -6,6 +6,7 @@ use DateTime::Format::ISO8601;
 use Facebook::Graph;
 use YAML::Tiny;
 use experimental qw(smartmatch autoderef);
+use Try::Tiny;
 
 my $configuration_file = '/home/concieggs/credentials/facebook.yaml';
 my $ext_token_script = '/home/concieggs/credentials/facebook_ext_token.pl';
@@ -21,7 +22,6 @@ try {
         access_token => $config->{access_token},
     );
 } catch {
-    print STDERR "fejl: $_";
     print "Mine Facebook credentials er udløbet. :(\n";
     print STDERR "En eller anden log ind som concieggs på fjæseren, gå ind på https://developers.facebook.com/tools/explorer/702475036512546/ og tryk 'Get Access Token' i toppen.\n";
     print STDERR "Kør så følgende fra en commandline: $ext_token_script <token>";
