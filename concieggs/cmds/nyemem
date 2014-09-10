@@ -8,6 +8,7 @@ use YAML::Tiny;
 use experimental qw(smartmatch autoderef);
 
 my $configuration_file = '/home/concieggs/credentials/facebook.yaml';
+my $ext_token_script = '/home/concieggs/credentials/facebook_ext_token.pl';
 
 my $yaml = YAML::Tiny->read($configuration_file);
 my $config = $yaml->[0];
@@ -20,9 +21,10 @@ try {
         access_token => $config->{access_token},
     );
 } catch {
+    print STDERR "fejl: $_";
     print "Mine Facebook credentials er udløbet. :(\n";
     print STDERR "En eller anden log ind som concieggs på fjæseren, gå ind på https://developers.facebook.com/tools/explorer/702475036512546/ og tryk 'Get Access Token' i toppen.\n";
-    print STDERR "Den skal så smides ind i $configuration_file.\n";
+    print STDERR "Kør så følgende fra en commandline: $ext_token_script <token>";
     exit();
 };
 $config->{seen_memes} //= [];
