@@ -12,14 +12,14 @@ my $configuration_file = '/home/concieggs/credentials/facebook.yaml';
 my $yaml = YAML::Tiny->read($configuration_file);
 my $config = $yaml->[0];
 
+my $fb;
 try {
-my $fb = Facebook::Graph->new(
-    app_id       => $config->{app_id},
-    app_secret   => $config->{app_secret},
-    access_token => $config->{access_token},
-);
+    $fb = Facebook::Graph->new(
+        app_id       => $config->{app_id},
+        app_secret   => $config->{app_secret},
+        access_token => $config->{access_token},
+    );
 } catch {
-#    warn "caught error $_\n";
     print "Mine Facebook credentials er udløbet. :(\n";
     print STDERR "En eller anden log ind som concieggs på fjæseren, gå ind på https://developers.facebook.com/tools/explorer/702475036512546/ og tryk 'Get Access Token' i toppen.\n";
     print STDERR "Den skal så smides ind i $configuration_file.\n";
@@ -28,7 +28,6 @@ my $fb = Facebook::Graph->new(
 $config->{seen_memes} //= [];
 
 my $cnt = 0;
-use Data::Dumper;
 my $group_feed = $fb->fetch('1676857065872315/feed')->{data};
 for my $elm (@$group_feed) {
     my $created = $elm->{created_time};
