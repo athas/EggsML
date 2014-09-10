@@ -43,7 +43,7 @@ for my $elm (@$group_feed) {
                $elm->{actions}->[0]->{link},
         );
         push($config->{seen_memes}, $elm->{id});
-        $cnt += 0;
+        $cnt += 1;
     }
 }
 
