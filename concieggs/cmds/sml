@@ -6,4 +6,4 @@ if [ $# -eq 0 ]; then
    exit
 fi
 
-echo "$@" | timeout -s HUP 5s mosml -P full | tail -n +3 | head -n -1
+echo "$@" | cat "$CONCIEGGS_DIR/misc/sandbox.sml" - | timeout -s HUP 5s mosml -P full | tail -n +78 | head -n -1
