@@ -9,10 +9,10 @@ utf8::decode($EGGS_USER);
 utf8::decode($EGGS_BODY);
 
 system("shuttingUp")
-exit if ($? >> 8) == 0;
+exit(0) if ($? >> 8) == 0;
 
-exit if $EGGS_USER eq 'hej_fra_github';
-exit if $EGGS_BODY =~ qr/^concieggs[,:]/;
+exit(0) if $EGGS_USER eq 'hej_fra_github';
+exit(0) if $EGGS_BODY =~ qr/^concieggs[,:]/;
 
 my %daneng;
 open(my $f, '<', "$CONCIEGGS_DB_DIR/ordbog-engelsk-dansk");
