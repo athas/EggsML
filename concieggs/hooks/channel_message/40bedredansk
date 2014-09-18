@@ -2,11 +2,11 @@
 use 5.012;
 use warnings;
 
-use Env qw/EGGS_USER EGGS_BODY CONCIEGGS_DB_DIR/;
 use utf8::all;
+use Env qw/EGGS_USER CONCIEGGS_DB_DIR/;
+use Encode qw/decode/;
 
-utf8::decode($EGGS_USER);
-utf8::decode($EGGS_BODY);
+my $EGGS_BODY = decode('utf-8', $ENV{EGGS_BODY});
 
 exit if $EGGS_USER eq 'hej_fra_github';
 exit if $EGGS_BODY =~ qr/^concieggs[,:]/;
