@@ -1,0 +1,44 @@
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+
+use utf8::all;
+use Env qw/EGGS_USER EGGS_BODY CONCIEGGS_DB_DIR/;
+
+# exit unless system("shuttingUp");
+
+exit if $EGGS_USER eq 'hej_fra_github';
+exit if $EGGS_BODY =~ qr/^concieggs[,:]/;
+
+my %daneng;
+open(my $f, '<', "$CONCIEGGS_DB_DIR/ordbog-engelsk-dansk");
+while (my $line = <$f>) {
+    my ($from, $to) = $line =~ qr/'([^']+)' '([^']+)'/;
+    next unless $from;
+    $daneng{$from} = $to;
+}
+close($f);
+
+sub match_casing {
+    my ($a, $b) = @_;
+    return $a if $a =~ qr/^".*"$/;
+    return "\u$b" if $a =~ qr/^[[:upper:]]/;
+    return $b;
+}
+
+my $body = $EGGS_BODY;
+for my $from (keys %daneng) {
+    $body =~ s/(\b$from\b)/match_casing($1,$daneng{$from})/ieg;
+}
+
+if ($body ne $EGGS_BODY) {
+    my @prefix = (
+        "$EGGS_USER mener nok",
+        "/me foretrækker nu",
+        "$EGGS_USER, her på dansk",
+        "/me oversætter",
+        "Nejnej, på dansk",
+    );
+
+    printf("%s: %s\n", $prefix[rand @prefix], $body);
+}
