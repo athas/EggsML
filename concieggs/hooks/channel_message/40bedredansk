@@ -8,7 +8,7 @@ use utf8::all;
 utf8::decode($EGGS_USER);
 utf8::decode($EGGS_BODY);
 
-system("shuttingUp")
+system("shuttingUp");
 exit(0) if ($? >> 8) == 0;
 
 exit(0) if $EGGS_USER eq 'hej_fra_github';
