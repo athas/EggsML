@@ -8,4 +8,4 @@
 echo -n "Der eksisterer følgende indkøbsmuligheder: "
 dbIterate katalog | while read -r item; do
     dbRead "$item"
-done | commasize | sed 's/$/./'
+done | grep -i "$*" | commasize | sed 's/$/./'
