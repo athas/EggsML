@@ -41,5 +41,5 @@ if ($body ne $EGGS_BODY) {
         "Nejnej, på dansk",
     );
 
-    printf("%s: %s\n", $prefix[rand @prefix], $body);
+    print $prefix[rand @prefix] . ": $body\n";
 }
