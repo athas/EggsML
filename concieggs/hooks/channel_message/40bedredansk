@@ -8,6 +8,9 @@ use Encode qw/decode/;
 
 my $EGGS_BODY = decode('utf-8', $ENV{EGGS_BODY});
 
+system("shuttingUp");
+exit if ($? >> 8) == 0;
+
 exit if $EGGS_USER eq 'hej_fra_github';
 exit if $EGGS_BODY =~ qr/^concieggs[,:]/;
 
