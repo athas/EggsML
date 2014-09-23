@@ -5,7 +5,7 @@
 
 
 if [ $# -lt 1 ]; then
-    echo "Brug 'eggsml' hvis du vil melde dig til spisning, 'neggst' og 'preggs' til at se hvem der spiser med."
+    echo "Brug 'eggsml' hvis du vil melde dig til spisning, 'neggst' og 'preggs' til at se hvem der spiser med. Forstår du ikke frokost? benyt 'hjælp frokost'"
     echo "Vil du have hjælp til en specific kommando, brug da: hjælp <kommando>"
 elif [ -f "$CONCIEGGS_DIR/cmds/$1" ]; then
     echo "$1: "
