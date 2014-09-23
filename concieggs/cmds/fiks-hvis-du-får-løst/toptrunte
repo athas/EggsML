@@ -1,4 +1,0 @@
-#!/bin/sh
-
-echo "ADVARSEL: Dette er en deprekeret legacy-kommando.  Brug 'topmening' i stedet, dit oldtidslevn."
-$(dirname "$0")/topmening "$@"

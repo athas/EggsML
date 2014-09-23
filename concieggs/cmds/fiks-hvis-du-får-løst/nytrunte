@@ -1,4 +1,0 @@
-#!/bin/sh
-
-echo "ADVARSEL: Dette er en deprekeret legacy-kommando.  Brug 'nymening' i stedet, dit oldtidslevn."
-$(dirname "$0")/nymening "$@"
