@@ -1,0 +1,23 @@
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+use utf8::all;
+
+my $input = join(" ", @ARGV);
+
+if ($input =~ /^(?:om lidt|snart)$/i) {
+    print 5 * 60;
+} else {
+    my $sep = '[,\s]*';
+    my ($days, $hours, $minutes, $seconds) = $input =~ qr/^\s*
+            (?:(\d+)\ dage)? $sep
+            (?:(\d+)\ timer)? $sep
+            (?:(\d+)\ minutter)? $sep
+            (?:(\d+)\ sekunder)? $sep
+        \s*$/x;
+    my $time = ($days // 0) * 24*60*60 +
+            ($hours // 0) * 60*60 +
+            ($minutes // 0) * 60 +
+            ($seconds // 0);
+    print $time;
+}
