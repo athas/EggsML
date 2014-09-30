@@ -2,13 +2,13 @@
 use 5.012;
 use warnings;
 use utf8::all;
+use Env qw/CONCIEGGS_LIB_DIR/;
 
 sub nuserfy {
     my $name = shift;
 
-
-    system("isInEggs $name");
-    return $name unless ($? >> 8) == 0;
+    my $rn = `randomName "$name"`;
+    return $name unless $rn;
 
     my @suffixes = qw(
         -musen
@@ -21,7 +21,8 @@ sub nuserfy {
 }
 
 while (my $line = <>) {
-    $line =~ s/\b(\w+)\b/nuserfy($1)/ge;
+    $line =~ s/\b(\S*)\b/nuserfy($1)/ge;
 
     print $line;
 }
+
