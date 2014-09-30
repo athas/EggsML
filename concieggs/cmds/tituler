@@ -30,6 +30,11 @@ if ! [ "$who" ]; then
     exit
 fi
 
+if cmpNames "$who" "$EGGS_USER"; then
+    echo "$EGGS_USER: Lad dine loge-brødre om at bestemme dine tituleringer!"
+    exit
+fi
+
 if [ "$taken" ]; then
     if cmpNames "$who" "$taken"; then
         if cmpNames "$who" "$EGGS_USER"; then
