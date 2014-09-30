@@ -5,6 +5,18 @@
 # skal disse ordnes manuelt (øv!).
 # Alle argumenter til posteggs gemmes som kommentarer i slashdotfrokost
 
+from=$(randomName $EGGS_USER)
+if ! [ "$from" ]; then
+    echo "$EGGS_USER: Dig kender jeg ikke.  Hvem skulle du forestille at være?"
+    exit
+fi
+
+auth="$(isTrusted "$EGGS_USER")"
+if ! [ "$auth" ]; then
+    echo "$EGGS_USER: Det har du på ingen måde bemyndigelse til."
+    exit
+fi
+
 
 lastEggs=$(prevEggs | head -n 1)
 
