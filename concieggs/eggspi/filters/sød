@@ -1,0 +1,27 @@
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+use utf8::all;
+
+sub nuserfy {
+    my $name = shift;
+
+
+    system("isInEggs $name");
+    return $name unless ($? >> 8) == 0;
+
+    my @suffixes = qw(
+        -musen
+        -snut
+        kins
+        pus
+    );
+
+    return $name . $suffixes[rand @suffixes];
+}
+
+while (my $line = <>) {
+    $line =~ s/\b(\w+)\b/nuserfy($1)/ge;
+
+    print $line;
+}
