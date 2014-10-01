@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# Udfør dit sidste udsagn som kommando.
+
+last=$(dbUserRead "$EGGS_USER" lastmsg)
+
+if ! [ "$last" ]; then
+    echo "$EGGS_USER: Du har ikke sagt noget, som jeg er villig til at afvikle."
+else
+    dbUserDelete "$EGGS_USER" lastmsg
+    echo "Udfører $last!"
+    runcmd "$last"
+fi
