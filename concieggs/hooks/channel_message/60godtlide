@@ -12,7 +12,13 @@ my $EGGS_BODY = decode('utf-8', $ENV{EGGS_BODY});
 system("shuttingUp");
 exit if ($? >> 8) == 0;
 
+sub randomName {
+    my $name = `randomName $EGGS_USER` // $EGGS_USER;
+    chomp $name;
+    return $name;
+}
+
 if (my ($body) = $EGGS_BODY =~ qr/^Jeg kan godt lide ([^.!?]*[.!?]?)/i) {
-    $body =~ s#$CONCIEGGS_NAME#`randomName $EGGS_USER` // $EGGS_USER; chomp; $_#eg;
+    $body =~ s#$CONCIEGGS_NAME#randomName()#eg;
     print "Jeg kan også godt lide $body\n";
 }
