@@ -19,7 +19,7 @@ def run_main(args):
 
     list = urllib2.urlopen("https://coinbase.com/charts")
     content = list.read()
-    priceInUSD = content.split('Current Buy Price: $')[1].split('<')[0]
+    priceInUSD = content.split('Buy Price: $')[1].split('<')[0]
     priceInUSD = float(priceInUSD.replace(",","."))
     dollarkurz = dollarkurs()
     priceInDKK = priceInUSD * (dollarkurz / 100.0)
