@@ -13,6 +13,6 @@ system("shuttingUp");
 exit if ($? >> 8) == 0;
 
 if (my ($body) = $EGGS_BODY =~ qr/^Jeg kan godt lide ([^.!?]*[.!?]?)/i) {
-    $body =~ s#$CONCIEGGS_NAME#`randomName $EGGS_USER` // $EGGS_USER#eg;
+    $body =~ s#$CONCIEGGS_NAME#`randomName $EGGS_USER` // $EGGS_USER; chomp; $_#eg;
     print "Jeg kan også godt lide $body\n";
 }
