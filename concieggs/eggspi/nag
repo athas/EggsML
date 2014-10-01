@@ -16,7 +16,7 @@ if [ "$(echo "$debt" | grep -v "-")" ]; then
     echo "Nasserøv!"
     if [ "$wish" ]; then
         echo "$(Du $who) skylder allerede $debt kroner.  Hvad med at købe $wish før frokosten?"
-        echo "Hvis $(du $who) mødte op med $wish, så kan det være dine logebrødre vil tolerere dit skammelige mislighold af din gæld."
+        echo "Hvis $(du $who) mødte op med $wish, så kunne det være, at dine logebrødre ville tolerere dit skammelige mislighold af din gæld."
     fi
     echo "Ender $(du $who) ikke snart i 'Luksusfælden'?"
     echo "Og de $debt kroner $(du $who) allerede skylder?  Hvor er de?"
