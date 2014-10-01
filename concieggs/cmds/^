@@ -9,5 +9,5 @@ if ! [ "$last" ]; then
 else
     dbUserDelete "$EGGS_USER" lastmsg
     echo "Udfører $last!"
-    runcmd "$last"
+    runcmd $last
 fi
