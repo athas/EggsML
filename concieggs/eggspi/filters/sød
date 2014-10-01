@@ -10,11 +10,18 @@ sub nuserfy {
     my $rn = `randomName "$name"`;
     return $name unless $rn;
 
-    my @suffixes = qw(
-        -musen
-        -snut
-        kins
-        pus
+    my @options = (
+        map { "$name$_" } qw(
+            -musen
+            -snut
+            kins
+            pus
+        ),
+        qw(
+            pullernuller
+            nullergøj
+            skattebasse
+        )
     );
 
     return $name . $suffixes[rand @suffixes];
