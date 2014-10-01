@@ -30,13 +30,14 @@ def run_main(args):
         hits = tree.xpath("//div[@class='post-details textbox']")
     else: 
         hits = tree.xpath("//div[@class='post']")
+    try:
+        pick = hits[random.randint(0, (len(hits) - 1))]
+        (tekst, link) = behandlHit(pick, specifik)
 
-    pick = hits[random.randint(0, (len(hits) - 1))]
-    (tekst, link) = behandlHit(pick, specifik)
-
-    print "ha ha det her billede er bare " + kompliment() + " " + smiley()
-    print "http:" + link.replace(".jpg","") + ' :  "' + tekst + '"'
-
+        print "ha ha det her billede er bare " + kompliment() + " " + smiley()
+        print "http:" + link.replace(".jpg","") + ' :  "' + tekst + '"'
+    except:
+        print "Der er ingen inden i imgur som har gidet at lave memer om " + args[0] + " og det andet."
 
 def behandlHit(hit , Bool):
     if Bool:
@@ -79,8 +80,14 @@ def specifiktMem(args):
 #skal det være en rigtig slager?
     
     query = ""
-    for arg in args[1:]:
-        query = query + "+" + arg
+    
+    if args[1] in ["med","omhandlende", "involverende", "om", "about"]:
+    	args = args[2:]
+    else:
+    	args = args[1:]
+
+    for arg in args:
+	query = query + "+" + arg
     query = query[1:]
 
     if (random.randint(0,2)):
