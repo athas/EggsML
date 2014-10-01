@@ -21,10 +21,10 @@ sub nuserfy {
             pullernuller
             nullergøj
             skattebasse
-        )
+        ),
     );
 
-    return $name . $suffixes[rand @suffixes];
+    return $options[rand @options];
 }
 
 while (my $line = <>) {
