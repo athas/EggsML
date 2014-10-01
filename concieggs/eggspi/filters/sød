@@ -11,12 +11,12 @@ sub nuserfy {
     return $name unless $rn;
 
     my @options = (
-        map { "$name$_" } qw(
+        (map { "$name$_" } qw(
             -musen
             -snut
             kins
             pus
-        ),
+        )),
         qw(
             pullernuller
             nullergøj
