@@ -21,7 +21,8 @@ def run_main(args):
     	args = args[2:]
     else:
     	args = args[1:]
-
+    
+    args = filter(lambda ord: ord != "og", args)
 
 
     if (len(args) > 0):
@@ -45,7 +46,6 @@ def run_main(args):
         print "ha ha det her billede er bare " + kompliment() + " " + smiley()
         print "http:" + link.replace(".jpg","") + ' :  "' + tekst + '"'
     except:
-        args = filter(lambda ord: ord != "og", args)
 	
 	print "Der er ingen inden i imgur som har gidet at lave memer om " +         " og ".join(args)
 
