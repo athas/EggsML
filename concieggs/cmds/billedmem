@@ -45,7 +45,9 @@ def run_main(args):
         print "ha ha det her billede er bare " + kompliment() + " " + smiley()
         print "http:" + link.replace(".jpg","") + ' :  "' + tekst + '"'
     except:
-        print "Der er ingen inden i imgur som har gidet at lave memer om " +         " og ".join(args)
+        args = filter(lambda ord: ord != "og", args)
+	
+	print "Der er ingen inden i imgur som har gidet at lave memer om " +         " og ".join(args)
 
 def behandlHit(hit , Bool):
     if Bool:
