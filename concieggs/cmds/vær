@@ -30,6 +30,8 @@ case "$*" in
         save 'filter grinern';;
     1337)
         save 'filter leet';;
+    "min")
+        echo "Måske senere...";;
 
     # Sprog el.lign.
     *)
