@@ -1,16 +1,12 @@
 #!/bin/sh
 
 cd $CONCIEGGS_IRC_DIR
-rm -rf nickserv
-echo '/PRIVMSG nickserv :info '$1 > in
-for i in $(seq 1 5); do
-    authed=$(awk '{ match($0, "account[^a-zA-Z0-9_]+([a-zA-Z0-9_]+)", a); if (a[1]) { print a[1] }}' < nickserv/out)
+
+echo "/whois $1" > in
+for i in $(seq 1 2); do
+    authed=$(tail -n 10 out | perl -ne "if (/$1 (\\S+) is logged in as/) { print \$1; exit(0); }")
     if [ "$authed" ]; then
         echo $authed
-        exit
-    fi
-    unknown=$(awk '/is not registered/' < nickserv/out)
-    if [ "$unknown" ]; then
         exit
     fi
     sleep 1
