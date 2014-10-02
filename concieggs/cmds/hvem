@@ -8,7 +8,7 @@ eval "$(echo "$@" | parse 'er (?<user>[^ ]+)|(?<buy>(køber ind|skal købe ind|h
 
 if [ "$user" ]; then
     if [ $user = jeg ]; then
-        $user=$EGGS_USER
+        user=$EGGS_USER
     fi
 
     if [ $user = concieggs ]; then
