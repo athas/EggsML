@@ -34,6 +34,16 @@ if [ "$user" ]; then
         auth=$(authedName "$user")
     fi
 
+    if cmpNames $user $EGGS_USER; then
+        (echo "Hvem du ikke en gang hvem du selv er?"
+         echo "ALLE SAMMEN!  $EGGS_USER har glemt hvem vedkommende er!"
+         echo "Ej, gisp, jeg kan simpelthen ikke forestille mig hvem det kunne være."
+         echo "..."
+         echo "Tjek dit pas."
+        ) | randomElement | xargs echo -n
+        exit
+    fi
+
     if [ ! "$alias" -a ! "$auth" -o "$alias" -a "$auth" ]; then
         conj="og"
     else
