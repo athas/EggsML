@@ -40,7 +40,7 @@ if [ "$user" ]; then
          echo "Ej, gisp, jeg kan simpelthen ikke forestille mig hvem det kunne være."
          echo "..."
          echo "Tjek dit pas."
-        ) | randomElement | xargs echo -n
+        ) | randomElement
         exit
     fi
 
