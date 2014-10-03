@@ -29,13 +29,10 @@ elif [ "$what" ]; then
         echo "$EGGS_USER: '$@' er ikke i kataloget.  Prøv min 'katalog'-kommando for at se hvad der er af muligheder, eller brug 'kanoniser' til at tilføje en ny."
         exit
     fi
-    if [ "$count" ]; then
+    if ! [ "$count" ]; then
         count=1
     fi
-    for i in `seq 1 $count`; do
-        $CONCIEGGS_DIR/cmds/unsafePerformRåønsk "$there"
-        sleep 1
-    done
+    $CONCIEGGS_DIR/cmds/unsafePerformRåønsk "$count" "$there"
 else
     echo "Brug: ønsk <ØNSKE...|det sædvanlige [til NAVN]>"
 fi

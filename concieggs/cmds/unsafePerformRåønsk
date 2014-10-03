@@ -4,20 +4,26 @@
 
 
 if [ $# -lt 1 ]; then
-    echo "Brug: råønsk ønske..."
+    echo "Brug: råønsk [antal] ønske..."
 else
+    eval "$(echo "$@" | parse '(?<count>[0-9]+) (?<what>.*)|(?<what>.*)')"
+    if ! [ "$count" ]; then
+        count=1
+    fi
     if gitRefresh; then
         cd $EGGS_DIR
-        ed slashdotfrokost > /dev/null <<EOF
+        for i in `seq 1 $count`; do
+            ed slashdotfrokost > /dev/null <<EOF
 /::INDKØBSØNSKER::/
 +1
 i
-$(echo "$@")
+$(echo "$what")
 .
 w
 EOF
-        if tryGitChange "ønsk $*" slashdotfrokost; then
-            echo "Det er noteret at $* er ønsket."
+        done
+        if tryGitChange "ønsk $count af $what" slashdotfrokost; then
+            echo "Det er noteret at $count $what er ønsket."
         else
             gitRepair slashdotfrokost
             echo "Katastrofe!  Noget gik galt med Git!"
