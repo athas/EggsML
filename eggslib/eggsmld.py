@@ -49,6 +49,8 @@ if __name__ == '__main__':
                 print_wishes(e)
             elif command == "balances":
                 print_balances(e)
+            elif command == "allaliases":
+                print_all_aliases(e)
             elif command == "lunches":
                 if len(words) != 2:
                     sys.stderr.write("Usage: %s <alias>" % (command,))
