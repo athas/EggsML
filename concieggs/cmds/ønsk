@@ -32,8 +32,9 @@ elif [ "$what" ]; then
     if [ "$count" ]; then
         count=1
     fi
-    for i in `seq 0 $count`; do
+    for i in `seq 1 $count`; do
         $CONCIEGGS_DIR/cmds/unsafePerformRåønsk "$there"
+        sleep 1
     done
 else
     echo "Brug: ønsk <ØNSKE...|det sædvanlige [til NAVN]>"
