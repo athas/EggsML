@@ -15,7 +15,7 @@ while (my $text = <>) {
     $text =~ s/ datamaten / kassen /g;
     $text =~ s/ datamater / kasser /g;
     $text =~ s/ datamaterne / kasserne /g;
-    $text =~ s/, /, og så  /g;
+    $text =~ s/, /, og så /g;
     $text =~ s/\. /, ikke også? /g;
     $text =~ s/siger /siger /g;
     $text =~ s/sagde /sigede /g;
@@ -38,6 +38,8 @@ while (my $text = <>) {
     $text =~ s/ større / mere stor/g;
     $text =~ s/regeringen /kongen /g;
     $text =~ s/Regeringen /Kongen /g;
+    $text =~ s/staten /Kongen /g;
+    $text =~ s/regering /Konge/g;
     $text =~ s/ statsministeren / Kongen /g;
     $text =~ s/ livstid / for evig og altid /g;
     $text =~ s/statsminister / Konge /g;
@@ -92,7 +94,7 @@ while (my $text = <>) {
     $text =~ s/ konsekvenser / ballade /g;
     $text =~ s/ kriminelle / slyngler /g;
     $text =~ s/ byrådsmedlem / borgmester(?) /g;
-    $text =~ s/ musik / disko-dasko-musik /g;
+    $text =~ s/musik/disko-dasko-musik/g;
     $text =~ s/ det / den /g;
     $text =~ s/ indtægt / løn /g;
     $text =~ s/Foto:/Billedet er taget af:/g;
@@ -134,6 +136,17 @@ while (my $text = <>) {
     $text =~ s/ kroner/ penge/g;
     $text =~ s/fjernsyn/fjerner/g;
     $text =~ s/ TV / colortossen /g;
+
+    $text =~ s/PC/computer/g;
+
+
+
+
+
+
+
+
+
 
     # ede til et
     $text =~ s/ede /et /g;
