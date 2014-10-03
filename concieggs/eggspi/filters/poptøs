@@ -7,7 +7,7 @@ my @smilies = qw/ :i <3 /;
 
 while (<>) {
     s/^(.*)$/\L$1/;
-    s/ det / d /g;
+    s/\bdet\b/d/g;
     s/t\b/th/g;
     s/e\b/øh/g;
     s/sgu /sq /g;
