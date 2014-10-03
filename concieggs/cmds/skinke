@@ -2,4 +2,5 @@
 #
 # Bedre visdom
 
-echo $(visdom | skinkefy)
+out=$(echo `visdom` | skinkefy)
+echo $out
