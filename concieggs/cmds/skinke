@@ -2,5 +2,9 @@
 #
 # Bedre visdom
 
-out=$(echo `visdom` | skinkefy)
-echo $out
+visdom="$(cat $CONCIEGGS_DB_DIR/fakta | grep -i ".*$1" | randomElement)"
+if [ "$visdom" ]; then
+    echo $(echo "$visdom" | skinkefy)
+else
+    echo "Hm, tjah... næh."
+fi
