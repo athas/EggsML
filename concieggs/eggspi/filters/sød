@@ -9,7 +9,7 @@ my %aliases = map { (fc($_) => 1) } split("\n", `allAliases`);
 sub nuserfy {
     my $name = shift;
 
-    return $name unless %aliases{fc($name)};
+    return $name unless $aliases{fc($name)};
 
     my @options = (
         (map { "$name$_" } qw(
