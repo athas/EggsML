@@ -3,6 +3,7 @@ use 5.012;
 use warnings;
 use utf8::all;
 use Env qw/CONCIEGGS_LIB_DIR/;
+use feature "fc";
 
 my %aliases = map { (fc($_) => 1) } split("\n", `allAliases`);
 
