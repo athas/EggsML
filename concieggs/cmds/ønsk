@@ -23,12 +23,18 @@ if [ "$usual" ]; then
         echo "$(ack)  Der er nu ønsket $did."
     fi
 elif [ "$what" ]; then
-    there="$(checkCatalogue "$what")"
+    eval "$(echo "$what" | parse '(?<count>[0-9]+) (?<thing>.*)|(?<thing>.*)')"
+    there="$(checkCatalogue "$thing")"
     if ! [ "$there" ]; then
         echo "$EGGS_USER: '$@' er ikke i kataloget.  Prøv min 'katalog'-kommando for at se hvad der er af muligheder, eller brug 'kanoniser' til at tilføje en ny."
         exit
     fi
-    $CONCIEGGS_DIR/cmds/unsafePerformRåønsk "$there"
+    if [ "$count" ]; then
+        count=1
+    fi
+    for i in `seq 1 $count`; do
+        $CONCIEGGS_DIR/cmds/unsafePerformRåønsk "$there"
+    done
 else
     echo "Brug: ønsk <ØNSKE...|det sædvanlige [til NAVN]>"
 fi
