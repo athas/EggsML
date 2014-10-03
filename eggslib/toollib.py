@@ -17,6 +17,9 @@ def print_aliases(eggs, name):
         return True
     return False
 
+def print_all_aliases(eggs):
+    print "\n".join( "\n".join(aliases) for aliases in eggs.aliases )
+
 def print_wishes(eggs):
     for wish in eggs.get_wishes():
         print wish

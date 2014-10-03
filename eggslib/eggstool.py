@@ -45,6 +45,8 @@ if __name__ == '__main__':
             exit("Usage: %s %s %s <alias>" % (sys.argv[0], lunchfile, command))
         if not print_consecutive(e, sys.argv[3]):
             exit(1)
+    elif command == "allaliases":
+        print_all_aliases(e)
     elif command == "cmpnames":
         if len(sys.argv) != 5:
             exit("Usage: %s %s %s <name> <name>" % (sys.argv[0], lunchfile, command))

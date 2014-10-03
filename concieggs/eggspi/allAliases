@@ -1,0 +1,4 @@
+#!/bin/sh
+# Gives all aliases of everyone in Eggs
+
+eggstool allaliases

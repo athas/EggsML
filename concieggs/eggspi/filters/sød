@@ -4,11 +4,12 @@ use warnings;
 use utf8::all;
 use Env qw/CONCIEGGS_LIB_DIR/;
 
+my %aliases = map { (fc($_) => 1) } split("\n", `allAliases`);
+
 sub nuserfy {
     my $name = shift;
 
-    my $rn = `randomName "$name"`;
-    return $name unless $rn;
+    return $name unless %aliases{fc($name)};
 
     my @options = (
         (map { "$name$_" } qw(
