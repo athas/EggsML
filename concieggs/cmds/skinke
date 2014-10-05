@@ -3,16 +3,15 @@
 # Bedre visdom
 
 random=`date '+%s'`
-echo $((($random % 2) + 1))
+random=$((($random % 2) + 1))
 #org="$(cat $CONCIEGGS_DB_DIR/fakta | grep -i ".*$1" | randomElement)"
 org=""
 case $random in
-    1)
-        org=`visdom`
-        ;;
     2)
         org=`autoviden`
         ;;
+    *)
+        org=`visdom`
 esac
 #org=$(visdom)
 if [ "$org" ]; then
