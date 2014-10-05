@@ -5,13 +5,13 @@
 random=`date '+%s'`
 random=$((($random % 2) + 1))
 #org="$(cat $CONCIEGGS_DB_DIR/fakta | grep -i ".*$1" | randomElement)"
-org=""
+#org=""
 case $random in
     2)
-        org=`./autoviden`
+        org=`cd cmds && ./autoviden`
         ;;
     *)
-        org=`./visdom`
+        org=`cd cmds && ./visdom`
         ;;
 esac
 #org=$(visdom)
