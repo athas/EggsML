@@ -4,7 +4,11 @@
 
 visdom="$(cat $CONCIEGGS_DB_DIR/fakta | grep -i ".*$1" | randomElement)"
 if [ "$visdom" ]; then
-    echo $(echo "$visdom" | skinkefy)
+    new="$visdom"
+    while [ "$new" = "$visdom"]; do
+        new=$(echo "$visdom" | skinkefy)
+    done
+    echo "$new"
 else
     echo "Hm, tjah... næh."
 fi
