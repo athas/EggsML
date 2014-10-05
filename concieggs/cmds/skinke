@@ -12,6 +12,7 @@ case $random in
         ;;
     *)
         org=`visdom`
+        ;;
 esac
 #org=$(visdom)
 if [ "$org" ]; then
