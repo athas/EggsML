@@ -8,10 +8,10 @@ random=$((($random % 2) + 1))
 org=""
 case $random in
     2)
-        org=`autoviden`
+        org=`./autoviden`
         ;;
     *)
-        org=`visdom`
+        org=`./visdom`
         ;;
 esac
 #org=$(visdom)
