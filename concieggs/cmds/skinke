@@ -9,12 +9,9 @@ random=$((($random % 2) + 1))
 case $random in
     2)
         org=`$CONCIEGGS_DIR/cmds/autoviden`
-        echo "$random $org"
         ;;
     *)
         org=`$CONCIEGGS_DIR/cmds/visdom`
-        $CONCIEGGS_DIR/cmds/visdom
-        echo "$random $org"
         ;;
 esac
 #org=$(visdom)
