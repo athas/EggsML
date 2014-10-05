@@ -1,20 +1,18 @@
 #!/bin/sh
 #
-# Bedre visdom
+# Bedre alt
 
 random=`date '+%s'`
 random=$((($random % 2) + 1))
-#org="$(cat $CONCIEGGS_DB_DIR/fakta | grep -i ".*$1" | randomElement)"
-#org=""
+shift
 case $random in
     2)
-        org=`$CONCIEGGS_DIR/cmds/autoviden`
+        org=`$CONCIEGGS_DIR/cmds/autoviden $@`
         ;;
     *)
-        org=`$CONCIEGGS_DIR/cmds/visdom`
+        org=`$CONCIEGGS_DIR/cmds/visdom $@`
         ;;
 esac
-#org=$(visdom)
 if [ "$org" ]; then
     new=$org
     i=0
