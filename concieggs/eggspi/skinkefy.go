@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math/rand"
 	"os"
+	"path"
 	"regexp"
 	"strconv"
 	"strings"
@@ -27,8 +28,22 @@ type skinkeList []string
 
 var Skinker skinkeList
 var IkkeSkinker skinkeList
+var Nouns []string
 
 func main() {
+	nounsFile, err := os.Open(path.Join(os.Getenv("CONCIEGGS_DB_DIR"), "ordbog-dansk-navneord"))
+	if err == nil {
+		r := bufio.NewReader(nounsFile)
+		for {
+			if line, err := r.ReadString('\n'); err != nil {
+				break
+			} else {
+				line = strings.Trim(line, " \t\n")
+				Nouns = append(Nouns, line)
+			}
+		}
+		nounsFile.Close()
+	}
 	rand.Seed(time.Now().Unix())
 	// Using bufio.Reader, because we cannot bufio.Scanner,
 	// because the machine uses go 1.0.2.
@@ -66,6 +81,20 @@ func oneSkinke(condition int, plural bool, definitive bool) string {
 }
 
 func skinkefy(word string) string {
+	if len(Nouns) > 0 {
+		found := false
+		for _, w := range Nouns {
+			if w == strings.ToLower(word) {
+				found = true
+				break
+			}
+		}
+		if !found {
+			// If we have a word list and it is not in the list, do not replace
+			// it.
+			return word
+		}
+	}
 	camelCaseCheckR, _ := regexp.Compile("[\\p{Ll}][\\p{Lu}][\\p{L}]+")
 	camelCaseR, _ := regexp.Compile("([\\p{Lu}][\\p{Ll}]+|[\\p{Lu}]+)")
 	if camelCaseCheckR.MatchString(word) {
