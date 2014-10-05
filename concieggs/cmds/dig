@@ -26,4 +26,9 @@ if [ ! "$type" ]; then
     exit
 fi
 
-/usr/bin/dig +short $server $name $type
+r=`/usr/bin/dig +short $server $name $type`
+if [ "$r" ]; then
+    echo $r
+else
+    echo "Den findes altså ikke."
+fi
