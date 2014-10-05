@@ -4,15 +4,17 @@
 
 random=`date '+%s'`
 random=$((($random % 2) + 1))
+args=""
 if [ "$1" ]; then
     shift
+    args=" $@"
 fi
 case $random in
     2)
-        org=`$CONCIEGGS_DIR/cmds/autoviden $@`
+        org=`$CONCIEGGS_DIR/cmds/autoviden$args`
         ;;
     *)
-        org=`$CONCIEGGS_DIR/cmds/visdom $@`
+        org=`$CONCIEGGS_DIR/cmds/visdom$args`
         ;;
 esac
 if [ "$org" ]; then
