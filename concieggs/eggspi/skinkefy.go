@@ -28,22 +28,33 @@ type skinkeList []string
 
 var Skinker skinkeList
 var IkkeSkinker skinkeList
+var UseWordList bool
 var Nouns []string
+var Verbs []string
+var Adjectives []string
+
+func loadWords(words *[]string, filename string) {
+	wordsFile, err := os.Open(path.Join(os.Getenv("CONCIEGGS_DB_DIR"), filename))
+	if err != nil {
+		return
+	}
+	defer wordsFile.Close()
+	r := bufio.NewReader(wordsFile)
+	for {
+		if line, err := r.ReadString('\n'); err != nil {
+			break
+		} else {
+			line = strings.Trim(line, " \t\n")
+			*words = append(*words, line)
+		}
+	}
+}
 
 func main() {
-	nounsFile, err := os.Open(path.Join(os.Getenv("CONCIEGGS_DB_DIR"), "ordbog-dansk-navneord"))
-	if err == nil {
-		r := bufio.NewReader(nounsFile)
-		for {
-			if line, err := r.ReadString('\n'); err != nil {
-				break
-			} else {
-				line = strings.Trim(line, " \t\n")
-				Nouns = append(Nouns, line)
-			}
-		}
-		nounsFile.Close()
-	}
+	loadWords(&Nouns, "ordbog-dansk-navneord")
+	loadWords(&Verbs, "ordbog-dansk-udsagnsord")
+	loadWords(&Adjectives, "ordbog-dansk-tillægsord")
+	UseWordList = len(Nouns) + len(Verbs) > 0
 	rand.Seed(time.Now().Unix())
 	// Using bufio.Reader, because we cannot bufio.Scanner,
 	// because the machine uses go 1.0.2.
@@ -56,17 +67,7 @@ func main() {
 	fmt.Println(out)
 }
 
-func oneSkinke(condition int, plural bool, definitive bool) string {
-	var word string
-	switch {
-	// Maybe also in verb form?  e.g. 'skinkede'
-	case plural:
-		word = "skinker"
-	case definitive:
-		word = "skinken"
-	default:
-		word = "skinke"
-	}
+func oneSkinke(condition int, word string) string {
 	switch condition {
 	case scFullUpper:
 		word = strings.ToUpper(word)
@@ -80,20 +81,54 @@ func oneSkinke(condition int, plural bool, definitive bool) string {
 	return word
 }
 
+func oneSkinkeNoun(condition int, plural bool, definitive bool) string {
+	var word string
+	switch {
+	// Maybe also in verb form?  e.g. 'skinkede'
+	case plural:
+		word = "skinker"
+	case definitive:
+		word = "skinken"
+	default:
+		word = "skinke"
+	}
+	return oneSkinke(condition, word)
+}
+
+func oneSkinkeVerb(condition int, presentTense bool, pastTense bool) string {
+	var word string
+	switch {
+	case presentTense:
+		word = "skinker"
+	case pastTense:
+		word = "skinkede"
+	default:
+		word = "skinke"
+	}
+	return oneSkinke(condition, word)
+}
+
+func oneSkinkeAdjective(condition int) string {
+	return oneSkinke(condition, "skinkende")
+}
+
+func foundWord(words []string, word string) bool {
+	found := false
+	for _, w := range words {
+		if w == strings.ToLower(word) {
+			found = true
+			break
+		}
+	}
+	return found
+}
+
 func skinkefy(word string) string {
-	if len(Nouns) > 0 {
-		found := false
-		for _, w := range Nouns {
-			if w == strings.ToLower(word) {
-				found = true
-				break
-			}
-		}
-		if !found {
-			// If we have a word list and it is not in the list, do not replace
-			// it.
-			return word
-		}
+	isNoun := foundWord(Nouns, word)
+	isVerb := foundWord(Verbs, word)
+	isAdjective := foundWord(Adjectives, word)
+	if UseWordList && !isNoun && !isVerb && !isAdjective {
+		return word
 	}
 	camelCaseCheckR, _ := regexp.Compile("[\\p{Ll}][\\p{Lu}][\\p{L}]+")
 	camelCaseR, _ := regexp.Compile("([\\p{Lu}][\\p{Ll}]+|[\\p{Lu}]+)")
@@ -123,7 +158,15 @@ func skinkefy(word string) string {
 			end2 = unicode.ToUpper(end2)
 			// If it ends on R, it's plural.  That's our rule!
 			// If it ends on ET/EN, it's definitive.
-			word = oneSkinke(skinkeCondition, end == 'R', end2 == 'E' && (end == 'T' || end == 'N'))
+			if isNoun {
+				word = oneSkinkeNoun(skinkeCondition, end == 'R', end2 == 'E' && (end == 'T' || end == 'N'))
+			}
+			if isVerb {
+				word = oneSkinkeVerb(skinkeCondition, end == 'R', end2 == 'D' && end == 'E')
+			}
+			if isAdjective {
+				word = oneSkinkeAdjective(skinkeCondition)
+			}
 		} else {
 			// Not a skinke word.  If it appears again, it should remain
 			// not skinke.
