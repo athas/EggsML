@@ -2,12 +2,24 @@
 #
 # Bedre visdom
 
-visdom="$(cat $CONCIEGGS_DB_DIR/fakta | grep -i ".*$1" | randomElement)"
-if [ "$visdom" ]; then
-    new=$visdom
+random=`date '+%s'`
+echo $((($random % 2) + 1))
+#org="$(cat $CONCIEGGS_DB_DIR/fakta | grep -i ".*$1" | randomElement)"
+org=""
+case $random in
+    1)
+        org=$(visdom)
+        ;;
+    2)
+        org=$(autoviden)
+        ;;
+esac
+#org=$(visdom)
+if [ "$org" ]; then
+    new=$org
     i=0
-    while [ "$new" = "$visdom" ]; do
-        new=$(echo "$visdom" | skinkefy)
+    while [ "$new" = "$org" ]; do
+        new=$(echo "$org" | skinkefy)
         i=$(($i+1))
         if [ $i -gt 4 ]; then
             break
