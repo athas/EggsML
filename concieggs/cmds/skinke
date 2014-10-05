@@ -8,10 +8,10 @@ random=$((($random % 2) + 1))
 #org=""
 case $random in
     2)
-        org=`cd cmds && ./autoviden`
+        org=`./$CONCIEGGS_DIR/autoviden`
         ;;
     *)
-        org=`cd cmds && ./visdom`
+        org=`./$CONCIEGGS_DIR/visdom`
         ;;
 esac
 #org=$(visdom)
