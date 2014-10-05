@@ -8,10 +8,10 @@ echo $((($random % 2) + 1))
 org=""
 case $random in
     1)
-        org=$(visdom)
+        org=`visdom`
         ;;
     2)
-        org=$(autoviden)
+        org=`autoviden`
         ;;
 esac
 #org=$(visdom)
