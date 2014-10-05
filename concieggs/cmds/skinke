@@ -13,6 +13,7 @@ case $random in
         ;;
     *)
         org=`./$CONCIEGGS_DIR/visdom`
+        ./$CONCIEGGS_DIR/visdom
         echo "$random $org"
         ;;
 esac
