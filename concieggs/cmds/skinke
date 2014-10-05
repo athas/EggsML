@@ -8,12 +8,12 @@ random=$((($random % 2) + 1))
 #org=""
 case $random in
     2)
-        org=`./$CONCIEGGS_DIR/autoviden`
+        org=`$CONCIEGGS_DIR/autoviden`
         echo "$random $org"
         ;;
     *)
-        org=`./$CONCIEGGS_DIR/visdom`
-        ./$CONCIEGGS_DIR/visdom
+        org=`$CONCIEGGS_DIR/visdom`
+        $CONCIEGGS_DIR/visdom
         echo "$random $org"
         ;;
 esac
