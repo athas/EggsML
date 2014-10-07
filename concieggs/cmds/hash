@@ -1,0 +1,81 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# lad concieggs beregne sha256-hashværdi
+
+import time
+import sys
+import os
+from functools import partial
+import itertools
+import random
+import xml.etree.ElementTree as ET
+from lxml import html
+import hashlib
+
+def run_main(args):
+
+    if len(args) < 2:
+        print "Ork ja, det kunne være %s, hvis jeg var din %s, hva'? VED DIN MOR, AT DU ER KRIMINEL?!" % (nice() , pusher())
+    else:
+        print "Så lad gå."
+        print "/me fyrer op..."
+        time.sleep(3)
+        streng =  " ".join(args[2:])
+        m = hashlib.sha256()
+        m.update(streng)
+        print "/me blæser røg%s..." % (roegting())
+        time.sleep(3)
+        print m.hexdigest()
+        
+def nice():
+    grats = [
+        "praktisk",
+        "lækkert",
+        "super cool",
+        "belejligt",
+        "sweet",
+        "opperen",
+        "anti-noiren",
+        '"all that"',
+        "bounce"]
+    return grats[random.randint(0, len(grats)-1)]
+
+def pusher():
+    grats = [
+        "pusher",
+        "planteskaffer",
+        "gartner",
+        '"baker man"',
+        '"forbindelse"',
+        '"éen, som kender éen"',
+        'Dr. Feelgood']
+
+    return grats[random.randint(0, len(grats)-1)]
+
+
+def roegting():
+    grats = [
+        "katte",
+        "heste",
+        "ringe",
+        'dildoer',
+        'matricer',
+        'fugle',
+        'drager',
+        "blomster",
+        "balloner",
+        "skyer",
+        "alarmer"]
+
+    return grats[random.randint(0, len(grats)-1)]
+
+
+
+
+def fejl():
+    print "Brug 'valuta <beløb> <valutatype> <ord> <valutatype>.'"
+
+
+if __name__ == '__main__':
+    run_main(sys.argv)
