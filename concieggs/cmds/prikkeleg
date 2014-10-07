@@ -1,0 +1,126 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# Årets Spil 2014 - klappet og klart til julehandlen. 
+# Prik til concieggs mellem en og fem gange! - 
+# Men vær forsigtig. Pludselig eksploderer concieggs!
+# Vinderen er den, som har prikket mest til concieggs, uden at udløse et raserianfald!
+# SJOVT FOR ALLE MENNESKER I HELE VERDEN!
+
+import subprocess
+import sys
+import os
+from functools import partial
+import itertools
+import random
+import re
+import xml.etree.ElementTree as ET
+from lxml import html
+import json
+import operator
+
+#ordbogens design:   {'forrigePrikker': <navn> , 'prikTilbage': <tal>, 'pointtavle': {navn:point}}
+
+
+def run_main(args):
+    antalPrik = parseArgs(args)
+    try:
+        oldDict = subprocess.check_output(["dbRead", "prikkeleg"])
+    except:
+        dict = {'forrigePrikker': 'concieggs' , 'prikTilbage' : random.randint(15, 30), 'pointtavle':{}}
+        subprocess.call(["echo \'" + json.dumps(dict) + "\' | dbWrite prikkeleg"], shell=True)
+        subprocess.call(["echo \'" + json.dumps(dict) + "\'"], shell=True)
+        sys.exit(0)
+    Dict = json.loads(oldDict)
+
+    user = os.getenv("EGGS_USER")
+    if Dict['forrigePrikker'] == user:
+        print "%s! Du prikkede mig også sidst. Dit træk er ugyldigt!" % (svin())
+        sys.exit(0)
+
+
+    status = Dict['prikTilbage'] - antalPrik
+    if status <= 0:
+        slutsekvens(user, Dict)
+
+    try:
+        Dict['pointtavle'][user] += antalPrik
+    except KeyError:
+        Dict['pointtavle'][user] = antalPrik
+    subprocess.call(["echo \'" + json.dumps(Dict) + "\' | dbWrite prikkeleg"], shell=True)
+    hvemFoerer(Dict['pointtavle'], False)
+
+
+
+def slutsekvens(taber, dict):
+    dict['pointtavle'].pop(taber)
+    print "%s, %s!" % (taber, svin())
+    hvemFoerer(dict['pointtavle'], True)
+
+
+def hvemFoerer(dictionary, Vindersekvens=False):
+    sorted_dict = sorted(dictionary.items(), key=operator.itemgetter(1))
+    if Vindersekvens:
+        print "%s %s! Du har lige vundet i prikkeleg!! Du er den nye konge af #eggsml!" % (congrats() , sorted_dict[-1][0])
+        dict = {'forrigePrikker': 'concieggs' , 'prikTilbage' : random.randint(15, 30), 'pointtavle':{}}
+        subprocess.call(["echo \'" + json.dumps(dict) + "\' | dbWrite prikkeleg"], shell=True)
+
+    else:
+        print u"%s er i spidsen - %s, %s! Du kan sagtens nå det!" % (sorted_dict[-1][0], heppe(), sorted_dict[0][0])
+
+def svin():
+    grats = [
+        "Så så man lige dig, hva'",
+        "Pak sammen",
+        "Lortesvin",
+        u"Du gør mig bare trist",
+        "DNUR",
+        u"FØJ",
+        u"Dit skodøje",
+        u"Røvlort",
+        "Dit fuckhoved",
+        "Hvordan kan du nogensinde rette op på dette"
+    ]
+    return grats[random.randint(0, len(grats)-1)]
+
+
+def congrats():
+    grats = [
+        "Tillykke",
+        "Novra",
+        "Vildt,",
+        "Sikke noget,",
+        u"Godt gået,",
+        "Tjullahop,",
+        "Super fedest,"
+    ]
+    return grats[random.randint(0, len(grats)-1)]
+
+def heppe():
+    grats = [
+        "Heja",
+        "Fremad",
+        "Kom igen",
+        "Op med modet",
+        u"Frem med humøret",
+        u"Nu gælder det",
+        "Nu handler det om at se fremad",
+        "Bare rolig"
+    ]
+    return grats[random.randint(0, len(grats)-1)]
+
+def parseArgs(args):
+    antalPrik = 0
+    for arg in args:
+        if arg in ["prikke", "prik"]:
+            antalPrik += 1
+    try:
+        assert antalPrik < 6
+
+    except:
+        print u"Du må da ikke prikke mere end fem gange!"
+        sys.exit(0)
+    return antalPrik
+
+if __name__ == '__main__':
+    run_main(sys.argv)
