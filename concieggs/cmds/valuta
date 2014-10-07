@@ -55,7 +55,7 @@ def valutaName(valuta):
     try:
         return names[valuta.lower()]
     except (KeyError):
-        return valuta
+        return valuta.upper()
 
 def parseArgs(args):
     args = args[1:]
