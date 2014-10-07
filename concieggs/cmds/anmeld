@@ -5,10 +5,12 @@
 
 import sys
 import random
+import hashlib
 
 def main(args):
-    thing = " ".join(args[1:])
+    thing = " ".join(args[1:]).lower()
     if thing != "":
+        random.seed(hashlib.sha1(thing).hexdigest())
         print "Anmeldelser af %s:" % (thing)
         reviews()
     else:
