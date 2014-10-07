@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# Påmind om gæld ved stor gæld
+
+(notOnEggsChannel || shuttingUp) && exit
+
+maybeGood .05 || exit
+
+debt=$(lookupDebt $EGGS_USER)
+
+if [ -n "$debt" ]; then
+    if [ "$(echo "$debt > 150" | bc)" = 1 ]; then
+        echo "$EGGS_USER: Hvordan sover du om natten?"
+    fi
+fi
