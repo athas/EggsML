@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# lad concieggs beregne sha256-hashværdi
+# lad concieggs beregne sha256-hashværdi.
+# Du kan også bestemme en specifik hash-funktion som det første argument i dit kald.
 
 import time
 import sys
