@@ -38,8 +38,8 @@ def parseArgs(args):
     args = args[1:]
     try:
         maengde   = float(args[0])
-        fraValuta = args[1]
-        tilValuta = args[3]
+        fraValuta = args[1].lower()
+        tilValuta = args[3].lower()
         assert (args[2] in ["i", "til", "blev", "bliver", "som"])
     except:
         fejl()
