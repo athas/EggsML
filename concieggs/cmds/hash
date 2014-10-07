@@ -72,7 +72,11 @@ def roegting():
         "blomster",
         "balloner",
         "skyer",
-        "alarmer"]
+        "alarmer",
+        "pikke",
+        "signaler",
+        "ede medistre",
+        "ngentbilleder"]
 
     return grats[random.randint(0, len(grats)-1)]
 
