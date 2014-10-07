@@ -35,7 +35,7 @@ def run_main(args):
 
     user = os.getenv("EGGS_USER")
     if Dict['forrigePrikker'] == user:
-        print "%s! Du prikkede mig også sidst. Dit træk er ugyldigt!" % (svin())
+        print "%s! Du prikkede mig også sidst. Dit træk er ugyldigt!".encode('utf-8') % (svin())
         sys.exit(0)
 
 
@@ -54,19 +54,19 @@ def run_main(args):
 
 def slutsekvens(taber, dict):
     dict['pointtavle'].pop(taber)
-    print "%s, %s!" % (taber, svin())
+    print "%s, %s!".encode('utf-8') % (taber, svin())
     hvemFoerer(dict['pointtavle'], True)
 
 
 def hvemFoerer(dictionary, Vindersekvens=False):
     sorted_dict = sorted(dictionary.items(), key=operator.itemgetter(1))
     if Vindersekvens:
-        print "%s %s! Du har lige vundet i prikkeleg!! Du er den nye konge af #eggsml!" % (congrats() , sorted_dict[-1][0])
+        print "%s %s! Du har lige vundet i prikkeleg!! Du er den nye konge af #eggsml!".encode('utf-8') % (congrats() , sorted_dict[-1][0])
         dict = {'forrigePrikker': 'concieggs' , 'prikTilbage' : random.randint(15, 30), 'pointtavle':{}}
         subprocess.call(["echo \'" + json.dumps(dict) + "\' | dbWrite prikkeleg"], shell=True)
 
     else:
-        print u"%s er i spidsen - %s, %s! Du kan sagtens nå det!" % (sorted_dict[-1][0], heppe(), sorted_dict[0][0])
+        print u"%s er i spidsen - %s, %s! Du kan sagtens nå det!".encode('utf-8') % (sorted_dict[-1][0], heppe(), sorted_dict[0][0])
 
 def svin():
     grats = [
@@ -115,10 +115,10 @@ def parseArgs(args):
         if arg in ["prikke", "prik"]:
             antalPrik += 1
     try:
-        assert antalPrik < 6
+        assert antalPrik < 6 and antalPrik > 0
 
     except:
-        print u"Du må da ikke prikke mere end fem gange!"
+        print u"Du må da ikke prikke mere end fem gange! Eller mindre end éen gang.".encode('utf-8')   
         sys.exit(0)
     return antalPrik
 
