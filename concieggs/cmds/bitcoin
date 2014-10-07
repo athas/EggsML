@@ -3,6 +3,7 @@
 #
 # Hvor mange bitcoin kan du få for dine lommepenge?
 
+import subprocess
 import sys
 import os
 from functools import partial
@@ -28,6 +29,8 @@ def run_main(args):
     except TypeError:
         fejl()
         return
+
+
     user = os.getenv("EGGS_USER")
     if user is None:
         user = "min ven"
@@ -35,7 +38,7 @@ def run_main(args):
     print tekst
     soed = "Husk altid at " + reminder() + ", inden du gør den slags :-)"
     print soed
-
+    bitcoinAdvisor(dollarkurz)
 
 def reminder():
     rms = ["spørge en voksen",
@@ -62,7 +65,6 @@ def dollarkurs(valuta="USD"):
 
 
 def parseArgs(args):
-    
 
     try:
         assert (args[1] == "for" or args[3] == "kroner")
@@ -74,6 +76,19 @@ def parseArgs(args):
 
 def fejl():
     print "Brug 'bitcoin for <beløb> kroner'"
+
+def bitcoinAdvisor(dollarpris):
+    oldPrice = float(subprocess.check_output(["dbRead", "bitcoin"]))
+    subprocess.call(["echo " + str(dollarkurz), " | ", "dbWrite bitcoin"])
+    if oldPrice < dollarpris:
+        print "kursen er steget siden sidst, køb KØB KØØØØØØØØØØB!\n" +
+              "Sidst var den jo " + str(oldPrice)
+    else: print "kurser er faldet siden sidst, SÆÆÆÆÆÆÆÆÆÆLG!" +
+          "Den var tidligere " + str(oldPrice) + "så den falder nok endnu mere snart."
+        
+
+
+
 
 if __name__ == '__main__':
     run_main(sys.argv)
