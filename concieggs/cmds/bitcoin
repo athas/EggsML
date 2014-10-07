@@ -57,7 +57,11 @@ def reminder():
            "fodre ænder",
            "justere spejle",
            "undervognsbehandle",
-           "tegne forsikring"]
+           "tegne forsikring",
+           "gøre det frække",
+           "elske den næste",
+           "finde bitcoin-kursen",
+           "hylde kapitalismen"]
     rm = rms[random.randint(0, (len(rms) - 1))]
     return rm
 
