@@ -32,10 +32,8 @@ def run_main(args):
     user = os.getenv("EGGS_USER")
     if user is None:
         user = "min ven"
-    tekst = "Tillykke %s, du kan købe %.4f bitcoin for dine penge."  % (user, antalBitcoin)
-    print tekst
-    soed = "Husk altid at %s, inden du gør den slags :-)" % (reminder())
-    print soed
+    print "Tillykke %s, du kan købe %.4f bitcoin for dine penge."  % (user, antalBitcoin)
+    print "Husk altid at %s, inden du gør den slags :-)" % (reminder())
     bitcoinAdvisor(priceInDKK)
 
 def reminder():
@@ -55,7 +53,11 @@ def reminder():
            "hjælpe gamle damer over vejen",
            "stoppe for rødt",
            "børste tænder",
-           "tale med din radio"]
+           "tale med din radio",
+           "fodre ænder",
+           "justere spejle",
+           "undervognsbehandle",
+           "tegne forsikring"]
     rm = rms[random.randint(0, (len(rms) - 1))]
     return rm
 
@@ -87,7 +89,7 @@ def fremtid():
         m = "minut" if v == 1 else "minutter"
     elif t == 2:
         m = "time" if v == 1 else "timer"
-    return "%i %s" % (random.randint(1, 60), m)
+    return "%i %s" % (v, m)
 
 def bitcoinAdvisor(kronerPrBTC):
     try:
@@ -98,11 +100,11 @@ def bitcoinAdvisor(kronerPrBTC):
     finally:
         subprocess.call(["echo " + str(kronerPrBTC) + " | dbWrite bitcoin"], shell=True)
         if oldPrice < kronerPrBTC:
-            print "Kursen er steget siden sidst, SÆLG ALLE DINE BITCOINS!\n"\
-                  "Sidst var den jo %.4f kroner per bitcoin, men hvem ved hvad den er om %s?" % (kronerPrBTC, fremtid())
+            print "Kursen er steget siden sidst, SÆLG ALLE DINE BITCOINS!"
+            print "Sidst var den jo %.4f kroner per bitcoin, men hvem ved hvad den er om %s?" % (kronerPrBTC, fremtid())
         else:
-            print "Kursen er faldet siden sidst, INVESTÉR AL DIN EJENDOM I BITCOINS!\n"\
-                  "Den var tidligere %.4f kroner per bitcoin, men hvem ved hvad den er om %s" % (kronerPrBTC, fremtid())
+            print "Kursen er faldet siden sidst, INVESTÉR AL DIN EJENDOM I BITCOINS!"
+            print "Den var tidligere %.4f kroner per bitcoin, men hvem ved hvad den er om %s" % (kronerPrBTC, fremtid())
 
 if __name__ == '__main__':
     run_main(sys.argv)
