@@ -24,10 +24,11 @@ def reviews():
         {"line": "The worst thing since the bagpipes.", "stars": 1, "author": "Mr. Plinkett"},
         {"line": "Det var sjovt.", "stars": 5, "author": "Spectrum"},
         {"line": "Alle er Hitler.", "stars": 3, "author": "Stalin"},
-        {"line": "Udemærket.", "stars": 4, "author": "Niels"},
-        {"line": "Det værste lort nogensinde.", "stars": 1, "author": "Arkimedes fra Syrakus"}
-        {"line": "You had me at 'Wes Andersson'", "stars": 5, "author": "The New York Times"}
-        {"line": "Lige lidt mere forberedelsestid", "stars": 2, "author": "Bjarne Goldbæk"}
+        {"line": "Udmærket.", "stars": 4, "author": "Niels"},
+        {"line": "Det værste lort nogensinde.", "stars": 1, "author": "Arkimedes fra Syrakus"},
+        {"line": "You had me at 'Wes Andersson'", "stars": 5, "author": "The New York Times"},
+        {"line": "Lige lidt mere forberedelsestid", "stars": 3, "author": "Bjarne Goldbæk"},
+        {"line": "Jeg følte ikke noget specielt.",  "stars": 3, "author": "Nikkel"}
     ]
     prei = -1
     for i in range(2):
