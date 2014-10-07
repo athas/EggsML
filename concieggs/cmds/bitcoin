@@ -78,13 +78,18 @@ def fejl():
     print "Brug 'bitcoin for <beløb> kroner'"
 
 def bitcoinAdvisor(kronerPrBTC):
-    oldPrice = float(subprocess.check_output(["dbRead", "bitcoin"]))
-    subprocess.call(["echo " + str(kronerPrBTC) + " | dbWrite bitcoin"], shell=True)
-    if oldPrice < kronerPrBTC:
-        print "kursen er steget siden sidst, køb KØB KØØØØØØØØØØB!\n"\
-              "Sidst var den jo " + str(kronerPrBTC) + " kroner pr. bitcoin."
-    else: print "kursen er faldet siden sidst, SÆÆÆÆÆÆÆÆÆÆLG!\n"\
-          "Den var tidligere " + str(kronerPrBTC) + " kroner pr. bitcoin,  så den falder nok endnu mere snart."
+    try:
+        oldPrice = float(subprocess.check_output(["dbRead", "bitcoin"]))
+    except:
+        subprocess.call(["echo " + str(0.00) + " | dbWrite bitcoin"], shell=True)
+        oldPrice = 0.00
+    finally:
+        subprocess.call(["echo " + str(kronerPrBTC) + " | dbWrite bitcoin"], shell=True)
+        if oldPrice < kronerPrBTC:
+            print "kursen er steget siden sidst, køb KØB KØØØØØØØØØØB!\n"\
+                  "Sidst var den jo " + str(kronerPrBTC) + " kroner pr. bitcoin."
+        else: print "kursen er faldet siden sidst, SÆÆÆÆÆÆÆÆÆÆLG!\n"\
+              "Den var tidligere " + str(kronerPrBTC) + " kroner pr. bitcoin,  så den falder nok endnu mere snart."
 
 
 
