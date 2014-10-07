@@ -15,9 +15,8 @@ import xml.etree.ElementTree as ET
 from lxml import html
 
 def run_main(args):
-
     args = parseArgs(args)
-
+    
     list = urllib2.urlopen("https://coinbase.com/charts")
     content = list.read()
     priceInUSD = content.split('Buy Price: $')[1].split('<')[0]
@@ -29,8 +28,7 @@ def run_main(args):
     except TypeError:
         fejl()
         return
-
-
+    
     user = os.getenv("EGGS_USER")
     if user is None:
         user = "min ven"
@@ -61,19 +59,13 @@ def reminder():
     rm = rms[random.randint(0, (len(rms) - 1))]
     return rm
 
-
-
 def dollarkurs(valuta="USD"):
     page = urllib2.urlopen("http://valutakurser.dk").read()
     tree = html.fromstring(page)
     kurs = tree.xpath("//div[@id='" + valuta + "']/text()")[0]
-
     return float(kurs.replace(',','.'))
 
-
-
 def parseArgs(args):
-
     try:
         assert (args[1] == "for" or args[3] == "kroner")
         args[2] = float(args[2])
@@ -111,10 +103,6 @@ def bitcoinAdvisor(kronerPrBTC):
         else:
             print "Kursen er faldet siden sidst, INVESTÉR AL DIN EJENDOM I BITCOINS!\n"\
                   "Den var tidligere %.4f kroner per bitcoin, men hvem ved hvad den er om %s" % (kronerPrBTC, fremtid())
-
-
-
-
 
 if __name__ == '__main__':
     run_main(sys.argv)
