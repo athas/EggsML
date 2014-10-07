@@ -18,11 +18,16 @@ def run_main(args):
     if len(args) < 2:
         print "Ork ja, det kunne være %s, hvis jeg var din %s, hva'? VED DIN MOR, AT DU ER KRIMINEL?!" % (nice() , pusher())
     else:
+        method = getattr(hashlib, "sha256")
+        if args[1] in ["sha1", "sha224", "sha256", "sha384", "sha512", "md5"]:
+            method = getattr(hashlib, args[1])
+            args = args[1:]
+
         print "Så lad gå."
         print "concieggs fyrer op..."
         time.sleep(3)
-        streng =  " ".join(args[2:])
-        m = hashlib.sha256()
+        streng =  " ".join(args[1:])
+        m = method()
         m.update(streng)
         print "concieggs blæser røg%s..." % (roegting())
         time.sleep(3)
