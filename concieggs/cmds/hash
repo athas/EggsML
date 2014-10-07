@@ -26,6 +26,7 @@ def run_main(args):
 
         print "Så lad gå."
         print "concieggs fyrer op..."
+        sys.stdout.flush()
         time.sleep(3)
         streng =  " ".join(args[1:])
         m = method()
