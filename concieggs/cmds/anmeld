@@ -8,9 +8,9 @@ import random
 import hashlib
 
 def main(args):
-    thing = " ".join(args[1:]).lower()
+    thing = " ".join(args[1:])
     if thing != "":
-        random.seed(hashlib.sha1(thing).hexdigest())
+        random.seed(hashlib.sha1(thing.lower()).hexdigest())
         print "Anmeldelser af %s:" % (thing)
         reviews()
     else:
