@@ -8,8 +8,11 @@ import random
 
 def main(args):
     thing = " ".join(args[1:])
-    print "Anmeldelser af %s:" % (thing)
-    reviews()
+    if thing != "":
+        print "Anmeldelser af %s:" % (thing)
+        reviews()
+    else:
+        print "Hvad skal jeg anmelde?"
 
 def print_review(review):
     print '"%s"' % (review["line"])
