@@ -38,7 +38,7 @@ def run_main(args):
     print tekst
     soed = "Husk altid at " + reminder() + ", inden du gør den slags :-)"
     print soed
-    bitcoinAdvisor(dollarkurz)
+    bitcoinAdvisor(priceInDKK)
 
 def reminder():
     rms = ["spørge en voksen",
@@ -77,15 +77,15 @@ def parseArgs(args):
 def fejl():
     print "Brug 'bitcoin for <beløb> kroner'"
 
-def bitcoinAdvisor(dollarpris):
+def bitcoinAdvisor(kronerPrBTC):
     oldPrice = float(subprocess.check_output(["dbRead", "bitcoin"]))
-    subprocess.call(["echo " + str(dollarkurz), " | ", "dbWrite bitcoin"])
-    if oldPrice < dollarpris:
-        print "kursen er steget siden sidst, køb KØB KØØØØØØØØØØB!\n" +
-              "Sidst var den jo " + str(oldPrice)
-    else: print "kurser er faldet siden sidst, SÆÆÆÆÆÆÆÆÆÆLG!" +
-          "Den var tidligere " + str(oldPrice) + "så den falder nok endnu mere snart."
-        
+    subprocess.call(["echo " + str(kronerPrBTC) + " | dbWrite bitcoin"], shell=True)
+    if oldPrice < kronerPrBTC:
+        print "kursen er steget siden sidst, køb KØB KØØØØØØØØØØB!\n"\
+              "Sidst var den jo " + str(kronerPrBTC) + " kroner pr. bitcoin."
+    else: print "kursen er faldet siden sidst, SÆÆÆÆÆÆÆÆÆÆLG!\n"\
+          "Den var tidligere " + str(kronerPrBTC) + " kroner pr. bitcoin,  så den falder nok endnu mere snart."
+
 
 
 
