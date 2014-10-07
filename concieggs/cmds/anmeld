@@ -13,13 +13,13 @@ def main(args):
 
 def print_review(review):
     print '"%s"' % (review["line"])
-    print " (%i/5 stjerner) %s" % (review["stars"], review["author"])
+    print "~ (%i/5 stjerner) %s" % (review["stars"], review["author"])
 
 def reviews():
     # Tilføj flere på et tidspunkt eller slå dem op på nettet.
     rs = [
         {"line": "The worst thing since the bagpipes.", "stars": 1, "author": "Mr. Plinkett"},
-        {"line": "Det var sjovt.", "stars": 5, "author": "Sectrum"},
+        {"line": "Det var sjovt.", "stars": 5, "author": "Spectrum"},
         {"line": "Alle er Hitler.", "stars": 3, "author": "Stalin"},
         {"line": "Udemærket.", "stars": 4, "author": "Niels"},
         {"line": "Det værste lort nogensinde.", "stars": 1, "author": "Arkimedes fra Syrakus"}
