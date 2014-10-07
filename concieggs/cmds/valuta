@@ -50,7 +50,16 @@ def valutaName(valuta):
         "gdb": "britiske pund",
         "sek": "svenske kroner",
         "nok": "norske kroner",
-        "rub": "russiske rubler"
+        "rub": "russiske rubler",
+        "jpy": "japanske yen",
+        "ars": "argentinske pesos",
+        "mxn": "mexicanske pesos",
+        "dop": "dominicanske pesos",
+        "cop": "columbianske pesos",
+        "cup": "cubanske pesos",
+        "clp": "chilenske pesos",
+        "php": "filipinske pesos",
+        "uyu": "uruguayanske pesos"
     }
     try:
         return names[valuta.lower()]
