@@ -23,8 +23,8 @@ def run_main(args):
     user = os.getenv("EGGS_USER")
     if user is None:
         user = "min ven"
-    tekst = "Tillykke " + user + ", du kan købe " + ('%.*f ' % (4 + 1, beloeb))[:-1]  + " " + tilValuta + " for " + dine(maengde) + " " + fraValuta
-    print tekst
+    print "Tillykke %s, du kan købe %.*f %s for %s %s" %  (user, 2,  beloeb, tilValuta, dine(maengde), fraValuta)
+
 def dine(nummer):
     if nummer == 1:
         return "din ene"
