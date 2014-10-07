@@ -34,22 +34,30 @@ def run_main(args):
     user = os.getenv("EGGS_USER")
     if user is None:
         user = "min ven"
-    tekst = "Tillykke " + user + ", du kan købe " + ('%.*f' % (4 + 1, antalBitcoin))[:-1]  + " bitcoin for dine penge."
+    tekst = "Tillykke %s, du kan købe %.4f bitcoin for dine penge."  % (user, antalBitcoin)
     print tekst
-    soed = "Husk altid at " + reminder() + ", inden du gør den slags :-)"
+    soed = "Husk altid at %s, inden du gør den slags :-)" % (reminder())
     print soed
     bitcoinAdvisor(priceInDKK)
 
 def reminder():
     rms = ["spørge en voksen",
-                "låne penge i banken" ,
-                "slette din gamle bitcoin-tegnebog" ,
-                "opsige dit job" ,
-                "tale med en privatøkonom" ,
-                "smile" ,
-                "spørge om der er andre, som skal have noget med" ,
-                "bitcoin er en boble" ,
-                "vaske hænder"]
+           "låne penge i banken" ,
+           "slette din gamle bitcoin-tegnebog" ,
+           "opsige dit job" ,
+           "tale med en privatøkonom" ,
+           "smile" ,
+           "spørge om der er andre, som skal have noget med" ,
+           "bitcoin er en boble",
+           "vaske hænder",
+           "fiske med snørre",
+           "spise med kniv og gaffel",
+           "køre forsigtigt",
+           "huske tændbørsten",
+           "hjælpe gamle damer over vejen",
+           "stoppe for rødt",
+           "børste tænder",
+           "tale med din radio"]
     rm = rms[random.randint(0, (len(rms) - 1))]
     return rm
 
@@ -69,13 +77,25 @@ def parseArgs(args):
     try:
         assert (args[1] == "for" or args[3] == "kroner")
         args[2] = float(args[2])
-    except ValueError:
+    except (ValueError, IndexError):
         fejl()
         sys.exit(0)
     return args
 
 def fejl():
     print "Brug 'bitcoin for <beløb> kroner'"
+
+def fremtid():
+    v = random.randint(1, 60)
+    m = ""
+    t = random.randint(0, 2)
+    if t == 0:
+        m = "sekund" if v == 1 else "sekunder"
+    elif t == 1:
+        m = "minut" if v == 1 else "minutter"
+    elif t == 2:
+        m = "time" if v == 1 else "timer"
+    return "%i %s" % (random.randint(1, 60), m)
 
 def bitcoinAdvisor(kronerPrBTC):
     try:
@@ -86,10 +106,11 @@ def bitcoinAdvisor(kronerPrBTC):
     finally:
         subprocess.call(["echo " + str(kronerPrBTC) + " | dbWrite bitcoin"], shell=True)
         if oldPrice < kronerPrBTC:
-            print "kursen er steget siden sidst, køb KØB KØØØØØØØØØØB!\n"\
-                  "Sidst var den jo " + str(kronerPrBTC) + " kroner pr. bitcoin."
-        else: print "kursen er faldet siden sidst, SÆÆÆÆÆÆÆÆÆÆLG!\n"\
-              "Den var tidligere " + str(kronerPrBTC) + " kroner pr. bitcoin,  så den falder nok endnu mere snart."
+            print "Kursen er steget siden sidst, SÆLG ALLE DINE BITCOINS!\n"\
+                  "Sidst var den jo %.4f kroner per bitcoin, men hvem ved hvad den er om %s?" % (kronerPrBTC, fremtid())
+        else:
+            print "Kursen er faldet siden sidst, INVESTÉR AL DIN EJENDOM I BITCOINS!\n"\
+                  "Den var tidligere %.4f kroner per bitcoin, men hvem ved hvad den er om %s" % (kronerPrBTC, fremtid())
 
 
 
