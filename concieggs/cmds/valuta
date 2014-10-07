@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# Hvor mange bitcoin kan du få for dine lommepenge?
+# Bedre program end google.
 
 import subprocess
 import sys
