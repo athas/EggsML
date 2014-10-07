@@ -10,9 +10,12 @@ import hashlib
 def main(args):
     thing = " ".join(args[1:])
     if thing != "":
-        random.seed(hashlib.sha1(thing.lower()).hexdigest())
-        print "Anmeldelser af %s:" % (thing)
-        reviews()
+        if random.randint(0, 10) == 0:
+            print "Jeg har anmeldt %s til Version2s community manager." % (thing)
+        else:
+            random.seed(hashlib.sha1(thing.lower()).hexdigest())
+            print "Anmeldelser af %s:" % (thing)
+            reviews()
     else:
         print "Hvad skal jeg anmelde?"
 
