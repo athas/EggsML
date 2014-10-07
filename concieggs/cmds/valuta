@@ -23,7 +23,17 @@ def run_main(args):
     user = os.getenv("EGGS_USER")
     if user is None:
         user = "min ven"
-    print "Tillykke %s, du kan købe %.*f %s for %s %s" %  (user, 2,  beloeb, tilValuta, re.sub("\.0*$","",dine(maengde)), fraValuta)
+    print "%s %s, du kan købe %.*f %s for %s %s." %  (congrats(), user, 2,  beloeb, valutaName(tilValuta), re.sub("\.0*$","",dine(maengde)), valutaName(fraValuta))
+
+def congrats():
+    grats = [
+        "Tillykke",
+        "Novra",
+        "Vildt, ",
+        "Sikke noget,",
+        "Godt gået,"
+    ]
+    return grats[random.randint(0, len(grats)-1)]
 
 def dine(nummer):
     if nummer == 1:
@@ -32,7 +42,20 @@ def dine(nummer):
         return "dine " + str(nummer)
 
 #Hej Svip!
-
+def valutaName(valuta):
+    names = {
+        "dkk": "gode danske kroner",
+        "usd": "amerikanske dollar",
+        "eur": "europæiske euro",
+        "gdb": "britiske pund",
+        "sek": "svenske kroner",
+        "nok": "norske kroner",
+        "rub": "russiske rubler"
+    }
+    try:
+        return names[valuta.lower()]
+    except (KeyError):
+        return valuta
 
 def parseArgs(args):
     args = args[1:]
