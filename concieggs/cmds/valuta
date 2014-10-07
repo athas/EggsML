@@ -23,7 +23,7 @@ def run_main(args):
     user = os.getenv("EGGS_USER")
     if user is None:
         user = "min ven"
-    print "Tillykke %s, du kan købe %.*f %s for %s %s" %  (user, 2,  beloeb, tilValuta, re.sub("\.0*$","",dine(maengde)), fraValuta)
+    print "Tillykke %s, du kan købe %.*f %s for %s %s" %  (user, 2,  beloeb, tilValuta.upper(), re.sub("\.0*$","",dine(maengde)), fraValuta.upper())
 
 def dine(nummer):
     if nummer == 1:
