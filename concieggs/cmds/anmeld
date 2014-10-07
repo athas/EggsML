@@ -1,0 +1,36 @@
+#!/usr/bin/env python
+# -*- encoding: utf-8 -*-
+#
+# Anmeld noget.
+
+import sys
+import random
+
+def main(args):
+    thing = " ".join(args[1:])
+    print "Anmeldelser af %s:" % (thing)
+    reviews()
+
+def print_review(review):
+    print '"%s"' % (review["line"])
+    print " (%i/5 stjerner) %s" % (review["stars"], review["author"])
+
+def reviews():
+    rs = [
+        {"line": "The worst thing since the bagpipes.", "stars": 1, "author": "Mr. Plinkett"},
+        {"line": "Det var sjovt.", "stars": 5, "author": "Sectrum"},
+        {"line": "Alle er Hitler.", "stars": 3, "author": "Stalin"},
+        {"line": "Udemærket.", "stars": 4, "author": "Niels"},
+        {"line": "Det værste lort nogensinde.", "stars": 1, "author": "Arkimedes fra Syrakus"}
+    ]
+    prei = -1
+    for i in range(2):
+        ri = prei
+        while prei == ri:
+            ri = random.randint(0, len(rs)-1)
+        prei = ri
+        print_review(rs[ri])
+    print_review({"line": "Jeg kastede en lille smule op i munden", "stars": 1, "author": "Pelle fra Ungdomshuset"})
+
+if __name__ == "__main__":
+    main(sys.argv)
