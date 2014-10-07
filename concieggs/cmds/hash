@@ -19,12 +19,12 @@ def run_main(args):
         print "Ork ja, det kunne være %s, hvis jeg var din %s, hva'? VED DIN MOR, AT DU ER KRIMINEL?!" % (nice() , pusher())
     else:
         print "Så lad gå."
-        print "/me fyrer op..."
+        print "concieggs fyrer op..."
         time.sleep(3)
         streng =  " ".join(args[2:])
         m = hashlib.sha256()
         m.update(streng)
-        print "/me blæser røg%s..." % (roegting())
+        print "concieggs blæser røg%s..." % (roegting())
         time.sleep(3)
         print m.hexdigest()
         
