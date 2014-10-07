@@ -23,6 +23,8 @@ def reviews():
         {"line": "Alle er Hitler.", "stars": 3, "author": "Stalin"},
         {"line": "Udemærket.", "stars": 4, "author": "Niels"},
         {"line": "Det værste lort nogensinde.", "stars": 1, "author": "Arkimedes fra Syrakus"}
+        {"line": "You had me at 'Wes Andersson'", "stars": 5, "author": "The New York Times"}
+        {"line": "Lige lidt mere forberedelsestid", "stars": 2, "author": "Bjarne Goldbæk"}
     ]
     prei = -1
     for i in range(2):
