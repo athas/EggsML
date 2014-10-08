@@ -1,4 +1,4 @@
-#!/usr/bin/python3.2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 # Årets Spil 2014 - klappet og klart til julehandlen. 
@@ -79,7 +79,7 @@ def svin():
         "Dit skodøje",
         "Røvlort",
         "Dit fuckhoved",
-        "Hvordan kan du nogensinde rette op på dette",
+        "Hvad bilder du dig ind?",
         "Din bøf"
     ]
     return grats[random.randint(0, len(grats)-1)]
