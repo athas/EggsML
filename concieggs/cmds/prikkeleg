@@ -37,7 +37,7 @@ def run_main(args):
         sys.exit(0)
 
     sys.stdout.flush()
-    time.sleep(3)
+    time.sleep(1)
     status = Dict['prikTilbage'] - antalPrik
     Dict['forrigePrikker'] = user
     if status <= 0:
