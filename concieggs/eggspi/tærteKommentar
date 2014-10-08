@@ -6,7 +6,11 @@ børnene
 Java
 NemID
 HTML5
+sammenhængskraften
+fremtiden
 CSS3
+projektstyringen
+SharePoint-installationen
 loginportalerne
 statens overvågning
 kønsdelene
@@ -23,6 +27,7 @@ enHipster=`randomElement <<EOF
 en hipster
 en humanist
 en fysiker
+en radmager laban
 en brillemager
 en "it-professionel"
 en idiot
@@ -30,6 +35,7 @@ et gadekryds
 en frihedsevangelist
 en business man
 en popstjerne
+en Peter
 en Windows-bruger
 en Mac-fanatiker
 EOF`
@@ -40,6 +46,8 @@ kontrollere
 have kontrol over
 håndtere
 migrere
+regulere
+tvinge
 EOF`
 
 klikkeHer=`randomElement <<EOF
@@ -47,19 +55,20 @@ klikke her
 trykke på _den_ knap
 være en $hipster for at forstå det
 afhænge af $ungerne
+gøre dét
+$styre mig selv
 indtaste *den* kommando
 EOF`
 
 lort=`randomElement <<EOF
 lort
 søm
-skuer
+skruer
 tis
 klamhed
 EOF`
 
 egerntype=`randomElement <<EOF
-
 jord
 flyve
 EOF`
@@ -68,6 +77,9 @@ nuttedeDyr=`randomElement <<EOF
 ${egerntype}egern
 kaniner
 katte
+marsvin
+hundehvalpe
+delfiner
 EOF`
 
 menHvadMedUngerne=`randomElement <<EOF
@@ -104,15 +116,19 @@ Spis $lort.
 Det oversætter jo ikke.
 Fuck dig!
 Dræber du måske $nuttedeDyr?
+Tag dig dog sammen.
+Er du også sådan i morgen?
 EOF`
 
 erDuMaaskeDum=`randomElement <<EOF
 Er du måske dum?
 Spis tis.
-GAY!
+Fucking latterligt.
 Din mor.
 Din mormor!
 For fanden...
+På pikken..
+For helvede!
 EOF`
 
 randomElement <<EOF
