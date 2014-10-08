@@ -1,0 +1,3 @@
+#!/bin/sh
+
+runcmd prikkeleg prik $(echo "$@")
