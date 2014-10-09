@@ -117,7 +117,7 @@ def heppe():
 def parseArgs(args):
     antalPrik = 0
     for arg in args:
-        if arg in ["prikke", "prik"]:
+        if arg.lower() in ["prikke", "prik"]:
             antalPrik += 1
     try:
         assert antalPrik < 6 and antalPrik > 0
