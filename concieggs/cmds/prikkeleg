@@ -65,9 +65,11 @@ def hvemFoerer(dictionary, Vindersekvens=False):
     if sorted_dict == []:
         sorted_dict = [('concieggs', 'concieggs')]
     if Vindersekvens:
-        print ("%s %s! Du har lige vundet i prikkeleg!! %s er den nye konge af #eggsml!" % (congrats() , sorted_dict[-1][0], sorted_dict[-1][0]))
+        vinder = sorted_dict[-1][0]
+        print ("%s %s! Du har lige vundet i prikkeleg!! %s er den nye konge af #eggsml!" % (congrats() , vinder, vinder))
         dict = {'forrigePrikker': 'concieggs' , 'prikTilbage' : random.randint(15, 30), 'pointtavle':{}}
         subprocess.call(["echo \'" + json.dumps(dict, ensure_ascii=False) + "\' | dbWrite prikkeleg"], shell=True)
+        subprocess.call(["runcmd topic " + vinder + " er kongen"], shell=True)
         sys.exit(0)
     else:
         print("%s er i spidsen - %s, %s! Du kan sagtens nå det!" % (sorted_dict[-1][0], heppe(), sorted_dict[0][0]))
