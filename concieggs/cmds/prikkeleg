@@ -67,7 +67,7 @@ def hvemFoerer(dictionary, Vindersekvens=False):
     if Vindersekvens:
         vinder = sorted_dict[-1][0]
         print ("%s %s! Du har lige vundet i prikkeleg!! %s er den nye konge af #eggsml!" % (congrats() , vinder, vinder))
-        subprocess.call(["randomName \'" + inner + "\' | dbWrite eggsking"], shell=True)
+        subprocess.call(["randomName \'" + vinder + "\' | dbWrite eggsking"], shell=True)
         dict = {'forrigePrikker': 'concieggs' , 'prikTilbage' : random.randint(15, 30), 'pointtavle':{}}
         subprocess.call(["echo \'" + json.dumps(dict, ensure_ascii=False) + "\' | dbWrite prikkeleg"], shell=True)
         subprocess.call(["runcmd topic " + vinder + " er kongen"], shell=True)
