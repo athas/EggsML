@@ -4,9 +4,16 @@
 # at benytte komplette sætninger!  Alternativt, spørg hvem der skal
 # købe ind eller hvem der har en ting.
 
-eval "$(echo "$@" | parse 'er (?<user>[^ ]+)|(?<buy>(køber ind|skal købe ind|handler|skal handle ind))|har (?<thing>[^ ]+)')"
+eval "$(echo "$@" | parse 'er (?<user>[^ ]+)$|(?<buy>(køber ind|skal købe ind|handler|skal handle ind))|har (?<thing>[^ ]+)|(?<king>konge af (EggsML|#eggsml))')"
 
-if [ "$user" ]; then
+if [ "$king" ]; then
+    kingname="$(dbRead eggsking)"
+    if [ -z "$kingname" ]; then
+        echo "Der er ingen siddende konge af EggsML."
+    else
+        echo "$(randomName $kingname) sidder på tronen!  Hil $(randomName $kingname)!  Han længe leve!"
+    fi
+elif [ "$user" ]; then
     if [ $user = jeg ]; then
         user=$EGGS_USER
     fi

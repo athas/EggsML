@@ -24,12 +24,15 @@ prefs () {
                     ;;
             esac
         fi
+        if isKing "$who"; then
+            echo "Hans majestæt er med til bords!"
+        fi
     done
 }
 
 prefs="$(prefs | enumerate)"
 
-echo -n "Der er $(countEggsers $eggs) tilmeldt til $(titleEggs $eggs): $(describeEggs $eggs).  Der skal tilberedes $numeggs eggs.  "
+echo -n "Der er $(countEggsers $eggs) tilmeldt til $(titleEggs $eggs): $(describeEggs $eggs).  Der skal tilberedes $numeggs eggs.  $(king)"
 
 if [ "$prefs" ]; then
     echo "Endvidere: $prefs."
