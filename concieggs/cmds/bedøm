@@ -3,18 +3,20 @@
 # Bed concieggs om at bedømme noget
 
 if [ $# -eq 0 ]; then
-    echo "Jeg giver dig -3 i din brug af denne kommando."
+    echo "Jeg giver Dem -3 i Deres brug af denne kommando."
     exit
 fi
-
-echo -n "Jeg giver "
-echo -n "$* "
+if [ "$*" = "$EGGS_USER" ] || [ "$*" = "mig" ]; then
+    echo -n "Jeg giver Dem "
+else
+    echo -n "Jeg giver $* "
+fi
 
 (
     echo "Bestået\nIkke bestået" | randomElement
     echo "Godkendt\nIkke godkendt\nIkke godkendt - genaflevér" | randomElement
     echo "Laudabilis præ ceteris\nLaudabilis\nHaud illaudabilis\nNon contemnendus\n0" | randomElement
-    printf "%s på Ørsteds skala\n" "$(echo "Ug med kryds og slange\nUg\nMg\nG\nTg\nMdl\nSlet" | randomElement)"
+    printf "%s på Ørsteds skala\n" "$(echo "Ug med kryds og slange\nUg\nUg-\nMg+\nMg\nMg-\nG+\nG\nG-\nTg+\nTg\nTg-\nMdl+\nMdl\nMdl-\nSlet+\nSlet" | randomElement)"
     printf "%s på 13-skalaen\n" "$(echo "00\n03\n5\n6\n7\n8\n9\n10\n11\n13" | randomElement)"
     printf "%s på 7-trins-skalaen\n" "$(echo "-3\n00\n02\n4\n7\n10\n12" | randomElement)"
 ) | randomElement
