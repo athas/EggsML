@@ -12,7 +12,7 @@ if [ "$person" ]; then
     img="$(randomImage || echo "Næh. Det vil jeg ikke, nå.")"
 
     echo "$person: $img"
-elsif [ "$user" ]; then
+elif [ "$user" ]; then
     echo "$user" | dbWrite "has_$thing"
     echo "$user har nu $thing!"
 else
