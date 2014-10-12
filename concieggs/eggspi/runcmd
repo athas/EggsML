@@ -10,6 +10,7 @@ run() {
     cmd="$1"
     acmd="$2"
     shift
+    shift
 
     case "$cmd" in
         er|hvem|hvad|hvor|har*)
