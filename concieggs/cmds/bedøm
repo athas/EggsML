@@ -3,8 +3,7 @@
 # Bed concieggs om at bedømme noget
 
 echo -n "Jeg giver "
-echo -n $*
-echo -n ' '
+echo -n "$* "
 
 (
     echo "Laudabilis præ ceteris\nLaudabilis\nHaud illaudabilis\nNon contemnendus\n0" | randomElement
