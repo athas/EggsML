@@ -14,7 +14,7 @@ if [ "$usual" ]; then
         echo "Jeg kender ikke til nogen '$4'"
     fi
     did=$(for x in $(dbUserIterate "$who" "preferences/food"); do
-        $CONCIEGGS_DIR/cmds/unsafePerformRåønsk $(dbRead "$x") > /dev/null
+        '$CONCIEGGS_DIR/cmds/#eggsml/unsafePerformRåønsk' $(dbRead "$x") > /dev/null
         dbRead "$x"
     done | enumerate)
     if ! [ "$did" ]; then
