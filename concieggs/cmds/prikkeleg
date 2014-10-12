@@ -21,33 +21,42 @@ import operator
 #ordbogens design:   {'forrigePrikker': <navn> , 'prikTilbage': <tal>, 'pointtavle': {navn:point}}
 
 
+def getDict():
+    oldDict = subprocess.check_output(["dbRead", "prikkeleg"])
+    Dict    = json.loads(oldDict.decode('utf-8'))
+    return Dict
+
+def setDict(Dict):
+    subprocess.call(["echo \'" + json.dumps(Dict, ensure_ascii=False) + "\' | dbWrite prikkeleg"], shell=True)
+    
+def currentUser():
+    return os.getenv("EGGS_USER")
+
+
 def run_main(args):
     antalPrik = parseArgs(args)
     try:
-        oldDict = subprocess.check_output(["dbRead", "prikkeleg"])
+        Dict = getDict()
     except:
-        dict = {'forrigePrikker': 'concieggs' , 'prikTilbage' : random.randint(15, 30), 'pointtavle':{}}
-        subprocess.call(["echo \'" + json.dumps(dict, ensure_ascii=False) + "\' | dbWrite prikkeleg"], shell=True)
+        nytSpil()
         sys.exit(0)
-    Dict = json.loads(oldDict.decode('utf-8'))
 
-    user = os.getenv("EGGS_USER")
-    if Dict['forrigePrikker'] == user:
+    if Dict['forrigePrikker'] == currentUser():
         print("%s! %s, du prikkede mig også sidst. Dit træk er ugyldigt!" % (svin(), user))
         sys.exit(0)
 
     sys.stdout.flush()
     time.sleep(1)
     status = Dict['prikTilbage'] - antalPrik
-    Dict['forrigePrikker'] = user
+    Dict['forrigePrikker'] = currentUser()
     if status <= 0:
-        slutsekvens(user, Dict)
+        slutsekvens(currentUser(), Dict)
     Dict['prikTilbage'] = status
     try:
         Dict['pointtavle'][user] += antalPrik
     except KeyError:
         Dict['pointtavle'][user] = antalPrik
-    subprocess.call(["echo \'" + json.dumps(Dict, ensure_ascii=False) + "\' | dbWrite prikkeleg"], shell=True)
+    setDict(Dict)
     hvemFoerer(Dict['pointtavle'], False)
 
 
@@ -68,12 +77,45 @@ def hvemFoerer(dictionary, Vindersekvens=False):
         vinder = sorted_dict[-1][0]
         print ("%s %s! Du har lige vundet i prikkeleg!! %s er den nye konge af #eggsml!" % (congrats() , vinder, vinder))
         subprocess.call(["randomName \'" + vinder + "\' | dbWrite eggsking"], shell=True)
-        dict = {'forrigePrikker': 'concieggs' , 'prikTilbage' : random.randint(15, 30), 'pointtavle':{}}
-        subprocess.call(["echo \'" + json.dumps(dict, ensure_ascii=False) + "\' | dbWrite prikkeleg"], shell=True)
+        nytSpil()
         subprocess.call(["runcmd topic " + vinder + " er kongen"], shell=True)
         sys.exit(0)
     else:
         print("%s er i spidsen - %s, %s! Du kan sagtens nå det!" % (sorted_dict[-1][0], heppe(), sorted_dict[0][0]))
+
+def nytSpil(M=15, N=30):
+    dict = {'nudge': 'false', 'forrigePrikker': 'concieggs' , 'prikTilbage' : random.randint(M, N), 'pointtavle':{}}
+    subprocess.call(["echo \'" + json.dumps(dict, ensure_ascii=False) + "\' | dbWrite prikkeleg"], shell=True)
+
+def forfra(argument):
+        mOgN = re.findall("[0-9]+", argument)
+        try:
+            assert len(mOgN) == 2
+            M = int(mOgN[0])
+            N = int(mOgN[1])
+            if abs(M - N) < 9:
+                print ("Hey allesammen! %s prøver på at starte en underlødig prikkeleg!" % (currentUser()))
+                print ("Der var faktisk kun " + str(abs(M-N)) + " priks forskel på minimum og maximum, i det han prøvede på at starte. Er det ikke frækt?")
+                subprocess.call(["runcmd topic " + currentUser() + " prikker falskt. Fy for skam."], shell=True)
+            if M < N:
+                nytSpil(M,N)
+            if M > N:
+                nytSpil(N, M)
+        except:
+            print ("Brug korrekt syntaks: <tal>:<tal>")
+
+
+
+def nudge():
+    Dict = getDict()
+    if Dict['nudge'] == "false":
+        Dict['nudge'] = "true"
+        Dict['prikTilbage'] += random.randint(3, 23)
+        setDict(Dict)
+        print ("Tak, %s. Nu har jeg det faktisk bedre. :-)" % (currentUser()))
+    else:
+        print ("Beklager, %s... " % (currentUser()))
+
 
 def svin():
     grats = [
@@ -117,18 +159,46 @@ def heppe():
     ]
     return grats[random.randint(0, len(grats)-1)]
 
+def help():
+    print (""" Årets Spil 2014 - klappet og klart til julehandlen.
+         Prik til din concieggs mellem en og fem gange! -
+         Men vær forsigtig. Pludselig eksploderer din concieggs!
+         Vinderen er den, som har prikket mest til sin concieggs, uden at udløse et raserianfald!
+         SJOVT FOR ALLE MENNESKER I HELE VERDEN!\n\n\n
+         -forfra M:N starter prikkelegen forfra, med en prikketolerance på mellem M og N prik.
+         -trøst trøster din concieggs, så din concieggs får det lidt bedre igen.
+         -smugkig gør ikke noget? """)
+
+
+
 def parseArgs(args):
+
+    if len(args) == 1:
+        help()
+        sys.exit(0)
+    if args[1] == "-hjælp":
+        help()
+        sys.exit()
+    if args[1] == "-forfra":
+        forfra(args[2])
+        sys.exit(0)
+
+    if args[1] == "-trøst":
+        nudge()
+        sys.exit(0)
+
+    if args[1] == "-smugkig":
+        sys.exit(0)
+
     antalPrik = 0
     for arg in args:
         if arg.lower() in ["prikke", "prik"]:
             antalPrik += 1
-    try:
-        assert antalPrik < 6 and antalPrik > 0
-
-    except:
-        print("Du må da ikke prikke mere end fem gange! Eller mindre end éen gang.")
+    if not (antalPrik < 6 and antalPrik > 0):
+        print("Prik mellem én og fem gange, eller kør prikkeleg -hjælp.")
         sys.exit(0)
     return antalPrik
+
 
 if __name__ == '__main__':
     run_main(sys.argv)
