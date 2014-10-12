@@ -55,7 +55,7 @@ if [ "$cmd" ] && [ "$EGGS_USER" != "$CONCIEGGS_NAME" ]; then
         othercmd="$(commands|levenshtein "$cmd"|sort -n|head -n 1|cut -d ' ' -f 2-)"
         if [ "$othercmd" ]; then
             echo "Jeg antager at du mente $othercmd!"
-            otheracmd="$(find -name "$othercmd" | head -n 1)"
+            otheracmd="$(find "$CONCIEGGS_DIR/cmds" -name "$othercmd" | head -n 1)"
             run "$othercmd" "$otheracmd" "$@"
         else
             echo "$EGGS_USER: Du bad mig om $cmd, men den kommando har jeg ikke!";
