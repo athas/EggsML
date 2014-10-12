@@ -1,0 +1,36 @@
+#light (*
+    timeout --foreground -s HUP 20s fsharpi --use:$0 --nologo --quiet | perl -ne 's/^-\s*//; print'
+    exit 0
+*)
+
+open System
+open System.Net
+
+let random = new Random()
+
+let generateId len =
+       "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz"
+    |> List.replicate len
+    |> List.map (fun s -> s.Chars (random.Next s.Length))
+    |> String.Concat
+
+let rec getPicture (client : WebClient) = 
+    let id = generateId 5
+    let thumbUri = new Uri("http://i.imgur.com/" + id + "s.png")
+    client.DownloadDataAsync(thumbUri, id)
+
+and thumbDownloaded (sender : obj) (args:DownloadDataCompletedEventArgs) =
+    let client = sender :?> WebClient
+    let id = args.UserState :?> string
+
+    if args.Cancelled || args.Error <> null || client.ResponseHeaders.["Content-Length"] = "503" then
+        ignore (getPicture client)
+    else
+        printf "http://i.imgur.com/%s.jpg\n" id
+        stdout.Flush()
+        Environment.Exit(0)
+
+let client = new WebClient()
+client.DownloadDataCompleted.AddHandler(new DownloadDataCompletedEventHandler(thumbDownloaded))
+
+let _ = getPicture client

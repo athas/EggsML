@@ -2,9 +2,17 @@
 #
 # Giv noget til nogen.  Brug: giv TING til BRUGER
 
-eval "$(echo "$@" | tolower | parse '(?<thing>[^ ]+) til (?<user>[^ ]+)')"
+eval "$(echo "$@" | tolower | parse '(?<thing>[^ ]+) til (?<user>[^ ]+)|(?<person>[^ ]+) et billede')"
 
-if [ "$user" ]; then
+if [ "$person" ]; then
+    if [ "$person" = "mig" ]; then
+        person=$EGGS_USER
+    fi
+
+    img="$(randomImage || echo "Næh. Det vil jeg ikke, nå.")"
+
+    echo "$person: $img"
+elsif [ "$user" ]; then
     echo "$user" | dbWrite "has_$thing"
     echo "$user har nu $thing!"
 else
