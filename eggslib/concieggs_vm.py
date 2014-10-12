@@ -8,6 +8,7 @@ from time import time
 #DIR = os.path.join(os.getcwd(),'concieggs')
 DIR = '/eggsml/concieggs'
 CMDDIR  = os.path.join(DIR,'cmds')
+EGGSCMD = os.path.join(CMDDIR,'#eggsml')
 DBDIR  = os.path.join(DIR,'db')
       
 ENV = {'CONCIEGGS_DIR' : DIR 
@@ -26,9 +27,13 @@ def run(cmd,user,args=None):
   os.environ['EGGS_USER'] = user
   os.environ['EGGS_LINE'] = 'dummy'
   os.environ['PATH'] = PATH
-  cmdline = os.path.join(CMDDIR,cmd)
   args = [str(int(time()))]
-  process = Popen([cmdline]+args,stdout=subprocess.PIPE)
+  try:
+    cmdline = os.path.join(CMDDIR,cmd)
+    process = Popen([cmdline]+args,stdout=subprocess.PIPE)
+  except OSError:
+    cmdline = os.path.join(EGGSCMD,cmd)
+    process = Popen([cmdline]+args,stdout=subprocess.PIPE)
   output, unused_err = process.communicate() 
   retcode = process.poll()
 
