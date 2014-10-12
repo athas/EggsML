@@ -10,7 +10,7 @@ awk_getargs='{ print substr($0, index($0, $1)+length($1)+1, length($0)) }'
 rawcmd=$(echo "$EGGS_BODY"|awk --posix "$awk_getcmd")
 if [ "$rawcmd" ]; then
     args="$(echo "$EGGS_BODY"|awk --posix "$awk_getargs")"
-    runcmd "$rawcmd" $args
+    runcmd -a "$rawcmd" $args
     if [ "$rawcmd" = "maxima" ]; then
         echo "$EGGS_USER skriver måske farlige ting til mig privat!" > \
             $CONCIEGGS_IRC_DIR/$irc_channel/in

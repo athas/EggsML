@@ -2,10 +2,18 @@
 
 cmddir=$CONCIEGGS_DIR/cmds
 
-channel="$(ircChannel)"
+if [ "$1" = -a ]; then
+    check_all_places=-a
+    shift
+fi
 
-find "$cmddir" "$cmddir/$channel" -maxdepth 1 2>/dev/null \
-    | while read -r acmd; do
+{
+    if [ "$check_all_places" ]; then
+        find "$cmddir" -maxdepth 2
+    else 
+        find "$cmddir" "$cmddir/$(ircChannel)" -maxdepth 1 2>/dev/null
+    fi
+} | while read -r acmd; do
     if [ -x "$acmd" ] && [ -f "$acmd" ]; then
         basename "$acmd"
     fi
