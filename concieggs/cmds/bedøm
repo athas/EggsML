@@ -1,0 +1,14 @@
+#!/bin/sh
+# 
+# Bed concieggs om at bedømme noget
+
+echo -n "Jeg giver "
+echo -n $*
+echo -n ' '
+
+(
+    echo "Laudabilis præ ceteris\nLaudabilis\nHaud illaudabilis\nNon contemnendus\n0" | randomElement
+    printf "%s på Ørsteds skala\n" "$(echo "Ug med kryds og slange\nUg\nMg\nG\nTg\nMdl\nSlet" | randomElement)"
+    printf "%s på 13-skalaen\n" "$(echo "00\n03\n5\n6\n7\n8\n9\n10\n11\n13" | randomElement)"
+    printf "%s på 7-trins-skalaen\n" "$(echo "-3\n00\n02\n4\n7\n10\n12" | randomElement)"
+) | randomElement
