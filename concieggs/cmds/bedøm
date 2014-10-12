@@ -13,9 +13,9 @@ else
 fi
 
 (
-    echo "Bestået\nIkke bestået" | randomElement
-    echo "Godkendt\nIkke godkendt\nIkke godkendt - genaflevér" | randomElement
-    echo "Laudabilis præ ceteris\nLaudabilis\nHaud illaudabilis\nNon contemnendus\n0" | randomElement
+    echo "bestået\nikke bestået" | randomElement
+    echo "godkendt\nikke godkendt\nikke godkendt - genaflevér" | randomElement
+    printf "%s på den latinske skala\n" "$(echo "Laudabilis præ ceteris\nLaudabilis\nHaud illaudabilis\nNon contemnendus\n0" | randomElement)"
     printf "%s på Ørsteds skala\n" "$(echo "Ug med kryds og slange\nUg\nUg-\nMg+\nMg\nMg-\nG+\nG\nG-\nTg+\nTg\nTg-\nMdl+\nMdl\nMdl-\nSlet+\nSlet" | randomElement)"
     printf "%s på 13-skalaen\n" "$(echo "00\n03\n5\n6\n7\n8\n9\n10\n11\n13" | randomElement)"
     printf "%s på 7-trins-skalaen\n" "$(echo "-3\n00\n02\n4\n7\n10\n12" | randomElement)"
@@ -23,4 +23,6 @@ fi
     printf "%s på den amerikanske skala\n" "$(echo "A+\nA\nA-\nB+\nB\nB-\nC+\nC\nC-\nD+\nD\nD-\nF" | randomElement)"
     printf "%s GPA\n" "$(awk 'BEGIN { printf("%.1f\n", rand() * 4.0) }')"
     printf "%d%%\n" $(($RANDOM % 101))
+    printf "%s på den numeriske skala\n" "$(echo "8\n6\n4\n2\n0" | randomElement)"
+    printf "%s på den nye numeriske skala\n" "$(echo "6\n5\n4\n3\n2\n0" | randomElement)"
 ) | randomElement
