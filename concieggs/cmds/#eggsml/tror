@@ -1,0 +1,31 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# Find ud af om concieggs tror på dig.  Brug: tror du på mig|<bruger>?
+
+# Formålet med dette script er at afprøve eggsthon.shell-grænsefladen.
+
+import sys
+import re
+from eggsthon import *
+import eggsthon.shell as sh
+
+def run_main():
+    q = ' '.join(sys.argv[1:])
+    if re.match('du på mig', q):
+        user = EGGS_USER
+    else:
+        m = re.match('du på ([^?]+)', q)
+        if m is not None:
+            user = m.group(1)
+        else:
+            print 'Hvad?  Læs dokumentationen, din dovenlars.'
+            return
+    
+    if sh.isTrusted(user):
+        print 'Den er fin!  Jeg stoler på %s.' % sh.randomName(user)
+    else:
+        print 'Jeg stoler ikke på denne %s.' % sh.randomName(user)
+
+if __name__ == '__main__':
+    run_main()
