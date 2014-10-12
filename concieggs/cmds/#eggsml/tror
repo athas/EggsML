@@ -21,11 +21,11 @@ def run_main():
         else:
             print 'Hvad?  Læs dokumentationen, din dovenlars.'
             return
-    
-    if sh.isTrusted(user):
-        print 'Den er fin!  Jeg stoler på %s.' % sh.randomName(user)
+    userp = sh.randomName(user)
+    if sh.isTrusted(user) and userp > '':
+        print 'Den er fin!  Jeg stoler på %s.' % userp.rstrip()
     else:
-        print 'Jeg stoler ikke på denne %s.' % sh.randomName(user)
+        print 'Jeg stoler ikke på denne %s.' % user.rstrip()
 
 if __name__ == '__main__':
     run_main()
