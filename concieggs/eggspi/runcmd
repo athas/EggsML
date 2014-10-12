@@ -4,16 +4,19 @@ broke() {
     echo "Kommandoen fejlede!  Du kan prøve at spørge mig om 'udu', men det hjælper næsten helt sikkert ikke."
 }
 
+channel="$(ircChannel)"
+
 run() {
     cmd="$1"
+    acmd="$2"
     shift
 
     case "$cmd" in
         er|hvem|hvad|hvor|har*)
-            "$cmddir/$cmd" $(echo "$@" | sed 's/\?*$//')
+            "$acmd" $(echo "$@" | sed 's/\?*$//')
             ;;
         *)
-            "$cmddir/$cmd" "$@"
+            "$acmd" "$@"
             ;;
     esac || broke
 }
@@ -23,6 +26,16 @@ cmd="$(basename -- "$rawcmd")"
 cmd="$(echo "$cmd" | sed 's/,$//')"
 cmddir=$CONCIEGGS_DIR/cmds
 shift
+
+t="$cmddir/$cmd"
+if [ -x "$t" ] && [ -f "$t" ]; then
+    acmd="$t"
+else
+    t="$cmddir/$channel/$cmd"
+    if [ -x "$t" ] && [ -f "$t" ]; then
+        acmd="$t"
+    fi
+fi
     
 #    if cmpNames "$EGGS_USER" "reenberg"; then
 #        ex=$(fakebroke | randomise | head -n 1)
@@ -33,15 +46,15 @@ shift
 #    fi
 
 if [ "$cmd" ] && [ "$EGGS_USER" != "$CONCIEGGS_NAME" ]; then
-    if [ -x "$cmddir/$cmd" ] && [ -f "$cmddir/$cmd" ]; then
-        run "$cmd" "$@"
+    if [ "$acmd" ]; then
+        run "$cmd" "$acmd" "$@"
     elif $(echo "$@" | grep '\?$' > /dev/null); then
-        run 8ball "$@"
+        run 8ball "$cmddir/8ball" "$@"
     else
         othercmd="$(commands|levenshtein "$cmd"|sort -n|head -n 1|cut -d ' ' -f 2-)"
         if [ "$othercmd" ]; then
             echo "Jeg antager at du mente $othercmd!"
-            run "$othercmd" "$@"
+            run "$othercmd" "$cmddir/$othercmd" "$@"
         else
             echo "$EGGS_USER: Du bad mig om $cmd, men den kommando har jeg ikke!";
             echo "Skriv 'concieggs: kommandoer' for at få en liste over mulige kommandoer."
