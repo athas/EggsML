@@ -17,7 +17,7 @@ fi
 
 what="$@"
 
-there="$(checkCatalogue $what)"
+there="$(checkCatalogue "$what")"
 if ! [ "$there" ]; then
     echo "$EGGS_USER: Jeg kender overhovedet ikke noget til $what!"
     exit
