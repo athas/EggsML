@@ -1,5 +1,10 @@
 #!/bin/sh
 
+if [ -z "$1" ]; then
+    echo "$0: refusing to delete everything."
+    exit 1
+fi
+
 rm -rf "$CONCIEGGS_DB_DIR/store/$1"
 parent="$(dirname "$1")"
 if [ "$parent" != / -a "$parent" != . ]; then
