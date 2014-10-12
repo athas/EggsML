@@ -13,4 +13,8 @@ fi
 if [ "$(echo "$EGGS_BODY" | "$EGGS_LIB_DIR/DSHOIG" "$CONCIEGGS_DB_DIR/sjove_dshoig" "$CONCIEGGS_DB_DIR/usjove_dshoig")" ]; then
     echo "$EGGS_BODY" | sed 's/[^ ]+://' > "$CONCIEGGS_DB_DIR/last_dshoig"
     echo "$EGGS_USER: Det sagde hun også i går."
+else
+    for i in $(seq 1 $(random 1 5)); do
+        echo "$EGGS_USER: Det sagde hun også i går."
+    done
 fi
