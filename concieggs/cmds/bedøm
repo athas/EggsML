@@ -2,10 +2,17 @@
 # 
 # Bed concieggs om at bedømme noget
 
+if [ $# -eq 0 ]; then
+    echo "Jeg giver dig -3 i din brug af denne kommando."
+    exit
+fi
+
 echo -n "Jeg giver "
 echo -n "$* "
 
 (
+    echo "Bestået\nIkke bestået" | randomElement
+    echo "Godkendt\nIkke godkendt\nIkke godkendt - genaflevér" | randomElement
     echo "Laudabilis præ ceteris\nLaudabilis\nHaud illaudabilis\nNon contemnendus\n0" | randomElement
     printf "%s på Ørsteds skala\n" "$(echo "Ug med kryds og slange\nUg\nMg\nG\nTg\nMdl\nSlet" | randomElement)"
     printf "%s på 13-skalaen\n" "$(echo "00\n03\n5\n6\n7\n8\n9\n10\n11\n13" | randomElement)"
