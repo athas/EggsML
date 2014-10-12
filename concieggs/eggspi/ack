@@ -1,20 +1,30 @@
 #!/bin/sh
 
-(echo "ACK-ACK"
- echo "Javel"
- echo "OK"
- echo "Forstået"
- echo "Accepteret"
- echo "Det er i orden"
- echo "Roger"
- echo "10-4"
- echo "Den er fin"
- echo "Den er fino"
- echo "Den er fin-fin"
- echo "Den er fjong"
- echo "Jep, det siger vi"
- echo "Jep, det siger vi bare"
- echo "Ja, herre"
- echo "Det er dandy"
-) | randomElement | xargs echo -n
+if isKing "$EGGS_USER"; then
+    echo "Som kongen ønsker"
+    echo "Javel, Deres majestæt"
+    echo "Det skal blive sådan, Deres højhed"
+    echo "Deres royale ønske er min lov"
+    echo "I kongens navn"
+    echo "Jeg skal kundgøre Deres royale vilje for almuen, Deres majestæt"
+    echo "$EGGS_USER længe leve"
+else
+    echo "ACK-ACK"
+    echo "Javel"
+    echo "OK"
+    echo "Forstået"
+    echo "Accepteret"
+    echo "Det er i orden"
+    echo "Roger"
+    echo "10-4"
+    echo "Den er fin"
+    echo "Den er fino"
+    echo "Den er fin-fin"
+    echo "Den er fjong"
+    echo "Jep, det siger vi"
+    echo "Jep, det siger vi bare"
+    echo "Ja, herre"
+    echo "Det er dandy"
+
+fi | randomElement | xargs echo -n
 (echo "!"; echo ".") | randomElement
