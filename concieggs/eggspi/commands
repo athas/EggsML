@@ -2,8 +2,11 @@
 
 cmddir=$CONCIEGGS_DIR/cmds
 
-ls $cmddir | while read -r cmd; do
-    if [ -x "$cmddir/$cmd" ] && [ -f "$cmddir/$cmd" ]; then
-        echo "$cmd"
+channel="$(ircChannel)"
+
+find "$cmddir" "$cmddir/$channel" -maxdepth 1 2>/dev/null \
+    | while read -r acmd; do
+    if [ -x "$acmd" ] && [ -f "$acmd" ]; then
+        basename "$acmd"
     fi
 done

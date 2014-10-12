@@ -1,0 +1,24 @@
+#!/bin/sh
+#
+# Brug concieggs som en konduit til din fortælling af en sød historie rettet mod
+# en rus.
+
+. $CONCIEGGS_DIR/concieggs.conf
+
+roevhul=$EGGS_USER
+
+if [ $# -gt 0 ]; then
+    rus="$1"
+else
+    echo "Brug: dnur <rus>"
+    exit
+fi
+
+if [ "$rus" = "concieggs" ]; then
+    echo "$roevhul: Gamle røvhul."
+    exit
+fi
+
+maybeGood .7 && echo "$roevhul: Gamle røvhul." && exit
+
+echo "$rus: DNUR!"
