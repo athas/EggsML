@@ -9,8 +9,10 @@ fi
 
 {
     if [ "$check_all_places" ]; then
+        echo 3 >&2
         find "$cmddir" -maxdepth 2
-    else 
+    else
+        find "$cmddir" "$cmddir/$(ircChannel)" -maxdepth 1 1>&2
         find "$cmddir" "$cmddir/$(ircChannel)" -maxdepth 1 2>/dev/null
     fi
 } | while read -r acmd; do
