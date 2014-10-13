@@ -1,3 +1,4 @@
 #!/bin/sh
 
-dbUserRead "$1" "cmd_aliases" | grep -P "^$2=" | cut -d'=' -f 2
+lcalias="$(echo "$2" | perl -ne 'print (lc \$_)')"
+dbUserRead "$1" "cmd_aliases" | grep -P "^$lcalias=" | cut -d'=' -f 2
