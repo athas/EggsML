@@ -10,7 +10,7 @@ if [ ! "$name" ]; then
     exit 0
 fi
 
-if [ [ ! "$alias" ] || [ ! "$command" ] ]; then
+if [ ! "$alias" ] || [ ! "$command" ]; then
     echo "$EGGS_USER: Hvis det skal være på den måde, så gider jeg altså ikke at snakke med dig."
     exit 0
 fi
@@ -30,7 +30,7 @@ allAliases="$(dbUserRead "$EGGS_USER" "cmd_aliases")"
 oldCommand="$(echo "$allAliases" | grep -P "^$alias=" | cut -d'=' -f 2 )"
 
 insteadOf=""
-if [ ! "$oldCommand" ]; then
+if [ "$oldCommand" ]; then
     insteadOf=", frem for '$oldCommand'"
 fi
 
