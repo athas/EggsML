@@ -10,6 +10,7 @@ from eggsthon import *
 
 import subprocess
 import os
+import StringIO
 
 
 class RetCode(object):
@@ -37,7 +38,7 @@ def make_cmd_fun(cmdname):
                 ret = subprocess.check_output(args_all)
             else:
                 ret = subprocess.check_output(
-                    args_all, stdin=stdin)
+                    args_all, stdin=StringIO.StringIO(stdin))
             if ret == '':
                 ret = True
             return ret
