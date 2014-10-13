@@ -1,0 +1,40 @@
+#!/bin/sh
+#
+# "Når jeg siger ... mener jeg faktisk ..."
+
+eval "$(echo "$@" | parse 'jeg siger (?<alias>[^ =]+) mener jeg(?: faktisk)? (?<command>.+)')"
+
+name=$(randomName $EGGS_USER)
+if [ ! "$name" ]; then
+    echo "$EGGS_USER: Gå væk, jeg kender dig ikke!"
+    exit 0
+fi
+
+if [ ! "$alias" || ! "$command" ]; then
+    echo "$EGGS_USER: Hvis det skal være på den måde, så gider jeg altså ikke at snakke med dig."
+    exit 0
+fi
+
+cmd=$(echo "$command" | cut -d' ' -f 1)
+
+if [ ! isCommand "$cmd" ]; then
+    if [ "$cmd" = "$CONCIEGGS_NAME" ]; then
+        echo "$EGGS_USER: Jeg er ikke en kommando! Jeg er et tænkende, følende væsen!"
+    else
+        echo "$EGGS_USER: Men hvad betyder $cmd? Jeg forstår dig ikke!"
+    fi
+    exit 0
+fi
+
+allAliases="$(dbUserRead "$EGGS_USER" "cmd_aliases")"
+oldCommand="$(echo "$allAliases" | grep -P "^$alias=" | cut -d'=' -f 2 )"
+
+insteadOf=""
+if [ ! "$oldCommand" ]; then
+    insteadOf=", frem for '$oldCommand'"
+fi
+
+printf "$EGGS_USER: %s For fremtiden vil jeg huske, at når du siger '$alias', så mener du '$command'$insteadOf.\n" $(ack)
+
+(echo "$allAliases" | grep -Pv "^$alias=" &&
+ echo "$alias=$command") | dbUserWrite "$EGGS_USER" "cmd_aliases"
