@@ -39,4 +39,4 @@ fi
 printf "$EGGS_USER: %s For fremtiden vil jeg huske, at når du siger '$alias', så mener du '$command'$insteadOf.\n" "$(ack)"
 
 (echo "$allAliases" | grep -Piv "^$lcalias=" &&
- echo "$lcalias=$lccommand") | dbUserWrite "$EGGS_USER" "cmd_aliases"
+ echo "$lcalias=$command") | dbUserWrite "$EGGS_USER" "cmd_aliases"
