@@ -34,8 +34,8 @@ shift
 
 alias="$(cmdAlias "$EGGS_USER" "$cmd")"
 if [ "$alias" ]; then
-    cmd="$(echo $alias | cut -s -d' ' -f 1)"
-    args="$(echo $alias | cut -s -d' ' -f 2-) $@"
+    cmd="$(echo "$alias " | cut -s -d' ' -f 1)"
+    args="$(echo "$alias " | cut -s -d' ' -f 2-) $@"
 else
     args="$@"
 fi
