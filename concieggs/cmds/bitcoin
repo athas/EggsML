@@ -4,6 +4,7 @@
 # Hvor mange bitcoin kan du få for dine lommepenge?
 
 import subprocess
+import eggsthon.shell as sh
 import sys
 import os
 from functools import partial
@@ -97,12 +98,13 @@ def fremtid():
 
 def bitcoinAdvisor(kronerPrBTC):
     try:
-        oldPrice = float(subprocess.check_output(["dbRead", "bitcoin"]))
+        oldPrice = float(sh.dbRead("bitcoin"))
     except:
-        subprocess.call(["echo " + str(0.00) + " | dbWrite bitcoin"], shell=True)
+        sh.dbWrite("bitcoin", stdin=str(0.00))
         oldPrice = 0.00
     finally:
-        subprocess.call(["echo " + str(kronerPrBTC) + " | dbWrite bitcoin"], shell=True)
+        sh.dbWrite("bitcoin", stdin= str(kronerPrBTC))
+        
         if oldPrice < kronerPrBTC:
             print "Kursen er steget siden sidst, SÆLG ALLE DINE BITCOINS!"
             print "Sidst var den jo %.4f kroner per bitcoin, men hvem ved hvad den er om %s?" % (kronerPrBTC, fremtid())
