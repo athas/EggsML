@@ -1,4 +1,4 @@
 #!/bin/sh
 
-lcalias="$(echo "$2" | perl -ne 'print (lc \$_)')"
+lcalias="$(echo "$2" | perl -ne 'print (lc $_)')"
 dbUserRead "$1" "cmd_aliases" | grep -Pi "^$lcalias=" | cut -d'=' -f 2
