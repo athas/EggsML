@@ -15,7 +15,7 @@ if [ ! "$alias" ] || [ ! "$command" ]; then
     exit 0
 fi
 
-lcalias="$(echo "$alias" | perl -ne 'print (lc \$_)')"
+lcalias="$(echo "$alias" | perl -ne 'print (lc $_)')"
 
 cmd=$(echo "$command" | cut -d' ' -f 1)
 
@@ -29,7 +29,7 @@ if ! isCommand "$cmd" ; then
 fi
 
 allAliases="$(dbUserRead "$EGGS_USER" "cmd_aliases")"
-oldCommand="$(echo "$allAliases" | grep -P "^$lcalias=" | cut -d'=' -f 2 )"
+oldCommand="$(echo "$allAliases" | grep -Pi "^$lcalias=" | cut -d'=' -f 2 )"
 
 insteadOf=""
 if [ "$oldCommand" ]; then
@@ -38,5 +38,5 @@ fi
 
 printf "$EGGS_USER: %s For fremtiden vil jeg huske, at når du siger '$alias', så mener du '$command'$insteadOf.\n" "$(ack)"
 
-(echo "$allAliases" | grep -Pv "^$lcalias=" &&
- echo "$alias=$lccommand") | dbUserWrite "$EGGS_USER" "cmd_aliases"
+(echo "$allAliases" | grep -Piv "^$lcalias=" &&
+ echo "$lcalias=$lccommand") | dbUserWrite "$EGGS_USER" "cmd_aliases"
