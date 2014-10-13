@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ $(commands | grep -P "^$0\$") ]; then
+if [ "$(commands | grep -P "^$1\$")" ]; then
     exit 0
 else
     exit 1
