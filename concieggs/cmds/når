@@ -34,7 +34,7 @@ if [ ! "$oldCommand" ]; then
     insteadOf=", frem for '$oldCommand'"
 fi
 
-printf "$EGGS_USER: %s For fremtiden vil jeg huske, at når du siger '$alias', så mener du '$command'$insteadOf.\n" $(ack)
+printf "$EGGS_USER: %s For fremtiden vil jeg huske, at når du siger '$alias', så mener du '$command'$insteadOf.\n" "$(ack)"
 
 (echo "$allAliases" | grep -Pv "^$alias=" &&
  echo "$alias=$command") | dbUserWrite "$EGGS_USER" "cmd_aliases"
