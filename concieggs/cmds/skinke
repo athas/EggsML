@@ -3,7 +3,7 @@
 # Bedre alt
 
 random=`date '+%s'`
-random=$((($random % 2) + 1))
+random=$((($random % 3) + 1))
 args=""
 if [ "$1" ]; then
     shift
@@ -12,6 +12,9 @@ fi
 case $random in
     2)
         org=`$CONCIEGGS_DIR/cmds/autoviden$args`
+        ;;
+    3)
+        org=`$CONCIEGGS_DIR/cmds/tærte`
         ;;
     *)
         org=`$CONCIEGGS_DIR/cmds/visdom$args`
