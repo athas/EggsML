@@ -17,7 +17,7 @@ fi
 
 cmd=$(echo "$command" | cut -d' ' -f 1)
 
-if [ ! isCommand "$cmd" ]; then
+if ! isCommand "$cmd" ; then
     if [ "$cmd" = "$CONCIEGGS_NAME" ]; then
         echo "$EGGS_USER: Jeg er ikke en kommando! Jeg er et tænkende, følende væsen!"
     else
