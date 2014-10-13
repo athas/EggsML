@@ -2,7 +2,7 @@
 #
 # "Når jeg siger ... mener jeg faktisk ..."
 
-eval "$(echo "$@" | parse 'jeg siger (?<alias>[^ =]+) mener jeg(?: faktisk)? (?<command>.+)')"
+eval "$(echo "$@" | parse 'jeg siger (?<alias>[^ =]+)(?: så)? mener jeg(?: faktisk)? (?<command>.+)')"
 
 name=$(randomName $EGGS_USER)
 if [ ! "$name" ]; then
@@ -10,7 +10,7 @@ if [ ! "$name" ]; then
     exit 0
 fi
 
-if [ ! "$alias" || ! "$command" ]; then
+if [ [ ! "$alias" ] || [ ! "$command" ] ]; then
     echo "$EGGS_USER: Hvis det skal være på den måde, så gider jeg altså ikke at snakke med dig."
     exit 0
 fi
