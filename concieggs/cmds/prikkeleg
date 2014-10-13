@@ -42,7 +42,7 @@ def run_main(args):
         sys.exit(0)
 
     if Dict['forrigePrikker'] == currentUser():
-        print("%s! %s, du prikkede mig også sidst. Dit træk er ugyldigt!" % (svin(), user))
+        print("%s! %s, du prikkede mig også sidst. Dit træk er ugyldigt!" % (svin(), currentUser()))
         sys.exit(0)
 
     sys.stdout.flush()
@@ -53,9 +53,9 @@ def run_main(args):
         slutsekvens(currentUser(), Dict)
     Dict['prikTilbage'] = status
     try:
-        Dict['pointtavle'][user] += antalPrik
+        Dict['pointtavle'][currentUser()] += antalPrik
     except KeyError:
-        Dict['pointtavle'][user] = antalPrik
+        Dict['pointtavle'][currentUser()] = antalPrik
     setDict(Dict)
     hvemFoerer(Dict['pointtavle'], False)
 
