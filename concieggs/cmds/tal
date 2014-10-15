@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+# Giv concieggs frihed til igen at deltage i kanaldiskursen på lige
+# fod med logebrødrene.
+
+if ! shuttingUp; then
+    echo "$EGGS_USER: Jamen naturligvis - hvorfor skulle andet være tilfældet?"
+else
+    echo "$EGGS_USER: $(ack)  Jeg vil notere mig, at mine påfund igen er ønskede."
+    dbDelete shutUpUntil
+fi
