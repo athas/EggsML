@@ -10,7 +10,7 @@
 import subprocess
 import sys
 import os, time
-import eggsthon.shell as sh
+
 from functools import partial
 import itertools
 import random
@@ -22,13 +22,13 @@ import operator
 
 
 def getDict():
-    oldDict = sh.dbRead("prikkeleg")
+    oldDict = subprocess.check_output(["dbRead", "prikkeleg"])
     Dict    = json.loads(oldDict.decode('utf-8'))
     return Dict
 
 def setDict(Dict):
-    sh.dbWrite("prikkeleg", stdin= json.dumps(Dict, ensure_ascii=False) )
-
+    subprocess.call(["echo \'" + json.dumps(Dict, ensure_ascii=False) + "\' | dbWrite prikkeleg"], shell=True)
+    
 def currentUser():
     return os.getenv("EGGS_USER")
 
