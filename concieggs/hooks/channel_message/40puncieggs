@@ -23,25 +23,27 @@ while (my $line = <$f>) {
 }
 close($f);
 
-sub match_casing {
-    my ($a, $b) = @_;
-    return $a if $a =~ qr/^".*"$/;
-    return "\u$b" if $a =~ qr/^[[:upper:]]/;
-    return $b;
+sub make_eggpun {
+    my ($word) = @_;
+    my $orig = $word;
+
+    for my $from (keys %daneng) {
+        $word =~ s/$from/$daneng{$from}/gi;
+    }
+
+    return $word eq $orig ? $orig : "\U$word\E";
 }
 
 my $body = $EGGS_BODY;
-for my $from (keys %daneng) {
-    $body =~ s/($from)/match_casing($1,$daneng{$from})/ieg;
-}
+$body =~ s/(\S+)/make_eggpun($1)/ieg;
 
 if ($body ne $EGGS_BODY) {
     my @prefix = (
-        "$EGGS_USER mener nok",
-        "/me foretrækker nu",
-        "/me er vittig",
-        "Nejnej, $EGGS_USER, du mener",
+        "$EGGS_USER: Du mener nok...",
+        "$EGGS_USER: Mener du ikke...",
     );
 
-    print $prefix[rand @prefix] . ": $body\n";
+    $body =~ s/[.!?:]*\s*$/!!!!/;
+
+    print $prefix[rand @prefix] . " $body! HAHAHAHAHA!\n";
 }
