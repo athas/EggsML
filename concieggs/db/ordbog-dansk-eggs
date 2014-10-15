@@ -1,0 +1,4 @@
+'eks' 'eggs'
+'\bx\b' 'eggs'
+'ex' 'eggs'
+'\bfx\b' 'f.eggs.'
