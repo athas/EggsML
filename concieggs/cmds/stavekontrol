@@ -1,0 +1,25 @@
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+use utf8::all;
+
+use Text::SpellChecker;
+
+use Env qw/EGGS_USER/;
+
+my $last = `dbUserRead "$EGGS_USER" lastmsg`;
+$last //= `dbRead "strangers/$EGGS_USER" lastmsg`;
+
+if ($last) {
+    my $checker = Text::SpellChecker->new(text => $last, lang => 'da_DK');
+    while (my $word = $checker->next_word) {
+        $checker->replace(new_word => $checker->suggestions->[rand @{$checker->suggestions}]);
+    }
+    if ($checker->text ne $last) {
+        printf("Rettet: <%s> %s\n", $EGGS_USER, $checker->text);
+    } else {
+        print "$EGGS_USER: Det ser da fint ud.\n";
+    }
+} else {
+    print "$EGGS_USER: Men du har jo ikke sagt noget!\n";
+}
