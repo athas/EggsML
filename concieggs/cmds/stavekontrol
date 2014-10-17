@@ -10,6 +10,8 @@ use Env qw/EGGS_USER/;
 my $last = `dbUserRead "$EGGS_USER" lastmsg`;
 $last //= `dbRead "strangers/$EGGS_USER" lastmsg`;
 
+my $quiet = $ARGV[0] && $ARGV[0] eq "-q";
+
 if ($last) {
     my $checker = Text::SpellChecker->new(text => $last, lang => 'da_DK');
     while (my $word = $checker->next_word) {
@@ -25,9 +27,9 @@ if ($last) {
     }
     if ($checker->text ne $last) {
         printf("Rettet: <%s> %s\n", $EGGS_USER, $checker->text);
-    } elsif($ARGV[0] != "-q") {
-        print "$EGGS_USER: Det ser da fint ud.\n";
+    } else {
+        print "$EGGS_USER: Det ser da fint ud.\n" unless $quiet;
     }
-} elsif($ARGV[0] != "-q") {
-    print "$EGGS_USER: Men du har jo ikke sagt noget!\n";
+} else {
+    print "$EGGS_USER: Men du har jo ikke sagt noget!\n" unless $quiet;
 }
