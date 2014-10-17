@@ -25,9 +25,9 @@ if ($last) {
     }
     if ($checker->text ne $last) {
         printf("Rettet: <%s> %s\n", $EGGS_USER, $checker->text);
-    } else {
+    } elsif($ARGV[0] != "-q") {
         print "$EGGS_USER: Det ser da fint ud.\n";
     }
-} else {
+} elsif($ARGV[0] != "-q") {
     print "$EGGS_USER: Men du har jo ikke sagt noget!\n";
 }

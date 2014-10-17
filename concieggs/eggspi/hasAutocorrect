@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exit $(dbUserRead "$1" autocorrect)

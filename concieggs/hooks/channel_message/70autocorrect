@@ -1,0 +1,5 @@
+#!/bin/sh
+
+if hasAutocorrect "$EGGS_USER"; then
+  runcmd "stavekontrol" -q
+fi

@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if hasAutocorrect "$EGGS_USER"; then
+  echo "$(ack) Fra nu af vil jeg ikke rette dine fejl."
+  dbUserDelete "$EGGS_USER" eggsautocorrect
+else
+  echo "$(ack) Fra nu af vil jeg rette dine stavefejl."
+  echo "1" | dbUserWrite "$EGGS_USER" eggsautocorrect
+fi
