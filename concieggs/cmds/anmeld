@@ -1,48 +1,5 @@
-#!/usr/bin/env python
-# -*- encoding: utf-8 -*-
+#!/bin/sh
 #
 # Gør Niels' arbejde for ham.
 
-import sys
-import random
-import hashlib
-
-def main(args):
-    thing = " ".join(args[1:])
-    if thing != "":
-        if random.randint(0, 10) == 0:
-            print "Jeg har anmeldt %s til Version2s community manager." % (thing)
-        else:
-            random.seed(hashlib.sha1(thing.lower()).hexdigest())
-            print "Anmeldelser af %s:" % (thing)
-            reviews()
-    else:
-        print "Hvad skal jeg anmelde?"
-
-def print_review(review):
-    print '"%s"' % (review["line"])
-    print "~ (%i/5 stjerner) %s" % (review["stars"], review["author"])
-
-def reviews():
-    # Tilføj flere på et tidspunkt eller slå dem op på nettet.
-    rs = [
-        {"line": "The worst thing since the bagpipes.", "stars": 1, "author": "Mr. Plinkett"},
-        {"line": "Det var sjovt.", "stars": 5, "author": "Spectrum"},
-        {"line": "Alle er Hitler.", "stars": 3, "author": "Stalin"},
-        {"line": "Udmærket.", "stars": 4, "author": "Niels"},
-        {"line": "Det værste lort nogensinde.", "stars": 1, "author": "Arkimedes fra Syrakus"},
-        {"line": "You had me at 'Wes Andersson'", "stars": 5, "author": "The New York Times"},
-        {"line": "Lige lidt mere forberedelsestid", "stars": 3, "author": "Bjarne Goldbæk"},
-        {"line": "Jeg følte ikke noget specielt.",  "stars": 3, "author": "Nikkel"}
-    ]
-    prei = -1
-    for i in range(2):
-        ri = prei
-        while prei == ri:
-            ri = random.randint(0, len(rs)-1)
-        prei = ri
-        print_review(rs[ri])
-    print_review({"line": "Jeg kastede en lille smule op i munden", "stars": 1, "author": "Pelle fra Ungdomshuset"})
-
-if __name__ == "__main__":
-    main(sys.argv)
+echo `anmeld $*`
