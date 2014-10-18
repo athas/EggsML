@@ -27,21 +27,23 @@ begin
 end;
 
 procedure Reviews();
+const
+  rs: array[0..7] of TReview =
+  (
+    (Line: 'The worst thing since the bagpipes.'; Stars: 1; Author: 'Mr. Plinkett'),
+    (Line: 'Det var sjovt.'; Stars: 5; Author: 'Spectrum'),
+    (Line: 'Alle er Hitler.'; Stars: 3; Author: 'Stalin'),
+    (Line: 'Udmærket.'; Stars: 4; Author: 'Niels'),
+    (Line: 'Det værste lort nogensinde.'; Stars: 1; Author: 'Arkimedes fra Syrakus'),
+    (Line: 'You had me at ''Wes Andersson'''; Stars: 5; Author: 'The New York Times'),
+    (Line: 'Lige lidt mere forberedelsestid'; Stars: 3; Author: 'Bjarne Goldbæk'),
+    (Line: 'Jeg følte ikke noget specielt.'; Stars: 3; Author: 'Nikkel')
+  );
 var
-  rs: array of TReview;
   prei, ri: Integer;
   I: Integer;
 begin
   // Tilføj flere på et tidspunkt eller slå dem op på nettet.
-  SetLength(rs, 8);
-  rs[0] := TReview.Create('The worst thing since the bagpipes.', 1, 'Mr. Plinkett');
-  rs[1] := TReview.Create('Det var sjovt.', 5, 'Spectrum');
-  rs[2] := TReview.Create('Alle er Hitler.', 3, 'Stalin');
-  rs[3] := TReview.Create('Udmærket.', 4, 'Niels');
-  rs[4] := TReview.Create('Det værste lort nogensinde.', 1, 'Arkimedes fra Syrakus');
-  rs[5] := TReview.Create('You had me at ''Wes Andersson''', 5, 'The New York Times');
-  rs[6] := TReview.Create('Lige lidt mere forberedelsestid', 3, 'Bjarne Goldbæk');
-  rs[7] := TReview.Create('Jeg følte ikke noget specielt.', 3, 'Nikkel');
   prei := -1;
   for I := 0 to 1 do begin
     ri := prei;
