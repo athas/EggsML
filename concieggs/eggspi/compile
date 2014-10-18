@@ -28,7 +28,7 @@ case $srcfile in
     *sml)
         compile() {
             mosmlc -P full -toplevel -o $2 $1
-            rm $(echo $1 | sed 's/\.sml/\.\{ui,uo\}/')
+            rm "$(echo "$1" | sed 's/\.sml/\.ui/')" "$(echo "$1" | sed 's/\.sml/\.uo/')"
         }
         ;;
     *)
