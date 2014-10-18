@@ -1,0 +1,44 @@
+#!/bin/sh
+
+set -e # Die on error
+
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <srcfile>"
+    exit 1
+fi
+
+srcfile=$(find $CONCIEGGS_DIR/compiled -name "$(basename "$1").*")
+
+if ! [ "$srcfile" ]; then
+    echo "The file '$srcfile' does not exist"
+    exit 3
+fi
+
+case $srcfile in
+    *go)
+        compile() {
+            go build $1
+        }
+        ;;
+    *c)
+        compile() {
+            gcc $1 -o $2
+        }
+        ;;
+    *)
+        echo "Cannot compile file $srcfile - unknown extension."
+        exit 2
+esac
+
+shift
+compiledfile=$CONCIEGGS_DB_DIR/compiled-cache/$(basename "$srcfile" | sed 's/\.[^.]*$//')
+
+if [ "$compiledfile" -nt "$srcfile" ]; then
+    "$compiledfile" "$@"
+else
+    mkdir -p "$CONCIEGGS_DB_DIR/compiled-cache"
+    (cd "$CONCIEGGS_DB_DIR/compiled-cache"
+        compile "$srcfile" "$compiledfile"
+    )
+    "$compiledfile" "$@"
+fi
