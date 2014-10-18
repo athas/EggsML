@@ -2,8 +2,8 @@
 
 set -e # Die on error
 
-if [ $# -ne 1 ]; then
-    echo "Usage: $0 <srcfile>"
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 <srcfile> [args...]"
     exit 1
 fi
 
