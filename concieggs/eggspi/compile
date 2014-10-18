@@ -33,7 +33,8 @@ case $srcfile in
         ;;
     *pas)
         compile() {
-            fpc $1 2> /dev/null > /dev/null
+            fpc $1 -o"$2" 2> /dev/null > /dev/null
+            rm "$(echo "$1" | sed 's/\.pas/\.o/')"
         }
         ;;
     *)
