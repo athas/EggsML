@@ -33,7 +33,7 @@ case $srcfile in
         ;;
     *pas)
         compile() {
-            fpc $1
+            fpc $1 2> /dev/null > /dev/null
         }
         ;;
     *)
