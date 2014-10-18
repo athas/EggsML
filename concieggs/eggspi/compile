@@ -28,13 +28,11 @@ case $srcfile in
     *sml)
         compile() {
             mosmlc -P full -toplevel -o $2 $1
-            rm "$(echo "$1" | sed 's/\.sml/\.ui/')" "$(echo "$1" | sed 's/\.sml/\.uo/')"
         }
         ;;
     *pas)
         compile() {
             fpc $1 -o"$2" 2> /dev/null > /dev/null
-            rm "$(echo "$1" | sed 's/\.pas/\.o/')"
         }
         ;;
     *)
@@ -48,9 +46,16 @@ compiledfile=$CONCIEGGS_DB_DIR/compiled-cache/$(basename "$srcfile" | sed 's/\.[
 if [ "$compiledfile" -nt "$srcfile" ]; then
     "$compiledfile" "$@"
 else
+    compiledir="$(mktemp -d)"
+    cp "$srcfile" "$compiledir"
+    srcfile="$compiledir/$(basename "$srcfile")"
+
     mkdir -p "$CONCIEGGS_DB_DIR/compiled-cache"
     (cd "$CONCIEGGS_DB_DIR/compiled-cache"
         compile "$srcfile" "$compiledfile"
     )
+
+    rm -r "$compiledir"
+
     "$compiledfile" "$@"
 fi
