@@ -3,12 +3,17 @@ use 5.012;
 use warnings;
 use utf8::all;
 
+use Encode;
 use Text::SpellChecker;
 
 use Env qw/EGGS_USER/;
 
 my $last = `dbUserRead "$EGGS_USER" lastmsg`;
 $last //= `dbRead "strangers/$EGGS_USER" lastmsg`;
+
+chomp $last;
+
+$last = encode('cp1252', $last);
 
 my $quiet = $ARGV[0] && $ARGV[0] eq "-q";
 
@@ -26,7 +31,7 @@ if ($last) {
         }
     }
     if ($checker->text ne $last) {
-        printf("Rettet: <%s> %s\n", $EGGS_USER, $checker->text);
+        printf("Rettet: <%s> %s\n", $EGGS_USER, decode('cp1252', $last));
     } else {
         print "$EGGS_USER: Det ser da fint ud.\n" unless $quiet;
     }
