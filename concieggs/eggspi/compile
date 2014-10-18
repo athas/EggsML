@@ -25,6 +25,12 @@ case $srcfile in
             gcc $1 -o $2
         }
         ;;
+    *sml)
+        compile() {
+            mosmlc -P full -toplevel -o $2 $1
+            rm "$(echo "$1" | sed 's/\.sml/\.ui/')" "$(echo "$1" | sed 's/\.sml/\.uo/')"
+        }
+        ;;
     *)
         echo "Cannot compile file $srcfile - unknown extension."
         exit 2
