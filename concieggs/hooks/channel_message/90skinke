@@ -2,7 +2,7 @@
 
 (notOnEggsChannel || shuttingUp) && exit
 
-maybeGood .05 || exit
+maybeGood .02 || exit
 
 echo "$EGGS_BODY" | grep -q '^concieggs[:,] ' && exit
 
