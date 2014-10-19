@@ -10,4 +10,7 @@ else
     prog="$1"
     shift
 fi
-echo "$prog" | $EGGS_LIB_DIR/eggsbf "$*" | cat -v
+progfile=$(mktemp) || exit 1
+echo "$prog" > $progfile
+echo "$@" | bf "$progfile" | cat -v
+rm -f $progfile
