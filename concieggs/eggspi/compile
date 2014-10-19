@@ -51,11 +51,12 @@ else
     srcfile="$compiledir/$(basename "$srcfile")"
 
     mkdir -p "$CONCIEGGS_DB_DIR/compiled-cache"
-    (cd "$CONCIEGGS_DB_DIR/compiled-cache"
-        compile "$srcfile" "$compiledfile"
-    )
-
-    rm -r "$compiledir"
-
-    "$compiledfile" "$@"
+    if (cd "$CONCIEGGS_DB_DIR/compiled-cache";
+            compile "$srcfile" "$compiledfile"); then
+        rm -r "$compiledir"
+        "$compiledfile" "$@"
+    else
+        rm -r "$compiledir"
+        exit 1
+    fi
 fi
