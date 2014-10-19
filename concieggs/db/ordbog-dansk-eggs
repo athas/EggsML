@@ -2,4 +2,4 @@
 '\bx\b' 'eggs'
 'ex' 'eggs'
 '\bfx\b' 'f.eggs.'
-'æg' 'egg'
+'ægg?' 'egg'
