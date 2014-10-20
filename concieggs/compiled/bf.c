@@ -166,6 +166,10 @@ instruction* read_program(size_t *size, FILE* input) {
       (*size)++;
       break;
     case INSTR_ENDLOOP:
+      if (loopstacksize == 0) {
+        fprintf(stderr, "Missing open bracket.\n");
+        exit(1);
+      }
       start = loopstack[--loopstacksize];
       code[start] = generate(INSTR_LOOP, *size-start);
       code[*size] = generate(current, *size-start);
@@ -177,6 +181,10 @@ instruction* read_program(size_t *size, FILE* input) {
       (*size)++;
       break;
     }
+  }
+  if (loopstacksize != 0) {
+    fprintf(stderr, "Missing close bracket.\n");
+    exit(1);
   }
   if (constructing != INSTR_NONE) {
     code[*size] = generate(constructing, constructing_arg);
@@ -211,7 +219,7 @@ int main(int argc, char** argv) {
   while (codep < code + size) {
     step(&datap, &codep);
     if (executed++ > 10000) {
-      printf("Eggceeded maximum eggsecution time.\n");
+      fprintf(stderr, "Eggceeded maximum eggsecution time.\n");
       exit(1);
     }
   }
