@@ -42,6 +42,7 @@ static inline int instr_arg(instruction instr) {
 static inline void step(byte **datap, instruction **codep) {
   int type = instr_type(**codep);
   int arg = instr_arg(**codep);
+  int c;
   switch (type) {
   case INSTR_ADD:
     **datap += arg;
@@ -80,7 +81,12 @@ static inline void step(byte **datap, instruction **codep) {
     (*codep)++;
     break;
   case INSTR_INPUT:
-    **datap = getchar();
+    c = getchar();
+    if (c == EOF) {
+      **datap = 0;
+    } else {
+      **datap = c;
+    }
     (*codep)++;
     break;
   default:
