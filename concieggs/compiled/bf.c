@@ -207,8 +207,13 @@ int main(int argc, char** argv) {
   memset(data, 0, DATASIZE);
   instruction *codep = code;
   byte *datap = data;
+  int executed = 0;
   while (codep < code + size) {
     step(&datap, &codep);
+    if (executed++ > 10000) {
+      printf("Eggceeded maximum eggsecution time.\n");
+      exit(1);
+    }
   }
   return 0;
 }
