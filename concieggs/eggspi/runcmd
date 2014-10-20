@@ -10,14 +10,15 @@ run() {
     shift
     shift
 
-    case "$cmd" in
+    (case "$cmd" in
         er|hvem|hvad|hvor|har*)
             "$acmd" $(echo "$@" | sed 's/\?*$//')
             ;;
         *)
             "$acmd" "$@"
             ;;
-    esac || broke
+    esac | awk '{print}') || broke
+    # Hack: use awk to newline-terminate.
 }
 
 if [ "$1" = -a ]; then
