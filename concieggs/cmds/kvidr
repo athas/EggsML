@@ -15,4 +15,4 @@ if ! [ "$auth" ]; then
     exit 0
 fi
 
-echo "$*" | kvidr > $CONCIEGGS_IRC_DIR/$irc_channel/in
+echo "$*" | kvidr > $CONCIEGGS_IRC_DIR/$(ircChannel)/in
