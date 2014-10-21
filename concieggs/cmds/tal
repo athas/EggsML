@@ -3,7 +3,9 @@
 # Giv concieggs frihed til igen at deltage i kanaldiskursen på lige
 # fod med logebrødrene.
 
-if ! shuttingUp; then
+if maybeGood 0.1; then
+    echo "$EGGS_USER: $RANDOM"
+elsif ! shuttingUp; then
     echo "$EGGS_USER: Jamen naturligvis - hvorfor skulle andet være tilfældet?"
 else
     echo "$EGGS_USER: $(ack)  Jeg vil notere mig, at mine påfund igen er ønskede."
