@@ -9,5 +9,5 @@ else
     if ! [ "$count" ]; then
         count=1
     fi
-    rawWish "$what" "$count"
+    rawWish "$count" "$what"
 fi
