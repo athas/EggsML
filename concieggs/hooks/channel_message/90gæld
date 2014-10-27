@@ -10,6 +10,10 @@ debt=$(lookupDebt $EGGS_USER)
 
 if [ -n "$debt" ]; then
     if [ "$(echo "$debt > 150" | bc)" = 1 ]; then
-        echo "$EGGS_USER: Hvordan sover du om natten?"
+        if [ "$(random 0 3)" = 0 ]; then
+            echo "/KICK $(ircChannel) $EGGS_USER :Din gæld til frokostlogen begynder at overstige min tålmodighed!"
+        else
+            echo "$EGGS_USER: Hvordan sover du om natten?"
+        fi
     fi
 fi
