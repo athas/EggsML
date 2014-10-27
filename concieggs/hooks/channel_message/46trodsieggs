@@ -7,7 +7,7 @@
 maybeGood .4 || exit
 
 new=$(echo "$EGGS_BODY" | sed -r -e "s/[jJ]eg/JEG/i" -e "s/[Mm]in/MIN/i" |
-                          sed -r -e "s/ ikke //i" -e "s/ at/ikke &/i" -e "s/ er/& ikke/i" |
+                          sed -r -e "s/ ikke //i" -e "s/ at/ikke &/i" -e "s/r\ /& ikke\ /i" |
                           sed -r -e "s/aldrig/a¥ltid/i" -e "s/altid/a¥ldrig/i" -e "s/venner/f¥jender/i" |
                           sed -r -e "s/fjender/v¥enner/i" -e "s/¥//i"
      )
