@@ -28,9 +28,11 @@ def getDict():
 
 def setDict(Dict):
     subprocess.call(["echo \'" + json.dumps(Dict, ensure_ascii=False) + "\' | dbWrite prikkeleg"], shell=True)
-    
+
 def currentUser():
-    return os.getenv("EGGS_USER")
+    raw = os.getenv("EGGS_USER")
+    return re.sub(" [\.;,\'\"] ", "", raw)
+
 
 
 def run_main(args):
