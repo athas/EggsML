@@ -6,7 +6,11 @@
 
 maybeGood .4 || exit
 
-new=$(echo "$EGGS_BODY" | sed -r -e "s/at/ikke at/i"-e "s/er/er ikke/i") -e "s/ikke //i") 
+new=$(echo "$EGGS_BODY" | sed -r -e "s/[jJ]eg/JEG/i" -e "s/[Mm]in/MIN/i" |
+                          sed -r -e "s/ ikke //i" -e "s/ at/ikke &/i" -e "s/ er/& ikke/i" |
+                          sed -r -e "s/aldrig/a¥ltid/i" -e "s/altid/a¥ldrig/i" -e "s/venner/f¥jender/i" |
+                          sed -r -e "s/fjender/v¥enner/i" -e "s/¥//i"
+     )
 
 if [ "$new" != "$EGGS_BODY" ]; then
     echo "$new"
