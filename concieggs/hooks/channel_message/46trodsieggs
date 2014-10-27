@@ -6,7 +6,7 @@
 
 maybeGood .4 || exit
 
-new=$(echo "$EGGS_BODY" | sed -r -e "s/at/ikke at/i" -e "s/ikke //i")
+new=$(echo "$EGGS_BODY" | sed -r -e "s/at/ikke at/i"-e "s/er/er ikke/i") -e "s/ikke //i") 
 
 if [ "$new" != "$EGGS_BODY" ]; then
     echo "$new"
