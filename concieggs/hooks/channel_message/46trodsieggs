@@ -6,11 +6,25 @@
 
 maybeGood .3 || exit
 
-new=$(echo "$EGGS_BODY" | sed -r -e "s/[\ ^]?[jJ]eg\ /JEG\ /i" -e "s/[\ ^]?[Mm]in\ /MIN\ /i" -e "s/\ intet/\ a¥lt/i" -e "s/\ alt/\ i¥ntet/i" |
-                          sed -r -e "s/\ ikke//i" -e "s/\ at\ [a-åA-Å]+/&\ ikke/i" -e "s/r\ [a-åA-Å]+/&\ ikke/i" |
-                          sed -r -e "s/aldrig/a¥ltid/i" -e "s/altid/a¥ldrig/i" -e "s/venner/f¥jender/i" |
-                          sed -r -e "s/fjender/v¥enner/i" -e "s/¥//i"
-     )
+rules=$(cat <<'EOF'
+    s/\bjeg\b/JEG/ig;
+    s/\bmin\b/MIN\ /ig;
+    s/\bintet\b/a¥lt/ig;
+    s/\balt\b/i¥ntet/ig;
+    s/\sikke\s/ /ig;
+    s/\sikke//ig;
+    s/(at \w+)/\1 ikke/ig;
+    s/(r\ \w+)/\1 ikke/ig;
+    s/\baldrig\b/a¥ltid/ig;
+    s/altid/a¥ldrig/ig;
+    s/venner/f¥jender/ig;
+    s/fjender/v¥enner/ig;
+    s/¥//ig;
+    print;
+EOF
+)
+
+new=$(echo "$EGGS_BODY" | perl -Mutf8::all -ne "$rules")
 
 if [ "$new" != "$EGGS_BODY" ]; then
     echo "$new"
