@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# Vær på tværs.
+
+(notOnEggsChannel || shuttingUp) && exit
+
+maybeGood .3 || exit
+
+new=$(echo "$EGGS_BODY" | sed -r -e "s/^?[jJ]eg\ /JEG\ /i" -e "s/\^?[Mm]in\ /MIN\ /i" -e "s/\ intet/\ a¥lt/i" -e "s/\ alt/\ i¥ntet/i" |
+                          sed -r -e "s/\ ikke/\ /i" -e "s/\ at\ [a-åA-Å]+/&\ ikke/i" -e "s/r\ [a-åA-Å]+/&\ ikke/i" |
+                          sed -r -e "s/aldrig/a¥ltid/i" -e "s/altid/a¥ldrig/i" -e "s/venner/f¥jender/i" |
+                          sed -r -e "s/fjender/v¥enner/i" -e "s/¥//i"
+     )
+
+if [ "$new" != "$EGGS_BODY" ]; then
+    echo "$new"
+fi
