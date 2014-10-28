@@ -9,6 +9,7 @@ import (
 func main() {
 	rand.Seed(time.Now().Unix())
 	remarks := []string{
+		"Præcist",
 		"Genau",
 		"Mais oui",
 		"Exactly",
