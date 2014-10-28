@@ -2,7 +2,7 @@
 #
 # Vær på tværs.
 
-(notOnEggsChannel || shuttingUp) && exit
+shuttingUp && exit
 
 maybeGood .4 || exit
 
