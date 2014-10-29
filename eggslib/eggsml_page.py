@@ -14,6 +14,7 @@ class eggsml_page:
         for a in al:
             l += '<li>'
             w = random.randint(0, len(a)-1)
+            random.shuffle(a)
             i = 0
             t = ''
             for an in a:
