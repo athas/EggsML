@@ -25,12 +25,15 @@ func main() {
 		fmt.Println("Øv.  Jeg fik noget lort tilbage.")
 		return
 	}
-	reg, _ := regexp.Compile("\\{\\{noflag\\}\\}.?Total: ([0-9,]+) / ([0-9,]+)")
+	reg, _ := regexp.Compile("\\{\\{noflag\\}\\}.?'?'?'?Total: ([0-9,]+) / ([0-9,]+)")
 	if reg == nil {
 		fmt.Println("Nå.  Der er ingen tal.")
 		return
 	}
 	res := reg.FindAllSubmatch(body, -1)
+	if len(res) < 1 {
+		fmt.Println("Nå.  Der var ingen tal.")
+	}
 	cases, err := strconv.Atoi(bytes.NewBuffer(bytes.Replace(res[0][1], []byte(","), []byte(""), -1)).String())
 	if err != nil {
 		fmt.Println("Katastrofe!  Tallene er i udu.")
