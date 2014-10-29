@@ -7,6 +7,8 @@ import (
 	"regexp"
 	"strconv"
 	"bytes"
+	"math/rand"
+	"time"
 )
 
 const (
@@ -45,5 +47,11 @@ func main() {
 		return
 	}
 	fmt.Printf("Ebola har indtil nu smittet %d og slået %d ihjel siden december 2013.\n", cases, deaths)
-	fmt.Println("Du kan hjælpe ved at tage til Guinea, Liberia eller Sierra Leone og røre ved nogle mennesker.")
+	countries := []string{
+		"Guinea",
+		"Liberia",
+		"Sierra Leone",
+	}
+	rand.Seed(time.Now().Unix())
+	fmt.Printf("Du kan hjælpe ved at tage til %s og røre ved nogle mennesker.\n", countries[rand.Intn(len(countries))])
 }
