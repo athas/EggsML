@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+# Hvor langt er Perl kommet?
+
+count=$(grep perl -l -R $CONCIEGGS_DIR/eggspi $CONCIEGGS_DIR/hooks $CONCIEGGS_DIR/cmds | wc -l)
+
+echo "Perl har indtil videre inficeret $count af mine programfiler."
+echo "Du kan hjælpe ved at gå ind i cmds/, eggspi/ eller hooks/ og kode noget linjestøj."
