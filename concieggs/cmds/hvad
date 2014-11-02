@@ -3,18 +3,46 @@
 # Spørg om din gæld til frokostkassen, eller få hjælp til diverse
 # personlighedsfremmende gøremål.
 
+eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|(?<time>er klokken)$|(?<missing>mangler jeg)$|(?<wtf>hulen)$|(?<meaning>mener (?<who>[^ ]+) med (?<what>[^ ]+)$)')"
 
-if [ $# -eq 2 -a "$1" = "skylder" -a '(' "$2" = "jeg" -o "$2" = "jeg?" ')' ]; then
-    user=$EGGS_USER
-elif [ $# -eq 2 -a "$1" = "skylder" ]; then
-    user=$2
-elif [ "$*" = "er klokken" ]; then # påskeæg
-    date +%H:%M:%S
-    exit
-elif [ "$*" = "mangler jeg" ]; then # påskeæg++
+if [ "$debtor" ]; then
+    if [ "$debtor" = "jeg" ]; then
+        alias=$(randomName "$EGGS_USER")
+    else
+        alias=$(randomName "$debtor")
+    fi
+    if [ ! "$alias" ]; then
+        echo "Jeg kender ikke $user."
+        exit
+    fi
+
+    debt="$(lookupDebt "$alias")"
+
+    if [ "$debt" ]; then
+        if [ "$(echo "$debt" | grep "-")" ]; then
+            echo "$alias har $(echo $debt | sed 's/-//') kr. til gode i frokostkassen!"
+        else
+            wish=$(eggstool wishes | randomElement)
+            echo -n "$alias skylder $debt kr. til frokostkassen!  "
+            if [ "$wish" ]; then
+                if [ "$debtor" = jeg ]; then
+                    echo -n "Du "
+                else
+                    echo -n "Vedkommende "
+                fi
+                echo "kunne overveje at købe $wish."
+            else
+                echo
+            fi
+        fi
+    else
+        echo "Fejl ved beregning af gæld for $user"
+    fi
+elif [ "$time" ]; then
+    echo "Den store viser peger på $(date +%H), den lille på $(date +%M), og den helt lille på $(date +%S)."
+elif [ "$missing" ]; then
     echo "Du mangler $(randomElement < "$CONCIEGGS_DB_DIR/ordbog-dansk-navneord")!"
-    exit
-elif [ "$*" = "hulen" ]; then
+elif [ "$wtf" ]; then
     behaviour=$(dbRead outfilter_command)
     user_behaviour=$(dbRead "outfilter_command_$EGGS_USER")
     channel_behaviour=$(dbRead "outfilter_command_$(ircChannel)")
@@ -38,36 +66,31 @@ elif [ "$*" = "hulen" ]; then
         echo "$EGGS_USER: Hvad er det helt præcist, der forvirrer dig?  Min adfærd er ganske konventionel."
     fi
     exit
-else
-    echo "Brug: hvad skylder [navn|jeg]"
-    exit
-fi
-
-alias=$(randomName "$user")
-if [ ! "$alias" ]; then
-    echo "Jeg kender ikke $user"
-    exit
-fi
-
-debt="$(lookupDebt "$user")"
-
-if [ "$debt" ]; then
-    if [ "$(echo "$debt" | grep "-")" ]; then
-        echo "$alias har $(echo $debt | sed 's/-//') kr. til gode i frokostkassen!"
+elif [ "$meaning" ]; then
+    if [ "$who" = du -o "$who" = "$irc_username" ]; then
+        runcmd hjælp "$what"
     else
-        wish=$(eggstool wishes | randomElement)
-        echo -n "$alias skylder $debt kr. til frokostkassen!  "
-        if [ "$wish" ]; then
-            if [ "$2" = jeg ]; then
-                echo -n "Du "
-            else
-                echo -n "Vedkommende "
-            fi
-            echo "kunne overveje at købe $wish."
+        if [ "$who" = jeg ]; then
+            alias=$(randomName "$EGGS_USER")
         else
-            echo
+            alias=$(randomName "$who")
+        fi
+        if [ ! "$alias" ]; then
+            echo "$EGGS_USER: '$who' er ikke at finde i logeprotokollen."
+            exit
+        fi
+        cmdalias=$(cmdAlias "$alias" "$what")
+        if [ "$cmdalias" ]; then
+            if [ "$who" = jeg ]; then
+                echo "$EGGS_USER: Med '$what', regner jeg naturligvis med at du mener '$cmdalias'."
+            else
+                echo "$EGGS_USER: Skulle $alias ytre '$what', så antager jeg naturligvis at han mener '$cmdalias'."
+            fi
+        else
+            echo "$EGGS_USER: Ganske som det står skrevet."
         fi
     fi
 else
-    echo "Fejl ved beregning af gæld for $user"
+    echo "Brug: hvad skylder [navn|jeg] (eller et andet spørgsmål)"
+    exit
 fi
