@@ -27,7 +27,7 @@ func main() {
 		fmt.Println("Øv.  Jeg fik noget lort tilbage.")
 		return
 	}
-	reg, _ := regexp.Compile("\\{\\{noflag\\}\\}.?'?'?'?Total: ([0-9,]+) / ([0-9,]+)")
+	reg, _ := regexp.Compile("Total !! ([0-9,]+) !! ([0-9,]+)")
 	if reg == nil {
 		fmt.Println("Nå.  Der er ingen tal.")
 		return
