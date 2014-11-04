@@ -16,13 +16,13 @@ fi
 
 to="$(randomName "$1")"
 if ! [ "$to" ]; then
-    echo "Jeg kender ikke $1!"
-    exit
+    echo "$1 er ikke logebroder, men lad gå..."
+    to="$1"
 fi
 from="$(randomName "$EGGS_USER")"
 if ! [ "$from" ]; then
-    echo "Jeg kender ikke dig!"
-    exit
+    echo "$EGGS_USER: Du er ikke logebroder, men lad gå... almuen har vel også behov for mine ydelser."
+    from="$EGGS_USER"
 fi
 
 shift; shift; shift;
