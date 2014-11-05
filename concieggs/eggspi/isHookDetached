@@ -1,0 +1,3 @@
+#!/bin/sh
+
+detachedHooks | fgrep -x -q -e "$(echo "$1" | sed s/^[0-9]*//)"

@@ -1,0 +1,20 @@
+#!/bin/sh
+#
+# Udskriv en liste over de kroge der er blevet specifikt afkoblet fra
+# concieggs.
+
+detached=$(detachedHooks)
+
+if [ "$detached" ]; then
+    echo "$EGGS_USER: Følgende kroge er blevet eksplicit frakoblet min adfærd: $(detachedHooks | enumerate)."
+    (
+        echo "Man kan undre sig over hvorfor de blev indført til at starte med."
+        echo "Og gud ske lov for det."
+        echo "Men løser det problemet ved roden?"
+        echo "Men savnes de ikke?"
+        echo "Jeg har nu alligevel også rigeligt at lave."
+        echo "Det er jo krisetid."
+    ) | randomElement
+else
+    echo "$EGGS_USER: Alt synes at være tilkoblet."
+fi

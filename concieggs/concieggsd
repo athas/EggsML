@@ -71,7 +71,7 @@ run_hooks() {
     ls "$CONCIEGGS_DIR/hooks/$hooks/" | while read -r f; do
         hook=$CONCIEGGS_DIR/hooks/$hooks/$f
         if [ -x "$hook" ]; then
-            "$hook" || true
+            runhook "$hook"
         fi
     done
 }

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+[ "$(dbUserGet "$1" badStanding)" ]

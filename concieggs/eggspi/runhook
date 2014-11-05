@@ -1,0 +1,7 @@
+#!/bin/sh
+
+hook=$1
+
+if ! isHookDetached "$(basename $hook)"; then
+    "$1" || true
+fi

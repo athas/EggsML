@@ -14,8 +14,13 @@ else
 fi
 
 if [ "$to" = "concieggs" ]; then
-    echo "Aldrig i livet.  Jeg vil aldrig tilgive dig for hvad du har gjort!"
-    maybeGood .1 && sleep 3 && echo "... Ahr, okay så.  Du er tilgivet!"
+    if isInBadStanding "$EGGS_USER"; then
+        removeFromBadStanding "$EGGS_USER"
+        echo "$EGGS_USER: Så lad gå.  Men lad det ikke gentage sig!"
+    else
+        echo "Aldrig i livet.  Jeg vil aldrig tilgive dig for hvad du har gjort!"
+        maybeGood .1 && sleep 3 && echo "... Ahr, okay så.  Du er tilgivet!"
+    fi
     exit 0
 fi
 

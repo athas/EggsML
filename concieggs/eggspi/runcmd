@@ -4,6 +4,16 @@ broke() {
     echo "Kommandoen fejlede!  Du kan prøve at spørge mig om 'udu', men det hjælper næsten helt sikkert ikke."
 }
 
+
+fakebroke() {
+    echo "Arh... $EGGS_USER, noget gik galt, du må hellere prøve igen";
+    echo "Hm, jeg ved sgu ikke lige, men den gik ikke... prøv igen, $EGGS_USER";
+    echo "$EGGS_USER: Intern, nondeterministisk fejl.  Kør kommandoen igen.";
+    echo "$EGGS_USER: Noget gik galt.  Kør kommandoen igen.";
+    echo "Noget knækkede under kørsel af kommandoen, $EGGS_USER.  Det kan være det virker, hvis du prøver igen.";
+    echo
+}
+
 run() {
     cmd="$1"
     acmd="$2"
@@ -32,6 +42,14 @@ cmd="$(basename -- "$rawcmd")"
 cmd="$(echo "$cmd" | sed 's/,$//')"
 cmddir=$CONCIEGGS_DIR/cmds
 shift
+
+if isInBadStanding "$EGGS_USER"; then
+    ex=$(fakebroke | randomise | head -n 1)
+    if [ "$ex" ]; then
+        echo "$ex"
+        exit
+    fi
+fi
 
 alias="$(cmdAlias "$EGGS_USER" "$cmd")"
 if [ "$alias" ]; then

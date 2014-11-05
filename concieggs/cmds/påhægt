@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# Påhægt en af concieggs's kroge.
+
+if [ $# -ne 1 ]; then
+    echo "Brug: $0 <krog>"
+else
+    if ! [ "$(aliases "$EGGS_USER")" ]; then
+        echo "$EGGS_USER: Beklager, denne kommando er kun for logemedlemmer."
+        exit
+    fi
+    hook=$1
+    if isHookDetached "$hook"; then
+        undetachHook "$hook"
+        echo "$(ack)  Jeg vil igen følge de anvisninger der evt. måtte optræde under '$hook'."
+    else
+        echo "$EGGS_USER: $hook er skam allerede påhægtet."
+    fi
+fi
