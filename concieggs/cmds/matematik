@@ -1,0 +1,9 @@
+#!/usr/bin/env fast
+#
+# Lad concieggs hjælpe dig ind i de matematiske funktioners magiske verden!
+
+class Main {
+  new (arg) {
+    arg.printLn();
+  }
+}
