@@ -9,7 +9,7 @@ maybeGood .05 || exit
 debt=$(lookupDebt $EGGS_USER)
 
 if [ -n "$debt" ]; then
-    if [ "$(echo "$debt > 150" | bc)" = 1 ]; then
+    if [ "$(echo "$debt > 25" | bc)" = 1 ]; then
         if [ "$(random 0 3)" = 0 ]; then
             echo "/KICK $(ircChannel) $EGGS_USER :Din gæld til frokostlogen begynder at overstige min tålmodighed!"
         else
