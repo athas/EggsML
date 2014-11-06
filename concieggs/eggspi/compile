@@ -35,6 +35,11 @@ case $srcfile in
             fpc $1 -o"$2" 2> /dev/null > /dev/null
         }
         ;;
+    *hs)
+        compile() {
+            ghc "$1" -o "$2" -i"$CONCIEGGS_DIR/compiled" >&2
+        }
+        ;;
     *)
         echo "Cannot compile file $srcfile - unknown extension."
         exit 2
