@@ -2,8 +2,83 @@
 #
 # Lad concieggs hjælpe dig ind i de matematiske funktioners magiske verden!
 
+class Fact {
+  setProxy (proxy) {
+    set self.proxy = proxy;
+  }
+  eval (n) {
+    match n {
+      0 -> { 1; }
+      x -> { n * self.proxy.eval(n-1); }
+    };
+  }
+}
+
+class Fib {
+  setProxy (proxy) {
+    set self.proxy = proxy;
+  }
+  eval (n) {
+    match n {
+      0 -> { 1; }
+      1 -> { 1; }
+      x -> { self.proxy.eval(n-1) + self.proxy.eval(n-2); }
+    };
+  }
+}
+
+class NoFun {
+  setProxy (proxy) {
+  }
+  eval (n) {
+    "Jeg forstår ikke hvad jeg er blevet spurgt om.".printLn();
+  }
+}
+
+class Proxy {
+  new (c, log) {
+    set self.receiver = c;
+    set self.log = log;
+  }
+
+  receive (msg) {
+    match self.log {
+      true() -> {
+        msg.print();
+        ", ".print();
+      }
+    };
+    send(self.receiver, msg);
+  }
+}
+
 class Main {
-  new (arg) {
-    arg.printLn();
+  new (args) {
+    set self.fun = new NoFun();
+    set self.arg = 0;
+    self.parseArgs(args);
+    set self.proxy = new Proxy(self.fun, true());
+    self.fun.setProxy(self.proxy);
+    set result = self.run();
+    "resultat: ".print();
+    result.printLn();
+  }
+  parseArgs (args) {
+    match args {
+      args(fname, n) -> {
+        match fname {
+          "fact" -> { set self.fun = new Fact(); }
+          "fib" -> { set self.fun = new Fib(); }
+          x -> {
+            fname.print();
+            "?  Hvad er det for en funktion?".printLn();
+          }
+        };
+      set self.arg = n.toInt();
+      }
+    };
+  }
+  run () {
+    self.proxy.eval(self.arg);
   }
 }
