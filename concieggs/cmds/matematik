@@ -32,7 +32,7 @@ class Incrementer {
     set self.proxy = proxy;
   }
   eval (n) {
-    n + 1
+    n + 1;
   }
 }
 
