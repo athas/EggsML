@@ -1,0 +1,52 @@
+#!/bin/sh
+#
+# Påmind om gæld ved stor gæld
+
+(notOnEggsChannel || shuttingUp) && exit
+
+maybeGood .05 || exit
+
+debt=$(lookupDebt $EGGS_USER)
+
+if [ -n "$debt" ]; then
+    if [ "$(echo "$debt < -100 " | bc)" = 1 ]; then
+        echo "$EGGS_USER: $opfordring"
+    fi
+fi
+
+
+opfordring=`randomElement <<EOF
+Brug nu dine $penge, EggsML er jo ikke $nederen!
+Brug nu dine $penge, inden inflationen kommer!
+SPIS NU MED!
+Den der gemmer sine $penge til natten, gemmer til katten!
+Kunne jeg ikke friste med en spontan Eggs?
+Eggs mig nu!
+Eggs mig, Eggs mig, Eggs mig!
+...Eggs?
+EOF`
+
+nederen=`randomElement <<EOF
+en investeringsbank (genindfør Glass-Steagall nu!)
+din børneopsparing
+komplet uden din deltagelse ved det ærede frokostbord
+blot et skjul du kan gemme dine $konserves i
+EOF`
+
+penge=`randomElement <<EOF
+klejner
+kontanter
+skejser
+gysser
+moneter
+aktiver
+penge
+Hellige Bitcoins
+EOF`
+
+konserves=`randomElement <<EOF
+torskerogn
+makrel
+kippers
+kapers
+EOF`
