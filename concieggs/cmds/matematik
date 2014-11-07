@@ -27,6 +27,15 @@ class Fib {
   }
 }
 
+class Incrementer {
+  setProxy (proxy) {
+    set self.proxy = proxy;
+  }
+  eval (n) {
+    n + 1
+  }
+}
+
 class NoFun {
   setProxy (proxy) {
   }
@@ -69,6 +78,7 @@ class Main {
         match fname {
           "fact" -> { set self.fun = new Fact(); }
           "fib" -> { set self.fun = new Fib(); }
+          "incr" -> { set self.fun = new Incrementer(); }
           x -> {
             fname.print();
             "?  Hvad er det for en funktion?".printLn();
