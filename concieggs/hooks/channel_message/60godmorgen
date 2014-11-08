@@ -34,9 +34,19 @@ set latereplies {
     "Jeg tror også at jeg tager en eftermiddagslur."
 }
 
+set kingreplies {
+    "Godmorgen, deres majestæt."
+    "Kongen er vågen!"
+    "Hil dem!"
+}
+
 if {[regexp -nocase {^(g(?:o?'?|od)?)?[ \t]*m[oå](?:rn|rgen)} $text {} g]} {
     if {$g != ""}          {set replies [concat $replies $goodreplies]}
     if {$t > 13}           {set replies [concat $replies $latereplies]}
     if {$t > 6 && $t < 13} {set replies [concat $replies $earlyreplies]}
+    set status [catch {exec isKing "$nick"} result]
+    if {$status == 0} {
+        set replies $kingreplies
+    }
     puts "$nick: [lindex $replies [expr {int(rand()*[llength $replies])}]]"
 }
