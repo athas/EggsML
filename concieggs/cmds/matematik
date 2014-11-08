@@ -1,6 +1,7 @@
 #!/usr/bin/env fast
 #
-# Lad concieggs hjælpe dig ind i de matematiske funktioners magiske verden!
+# Lad concieggs hjælpe dig ind i de matematiske funktioners og operatorers
+# magiske verden!
 
 class Fact {
   setProxy (proxy) {
@@ -36,10 +37,46 @@ class Incrementer {
   }
 }
 
+class Plus {
+  setProxy (proxy) {
+    set self.proxy = proxy;
+  }
+  eval (m, n) {
+    m + n;
+  }
+}
+
+class Minus {
+  setProxy (proxy) {
+    set self.proxy = proxy;
+  }
+  eval (m, n) {
+    m - n;
+  }
+}
+
+class Times {
+  setProxy (proxy) {
+    set self.proxy = proxy;
+  }
+  eval (m, n) {
+    m * n;
+  }
+}
+
+class Divide {
+  setProxy (proxy) {
+    set self.proxy = proxy;
+  }
+  eval (m, n) {
+    m / n;
+  }
+}
+
 class NoFun {
   setProxy (proxy) {
   }
-  eval (n) {
+  eval (x) {
     "Jeg forstår ikke hvad jeg er blevet spurgt om.".printLn();
   }
 }
@@ -64,7 +101,7 @@ class Proxy {
 class Main {
   new (args) {
     set self.fun = new NoFun();
-    set self.arg = 0;
+    set self.args = args(0);
     self.parseArgs(args);
     set self.proxy = new Proxy(self.fun, true());
     self.fun.setProxy(self.proxy);
@@ -72,6 +109,7 @@ class Main {
     "resultat: ".print();
     result.printLn();
   }
+
   parseArgs (args) {
     match args {
       args(fname, n) -> {
@@ -84,11 +122,29 @@ class Main {
             "?  Hvad er det for en funktion?".printLn();
           }
         };
-      set self.arg = n.toInt();
+      set self.args = args(n.toInt());
+      }
+      args(m, op, n) -> {
+        match op {
+          "+" -> { set self.fun = new Plus(); }
+          "-" -> { set self.fun = new Minus(); }
+          "*" -> { set self.fun = new Times(); }
+          "/" -> { set self.fun = new Divide(); }
+          x -> {
+            op.print();
+            "?  Sikken mystisk operator!".printLn();
+          }
+        };
+      set self.args = args(m.toInt(), n.toInt());
       }
     };
   }
+
   run () {
-    self.proxy.eval(self.arg);
+    match self.args {
+      args(n) -> { self.proxy.eval(n); }
+      args(m, n) -> { self.proxy.eval(m, n); }
+      x -> { "Nej du, så mange argumenter virker unaturligt!".printLn(); }
+    };
   }
 }
