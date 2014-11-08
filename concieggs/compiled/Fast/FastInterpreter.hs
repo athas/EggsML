@@ -294,7 +294,15 @@ evalExpr Self = do
   return $ ReferenceValue me
 evalExpr (Plus e1 e2) = evalArithOp (+) e1 e2
 evalExpr (Minus e1 e2) = evalArithOp (-) e1 e2
-evalExpr (DividedBy e1 e2) = evalArithOp div e1 e2
+evalExpr (DividedBy e1 e2) = do
+  v1 <- evalExpr e1
+  v2 <- evalExpr e2
+  case (v1, v2) of
+    (IntValue x, IntValue y)
+      | y == 0    -> fail "Division by zero"
+      | otherwise -> return $ IntValue $ x `div` y
+    _ ->
+      fail "Wrong types of arguments to division"
 evalExpr (Times e1 e2) = evalArithOp (*) e1 e2
 evalExpr (Return e) = do
   v <- evalExpr e
