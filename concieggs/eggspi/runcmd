@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -f # Disable globbing.
+
 broke() {
     echo "Kommandoen fejlede!  Du kan prøve at spørge mig om 'udu', men det hjælper næsten helt sikkert ikke."
 }
