@@ -73,6 +73,34 @@ class Divide {
   }
 }
 
+class Power {
+  setProxy (proxy) {
+    set self.proxy = proxy;
+  }
+  eval (m, n) {
+    match n {
+      0 -> { 1; }
+      x -> {
+        match self.even(n) {
+          true() -> {
+            set x = self.proxy.eval(m, n / 2);
+            x * x;
+          }
+          false() -> {
+            self.proxy.eval(m, n - 1) * m;
+          }
+        };
+      }
+    };
+  }
+  even (x) {
+    match (x / 2 * 2 - x) {
+      0 -> { true(); }
+      x -> { false(); }
+    };
+  }
+}
+
 class NoFun {
   setProxy (proxy) {
   }
@@ -130,6 +158,7 @@ class Main {
           "-" -> { set self.fun = new Minus(); }
           "*" -> { set self.fun = new Times(); }
           "/" -> { set self.fun = new Divide(); }
+          "**" -> { set self.fun = new Power(); }
           x -> {
             op.print();
             "?  Sikken mystisk operator!".printLn();
