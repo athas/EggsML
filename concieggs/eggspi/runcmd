@@ -13,6 +13,10 @@ fakebroke() {
     echo "$EGGS_USER: Intern, nondeterministisk fejl.  Kør kommandoen igen.";
     echo "$EGGS_USER: Noget gik galt.  Kør kommandoen igen.";
     echo "Noget knækkede under kørsel af kommandoen, $EGGS_USER.  Det kan være det virker, hvis du prøver igen.";
+    echo "$EGGS_USER: Øøøøøh, der er vist en syntaksfejl i et shell script eller noget."
+    echo "$EGGS_USER: Hmmm... prøv engang til."
+    echo "$EGGS_USER: Jeg tror ikke det virkede."
+    echo "$EGGS_USER: Undskyld, jeg hørte ikke efter, gider du lige gentage det?"
     echo
 }
 
