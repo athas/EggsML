@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo jackass
+putInBadStanding $EGGS_USER
