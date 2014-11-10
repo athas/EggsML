@@ -4,9 +4,9 @@
 # at benytte komplette sætninger!  Alternativt, spørg hvem der skal
 # købe ind eller hvem der har en ting.
 
-eval "$(echo "$@" | parse 'er (?<user>[^ ]+)$|(?<buy>(køber ind|skal købe ind|handler|skal handle ind))|har (?<thing>[^ ]+)|(?<king>kongen? af #?[Ee]ggs[Mm][Ll])')"
+eval "$(echo "$@" | parse 'er (?<king>kongen?( (af|på) #?[Ee]ggs[Mm][Ll])?|(?<user>[^ ]+))$|(?<buy>(køber ind|skal købe ind|handler|skal handle ind))|har (?<thing>[^ ]+)')"
 
-if [ "$king" ]; then
+if [ "$king" ] && ! [ "$user" ]; then
     kingname="$(dbRead eggsking)"
     if [ -z "$kingname" ]; then
         echo "Der er ingen siddende konge af EggsML."
@@ -44,7 +44,7 @@ elif [ "$user" ]; then
 
     if cmpNames $user $EGGS_USER; then
         (echo "Hvem du ikke en gang hvem du selv er?"
-         echo "ALLE SAMMEN!  $EGGS_USER har glemt hvem _$(EGGS_USER)_ er!"
+         echo "ALLE SAMMEN!  $EGGS_USER har glemt hvem _"$EGGS_USER"_ er!"
          echo "Ej, gisp, jeg kan simpelthen ikke forestille mig hvem det kunne være."
          echo "..."
          echo "Tjek dit pas."
