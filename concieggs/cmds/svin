@@ -13,7 +13,7 @@ else
     exit
 fi
 
-if [ "$swine" = "$irc_username" -o "$swine" = "$irc_username" ]; then
+if [ "$swine" = "$irc_username" -o "$swine" = "dig" ]; then
     echo "$ass: Nej."
     putInBadStanding "$EGGS_USER"
     exit
