@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -f # Disable globbing.
+
 broke() {
     echo "Kommandoen fejlede!  Du kan prøve at spørge mig om 'udu', men det hjælper næsten helt sikkert ikke."
 }
@@ -11,6 +13,11 @@ fakebroke() {
     echo "$EGGS_USER: Intern, nondeterministisk fejl.  Kør kommandoen igen.";
     echo "$EGGS_USER: Noget gik galt.  Kør kommandoen igen.";
     echo "Noget knækkede under kørsel af kommandoen, $EGGS_USER.  Det kan være det virker, hvis du prøver igen.";
+    echo "$EGGS_USER: Øøøøøh, der er vist en syntaksfejl i et shell script eller noget."
+    echo "$EGGS_USER: Hmmm... prøv én gang til."
+    echo "$EGGS_USER: Jeg tror ikke det virkede."
+    echo "$EGGS_USER: Undskyld, jeg hørte ikke efter, gider du lige gentage det?"
+    echo "$EGGS_USER: Hvad i alverden... Jeg tror du må prøve igen."
     echo
 }
 

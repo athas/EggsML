@@ -18,7 +18,7 @@ elif [ "$user" ]; then
         user=$EGGS_USER
     fi
 
-    if [ $user = concieggs ]; then
+    if [ $user = concieggs -o $user = du ]; then
         echo 'Orv ja, det kunne være vildt sjovt hvis jeg skrev "JEG KENDER IKKE CONCIEGGS!"'
         sleep 2
         echo 'LOL!'
