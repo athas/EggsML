@@ -1,1 +1,9 @@
-din
+#!/bin/sh
+#
+# Optag et hæftigt skænderi med logebotten.
+
+if [ $# -eq 0 ]; then
+    echo "Min hvad?"
+else
+    echo "$EGGS_USER: Nej, $(echo $(basename "$0"|awk '{print toupper($0)}')) $(echo "$@"|sed 's/[.!?]*$//')!"
+fi

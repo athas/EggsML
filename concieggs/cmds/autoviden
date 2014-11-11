@@ -1,1 +1,46 @@
-../eggspi/autoviden
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# Modtag nyttig viden fra den danske Wikipedia.  Brug: autoviden [emne]
+
+import sys
+import os
+from functools import partial
+import itertools
+import random
+
+from eggsthon import *
+from eggsthon.url_open import request
+from eggsthon.mediawiki import get_page_urls, get_paragraphs, get_sentences
+
+base_url = 'http://da.wikipedia.org/'
+random_page_url = base_url + 'wiki/Speciel:Tilfældig_side'
+with open(CONCIEGGS_DB_DIR + '/forkortelser') as f:
+    pre_rules = filter(lambda x: x.endswith('.'), f.read().split('\n'))
+
+def complain():
+    print 'Jeg kan ikke finde viden.'
+
+def run_main(args):
+    args = map(lambda a: a.decode('utf-8', 'ignore'), args)
+    term = u' '.join(args[1:]).strip()
+    urls = get_page_urls(term, base_url) if term else [random_page_url]
+    pages = request(urls[:5])
+    if not pages:
+        return complain()
+    paragraphs = itertools.chain(*map(get_paragraphs, pages))
+    sentences = filter(lambda s: len(s) > 20 and term.lower() in s.lower(),
+                       (itertools.chain(*map(partial(get_sentences,
+                                                     pre_rules=pre_rules,
+                                                     split_regex=ur'\. *(?=[A-ZæøåÆØÅ])'),
+                                             paragraphs))))
+    try:
+        s = random.choice(sentences).strip()
+    except IndexError:
+        return complain()
+    if not (s.endswith(u'.') or s.endswith(u':')):
+        s += u'.'
+    print s.encode('utf-8')
+
+if __name__ == '__main__':
+    run_main(sys.argv)

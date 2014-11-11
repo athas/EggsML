@@ -1,7 +1,0 @@
-#!/bin/sh
-
-if isKing $1; then
-    echo -n Dem
-else
-    echo -n dig
-fi

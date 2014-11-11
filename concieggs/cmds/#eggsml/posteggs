@@ -14,7 +14,7 @@ fi
 
 auth="$(isTrusted "$EGGS_USER")"
 if ! [ "$auth" ]; then
-    echo "$EGGS_USER: Det har $(sayDu $EGGS_USER) på ingen måde bemyndigelse til."
+    echo "$EGGS_USER: Det har $(du $EGGS_USER) på ingen måde bemyndigelse til."
     exit
 fi
 

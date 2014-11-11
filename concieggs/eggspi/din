@@ -1,1 +1,7 @@
-Din
+#!/bin/sh
+
+if isKing $1; then
+    echo -n Deres
+else
+    echo -n din
+fi

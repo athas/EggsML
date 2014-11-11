@@ -6,9 +6,9 @@ eval "$(echo "$@" | parse '(?<who>jeg) siger (?<alias>[^ =]+)(?: så)? mener jeg
 
 if [ "$who" = jeg ]; then
     name=$(randomName "$EGGS_USER")
-    you=$(saysDu $EGGS_USER)
+    you=$(du $EGGS_USER)
     if [ ! "$name" ]; then
-        echo "$EGGS_USER: Gå væk, jeg kender $(saysDig $EGGS_USER) ikke!"
+        echo "$EGGS_USER: Gå væk, jeg kender $(dig $EGGS_USER) ikke!"
         exit 0
     fi
 else
@@ -21,7 +21,7 @@ else
 fi
 
 if [ ! "$alias" ] || [ ! "$command" ]; then
-    echo "$EGGS_USER: Hvis det skal være på den måde, så gider jeg altså ikke at snakke med $(saysDig $EGGS_USER)."
+    echo "$EGGS_USER: Hvis det skal være på den måde, så gider jeg altså ikke at snakke med $(dig $EGGS_USER)."
     exit 0
 fi
 
@@ -33,7 +33,7 @@ if ! isCommand "$cmd" ; then
     if [ "$cmd" = "$CONCIEGGS_NAME" ]; then
         echo "$EGGS_USER: Jeg er ikke en kommando! Jeg er et tænkende, følende væsen!"
     else
-        echo "$EGGS_USER: Men hvad betyder $cmd? Jeg forstår $(saysDu $EGGS_USER) ikke!"
+        echo "$EGGS_USER: Men hvad betyder $cmd? Jeg forstår $(du $EGGS_USER) ikke!"
     fi
     exit 0
 fi

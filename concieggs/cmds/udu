@@ -2,7 +2,7 @@
 #
 # Udskriv information om hvad der skal gøres hvis jeg er gået i udu.
 
-echo "Hvis jeg er gået i udu, så må $(saysDu $EGGS_USER) reparere mig.  \
+echo "Hvis jeg er gået i udu, så må $(du $EGGS_USER) reparere mig.  \
 Minimum Troels, Dybber og Lindbo har adgang til at logge \
 ind på min konto (concieggs) på eggsml.dk via deres SSH-nøgler."
 echo "Der kan de køre 'screen -r' for at få adgang til mig og se om \
