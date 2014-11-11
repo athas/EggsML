@@ -15,20 +15,24 @@ fi
 
 if [ "$to" = "concieggs" ]; then
     if isInBadStanding "$EGGS_USER"; then
-        removeFromBadStanding "$EGGS_USER"
-        echo "$EGGS_USER: Så lad gå.  Men lad det ikke gentage sig!"
+        if maybeGood .5; then
+            removeFromBadStanding "$EGGS_USER"
+            echo "$EGGS_USER: Så lad gå.  Men lad det ikke gentage sig!"
+        else
+            echo "NEJ!  Jeg er stadig pisse vred."
+        fi
     else
-        echo "Aldrig i livet.  Jeg vil aldrig tilgive dig for hvad $(saysDu $to) har gjort!"
-        maybeGood .1 && sleep 3 && echo "... Ahr, okay så, $(saysDu $to) er tilgivet!"
+        echo "Aldrig i livet.  Jeg vil aldrig tilgive dig for hvad $(saysDu $EGGS_USER) har gjort!"
+        maybeGood .1 && sleep 3 && echo "... Ahr, okay så, $(saysDu $EGGS_USER) er tilgivet!"
     fi
     exit 0
 fi
 
 undskyldninger() {
-    echo "Kære $to... $from ved ikke hvordan han skal få det sagt, men har det virkelig dårligt med sin hidtidige opførsel, og håber at $(saysDu $to) kan finde tilgivelse i dit hjerte.";
-    echo "$to, kender $(saysDu $to) det når man har en følelse i sit hjerte der gør så ondt, men man ikke kan finde ord til at formulere den, så den kan komme ud?  Sådan har $from det med sin opførsel over for dig.";
-    echo "$to, $from har det skidt med sin opførsel, og vil gøre hvad som helst for at gøre det godt igen - f.eks. lave dine HCI-afleveringer.";
-    echo "$from ved godt at han har lavet en Nederen-Jesper, men håber at $(saysDu $to) kan lave en Dybber og vise tilgivelse.";
+    echo "Kære $to... $from ved ikke hvordan han skal få det sagt, men har det virkelig dårligt med sin hidtidige opførsel, og håber at $(saysDu $to) kan finde tilgivelse i dit hjerte."
+    echo "$to, kender $(saysDu $to) det når man har en følelse i sit hjerte der gør så ondt, men man ikke kan finde ord til at formulere den, så den kan komme ud?  Sådan har $from det med sin opførsel over for dig."
+    echo "$to, $from har det skidt med sin opførsel, og vil gøre hvad som helst for at gøre det godt igen - f.eks. lave dine HCI-afleveringer."
+    echo "$to, $from ved godt at han har lavet en Nederen-Jesper, men håber at $(saysDu $to) kan lave en Dybber og vise tilgivelse."
     echo "$from føler sig som en der har valgt at lave machine learning-øvelser i C, $to, og beder fra hjertet om tilgivelse og forståelse, selvom han godt ved at han ikke fortjener det."
     echo "$to, jeg har en besked fra $from... han har det som en bamse der er kommet til at spise al honningen, men vil virkelig gerne være ven igen."
 }

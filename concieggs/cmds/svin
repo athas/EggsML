@@ -13,9 +13,18 @@ else
     exit
 fi
 
-if [ "$swine" = "concieggs" ]; then
+if [ "$swine" = "$irc_username" -o "$swine" = "dig" ]; then
     echo "$ass: Nej."
+    putInBadStanding "$EGGS_USER"
     exit
 fi
 
-echo "$swine: Din mor!" > $CONCIEGGS_IRC_DIR/$irc_channel/in
+sviner() {
+    echo "$swine: Din mor!"
+}
+
+if ircChannel | grep -q '^#'; then
+    sviner
+else
+    sviner > $CONCIEGGS_IRC_DIR/$irc_channel/in
+fi

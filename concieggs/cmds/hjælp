@@ -10,6 +10,9 @@ if [ $# -lt 1 ]; then
 elif [ -f "$CONCIEGGS_DIR/cmds/$1" ]; then
     echo "$1: "
     cat $CONCIEGGS_DIR/cmds/$1 | docstring
+elif [ -f "$CONCIEGGS_DIR/cmds/$(ircChannel)/$1" ]; then
+    echo "$1: "
+    cat "$CONCIEGGS_DIR/cmds/$(ircChannel)/$1" | docstring
 else
     echo "Der er ingen kommando ved navn $1."
 fi

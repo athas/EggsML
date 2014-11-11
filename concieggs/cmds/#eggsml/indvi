@@ -3,7 +3,6 @@
 # Indvi en lægmand i frokostens mysterier.
 
 
-
 if [ $# -lt 1 ]; then
     echo 'Brug: indvi <person>'
     exit 0
@@ -11,7 +10,7 @@ fi
 
 auth="$(isTrusted "$EGGS_USER")"
 if ! [ "$auth" ]; then
-    echo "$EGGS_USER: Det har du på ingen måde bemyndigelse til."
+    echo "$EGGS_USER: Det har $(sayDu $EGGS_USER) på ingen måde bemyndigelse til."
     exit
 fi
 

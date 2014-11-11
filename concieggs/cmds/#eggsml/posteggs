@@ -2,8 +2,9 @@
 #
 # Bogfør den sidst udførte Eggs ved at indtaste alle de medspisende i
 # frokostdatabasen og skubbe den til Github.  Hvis der er konflikter
-# skal disse ordnes manuelt (øv!).
-# Alle argumenter til posteggs gemmes som kommentarer i slashdotfrokost
+# skal disse ordnes manuelt (øv!).  Alle argumenter til posteggs
+# gemmes som kommentarer i slashdotfrokost.
+
 
 from=$(randomName $EGGS_USER)
 if ! [ "$from" ]; then
@@ -13,7 +14,7 @@ fi
 
 auth="$(isTrusted "$EGGS_USER")"
 if ! [ "$auth" ]; then
-    echo "$EGGS_USER: Det har du på ingen måde bemyndigelse til."
+    echo "$EGGS_USER: Det har $(sayDu $EGGS_USER) på ingen måde bemyndigelse til."
     exit
 fi
 

@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Udskriv en liste over de nuværende indkøbsønsker
+# Udskriv en liste over de nuværende indkøbsønsker.
 
 
 wishes=$(eggstool wishes \

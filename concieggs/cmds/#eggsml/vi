@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# Vær mere kongelig end 'jeg'.
+
+
+if isKing $EGGS_USER; then
+    runcmd jeg $@
+else
+    echo -n "$EGGS_USER: "
+    randomElement <<EOF
+DU ER SGU DA IKKE EN TAND ROYAL!
+Hvad har du gang i, din UNDERSÅT!
+Kig dig bag skulderen.  Ja, det er mine politibetjente der fjerner dig!
+Du er ikke altså ikke kongen!
+EOF
+    putInBadStanding $EGGS_USER
+fi

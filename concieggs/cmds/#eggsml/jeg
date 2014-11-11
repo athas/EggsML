@@ -1,5 +1,7 @@
 #!/bin/sh
+#
 # Nedfæld essentielle personlige fakta og præferencer i logeprotokollen.
+
 
 eval "$(echo "$@" | parse 'er ((?<beneggter>beneggter)|(?<eggsalteret>eggsalteret))|foretrækker ((?<nothing>intet)|(?<pref>.+))')"
 
@@ -11,28 +13,28 @@ fi
 
 if [ "$beneggter" ]; then
     if [ "$(dbUserGet $who beneggter)" ]; then
-        echo "Jeg er allerede bekendt med dine afvigelser, $EGGS_USER."
+        echo "Jeg er allerede bekendt med $(sayDine $EGGS_USER) afvigelser, $EGGS_USER."
     else
         dbUserWrite $who beneggter < /dev/null
-        echo "$(ack)  Meget vel, $EGGS_USER, under antagelse af at logebrødrene gør deres forabejde, vil der ikke længere tilberedes æg til dig."
+        echo "$(ack)  Meget vel, $EGGS_USER, under antagelse af at logebrødrene gør deres forabejde, vil der ikke længere tilberedes æg til $(sayDig $EGGS_USER)."
     fi
 elif [ "$eggsalteret" ]; then
     if [ "$(dbUserGet $who beneggter)" ]; then
-        echo "$(ack)  Velkommen tilbage i folden, $EGGS_USER!  Under antagelse af at logebrødrene gør deres forabejde, vil der igen være æg at finde til dig."
+        echo "$(ack)  Velkommen tilbage i folden, $EGGS_USER!  Under antagelse af at logebrødrene gør deres forabejde, vil der igen være æg at finde til $(sayDig $EGGS_USER)."
         dbUserDelete $who beneggter
     else
         echo "Jovist, $EGGS_USER, det ved jeg skam allerede.  Er der et formål med denne udmelding?"
     fi
 elif [ "$nothing" ]; then
     if ! [ "$(dbUserGet $who pref)" ]; then
-        echo "Jeg er allerede ikke bekendt med nogen særlige præferencer fra din side af, broder $EGGS_USER."
+        echo "Jeg er allerede ikke bekendt med nogen særlige præferencer fra $(sayDin $EGGS_USER) side af, broder $EGGS_USER."
     else
         dbUserDelete $who pref
-        echo "$(ack)  Der vil ikke for fremtiden ikke tages usædvanlige hensyn til dig, $EGGS_USER."
+        echo "$(ack)  Der vil ikke for fremtiden ikke tages usædvanlige hensyn til $(sayDig $EGGS_USER), $EGGS_USER."
     fi
 elif [ "$pref" ]; then
     echo "$pref" | dbUserWrite $who pref
-    echo "$(ack)  For fremtiden vil jeg minde logebrødrene om, at du foretrækker $(preference1 $who)."
+    echo "$(ack)  For fremtiden vil jeg minde logebrødrene om, at $(sayDu $who) foretrækker $(preference1 $who)."
 else
     echo "Brug: jeg <er <beneggter|eggsalteret>|foretrækker <præference>>"
 fi

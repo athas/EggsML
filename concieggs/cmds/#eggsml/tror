@@ -5,6 +5,7 @@
 
 # Formålet med dette script er at afprøve eggsthon.shell-grænsefladen.
 
+
 import sys
 import re
 from eggsthon import *
