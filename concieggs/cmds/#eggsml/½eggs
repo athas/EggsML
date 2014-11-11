@@ -22,7 +22,7 @@ time=$(extractDate "$@")
 name=$(extractUsername "$@")
 if [ ! "$time" ]; then
     echo "Ingen har tilmeldt sig Eggs - \
-vil du være den første, så brug 'eggsml <tidspunkt> [brugernavn]'."
+vil $(sayDu $EGGS_USER) være den første, så brug 'eggsml <tidspunkt> [brugernavn]'."
     exit 0
 fi
 if [ ! "$name" ]; then

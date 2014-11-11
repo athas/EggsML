@@ -14,7 +14,7 @@ else
 fi
 
 if [ $EGGS_USER = svip ]; then
-    echo "Vent venligst, du tæller..."
+    echo "Vent venligst, $(sayDu $EGGS_USER) tæller..."
 else
     echo "Vent venligst, Brainfuck tæller..."
 fi

@@ -4,7 +4,7 @@
 # af KANAL'.
 
 if [ $# -lt 2 ]; then
-    echo "$EGGS_USER: Jeg har aldeles ikke i sinde bare at hoppe og danse for dig!  Du må udtrykke dig forståeligt."
+    echo "$EGGS_USER: Jeg har aldeles ikke i sinde bare at hoppe og danse for $(sayDig $EGGS_USER)!  Du må udtrykke $(sayDig $EGGS_USER) forståeligt."
 else
     if [ "$1" = "på" ]; then
         ircJoinChannel "$2"

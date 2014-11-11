@@ -5,6 +5,7 @@
 if isKing $EGGS_USER; then
     runcmd jeg $@
 else
+    echo -n "$EGGS_USER: "
     randomElement <<EOF
 DU ER SGU DA IKKE EN TAND ROYAL!
 Hvad har du gang i, din UNDERSÅT!

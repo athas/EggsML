@@ -17,7 +17,7 @@ fi
 
 auth="$(isTrusted "$EGGS_USER")"
 if ! [ "$auth" ]; then
-    echo "$EGGS_USER: Det har du på ingen måde bemyndigelse til."
+    echo "$EGGS_USER: Det har $(sayDu $EGGS_USER) på ingen måde bemyndigelse til."
     exit
 fi
 
@@ -31,14 +31,14 @@ if ! [ "$who" ]; then
 fi
 
 if cmpNames "$who" "$EGGS_USER"; then
-    echo "$EGGS_USER: Lad dine loge-brødre om at bestemme dine tituleringer!"
+    echo "$EGGS_USER: Lad $(sayDine $EGGS_USER) loge-brødre om at bestemme $(sayDine $EGGS_USER) tituleringer!"
     exit
 fi
 
 if [ "$taken" ]; then
     if cmpNames "$who" "$taken"; then
         if cmpNames "$who" "$EGGS_USER"; then
-            echo "$EGGS_USER: Du er allerede kendt som $newalias, broder dement."
+            echo "$EGGS_USER: $(sayDu $EGGS_USER) er allerede kendt som $newalias, broder dement."
         else
             echo "$EGGS_USER: $who er allerede kendt som $newalias."
         fi
