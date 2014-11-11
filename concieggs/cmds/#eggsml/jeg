@@ -32,7 +32,7 @@ elif [ "$nothing" ]; then
     fi
 elif [ "$pref" ]; then
     echo "$pref" | dbUserWrite $who pref
-    echo "$(ack)  For fremtiden vil jeg minde logebrødrene om, at du foretrækker $(preference1 $who)."
+    echo "$(ack)  For fremtiden vil jeg minde logebrødrene om, at $(you $who) foretrækker $(preference1 $who)."
 else
     echo "Brug: jeg <er <beneggter|eggsalteret>|foretrækker <præference>>"
 fi
