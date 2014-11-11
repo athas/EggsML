@@ -1,0 +1,62 @@
+#!/bin/sh
+#
+# Mikrodonér ører til en person fra EggsML der har gjort et godt stykke arbejde.
+# Brug: donér <n> ører til <bruger>
+
+
+eval "$(echo "$@" | parse '(?<amount>[1-9][0-9]*) ((ører|af de gode|hundreddelsmoneter) )?til (?<recipient>[^ ]+)')"
+
+if [ ! "$recipient" ]; then
+    echo "Hvor meget?  Til hvem?  Skriv: donér <n> ører til <bruger>"
+    exit
+fi
+
+from=$(randomName $EGGS_USER)
+if ! [ "$from" ]; then
+    echo "Dig kender jeg ikke.  Hvem i alverden er du egentlig???"
+    exit
+fi
+
+auth="$(isTrusted "$EGGS_USER")"
+if ! [ "$auth" ]; then
+    echo "Jeg vælger ikke at stole på folk som $(sayDig $EGGS_USER), $EGGS_USER!"
+    exit
+fi
+
+if [ "$recipient" = concieggs ]; then
+    echo "Jotak!  Eller... nej."
+    exit
+fi
+
+to=$(randomName "$recipient")
+if ! [ "$to" ]; then
+    echo "$recipient er for mig ikkeeksisterende!"
+    exit
+fi
+
+if cmpNames $from $to; then
+    echo "Javel!  Du har nu fået $amount ører af dig selv!"
+    exit
+fi
+
+kroners="$(echo $amount / 100 | bc)"
+oerers="$(echo $amount % 100 | bc)"
+if [ "$(echo $oerers | wc -c)" = 2 ]; then # 1
+    oerers=0$oerers
+fi
+total="$kroners.$oerers"
+
+when=$(date '+%Y-%m-%d')
+
+if gitRefresh; then
+    transfer "$when" "$total" "$from" "$to"
+    if tryGitChange "Donation fra $from til $to" slashdotfrokost; then
+        echo "$EGGS_USER: Succeeees!  Er det ikke bare en rar følelse i maven at give penge til andre menneskers færd?  $to er sikkert glad nu for de $amount ører!"
+    else
+        gitRepair slashdotfrokost
+        echo "KATASTROFE-ALARM!  NOGET GIK GALT UNDER OPDATERING!  BAAABUUU!"
+        exit 1
+    fi
+else
+    exit 1
+fi

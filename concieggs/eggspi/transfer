@@ -1,0 +1,36 @@
+#!/bin/sh
+#
+# Transfer Eggs money from one user to another.  Always use this like this:
+#
+#   if gitRefresh; then
+#       transfer "$when" "$amount" "$from" "$to"
+#       if tryGitChange "git commit comment" slashdotfrokost; then
+#           echo "success comment"
+#       else
+#           gitRepair slashdotfrokost
+#           echo "error comment"
+#           exit 1
+#       fi
+#   else
+#       exit 1
+#   fi
+#
+# Also remember to always check that the users in question are valid!  Otherwise
+# everything can go wrong.
+
+when="$1"
+amount="$2"
+from="$3"
+to="$4"
+
+cd $EGGS_DIR
+ed slashdotfrokost > /dev/null <<EOF
+/::INDKØB::/
++2
+i
+$(echo "$when, $from: -$amount")
+$(echo "$when, $to: $amount")
+.
+w
+EOF
+cd ..
