@@ -2,8 +2,9 @@
 #
 # Bogfør den sidst udførte Eggs ved at indtaste alle de medspisende i
 # frokostdatabasen og skubbe den til Github.  Hvis der er konflikter
-# skal disse ordnes manuelt (øv!).
-# Alle argumenter til posteggs gemmes som kommentarer i slashdotfrokost
+# skal disse ordnes manuelt (øv!).  Alle argumenter til posteggs
+# gemmes som kommentarer i slashdotfrokost.
+
 
 from=$(randomName $EGGS_USER)
 if ! [ "$from" ]; then

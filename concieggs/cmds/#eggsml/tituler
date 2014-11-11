@@ -3,7 +3,6 @@
 # Tilføj et nyt alias til en EggsML-bruger.  Kun for logemestre.
 
 
-
 if ! [ $# -eq 3 -a $2 = som ]; then
     echo 'Brug: tituler <person> som <nytnavn>'
     exit 0

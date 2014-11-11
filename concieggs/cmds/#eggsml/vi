@@ -2,6 +2,7 @@
 #
 # Vær mere kongelig end 'jeg'.
 
+
 if isKing $EGGS_USER; then
     runcmd jeg $@
 else

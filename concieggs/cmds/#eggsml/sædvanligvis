@@ -3,6 +3,7 @@
 # Informér frokostlogen om dine sædvanlige præferencer.  Mangen en
 # adfærd kan potentielt set indstilles via denne kommando.
 
+
 if [ "$1" = spiser -a $# -ge 3 ]; then
     shift
     if [ "$1" = jeg ]; then

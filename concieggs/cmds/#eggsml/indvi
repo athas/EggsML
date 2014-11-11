@@ -3,7 +3,6 @@
 # Indvi en lægmand i frokostens mysterier.
 
 
-
 if [ $# -lt 1 ]; then
     echo 'Brug: indvi <person>'
     exit 0

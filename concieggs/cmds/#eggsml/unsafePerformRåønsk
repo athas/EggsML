@@ -2,6 +2,7 @@
 #
 # Tilføj til listen over indkøbsønsker.
 
+
 if [ $# -lt 1 ]; then
     echo "Brug: unsafePerformRåønsk [antal] ønske..."
 else

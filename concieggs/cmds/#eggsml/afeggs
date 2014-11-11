@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Afmeld den givne Eggs.  Kun eggs der endnu ikke er afholdt kan
+# Afmeld den givne Eggs.  Kun Eggs der endnu ikke er afholdt kan
 # afmeldes - bordet fanger!
 
 

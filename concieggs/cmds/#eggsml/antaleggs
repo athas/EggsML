@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # Informér logen om hvor mange gange den angivne broder har spist med
-# til eggs
+# til eggs.
 
 
 if [ $# -eq 1 ]; then

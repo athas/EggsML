@@ -3,7 +3,6 @@
 # Ophøj en bruger til mester.  Kun for logemestre!
 
 
-
 if [ $# -lt 1 ]; then
     echo 'Brug: ophøj <person> [kommentar]'
     exit 0

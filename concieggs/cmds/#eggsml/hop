@@ -3,6 +3,7 @@
 # Få concieggs til at lave drive-by-kanal-hop.  Brug: 'hop på KANAL' eller 'hop
 # af KANAL'.
 
+
 if [ $# -lt 2 ]; then
     echo "$EGGS_USER: Jeg har aldeles ikke i sinde bare at hoppe og danse for $(sayDig $EGGS_USER)!  Du må udtrykke $(sayDig $EGGS_USER) forståeligt."
 else

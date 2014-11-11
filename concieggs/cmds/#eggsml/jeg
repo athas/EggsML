@@ -1,5 +1,7 @@
 #!/bin/sh
+#
 # Nedfæld essentielle personlige fakta og præferencer i logeprotokollen.
+
 
 eval "$(echo "$@" | parse 'er ((?<beneggter>beneggter)|(?<eggsalteret>eggsalteret))|foretrækker ((?<nothing>intet)|(?<pref>.+))')"
 

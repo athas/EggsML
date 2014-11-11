@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Som eggsml, men for småtspisende eggsere.
+# Som 'eggsml', men for småtspisende eggsere.
 
 
 subscribeToEggs() {
