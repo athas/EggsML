@@ -1,0 +1,10 @@
+#!/bin/sh
+#
+# Fortæl concieggs en anekdote.
+
+randomElement <<EOF
+Ja, man er vel ikke født i går!
+Nånå, er det med den på?
+Hvorledes?  Fortæl, fortæl!
+Jo, mange tak da!
+EOF
