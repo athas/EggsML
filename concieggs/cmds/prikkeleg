@@ -101,7 +101,7 @@ def forfra(argument):
                 print ("Hey allesammen! %s prøver på at starte en underlødig prikkeleg!" % (currentUser()))
                 print ("Der var faktisk kun " + str(abs(M-N)) + " priks forskel på minimum og maximum, i det han prøvede på at starte. Er det ikke frækt?")
                 subprocess.call(["runcmd topic " + currentUser() + " prikker falskt. Fy for skam."], shell=True)
-		subprocess.call("putInBadStanding " + currentUser(), shell=True)
+                subprocess.call("putInBadStanding " + currentUser(), shell=True)
             if M < N:
                 nytSpil(M,N)
             if M > N:
