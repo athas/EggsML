@@ -45,6 +45,7 @@ def run_main(args):
 
     if Dict['forrigePrikker'] == currentUser():
         print("%s! %s, du prikkede mig også sidst. Dit træk er ugyldigt!" % (svin(), currentUser()))
+        subprocess.call("putInBadStanding " + currentUser(), shell=True)
         sys.exit(0)
 
     sys.stdout.flush()
@@ -66,6 +67,7 @@ def run_main(args):
 def slutsekvens(taber, dict):
     dict['pointtavle'].pop(taber)
     print("%s, %s! Du prikkede det forkerte sted på det forkerte tidspunkt, og har dermed tabt!" % (svin(), taber))
+    subprocess.call("putInBadStanding " + currentUser(), shell=True)
     sys.stdout.flush()
     time.sleep(1)
     hvemFoerer(dict['pointtavle'], True)
@@ -99,6 +101,7 @@ def forfra(argument):
                 print ("Hey allesammen! %s prøver på at starte en underlødig prikkeleg!" % (currentUser()))
                 print ("Der var faktisk kun " + str(abs(M-N)) + " priks forskel på minimum og maximum, i det han prøvede på at starte. Er det ikke frækt?")
                 subprocess.call(["runcmd topic " + currentUser() + " prikker falskt. Fy for skam."], shell=True)
+		subprocess.call("putInBadStanding " + currentUser(), shell=True)
             if M < N:
                 nytSpil(M,N)
             if M > N:
