@@ -128,7 +128,7 @@ def forfra(argument):
 
 def verifyAndGetRootAlias(username):
     try:
-        output = subprocess.check_output("aliases " + username, shell=True)
+        output = subprocess.check_output("aliases " + username, shell=True).decode()
     except:
         return (False, "")
     finally:
