@@ -89,7 +89,7 @@ def slutsekvens(taber, dict):
 
 
 def randomAlias(name):
-    output = subprocess.check_output("randomName " + name, shell=True).decode()
+    output = subprocess.check_output("randomName " + name, shell=True).decode().strip('\n')
     return output
 
 
