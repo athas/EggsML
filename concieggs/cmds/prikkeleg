@@ -97,10 +97,10 @@ def hvemFoerer(dictionary, Vindersekvens=False):
     sorted_dict = sorted(dictionary.items(), key=operator.itemgetter(1))
     if sorted_dict == []:
         sorted_dict = [('concieggs', 'concieggs')]
-    if Vindersekvens:
-        vinder = randomAlias(sorted_dict[-1][0])
-        taber = randomAlias(sorted_dict[0][0])
+    vinder = randomAlias(sorted_dict[-1][0])
+    taber = randomAlias(sorted_dict[0][0])
 
+    if Vindersekvens:
         print ("%s %s! Du har lige vundet i prikkeleg!! %s er den nye konge af #eggsml!" % (congrats() , vinder, vinder))
         subprocess.call(["randomName \'" + vinder + "\' | dbWrite eggsking"], shell=True)
         nytSpil()
