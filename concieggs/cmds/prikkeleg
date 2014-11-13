@@ -68,7 +68,7 @@ def run_main(args):
     status = Dict['prikTilbage'] - antalPrik
     Dict['forrigePrikker'] = currentUser()
     if status <= 0:
-        slutsekvens(currentUser(False), Dict)
+        slutsekvens(currentUser(), Dict)
     Dict['prikTilbage'] = status
     try:
         Dict['pointtavle'][currentUser()] += antalPrik
@@ -81,7 +81,7 @@ def run_main(args):
 
 def slutsekvens(taber, dict):
     dict['pointtavle'].pop(taber)
-    print("%s, %s! Du prikkede det forkerte sted på det forkerte tidspunkt, og har dermed tabt!" % (svin(), taber))
+    print("%s, %s! Du prikkede det forkerte sted på det forkerte tidspunkt, og har dermed tabt!" % (svin(), randomAlias(taber)))
     subprocess.call("putInBadStanding " + currentUser(), shell=True)
     sys.stdout.flush()
     time.sleep(1)
