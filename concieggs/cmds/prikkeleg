@@ -88,19 +88,26 @@ def slutsekvens(taber, dict):
     hvemFoerer(dict['pointtavle'], True)
 
 
+def randomAlias(name):
+    output = subprocess.check_output("randomName " + name, shell=True).decode()
+    return output
+
+
 def hvemFoerer(dictionary, Vindersekvens=False):
     sorted_dict = sorted(dictionary.items(), key=operator.itemgetter(1))
     if sorted_dict == []:
         sorted_dict = [('concieggs', 'concieggs')]
     if Vindersekvens:
-        vinder = sorted_dict[-1][0]
+    vinder = randomAlias(sorted_dict[-1][0])
+    taber = randomAlias(sorted_dict[0][0])
+
         print ("%s %s! Du har lige vundet i prikkeleg!! %s er den nye konge af #eggsml!" % (congrats() , vinder, vinder))
         subprocess.call(["randomName \'" + vinder + "\' | dbWrite eggsking"], shell=True)
         nytSpil()
         subprocess.call(["runcmd topic " + vinder + " er kongen"], shell=True)
         sys.exit(0)
     else:
-        print("%s er i spidsen - %s, %s! Du kan sagtens nå det!" % (sorted_dict[-1][0], heppe(), sorted_dict[0][0]))
+        print("%s er i spidsen - %s, %s! Du kan sagtens nå det!" % (vinder, heppe(), taber))
 
 def nytSpil(M=15, N=30):
     dict = {'nudge': 'false', 'forrigePrikker': 'concieggs' , 'prikTilbage' : random.randint(M, N), 'pointtavle':{}}
