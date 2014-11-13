@@ -40,7 +40,7 @@ def currentUser(rootalias=True):
 
             return alias(currentNames, rootalias)
         else:
-            print ("Beklager, %s, men jeg kan ikke lade alle og enhver røre sådan ved mig.", re.sub(" [\.;,\'\"] ", "", raw))
+            print ("Beklager, %s, men jeg kan ikke lade alle og enhver røre sådan ved mig." % re.sub(" [\.;,\'\"] ", "", raw))
             sys.exit(0)
     else:
         return alias(currentNames, rootalias)
