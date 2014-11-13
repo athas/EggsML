@@ -2,9 +2,17 @@
 #
 # Vær mere kongelig end 'jeg'.
 
+do_as_king_says() {
+    eval "$(echo "$@" | parse 'spiser med (kl.|klokken) (?<tid>[0-9][0-9]?(:[0-9][0-9]?)?)')"
+    if [ "$tid" ]; then
+        runcmd eggsml "$tid"
+    else
+        runcmd jeg $@
+    fi
+}
 
 if isKing $EGGS_USER; then
-    runcmd jeg $@
+    do_as_king_says
 else
     echo -n "$EGGS_USER: "
     randomElement <<EOF
