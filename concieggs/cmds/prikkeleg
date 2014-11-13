@@ -20,6 +20,7 @@ import operator
 
 #ordbogens design:   {'forrigePrikker': <navn> , 'prikTilbage': <tal>, 'pointtavle': {navn:point}}
 
+currentNames = ["",""]
 
 def getDict():
     oldDict = subprocess.check_output(["dbRead", "prikkeleg"])
@@ -29,11 +30,25 @@ def getDict():
 def setDict(Dict):
     subprocess.call(["echo \'" + json.dumps(Dict, ensure_ascii=False) + "\' | dbWrite prikkeleg"], shell=True)
 
-def currentUser():
-    raw = os.getenv("EGGS_USER")
-    return re.sub(" [\.;,\'\"] ", "", raw)
+def currentUser(rootalias=True):
+    global currentNames
+    if currentNames == ["",""]:
+        raw = os.getenv("EGGS_USER")
+        (bool, rootAlias) = verifyAndGetRootAlias(raw)
+        if bool:
+            currentNames = [re.sub(" [\.;,\'\"] ", "", raw), re.sub(" [\.;,\'\"] ", "", rootAlias)]
+
+            return alias(currentNames, rootalias)
+        else:
+            print ("Beklager, %s, men jeg kan ikke lade alle og enhver røre sådan ved mig.", re.sub(" [\.;,\'\"] ", "", raw))
+            sys.exit(0)
+    else:
+        return alias(currentNames, rootalias)
 
 
+def alias(liste, bool):
+    if bool: return liste[1]
+    else: return liste[0]
 
 def run_main(args):
     antalPrik = parseArgs(args)
@@ -44,7 +59,7 @@ def run_main(args):
         sys.exit(0)
 
     if Dict['forrigePrikker'] == currentUser():
-        print("%s! %s, du prikkede mig også sidst. Dit træk er ugyldigt!" % (svin(), currentUser()))
+        print("%s! %s, du prikkede mig også sidst. Dit træk er ugyldigt!" % (svin(), currentUser(False)))
         subprocess.call("putInBadStanding " + currentUser(), shell=True)
         sys.exit(0)
 
@@ -53,7 +68,7 @@ def run_main(args):
     status = Dict['prikTilbage'] - antalPrik
     Dict['forrigePrikker'] = currentUser()
     if status <= 0:
-        slutsekvens(currentUser(), Dict)
+        slutsekvens(currentUser(False), Dict)
     Dict['prikTilbage'] = status
     try:
         Dict['pointtavle'][currentUser()] += antalPrik
@@ -98,9 +113,9 @@ def forfra(argument):
             M = int(mOgN[0])
             N = int(mOgN[1])
             if abs(M - N) < 9:
-                print ("Hey allesammen! %s prøver på at starte en underlødig prikkeleg!" % (currentUser()))
+                print ("Hey allesammen! %s prøver på at starte en underlødig prikkeleg!" % (currentUser(False)))
                 print ("Der var faktisk kun " + str(abs(M-N)) + " priks forskel på minimum og maximum, i det han prøvede på at starte. Er det ikke frækt?")
-                subprocess.call(["runcmd topic " + currentUser() + " prikker falskt. Fy for skam."], shell=True)
+                subprocess.call(["runcmd topic " + currentUser(False) + " prikker falskt. Fy for skam."], shell=True)
                 subprocess.call("putInBadStanding " + currentUser(), shell=True)
             if M < N:
                 nytSpil(M,N)
@@ -111,15 +126,25 @@ def forfra(argument):
 
 
 
+def verifyAndGetRootAlias(username):
+    try:
+        output = subprocess.check_output("aliases " + username, shell=True)
+    except:
+        return (False, "")
+    finally:
+        return (True, output.split('\n')[0])
+
+
+
 def nudge():
     Dict = getDict()
     if Dict['nudge'] == "false":
         Dict['nudge'] = "true"
         Dict['prikTilbage'] += random.randint(3, 23)
         setDict(Dict)
-        print ("Tak, %s. Nu har jeg det faktisk bedre. :-)" % (currentUser()))
+        print ("Tak, %s. Nu har jeg det faktisk bedre. :-)" % (currentUser(False)))
     else:
-        print ("Beklager, %s... " % (currentUser()))
+        print ("Beklager, %s... " % (currentUser(False)))
 
 
 def svin():
