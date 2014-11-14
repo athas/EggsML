@@ -23,8 +23,12 @@ sviner() {
     echo "$swine: Din mor!"
 }
 
-if ircChannel | grep -q '^#'; then
-    sviner
+if isKing "$swine"; then
+    echo "$EGGS_USER: Under ingen omstændigheder!  Det ville være majestætsfornærmelse."
 else
-    sviner > $CONCIEGGS_IRC_DIR/$irc_channel/in
+    if ircChannel | grep -q '^#'; then
+        sviner
+    else
+        sviner > $CONCIEGGS_IRC_DIR/$irc_channel/in
+    fi
 fi
