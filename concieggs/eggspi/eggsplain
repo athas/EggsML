@@ -17,15 +17,21 @@ prefs () {
         if [ "$pref" ]; then
             case "$(random 0 1)" in
                 0)
-                    echo "$(randomName $who)" vil gerne have "$pref"
+                    echo "$(randomKingName $who)" vil gerne have "$pref"
                     ;;
                 *)
-                    echo "$(randomName $who)" foretrækker "$pref"
+                    echo "$(randomKingName $who)" foretrækker "$pref"
                     ;;
             esac
         fi
         if isKing "$who"; then
-            echo "Hans majestæt er med til bords!"
+            if [ $(countEggsers $eggs) -eq 1 ]; then
+                echo "Kongen spiser alene."
+            else
+                echo "Hans Majestæt er med til bords!"
+            fi
+        else
+            echo "."
         fi
     done
 }
@@ -35,7 +41,7 @@ prefs="$(prefs | enumerate)"
 echo -n "Der er $(countEggsers $eggs) tilmeldt til $(titleEggs $eggs): $(describeEggs $eggs).  Der skal tilberedes $numeggs eggs.  $(king)"
 
 if [ "$prefs" ]; then
-    echo "Endvidere: $prefs."
+    echo "Endvidere: $prefs"
 else
     echo
 fi
