@@ -1,9 +1,13 @@
 #!/bin/sh
 
 king=$(dbRead eggsking)
+name="$1"
+if [ "$name" == "Kong" ]; then
+    name="$2"
+fi
 
 if [ "$king" ]; then
-    aliases $1 | fgrep -ixq "$king"
+    aliases $name | fgrep -ixq "$king"
 else
     exit 1
 fi
