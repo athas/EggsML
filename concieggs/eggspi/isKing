@@ -3,12 +3,7 @@
 king=$(dbRead eggsking)
 
 if [ "$king" ]; then
-    name="$1"
-    if [ "$name" == "Kong" ]; then
-        name="$2"
-    fi
-    name=$(echo $name | sed 's/Kong //')
-    aliases $name | fgrep -ixq "$king"
+    aliases $1 | fgrep -ixq "$king"
 else
     exit 1
 fi

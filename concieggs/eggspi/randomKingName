@@ -1,0 +1,3 @@
+#!/bin/sh
+
+kong $(randomName "$1")
