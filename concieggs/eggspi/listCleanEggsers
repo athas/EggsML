@@ -1,0 +1,7 @@
+#!/bin/sh
+
+cat $CONCIEGGS_DB_DIR/eggs/$1 | while read who; do
+    name=$(echo "$who" | sed 's/,.*//')
+    fact=$(echo "$who" | grep "," | sed 's/.*, //')
+    echo $(randomName "$name")
+done
