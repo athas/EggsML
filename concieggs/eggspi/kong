@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if isKing "$1"; then
+  echo "Kong $1"
+else
+  echo "$1"
+fi
