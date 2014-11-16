@@ -26,12 +26,10 @@ prefs () {
         fi
         if isKing "$who"; then
             if [ $(countEggsers $eggs) -eq 1 ]; then
-                echo "Kongen spiser alene."
+                echo "Kongen spiser alene"
             else
-                echo "Hans Majestæt er med til bords!"
+                echo "Hans Majestæt er med til bords"
             fi
-        else
-            echo "."
         fi
     done
 }
@@ -41,7 +39,7 @@ prefs="$(prefs | enumerate)"
 echo -n "Der er $(countEggsers $eggs) tilmeldt til $(titleEggs $eggs): $(describeEggs $eggs).  Der skal tilberedes $numeggs eggs.  $(king)"
 
 if [ "$prefs" ]; then
-    echo "Endvidere: $prefs"
+    echo "Endvidere: $prefs."
 else
     echo
 fi
