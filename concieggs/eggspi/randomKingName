@@ -1,3 +1,10 @@
 #!/bin/sh
 
-kong $(randomName "$1")
+name=$(randomName "$1")
+randomElement <<EOF
+kong $name
+hans majestæt $name
+hans majestæt
+$name rex
+hans kongelige højhed $1
+EOF
