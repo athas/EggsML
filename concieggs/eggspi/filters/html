@@ -1,0 +1,58 @@
+#!/bin/sh
+
+random_name() {
+    randomElement <<EOF
+foo
+bar
+header
+footer
+ad_2
+outer
+EOF
+}
+
+random_style() {
+    n_styles=$(random 0 3)
+    for i in $(seq 1 $n_styles); do
+        a=$(randomElement <<EOF
+background
+font-family
+colour
+position
+EOF
+)
+        b=$(randomElement <<EOF
+black
+red
+#ff0191
+absolute
+img(../../hellokitty.png)
+'Arial, Verdana'
+EOF
+)
+        echo -n "$a: $b;"
+    done
+}
+
+while read line; do
+    tag=$(randomElement <<EOF
+p
+h1
+h2
+h3
+span
+EOF
+)
+    n_attribs=$(random 0 2)
+    attribs=''
+    for i in $(seq 1 $n_attribs); do
+        attrib=$(randomElement <<EOF
+id="$(random_name)"
+class="$(random_name)"
+style="$(random_style)"
+EOF
+)
+        attribs="$attribs $attrib"
+    done
+    echo "<$tag$attribs>$line</$tag>"
+done
