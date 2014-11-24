@@ -3,13 +3,15 @@
 # Bed concieggs om at være på en bestemt led.  Brug: 'vær MÅDE' eller 'vær mod
 # BRUGER MÅDE' eller 'vær på KANAL MÅDE'.  Der er mange MÅDER.
 
-if [ ! "$1" ]; then
+eval "$(echo "$@" | parse '^(?<specific>(mod|på) #?[^ /]+ )?(?<what>.+)$')"
+
+if [ ! "$what" ]; then
     echo "Du mangler en væremåde."
     exit
 fi
 
-if [ "$1" = mod ] || [ "$1" = "på" ]; then
-    file=outfilter_command_$2
+if [ "$specific" ]; then
+    file=outfilter_command_$specific
     shift 2
 else
     file=outfilter_command
