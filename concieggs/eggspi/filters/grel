@@ -1,0 +1,15 @@
+#!/bin/sh
+":"; exec emacs --quick --script "$0" "$@" # -*-emacs-lisp-*-
+
+;; UTILITIES
+(defun run-on-stdin (fun)
+  (let (line)
+    (while (setq line (ignore-errors (read-from-minibuffer "")))
+      (princ (funcall fun line))
+      (terpri))))
+
+;; MAIN
+(run-on-stdin 'upcase)
+
+;; EXIT
+(kill-emacs 0)
