@@ -30,7 +30,7 @@ apply_db_filter() {
     echo "$line" | $cmd
 }
 
-apply_db_filter
+christmasy | apply_db_filter
 
 # translate_example
 
