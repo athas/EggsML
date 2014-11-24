@@ -88,7 +88,9 @@ if [ "$cmd" ] && [ "$EGGS_USER" != "$CONCIEGGS_NAME" ]; then
     else
         othercmd="$(commands $check_all_places|levenshtein "$cmd"|sort -n|head -n 1|cut -d ' ' -f 2-)"
         if [ "$othercmd" ]; then
-            echo "Jeg antager at du mente $othercmd!"
+            if [ "$(echo $othercmd | tolower)" != "$(echo $cmd | tolower)" ]; then
+               echo "Jeg antager at du mente $othercmd!"
+            fi
             otheracmd="$(find "$CONCIEGGS_DIR/cmds" -name "$othercmd" | head -n 1)"
             run "$othercmd" "$otheracmd" $args
         else
