@@ -21,4 +21,4 @@ apply_db_filter() {
     $cmd
 }
 
-echo "$line" | christmasy | apply_db_filter
+echo "$line" | christmasy #| apply_db_filter
