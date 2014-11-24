@@ -9,7 +9,7 @@ debt=$(lookupDebt $EGGS_USER)
 if [ -n "$debt" ]; then
     if [ "$(echo "$debt > 50" | bc)" = 1 ]; then
         echo -n "Velkommen $EGGS_USER, du skylder $debt kr. til frokostkassen! "
-        if [ "$(echo "$debt > 150" | bc)" = 1]; then
+        if [ "$(echo "$debt > 150" | bc)" = 1 ]; then
             echo -n "Du skylder snart mere en Grækenland! "
         else
             echo -n "Stram op! "
