@@ -44,7 +44,7 @@ fi
 if [ "$amount" -eq 0 ]; then
     echo "Undlad venligst at spilde bankvæsenets tid på pjat."
     exit 0
-elif [ "$amount" -lt 0 ]; then
+elif [ $(echo "$amount < 0" | bc) = "1"]; then
     amount="$(echo $amount '*' -1|bc)"
     tmp=$from
     from=$to
