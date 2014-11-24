@@ -17,10 +17,10 @@ prefs () {
         if [ "$pref" ]; then
             case "$(random 0 1)" in
                 0)
-                    echo "$(randomKingName $who)" vil gerne have "$pref"
+                    echo "$(randomNameWithTitle $who)" vil gerne have "$pref"
                     ;;
                 *)
-                    echo "$(randomKingName $who)" foretrækker "$pref"
+                    echo "$(randomNameWithTitle $who)" foretrækker "$pref"
                     ;;
             esac
         fi

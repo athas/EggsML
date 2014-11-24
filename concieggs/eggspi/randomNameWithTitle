@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if isKing "$1"; then
+    randomKingName "$1"
+else
+    randomName "$1"
+fi

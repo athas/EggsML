@@ -4,8 +4,8 @@ cat $CONCIEGGS_DB_DIR/eggs/$1 | while read who; do
     name=$(echo "$who" | sed 's/,.*//')
     fact=$(echo "$who" | grep "," | sed 's/.*, //')
     if [ "$fact" -a "$fact" != 1 ]; then
-        echo "$(randomKingName "$name")(*$fact)"
+        echo "$(randomNameWithTitle "$name")(*$fact)"
     else
-        echo $(randomKingName "$name")
+        echo $(randomNameWithTitle "$name")
     fi
 done
