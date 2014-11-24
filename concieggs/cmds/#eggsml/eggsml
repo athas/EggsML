@@ -33,4 +33,4 @@ if [ ! "$name" ]; then
     echo "Giv mig et navn jeg kender!"
     exit 0
 fi
-subscribeToEggs "$time" "$(kong "$name")"
+subscribeToEggs "$time" "$name"
