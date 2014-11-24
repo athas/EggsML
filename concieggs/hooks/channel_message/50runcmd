@@ -2,7 +2,7 @@
 
 set -f
 
-regex="(?i)(^$CONCIEGGS_NAME[,:!] (?<rawcmd>[^ ]+)(?<args>.*)$|(?<rawcmd>[^ ]+)(?<args>.*), $CONCIEGGS_NAME[!.?]?)\$"
+regex="(?i)(^$CONCIEGGS_NAME[,:!] (?<rawcmd>[^ ]+)(?<args>.*)$|(?<rawcmd>[^ ]+)(?<args>.*), $CONCIEGGS_NAME[!.?]*)\$"
 
 eval "$(echo "$EGGS_BODY" | parse "$regex")"
 
