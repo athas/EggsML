@@ -8,11 +8,6 @@ channel="$1"
 destuser="$2" # empty if it's not a 'user: message' message.
 line="$3"
 
-
-translate_example() {
-    echo "$line" | translate da ja da
-}
-
 apply_db_filter() {
     cmd='cat'
     if [ "$destuser" != '' ]; then
@@ -26,8 +21,4 @@ apply_db_filter() {
     $cmd
 }
 
-echo "$line" | christmasy # | apply_db_filter
-
-# translate_example
-
-# echo "$line"
+echo "$line" | christmasy | apply_db_filter
