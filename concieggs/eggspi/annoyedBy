@@ -1,0 +1,17 @@
+#!/bin/sh
+
+if [ $# -eq 2 ]; then
+    ann=$2
+else
+    ann=1
+fi
+
+echo "$(annoyanceAt "$1") + $ann" | bc | dbUserWrite "$1" annoyanceAt
+
+if [ $(echo "$ann > 0" | bc) = 1 ]; then
+    s="$(annoyanceAt "$1") > $(random 0 100)"
+    if [ $(echo "$s" | bc) = 1 ]; then
+        echo 0 | dbUserWrite "$1" annoyanceAt
+        putInBadStanding "$1"
+    fi
+fi

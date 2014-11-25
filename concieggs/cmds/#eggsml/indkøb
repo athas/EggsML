@@ -47,6 +47,7 @@ EOF
     if tryGitChange "Indkøb fra $alias, godkendt af $auth" slashdotfrokost; then
         echo "Meget vel.  Lad det for stedse være nedfældet i logeprotokollen at $alias, $when, har bidraget med frokostaktiver svarende til ${amount}kr."
         setTopic
+        pleasedBy "$alias" 50
     else
         gitRepair slashdotfrokost
         echo "Katastrofe!  Noget gik galt under opdatering!"

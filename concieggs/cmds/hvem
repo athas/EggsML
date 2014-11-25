@@ -26,7 +26,7 @@ elif [ "$user" ]; then
         echo 'ROFL!'
         sleep 2
         echo "LAD OS GRINE AF TROELS' DUMME BOT!  LOLDONGS!"
-        putInBadStanding "$EGGS_USER"
+        annoyedBy "$EGGS_USER" 10
         exit
     fi
 

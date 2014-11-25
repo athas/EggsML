@@ -1,0 +1,9 @@
+#!/bin/sh
+
+x=$(dbUserRead $1 annoyanceAt)
+
+if [ "$x" ]; then
+    echo "$x"
+else
+    echo 0
+fi

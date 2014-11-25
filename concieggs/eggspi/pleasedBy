@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ $# -eq 2 ]; then
+    ann=$2
+else
+    ann=1
+fi
+
+annoyedBy "$1" $(echo "$ann * -1" | bc)
