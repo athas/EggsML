@@ -10,6 +10,10 @@ if [ "$user" ]; then
     else
         alias=$user
     fi
+    if cmpNames "$alias" reenberg; then
+        echo "Nej, $user er nederen."
+        exit
+    fi
     s="$(annoyanceAt "$alias") > 0"
     if [ $(echo "$s" | bc) = 1 ]; then
         echo "Nej, $user er et dumt svin."

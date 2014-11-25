@@ -29,7 +29,7 @@ run() {
     shift
 
     case "$cmd" in
-        er|hvem|hvad|hvor|har*)
+        er|hvem|hvad|hvor|har*|kan)
             "$acmd" $(echo "$@" | sed 's/\?*$//') || broke
             ;;
         *)
