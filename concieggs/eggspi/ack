@@ -23,7 +23,6 @@ else
     echo "Den er fjong"
     echo "Jep, det siger vi"
     echo "Jep, det siger vi bare"
-    echo "Ja, herre"
     echo "Det er dandy"
 
 fi | randomElement | xargs echo -n
