@@ -10,6 +10,7 @@ if echo "$@" | grep -i -E '^ *sagde +hun +i +går: *' > /dev/null; then
         echo "$@" >> $CONCIEGGS_DB_DIR/sjove_dshoig
         echo "Ok, hun sagde $@ i går."
     fi
+
 elif ! [ -f $CONCIEGGS_DB_DIR/last_dshoig ]; then
     echo 'Jeg har altså ikke sagt noget!'
     annoyedBy "$EGGS_USER" 10

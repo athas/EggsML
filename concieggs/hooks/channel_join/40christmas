@@ -11,3 +11,6 @@ Husk nu at det er jul, $EGGS_USER!
 DET ER LISSOM JUL $EGGS_USER!
 EOF
 fi
+
+
+pleasedBy "$EGGS_USER" 1
