@@ -17,7 +17,7 @@ if [ "$to" = "concieggs" ]; then
     if isInBadStanding "$EGGS_USER"; then
         if maybeGood .20; then
             pleasedBy "$EGGS_USER" 25
-            #removeFromBadStanding "$EGGS_USER"
+            removeFromBadStanding "$EGGS_USER"
             echo "$EGGS_USER: Så lad gå.  Men lad det ikke gentage sig!"
         else
             echo "NEJ!  Jeg er stadig pisse vred."
