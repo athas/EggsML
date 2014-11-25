@@ -3,6 +3,7 @@
 set -f # Disable globbing.
 
 broke() {
+    annoyedBy "$EGGS_USER" 5
     echo "Kommandoen fejlede!  Du kan prøve at spørge mig om 'udu', men det hjælper næsten helt sikkert ikke."
 }
 
