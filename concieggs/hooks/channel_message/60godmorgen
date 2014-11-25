@@ -48,5 +48,6 @@ if {[regexp -nocase {^(g(?:o?'?|od)?)?[ \t]*m[oå](?:rn|rgen)} $text {} g]} {
     if {$status == 0} {
         set replies $kingreplies
     }
+    exec pleasedBy "$nick" 5
     puts "$nick: [lindex $replies [expr {int(rand()*[llength $replies])}]]"
 }

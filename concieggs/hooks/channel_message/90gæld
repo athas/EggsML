@@ -15,6 +15,7 @@ if [ -n "$debt" ]; then
         else
             echo "$EGGS_USER: Hvordan sover du om natten?"
         fi
+        annoyedBy "$EGGS_USER"
     fi
 fi
 

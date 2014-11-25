@@ -49,6 +49,7 @@ elif [ "$user" ]; then
          echo "..."
          echo "Tjek dit pas."
         ) | randomElement
+        annoyedBy $EGGS_USER
         exit
     fi
 

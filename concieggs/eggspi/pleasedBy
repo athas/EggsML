@@ -6,4 +6,9 @@ else
     ann=1
 fi
 
+if cmpNames $1 Sebbe; then
+    annoyedBy "Sebbe" $ann
+    exit
+fi
+
 annoyedBy "$1" $(echo "$ann * -1" | bc)

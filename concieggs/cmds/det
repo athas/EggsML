@@ -17,10 +17,12 @@ else
         echo "Øv, jeg syntes ellers det var et ret morsomt svar til $(cat $CONCIEGGS_DB_DIR/last_dshoig)."
         cat $CONCIEGGS_DB_DIR/last_dshoig >> $CONCIEGGS_DB_DIR/usjove_dshoig
         rm $CONCIEGGS_DB_DIR/last_dshoig
+        annoyedBy "$EGGS_USER" 5
     elif echo "$@" | grep -i -E '^ *(der )?(var|er) +faktisk +(ret|pænt)? +sjovt\.? *$' > /dev/null; then
         echo "Ja, pænt sjovt svar til $(cat $CONCIEGGS_DB_DIR/last_dshoig), ikke?"
         cat $CONCIEGGS_DB_DIR/last_dshoig >> $CONCIEGGS_DB_DIR/sjove_dshoig
         rm $CONCIEGGS_DB_DIR/last_dshoig
+        pleasedBy "$EGGS_USER" 5
     else
         echo "$EGGS_USER: Brug 'det er jo ikke sjovt', 'det er faktisk ret sjovt' eller 'det sagde hun i går:'."
     fi

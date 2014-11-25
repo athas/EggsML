@@ -10,4 +10,5 @@ postskinke=$(echo "$EGGS_BODY" | skinkefy)
 
 if [ "$EGGS_BODY" != "$postskinke" ]; then
     echo "$postskinke"
+    pleasedBy "$EGGS_USER" 5
 fi

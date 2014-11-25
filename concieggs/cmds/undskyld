@@ -16,14 +16,15 @@ fi
 if [ "$to" = "concieggs" ]; then
     if isInBadStanding "$EGGS_USER"; then
         if maybeGood .20; then
-            removeFromBadStanding "$EGGS_USER"
+            pleasedBy "$EGGS_USER" 25
+            #removeFromBadStanding "$EGGS_USER"
             echo "$EGGS_USER: Så lad gå.  Men lad det ikke gentage sig!"
         else
             echo "NEJ!  Jeg er stadig pisse vred."
         fi
     else
         echo "Aldrig i livet.  Jeg vil aldrig tilgive dig for hvad $(du $EGGS_USER) har gjort!"
-        maybeGood .1 && sleep 3 && echo "... Ahr, okay så, $(du $EGGS_USER) er tilgivet!"
+        maybeGood .1 && sleep 3 && echo "... Ahr, okay så, $(du $EGGS_USER) er tilgivet!" && pleasedBy "$EGGS_USER" 25
     fi
     exit 0
 fi

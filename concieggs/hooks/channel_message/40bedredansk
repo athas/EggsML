@@ -43,6 +43,7 @@ if ($body ne $EGGS_BODY) {
         "/me oversætter",
         "Nejnej, på dansk",
     );
-
+    
+    system("annoyedBy $EGGS_USER 2");
     print $prefix[rand @prefix] . ": $body\n";
 }
