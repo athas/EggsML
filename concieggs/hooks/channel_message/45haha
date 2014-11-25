@@ -35,4 +35,5 @@ new=$(echo "$EGGS_BODY" | sed -r -e "s/(ha){2,}/$ha/i" -e "s/(sjovt?|grinern?|mo
 
 if [ "$new" != "$EGGS_BODY" ]; then
     echo "$new"
+    pleasedBy "$EGGS_USER" 5
 fi

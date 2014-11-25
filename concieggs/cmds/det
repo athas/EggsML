@@ -12,6 +12,8 @@ if echo "$@" | grep -i -E '^ *sagde +hun +i +går: *' > /dev/null; then
     fi
 elif ! [ -f $CONCIEGGS_DB_DIR/last_dshoig ]; then
     echo 'Jeg har altså ikke sagt noget!'
+    annoyedBy "$EGGS_USER" 10
+
 else
     if (echo "$@" | grep -i -E '^ *(der )?(var|er) +(jo|slet) +ikke +sjovt\.? *$') > /dev/null; then
         echo "Øv, jeg syntes ellers det var et ret morsomt svar til $(cat $CONCIEGGS_DB_DIR/last_dshoig)."
