@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if isKing "$EGGS_USER"; then
+  echo "Hvis Deres Majestæt er sikker..."
+  dbDelete eggsking
+  echo "Så skrid fra mit årsyn, dit almindelig svin."
+else
+  echo "Jeg tror allerede du ikke er konge."
+fi
