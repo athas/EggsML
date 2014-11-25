@@ -37,5 +37,6 @@ fuck() {
 prevEggs | while read eggs; do
     if [ $(($(nowTime) - $eggs)) -gt 3600 ] && [ "$(isInEggs $eggs $EGGS_USER)" ]; then
         fuck $eggs $EGGS_USER
+        annoyedBy "$EGGS_USER"
     fi
 done
