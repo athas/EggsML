@@ -28,7 +28,5 @@ else
         echo "Med hvis bemyndigelse?"
         echo "Du er ikke konge - det er dokumentfalsk det der."
     ) | randomElement
-    if [ $(random 1 4) = 2 ]; then
-        putInBadStanding $EGGS_USER
-    fi
+    annoyedBy "$EGGS_USER" 5
 fi

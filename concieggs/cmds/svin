@@ -15,7 +15,7 @@ fi
 
 if [ "$swine" = "$irc_username" -o "$swine" = "dig" ]; then
     echo "$ass: Nej."
-    putInBadStanding "$EGGS_USER"
+    annoyedBy "$EGGS_USER" 10
     exit
 fi
 
