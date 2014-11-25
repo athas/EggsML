@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# Find ud af om concieggs kan lide nogen.
+
+eval "$(echo "$@" | parse '(du|De) lide (?<user>[^ ]+)')"
+if [ "$user" ]; then
+    if [ "$user" = "mig" ]; then
+        alias=$EGGS_USER
+        user=$(du $alias)
+    else
+        alias=$user
+    fi
+    s="$(annoyanceAt "$alias") > 0"
+    if [ $(echo "$s" | bc) = 1 ]; then
+        echo "Nej, $user er et dumt svin."
+    fi
+    s="$(annoyanceAt "$alias") < 0"
+    if [ $(echo "$s" | bc) = 1 ]; then
+        echo "Ja, $user er god nok."
+    fi
+    if [ $(annoyanceAt "$alias") = 0 ]; then
+        if [ "$user" = "du" ]; then
+            echo "Jeg kender dig ikke godt nok."
+        else
+            echo "Jeg kender ikke $user godt nok."
+        fi
+    fi
+fi
