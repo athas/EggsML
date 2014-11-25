@@ -8,8 +8,8 @@ if [ "$user" ]; then
         alias=$EGGS_USER
         user=$(du $alias)
     elif [ "$user" = "concieggs" ]; then
-        echo "Ha ha, det er sjovt at du spørger, om jeg kan lide mig selv. Ha ha ha, ikke også?"
-        annoyedAt "$EGGS_USER" 25
+        echo "Ha ha, det er fandme sjovt at du spørger, om jeg kan lide mig selv. Ha ha ha, ikke også?"
+        annoyedBy "$EGGS_USER" 25
         exit
     else
         alias=$user
