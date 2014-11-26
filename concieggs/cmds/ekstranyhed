@@ -1,0 +1,27 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# Bed concieggs om at give dig en brugbar nyhed fra INTERNETTET.
+
+import re
+import random
+import urllib
+
+from eggsthon.decode_html_entities import decode_html_entities
+
+
+data = urllib.urlopen('http://ekstrabladet.dk').read()
+
+boxes = [
+    ('<div class="listtitle line">', '</div>'),
+    ('<span class="lastUnit tickerheadline">', '</span>')
+]
+
+matches = []
+
+for a, b in boxes:
+    matches.extend(re.findall(a + r'\s*(.+?)\s*' + b, data, re.MULTILINE))
+
+matches = filter(lambda s: not s.startswith('TV: '), matches)
+    
+print decode_html_entities(random.choice(matches))
