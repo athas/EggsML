@@ -105,6 +105,7 @@ def hvemFoerer(dictionary, Vindersekvens=False):
     if Vindersekvens:
         print ("%s %s! Du har lige vundet i prikkeleg!! %s er den nye konge af #eggsml!" % (congrats() , vinder, vinder))
         print("Her er din cutscene!")
+        sys.stdout.flush()
         subprocess.call(["runcmd heldigvideo"], shell=True)
         subprocess.call(["randomName \'" + vinder + "\' | dbWrite eggsking"], shell=True)
         nytSpil()
