@@ -236,7 +236,8 @@ def parseArgs(args):
     if args[1] == "-hvem":
         dict = getDict()
         forrige = dict['forrigePrikker']
-        print ("Nej, det var %s som prikkede sidst :P" % forrige)
+
+        print ("Nej, det var %s som prikkede sidst :P" % subprocess.check_output("randomName " + forrige, shell=True))
         sys.exit(0)
 
     antalPrik = 0
