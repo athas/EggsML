@@ -9,5 +9,5 @@ aliases "$EGGS_USER" | while read -r alias; do
         echo "$EGGS_USER: Skam dig!  Du begik en Reenberg $(timeToFullDate $when), da du forlod kanalen mindre end $loss minutter efter din frokosttilmelding!"
         dbDelete "users/$alias/reenberg"
     fi
-    annoyedAt "$EGGS_USER" 1
+    annoyedBy "$EGGS_USER" 1
 done
