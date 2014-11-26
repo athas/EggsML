@@ -4,7 +4,7 @@
 # at benytte komplette sætninger!  Alternativt, spørg hvem der skal
 # købe ind eller hvem der har en ting.
 
-eval "$(echo "$@" | parse 'er (?<king>kongen?( (af|på) #?[Ee]ggs[Mm][Ll])?|(?<user>[^ ]+))$|(?<buy>(køber ind|skal købe ind|handler|skal handle ind))|har (?<thing>[^ ]+)')"
+eval "$(echo "$@" | parse 'er (?<king>kongen?( (af|på) #?[Ee]ggs[Mm][Ll])?|(?<user>[^ ]+))$|(?<buy>(køber ind|skal købe ind|handler|skal handle ind))|(?<prikkede>(prikkede sidst))|har (?<thing>[^ ]+)')"
 
 if [ "$king" ] && ! [ "$user" ]; then
     kingname="$(dbRead eggsking)"
@@ -86,6 +86,12 @@ elif [ "$buy" ]; then
     else
         echo "Der er ingen tilmeldt Eggs, så jeg går ud fra at ingen køber ind."
     fi
+
+elif [ "$prikkede"]; then
+    runcmd prikkeleg -hvem
+    exit
+    fi
+
 elif [ "$thing" ]; then
     who=$(dbRead "has_$thing")
     if [ "$who" ]; then

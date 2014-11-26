@@ -229,6 +229,12 @@ def parseArgs(args):
     if args[1] == "-smugkig":
         sys.exit(0)
 
+    if args[1] == "-hvem":
+        dict = getDict()
+        forrige = dict['forrigePrikker']
+        print ("Nej, det var %s som prikkede sidst :P" % forrige)
+        sys.exit(0)
+
     antalPrik = 0
     for arg in args:
         if arg.lower() in ["prikke", "prik"]:

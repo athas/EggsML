@@ -10,8 +10,12 @@ if [ "$shutUp" ]; then
     time=$(($(nowTime) + $duration))
 
     echo $time | dbWrite shutUpUntil
-
-    echo "$(ack)  Jeg skal nok tie stille (indtil $(timeToDate $time))."
+    if isKing "$EGGS_USER"; then
+        echo "$(ack)  Jeg skal nok tie stille (indtil $(timeToDate $time))."
+    else
+        echo "Det synes du jeg skal? .. Tak. Så er jeg vel først velkommen igen $(timeToDate $time)), ikke, \"Mester\" $EGGS_USER?"
+        annoyedBy "$EGGS_USER" 10
+    fi
 else
     echo "Hold min hvad?"
 fi
