@@ -87,10 +87,9 @@ elif [ "$buy" ]; then
         echo "Der er ingen tilmeldt Eggs, så jeg går ud fra at ingen køber ind."
     fi
 
-elif [ "$prikkede"]; then
+elif [ "$prikkede" ]; then
     runcmd prikkeleg -hvem
     exit
-    fi
 
 elif [ "$thing" ]; then
     who=$(dbRead "has_$thing")
@@ -100,6 +99,6 @@ elif [ "$thing" ]; then
         echo "Ingen!"
     fi
 else
-    echo "Brug: hvem <er [navn|jeg]|skal købe ind|køber ind>"
+    echo "Brug: hvem <er [navn|jeg]|skal købe ind|køber ind|prikkede sidst>"
     exit
 fi
