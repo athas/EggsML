@@ -89,7 +89,6 @@ elif [ "$buy" ]; then
 
 elif [ "$prikkede" ]; then
     runcmd prikkeleg -hvem
-    exit
 
 elif [ "$thing" ]; then
     who=$(dbRead "has_$thing")
