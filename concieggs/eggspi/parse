@@ -10,7 +10,7 @@ my $data = join("\n", <STDIN>);
 
 if ($data =~ $regex) {
     for my $key (keys %+) {
-        my $val = $+{$key};
+        my $val = $+{$key} // "";
         $val =~ s/(['\\])/\\$1/g;
         print "$key=\$(cat <<\"EOF\"\n$val\nEOF\n)\n"
     }
