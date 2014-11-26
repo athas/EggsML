@@ -237,7 +237,7 @@ def parseArgs(args):
         dict = getDict()
         forrige = dict['forrigePrikker']
 
-        print ("Nej, det var %s som prikkede sidst :P" % subprocess.check_output("randomName " + forrige, shell=True))
+        print ("Nej, det var %s som prikkede sidst :P" % subprocess.check_output("randomName " + forrige, shell=True).decode().split("\n")[0])
         sys.exit(0)
 
     antalPrik = 0
