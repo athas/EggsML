@@ -19,7 +19,7 @@ if [ "$user" ]; then
         exit
     fi
     s="$(annoyanceAt "$alias") > 0"
-    if [ $(echo "$s" | bc) = 1 ]; then
+    if isInBadStanding "$alias" || [ $(echo "$s" | bc) = 1 ]; then
         echo "Nej, $user er et dumt svin."
     fi
     s="$(annoyanceAt "$alias") < 0"
