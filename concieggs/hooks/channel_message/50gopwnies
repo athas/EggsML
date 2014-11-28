@@ -1,0 +1,29 @@
+#!/bin/sh
+#
+# Grin højlydt.
+
+(notOnEggsChannel || shuttingUp) && exit
+
+maybeGood .2 || exit
+
+if [[ "$EGGS_USER" =~ "[pwn]" ]];
+    echo "$comeon"
+
+fi
+
+sjov="$(randomElement <<EOF
+Hurra $EGGS_USER! I vinder ctf'et!
+$EGGS_USER; jeg ved bare at I vinder :>
+$EGGS_USER, hvad plads er I på nu?
+Hvorfor må man egentlig gerne hacke andre folks datamater, bare fordi det er en \"ctf\"?
+$EGGS_USER: Skal I også hacke mig til ctf? *gyse*
+Hvad siger din mor til, at du leger krig på webben, $EGGS_USER?
+Pwnies, pwnies, én to tre! Det andet hold det går med ble!
+Heja $EGGS_USER, I vinder!!
+$EGGS_USER, var det ikke en idé at få lidt flere points?
+$EGGS_USER: SMADR DE ANDRE, WUUUUUUUUUUH!
+$EGGS_USER: Mangler I champagnepiger til jeres sejrsfest? For jeg skal ikke noget den dag.
+Heja pwnies! Heja pwnies!
+$EGGS_USER: I bringer DIKU ære!
+EOF
+)"
