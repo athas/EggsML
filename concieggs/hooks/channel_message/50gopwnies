@@ -6,7 +6,7 @@
 
 maybeGood .2 || exit
 
-if [[ "$EGGS_USER" =~ "[pwn]" ]];
+if [ "$EGGS_USER" =~ "[pwn]" ];
     echo "$comeon"
 
 fi
@@ -24,6 +24,6 @@ $EGGS_USER, var det ikke en idé at få lidt flere points?
 $EGGS_USER: SMADR DE ANDRE, WUUUUUUUUUUH!
 $EGGS_USER: Mangler I champagnepiger til jeres sejrsfest? For jeg skal ikke noget den dag.
 Heja pwnies! Heja pwnies!
-$EGGS_USER: I bringer DIKU ære!
+$EGGS_USER: I bringer DIKU ære
 EOF
 )"
