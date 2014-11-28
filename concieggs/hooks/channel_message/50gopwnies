@@ -6,7 +6,7 @@
 
 maybeGood .2 || exit
 
-if [[ "$EGGS_USER" =~ "[pwn]" ]];
+if [[ "$EGGS_USER" =~ "[pwn]" ]]; then
     echo "$comeon"
 
 fi
