@@ -6,7 +6,11 @@
 
 maybeGood .2 || exit
 
+<<<<<<< HEAD
 if [ "$EGGS_USER" =~ "[pwn]" ];
+=======
+if [[ "$EGGS_USER" =~ "[pwn]" ]]; then
+>>>>>>> 4187d3458d7cd710c5ace7c9a2bc35806b07736b
     echo "$comeon"
 
 fi
