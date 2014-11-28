@@ -38,7 +38,7 @@ const
     (Line: 'You had me at ''Wes Andersson'''; Stars: 5; Author: 'The New York Times'),
     (Line: 'Lige lidt mere forberedelsestid'; Stars: 3; Author: 'Bjarne Goldbæk'),
     (Line: 'Jeg følte ikke noget specielt.'; Stars: 3; Author: 'Nikkel'),
-    (Line: 'Det er et los i bollerne og en kniv i hjerte.'; Stars: 1; Author: 'Oscar Davidsen')
+    (Line: 'Det er et los i bollerne og en kniv i hjertet.'; Stars: 1; Author: 'Oscar Davidsen')
   );
 var
   prei, ri: Integer;
