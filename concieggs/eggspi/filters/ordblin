@@ -1,0 +1,31 @@
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+use utf8::all;
+
+while (my $text = <>) {
+    $text =~ s/gjort/gjordt/g;
+    $text =~ s/er/e/g;
+    $text =~ s/nde/ne/g;
+    $text =~ s/ll/l/g;
+    $text =~ s/nn/n/g;
+    $text =~ s/mm/m/g;
+    $text =~ s/kk/k/g;
+    $text =~ s/hv/v/g;
+
+    # ede til et
+    $text =~ s/ede /et /g;
+
+    # nutids-r
+    $text =~ s/rer /\@e\@ /g;
+    $text =~ s/re /rer /g;
+    $text =~ s/\@e\@ /re /g;
+    $text =~ s/rer\./\@e\@\./g;
+    $text =~ s/re\./rer\./g;
+    $text =~ s/\@e\@\./re\./g;
+    $text =~ s/rer,/\@e\@,/g;
+    $text =~ s/re,/rer,/g;
+    $text =~ s/\@e\@,/re,/g;
+
+    print $text;
+}
