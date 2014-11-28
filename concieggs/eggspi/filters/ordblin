@@ -5,7 +5,7 @@ use utf8::all;
 
 while (my $text = <>) {
     $text =~ s/gjort/gjordt/g;
-    $text =~ s/er /e/g;
+    $text =~ s/er /e /g;
     $text =~ s/nde/ne/g;
     $text =~ s/ll/l/g;
     $text =~ s/nn/n/g;
