@@ -13,6 +13,7 @@ set replies {
     "God morgen. Sikke et dejligt vejr udenfor!"
     "Guten Morgen, meinen Freund!"
     "¡Hola! Ándale, ándale!"
+    "God morgen, god morgen, på hele bondegården!"
 }
 
 set goodreplies {
