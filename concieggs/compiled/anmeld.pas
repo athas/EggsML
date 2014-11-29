@@ -28,7 +28,7 @@ end;
 
 procedure Reviews();
 const
-  rs: array[0..8] of TReview =
+  rs: array[0..9] of TReview =
   (
     (Line: 'The worst thing since the bagpipes.'; Stars: 1; Author: 'Mr. Plinkett'),
     (Line: 'Det var sjovt.'; Stars: 5; Author: 'Spectrum'),
@@ -38,7 +38,8 @@ const
     (Line: 'You had me at ''Wes Andersson'''; Stars: 5; Author: 'The New York Times'),
     (Line: 'Lige lidt mere forberedelsestid'; Stars: 3; Author: 'Bjarne Goldbæk'),
     (Line: 'Jeg følte ikke noget specielt.'; Stars: 3; Author: 'Nikkel'),
-    (Line: 'Det er et los i bollerne og en kniv i hjertet.'; Stars: 1; Author: 'Oscar Davidsen')
+    (Line: 'Det er et los i bollerne og en kniv i hjertet.'; Stars: 1; Author: 'Oscar Davidsen'),
+    (Line: 'Jeg mener, at det er moderat sjovt.'; Stars: 2; Author: 'Sword_Smith')
   );
 var
   prei, ri: Integer;
