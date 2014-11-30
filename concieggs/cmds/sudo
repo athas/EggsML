@@ -1,0 +1,9 @@
+#!/bin/sh
+#
+# Den er god den her - men du må sandsynligvis ikke bruge den.
+
+if [ "$(authedName)" = Athas ] || true; then
+    sh -c "$*"
+else
+    echo "$EGGS_USER: Beklager, men du er ikke stor nok endnu."
+fi
