@@ -2,7 +2,7 @@
 #
 # Den er god den her - men du må sandsynligvis ikke bruge den.
 
-if [ "$(authedName)" = Athas ] || true; then
+if [ "$(authedName)" = Athas ]; then
     sh -c "$*"
 else
     echo "$EGGS_USER: Beklager, men du er ikke stor nok endnu."
