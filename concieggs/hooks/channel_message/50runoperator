@@ -2,7 +2,7 @@
 
 set -f
 
-regex="(?i)(^ *$CONCIEGGS_NAME[,:!] +(?<before>[^:]+):(?<operator>[^:]+): +(?<after>.+)$)\$"
+regex="(?i)(^(?<before>[^:]+):(?<operator>[^:]+): +(?<after>.+)$)\$"
 
 eval "$(echo "$EGGS_BODY" | parse "$regex")"
 
