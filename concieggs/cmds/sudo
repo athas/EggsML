@@ -9,7 +9,8 @@ if ! [ -f "$authfile" ]; then
     touch "$authfile"
 fi
 
-if grep -qE "^$(authedName)$" $authfile; then
+auth=$(authedName)
+if fgrep -qx "$auth" $authfile && [ "$auth" != ngws ]; then
     sh -c "$*"
 else
     echo "$EGGS_USER: Beklager, men du er ikke stor nok endnu."
