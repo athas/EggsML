@@ -13,7 +13,7 @@ function frobword_inner(s) {
   }
 }
 function frobword(s) {
-  if (match(s, "[jJ]ul") != 1 && rand() > 0.25) {
+  if (match(s, "[jJ]ul") != 1 && rand() > 0.75) {
     return frobword_inner(s)
   } else {
     return s
@@ -30,7 +30,7 @@ function frob(s) {
   }
 }
 {
-festive=1
+festive=0
 srand()
 print frob($0)
 fflush(); 
