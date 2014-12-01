@@ -2,7 +2,14 @@
 #
 # Den er god den her - men du må sandsynligvis ikke bruge den.
 
-if [ "$(authedName)" = Athas ]; then
+# Skal indeholde en nylinje-separeret liste af autoriserede IRC-nicks.
+authfile="$HOME/.concieggs-secret-auth"
+
+if ! [ -f "$authfile" ]; then
+    touch "$authfile"
+fi
+
+if grep -q "$(authedName)" $authfile; then
     sh -c "$*"
 else
     echo "$EGGS_USER: Beklager, men du er ikke stor nok endnu."
