@@ -1,11 +1,11 @@
-#!/bin/sh
+#!/usr/bin/env python
 #
 # Crossfade kommandoer.
 
-before="$1"
-after="$2"
+import sys
+import eggsthon.shell
 
-echo Teest!
+def interleave(xs, ys):
+    return xs + ys
 
-echo Først: $before
-echo Så: $after
+print interleave(*[eggsthon.shell.runcmd(c) for c in sys.argv[1:3]])

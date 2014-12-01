@@ -8,8 +8,6 @@ after="$3"
 
 prog="$CONCIEGGS_DIR/ops/$operator"
 
-echo 1, $@
-
 if [ -x "$prog" ]; then
     "$prog" "$before" "$after"
 fi
