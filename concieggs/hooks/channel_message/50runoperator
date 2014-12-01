@@ -6,6 +6,6 @@ regex="(?i)(^ *$CONCIEGGS_NAME[,:!] +(?<before>[^:]+):(?<operator>[^:]+): +(?<af
 
 eval "$(echo "$EGGS_BODY" | parse "$regex")"
 
-if [ "after" ]; then
+if [ "$after" ]; then
     runoperator "$operator" "$before" "$after"
 fi
