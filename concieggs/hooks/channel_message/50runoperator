@@ -1,11 +1,22 @@
-#!/bin/sh
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+use Env qw/EGGS_BODY/;
+use IPC::System::Simple qw/capturex/;
 
-set -f
+my @cmd = split(/\s*:([^:\s]+):\s*/, $EGGS_BODY);
 
-regex="(?i)(^(?<before>[^:]+):(?<operator>[^:]+): +(?<after>.+)$)\$"
+exit(0) unless @cmd > 1;
 
-eval "$(echo "$EGGS_BODY" | parse "$regex")"
+while (@cmd > 1) {
+    my $arg1 = shift @cmd;
+    my $op   = shift @cmd;
+    my $arg2 = shift @cmd // '';
 
-if [ "$after" ]; then
-    runoperator "$operator" "$before" "$after"
-fi
+    my $result = capturex('runoperator', $op, $arg1, $arg2);
+    chomp $result;
+    exit(0) unless $result;
+    unshift(@cmd, $result);
+}
+
+printf("%s\n", $cmd[0]);
