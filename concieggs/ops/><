@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+# Crossfade kommandoer.
+
+before="$1"
+after="$2"
+
+echo Teest!
+
+echo Først: $before
+echo Så: $after

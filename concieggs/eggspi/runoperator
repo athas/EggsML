@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -f # Disable globbing.
+
+operator="$1"
+before="$2"
+after="$3"
+
+prog="$CONCIEGGS_DIR/ops/$operator"
+
+if [ -x "$prog" ]; then
+    "$prog" "$before" "$after"
+fi

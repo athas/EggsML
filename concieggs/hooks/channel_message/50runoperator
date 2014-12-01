@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -f
+
+regex="(?i)(^ *$CONCIEGGS_NAME[,:!] +(?<before>[^:]+):(?<operator>[^:]+): +(?<after>.+)$)\$"
+
+eval "$(echo "$EGGS_BODY" | parse "$regex")"
+
+if [ "after" ]; then
+    runoperator "operator" "$before" "$after"
+fi
