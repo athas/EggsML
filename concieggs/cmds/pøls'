@@ -1,6 +1,0 @@
-#!/bin/sh
-#
-# Sig pøls' til concieggs. Ligesom i folkeskolen!
-echo "Synes du selv du er sjov?"
-
-annoyedBy "$EGGS_USER"
