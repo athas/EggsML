@@ -8,4 +8,4 @@ foreach $argnum (0 .. $#ARGV) {
     $input = join (' ',$input, $ARGV[$argnum])
 }
 
-system ("cowsay", "$input");
+system ("cowsay", "-d", "$input");
