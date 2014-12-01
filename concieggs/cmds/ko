@@ -1,5 +1,11 @@
 #!/usr/bin/env perl
+#
+# Takes a
+$numArgs = $#ARGV + 1;
+$input ="";
 
-$kmdo=$ARGV[0];
+foreach $argnum (0 .. $#ARGV) {
+    $input = join (' ',$input, $ARGV[$argnum])
+}
 
-system ("cowsay", "$kmdo")
+system ("cowsay", "$input");
