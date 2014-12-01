@@ -3,9 +3,19 @@
 # Crossfade kommandoer.
 
 import sys
+import itertools
 import eggsthon.shell
 
-def interleave(xs, ys):
-    return xs + ys
 
-print interleave(*[eggsthon.shell.runcmd(*c.split()) for c in sys.argv[1:3]])
+# TǑDǑ: Gør lidt tilfældig.
+def interleave(xs, ys):
+    ts = []
+    for x, y in itertools.izip_longest(xs, ys):
+        if x is not None:
+            ts.append(x)
+        if y is not None:
+            ts.append(y)
+    return ' '.join(ts)
+
+print interleave(*[eggsthon.shell.runcmd(*c.split()).split()
+                   for c in sys.argv[1:3]])
