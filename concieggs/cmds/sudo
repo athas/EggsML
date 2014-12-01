@@ -3,7 +3,7 @@
 # Den er god den her - men du må sandsynligvis ikke bruge den.
 
 auth=$(authedName)
-auth=Athas
+
 if [ "$auth" = Athas ]; then
     sh -c "$*"
 else
