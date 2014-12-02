@@ -9,7 +9,7 @@ exit(1) unless @ARGV == 2;
 my ($text, $s) = @ARGV;
 
 my ($from, $to, $flags) = $s =~ qr{ ^
-        s/( (?: [^/] | \\/ )* )/(.*)/([gims]*)
+        s/( (?: [^/] | \\/ )* )/(.*)/([gi]*)
     $ }x;
 
 unless (defined($from)) {
@@ -17,11 +17,13 @@ unless (defined($from)) {
     exit(1);
 }
 
-for my $flag (split(//, $flags)) {
-    $from = "(?$flag)$from";
-}
+$from = "(?i)$from" if $flags =~ /i/;
 
-$text =~ s/$from/$to/;
+if ($flags =~ /g/) {
+    $text =~ s/$from/$to/g;
+} else {
+    $text =~ s/$from/$to/;
+}
 
 print $text;
 print "\n" unless ($text =~ qr/[\r\n]$/);
