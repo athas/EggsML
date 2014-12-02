@@ -15,7 +15,7 @@ def interleave(xs, ys):
     xss = re.findall("[\w\,\.]+", xs)
     yss = re.findall("[\w\,\.]+", ys)
     zippedwords = []
-    for x,y in = itertools.izip_longest(xss, yss):
+    for x,y in itertools.izip_longest(xss, yss):
         zippedwords.append((x,y))
     i = 0
     while(i < len(zippedwords)):
