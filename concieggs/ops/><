@@ -11,7 +11,7 @@ import random
 
 # TǑDǑ: Gør lidt tilfældig.
 def interleave(xs, ys):
-    
+
     # har nu to lister af afsluttede sætninger.
     xss = re.findall("[^(XYZZY)\ ]+", re.sub("\. ", ".XYZZY", re.sub("\, ", ",XYZZY", xs)))
     yss = re.findall("[^(XYZZY)\ ]+", re.sub("\. ", ".XYZZY", re.sub("\, ", ",XYZZY", ys)))
@@ -33,15 +33,17 @@ def interleave(xs, ys):
 
 
     ts = []
-    
+
     for element in zippedwords:
         a = element[0]
         b = element[1]
         if a == None:
-            ts.append(previouselement[0])
+            if ts[-1] != a:
+                ts.append(previouselement[0])
             break
         if b == None:
-            ts.append(previouselement[1])
+            if ts[-1] != b:
+                ts.append(previouselement[1])
             break
 
         ts.append(element[random.randint(0,1)])
