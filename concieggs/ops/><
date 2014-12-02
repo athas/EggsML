@@ -37,13 +37,14 @@ def interleave(xs, ys):
         a = element[0]
         b = element[1]
         if a == None:
-            if ts[-1] != previouselement[0]:
-                ts.append(previouselement[0])
-            break
+            if ts[-1] == previouselement[0]:
+                break
+            ts.append(previouselement[0])
+
         if b == None:
-            if ts[-1] != previouselement[1]:
-                ts.append(previouselement[1])
-            break
+            if ts[-1] == previouselement[1]:
+                break
+            ts.append(previouselement[1])
 
         ts.append(element[random.randint(0,1)])
         previouselement = element
