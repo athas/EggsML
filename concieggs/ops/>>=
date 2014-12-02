@@ -1,0 +1,28 @@
+#!/usr/bin/env perl
+# m a >>= f
+use 5.012;
+use warnings;
+use IPC::System::Simple qw/capturex/;
+
+exit(1) unless @ARGV == 2;
+
+# Ex: svin svip til :>>=: \sviner -> mind svip om at sviner
+my ($ma, $f) = @ARGV;
+
+my ($v, $fbody) = $f =~ qr/^\s* \\(\w+) \s* -> \s* (.+) \s*$/x;
+
+exit(1) unless $fbody;
+
+my $a = capturex('runcmd', split(/ /, $ma));
+chomp $a;
+
+exit(1) unless $a;
+
+$fbody =~ s/\b$v\b/$a/g;
+
+my $res = capturex('runcmd', split(/ /, $fbody));
+chomp $res;
+
+exit(1) unless $res;
+
+printf("%s\n", $res);
