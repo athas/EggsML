@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 #
-# Takes a
+# Takes some args joins them into a string, sends it too cowsay.
+
 $numArgs = $#ARGV + 1;
 $input ="";
 
@@ -9,3 +10,4 @@ foreach $argnum (0 .. $#ARGV) {
 }
 
 system ("cowsay", "-d", "$input");
+
