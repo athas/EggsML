@@ -1,0 +1,27 @@
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+use Env qw/EGGS_USER/;
+
+exit(1) unless @ARGV == 2;
+
+# Ex: Nu kommer der en stor commit :=~: s/commit/mor/
+my ($text, $s) = @ARGV;
+
+my ($from, $to, $flags) = $s =~ qr{ ^
+        s/( (?: [^/] | \\/ )* )/(.*)/([gims]*)
+    $ }x;
+
+unless (defined($from)) {
+    print "$EGGS_USER: Sådan ser et gyldigt regulært udtryk altså ikke ud.\n";
+    exit(1);
+}
+
+for my $flag (split(//, $flags)) {
+    $from = "(?$flag)$from";
+}
+
+$text =~ s/$from/$to/;
+
+print $text;
+print "\n" unless ($text =~ qr/[\r\n]$/);
