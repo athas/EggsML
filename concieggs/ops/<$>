@@ -1,0 +1,16 @@
+#!/usr/bin/env perl
+# (<$>) :: (a -> b) -> m a -> m b
+use IPC::System::Simple qw/capturex/;
+
+exit(1) unless @ARGV == 2;
+
+# Før: tærte >>= \lort -> ko lort
+# Nu: ko <$> tærte
+my ($f, $ma) = @ARGV;
+my @bind = (">>=", $ma, "\lalalalala -> $f lalalalala");
+my $res = capturex('runoperator', @bind);
+chomp $res;
+
+exit(1) unless $a;
+
+printf("%s\n", $res);
