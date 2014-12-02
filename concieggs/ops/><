@@ -10,13 +10,18 @@ import eggsthon.shell
 
 # TǑDǑ: Gør lidt tilfældig.
 def interleave(xs, ys):
+    # har nu to lister af afsluttede sætninger.
+    xss = list(itertools.chain(*map(lambda x: x.split(), xs)))
+    yss = list(itertools.chain(*map(lambda x: x.split(), ys)))
+    zippedsentences = zip(xss, yss)
+    i = 0
     ts = []
-    for x, y in itertools.izip_longest(xs, ys):
-        if x is not None:
-            ts.append(x)
-        if y is not None:
-            ts.append(y)
+    for element in zippedsentences:
+        ts.append(element[i])
+        i += 1
+        i = (i % 2)
+
     return ' '.join(ts)
 
-print interleave(*[eggsthon.shell.runcmd(*c.split()).split()
+print interleave(*[eggsthon.shell.runcmd(*c.split()).split(", ")
                    for c in sys.argv[1:3]])

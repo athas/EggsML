@@ -21,6 +21,8 @@ open source
 Facebook
 Instagram
 JavaScript
+WebGL
+PHP
 EOF`
 
 enHipster=`randomElement <<EOF
@@ -38,26 +40,41 @@ en popstjerne
 en Peter
 en Windows-bruger
 en Mac-fanatiker
+en polit
 EOF`
 
 styre=`randomElement <<EOF
 styre
+styer
 kontrollere
 have kontrol over
 håndtere
+fikse
+hacke
+cracke
 migrere
 regulere
 tvinge
+nedgøre
+EOF`
+
+afhaengeAf=`randomElement <<EOF
+afhænge af
+bero på
+EOF`
+
+paaKnappen=`randomElement <<EOF
+på knappen
+her
+lige her
 EOF`
 
 klikkeHer=`randomElement <<EOF
-klikke her
-trykke på _den_ knap
-være en $hipster for at forstå det
-afhænge af $ungerne
+klikke $paaKnappen som $enHipster
+være $enHipster for at forstå det
+$afhaengeAf $ungerne
 gøre dét
 $styre mig selv
-indtaste *den* kommando
 EOF`
 
 lort=`randomElement <<EOF
@@ -82,9 +99,15 @@ hundehvalpe
 delfiner
 EOF`
 
+DINIDIOT=`randomElement <<EOF
+DIN IDIOT
+DIT FJOLS
+DIN KAMODÉVERAN
+EOF`
+
 menHvadMedUngerne=`randomElement <<EOF
 Men hvad med $ungerne?
-Kan du give et eksempel?
+Kan du give et eksempel, $DINIDIOT?
 Jeg er ikke tryg ved fokus på $ungerne.
 Jeg er ikke tryg ved mangel af fokus på $ungerne.
 Stoler du da ikke på $ungerne?
@@ -96,6 +119,7 @@ For fanden, smid dem nu bare ud.
 Hvorfor skal jeg $klikkeHer?
 Så du siger at jeg skal $klikkeHer?
 Ikke $ungerne igen...
+Hvad fanden sker der?
 EOF`
 
 deSkalVelHaveMad=`randomElement <<EOF
@@ -124,11 +148,11 @@ erDuMaaskeDum=`randomElement <<EOF
 Er du måske dum?
 Spis tis.
 Fucking latterligt.
-Din mor.
-Din mormor!
+Din mor!
 For fanden...
-På pikken..
+På pikken...
 For helvede!
+Vil du ha' med hammeren?
 EOF`
 
 randomElement <<EOF
