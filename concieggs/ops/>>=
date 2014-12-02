@@ -17,7 +17,7 @@ my ($ma, $f) = @ARGV;
 
 my ($v, $fbody) = $f =~ qr/^\s* \\(\w+) \s* -> \s* (.+) \s*$/x;
 
-quit("$EGGS_USER: Syntaks: kommando :>>=: \var -> kommando2 var\n") unless $fbody;
+quit("$EGGS_USER: Syntaks: kommando :>>=: \\var -> kommando2 var\n") unless $fbody;
 
 my $a = capturex('runcmd', split(/ /, $ma));
 chomp $a;
