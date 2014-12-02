@@ -30,6 +30,7 @@ def interleave(xs, ys):
         i += 1
 
     ts = []
+    i = 0
     for element in zippedwords:
         ts.append(element[i])
         i += 1
