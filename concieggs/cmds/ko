@@ -1,14 +1,13 @@
 #!/usr/bin/env perl
 #
-# Kaster til "cowsay". 
+# Kaster til "cowsay".
 # for parametre se:
 # https://en.wikipedia.org/wiki/Cowsay
 
 use 5.012;
 
 if ($ARGV[0] =~ /[bdgpstwy]/) {
-  system('cowsay', join('', '-', $ARGV[0]), @ARGV[1..@ARGV])
+  system('cowsay', ('-'.$ARGV[0]), @ARGV[1..@ARGV])
 } else {
    system('cowsay', "-d", @ARGV);
 }
-
