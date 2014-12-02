@@ -19,20 +19,33 @@ def interleave(xs, ys):
     for x,y in itertools.izip_longest(xss, yss):
         zippedwords.append((x,y))
     i = 0
-    while(i < len(zippedwords)):
-        if(zippedwords[i][1] == None):
-            zippedwords[i] = (zippedwords[i][0], zippedwords[i][0])
-            i += 1
-            continue
-        if(zippedwords[i][0] == None):
-            zippedwords[i] = (zippedwords[i][1], zippedwords[i][1])
-            i += 1
-            continue
-        i += 1
+#    while(i < len(zippedwords)):
+#        if(zippedwords[i][1] == None):
+#            zippedwords[i] = (zippedwords[i][0], zippedwords[i][0])
+#            i += 1
+#            continue
+#        if(zippedwords[i][0] == None):
+#            zippedwords[i] = (zippedwords[i][1], zippedwords[i][1])
+#            i += 1
+#            continue
+#        i += 1
+
+
 
     ts = []
+    
     for element in zippedwords:
+        a = element[0]
+        b = element[1]
+        if a == None:
+            ts.append(previouselement[0])
+            break
+        if b == None:
+            ts.append(previouselement[1])
+            break
+
         ts.append(element[random.randint(0,1)])
+        previouselement = element
 
     return ' '.join(ts)
 
