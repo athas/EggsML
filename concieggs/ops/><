@@ -14,7 +14,9 @@ def interleave(xs, ys):
     # har nu to lister af afsluttede sætninger.
     xss = re.findall("[\w\,\.]+", xs)
     yss = re.findall("[\w\,\.]+", ys)
-    zippedwords = itertools.izip_longest(xss, yss)
+    zippedwords = []
+    for x,y in = itertools.izip_longest(xss, yss):
+        zippedwords.append((x,y))
     i = 0
     while(i < len(zippedwords)):
         if(zippedwords[i][1] == None):
