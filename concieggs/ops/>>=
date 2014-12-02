@@ -3,6 +3,12 @@
 use 5.012;
 use warnings;
 use IPC::System::Simple qw/capturex/;
+use Env qw/EGGS_USER/;
+
+sub quit {
+    print shift;
+    exit;
+}
 
 exit(1) unless @ARGV == 2;
 
@@ -11,18 +17,18 @@ my ($ma, $f) = @ARGV;
 
 my ($v, $fbody) = $f =~ qr/^\s* \\(\w+) \s* -> \s* (.+) \s*$/x;
 
-exit(1) unless $fbody;
+quit("$EGGS_USER: Syntaks: kommando :>>=: \var -> kommando2 var\n") unless $fbody;
 
 my $a = capturex('runcmd', split(/ /, $ma));
 chomp $a;
 
-exit(1) unless $a;
+quit("$EGGS_USER: Du skal give bind outputtet af en kommando.\n") unless $a;
 
 $fbody =~ s/\b$v\b/$a/g;
 
 my $res = capturex('runcmd', split(/ /, $fbody));
 chomp $res;
 
-exit(1) unless $res;
+quit("$EGGS_USER: Den kommando du binder til ser altså forkert ud.\n") unless $res;
 
 printf("%s\n", $res);
