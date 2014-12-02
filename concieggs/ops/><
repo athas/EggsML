@@ -11,7 +11,9 @@ import eggsthon.shell
 # TǑDǑ: Gør lidt tilfældig.
 def interleave(xs, ys):
     # har nu to lister af afsluttede sætninger.
-    zippedsentences = zip(xs.split(),ys.split())
+    xss = list(itertools.chain(*map(lambda x: x.split(), xs)))
+    yss = list(itertools.chain(*map(lambda x: x.split(), ys)))
+    zippedsentences = zip(xss, yss)
     i = 0
     ts = []
     for element in zippedsentences:
