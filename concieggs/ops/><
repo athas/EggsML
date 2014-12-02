@@ -17,7 +17,7 @@ def interleave(xs, ys):
     i = 0
     ts = []
     for element in zippedsentences:
-        ts.append(element)
+        ts.append(element[i])
         i += 1
         i = (i % 2)
 
