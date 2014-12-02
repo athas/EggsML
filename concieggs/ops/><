@@ -33,16 +33,15 @@ def interleave(xs, ys):
 
 
     ts = []
-
     for element in zippedwords:
         a = element[0]
         b = element[1]
         if a == None:
-            if ts[-1] != a:
+            if ts[-1] != previouselement[0]:
                 ts.append(previouselement[0])
             break
         if b == None:
-            if ts[-1] != b:
+            if ts[-1] != previouselement[1]:
                 ts.append(previouselement[1])
             break
 
