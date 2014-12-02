@@ -7,7 +7,7 @@ exit(1) unless @ARGV == 2;
 # Før: tærte >>= \lort -> ko lort
 # Nu: ko <$> tærte
 my ($f, $ma) = @ARGV;
-my @bind = (">>=", $f, $ma);
+my @bind = (">>=", $f, "\lalalalala -> $ma lalalalala");
 my $res = capturex('runoperator', @bind);
 chomp $res;
 
