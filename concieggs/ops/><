@@ -23,5 +23,5 @@ def interleave(xs, ys):
 
     return ' '.join(ts)
 
-print interleave(*[eggsthon.shell.runcmd(*c.split()).split(". ")
+print interleave(*[eggsthon.shell.runcmd(*c.split()).split(", ")
                    for c in sys.argv[1:3]])
