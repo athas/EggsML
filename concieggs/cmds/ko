@@ -1,5 +1,14 @@
 #!/usr/bin/env perl
 #
-# Sends args too Cowsay.
+# Kaster til "cowsay". 
+# for parametre se:
+# https://en.wikipedia.org/wiki/Cowsay
 
-system('cowsay', '-d', @ARGV);
+use 5.012;
+
+if ($ARGV[0] =~ /[bdgpstwy]/) {
+  system('cowsay', join('', '-', $ARGV[0]), @ARGV[1..@ARGV])
+} else {
+   system('cowsay', "-d", @ARGV);
+}
+
