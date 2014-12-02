@@ -1,13 +1,5 @@
 #!/usr/bin/env perl
 #
-# Takes some args joins them into a string, sends it too cowsay.
+# Sends args too Cowsay.
 
-$numArgs = $#ARGV + 1;
-$input ="";
-
-foreach $argnum (0 .. $#ARGV) {
-    $input = join (' ',$input, $ARGV[$argnum])
-}
-
-system ("cowsay", "-d", "$input");
-
+system('cowsay', '-d', @ARGV);
