@@ -20,11 +20,14 @@ def interleave(xs, ys):
     i = 0
     while(i < len(zippedwords)):
         if(zippedwords[i][1] == None):
-            zippedwords[i][1] = zippedwords[i][0]
+            zippedwords[i] = (zippedwords[i][0], zippedwords[i][0])
+            i += 1
             continue
         if(zippedwords[i][0] == None):
-            zippedwords[i][0] = zippedwords[i][1]
+            zippedwords[i] = (zippedwords[i][1], zippedwords[i][1])
+            i += 1
             continue
+        i += 1
 
     ts = []
     for element in zippedwords:
