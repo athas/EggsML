@@ -2,7 +2,10 @@
 use 5.012;
 use warnings;
 use Env qw/EGGS_BODY/;
-use IPC::System::Simple qw/capturex/;
+use IPC::System::Simple qw/runx capturex EXIT_ANY/;
+
+# We don't want operators to operate if talking to concieggs.
+exit if runx(EXIT_ANY, "talkingToConcieggs") == 0;
 
 my @cmd = split(/\s*:([^:\s]+):\s*/, $EGGS_BODY);
 
