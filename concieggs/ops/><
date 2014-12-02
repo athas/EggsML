@@ -6,22 +6,31 @@
 import sys
 import itertools
 import eggsthon.shell
-
+import re
 
 # TǑDǑ: Gør lidt tilfældig.
 def interleave(xs, ys):
+    
     # har nu to lister af afsluttede sætninger.
-    xss = list(itertools.chain(*map(lambda x: x.split(), xs)))
-    yss = list(itertools.chain(*map(lambda x: x.split(), ys)))
-    zippedsentences = zip(xss, yss)
+    xss = re.findall("[\w\,\.]+", xs)
+    yss = re.findall("[\w\,\.]+", ys)
+    zippedwords = itertools.izip_longest(xss, yss)
     i = 0
+    while(i < len(zippedwords)):
+        if(zippedwords[i][1] == None):
+            zippedwords[i][1] = zippedwords[i][0]
+            continue
+        if(zippedwords[i][0] == None):
+            zippedwords[i][0] = zippedwords[i][1]
+            continue
+
     ts = []
-    for element in zippedsentences:
+    for element in zippedwords:
         ts.append(element[i])
         i += 1
         i = (i % 2)
 
     return ' '.join(ts)
 
-print interleave(*[eggsthon.shell.runcmd(*c.split()).split(", ")
+print interleave(*[eggsthon.shell.runcmd(*c.split())
                    for c in sys.argv[1:3]])
