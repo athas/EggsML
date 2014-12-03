@@ -8,8 +8,10 @@ if [ $# -lt 2 ]; then
     echo "$EGGS_USER: Jeg har aldeles ikke i sinde bare at hoppe og danse for $(dig $EGGS_USER)!  Du må udtrykke $(dig $EGGS_USER) forståeligt."
 else
     if [ "$1" = "på" ]; then
+        echo "$(ack)  Jeg hopper på #2."
         ircJoinChannel "$2"
     elif [ "$2" = "af" ]; then
+        echo "$(ack)  Jeg forlader #2."
         ircPartChannel "$2"
     fi
 fi
