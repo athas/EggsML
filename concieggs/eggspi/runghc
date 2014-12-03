@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# runghc, but with the path for imports as well.
+
+runhaskell -i".:$CONCIEGGS_LIB_DIR/haskeggs" "$@"

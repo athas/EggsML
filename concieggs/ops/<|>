@@ -1,0 +1,14 @@
+#!/usr/bin/env runghc
+
+-- Mest bare bevis af koncept.
+
+import System.Environment (getArgs)
+import Control.Applicative ((<|>))
+import Concieggs
+
+main :: IO ()
+main = do
+  args <- getArgs
+  case args of
+    [first, second] -> runConcieggsM ((runcmd first) <|> (runcmd second))
+    _ -> return ()

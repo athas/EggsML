@@ -5,6 +5,7 @@ set -f # Disable globbing.
 broke() {
     annoyedBy "$EGGS_USER" 5
     echo "Kommandoen fejlede!  Du kan prøve at spørge mig om 'udu', men det hjælper næsten helt sikkert ikke."
+    exit 1
 }
 
 
@@ -28,15 +29,22 @@ run() {
     shift
     shift
 
-    case "$cmd" in
+    out=$(case "$cmd" in
         er|hvem|hvad|hvor|har*|kan)
             "$acmd" $(echo "$@" | sed 's/\?*$//') || broke
             ;;
         *)
             "$acmd" "$@" || broke
             ;;
-    esac | awk '{print}'
+    esac)
+    ret=$?
+
     # Hack: use awk to newline-terminate.
+    echo $out | awk '{print}'
+
+    if [ ret != 0 ]; then
+        exit $ret
+    fi
 }
 
 if [ "$1" = -a ]; then
