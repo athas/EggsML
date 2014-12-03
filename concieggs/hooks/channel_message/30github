@@ -4,9 +4,9 @@ if [ "$EGGS_USER" = hej_fra_github ]; then
     if echo "$EGGS_BODY" | grep '^\[EggsML\]' | grep pushed | grep -v 'concieggs pushed' > /dev/null; then
         cd $EGGS_DIR
         if git pull; then
-            echo 'Jeg har hentet de nyeste ændringer fra https://github.com/Athas/EggsML!' > '/home/concieggs/concieggs_irc/irc.freenode.net/#eggsml/in'
+            echo ':m $CONCIEGGS_DEFAULT_CHANNEL Jeg har hentet de nyeste ændringer fra https://github.com/Athas/EggsML!'
         else
-            echo 'Noget gik galt da jeg lavede git pull.' > '/home/concieggs/concieggs_irc/irc.freenode.net/#eggsml/in'
+            echo ':m $CONCIEGGS_DEFAULT_CHANNEL Noget gik galt da jeg lavede git pull.'
         fi
     elif echo "$EGGS_BODY" | grep '^\[futhark\]' | egrep 'pushed|merged' > /dev/null; then
         # Concieggs - the HIPERFIT continuous integration server.
