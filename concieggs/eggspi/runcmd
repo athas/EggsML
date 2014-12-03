@@ -29,6 +29,7 @@ run() {
     shift
     shift
 
+    IFS=$'\n'
     out=$(case "$cmd" in
         er|hvem|hvad|hvor|har*|kan)
             "$acmd" $(echo "$@" | sed 's/\?*$//') || broke
