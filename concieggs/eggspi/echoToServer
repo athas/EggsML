@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+# Echo a raw IRC command to the server.  Note that this breaks usual
+# ordering and causality.
+
+echo "$@" > &3

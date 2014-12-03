@@ -2,9 +2,9 @@
 
 cd $CONCIEGGS_IRC_DIR
 
-echo "/whois $1" > in
+echoToServer ":WHOIS $1"
 for i in $(seq 1 2); do
-    authed=$(tail -n 20 out | perl -ne "if (/$1 (\\S+) is logged in as/) { print \$1; exit(0); }")
+    authed=$(tail -n 20 out | awk 'match($0,/([^ ]+)\): is logged in as$/,matches) { print matches[1]; exit(0); }')
     if [ "$authed" ]; then
         echo $authed
         exit

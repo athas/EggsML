@@ -3,6 +3,7 @@ These environment variables are always set when hooks are executed.
 EGGS_USER: person who triggered the event.
 EGGS_LINE: The full IRC line.
 EGGS_WHEN: When the event happened.
+EGGS_WHERE: the channel or user name.
 
 CONCIEGGS_DIR: main concieggs directory.
 CONCIEGGS_DB_DIR: writable data storage directory.

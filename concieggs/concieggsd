@@ -1,13 +1,9 @@
 #!/bin/sh
+#
+# Original character DO NOT STEAL
 
-set -e
-set -f
-
-trace=""
-if [ "x$1" = "x--trace" ]; then
-    trace=1
-    set -x
-fi
+set -e # Die on error
+set -f # No globbing
 
 setTrap() {
     # Kill all children when we quit.
@@ -18,35 +14,40 @@ setTrap() {
 setTrap
 
 cleanup() {
-#    jobsfile="$(mktemp)"
-#    jobs -p > "$jobsfile" #dash be silly
-#    pids="$(cat $jobsfile)"
-#    rm "$jobsfile"
-#
-#    echo "Jeg er $$. Dette er mine børn: $pids"
-#    [ -n "$pids" ] && kill $pids
     kill 0
 }
 
+# Try to figure out where this executable resides.
 dir=$(readlink -f $(dirname $0))
 
+# Load the configuration file.
 cfg=$dir/concieggs.conf
 . $cfg
-cmddir=$dir/cmds/
 
+# Export some bot information.
 export CONCIEGGS_DIR=$dir
+export CONCIEGGS_IRC_DIR=$irc_dir
 export CONCIEGGS_DB_DIR=$dir/db
 export CONCIEGGS_LIB_DIR=$dir/eggspi
+export CONCIEGGS_NAME=$irc_username
+export CONCIEGGS_DEFAULT_CHANNEL=$irc_channel
+export CONCIEGGS_ERROR_CHANNEL=$irc_error_channel
+
+# Export some lunch information.
 export EGGS_DIR=$dir/..
 export EGGS_LIB_DIR=$EGGS_DIR/eggslib
+
+# Export where to find eggsmld (we'll start it real soon now).
 export EGGS_DAEMON_SOCKET=$CONCIEGGS_DIR/eggsmld.socket
-export CONCIEGGS_IRC_DIR=$irc_dir/irc.freenode.net
-export CONCIEGGS_NAME=$irc_username
+
+# Set our locale.
 export LC_ALL=da_DK.UTF-8
+
+# Some people are unethical programmers and like Python, and
+# apparently they think this is necessary.
 (echo $PYTHONPATH | grep -qv $CONCIEGGS_LIB_DIR) && export PYTHONPATH=$CONCIEGGS_LIB_DIR:$PYTHONPATH
 
-echo "Using channel in $irc_dir/irc.freenode.net/$irc_channel"
-cd $CONCIEGGS_IRC_DIR
+echo "Interacting with concieggs_irc in $irc_dir."
 
 # Let all eggsml users touch our stuff.
 umask 002
@@ -54,125 +55,47 @@ umask 002
 # Import the concieggs library.
 export PATH=$CONCIEGGS_LIB_DIR:$PATH
 
-# Right on - read commands and be merry.
+ircloop () {
+    while true; do
+        # Connect to IRC
+        sic -h irc.freenode.net -n "$irc_username" || true
+        echo "IRC crashed - reconnecting in a few seconds." >&2
+        # Sleep a few seconds before trying again.
+        sleep 4
+    done
+}
 
-dateregex='[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}'
-awk_getuser='{ print substr($3, 2, length($3)-2); }'
-awk_checkpart='/'$dateregex' -!- .* has left .*/ { print substr($4, 0, index($4, "(")-1)}'
-awk_checkjoin='/'$dateregex' -!- .* has joined .*/ { print substr($4, 0, index($4, "(")-1)}'
+eventprocessor () {
+    awk -f $dir/irc_event_reader.awk
+}
 
+filter_non_commands() {
+    while read -r line; do
+        (if echo "$line" | egrep -q '^:'; then
+             echo "$line"
+         else
+             user="$(echo "$line" | sed -r 's/: .+//')"
+             if (echo "$user" | grep -q ' '); then
+                 user=''
+             fi
+             "$(dirname "$0")"/outfilter "$(basename "$PWD")" "$user" "$line"
+         fi) || echo "$line"
+    done
+}
 
 throttle() {
     awk '{print; fflush(); system("sleep 1")}'
 }
 
-run_hooks() {
-    hooks=$1
-    ls "$CONCIEGGS_DIR/hooks/$hooks/" | while read -r f; do
-        hook=$CONCIEGGS_DIR/hooks/$hooks/$f
-        if [ -x "$hook" ]; then
-            runhook "$hook"
-        fi
-    done
-}
+outfile=$irc_dir/out
 
-filter_non_commands() {
-    read -r line
-    {
-        iscmd="$(echo "$line" | cut -b1)"
-        if [ '/' = "$iscmd" ]; then
-            echo "$line"
-        else
-            user="$(echo "$line" | sed -r 's/: .+//')"
-            if (echo "$user" | grep -q ' '); then
-                user=''
-            fi
-            "$(dirname "$0")"/outfilter "$(basename "$PWD")" "$user" "$line"
-        fi
-    } || echo "$line"
-}
+# Make sure the outfile exists.
+touch "$outfile"
 
-ircdecode_forever() {
-    # Useful but in shoddy Python.
-    while [ 1 ]; do
-        "$(dirname "$0")"/ircdecode || true
-    done
-}
-
-# This process is run in every directory containing a conversation.
-reader() {
-    trap 'rm -f watched' EXIT
-    if (basename "$(pwd)" | grep -E '^#') > /dev/null; then
-        hooktype='channel_message'
-    else
-        hooktype='private_message'
-    fi
-    ircdecode_forever | while read -r line; do
-        touch watched
-        export EGGS_LINE="$line"
-        export EGGS_WHEN="$(echo "$EGGS_LINE" | awk --posix '/'"$dateregex"'/ { print $1, $2 }')"
-        if (echo "$EGGS_LINE" | grep -E "$dateregex <[^>]*> ") > /dev/null; then
-            export EGGS_BODY="$(echo "$EGGS_LINE"|sed -r "s/^[^>]*> //")"
-            export EGGS_USER="$(echo "$EGGS_LINE"|awk --posix "$awk_getuser"|sed 's/_*$//')"
-            if [ "$EGGS_USER" != "$CONCIEGGS_NAME" ]; then
-                run_hooks "$hooktype"
-            fi
-        else
-            export EGGS_USER="$(echo "$line"|awk --posix "$awk_checkpart")"
-
-            if [ "$EGGS_USER" ]; then
-                run_hooks 'channel_part'
-            else
-                export EGGS_USER="$(echo "$line"|awk --posix "$awk_checkjoin")"
-                if [ "$EGGS_USER" ]; then
-                    run_hooks 'channel_join'
-                fi
-            fi
-        fi
-    done | while read -r line; do
-        echo "$line" | filter_non_commands | fmt -s --width=400
-    done | throttle
-}
-
-# Write all errors here
-if [ -z "$trace" ]; then
-    tmpdir=$(mktemp -d) || exit 1
-    mkfifo $tmpdir/stderr
-    mkfifo $tmpdir/stderr2
-    (cat $tmpdir/stderr | tee $tmpdir/stderr2 | throttle > $irc_error_channel/in) &
-    cat $tmpdir/stderr2 1>&2 &
-    exec 2>$tmpdir/stderr
-    rm $tmpdir/stderr
-    rm $tmpdir/stderr2
-    rmdir $tmpdir
-fi
-
-# Start up the EggsML daemon.
-eggsmld() {
-    while true; do
-        echo "Starting eggsmld at $EGGS_DAEMON_SOCKET!" >&2
-        rm -f $EGGS_DAEMON_SOCKET
-        $EGGS_LIB_DIR/eggsmld.py $EGGS_DIR/slashdotfrokost $EGGS_DAEMON_SOCKET
-        # If we get here, the daemon must have crashed.
-        sleep 1
-    done
-}
-eggsmld &
-
-ls $CONCIEGGS_IRC_DIR | while read -r dir; do
-    dir="$(basename "$dir")"
-    if [ -d "$dir" ] && [ "$dir" != "nickserv" ]; then
-        touch "$dir/watched"
-        (cd "$dir"; touch out; (tail -f -n 0 out | reader > in)) &
-    fi
-done
-
-inotifywait -e create --monitor --format %w%f . \
-    | while read -r dir; do
-    echo inotify "$dir"
-    dir="$(basename "$dir")"
-    if [ -d "$dir" ] && ! [ -r "$dir/watched" ] && [ "$dir" != "nickserv" ]; then
-        touch "$dir/watched"
-        (cd "$dir"; touch out; (tail -f -n 10 out | reader > in)) &
-    fi
-done
+# The the two loops together.
+tail -f -n 0 "$outfile" | \
+    eventprocessor | \
+    tee /dev/stderr | \
+    filter_non_commands | \
+    throttle | \
+    ircloop >> "$outfile"
