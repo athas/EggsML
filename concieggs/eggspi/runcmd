@@ -8,7 +8,6 @@ broke() {
     exit 1
 }
 
-
 fakebroke() {
     echo "Arh... $EGGS_USER, noget gik galt, du må hellere prøve igen";
     echo "Hm, jeg ved sgu ikke lige, men den gik ikke... prøv igen, $EGGS_USER";
@@ -28,24 +27,15 @@ run() {
     acmd="$2"
     shift
     shift
-
-    IFS=$'\1'
-    out=$(case "$cmd" in
+    case "$cmd" in
         er|hvem|hvad|hvor|har*|kan)
             "$acmd" $(echo "$@" | sed 's/\?*$//') || broke
             ;;
         *)
             "$acmd" "$@" || broke
+
             ;;
-    esac)
-    ret=$?
-
-    # Hack: use awk to newline-terminate.
-    echo $out | awk '{print}'
-
-    if [ ret != 0 ]; then
-        exit $ret
-    fi
+    esac | awk '{print}' # Hack: use awk to newline-terminate.
 }
 
 if [ "$1" = -a ]; then
