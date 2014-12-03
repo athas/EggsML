@@ -36,7 +36,6 @@ match(payload, /^>< ([0-9][0-9][0-9]) \(([^)]*)\): (.*)$/, matches) {
   server_message_body=matches[3]
   # FIXME: Actually make some hooks for this.
   if (server_message_code == "001") {
-    print "Joining!" | "errpipe"
     print ":j", default_channel
     print ":j", error_channel
     fflush()
