@@ -1,0 +1,30 @@
+#!/bin/sh
+
+usage()
+{
+    echo usage: seq low hi >&2
+    exit 1
+}
+
+case $# in
+    1)
+        low=1
+        hi=$1
+        ;;
+    2)
+        low=$1
+        hi=$2
+        ;;
+    *) usage;;
+esac
+
+case "$low" in
+    [0-9]*) ;;
+    *) usage;;
+esac
+
+case "$hi" in
+    [0-9]*) ;;
+    *) usage;;
+esac
+exec awk 'BEGIN { for (i='"$low"'; i<='"$hi"'; i++) print i; exit 0; }'
