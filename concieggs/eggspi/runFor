@@ -14,7 +14,7 @@ sayTo() {
         else
             # Is not command - do molest.
             echo "$line" | \
-                fmt -s --width=380 | \
+                fmt -s -w 380 | \
                 while read -r subline; do
                     echo ":m $destination $subline"
                 done
