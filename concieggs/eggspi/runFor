@@ -8,15 +8,15 @@ sayTo() {
     destination=$1
 
     while read -r line; do
-        if echo "$line" | egrep -q '^:'; then
+        if say "$line" | egrep -q '^:'; then
             # Is command - do not molest.
-            echo "$line"
+            say "$line"
         else
             # Is not command - do molest.
-            echo "$line" | \
+            say "$line" | \
                 fmt -s -w 380 | \
                 while read -r subline; do
-                    echo ":m $destination $subline"
+                    say ":m $destination $subline"
                 done
         fi
     done
