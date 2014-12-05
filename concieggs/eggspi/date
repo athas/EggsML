@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+# Wrapper for invoking GNU date on non-GNU systems.
+#
+# TODO: Make the entire date handling stuff way less retarded.
+
+if which /usr/local/bin/gdate > /dev/null; then
+    /usr/local/bin/gdate "$@"
+else
+    date "$@"
+fi
