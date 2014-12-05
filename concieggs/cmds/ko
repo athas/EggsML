@@ -5,9 +5,10 @@
 # https://en.wikipedia.org/wiki/Cowsay
 
 use 5.012;
+#use warnings;
 
-if ($ARGV[0] =~ /[bdgpstwy]/) {
-  system('cowsay', ('-'.$ARGV[0]), @ARGV[1..@ARGV])
+if ($ARGV[0] =~ /^[bdgpstwy]$/) {
+    system('cowsay', ('-'.$ARGV[0]), @ARGV[1..@ARGV])
 } else {
-   system('cowsay', "-d", @ARGV);
+    system('cowsay', "-d", @ARGV);
 }
