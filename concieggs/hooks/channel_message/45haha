@@ -31,7 +31,7 @@ ROFLCOPTER
 EOF
 )"
 
-new=$(echo "$EGGS_BODY" | sed -r -e "s/ha(ha)+/$ha/i" -e "s/(sjovt?|grinern?|morsomt?|skægt?)/$sjov/i")
+new=$(echo "$EGGS_BODY" | sed -r -e "s/ha(ha)+/$ha/i" -e "s/(sjovt?|grinern?|morsomt?|skægt?)/$sjov/g")
 
 if [ "$new" != "$EGGS_BODY" ]; then
     echo "$new"
