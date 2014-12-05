@@ -1,0 +1,13 @@
+#!/usr/bin/env perl
+# echo, som ikke fortolker escape-codes
+use 5.012;
+use warnings;
+
+my $nl = "\n";
+
+if (@ARGV > 0 && $ARGV[0] eq '-n') {
+    shift @ARGV;
+    $nl = '';
+}
+
+printf("%s%s", join(' ', @ARGV), $nl);
