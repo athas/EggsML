@@ -5,10 +5,6 @@
 # for parametre se:
 # https://en.wikipedia.org/wiki/Cowsay
 
-echo "Denne kommando er placeret under embargo indtil de voldsomme overgreb mod blanktegnsskik ophører."
-annoyedBy "$EGGS_USER" 10
-exit 0
-
 use 5.012;
 
 if ($ARGV[0] =~ /[bdgpstwy]/) {
