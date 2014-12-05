@@ -1,5 +1,5 @@
 #!/bin/sh
 
 eggstool balances \
-    | sort -g | head -n 5 | awk '$1 < 0 { print $0, -1*$1 "kr" }' \
+    | sort -n | head -n 5 | awk '$1 < 0 { print $0, -1*$1 "kr" }' \
     | cut -d' ' -f 2- | commasize
