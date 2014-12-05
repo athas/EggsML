@@ -7,21 +7,8 @@
 sayTo() {
     destination=$1
 
-    while read -r line; do
-        if say "$line" | egrep -q '^:'; then
-            # Is command - do not molest.
-            say "$line"
-        else
-            # Is not command - do molest.
-            say "$line" | \
-                fmt -s -w 380 | \
-                while read -r subline; do
-                    say ":m $destination $subline"
-                done
-        fi
-    done
+    fmt -s -w 380 | gawk '{ print ":m", DEST, $0 }' "DEST=$destination"
 }
-
 where=$1
 shift
 ((("$@" 2>&4 | sayTo "$where" >&3) 4>&1) | sayTo "$CONCIEGGS_ERROR_CHANNEL" >&3) 3>&1
