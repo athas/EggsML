@@ -16,7 +16,7 @@ tilfældigTing =
   , "katte"
   , "Starbucks"
   , "Pizza Hut"
-  , "harddisken"
+  , "fastpladelageret"
   ]
 
 tilfældigFørsteperson :: Random String
