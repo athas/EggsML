@@ -7,7 +7,7 @@
 sayTo() {
     destination=$1
 
-    fmt -s -w 380 | gawk '{ print ":m", DEST, $0 }' "DEST=$destination"
+    fmt -w 380 | gawk '{ print ":m", DEST, $0 }' "DEST=$destination"
 }
 where=$1
 shift
