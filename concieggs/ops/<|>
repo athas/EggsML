@@ -1,10 +1,11 @@
 #!/usr/bin/env runghc
 
--- Mest bare bevis af koncept.
+-- Mest bare bevis af koncept.  Kommer først til at virke når runcmd exiter med
+-- kode ikke 0 når der er en fejl.
 
 import System.Environment (getArgs)
 import Control.Applicative ((<|>))
-import Concieggs
+import Concieggs.Monad
 
 main :: IO ()
 main = do
