@@ -24,4 +24,4 @@ for a, b in boxes:
 
 matches = filter(lambda s: not s.startswith('TV: '), matches)
     
-print decode_html_entities(random.choice(matches))
+print decode_html_entities(random.choice(matches).decode('utf-8'))
