@@ -1,0 +1,9 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# Lad concieggs vælge mellem to muligheder.  Brug: skal jeg A eller B?
+
+import sys
+import random
+
+print random.choice(['Min mor sagde altid: Husk at', 'Du skal', 'Det er bedst hvis du vil']) + ' ' + random.choice(' '.join(sys.argv[2:]).split(' eller ')) + random.choice(['.', '!', '!!!'])
