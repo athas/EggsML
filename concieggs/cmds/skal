@@ -6,4 +6,6 @@
 import sys
 import random
 
+print sys.argv
+
 print random.choice(['Min mor sagde altid: Husk at', 'Du skal', 'Det er bedst hvis du vil']) + ' ' + random.choice(' '.join(sys.argv[2:]).split(' eller ')) + random.choice(['.', '!', '!!!'])
