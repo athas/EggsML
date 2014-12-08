@@ -37,7 +37,7 @@ case $srcfile in
         ;;
     *hs)
         compile() {
-            ghc "$1" -o "$2" -i"$CONCIEGGS_DIR/compiled" >&2
+            ghc "$1" -o "$2" -i"$CONCIEGGS_DIR/compiled:$CONCIEGGS_LIB_DIR/haskeggs" >&2
         }
         ;;
     *)
