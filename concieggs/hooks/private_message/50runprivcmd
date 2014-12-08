@@ -7,12 +7,11 @@ set -f
 awk_getcmd='{ print tolower($1); }'
 awk_getargs='{ print substr($0, index($0, $1)+length($1)+1, length($0)) }'
 
-rawcmd=$(echo "$EGGS_BODY"|awk --posix "$awk_getcmd")
+rawcmd=$(echo "$EGGS_BODY"|gawk "$awk_getcmd")
 if [ "$rawcmd" ]; then
-    args="$(echo "$EGGS_BODY"|awk --posix "$awk_getargs")"
+    args="$(echo "$EGGS_BODY"|gawk "$awk_getargs")"
     runcmd -a "$rawcmd" $args
     if [ "$rawcmd" = "maxima" ]; then
-        echo "$EGGS_USER skriver måske farlige ting til mig privat!" > \
-            $CONCIEGGS_IRC_DIR/$irc_channel/in
+        echoToServer ":m $CONCIEGGS_DEFAULT_CHANNEL $EGGS_USER skriver måske farlige ting til mig privat!"
     fi
 fi
