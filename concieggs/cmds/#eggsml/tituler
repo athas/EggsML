@@ -60,7 +60,7 @@ fi
 cd $EGGS_DIR
 
 aliases=$(aliases "$who" | commasize)
-lineno=$(cat slashdotfrokost | sed '/::FARVER::/q' | fgrep -n -m 1 -e "$aliases" | sed 's/:.*//')
+lineno=$(cat slashdotfrokost | sed '/::FARVER::/q' | fgrep -n -e "$aliases" | head -n 1 | sed 's/:.*//')
 
 if ! [ "$lineno" ]; then
     echo "Uha, jeg kan ikke finde linjen i datafilen."
