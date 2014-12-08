@@ -69,20 +69,6 @@ eventprocessor () {
     gawk -f $dir/irc_event_reader.awk
 }
 
-filter_non_commands() {
-    while read -r line; do
-        (if say "$line" | egrep -q '^:'; then
-             say "$line"
-         else
-             user="$(say "$line" | sed -r 's/: .+//')"
-             if (say "$user" | grep -q ' '); then
-                 user=''
-             fi
-             "$(dirname "$0")"/outfilter "$(basename "$PWD")" "$user" "$line"
-         fi) || say "$line"
-    done
-}
-
 throttle() {
     awk '{print; fflush(); system("sleep 1")}'
 }
@@ -96,6 +82,5 @@ touch "$outfile"
 tail -f -n 0 "$outfile" | \
     eventprocessor | \
     tee /dev/stderr | \
-    filter_non_commands | \
     throttle | \
     ircloop >> "$outfile"
