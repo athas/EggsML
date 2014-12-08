@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# Format one line at a time.
+
+while read line; do
+    say "$line" | fmt "$@"
+done

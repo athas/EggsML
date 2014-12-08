@@ -7,7 +7,7 @@
 sayTo() {
     destination=$1
 
-    fmt -w 380 | gawk '{ print ":m", DEST, $0 }' "DEST=$destination"
+    linefmt -w 380 | gawk '{ print ":m", DEST, $0 }' "DEST=$destination"
 }
 
 filter_non_commands() {
