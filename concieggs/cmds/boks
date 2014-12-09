@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+# Udskriv en besked i en boks.
+
+besked="| $@ |"
+echo "$besked" | sed 's/./-/g'
+echo "$besked"
+echo "$besked" | sed 's/./-/g'
