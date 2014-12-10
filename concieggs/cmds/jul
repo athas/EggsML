@@ -2,7 +2,8 @@
 
 shuttingUp && exit
 
-nummer(){ echo `randomElement <<EOF
+nummer(){
+    echo `randomElement <<EOF
  1
  2
  3
@@ -15,7 +16,8 @@ nummer(){ echo `randomElement <<EOF
  EOF`
 }
 
-numre(){echo `randomElement <<EOF
+numre(){
+    echo `randomElement <<EOF
     $(nummer)
     $(nummer)$(nummer)$(nummer)
     $(nummer)$(nummer)
