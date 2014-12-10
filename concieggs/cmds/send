@@ -5,7 +5,7 @@
 
 set -f
 
-eval "$(echo "$@" | parse '(?<rawcmd>.+)( til (?<addr>.+@.+|twitter|spiltirsdag))')"
+eval "$(echo "$@" | parse '(?<rawcmd>.+)( til (?<addr>.+@.+|twitter|internettet|spiltirsdag))')"
 
 if [ "$rawcmd" ]; then
     cmd=$(echo "$rawcmd" | cut -d' ' -f 1)
@@ -19,7 +19,7 @@ if [ "$rawcmd" ]; then
     fi
 
     result=$(runcmd "$cmd" $args)
-    if [ "$addr" = "twitter" ]; then
+    if [ "$addr" = "twitter" ] || [ "$addr" = "internettet" ]; then
         runcmd kvidr "$result"
     else
         echo "Sender $cmd $args til $addr!"
@@ -27,5 +27,5 @@ if [ "$rawcmd" ]; then
         echo $result | mailx -s "Afvikling af $cmd $args, anmodet af $EGGS_USER" "$addr" -- -r concieggs@eggsml.dk
     fi
 else
-    echo 'Brug: send <kommando> til <hvem@hvor>'
+    echo 'Brug: send <kommando> til <hvem@hvor>|hvad'
 fi
