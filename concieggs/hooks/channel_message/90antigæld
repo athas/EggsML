@@ -45,6 +45,9 @@ Eggs mig, Eggs mig, Eggs mig!
 EOF`
 
 if [ -n "$debt" ]; then
+    if isInEggs $EGGS_USER; then
+        exit
+    fi
     if [ "$(echo "$debt < -100 " | bc)" = 1 ]; then
         echo "$EGGS_USER: $opfordring"
     fi

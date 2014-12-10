@@ -1,13 +1,24 @@
 #!/bin/sh
 
-time=$1
-name="$2"
-if [ -s "$CONCIEGGS_DB_DIR/eggs/$time" ]; then
-    aliases "$name" | while read alias; do
-        if cat $CONCIEGGS_DB_DIR/eggs/$time | sed 's/,.*//' \
-            | fgrep -x "$alias"; then
-            exit 0
-        fi
+check() {
+    if [ -s "$CONCIEGGS_DB_DIR/eggs/$time" ]; then
+        aliases "$name" | while read alias; do
+            if cat $CONCIEGGS_DB_DIR/eggs/$time | sed 's/,.*//' \
+                | fgrep -x "$alias"; then
+                exit 0
+            fi
+        done
+    fi
+    exit 1
+}
+
+if [ "$2" ]; then
+    time=$1
+    name="$2"
+    check $1 "$2"
+else
+    name="$1"
+    nextEggs | while read time; do
+        check $time "$name"
     done
 fi
-exit 1

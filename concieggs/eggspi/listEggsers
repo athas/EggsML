@@ -1,11 +1,21 @@
 #!/bin/sh
 
-cat $CONCIEGGS_DB_DIR/eggs/$1 | while read who; do
-    name=$(echo "$who" | sed 's/,.*//')
-    fact=$(echo "$who" | grep "," | sed 's/.*, //')
-    if [ "$fact" -a "$fact" != 1 ]; then
-        echo "$(randomNameWithTitle "$name")(*$fact)"
-    else
-        echo $(randomNameWithTitle "$name")
-    fi
-done
+list() {
+    cat $CONCIEGGS_DB_DIR/eggs/$1 | while read who; do
+        name=$(echo "$who" | sed 's/,.*//')
+        fact=$(echo "$who" | grep "," | sed 's/.*, //')
+        if [ "$fact" -a "$fact" != 1 ]; then
+            echo "$(randomNameWithTitle "$name")(*$fact)"
+        else
+            echo $(randomNameWithTitle "$name")
+        fi
+    done
+}
+
+if [ "$1" ]; then
+    list $1
+else
+    nextEggs | while read time; do
+        list $time
+    done
+fi
