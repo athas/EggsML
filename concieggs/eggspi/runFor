@@ -24,6 +24,11 @@ filter_non_commands() {
     done
 }
 
+# Converts "/me does stuff" to "\x01ACTION does stuff"
+ircify_actions() {
+    perl -ne 's{^/me}{\x01ACTION}g; print'
+}
+
 where=$1
 shift
-((("$@" 2>&4 | filter_non_commands | sayTo "$where" >&3) 4>&1) | sayTo "$CONCIEGGS_ERROR_CHANNEL" >&3) 3>&1
+((("$@" 2>&4 | filter_non_commands | ircify_actions | sayTo "$where" >&3) 4>&1) | sayTo "$CONCIEGGS_ERROR_CHANNEL" >&3) 3>&1
