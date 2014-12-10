@@ -1,6 +1,5 @@
 #!/bin/sh
 
-shuttingUp && exit
 
 nummer(){
     echo `randomElement <<EOF
@@ -95,10 +94,8 @@ Hvem $bande skal man snave for at få nåe ganske almindelig $nam??!
 jaaa... $nam..!
 EOF
 `
-
-if christmas && maybeGood .3; then
+   shuttingUp && exit
    echo "$tale"
    exit
-fi
 
 
