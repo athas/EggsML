@@ -13,7 +13,8 @@ nummer(){
  7
  8
  9
- EOF`
+ EOF
+ `
 }
 
 numre(){
@@ -21,7 +22,8 @@ numre(){
     $(nummer)
     $(nummer)$(nummer)$(nummer)
     $(nummer)$(nummer)
-    EOF`
+    EOF
+    `
 }
 
 bande=`randomElement <<EOF
@@ -33,7 +35,8 @@ katten
 pokker
 hulen
 helvede
-EOF`
+EOF
+`
 
 nam=`randomElement <<EOF
 juleøl
@@ -56,8 +59,8 @@ eiskonfekt
 konfekt
 marcipan
 nougat
-EOF`
-
+EOF
+`
 
 tale=`randomElement <<EOF
 Pøblen sig glæder, sig glæder over højtiden!
@@ -90,7 +93,8 @@ Nu skal vi på druk! Men først efter vi har fået en $nam.
 Tjener! Ræk mig $(nummer) $nam.
 Hvem $bande skal man snave for at få nåe\' ganske almindelig $(nam)??!
 jaaa... $nam..!
-EOF`
+EOF
+`
 
 if christmas && maybeGood .3; then
    echo "$tale"
