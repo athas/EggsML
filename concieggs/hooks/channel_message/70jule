@@ -2,7 +2,7 @@
 
 shuttingUp && exit
 
-echo "runcmd jul" | at now + "$tidspunkt"
+echo "runcmd jul" | at now + "$tidspunkt" minutes
 exit
 
 
