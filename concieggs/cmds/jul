@@ -1,52 +1,8 @@
 #!/bin/sh
 
 shuttingUp && exit
-tale=`randomElement <<EOF
-Pøblen sig glæder, sig glæder over højtiden!
-Der ligger en gave, og smiler til mig - sh sh.
-Gaven den er lækker, det samme er jeg - sh sh.
-Æsken gaven ligger den vejer et par gram - sh sh.
-Så jeg er sikker på det er en klods med RAM - sh sh!
-Julen er sandelig den gladeste tid i riget.
-JUL?
-Jul!
-Du Godeste! Er det allerede jul?
-$EGGS_USER, hvis du ikke juler, så juler jeg da bare for to!
-Skal vi ikke lige tage nr. $numre i hæftet?
-Nu synes jeg vi skal synge nummer $numre. Vi springer bare de $nummer midterste vers over.
-Jeg giver ikke kun gaver til jul. Jeg sender faktisk opimod $numre pakker I SEKUNDET!
-Hohoho!  Glædelig jul, alle sammen.
-Er der mere $nam?
-Ræk mig lige noget $nam!
-Ta\' nu noget $nam, inden det fordærver.
-.. nu slog jeg sgu en $nummer\'er. Så skal nogen give mig alle sine pakker!
-Jeg synes vi skal spille pakkeleg. Jeg har i hvert fald sat uret til $numre sekunder.
-Det er jul!
-Jul-jul-jul-jul-jul-jul-jul-juljuljul. JUL!
-Husk nu at det er jul! ALLE HUSKER AT DET ER JUL!
-JUUUUUUUUUUUUUUUUUUUUUUUUL!!!
-Jeg kan ikke vente til juleaften, som er snart.
-Jule jule jule.
-Jul!
-Nu skal vi på druk! Men først efter vi har fået en $nam
-Tjener! Ræk mig $nummer $nam.
-Hvem $bande skal man snave for at få nåe\' ganske almindelig $nam??!
-jaaa... $nam..!
-EOF`
 
-bande=`randomElement <<EOF
-fanden
-satan
-dælen
-søren
-katten
-pokker
-hulen
-helvede
-EOF`
-
-
-nummer=`randomElement <<EOF
+nummer(){echo `randomElement <<EOF
 1
 2
 3
@@ -57,11 +13,24 @@ nummer=`randomElement <<EOF
 8
 9
 EOF`
+}
 
-numre=`randomElement <<EOF
-$nummer 
-$nummer $nummer $nummer
-$nummer $nummer
+numre(){echo `randomElement <<EOF
+    $(nummer)
+    $(nummer)$(nummer)$(nummer)
+    $(nummer)$(nummer)
+    EOF`
+}
+
+bande=`randomElement <<EOF
+fanden
+satan
+dælen
+søren
+katten
+pokker
+hulen
+helvede
 EOF`
 
 nam=`randomElement <<EOF
@@ -87,7 +56,41 @@ marcipan
 nougat
 EOF`
 
-if christmas && maybeGood .2; then
+
+tale=`randomElement <<EOF
+Pøblen sig glæder, sig glæder over højtiden!
+Der ligger en gave, og smiler til mig - sh sh.
+Gaven den er lækker, det samme er jeg - sh sh.
+Æsken gaven ligger den vejer et par gram - sh sh.
+Så jeg er sikker på det er en klods med RAM - sh sh!
+Julen er sandelig den gladeste tid i riget.
+JUL?
+Jul!
+Du Godeste! Er det allerede jul?
+$EGGS_USER, hvis du ikke juler, så juler jeg da bare for to!
+Skal vi ikke lige tage nr. $(numre) i hæftet?
+Nu synes jeg vi skal synge nummer $(numre). Vi springer bare de $(nummer) midterste vers over.
+Jeg giver ikke kun gaver til jul. Jeg sender faktisk opimod $numre pakker I SEKUNDET!
+Hohoho!  Glædelig jul, alle sammen.
+Er der mere $nam?
+Ræk mig lige noget $nam!
+Ta\' nu noget $nam, inden det fordærver.
+.. nu slog jeg sgu en $(nummer)\'er. Så skal nogen give mig alle sine pakker!
+Jeg synes vi skal spille pakkeleg. Jeg har i hvert fald sat uret til $(numre) sekunder.
+Det er jul!
+Jul-jul-jul-jul-jul-jul-jul-juljuljul. JUL!
+Husk nu at det er jul! ALLE HUSKER AT DET ER JUL!
+JUUUUUUUUUUUUUUUUUUUUUUUUL!!!
+Jeg kan ikke vente til juleaften, som er snart.
+Jule jule jule.
+Jul!
+Nu skal vi på druk! Men først efter vi har fået en $nam.
+Tjener! Ræk mig $(nummer) $nam.
+Hvem $bande skal man snave for at få nåe\' ganske almindelig $(nam)??!
+jaaa... $nam..!
+EOF`
+
+if christmas && maybeGood .3; then
    echo "$tale"
    exit
 fi
