@@ -1,7 +1,8 @@
 #!/bin/sh
 
 list() {
-    cat $CONCIEGGS_DB_DIR/eggs/$1 | while read who; do
+    time=$1
+    cat $CONCIEGGS_DB_DIR/eggs/$time | while read who; do
         name=$(echo "$who" | sed 's/,.*//')
         fact=$(echo "$who" | grep "," | sed 's/.*, //')
         if [ "$fact" -a "$fact" != 1 ]; then
