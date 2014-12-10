@@ -1,0 +1,57 @@
+#!/usr/bin/env python3
+#
+# Lav et mem.  Brug: makeMeme TOPLINJE BUNDLINJE
+
+import sys
+import os
+import random
+from urllib.request import urlopen
+from urllib.parse import urlencode
+import json
+
+
+def main(args):
+    try:
+        top = sys.argv[1]
+        bottom = sys.argv[2]
+    except IndexError:
+        print('Mangler argumenter.', file=sys.stderr)
+        return 1
+
+    with open(os.path.join(os.getenv('CONCIEGGS_HOME'), 'credentials', 'memegenerator.net')) as f:
+        try:
+            user, password = f.read().rstrip().split(':')
+        except ValueError:
+            print('Løsenfil er væk.', file=sys.stderr)
+            return 1
+
+    page = random.randint(0, 10)
+    text = urlopen("http://version1.api.memegenerator.net/Generators_Select_ByPopular?pageIndex={page}&pageSize=24&days=7".format(**locals())).read();
+    meme = json.loads(text.decode('utf-8'))
+    if not meme['success']:
+        print('Kunne ikke finde en memskabelon.', file=sys.stderr)
+        return 1
+    meme = random.choice(meme['result'])
+    generator = meme['generatorID']
+    image_id = meme['imageUrl'].rsplit('/', 1)[1].rsplit('.', 1)[0]
+    params = {
+        'username': user,
+        'password': password,
+        'languageCode': 'en',
+        'generatorID': generator,
+        'imageID': image_id,
+        'text0': top,
+        'text1': bottom
+    }
+    text = urlopen('http://version1.api.memegenerator.net/Instance_Create?'
+                   + urlencode(params)).read()
+    result = json.loads(text.decode('utf-8'))
+    if not result['success']:
+        print('Kunne ikke lave et mem.', file=sys.stderr)
+        return 1
+
+    print(result['result']['instanceImageUrl'])
+    return 0
+
+if __name__ == '__main__':
+    sys.exit(main(sys.argv[1:]))

@@ -1,4 +1,4 @@
-# Hent URLs.
+# Hent URLs (for Python 2).
 
 import urllib
 import threading

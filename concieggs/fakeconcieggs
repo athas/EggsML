@@ -22,6 +22,9 @@ export CONCIEGGS_DB_DIR=$CONCIEGGS_DIR/db
 export EGGS_USER=${EGGS_USER:-$(whoami)}
 export PATH=$CONCIEGGS_DIR/eggspi:$PATH
 export PYTHONPATH=$CONCIEGGS_LIB_DIR:$PYTHONPATH
+if [ ! "$CONCIEGGS_HOME" ]; then
+    export CONCIEGGS_HOME="$HOME"
+fi
 shift
 
 $cmd "$@"

@@ -32,6 +32,7 @@ export CONCIEGGS_LIB_DIR=$dir/eggspi
 export CONCIEGGS_NAME=$irc_username
 export CONCIEGGS_DEFAULT_CHANNEL=$irc_channel
 export CONCIEGGS_ERROR_CHANNEL=$irc_error_channel
+export CONCIEGGS_HOME="$HOME"
 
 # Export some lunch information.
 export EGGS_DIR=$dir/..

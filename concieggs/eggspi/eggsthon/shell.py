@@ -47,5 +47,4 @@ def make_cmd_fun(cmdname):
     return f
 
 for f in os.listdir(CONCIEGGS_LIB_DIR):
-    if f != 'skinkefy.go':
-        globals()[f] = make_cmd_fun(f)
+    globals()[f] = make_cmd_fun(f)
