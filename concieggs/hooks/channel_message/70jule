@@ -2,10 +2,6 @@
 
 shuttingUp && exit
 
-echo "runcmd jul" | at now + $tidspunkt minutes
-exit
-
-
 tidspunkt=`randomElement <<EOF
 1
 2
@@ -20,3 +16,9 @@ tidspunkt=`randomElement <<EOF
 60
 EOF
 `
+echo "runcmd jul" | at now + $tidspunkt minutes
+exit
+
+
+
+

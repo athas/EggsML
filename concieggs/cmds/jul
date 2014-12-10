@@ -1,12 +1,6 @@
 #!/bin/sh
 
 shuttingUp && exit
-
-if christmas && maybeGood .2; then
-   echo "$tale"
-   exit
-fi
-
 tale=`randomElement <<EOF
 Pøblen sig glæder, sig glæder over højtiden!
 Der ligger en gave, og smiler til mig - sh sh.
@@ -92,4 +86,10 @@ konfekt
 marcipan
 nougat
 EOF`
+
+if christmas && maybeGood .2; then
+   echo "$tale"
+   exit
+fi
+
 
