@@ -16,9 +16,6 @@ tidspunkt=`randomElement <<EOF
 60
 EOF
 `
-echo runcmd jul | at now + $tidspunkt minutes
+# echo "runcmd jul" | at now + $tidspunkt minutes
+echoToServer ":KICK $(ircChannel) Nikkel :Du skulle have passet bedre på!"
 exit
-
-
-
-
