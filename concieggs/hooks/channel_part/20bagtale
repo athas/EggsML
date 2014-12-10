@@ -7,7 +7,7 @@ onEggsChannel || exit
 maybeGood .9 || exit
 
 user=$EGGS_USER
-lookupDebt $user | grep -vq '\-' - || exit
+lookupDebt $user | grep -vq '\-' || exit
 
 penge=`randomElement <<EOF
 penge
