@@ -12,7 +12,8 @@ nummer(){
  7
  8
  9
- EOF`
+ EOF
+`
 }
 
 numre(){
@@ -20,7 +21,8 @@ numre(){
     $(nummer)
     $(nummer)$(nummer)$(nummer)
     $(nummer)$(nummer)
-    EOF`
+    EOF
+`
 }
 
 bande=`randomElement <<EOF
@@ -32,7 +34,8 @@ katten
 pokker
 hulen
 helvede
-EOF`
+EOF
+`
 
 nam=`randomElement <<EOF
 juleøl
@@ -55,7 +58,8 @@ eiskonfekt
 konfekt
 marcipan
 nougat
-EOF`
+EOF
+`
 
 tale=`randomElement <<EOF
 Pøblen sig glæder, sig glæder over højtiden!
@@ -75,7 +79,7 @@ Hohoho!  Glædelig jul, alle sammen.
 Er der mere $nam?
 Ræk mig lige noget $nam!
 Ta\' nu noget $nam, inden det fordærver.
-.. nu slog jeg sgu en $(nummer)\'er. Så skal nogen give mig alle sine pakker!
+.. nu slog jeg sgu en $(nummer)'er. Så skal nogen give mig alle sine pakker!
 Jeg synes vi skal spille pakkeleg. Jeg har i hvert fald sat uret til $(numre) sekunder.
 Det er jul!
 Jul-jul-jul-jul-jul-jul-jul-juljuljul. JUL!
@@ -88,7 +92,8 @@ Nu skal vi på druk! Men først efter vi har fået en $nam.
 Tjener! Ræk mig $(nummer) $nam.
 Hvem $bande skal man snave for at få nåe ganske almindelig $nam??!
 jaaa... $nam..!
-EOF`
+EOF
+`
 
 shuttingUp && exit
 echo "$tale"
