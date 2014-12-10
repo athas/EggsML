@@ -8,17 +8,16 @@ from time import sleep
 def fork_away():
     if os.fork():
         sys.exit()
+def run_main(args):
+    if (random.randint(0,3) == 0):
+        fork_away()
+        sleep(random.randint(60, 10*60))
+        subprocess.call(["runcmd jul"], shell=True)
+    else:
+        sys.exit(0)
 
-if (random.randint(0,3) == 0):
-    fork_away()
-    sleep(random.randint(60, 10*60))
-    subprocess.call(["runcmd jul"], shell=True)
 
-else:
-    sys.exit(0)
-
-
-if __name_ == '__main__':
+if __name__ == '__main__':
     run_main(sys.argv)
 
 
