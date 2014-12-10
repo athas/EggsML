@@ -2,27 +2,25 @@
 
 
 nummer(){
-    echo `randomElement <<EOF
- 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
- EOF
-`
+echo `randomElement <<EOF
+1
+2
+3
+4
+5
+6
+7
+8
+9
+EOF`
 }
 
 numre(){
-    echo `randomElement <<EOF
-    $(nummer)
-    $(nummer)$(nummer)$(nummer)
-    $(nummer)$(nummer)
-    EOF
-`
+echo `randomElement <<EOF
+$(nummer)
+$(nummer)$(nummer)$(nummer)
+$(nummer)$(nummer)
+EOF`
 }
 
 bande=`randomElement <<EOF
