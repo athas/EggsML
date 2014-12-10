@@ -3,7 +3,7 @@
 shuttingUp && exit
 
 if christmas && maybeGood .2; then
-        randomElement <<EOF
+      tale=`randomElement <<EOF
 Pøblen sig glæder, sig glæder over højtiden!
 Der ligger en gave, og smiler til mig - sh sh.
 Gaven den er lækker, det samme er jeg - sh sh.
@@ -34,7 +34,9 @@ Nu skal vi på druk! Men først efter vi har fået en $nam
 Tjener! Ræk mig $nummer $nam.
 Hvem $bande skal man snave for at få nåe\' ganske almindelig $nam??!
 jaaa... $nam..!
-EOF
+EOF`
+    echo "$tale"
+    exit
 fi
 
 bande=`randomElement <<EOF
@@ -89,10 +91,4 @@ konfekt
 marcipan
 nougat
 EOF`
-
-
-
-
-
-
 
