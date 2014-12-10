@@ -16,7 +16,7 @@ tidspunkt=`randomElement <<EOF
 60
 EOF
 `
-echo "runcmd jul" | at now + $tidspunkt minutes
+echo runcmd jul | at now + $tidspunkt minutes
 exit
 
 
