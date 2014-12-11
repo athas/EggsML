@@ -2,9 +2,10 @@
 # m a >>= f
 use 5.012;
 use warnings;
+use utf8::all;
 use IPC::System::Simple qw/capturex/;
 use Env qw/EGGS_USER/;
-use utf8::all;
+use Encode qw/decode/;
 
 sub quit {
     print shift;
@@ -21,6 +22,7 @@ my ($v, $fbody) = $f =~ qr/^\s* \\(\w+) \s* -> \s* (.+) \s*$/x;
 quit("$EGGS_USER: Syntaks: kommando :>>=: \\\\var -> kommando2 var\n") unless $fbody;
 
 my $a = capturex('runcmd', split(/ /, $ma));
+$a = decode('utf-8', $a);
 chomp $a;
 
 quit("$EGGS_USER: Du skal give bind outputtet af en kommando.\n") unless $a;
@@ -28,6 +30,7 @@ quit("$EGGS_USER: Du skal give bind outputtet af en kommando.\n") unless $a;
 $fbody =~ s/\b$v\b/$a/g;
 
 my $res = capturex('runcmd', split(/ /, $fbody));
+$res = decode('utf-8', $res);
 chomp $res;
 
 quit("$EGGS_USER: Den kommando du binder til ser altså forkert ud.\n") unless $res;
