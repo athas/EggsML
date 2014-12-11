@@ -1,0 +1,21 @@
+#!/bin/sh
+#
+# "ham", "hende" eller "vedkommende".
+
+alias="$1"
+# Det er svært at udregne om det skal være "ham", "hende" eller "vedkommende"
+# baseret på et alias, så vi gætter.
+
+ham_procent=85 # TODO: Fiks kønsfordelingen på DIKU.
+hende_procent=10
+andet_procent=5
+
+r=$(random 0 99)
+
+if [ $r -lt $ham_procent ]; then
+    echo ham
+elif [ $r -lt $(expr $ham_procent + $hende_procent) ]; then
+    echo hende
+else
+    echo vedkommende
+fi

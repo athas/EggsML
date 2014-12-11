@@ -39,4 +39,4 @@ fiksStedord() {
 echo "$msg" | fiksStedord | dbWrite "$msgnode/message"
 echo "$from" | dbWrite "$msgnode/from"
 
-echo "$(ack)  Næste gang $to blander sig i samtalen, vil jeg minde ham om at $msg"
+echo "$(ack)  Næste gang $to blander sig i samtalen, vil jeg minde $(vedkommende "$to") om at $msg"
