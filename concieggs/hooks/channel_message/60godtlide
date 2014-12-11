@@ -3,7 +3,6 @@ use 5.012;
 use warnings;
 use utf8::all;
 
-use utf8::all;
 use Env qw/EGGS_USER CONCIEGGS_NAME/;
 use Encode qw/decode/;
 
