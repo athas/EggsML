@@ -4,6 +4,7 @@ use warnings;
 use Env qw/EGGS_BODY/;
 use IPC::System::Simple qw/runx capturex EXIT_ANY/;
 use utf8::all;
+use Encode qw/decode/;
 
 # We don't want operators to operate if talking to concieggs.
 exit if runx(EXIT_ANY, "talkingToConcieggs") == 0;
@@ -18,6 +19,7 @@ while (@cmd > 1) {
     my $arg2 = shift @cmd // '';
 
     my $result = capturex('runoperator', $op, $arg1, $arg2);
+    decode('utf-8', $result);
     chomp $result;
     exit(0) unless $result;
     unshift(@cmd, $result);
