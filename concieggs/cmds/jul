@@ -93,7 +93,6 @@ jaaa... $nam..!
 EOF
 `
 
-shuttingUp && exit
 echo "$tale"
 exit
 
