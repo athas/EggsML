@@ -44,9 +44,8 @@ export EGGS_DAEMON_SOCKET=$CONCIEGGS_DIR/eggsmld.socket
 # Import the concieggs library.
 export PATH=$CONCIEGGS_LIB_DIR:$PATH
 
-# Some people are unethical programmers and like Python, and
-# apparently they think this is necessary.
-(say $PYTHONPATH | grep -qv $CONCIEGGS_LIB_DIR) && export PYTHONPATH=$CONCIEGGS_LIB_DIR:$PYTHONPATH
+# We also use Python!
+export PYTHONPATH=$CONCIEGGS_LIB_DIR:$PYTHONPATH
 
 say "Interacting with concieggs_irc in $irc_dir."
 
