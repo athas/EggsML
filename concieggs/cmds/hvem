@@ -80,7 +80,7 @@ elif [ "$buy" ]; then
         echo "Vent venligst medens jeg overvejer dette fundamentale moralske dilemma..."
         listEggsers $neggst | while read -r eggser; do
             echo $(lookupDebt "$eggser") "$eggser"
-        done | sort -g -r | cut -d' ' -f2- | head -n 1 | while read -r debtor; do
+        done | sort -n -r | cut -d' ' -f2- | head -n 1 | while read -r debtor; do
             echo "$debtor bør købe ind!"
         done
     else

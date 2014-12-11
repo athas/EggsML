@@ -21,6 +21,7 @@ if [ "$2" ]; then
 else
     name="$1"
     nextEggs | while read time; do
-        check $time "$name"
+        check $time "$name" && exit 0
     done
+    exit 1
 fi
