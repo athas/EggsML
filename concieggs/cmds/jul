@@ -72,7 +72,7 @@ Du Godeste! Er det allerede jul?
 $EGGS_USER, hvis du ikke juler, så juler jeg da bare for to!
 Skal vi ikke lige tage nr. $(numre) i hæftet?
 Nu synes jeg vi skal synge nummer $(numre). Vi springer bare de $(nummer) midterste vers over.
-Jeg giver ikke kun gaver til jul. Jeg sender faktisk opimod $numre pakker I SEKUNDET!
+Jeg giver ikke kun gaver til jul. Jeg sender faktisk opimod $(numre) pakker I SEKUNDET!
 Hohoho!  Glædelig jul, alle sammen.
 Er der mere $nam?
 Ræk mig lige noget $nam!
