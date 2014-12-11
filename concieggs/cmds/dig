@@ -3,9 +3,7 @@
 # Bed concieggs foretage et DNS opslag.
 # concieggs: dig [@<server>] <name> <record type>
 
-firstchar=`echo $1 | dd bs=1 count=1`
-
-if [ "$firstchar" = "@" ]; then
+if echo "$1" | grep '^@'; then
     server=$1
     name=$2
     type=$3
