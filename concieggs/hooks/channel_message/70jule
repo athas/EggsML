@@ -8,7 +8,7 @@ def fork_away():
         sys.exit()
 
 def run_main(args):
-    if (subprocess.check_call(["shuttingUp"], shell=True) == 0):
+    if (subprocess.call(["shuttingUp"], shell=True) == 0):
         sys.exit(0)
 
     if (random.randint(0,3) == 0):
