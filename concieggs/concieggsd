@@ -75,7 +75,7 @@ outfile=$irc_dir/out
 # Make sure the outfile exists.
 touch "$outfile"
 
-# The the two loops together.
+# Tie the two loops together.
 tail -f -n 0 "$outfile" | \
     eventprocessor | \
     tee /dev/stderr | \
