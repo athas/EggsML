@@ -11,7 +11,7 @@ def run_main(args):
     if (subprocess.call(["shuttingUp"], shell=True) == 0):
         sys.exit(0)
 
-    if (random.randint(0,3) == 0):
+    if (random.randint(0,9) == 0):
         subprocess.call(["runcmd jul"], shell=True)
     else:
         sys.exit(0)
