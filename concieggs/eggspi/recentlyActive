@@ -2,4 +2,4 @@
 #
 # Find de nyligt aktive.
 
-tail -n 1000 out|egrep -o '^#[a-z]+ +:[0-9 :\-]+<([^ >]+)' | cut -d'<' -f2 | grep -v '^hej_fra_github$' | grep -v "^$CONCIEGGS_NAME$" | grep -v '^guest_' | sort -u
+tail -n 1000 "$CONCIEGGS_IRC_DIR/out" | egrep -o '^#[a-z]+ +:[0-9 :\-]+<([^ >]+)' | cut -d'<' -f2 | grep -v '^hej_fra_github$' | grep -v "^$CONCIEGGS_NAME$" | grep -v '^guest_' | sort -u
