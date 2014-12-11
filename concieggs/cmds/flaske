@@ -4,7 +4,7 @@
 
 
 if [ $# = 0 ]; then
-    who="$(tail -n 200 out|grep -Po '(?<=^[0-9 :-]{17}<)[^>]*'|sort -u|fgrep -vx "$CONCIEGGS_NAME")"
+    who="$(recentlyActive)"
 else
     who="$(for x in $*; do echo $x; done)"
 fi

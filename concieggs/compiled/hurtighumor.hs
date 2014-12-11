@@ -64,10 +64,10 @@ tilfældigKommentar person0 person1 =
   ]
 
 main :: IO ()
-main = runConcieggsM $ join $ liftRand $ choice
-       [ hvadErOppe
-       , ogSåSagde
-       , menDetVar
+main = runConcieggsM $ join $ liftRand $ weightedChoice
+       [ (hvadErOppe, 1)
+       , (menDetVar, 1)
+       , (ogSåSagde, 3)
        ]
   where hvadErOppe :: ConcieggsM ()
         hvadErOppe = do
@@ -82,9 +82,12 @@ main = runConcieggsM $ join $ liftRand $ choice
 
         ogSåSagde :: ConcieggsM ()
         ogSåSagde = do
-          aliaser <- lines <$> getOut (run "allAliases")
-          person0 <- liftRand $ choice aliaser
-          person1 <- liftRand $ choice aliaser
+          brugere <- lines <$> getOut (run "recentlyActive")
+          let findPerson = if null brugere
+                           then return "concieggs" -- concieggs er der altid.
+                           else liftRand $ choice brugere
+          person0 <- findPerson
+          person1 <- findPerson
           kommentar <- join $ liftRand $ tilfældigKommentar person0 person1
           echo ("Og SÅ sagde " ++ person0 ++ " til " ++ person1 ++ ": \"" ++ kommentar ++ "\"!!!")
 
