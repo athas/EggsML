@@ -1,10 +1,10 @@
 #!/usr/bin/env perl
 use 5.012;
 use warnings;
-use Env qw/EGGS_BODY/;
 use IPC::System::Simple qw/runx capturex EXIT_ANY/;
-use utf8::all;
 use Encode qw/decode/;
+
+my $EGGS_BODY = decode('utf-8', $ENV{'EGGS_BODY'});
 
 # We don't want operators to operate if talking to concieggs.
 exit if runx(EXIT_ANY, "talkingToConcieggs") == 0;
