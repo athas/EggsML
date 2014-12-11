@@ -12,6 +12,7 @@ cmddir=$dir/cmds/
 export CONCIEGGS_NAME=$irc_username
 export CONCIEGGS_DIR=$dir
 export CONCIEGGS_DB_DIR=$dir/db
+export EGGS_DAEMON_SOCKET=$CONCIEGGS_DIR/eggsmld.socket
 export CONCIEGGS_LIB_DIR=$dir/eggspi
 export CONCIEGGS_IRC_CHANNEL=$irc_channel
 export CONCIEGGS_ERROR_CHANNEL=$irc_error_channel
