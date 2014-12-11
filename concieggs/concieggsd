@@ -41,9 +41,6 @@ export EGGS_LIB_DIR=$EGGS_DIR/eggslib
 # Export where to find eggsmld (we'll start it real soon now).
 export EGGS_DAEMON_SOCKET=$CONCIEGGS_DIR/eggsmld.socket
 
-# Set our locale.
-export LC_ALL=da_DK.UTF-8
-
 # Import the concieggs library.
 export PATH=$CONCIEGGS_LIB_DIR:$PATH
 
