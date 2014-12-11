@@ -31,7 +31,12 @@ msg="$@"
 
 msgnode=$(dbInsertNode "users/$to/messages")
 
-echo "$msg" | dbWrite "$msgnode/message"
+fiksStedord() {
+    sed -e 's/han/du/g' -e 's/hun/du/g' -e 's/hans/din/g' -e 's/hendes/din/g' \
+        -e 's/ham/dig/g' -e 's/hende/dig/g'
+}
+
+echo "$msg" | fiksStedord | dbWrite "$msgnode/message"
 echo "$from" | dbWrite "$msgnode/from"
 
 echo "$(ack)  Næste gang $to blander sig i samtalen, vil jeg minde ham om at $msg"
