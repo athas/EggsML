@@ -1,4 +1,6 @@
-#!sh
+#!/bin/sh
+#
+# concieggs har drukket
 
 
 nummer(){
