@@ -9,7 +9,7 @@ def run_main(args):
         if (random.randint(0,3) == 0):
             word = subprocess.check_output(("runcmd oversæt " + word + " fra dansk til engelsk").split(), shell=True).decode()
         result.append(word)
-    print(result.join(" "))
+    print(" ".join(result))
 
 
 if __name__ == "__main__":
