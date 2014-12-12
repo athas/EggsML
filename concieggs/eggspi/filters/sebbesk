@@ -5,7 +5,7 @@ import random, sys, subprocess
 
 def run_main(args):
     result = []
-    for words in args.split():
+    for word in args:
         if (random.randint(0,3) == 0):
             word = subprocess.check_output(("oversæt " + word + " fra dansk til engelsk").split(), shell=False).decode()
         result.append(word)
