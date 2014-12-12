@@ -7,7 +7,7 @@ def run_main(args):
     result = []
     for word in args:
         if (random.randint(0,3) == 0):
-            word = subprocess.check_output(("oversæt " + word + " fra dansk til engelsk").split(), shell=True).decode()
+            word = subprocess.check_output(("runcmd oversæt " + word + " fra dansk til engelsk").split(), shell=True).decode()
         result.append(word)
     print(result.join(" "))
 
