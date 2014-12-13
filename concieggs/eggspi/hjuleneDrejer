@@ -18,11 +18,11 @@ EOF`
 
 
 omskrivning=`randomElement <<EOF
-"noget"
-"dét"
-du ved nok ;)
-det "frække"
 .., men det snakker vi ikke om.
+ "noget"
+ "dét"
+ du ved nok ;)
+ det "frække"
 EOF`
 
 
@@ -54,7 +54,7 @@ taster
 ingen grænser har
 vader rundt
 tilbad hedenske guder
-gjorde $omskrivning
+gjorde$omskrivning
 EOF`
 
 echo $hjulene $drejer
