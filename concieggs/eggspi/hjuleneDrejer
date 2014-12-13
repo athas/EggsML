@@ -16,7 +16,6 @@ Satanas
 Lucifer
 EOF`
 
-
 omskrivning=`randomElement <<EOF
 .., men det snakker vi ikke om.
  "noget"
@@ -24,8 +23,6 @@ omskrivning=`randomElement <<EOF
  du ved nok ;)
  det "frække"
 EOF`
-
-
 
 hjulene=`randomElement <<EOF
 hjulene
