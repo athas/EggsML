@@ -35,6 +35,9 @@ tilfældigTing =
   , "Netflix"
   , "Medielicensen"
   , "miljøet"
+  , "Anders Fucking Rasmussen"
+  , "den allersidste kage"
+  , "mindstenævneren"
   ]
 
 tilfældigFørsteperson :: Random String
@@ -62,6 +65,7 @@ tilfældigFørsteperson =
   , "er noget pis"
   , "er det bedste produkt i verden"
   , "er den helt store revolution"
+  , "smager af sylte"
   ]
 
 tilfældigTyper :: Random String
@@ -93,6 +97,8 @@ tilfældigTyper =
   , "de adelige"
   , "\"kunstnerne\""
   , "De Radikales vælgere"
+  , "tobakssælgerne"
+  , "opportunisterne"
   ]
 
 tilfældigtOplæg :: Random String
@@ -117,9 +123,8 @@ tilfældigtOplæg =
   , "Jeg ved godt jeg ikke er bedre end alle andre, men"
   , "Og helt ærligt,"
   , "Ikke for at være \"se mig, se mig!\", men"
+  , "Apropos, "
   ]
-
-
 
 tilfældigMådeform :: Random String
 tilfældigMådeform =
@@ -145,6 +150,9 @@ tilfældigMådeform =
   , "henvende sig til ministeren"
   , "opføre sig fuldstændig tåbeligt"
   , "lade sig overraske"
+  , "føre sig frem"
+  , "ignorere Janteloven"
+  , "kode grimt Erlang"
   ]
 
 tilfældigKommentar :: String -> String -> Random (ConcieggsM String)
@@ -162,9 +170,9 @@ tilfældigKommentar person0 person1 =
 
 main :: IO ()
 main = runConcieggsM $ join $ liftRand $ weightedChoice
-       [ (hvadErOppe, 1)
+       [ (hvadErOppe, 3)
+       , (ogSåSagde, 2)
        , (menDetVar, 1)
-       , (ogSåSagde, 3)
        ]
   where hvadErOppe :: ConcieggsM ()
         hvadErOppe = do
