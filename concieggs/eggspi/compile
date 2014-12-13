@@ -59,7 +59,8 @@ else
     if (cd "$CONCIEGGS_DB_DIR/compiled-cache";
             compile "$srcfile" "$compiledfile"); then
         rm -r "$compiledir"
-        "$compiledfile" "$@"
+        "$compiledfile" "$@" || true # Midlertidigt fiks for ghc
+                                     # runtime-problemer på OpenBSD.
     else
         rm -r "$compiledir"
         exit 1
