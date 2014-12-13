@@ -1,4 +1,6 @@
 #!/bin/sh
+#
+# concieggs har drukket
 
 
 nummer(){
@@ -61,10 +63,10 @@ EOF
 
 tale=`randomElement <<EOF
 Pøblen sig glæder, sig glæder over højtiden!
-Der ligger en gave, og smiler til mig - /bin/sh /bin/sh.
-Gaven den er lækker, det samme er jeg - /bin/sh /bin/sh.
-Æsken gaven ligger den vejer et par gram - /bin/sh /bin/sh.
-Så jeg er sikker på det er en klods med RAM - /bin/sh /bin/sh!
+Der ligger en gave, og smiler til mig - sh sh.
+Gaven den er lækker, det samme er jeg - sh sh.
+Æsken gaven ligger den vejer et par gram - sh sh.
+Så jeg er sikker på det er en klods med RAM - sh sh!
 Julen er sandelig den gladeste tid i riget.
 JUL?
 Jul!
