@@ -1,0 +1,4 @@
+#!/bin/sh
+#
+# concieggs spøger.. eller gør den?
+echo randomName "$EGGS_USER"
