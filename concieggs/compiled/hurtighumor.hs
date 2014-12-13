@@ -16,7 +16,7 @@ tilfældigTing =
   , "Starbucks"
   , "Pizza Hut"
   , "fastpladelageret"
-  , "en æske Klodsmajor"
+  , "Klodsmajor-spillet"
   , "Barbiedukken"
   , "portrættet af Stig Møller"
   , "hotdogs"
@@ -31,6 +31,10 @@ tilfældigTing =
   , "sennepen"
   , "inflationen"
   , "skønhedsidealerne"
+  , "første sæson af Mad Men"
+  , "Netflix"
+  , "Medielicensen"
+  , "miljøet"
   ]
 
 tilfældigFørsteperson :: Random String
@@ -54,6 +58,10 @@ tilfældigFørsteperson =
   , "spiller høj musik efter midnat"
   , "har tabt sig"
   , "snyder i brætspil"
+  , "er til grin"
+  , "er noget pis"
+  , "er det bedste produkt i verden"
+  , "er den helt store revolution"
   ]
 
 tilfældigTyper :: Random String
@@ -80,7 +88,37 @@ tilfældigTyper =
   , "cirkusartisterne"
   , "revytterne"
   , "de fattige"
+  , "\"de folkevalgte\""
+  , "de adelige"
+  , "\"kunstnerne\""
+  , "De Radikales vælgere"
   ]
+
+tilfældigtOplæg :: Random String
+tilfældigtOplæg =
+  choice
+  [ "Hvad er oppe med"
+  , "Øøøh, hallo"
+  , "Og hvad sker der lige for"
+  , "Overvej lige"
+  , "Hvad sker der for"
+  , "Hvad er der lige med"
+  , "Er den ik' også helt gal med"
+  , "Og HVAD sker der lige for"
+  , "Kender I"
+  , "Hvor mange her kender"
+  , "Er det virkelig kun mig, som har tænkt over"
+  , "Helt ærligt,"
+  , "Nu er jeg jo ikke racist, men"
+  , "Nu er jeg jo ikke feminist, men"
+  , "Nu er jeg jo ikke venstreekstremist, men"
+  , "Nu er jeg jo ikke jyde, men"
+  , "Jeg ved godt jeg ikke er bedre end alle andre, men"
+  , "Og helt ærligt,"
+  , "Ikke for at være \"se mig, se mig!\", men"
+  ]
+
+
 
 tilfældigMådeform :: Random String
 tilfældigMådeform =
@@ -102,6 +140,10 @@ tilfældigMådeform =
   , "spille sygt smart"
   , "være flabet"
   , "bryde ophavsretten"
+  , "skrive læserbreve"
+  , "henvende sig til ministeren"
+  , "opføre sig fuldstændig tåbeligt"
+  , "lade sig overraske"
   ]
 
 tilfældigKommentar :: String -> String -> Random (ConcieggsM String)
@@ -126,11 +168,12 @@ main = runConcieggsM $ join $ liftRand $ weightedChoice
        ]
   where hvadErOppe :: ConcieggsM ()
         hvadErOppe = do
+          spørgsmål <- liftRand tilfældigtOplæg
           ting <- liftRand tilfældigTing
           førsteperson <- liftRand tilfældigFørsteperson
           typer <- liftRand tilfældigTyper
           mådeform <- liftRand tilfældigMådeform
-          echo ("Hvad er oppe med " ++ ting
+          echo (spørgsmål ++ " " ++ ting
                   ++ "?  Det er jo ikke fordi " ++ ting
                   ++ " " ++ førsteperson ++ ", men alligevel kan alle "
                   ++ typer ++ " ikke lade være med at " ++ mådeform ++ "!")
