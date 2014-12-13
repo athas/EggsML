@@ -153,7 +153,6 @@ tilfældigKommentar person0 person1 =
   [ (\s -> "Di" ++ s ++ "! ;-)") <$> getOut (run "tøj")
   , getOut (run "tærteKommentar")
   , getOut (run "sayNo")
-  , getOut (run ("nag " ++ person1))
   , getOut $ do
        dummeBavianer <- getOut (run "dummeBavianer")
        hjuleneDrejer <- getOut (run "hjuleneDrejer")
