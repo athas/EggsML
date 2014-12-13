@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+#
+# concieggs sender indhold fra TV 2 Zulus online-stream direkte til IRC-kanalen.
 
 import time, sys, subprocess, random
 
