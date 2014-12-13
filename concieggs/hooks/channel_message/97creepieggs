@@ -1,4 +1,8 @@
 #!/bin/sh
 #
 # concieggs spøger.. eller gør den?
+# Athas' yndlingskrog
+
+maybeGood .009 || exit
+
 echo $(randomName "$EGGS_USER")
