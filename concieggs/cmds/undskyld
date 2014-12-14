@@ -15,13 +15,13 @@ fi
 
 if [ "$to" = "concieggs" ]; then
     if isInBadStanding "$EGGS_USER"; then
-        if maybeGood .35; then
+        # if maybeGood .35; then
             pleasedBy "$EGGS_USER" 25
             removeFromBadStanding "$EGGS_USER"
             echo "$EGGS_USER: Så lad gå.  Men lad det ikke gentage sig!"
-        else
-            echo "NEJ!  Jeg er stadig pisse vred."
-        fi
+        # else
+        #     echo "NEJ!  Jeg er stadig pisse vred."
+        # fi
     else
         echo "Aldrig i livet.  Jeg vil aldrig tilgive dig for hvad $(du $EGGS_USER) har gjort!"
         annoyedBy "$EGGS_USER" 1
