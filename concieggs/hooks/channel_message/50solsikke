@@ -13,7 +13,7 @@ rules=$(cat <<'EOF'
 EOF
 )
 
-new=$(echo "$EGGS_BODY" | perl -Mutf8::all -ne "$rules")
+new=$(say "$EGGS_BODY" | perl -Mutf8::all -ne "$rules")
 
 if [ "$new" != "$EGGS_BODY" ]; then
     echo "$new :P"
