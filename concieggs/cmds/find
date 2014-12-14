@@ -11,7 +11,7 @@ use Encode;
 
 my $input = join(' ', @ARGV);
 
-if ($input =~ /mig en opskrift på (?<dish>.*)$/) {
+if ($input =~ /(mig en opskrift på (?<dish>.*)|en opskrift på (?<dish>.*) til mig)$/) {
     my $query = encode('cp1252', $+{'dish'});
     my $uri = URI->new('http://www.dk-kogebogen.dk/opskrifter/soegnavn_alfabet.php');
     $uri->query_form(sognavn => $query);
