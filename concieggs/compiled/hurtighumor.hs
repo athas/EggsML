@@ -56,7 +56,7 @@ tilfældigFørsteperson =
   , "fiser højlydt"
   , "galloperer deruda'"
   , "siger nej"
-  , "har slået noget"
+  , "har slået  noget"
   , "arbejder for Illuminat"
   , "spiller høj musik efter midnat"
   , "har tabt sig"
