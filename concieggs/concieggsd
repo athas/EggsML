@@ -67,7 +67,7 @@ eventprocessor () {
 }
 
 throttle() {
-    awk '{print; fflush(); system("sleep 1")}'
+    gawk -f $dir/throttle.awk
 }
 
 outfile=$irc_dir/out
