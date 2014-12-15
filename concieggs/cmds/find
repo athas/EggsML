@@ -1,0 +1,69 @@
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+use utf8::all;
+use LWP::Simple qw(get $ua);
+use HTML::Query qw(Query);
+use URI;
+use Env qw(EGGS_USER);
+use IPC::System::Simple qw/runx EXIT_ANY/;
+use Encode;
+
+my $input = join(' ', @ARGV);
+
+if ($input =~ /(mig en opskrift på (?<dish>.*)|en opskrift på (?<dish>.*) til mig)$/) {
+    my $query = encode('cp1252', $+{'dish'});
+    my $uri = URI->new('http://www.dk-kogebogen.dk/opskrifter/soegnavn_alfabet.php');
+    $uri->query_form(sognavn => $query);
+
+    $ua->agent('Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36');
+
+    my $res = get($uri->as_string);
+
+    unless ($res) {
+        printf("dk-kogebogen sejler!\n");
+        exit(1);
+    }
+
+    my $q = Query(text => $res);
+    my @recipeElms = $q->query('table table[border=0] tr')->get_elements();
+
+    my @recipes;
+    my $totalWeight = 0;
+    for my $recipe (@recipeElms) {
+        $q = Query(text => $recipe->as_HTML);
+        my ($scoreElm, $titleElm) = $q->query('td h4')->get_elements();
+        next unless defined($scoreElm);
+        my ($score, $votes) = $scoreElm->as_text =~ /(\d+(?:\.\d)?)\s+-\s+(\d+)/;
+        my ($link) = $titleElm->content_list();
+        my $title = $link->as_text();
+        my $url = URI->new_abs($link->attr('href'), 'http://www.dk-kogebogen.dk');
+
+        my %qargs = $url->query_form;
+        delete $qargs{'sognavn'};
+        $url->query_form(%qargs);
+
+        if ($score > 7.0) {
+            push(@recipes, { url => $url->as_string, title => $title, weight => int($votes) } );
+            $totalWeight += $votes;
+        }
+    }
+
+    unless (@recipes) {
+        printf("$EGGS_USER: Jeg ved ikke hvordan man laver $query.\n");
+        exit(0);
+    }
+
+    my $pos = int(rand() * $totalWeight);
+    while ($pos > $recipes[0]->{weight}) {
+        $pos -= $recipes[0]->{weight};
+        shift @recipes;
+    }
+
+    my $recipe = shift @recipes;
+    printf("$EGGS_USER: Du kunne for eksempel lave %s: %s\n", $recipe->{title}, $recipe->{url});
+    exit(0);
+}
+
+printf("$EGGS_USER: Find det dog selv.\n");
+runx(EXIT_ANY, "annoyedBy", $EGGS_USER, 5);

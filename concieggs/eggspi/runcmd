@@ -51,7 +51,7 @@ cmddir=$CONCIEGGS_DIR/cmds
 shift
 
 if isInBadStanding "$EGGS_USER" && [ "$cmd" != "undskyld" ]; then
-    ex=$(fakebroke | randomise | head -n 1)
+    ex=$(fakebroke | randomElement)
     if [ "$ex" ]; then
         echo "$ex"
         exit
