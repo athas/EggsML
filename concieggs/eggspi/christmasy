@@ -38,12 +38,4 @@ fflush();
 EOF
 )
 
-awk -- "$prog"
-
-# while IFS='' read line; do
-#     if echo "$line" | grep -qE 'http://[^.]+\.[^ ]+'; then
-#         echo "$line"
-#     else
-#         echo "$line" | awk -- "$prog"
-#     fi
-# done
+awk -- "$prog" | sed "s/træ/juletræ/g" | sed "s/Træ/Juletræ/g"
