@@ -2,6 +2,8 @@
 #
 # "Når jeg siger ... mener jeg faktisk ..."
 
+set -e
+
 eval "$(echo "$@" | parse '(?<who>jeg) siger (?<alias>[^ =]+)(?: så)? mener jeg(?: faktisk)? (?<command>.+)|(?<who>[^ ]+) siger (?<alias>[^ =]+)(?: så)? mener (han|hun)(?: faktisk)? (?<command>.+)')"
 
 if [ "$who" = jeg ]; then
@@ -39,7 +41,7 @@ if ! isCommand "$cmd" ; then
 fi
 
 allAliases="$(dbUserRead "$name" "cmd_aliases")"
-oldCommand="$(echo "$allAliases" | grep -Pi "^$lcalias=" | cut -d'=' -f 2 )"
+oldCommand="$(echo "$allAliases" | grep -i "^$lcalias=" | cut -d'=' -f 2 )"
 
 insteadOf=""
 if [ "$oldCommand" ]; then
@@ -48,5 +50,5 @@ fi
 
 printf "$EGGS_USER: %s For fremtiden vil jeg huske, at når $you siger '$alias', så mener $you '$command'$insteadOf.\n" "$(ack)"
 
-(echo "$allAliases" | grep -Piv "^$lcalias=" &&
+(echo "$allAliases" | grep -iv "^$lcalias=" &&
  echo "$lcalias=$command") | dbUserWrite "$name" "cmd_aliases"
