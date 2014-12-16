@@ -3,7 +3,7 @@
 # Spørg om din gæld til frokostkassen, eller få hjælp til diverse
 # personlighedsfremmende gøremål.
 
-eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|(?<time>er klokken)$|(?<missing>mangler jeg)$|(?<wtf>hulen)$|(?<meaning>mener (?<who>[^ ]+) med (?<what>[^ ]+)$)')"
+eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|har (?<debtor>[^ ]+) til gode$|(?<time>er klokken)$|(?<missing>mangler jeg)$|(?<wtf>hulen)$|(?<meaning>mener (?<who>[^ ]+) med (?<what>[^ ]+)$)')"
 
 if [ "$debtor" ]; then
     if [ "$debtor" = "jeg" ]; then
