@@ -5,7 +5,7 @@ import random, sys, subprocess, io
 
 def run_main(args):
     result = []
-    for word in args:
+    for word in args[1:]:
         if (random.randint(0,3) == 0):
             word = subprocess.check_output(("translate da en").split(), stdin=io.StringIO(word), shell=True).decode()
         result.append(word)
