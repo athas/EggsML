@@ -12,13 +12,6 @@ if ! [ "$from" ]; then
     exit
 fi
 
-auth="$(isTrusted "$EGGS_USER")"
-if ! [ "$auth" ]; then
-    echo "$EGGS_USER: Det har $(du $EGGS_USER) på ingen måde bemyndigelse til."
-    exit
-fi
-
-
 lastEggs=$(prevEggs | head -n 1)
 
 if [ ! "$lastEggs" ]; then
