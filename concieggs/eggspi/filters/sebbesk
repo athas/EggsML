@@ -13,7 +13,7 @@ def run_main(args):
 
 
 if __name__ == "__main__":
-    print(sys.stdin.readline())
+    run_main(sys.stdin.readline().split())
 
 
 
