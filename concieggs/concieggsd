@@ -47,6 +47,9 @@ export PATH=$CONCIEGGS_LIB_DIR:$PATH
 # We also use Python!
 export PYTHONPATH=$CONCIEGGS_LIB_DIR:$PYTHONPATH
 
+# Hack for UTF-8 handling in GHC on OpenBSD
+export HS_ENCODING=UTF-8
+
 say "Interacting with concieggs_irc in $irc_dir."
 
 # Let all eggsml users touch our stuff.
