@@ -13,6 +13,7 @@ def run_main(args):
 
 
 if __name__ == "__main__":
+    print(" ".join(sys.argv))
     run_main(sys.argv)
 
 
