@@ -6,7 +6,7 @@ user=$1
 
 echoToServer ":WHOIS $user"
 for i in $(seq 1 2); do
-    authed=$(tail -n 20 "$CONCIEGGS_IRC_DIR/out" | perl -ne 'if ((($user, $auth) = $_ =~ /\(\S+ (\S+) (\S+)\): is logged in as/) && $user eq $ENV{"user"}) { print $auth; exit(0) }'
+    authed=$(tail -n 20 "$CONCIEGGS_IRC_DIR/out" | gawk 'match($0,/([^ ]+) ([^ ]+)\\): is logged in as$/,matches) && matches[1] == ENV["user"] { print matches[2]; exit(0); }'
     if [ "$authed" ]; then
         echo $authed
         exit
