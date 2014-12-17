@@ -35,8 +35,8 @@ function frob(s) {
     match(s, "https?://[^ ]+")
     if (RSTART > 0 && RSTART <= wstart+wlength) {
         # Overlap (freeze, don't frob)
-        pre=substr(s,1,wstart+wlength)
-        post=substr(s,wstart+wlength+1,length(s))
+        pre=substr(s,1,RSTART+RLENGTH)
+        post=substr(s,RSTART+RLENGTH+1,length(s))
         return pre frob(post)
     } else {
         # No overlap (c'mon, let's make it frob)
