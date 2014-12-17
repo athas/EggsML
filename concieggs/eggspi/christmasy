@@ -26,9 +26,24 @@ function frob(s) {
   if (RSTART == 0) {
     return s
   } else {
-    pre=substr(s,1,RSTART-1)
-    post=substr(s,RSTART+RLENGTH,length(s))
-    return pre frobword(substr(s,RSTART,RLENGTH)) frob(post)
+    wstart=RSTART
+    wlength=RLENGTH
+
+    # If an URL overlaps with the next word, skip past the URL
+    # else, frob the word!
+
+    match(s, "https?://[^ ]+")
+    if (RSTART > 0 && RSTART <= wstart+wlength) {
+        # Overlap (freeze, don't frob)
+        pre=substr(s,1,wstart+wlength)
+        post=substr(s,wstart+wlength+1,length(s))
+        return pre frob(post)
+    } else {
+        # No overlap (c'mon, let's make it frob)
+        pre=substr(s,1,wstart-1)
+        post=substr(s,wstart+wlength,length(s))
+        return pre frobword(substr(s,wstart,wlength)) frob(post)
+    }
   }
 }
 {
