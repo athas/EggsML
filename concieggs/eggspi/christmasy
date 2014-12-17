@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# VIGTIGT: Niels har _forbud_ mod at ændre i dette program.
+
 prog=$(cat <<"EOF"
 function frobword_inner(s) {
   fst = substr(s,1,1)
