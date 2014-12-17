@@ -16,6 +16,12 @@ local $| = 1;
 
 # Server
 
+# if lock file doesn't exist, create it.
+if (! -e $lockfile) {
+    open(my $lockf, '>', $lockfile);
+    close($lockf);
+}
+
 open(my $lockf, '<', $lockfile);
 if (! $lockf || (flock $lockf, LOCK_EX | LOCK_NB) ) {
     unlink($sockfile);
