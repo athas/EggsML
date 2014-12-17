@@ -19,26 +19,14 @@ function frobword(s) {
     return s
   }
 }
-function maybefrob(s) {
+function frob(s) {
   match(s, "[a-zA-ZæøåÆØÅ]+")
-  pre=substr(s,1,RSTART-1)
-  cur=substr(s,RSTART,RLENGTH)
-  post=substr(s,RSTART+RLENGTH,length(s))
   if (RSTART == 0) {
     return s
   } else {
-    return pre frobword(cur) frob(post)
-  }
-}
-function frob(s) {
-  match(s, "https?://[^ ]+")
-  pre=substr(s,1,RSTART-1)
-  cur=substr(s,RSTART,RLENGTH)
-  post=substr(s,RSTART+RLENGTH,length(s))
-  if (RSTART == 0) {
-    return maybefrob(pre) maybefrob(cur) frob(post)
-  } else {
-    return maybefrob(pre) cur frob(post)
+    pre=substr(s,1,RSTART-1)
+    post=substr(s,RSTART+RLENGTH,length(s))
+    return pre frobword(substr(s,RSTART,RLENGTH)) frob(post)
   }
 }
 {
