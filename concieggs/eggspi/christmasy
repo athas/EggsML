@@ -29,17 +29,12 @@ function frob(s) {
     wstart=RSTART
     wlength=RLENGTH
 
-    # If an URL overlaps with the next word, skip past the URL
-    # else, frob the word!
-
     match(s, "https?://[^ ]+")
     if (RSTART > 0 && RSTART <= wstart+wlength) {
-        # Overlap (freeze, don't frob)
         pre=substr(s,1,RSTART+RLENGTH)
         post=substr(s,RSTART+RLENGTH+1,length(s))
         return pre frob(post)
     } else {
-        # No overlap (c'mon, let's make it frob)
         pre=substr(s,1,wstart-1)
         post=substr(s,wstart+wlength,length(s))
         return pre frobword(substr(s,wstart,wlength)) frob(post)
