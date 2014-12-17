@@ -1,0 +1,131 @@
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+use utf8::all;
+use Env qw/CONCIEGGS_DIR/;
+use IPC::Run qw/harness timer/;
+use Socket;
+use Try::Tiny;
+use POSIX qw/setsid/;
+use Fcntl qw/:flock/;
+use IO::Socket::UNIX;
+
+my $lockfile  = "$CONCIEGGS_DIR/.sml.lock";
+my $sockfile = "$CONCIEGGS_DIR/.sml.sock";
+local $| = 1;
+
+# Server
+
+open(my $lockf, '<', $lockfile);
+if (! $lockf || (flock $lockf, LOCK_EX | LOCK_NB) ) {
+    unlink($sockfile);
+
+    my $pid = fork();
+
+    if (! $pid) {
+        flock($lockf, LOCK_EX | LOCK_NB) || die("Kunne ikke låse $lockfile: $!\n");
+
+        local $SIG{PIPE} = sub { die("Forbindelsen til SML-processen gik tabt!\n"); };
+
+        my ($in, $out) = ("", "");
+        my $t = timer(10);
+        my $sml = harness [qw/mosml -P full/, "$CONCIEGGS_DIR/misc/sandbox.sml"], \$in, \$out, $t;
+        $sml->start;
+
+        $in = "val foo__foo = 42;\n";
+        $sml->pump until $out =~ /val foo__foo = 42 : int/;
+        $out = '';
+
+        # We're all ready. Let's open a socket and start listening.
+        my $server = IO::Socket::UNIX->new(
+            Type   => SOCK_STREAM,
+            Local  => $sockfile,
+            Listen => 1,
+        );
+
+        my $client;
+
+        while ($client = $server->accept()) {
+            my $input;
+            try {
+                local $SIG{ALRM} = sub { die "timeout\n" };
+                alarm(3);
+
+                $client->autoflush(1);
+
+                $input = <$client>;
+
+                alarm(0);
+            } catch {
+                $input = undef;
+                print STDERR "SMLd: Klienten sendte ingen data.\n";
+            };
+
+            if ($input) {
+                $in = "$input\n;val foo__foo = 42;\n";
+                $out = "";
+                $t->start(5);
+                $sml->pump until $out =~ /val foo__foo = 42 : int/ || $t->is_expired;
+
+                if ($t->is_expired) {
+                    print STDERR "SMLd: Kommandoen tager lang tid. Giver mosml en SIGINT.\n";
+
+                    $sml->signal("INT");
+                    $t->start(2);
+                    $sml->pump until $out =~ /Interrupted./ || $t->is_expired;
+
+                    if ($t->is_expired) {
+                        $sml->kill_kill;
+                        print $client "Du ødelagde SML!\n";
+                        print STDERR "SML er blevet force-killed.\n";
+                        close($client);
+                        exit(1);
+                    } else {
+                        $sml->pump until $out =~ /val foo__foo = 42 : int/;
+                    }
+                }
+                $out =~ s/> val foo__foo = 42 : int\s*//;
+                $out =~ s/^(-\s+)*(> )?//gm;
+                $out =~ s/\s+$//;
+
+                print $client "$out\n";
+            }
+
+            close($client);
+        }
+
+
+        close($lockf);
+        exit(0);
+    }
+
+    close($lockf);
+
+    try {
+        local $SIG{ALRM} = sub { die "timeout" };
+        alarm(5);
+
+        # Should really just let child process notify parent, but fuck it
+        while (! -S $sockfile) { }
+    } catch {
+        die("SML: Kan ikke finde socket'en. (timeout nået)\n");
+    };
+
+}
+
+# Client
+
+my $socket = IO::Socket::UNIX->new(
+    Peer    => $sockfile,
+    Type    => SOCK_STREAM,
+);
+$socket->autoflush(1);
+alarm(0);
+
+my $code = join(' ', @ARGV) . ";\n";
+print $socket $code;
+my $line;
+while (defined($line = <$socket>)) {
+    print $line;
+}
+close($socket);
