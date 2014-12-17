@@ -18,6 +18,7 @@ local $| = 1;
 
 # if lock file doesn't exist, create it.
 if (! -e $lockfile) {
+    print STDERR "SML: Opretter $lockfile\n";
     open(my $lockf, '>', $lockfile);
     close($lockf);
 }
@@ -68,7 +69,6 @@ if (! $lockf || (flock $lockf, LOCK_EX | LOCK_NB) ) {
             };
 
             if ($input) {
-                print STDERR "got $input\n";
                 $in = "$input\n;val foo__foo = 42;\n";
                 $out = "";
                 $t->start(5);
