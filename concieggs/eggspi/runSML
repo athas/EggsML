@@ -62,6 +62,7 @@ if (! $lockf || (flock $lockf, LOCK_EX | LOCK_NB) ) {
             };
 
             if ($input) {
+                print STDERR "got $input\n";
                 $in = "$input\n;val foo__foo = 42;\n";
                 $out = "";
                 $t->start(5);
