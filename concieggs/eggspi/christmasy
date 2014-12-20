@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# VIGTIGT: Niels har _forbud_ mod at ændre i dette program.
+# Niels må godt ændre i dette program.
 
 prog=$(cat <<"EOF"
 function frobword_inner(s) {
