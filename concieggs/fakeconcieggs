@@ -21,6 +21,9 @@ export EGGS_LIB_DIR=$EGGS_DIR/eggslib
 export LC_ALL=da_DK.UTF-8
 export CONCIEGGS_DB_DIR=$CONCIEGGS_DIR/db
 export EGGS_USER=${EGGS_USER:-$(whoami)}
+if [ $EGGS_USER == $CONCIEGGS_NAME ]; then
+    export EGGS_USER=${CONCIEGGS_NAME}_helper
+fi
 export PATH=$CONCIEGGS_DIR/eggspi:$PATH
 export PYTHONPATH=$CONCIEGGS_LIB_DIR:$PYTHONPATH
 if [ ! "$CONCIEGGS_HOME" ]; then
