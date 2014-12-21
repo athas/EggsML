@@ -1,9 +1,10 @@
 #!/bin/sh
 
+# 'adventure' skal være installeret.
+
 set -e
 
 id="$(basename "$0")_$(ircChannel)"
-program="$CONCIEGGS_DB_DIR/adventure"
 
 if bgCmdIsRunning "$id"; then
     if [ "$*" = "DRÆB LORTET" ]; then
@@ -12,5 +13,5 @@ if bgCmdIsRunning "$id"; then
         bgCmdWrite "$id" "$*"
     fi
 else
-    bgCmdStart "$id" "$program"
+    bgCmdStart "$id" adventure
 fi
