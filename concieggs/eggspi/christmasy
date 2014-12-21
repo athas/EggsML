@@ -42,7 +42,7 @@ function frob(s) {
   }
 }
 {
-festive=0
+festive=1
 srand()
 print frob($0)
 fflush(); 
