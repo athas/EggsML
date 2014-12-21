@@ -2,6 +2,8 @@
 
 # Niels må godt ændre i dette program.
 
+# Niels har nu ændret i dette program.
+
 prog=$(cat <<"EOF"
 function frobword_inner(s) {
   fst = substr(s,1,1)
@@ -29,7 +31,7 @@ function frob(s) {
     wstart=RSTART
     wlength=RLENGTH
 
-    match(s, "https?://[^ ]+")
+    match(s, "(https?|ftp|gopher)://[^ ]+")
     if (RSTART > 0 && RSTART <= wstart+wlength) {
         pre=substr(s,1,RSTART+RLENGTH)
         post=substr(s,RSTART+RLENGTH+1,length(s))
