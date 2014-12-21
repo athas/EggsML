@@ -1,7 +1,0 @@
-#!/bin/sh
-
-set -e
-
-id="$1"
-
-rm "$(bgCmdPath "$id")"

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+id="$1"
+prog="$2"
+
+eval "$(bgCmdSetVars "$id")"
+mkfifo "$fifo"
+{
+    tail -f "$fifo" | "$prog"
+    bgCmdKill "$id"
+    # TODO: Handle interrupts.
+} &
+pid=$!
+echo $pid > $pidfile

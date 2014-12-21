@@ -4,5 +4,7 @@ set -e
 
 id="$1"
 
-test -p "$(bgCmdPath "$id")"
+eval "$(bgCmdSetVars "$id")"
 
+test -p "$fifo"
+test -f "$pidfile"

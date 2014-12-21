@@ -3,6 +3,10 @@
 set -e
 
 id="$1"
-line="$2"
 
-echo "$line" > "$(bgCmdPath "$id")" &
+bgCmdIsRunning "$id"
+
+eval "$(bgCmdSetVars "$id")"
+shift
+echo "$*" > "$fifo" &
+sync # Nødvendigt?
