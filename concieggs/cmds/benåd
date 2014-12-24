@@ -12,7 +12,13 @@ remove() {
 }
 
 if isKing $EGGS_USER; then
-    if [ $# -eq 1 ]; then
+    if [ "$*" = "alle!" ]; then
+        allAliases | while read who; do
+            if isInBadStanding "$who"; then
+                remove "$who"
+            fi
+        done
+    elif [ $# -eq 1 ]; then
         who=$(randomName "$1")
         if [ "$who" ]; then
             if isInBadStanding "$who"; then
@@ -23,12 +29,6 @@ if isKing $EGGS_USER; then
         else
             echo "$EGGS_USER: Jeg er bange for, at jeg ikke ved hvem '$1' skulle være."
         fi
-    elif [ "$*" = "alle!" ]; then
-        allAliases | while read who; do
-            if isInBadStanding "$who"; then
-                remove "$who"
-            fi
-        done
     fi
 else
     echo -n "$EGGS_USER: "
