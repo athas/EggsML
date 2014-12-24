@@ -2,23 +2,33 @@
 #
 # Udøv kongelig autoritet til at benåde en logebroder.
 
+remove() {
+    removeFromBadStanding "$who"
+    if cmpNames "$who" "$EGGS_USER"; then
+        echo "$(ack) Nu De jo er konge, så bør jeg vel hellere behandle Dem med respekt..."
+    else
+        echo "$(ack) Jeg har atter taget $who til nåde."
+    fi
+}
+
 if isKing $EGGS_USER; then
     if [ $# -eq 1 ]; then
         who=$(randomName "$1")
         if [ "$who" ]; then
             if isInBadStanding "$who"; then
-                removeFromBadStanding "$who"
-                if cmpNames "$who" "$EGGS_USER"; then
-                    echo "$(ack) Nu De jo er konge, så bør jeg vel hellere behandle Dem med respekt..."
-                else
-                    echo "$(ack) Jeg har atter taget $who til nåde."
-                fi
+                remove "$who"
             else
                 echo "$EGGS_USER: $who er allerede fri for sanktioner fra min side af."
             fi
         else
             echo "$EGGS_USER: Jeg er bange for, at jeg ikke ved hvem '$1' skulle være."
         fi
+    elif [ "$*" = "alle!" ]; then
+        allAliases | while read who; do
+            if isInBadStanding "$who"; then
+                remove "$who"
+            fi
+        done
     fi
 else
     echo -n "$EGGS_USER: "
