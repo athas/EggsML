@@ -32,7 +32,7 @@ run() {
             "$acmd" $(echo "$@" | sed 's/\?*$//') || broke
             ;;
         *)
-            "$acmd" $(echo "$@" | sed 's/\!*$//') || broke
+            "$acmd" "$@" || broke
 
             ;;
     esac | awk '{print}' # Hack: use awk to newline-terminate.
