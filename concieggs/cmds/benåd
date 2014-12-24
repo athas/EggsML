@@ -18,6 +18,7 @@ if isKing $EGGS_USER; then
                 remove "$who"
             fi
         done
+        echo "Alle er benådet, min konge!"
     elif [ $# -eq 1 ]; then
         who=$(randomName "$1")
         if [ "$who" ]; then
