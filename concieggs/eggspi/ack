@@ -24,6 +24,7 @@ else
     echo "Jep, det siger vi"
     echo "Jep, det siger vi bare"
     echo "Det er dandy"
+    echo "EXIT_SUCCESS"
 
 fi | randomElement | xargs echo -n
 (echo "!"; echo ".") | randomElement
