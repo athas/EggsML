@@ -1,0 +1,73 @@
+#!/usr/bin/env python
+# encoding: utf8
+#
+# Vil du også være bartender på DIKU?  Få concieggs til at konstruere en drinks
+# til dig.
+#
+# Brug: drinks SPIRITUS...
+
+import sys
+import random
+
+
+def enhed():
+    return random.choice([
+        'deciliter',
+        'bøtte',
+        'tønde',
+        'liter',
+        'centiliter',
+        'hektoliter'
+    ])
+
+def navnPrefix():
+    return random.choice([
+	    'Burning',
+	    'Flying',
+	    'Bloody',
+	    'Dirty',
+	    'White',
+        'Virgin',
+        'Red',
+        'Lille',
+    ])
+
+def navnKrop():
+    return random.choice([
+	    'Russian',
+        'Cuba',
+        'Mary',
+        'Fysiker'
+    ])
+
+def navnSuffix():
+    return random.choice([
+	    'Libre',
+        'on the rocks',
+        'straight',
+        'på fad',
+        'Fald Død Om',
+    ])
+
+def maengde():
+    return str(random.randint(2, 13))
+
+def drinknavn():
+    s = ""
+    if random.random() < 0.5:
+        s = "%s " % navnPrefix()
+    s += "%s" % navnKrop()
+    if random.random() < 0.5:
+        s += " %s" % navnSuffix()
+    return s
+    
+def main(spiritus):
+    random.seed(hash(' '.join([ p.lower() for p in spiritus])))
+    print "Du kunne for eksempel lave en %s! Til den skal du bruge:" % drinknavn()
+    for alkohol in spiritus:
+        print "%s %s %s" % (maengde(), enhed(), alkohol)
+    return 0
+    
+
+if __name__ == '__main__':
+    sys.exit(main(sys.argv[1:]))
