@@ -7,10 +7,8 @@ node="$2"
 alias="$(mainAlias "$user")"
 dir="users/$alias/$node"
 
-echo "$dir"
+if dbExists "$dir"; then
+    echo "$dir"
+fi
 
-# if ! dbExists "$dir"; then
-#     mkdir -p "$dir"
-# fi
-
-# echo "$dir"
+exit 1
