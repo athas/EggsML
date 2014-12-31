@@ -1,0 +1,9 @@
+#!/bin/sh
+
+alias="$(aliases "$1" | head -n 1)"
+
+if [ "$alias" = '' ]; then
+    exit 1
+else
+    echo "$alias"
+fi

@@ -2,13 +2,13 @@
 
 user="$1"
 node="$2"
-if dbExists "users/$user/$node"; then
-    echo "users/$user/$node"
-else
-    aliases "$1" | while read -r alias; do
-        if dbExists "users/$alias/$node"; then
-            echo "users/$alias/$node"
-            exit
-        fi
-    done
+
+
+alias="$(mainAlias "$user")"
+dir="users/$alias/$node"
+
+if ! dbExists "$dir"; then
+    mkdir -p "$dir"
 fi
+
+echo "$dir"
