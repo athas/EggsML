@@ -10,57 +10,58 @@ fi
 srcfile=$(find $CONCIEGGS_DIR/compiled -name "$(basename "$1").*")
 
 if ! [ "$srcfile" ]; then
-    echo "The file '$srcfile' does not exist"
+    echo "$0: cannot find source for program '$srcfile' does not exist" >&2
     exit 3
 fi
 
-case $srcfile in
-    *go)
-        compile() {
-            go build $1
-        }
-        ;;
-    *c)
-        compile() {
-            gcc $1 -o $2
-        }
-        ;;
-    *sml)
-        compile() {
-            mosmlc -P full -toplevel -o $2 $1
-        }
-        ;;
-    *pas)
-        compile() {
-            fpc $1 -o"$2" 2> /dev/null > /dev/null
-        }
-        ;;
-    *hs)
-        compile() {
-            ghc "$1" -o "$2" -i"$CONCIEGGS_DIR/compiled:$CONCIEGGS_LIB_DIR/haskeggs" >&2
-        }
-        ;;
-    *)
-        echo "Cannot compile file $srcfile - unknown extension."
-        exit 2
-esac
-
 shift
+
 compiledfile=$CONCIEGGS_DB_DIR/compiled-cache/$(basename "$srcfile" | sed 's/\.[^.]*$//')
 
 if [ "$compiledfile" -nt "$srcfile" ]; then
     "$compiledfile" "$@"
 else
+    case $srcfile in
+        *go)
+            compile() {
+                go build $1
+            }
+            ;;
+        *c)
+            compile() {
+                gcc $1 -o $2
+            }
+            ;;
+        *sml)
+            compile() {
+                mosmlc -P full -toplevel -o $2 $1
+            }
+            ;;
+        *pas)
+            compile() {
+                fpc $1 -o"$2" 2> /dev/null > /dev/null
+            }
+            ;;
+        *hs)
+            compile() {
+                ghc "$1" -o "$2" -i"$CONCIEGGS_DIR/compiled:$CONCIEGGS_LIB_DIR/haskeggs" >&2
+            }
+            ;;
+        *)
+            echo "Cannot compile file $srcfile - unknown extension."
+            exit 2
+    esac
+
     compiledir="$(mktemp -d)"
     cp "$srcfile" "$compiledir"
     srcfile="$compiledir/$(basename "$srcfile")"
 
     mkdir -p "$CONCIEGGS_DB_DIR/compiled-cache"
     if (cd "$CONCIEGGS_DB_DIR/compiled-cache";
-            compile "$srcfile" "$compiledfile"); then
+        compile "$srcfile" "$compiledfile"); then
         rm -r "$compiledir"
         "$compiledfile" "$@" || true # Midlertidigt fiks for ghc
-                                     # runtime-problemer på OpenBSD.
+        # runtime-problemer på OpenBSD.
     else
         rm -r "$compiledir"
         exit 1
