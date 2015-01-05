@@ -44,16 +44,16 @@ void checklink(const char* link) {
       }
       /*printf("OOOOOOOOLDZ %s af %s for %ld dage siden\n", link, whostart, (now.tv_sec - then.tv_sec)/60/60/24);*/
     }
-  } else {
-    write(linksfd, link, l);
-    write(linksfd, " ", 1);
-    char nowtext[24];
-    sprintf(nowtext, "%ld", now.tv_sec);
-    write(linksfd, nowtext, strlen(nowtext));
-    write(linksfd, " ", 1);
-    write(linksfd, eggsuser, eggsuserlength);
-    write(linksfd, "\n", 1);
   }
+  // Always log
+  write(linksfd, link, l);
+  write(linksfd, " ", 1);
+  char nowtext[24];
+  sprintf(nowtext, "%ld", now.tv_sec);
+  write(linksfd, nowtext, strlen(nowtext));
+  write(linksfd, " ", 1);
+  write(linksfd, eggsuser, eggsuserlength);
+  write(linksfd, "\n", 1);
 }
 
 int main() {
