@@ -6,10 +6,18 @@
 if [ $# -eq 3 -a "$2" = "bare" ]; then
     user1=$1
     user2=$3
-    if [ $user1 = concieggs -o $user2 = concieggs ]; then
-        echo "Nej, Der er KUN ÉN CONCIEGGS!"
-    elif [ $user1 = $user2 ]; then
+    if [ $user1 = $user2 ]; then
         echo "Hmm... nej, jeg kan slet ikke se hvad de to navne skulle have tilfælles."
+        exit
+    fi
+    if [ "$user1" = jeg ]; then
+        user1=$EGGS_USER
+    fi
+    if [ "$user2" = mig ]; then
+        user2=$EGGS_USER
+    fi
+    if [ "$user1" = concieggs -o "$user2" = concieggs ]; then
+        echo "Nej, Der er KUN ÉN CONCIEGGS!"
     elif ! [ "$(aliases $user1)" ]; then
         echo "Jeg aner ikke hvem $user1 skulle være."
     elif ! [ "$(aliases $user2)" ]; then
