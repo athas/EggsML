@@ -15,46 +15,40 @@ import re
 from lxml import html
 
 def run_main(args):
- 
-   
-    if args[1] in ["med","omhandlende", "involverende", "om", "about"]:
-    	args = args[2:]
-    else:
-    	args = args[1:]
-    
-    args = filter(lambda ord: ord != "og", args)
 
-
-    if (len(args) > 0):
+    if (len(args) > 1):
+        if args[1] in ["med","omhandlende", "involverende", "om", "about"]:
+        	args = args[2:]
+        else:
+        	args = args[1:]
+        args = filter(lambda ord: ord != "og", args)
         specifik = True
-        list = specifiktMem(args) 
+        list = specifiktMem(args)
     else:
         specifik = False
         list = urllib2.urlopen("http://imgur.com/hot/viral/")
-    content = list.read()
-       
-    tree = html.fromstring(content)
-    
-    if specifik:
-        hits = tree.xpath("//div[@class='post-details textbox']")
-    else: 
-        hits = tree.xpath("//div[@class='post']")
-    try:
-        pick = hits[random.randint(0, (len(hits) - 1))]
-        (tekst, link) = behandlHit(pick, specifik)
 
-        print "ha ha det her billede er bare " + kompliment() + " " + smiley()
-        print "http:" + link.replace(".jpg","") + ' :  "' + tekst + '"'
-    except:
-	
-	print "Der er ingen inden i imgur som har gidet at lave memer om " +         " og ".join(args)
+    content = list.read()
+    tree = html.fromstring(content)
+
+    if specifik:
+        hits = tree.xpath("//div[@class='post']")
+    else:
+        hits = tree.xpath("//div[@class='post']")
+#    try:
+    pick = hits[random.randint(0, (len(hits) - 1))]
+    (tekst, link) = behandlHit(pick, specifik)
+    print "ha ha det her billede er bare " + kompliment() + " " + smiley()
+    print "http:" + link.replace(".jpg","") + ' :  "' + tekst + '"'
+#    except:
+#	print "Der er ingen inden i imgur som har gidet at lave memer om " +         " og ".join(args)
 
 def behandlHit(hit , Bool):
     if Bool:
+        tekst = hit.xpath("./div[@class='hover']/p/text()")[0]
         link = hit.xpath("./a/img/@src")[0]
-        tekst = hit.xpath("./a/img/@alt")[0]
     else:
-        tekst = hit.xpath("./div/p/text()")[0]
+        tekst = hit.xpath("./div[@class='hover']/p/text()")[0]
         link = hit.xpath("./a/img/@src")[0]
     return (tekst, link)
 def kompliment():
@@ -86,9 +80,8 @@ def smiley():
     return sm
 
 def specifiktMem(args):
-
 #skal det være en rigtig slager?
-    
+
     query = ""
     for arg in args:
 	query = query + "+" + arg
