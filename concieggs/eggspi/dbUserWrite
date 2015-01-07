@@ -7,6 +7,6 @@ realnode="$(dbUserGet "$1" "$2")"
 if [ "$realnode" ]; then
     dbWrite "$realnode"
 else
-    alias="$(randomName "$1")"
+    alias="$(mainAlias "$1")"
     dbWrite "users/$alias/$node"
 fi
