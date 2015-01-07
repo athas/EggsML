@@ -8,5 +8,9 @@ if [ "$realnode" ]; then
     dbWrite "$realnode"
 else
     alias="$(mainAlias "$1")"
-    dbWrite "users/$alias/$node"
+    if [ "$alias" ]; then
+        dbWrite "users/$alias/$node"
+    else
+        dbWrite "users/$1/$node"
+    fi
 fi

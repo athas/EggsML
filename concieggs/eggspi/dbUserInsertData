@@ -6,5 +6,10 @@ realnode="$(dbUserGet "$1" "$2")"
 if [ "$realnode" ]; then
     dbInsertData "$realnode"
 else
-    dbInsertData "users/$(mainAlias $alias)/$node"
+    alias=$(mainAlias $user)
+    if [ "$alias" ]; then
+        dbInsertData "users/$alias/$node"
+    else
+        dbInsertData "users/$user/$node"
+    fi
 fi
