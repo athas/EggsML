@@ -64,13 +64,11 @@ int main() {
 
   now = time(NULL);
 
-  srand(now);
-
   if (eggsbody != NULL && eggsuser != NULL) {
     struct stat fs;
 
     eggsuserlength = strlen(eggsuser);
-    sprintf(buf, "%s/links", getenv("CONCIEGGS_DB_DIR"));
+    snprintf(buf, sizeof(buf), "%s/links", getenv("CONCIEGGS_DB_DIR"));
     linksfd = open(buf, O_RDWR | O_APPEND | O_CREAT);
     fstat(linksfd, &fs);
     linkslength = fs.st_size;
