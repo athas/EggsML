@@ -40,7 +40,7 @@ if [ "$debtor" ]; then
     fi
 elif [ "$time" ]; then
     echo "Den store viser peger på $(date +%H), den lille på $(date +%M), og den helt lille på $(date +%S)."
-elif [ "$status"]; then
+elif [ "$status" ]; then
         reaktion
 elif [ "$missing" ]; then
     echo "Du mangler $(randomElement < "$CONCIEGGS_DB_DIR/ordbog-dansk-navneord")!"
