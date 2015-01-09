@@ -3,7 +3,7 @@
 # Spørg om din gæld til frokostkassen, eller få hjælp til diverse
 # personlighedsfremmende gøremål.
 
-eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|har (?<debtor>[^ ]+) til gode$|(?<time>er klokken)$|(?<missing>mangler jeg)$|(?<wtf>hulen)$|(?<meaning>mener (?<who>[^ ]+) med (?<what>[^ ]+)$)')"
+eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|har (?<debtor>[^ ]+) til gode$|(?<time>er klokken)$|(?<missing>mangler jeg)$|(?<wtf>hulen)$|(?<status>så\?)$|(?<meaning>mener (?<who>[^ ]+) med (?<what>[^ ]+)$)')"
 
 if [ "$debtor" ]; then
     if [ "$debtor" = "jeg" ]; then
@@ -66,6 +66,11 @@ elif [ "$wtf" ]; then
         echo "$EGGS_USER: Hvad er det helt præcist, der forvirrer dig?  Min adfærd er ganske konventionel."
     fi
     exit
+
+elif [ "$status"]; then
+        reaktion
+        exit
+
 elif [ "$meaning" ]; then
     if [ "$who" = du -o "$who" = "$irc_username" ]; then
         runcmd hjælp "$what"

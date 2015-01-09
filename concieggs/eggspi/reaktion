@@ -1,0 +1,26 @@
+#!/bin/sh
+# Det ville være lækkert, hvis folk lige gad gå ind på http://hexascii.com/japanese-emoticons , 
+# og tilføje nogle flere
+reaktion=`randomElement <<EOF
+(ノ-_-)ノ ~┻━┻
+(￣□￣)ノ ~┻━┻
+(ノ￣＿￣）ノ　┫
+(ﾉ･ｪ･)ﾉ
+(ﾉ◕ヮ◕)ﾉ*:・ﾟ✧
+＼（＾▽＾）／
+٩(^ᴗ^)۶
+٩(●˙▿˙●)۶…⋆ฺ
+(◕‿◕✿)
+｡◕‿◕｡
+(/•ิ_•ิ)/
+(∩_∩)
+(°◇°;)
+(✿◠‿◠)
+(¬‿¬)
+ʘ‿ʘ
+ ☆*･゜ﾟ･*＼(^O^)/*･゜ﾟ･*☆
+ (⊙ヮ⊙)
+ ლ(ಠ_ಠლ)
+EOF`
+
+echo $reaktion
