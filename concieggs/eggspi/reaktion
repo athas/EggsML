@@ -21,6 +21,11 @@ reaktion=`randomElement <<EOF
  ☆*･゜ﾟ･*＼(^O^)/*･゜ﾟ･*☆
  (⊙ヮ⊙)
  ლ(ಠ_ಠლ)
+(。^_・)ノ
+（＾＿－）
+（＾＿・）
+(o‿∩)
+๏[-ิ_•ิ]๏
 EOF`
 
 echo $reaktion
