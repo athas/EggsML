@@ -1,0 +1,3 @@
+#!/bin/sh
+
+echo $EGGS_USER: Jamen, $(du "$EGGS_USER") er da den klogeste i hele EggsML.
