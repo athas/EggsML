@@ -3,6 +3,10 @@ use 5.012;
 use warnings;
 use utf8::all;
 
+# THIS IS WHAT FEMINISTS ACTUALLY BELIEVE[0]
+#
+# [0]: Ifølge /r/mensrights
+
 while (my $text = <>) {
     $text =~ s/hans/hendes/ig;
     $text =~ s/han/hun/ig;
@@ -19,6 +23,9 @@ while (my $text = <>) {
     $text =~ s/drenge?/pige/ig;
     $text =~ s/knægte/piger/ig;
     $text =~ s/knægt/pige/ig;
+    $text =~ s/sønnens/datterens/ig;
+    $text =~ s/sønnen/datteren/ig;
+    $text =~ s/søn\b/datter/ig;
 
     print $text;
 }
