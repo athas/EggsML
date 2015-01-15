@@ -14,6 +14,8 @@ while (my $text = <>) {
     $text =~ s/pik/kusse/ig;
     $text =~ s/diller/fjams/ig;
     $text =~ s/skæg\b/bryst/ig;
+    $text =~ s/den[ts]\b/hendes/ig;
+    $text =~ s/den\b/hun/ig;
 
     print $text;
 }
