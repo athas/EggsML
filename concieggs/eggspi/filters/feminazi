@@ -15,7 +15,10 @@ while (my $text = <>) {
     $text =~ s/diller/fjams/ig;
     $text =~ s/skæg\b/bryst/ig;
     $text =~ s/\bden[ts]\b/hendes/ig;
-    $text =~ s/\bden\b/hun/ig;
+    $text =~ s/drenge\b/piger/ig;
+    $text =~ s/drenge?/pige/ig;
+    $text =~ s/knægte/piger/ig;
+    $text =~ s/knægt/pige/ig;
 
     print $text;
 }
