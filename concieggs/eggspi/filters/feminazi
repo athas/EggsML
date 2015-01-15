@@ -1,0 +1,19 @@
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+use utf8::all;
+
+while (my $text = <>) {
+    $text =~ s/hans/hendes/g;
+    $text =~ s/han/hun/g;
+    $text =~ s/ham/hende/g;
+    $text =~ s/mand/kvinde/g;
+    $text =~ s/far/mor/g;
+    $text =~ s/fader/moder/g;
+    $text =~ s/penis/vagina/g;
+    $text =~ s/pik/kusse/g;
+    $text =~ s/diller/fjams/g;
+    $text =~ s/skæg\b/bryst/g;
+
+    print $text;
+}
