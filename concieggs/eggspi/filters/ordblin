@@ -5,13 +5,23 @@ use utf8::all;
 
 while (my $text = <>) {
     $text =~ s/gjort/gjordt/g;
-    $text =~ s/er /e /g;
+    $text =~ s/\Ber\b/e/g;
     $text =~ s/nde/ne/g;
+    $text =~ s/ind/in/g;
     $text =~ s/ll/l/g;
     $text =~ s/nn/n/g;
     $text =~ s/mm/m/g;
     $text =~ s/kk/k/g;
     $text =~ s/hv/v/g;
+    $text =~ s/dt/t/g;
+    $text =~ s/[,;]//g;
+    $text =~ s/-/ /g;
+    $text =~ s/"//g;
+    $text =~ s/\.$//g;
+    $text =~ s/\.\B/.../g;
+    $text =~ s/også/osse/g;
+    $text =~ s/ige/ie/g;
+    $text =~ s/rer/er/g;
 
     # ede til et
     $text =~ s/ede /et /g;
