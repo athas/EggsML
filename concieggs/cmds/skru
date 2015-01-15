@@ -6,8 +6,7 @@ use warnings;
 use utf8::all;
 use 5.012;
 
-system("checkCharmen");
-my $currentCharm = $?;
+my $currentCharm = `checkCharmen`;
 my $arg_string = join(" ", @ARGV);
 
 if ($arg_string =~ /charmen\w(op|ned)\wpå\w(\d)/)
