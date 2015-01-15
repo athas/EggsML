@@ -1,0 +1,31 @@
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+use utf8::all;
+
+# THIS IS WHAT FEMINISTS ACTUALLY BELIEVE[0]
+#
+# [0]: Ifølge /r/mensrights
+
+while (my $text = <>) {
+    $text =~ s/hans/hendes/ig;
+    $text =~ s/han/hun/ig;
+    $text =~ s/ham/hende/ig;
+    $text =~ s/mand/kvinde/ig;
+    $text =~ s/far/mor/ig;
+    $text =~ s/fader/moder/ig;
+    $text =~ s/penis/vagina/ig;
+    $text =~ s/pik/kusse/ig;
+    $text =~ s/diller/fjams/ig;
+    $text =~ s/skæg\b/bryst/ig;
+    $text =~ s/\bden[ts]\b/hendes/ig;
+    $text =~ s/drenge\b/piger/ig;
+    $text =~ s/drenge?/pige/ig;
+    $text =~ s/knægte/piger/ig;
+    $text =~ s/knægt/pige/ig;
+    $text =~ s/sønnens/datterens/ig;
+    $text =~ s/sønnen/datteren/ig;
+    $text =~ s/søn\b/datter/ig;
+
+    print $text;
+}
