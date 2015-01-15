@@ -4,16 +4,16 @@ use warnings;
 use utf8::all;
 
 while (my $text = <>) {
-    $text =~ s/hans/hendes/g;
-    $text =~ s/han/hun/g;
-    $text =~ s/ham/hende/g;
-    $text =~ s/mand/kvinde/g;
-    $text =~ s/far/mor/g;
-    $text =~ s/fader/moder/g;
-    $text =~ s/penis/vagina/g;
-    $text =~ s/pik/kusse/g;
-    $text =~ s/diller/fjams/g;
-    $text =~ s/skæg\b/bryst/g;
+    $text =~ s/hans/hendes/ig;
+    $text =~ s/han/hun/ig;
+    $text =~ s/ham/hende/ig;
+    $text =~ s/mand/kvinde/ig;
+    $text =~ s/far/mor/ig;
+    $text =~ s/fader/moder/ig;
+    $text =~ s/penis/vagina/ig;
+    $text =~ s/pik/kusse/ig;
+    $text =~ s/diller/fjams/ig;
+    $text =~ s/skæg\b/bryst/ig;
 
     print $text;
 }
