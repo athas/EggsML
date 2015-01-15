@@ -26,6 +26,7 @@ reaktion=`randomElement <<EOF
 （＾＿・）
 (o‿∩)
 ๏[-ิ_•ิ]๏
+Hvad så hvad?
 EOF`
 
 echo $reaktion
