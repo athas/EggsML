@@ -7,29 +7,27 @@ use utf8::all;
 use 5.012;
 
 my $currentCharm = `checkCharmen`;
+chomp($currentCharm);
 my $arg_string = join(" ", @ARGV);
+#if ($arg_string =~ /\s?charmen\s(op|ned)\spå\s(\d\d?)/)
+#  {
+#  SpecificCharme($currentCharm, $2, $1);
+#  }
 
-if ($arg_string =~ /charmen\w(op|ned)\wpå\w(\d)/)
-  {
-  SpecificCharme($currentCharm,$2, $1);
-  }
-
-if ($arg_string =~ /(helt?)\w(op|ned)\wfor\wcharmen/ )
+  given($arg_string)
     {
-  my $case = $1 . $2;
-  given($case)
-    {
-    when ( /heltop/ ){ setCharm(10);}
-    when (/heltned/){ setCharm(0); }
-    when (/op/) { setCharm($currentCharm++) unless $currentCharm == 10; }
-    when (/ned/) { setCharm($currentCharm++) unless $currentCharm == 0; }
+    when ( /helt\sop\sfor\scharmen/ ){ setCharm(10);}
+    when (/helt\sned\sfor\scharmen/){ setCharm(0);}
+    when (/op\sfor\scharmen/) { setCharm($currentCharm + 1) unless $currentCharm == 10;}
+    when (/ned\sfor\scharmen/) { setCharm($currentCharm - 1) unless $currentCharm == 0;}
+    when (/charmen\s(op|ned)\spå\s(\d\d?)/) {SpecificCharme($currentCharm, $2, $1);}
     default {exit(0);}
     }
-  }
+
 
 sub SpecificCharme {
   my ($gammel, $ny, $op) = @_;
-  if($ny < 0 || $ny > 10){
+  if($ny > 10){
     printf("Søde ven. Jeg kan altså kun være charmende på en nul-til-ti-skala.");
     exit(0);
   }
@@ -38,20 +36,20 @@ sub SpecificCharme {
     if ($gammel < $ny){
       setCharm($ny);}
     else{
-      printf("Lige nu er jeg ", $gammel, " charmerende. Skal jeg forklare dig forskellen på \"op\" og \"ned\"?");
+      printf("Lige nu er jeg ${gammel} charmerende. Skal jeg forklare dig forskellen på \"op\" og \"ned\"?");
       }
     }
   else {
     if ($gammel > $ny){
         setCharm($ny);}
     else {
-      printf("Lige nu er jeg ", $gammel, " charmerende. Skal jeg forklare dig forskellen på \"op\" og \"ned\"?");
+      printf("Lige nu er jeg ${gammel} charmerende. Skal jeg forklare dig forskellen på \"op\" og \"ned\"?");
       }
     }
 }
 
 sub setCharm{
-    my $newVal = @_;
+    my $newVal = $_[0];
     system("setCharmen", $newVal);
     system("ppCharmen");
 }
