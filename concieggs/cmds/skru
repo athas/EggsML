@@ -1,0 +1,58 @@
+#!/usr/bin/env perl
+#
+#
+
+use warnings;
+use utf8::all;
+use 5.012;
+
+system("checkCharmen");
+my $currentCharm = $?;
+my $arg_string = join(" ", @ARGV);
+
+if ($arg_string =~ /charmen\w(op|ned)\wpå\w(\d)/)
+  {
+  SpecificCharme($currentCharm,$2, $1);
+  }
+
+if ($arg_string =~ /(helt?)\w(op|ned)\wfor\wcharmen/ )
+    {
+  my $case = $1 . $2;
+  given($case)
+    {
+    when ( /heltop/ ){ setCharm(10);}
+    when (/heltned/){ setCharm(0); }
+    when (/op/) { setCharm($currentCharm++) unless $currentCharm == 10; }
+    when (/ned/) { setCharm($currentCharm++) unless $currentCharm == 0; }
+    default {exit(0);}
+    }
+  }
+
+sub SpecificCharme {
+  my ($gammel, $ny, $op) = @_;
+  if($ny < 0 || $ny > 10){
+    printf("Søde ven. Jeg kan altså kun være charmende på en nul-til-ti-skala.");
+    exit(0);
+  }
+
+  elsif ($op eq "op"){
+    if ($gammel < $ny){
+      setCharm($ny);}
+    else{
+      printf("Lige nu er jeg ", $gammel, " charmerende. Skal jeg forklare dig forskellen på \"op\" og \"ned\"?");
+      }
+    }
+  else {
+    if ($gammel > $ny){
+        setCharm($ny);}
+    else {
+      printf("Lige nu er jeg ", $gammel, " charmerende. Skal jeg forklare dig forskellen på \"op\" og \"ned\"?");
+      }
+    }
+}
+
+sub setCharm{
+    my $newVal = @_;
+    system("setCharmen", $newVal);
+    system("ppCharmen");
+}
