@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 #
-#
+# skru ((helt)? (op|ned) for charmen)|charmen (op|ned) på [0-9]+)
 
 use warnings;
 use utf8::all;
@@ -9,11 +9,6 @@ use 5.012;
 my $currentCharm = `checkCharmen`;
 chomp($currentCharm);
 my $arg_string = join(" ", @ARGV);
-#if ($arg_string =~ /\s?charmen\s(op|ned)\spå\s(\d\d?)/)
-#  {
-#  SpecificCharme($currentCharm, $2, $1);
-#  }
-
   given($arg_string)
     {
     when ( /helt\sop\sfor\scharmen/ ){ setCharm(10);}
@@ -27,6 +22,11 @@ my $arg_string = join(" ", @ARGV);
 
 sub SpecificCharme {
   my ($gammel, $ny, $op) = @_;
+
+  if($ny == 11 && $op eq "op"){
+      paaske();
+      exit(0);
+  }
   if($ny > 10){
     printf("Søde ven. Jeg kan altså kun være charmende på en nul-til-ti-skala.");
     exit(0);
@@ -53,3 +53,9 @@ sub setCharm{
     system("setCharmen", $newVal);
     system("ppCharmen");
 }
+
+sub paaske{
+    `reaktion`;
+    `hurtighumor`;
+    system("setCharmen", 10);
+    }
