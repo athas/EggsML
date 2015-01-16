@@ -73,7 +73,7 @@ actionsFromMeaning g meaning = runRandomly g $
              " over " <> ("mod"<|>"til") <> " " <> pure to <|>
             ("knurrer" <>
              ((excited < 2) ==> " sagte" <|>
-             ((excited > 3) ==> " ophiset")) <>
+             ((excited > 3) ==> " ophidset")) <>
              " " <> ("ad"<|>"efter"<|>"mod") <> " " <> pure to) <|>
             (excited > 4) ==> "brøler voldsomt mod " <> pure to
           | otherwise =
