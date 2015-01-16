@@ -57,46 +57,61 @@ didSheSaySo s = "Det sagde hun også i går" `T.isInfixOf` s
 
 actionsFromMeaning :: RandomGen g => g -> Meaning -> Text
 actionsFromMeaning g meaning = runRandomly g $
-                              startMsg <> ", " <>
+                               startMsg <> ", " <>
                                peopleMsg <>
                                ambienceMsg <>
                                "."
-  where startMsg
+  where excited = meaningExcitement meaning
+        startMsg
           | Just to <- meaningTo meaning =
             ("stirrer stift på " <> pure to) <|>
-            (("går"<|>"lunter"<|>"løber"<|>"trasker") <>
-             " over " <> ("mod"<|>"til") <> " " <> pure to) <|>
-            ("knurrer sagte " <> ("ad"<|>"efter"<|>"mod") <> " " <> pure to)
+            (excited < 2) ==>
+            ("går" <|>
+             (excited == 0) ==> "lunter"<|>
+             "løber" <|>
+             "trasker") <>
+             " over " <> ("mod"<|>"til") <> " " <> pure to <|>
+            ("knurrer sagte " <> ("ad"<|>"efter"<|>"mod") <> " " <> pure to) <|>
+            (excited > 4) ==> "brøler voldsomt mod " <> pure to
           | otherwise =
-              "rejser sig dovent" <|>
-              "gaber" <|>
-              "kigger sig træt omkring" <|>
+              (excited < 2) ==>
+              ("rejser sig dovent" <|>
+               "gaber" <|>
+               "kigger sig træt omkring" <|>
+               ("kigger sig " <> ("nysgerrigt" <|> "træt") <> " omkring") <|>
+               "strækker sig") <|>
               "knurrer lidt" <|>
-              ("kigger sig " <> ("nysgerrigt" <|> "træt") <> " omkring") <|>
-              "strækker sig"
+              "brøler" <|>
+              "rejser sig pludseligt" <|>
+              "sætter i løb"
         ambienceMsg =
-          "lunter lidt rundt" <|>
-          "snuser til luften" <|>
-          "dasker beslutsomt til et vandløb" <|>
-          "kradser lidt i et træ" <|>
-          ("klør sig dovent " <> ("bag øret"<|>"på næsen")) <|>
-          "leder efter honning i en hul træstub" <|>
-          "slikker sig om munden" <|>
-          "slikker sig på næsen" <|>
-          "vælter en skraldespand" <|>
-          "brøler majestætisk" <|>
-          ("klør sig på siden med " <> ("en klo"<|>"det ene "<>("forben"<|>"bagben"))) <|>
-          "knurrer lidt målløst" <|>
-          "slår en prut" <|>
-          "slipper en vind" <|>
-          "rejser sig op" <|>
-          "gaber dovent" <|>
-          "virker pludselig forskrækket" <|>
-          ("får færten af " <> ("nogle godter"<|>
-                                "noget bacon"<|>
-                                "hvem ved"<|>
-                                "nogle sure sokker")) <|>
-          ("graver" <> (" lidt"<|>"") <> " i en myreture")
+          (excited < 2) ==>
+          ("lunter lidt rundt" <|>
+           "snuser til luften" <|>
+           "dasker beslutsomt til et vandløb" <|>
+           "kradser lidt i et træ" <|>
+           ("klør sig dovent " <> ("bag øret"<|>"på næsen")) <|>
+           "leder efter honning i en hul træstub" <|>
+           "slikker sig om munden" <|>
+           "slikker sig på næsen" <|>
+           "vælter en skraldespand" <|>
+           ("klør sig på siden med " <> ("en klo"<|>"det ene "<>("forben"<|>"bagben"))) <|>
+           "knurrer lidt målløst" <|>
+           "slår en prut" <|>
+           "slipper en vind" <|>
+           "rejser sig op" <|>
+           "gaber dovent" <|>
+           "virker pludselig forskrækket" <|>
+           ("får færten af " <> ("nogle godter"<|>
+                                 "noget bacon"<|>
+                                 "hvem ved"<|>
+                                 "nogle sure sokker")) <|>
+           ("graver" <> (" lidt"<|>"") <> " i en myreture")) <|>
+          (excited > 2) ==>
+          ("brøler majestætisk" <|>
+           "stamper vredt i jorden" <|>
+           "ryster voldsomt hovedet fra side til side" <|>
+           "vælter et træ")
         peopleMsg
           | mentioned <- meaningMentionedEggsers meaning, not (null mentioned) =
             (((("går en " <> ("omgang"<|>"tur")) <|> "trasker") <>
@@ -174,3 +189,10 @@ instance Monoid a => Monoid (Randomly a) where
 
 instance IsString (Randomly Text) where
   fromString = pure . T.pack
+
+infixr 4 ==>
+(==>) :: Bool -> Randomly a -> Randomly a
+p ==> r
+  | p         = r
+  | otherwise = empty
+
