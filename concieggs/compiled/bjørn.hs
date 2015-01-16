@@ -71,7 +71,10 @@ actionsFromMeaning g meaning = runRandomly g $
              "løber" <|>
              "trasker") <>
              " over " <> ("mod"<|>"til") <> " " <> pure to <|>
-            ("knurrer sagte " <> ("ad"<|>"efter"<|>"mod") <> " " <> pure to) <|>
+            ("knurrer" <>
+             ((excited < 2) ==> " sagte" <|>
+             ((excited > 3) ==> " ophiset")) <>
+             " " <> ("ad"<|>"efter"<|>"mod") <> " " <> pure to) <|>
             (excited > 4) ==> "brøler voldsomt mod " <> pure to
           | otherwise =
               (excited < 2) ==>
@@ -113,12 +116,18 @@ actionsFromMeaning g meaning = runRandomly g $
            "ryster voldsomt hovedet fra side til side" <|>
            "vælter et træ")
         peopleMsg
-          | mentioned <- meaningMentionedEggsers meaning, not (null mentioned) =
-            (((("går en " <> ("omgang"<|>"tur")) <|> "trasker") <>
+          | mentioned <- meaningMentionedEggsers meaning, not (null mentioned),
+            who <- pure $ enumerate mentioned =
+            ((excited < 4) ==>
+             ((("går en " <> ("omgang"<|>"tur")) <|> "trasker") <>
               " " <> ("rundt om"<|>"omkring"<|>"ved") <>
-              " " <> pure (enumerate mentioned)) <|>
+              " " <> who) <|>
              ("knurrer" <> (" lidt"<>"") <> " mod " <>
-              pure (enumerate mentioned))) <>
+              who) <|>
+            (excited > 3) ==> ("jager " <> who <> " på flugt") <|>
+            (excited > 4) ==> ("rejser sig truende og brølende ved " <> who) <|>
+            (excited > 5) ==> ("slår voldsomt ud efter " <> who) <|>
+            (excited > 6) ==> ("vælter " <> who <> " omkuld")) <>
             " og "
           | otherwise =
             ambienceMsg <> " og "
