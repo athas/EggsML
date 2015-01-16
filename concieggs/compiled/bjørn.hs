@@ -57,7 +57,7 @@ didSheSaySo s = "Det sagde hun også i går" `T.isInfixOf` s
 
 actionsFromMeaning :: RandomGen g => g -> Meaning -> Text
 actionsFromMeaning g meaning = runRandomly g $
-                               startMsg <> ", " <>
+                              startMsg <> ", " <>
                                peopleMsg <>
                                ambienceMsg <>
                                "."
@@ -77,11 +77,14 @@ actionsFromMeaning g meaning = runRandomly g $
         ambienceMsg =
           "lunter lidt rundt" <|>
           "snuser til luften" <|>
+          "dasker beslutsomt til et vandløb" <|>
           "kradser lidt i et træ" <|>
           ("klør sig dovent " <> ("bag øret"<|>"på næsen")) <|>
           "leder efter honning i en hul træstub" <|>
           "slikker sig om munden" <|>
           "slikker sig på næsen" <|>
+          "vælter en skraldespand" <|>
+          "brøler majestætisk" <|>
           ("klør sig på siden med " <> ("en klo"<|>"det ene "<>("forben"<|>"bagben"))) <|>
           "knurrer lidt målløst" <|>
           "slår en prut" <|>
