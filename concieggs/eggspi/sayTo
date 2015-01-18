@@ -1,0 +1,5 @@
+# Say standard input!
+
+destination=$1
+linefmt -w 380 | gawk '{ print ":m", DEST, $0 }' "DEST=$destination" >&3
+

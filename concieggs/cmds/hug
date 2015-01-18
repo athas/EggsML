@@ -2,14 +2,14 @@
 #
 # Løs en konflikt som mænd.
 
+eval "$(echo "$@" | parse '(?<what>(sten|saks|papir)) mod (?<at>[^ ]+)( på #(?<where>[^ ]+))?')"
 
-if ! [ "$2" = mod -a $# = 3 -a '(' "$1" = sten -o "$1" = saks -o "$1" = papir ')' ]; then
-    echo "Brug: hug <sten|saks|papir> mod <hvem>"
+if ! [ "$what" ]; then
+    echo "Brug: hug <sten|saks|papir> mod <hvem> [på #<hvor>]"
     exit
 fi
 
-what=$1
-at=$(randomName $3)
+at=$(randomName $at)
 from=$(randomName $EGGS_USER)
 
 if ! [ "$from" ]; then
@@ -22,10 +22,14 @@ if ! [ "$at" ]; then
     exit
 fi
 
+if ! [ "$where" ]; then
+    where=$(ircChannel)
+fi
+
 athug="$(dbUserRead "$at" hug)"
 
 if [ "$athug" ]; then
-    exec 1>"../#eggsml/in"
+    (
     echo -n "${from}s $what møder ${at}s $athug!  "
     case "$athug" in
         sten)
@@ -59,11 +63,11 @@ if [ "$athug" ]; then
             esac;
             ;;
     esac
+    ) | sayTo "$where"
     dbUserDelete "$from" hug
     dbUserDelete "$at" hug
 else
     echo "$what" | dbUserWrite "$from" hug
     echo "$(ack)  Du står nu parat med $what!"
-    exec 1>"../#eggsml/in"
-    echo "$EGGS_USER står parat til sten-saks-papir og fronter mod $3!  Hvem tør hugge mod ham?  Brug 'hug'-kommandoen!"
+    echo "$EGGS_USER står parat til sten-saks-papir og fronter mod $3!  Hvem tør hugge mod ham?  Brug 'hug'-kommandoen!" | sayTo "$where"
 fi
