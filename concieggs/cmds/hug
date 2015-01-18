@@ -2,7 +2,7 @@
 #
 # Løs en konflikt som mænd.
 
-eval "$(echo "$@" | parse '(?<what>(sten|saks|papir)) mod (?<at>[^ ]+)( på #(?<where>[^ ]+))?')"
+eval "$(echo "$@" | parse '(?<what>(sten|saks|papir)) mod (?<at>[^ ]+)( på (?<where>#[^ ]+))?')"
 
 if ! [ "$what" ]; then
     echo "Brug: hug <sten|saks|papir> mod <hvem> [på #<hvor>]"
