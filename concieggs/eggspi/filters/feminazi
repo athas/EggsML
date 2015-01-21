@@ -28,8 +28,10 @@ while (my $text = <>) {
     $text =~ s/sønnens/datterens/ig;
     $text =~ s/sønnen/datteren/ig;
     $text =~ s/søn\b/datter/ig;
-    $text =~ s/bror\b/søster/ig;
+    $text =~ s/bro(r|der)\b/søster/ig;
     $text =~ s/brødre\b/søstre/ig;
+    $text =~ s/personer/kvinder/ig;
+    $text =~ s/person/kvinde/ig;
 
     print $text;
 }
