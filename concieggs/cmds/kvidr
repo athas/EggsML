@@ -9,10 +9,10 @@ if [ $# -lt 1 ]; then
     exit 0
 fi
 
-auth="$(isTrusted "$EGGS_USER")"
-if ! [ "$auth" ]; then
-    echo "$EGGS_USER: Almindeligt rakkerpak har ikke bemyndigelse til at betjene denne funktionalitet."
-    exit 0
-fi
+# auth="$(isTrusted "$EGGS_USER")"
+# if ! [ "$auth" ]; then
+#     echo "$EGGS_USER: Almindeligt rakkerpak har ikke bemyndigelse til at betjene denne funktionalitet."
+#     exit 0
+# fi
 
 echo "$*" | kvidr
