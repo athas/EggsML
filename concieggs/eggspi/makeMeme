@@ -26,7 +26,7 @@ def main(args):
             return 1
 
     page = random.randint(0, 10)
-    text = urlopen("http://version1.api.memegenerator.net/Generators_Select_ByPopular?pageIndex={page}&pageSize=24&days=7".format(**locals())).read();
+    text = urlopen("http://version1.api.memegenerator.net/Instances_Select_ByPopular?pageIndex={page}&pageSize=24&days=7".format(**locals())).read()
     meme = json.loads(text.decode('utf-8'))
     if not meme['success']:
         print('Kunne ikke finde en memskabelon.', file=sys.stderr)

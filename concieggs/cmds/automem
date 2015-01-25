@@ -32,7 +32,7 @@ my ($first, $second) = $line =~ qr/^([^\.!\?:,;]+[\.!\?:,;]) ([^\.!\?:]+[\.!\?]?
 
 my $page = int( rand() * 10 );
 
-my $json = get("http://version1.api.memegenerator.net/Generators_Select_ByPopular?pageIndex=$page&pageSize=24&days=7"); 
+my $json = get("http://version1.api.memegenerator.net/Instances_Select_ByPopular?pageIndex=$page&pageSize=24&days=7"); 
 my $mem = from_json($json);
 print STDERR "$json\n" unless ($mem->{success});
 $mem = $mem->{'result'};
