@@ -35,7 +35,7 @@ run() {
             "$acmd" "$@" || broke
 
             ;;
-    esac | awk '{print}' # Hack: use awk to newline-terminate.
+    esac | gawk '{print; fflush()}' # Hack: use awk to newline-terminate.
 }
 
 if [ "$1" = -a ]; then
