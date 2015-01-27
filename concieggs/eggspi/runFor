@@ -26,7 +26,8 @@ filter_non_commands() {
 
 # Converts "/me does stuff" to "\x01ACTION does stuff"
 ircify_actions() {
-    sed -ur 's|^/me|\x01ACTION|'
+    soh=$(echo | tr '\n' '\001')
+    sed -ur "s|^/me|${soh}ACTION|"
 }
 
 where=$1
