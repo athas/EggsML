@@ -22,3 +22,6 @@ while true; do
     fi
 done
 echo "Flasken stopper!  Flaskehalsen peger på $last!"
+randomName "$last" | dbWrite eggsking
+echo "$last er den nye konge af #eggsml!"
+runcmd topic "$last er kongen"
