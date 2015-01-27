@@ -27,6 +27,4 @@ if [ $# = 0 ]; then
     randomName "$last" | dbWrite eggsking
     echo "$last er den nye konge af #eggsml!"
     runcmd topic "$last er kongen"
-else
-    annoyedBy $EGGS_USER 1
 fi
