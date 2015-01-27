@@ -11,6 +11,7 @@
 void write_line(char *line, ssize_t line_len) {
   fwrite(line, line_len, 1, stdout);
   fputc('\n', stdout);
+  fflush(stdout);
 }
 
 void fmt(char *line_full, ssize_t line_remaining_len, int width) {
