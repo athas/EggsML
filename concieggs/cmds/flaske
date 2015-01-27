@@ -10,17 +10,15 @@ else
 fi
 
 echo "$(ack)  Jeg sætter flasken i gang!"
-{
-    sleep 3
-    iter=0
-    while true; do
-        last="$(echo "$who" | randomElement)"
-        iter=$(expr $iter + 1)
-        echo "Flasken drejer videre til $last!"
-        sleep 5
-        if [ $iter -gt 2 -a "$(printf '\n\n\n\n\nstop' | randomise)" = "stop" ]; then
-            break;
-        fi
-    done
-    echo "Flasken stopper!  Flaskehalsen peger på $last!"
-} &
+sleep 3
+iter=0
+while true; do
+    last="$(echo "$who" | randomElement)"
+    iter=$(expr $iter + 1)
+    echo "Flasken drejer videre til $last!"
+    sleep 5
+    if [ $iter -gt 2 -a "$(printf '\n\n\n\n\nstop' | randomise)" = "stop" ]; then
+        break;
+    fi
+done
+echo "Flasken stopper!  Flaskehalsen peger på $last!"
