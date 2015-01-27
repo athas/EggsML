@@ -26,7 +26,7 @@ filter_non_commands() {
 
 # Converts "/me does stuff" to "\x01ACTION does stuff"
 ircify_actions() {
-    perl -ne 's{^/me}{\x01ACTION}g; print'
+    sed -ur 's|^/me|\x01ACTION|'
 }
 
 where=$1
