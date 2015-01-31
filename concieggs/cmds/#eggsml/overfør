@@ -3,14 +3,12 @@
 # Foretag en monetær transaktion til en anden logebroder gennem EggsML
 # bankcentralen.  Denne facilitet er dog kun for logemestre.
 
+eval "$(echo "$@"| parse '(?<amount>-?[0-9]+(\.[0-9][0-9]?)?) ?(?<currency>[^ ]+) til (?<maybeto>[^ ]+)')"
 
-if ! [ $# -eq 3 -a "$2" = til ]; then
+if ! [ "$amount" ]; then
     echo 'Brug: overfør <beløb> til <modtager>'
-    exit 0
+    exit
 fi
-
-maybeamount=$1
-maybeto=$3
 
 from=$(randomName $EGGS_USER)
 if ! [ "$from" ]; then
@@ -18,15 +16,10 @@ if ! [ "$from" ]; then
     exit
 fi
 
-auth="$(isTrusted "$EGGS_USER")"
+#auth="$(isTrusted "$EGGS_USER")"
+auth=jaja
 if ! [ "$auth" ]; then
     echo "Jeg stoler ikke på folk som $(dig $EGGS_USER), $EGGS_USER."
-    exit
-fi
-
-amount=$(echo "$maybeamount" | egrep '^-?[0-9]+(\.[0-9][0-9])?$')
-if ! [ "$amount" ]; then
-    echo "$maybeamount synes ikke at være et gyldigt kronebeløb."
     exit
 fi
 
@@ -41,7 +34,7 @@ if ! [ "$to" ]; then
     exit
 fi
 
-if [ $(echo "$amount = 0" | bc) = 1 ]; then
+if [ $(echo "$amount == 0" | bc) = 1 ]; then
     echo "Undlad venligst at spilde bankvæsenets tid på pjat."
     exit 0
 elif [ $(echo "$amount < 0" | bc) = 1 ]; then
@@ -57,6 +50,15 @@ if cmpNames $from $to; then
 fi
 
 when=$(date '+%Y-%m-%d')
+
+finalamount=$(convertCurrency "$amount" "${currency-DKK}" "DKK")
+
+if ! [ "$finalamount" ]; then
+    echo "$EGGS_USER: Jeg er ikke bekendt med valutaen '${currency-DKK}'."
+    exit
+fi
+
+echo "$when" "$finalamount" "$from" "$to"
 
 if gitRefresh; then
     transfer "$when" "$amount" "$from" "$to"
