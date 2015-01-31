@@ -7,5 +7,5 @@
 if which /usr/local/bin/gdate > /dev/null; then
     /usr/local/bin/gdate "$@"
 else
-    date "$@"
+    /bin/date "$@"
 fi
