@@ -10,6 +10,8 @@ if ! [ "$amount" ]; then
     exit
 fi
 
+currency=${currency-DKK}
+
 from=$(randomName $EGGS_USER)
 if ! [ "$from" ]; then
     echo "Dig kender jeg ikke.  Hvem skulle du forestille at være?"
@@ -50,20 +52,17 @@ if cmpNames $from $to; then
 fi
 
 when=$(date '+%Y-%m-%d')
-
-finalamount=$(convertCurrency "$amount" "${currency-DKK}" "DKK")
+finalamount=$(convertCurrency "$amount" "$currency" "DKK")
 
 if ! [ "$finalamount" ]; then
     echo "$EGGS_USER: Jeg er ikke bekendt med valutaen '${currency-DKK}'."
     exit
 fi
 
-echo "$when" "$finalamount" "$from" "$to"
-
 if gitRefresh; then
-    transfer "$when" "$amount" "$from" "$to"
+    transfer "$when" "$finalamount" "$from" "$to"
     if tryGitChange "Overførsel fra $from til $to, godkendt af $auth" slashdotfrokost; then
-        echo "Lad det runge og gjalde i DIKUs sale at $from har overført ${amount}kr til $to, som betaling for indtil videre ukendte ydelser!"
+        echo "Lad det runge og gjalde i DIKUs sale at $from har overført ${amount}${currency} til $to, som betaling for indtil videre ukendte ydelser!"
     else
         gitRepair slashdotfrokost
         echo "Katastrofe!  Noget gik galt under opdatering!"
