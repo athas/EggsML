@@ -1,0 +1,10 @@
+#!/bin/sh
+
+randomElement <<EOF
+Meh.
+Naahr.
+Pwff.
+...
+Jeg sover.
+Lad mig være i fred.
+EOF
