@@ -50,7 +50,7 @@ cmd="$(echo "$cmd" | sed 's/,$//')"
 cmddir=$CONCIEGGS_DIR/cmds
 shift
 
-if isInBadStanding "$EGGS_USER" && [ "$cmd" != "undskyld" ]; then
+if isInBadStanding "$EGGS_USER" && [ "$cmd" != "undskyld" ] && [ "$cmd" != "Undskyld" ]; then
     ex=$(fakebroke | randomElement)
     if [ "$ex" ]; then
         echo "$ex"
