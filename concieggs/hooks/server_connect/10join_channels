@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo $CONCIEGGS_ERROR_CHANNEL
-echo $CONCIEGGS_DEFAULT_CHANNEL
+echoToServer ":j $CONCIEGGS_ERROR_CHANNEL"
+echoToServer ":j $CONCIEGGS_DEFAULT_CHANNEL"
 
 # Maybe add some more channels here?  Maybe read from database?
