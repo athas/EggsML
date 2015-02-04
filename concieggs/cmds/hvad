@@ -12,7 +12,7 @@ if [ "$debtor" ]; then
         alias=$(randomName "$debtor")
     fi
     if [ ! "$alias" ]; then
-        echo "Jeg kender ikke $user."
+        echo "Jeg kender ikke $debtor."
         exit
     fi
 
@@ -36,7 +36,7 @@ if [ "$debtor" ]; then
             fi
         fi
     else
-        echo "Fejl ved beregning af gæld for $user"
+        echo "Fejl ved beregning af gæld for $alias"
     fi
 elif [ "$time" ]; then
     echo "Den store viser peger på $(date +%H), den lille på $(date +%M), og den helt lille på $(date +%S)."
