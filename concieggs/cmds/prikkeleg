@@ -109,7 +109,7 @@ def hvemFoerer(dictionary, Vindersekvens=False):
         subprocess.call(["runcmd heldigvideo"], shell=True)
         subprocess.call(["randomName \'" + vinder + "\' | dbWrite eggsking"], shell=True)
         nytSpil()
-        subprocess.call(["runcmd topic " + vinder + " er kongen"], shell=True)
+        subprocess.call(["runcmd topic \"" + vinder + " er kongen\""], shell=True)
 
 
         sys.exit(0)
@@ -129,7 +129,7 @@ def forfra(argument):
             if abs(M - N) < 9:
                 print ("Hey allesammen! %s prøver på at starte en underlødig prikkeleg!" % (currentUser(False)))
                 print ("Der var faktisk kun " + str(abs(M-N)) + " priks forskel på minimum og maximum, i det han prøvede på at starte. Er det ikke frækt?")
-                subprocess.call(["runcmd topic " + currentUser(False) + " prikker falskt. Fy for skam."], shell=True)
+                subprocess.call(["runcmd topic \"" + currentUser(False) + " prikker falskt. Fy for skam.\""], shell=True)
                 subprocess.call("putInBadStanding " + currentUser(), shell=True)
             if M < N:
                 nytSpil(M,N)
