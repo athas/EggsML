@@ -3,19 +3,19 @@
 charm=`checkCharmen`
 anticharm=`expr 10 - ${charm}`
 
-start=\|
-kasse=□
+start="\|"
+kasse="□"
 
 until [ ${charm} -lt 1 ]
 do
-  start=${start}${kasse}
+  start="${start}${kasse}"
   charm=`expr ${charm} - 1`
 done
 
 until [ ${anticharm} -lt 1 ]
 do
-  start=${start}-
+  start="${start}-"
   anticharm=`expr ${anticharm} - 1`
 done
 
-echo ${start}\|
+echo "${start}\|"
