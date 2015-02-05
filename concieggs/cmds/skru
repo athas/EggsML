@@ -1,10 +1,11 @@
 #!/usr/bin/env perl
 #
-# skru ((helt)? (op|ned) for charmen)|charmen (op|ned) på [0-9]+)
+# skru ((helt)? (op|ned) for charmen)|charmen (op|ned) på [0-9]+
 
 use warnings;
 use utf8::all;
 use 5.012;
+no warnings 'experimental::smartmatch';
 
 my $currentCharm = `checkCharmen`;
 chomp($currentCharm);
