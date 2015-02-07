@@ -7,6 +7,7 @@ use Env qw/EGGS_BODY/;
 my @links = $EGGS_BODY =~ m{https?://(?:\w+\.)?reddit\.com/r/[\w\d]+/comments/\S+}g;
 
 if (@links) {
+    # Load the modules lazily, to save time in the non-matching case
     eval <<EOU;
     use LWP::Simple;
     use JSON qw/from_json/;
