@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# Lad fluen summe rundt.
+
+who="$(recentlyActive)"
+echo "$(ack) Jeg slipper fluen løs!"
+sleep 3
+echo "/me går hen til hylden, finder bøtten og slipper FLUEN løs."
+sleep 3
+
+iter=0
+while true; do
+    last="$(echo "$who" | randomElement)"
+    if (maybeGood 0.66); then
+        echo "Fluen summer hen over hovedet på $last!"
+        iter=$(expr $iter + 1)
+    else
+        echo "Fluen summer videre rundt i lokalet..."
+        if [ $iter -gt 3 -a "$(printf '\n\nstop' | randomise)" = "stop" ]; then
+            break;
+        fi
+    fi
+    sleep 5
+done
+
+echo "Fluen har fundet lorten, og lander på $last! $last er den nye konge af #eggsml!"
+randomName "$last" | dbWrite eggsking
