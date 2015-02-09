@@ -1,0 +1,41 @@
+#!/bin/sh
+#
+# concieggs læser op på et emne efter eget valg
+# 
+
+ok=`randomElement <<EOF
+Så, nu er jeg blevet klogere på
+Sikke meget der stod om
+Ok.. nu er jeg klar, hvis censor spørger ind til
+Iiih. Jeg håber altså alligevel ikke jeg trækker spørgsmålet om
+Så klart! _ALLE_ burde kende mere til
+Jeg ved nu mere om
+EOF`
+
+motor=`randomElement <<EOF
+autoviden
+autoviden
+autoviden
+autoviden
+antividen
+EOF`
+
+
+
+set -f
+
+eval "$(echo "$@" | parse '(?<emne>.+)')"
+
+if [ "$emne" ]; then
+    result=$(runcmd "$motor" "$emne")
+
+    if [ "$result" = "Jeg kan ikke finde viden." ]; 
+    then
+        echo "Der var ikke noget at lære om $emne."
+    else
+        runcmd "husk" "$result" > /dev/null 2>&1 &
+        echo "$EGGS_USER: $ok $emne."
+    fi
+else
+    echo 'Brug: studér <emne>'
+fi
