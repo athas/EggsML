@@ -1,9 +1,9 @@
 #!/bin/sh
 #
-# Bed concieggs om at være på en bestemt led.  Brug: 'vær MÅDE' eller 'vær mod
-# BRUGER MÅDE' eller 'vær på KANAL MÅDE'.  Der er mange MÅDER.
+# Bed concieggs om at være på en bestemt led.  Brug: 'vær MÅDE' eller 'vær MÅDE
+# mod BRUGER' eller 'vær MÅDE på KANAL'.  Der er mange MÅDER.
 
-eval "$(echo "$@" | parse '^((mod|på) +(?<specific>#?[^ /]+ ))?(?<what>.+)$')"
+eval "$(echo "$@" | parse '^(?<what>.+?)(?: (?:mod|på) (?<specific>#?[^\s/]+))?$')"
 
 if [ ! "$what" ]; then
     echo "Du mangler en væremåde."
