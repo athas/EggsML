@@ -3,7 +3,7 @@
 # Lad concieggs være din spillemand for et forsvindende øjeblik.  Brug: spil på
 # <instrument>
 
-eval "$(echo "$@" | tolower | parse 'på (?<instrument>[^ ]+)')"
+eval "$(echo "$@" | tolower | parse 'på (?<instrument>.+)')"
 
 if ! [ "$instrument" ]; then
     say "$EGGS_USER: Nej, brug mig ordentligt!"
