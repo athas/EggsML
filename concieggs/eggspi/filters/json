@@ -5,4 +5,22 @@ use warnings;
 
 use JSON qw/to_json/;
 
-printf("%s\n", to_json( { data => { message => join("\n", <>) }, status => "success" } ));
+sub rand_code {
+    my @codes = qw/500 503/;
+    return $codes[rand @codes];
+}
+
+sub rand_error {
+    my @messages = (
+        "Service unavailable",
+        "Gateway unreachable",
+        "Connection timed out",
+    );
+    return $messages[rand @messages];
+}
+
+if (rand() < 0.1) {
+    printf("%s\n", to_json( { status => "failure", response_code => rand_code(), reason => rand_error() } ) );
+} else {
+    printf("%s\n", to_json( { data => { message => join("\n", <>) }, status => "success" } ));
+}
