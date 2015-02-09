@@ -1,0 +1,8 @@
+#!/usr/bin/env perl
+# Concieggs kan også fungere som en RESTful service.
+use 5.012;
+use warnings;
+
+use JSON qw/to_json/;
+
+printf("%s\n", to_json( { data => { message => join("\n", <>) }, status => "success" } ));
