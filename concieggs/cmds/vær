@@ -12,7 +12,6 @@ fi
 
 if [ "$specific" ]; then
     file=outfilter_command_$specific
-    shift 2
 else
     file=outfilter_command
 fi
@@ -22,7 +21,7 @@ save() {
     echo "$(ack)  Væremåden er sat!"
 }
 
-case "$*" in
+case "$what" in
     # Gå tilbage til normal kedsomhed.
     normal)
         save '';;
@@ -38,15 +37,15 @@ case "$*" in
     # Sprog el.lign.
     *)
         s='translate da'
-        while [ "$1" != '' ]; do
-            lc=$(langcode "$1")
+        for lang in $what
+        do
+            lc=$(langcode "$lang")
             if [ "$lc" != '' ]; then
                 s="$s $lc"
             else
-                echo "$1 er ikke et sprog!"
+                echo "$lang er ikke et sprog!"
                 exit
             fi
-            shift
         done
         save "$s"
 esac
