@@ -23,8 +23,8 @@ while true; do
 done
 echo "Flasken stopper!  Flaskehalsen peger på $last!"
 
-if [ $# = 0 ]; then
-    randomName "$last" | dbWrite eggsking
-    echo "$last er den nye konge af #eggsml!"
-    runcmd topic "$last er kongen"
-fi
+#if [ $# = 0 ]; then
+#    randomName "$last" | dbWrite eggsking
+#    echo "$last er den nye konge af #eggsml!"
+#    runcmd topic "$last er kongen"
+#fi
