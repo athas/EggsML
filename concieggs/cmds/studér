@@ -1,7 +1,10 @@
 #!/bin/sh
 #
 # concieggs læser op på et emne efter eget valg
-# 
+#
+
+echo "Too kool for skool 8)"
+exit 0
 
 ok=`randomElement <<EOF
 Så, nu er jeg blevet klogere på
