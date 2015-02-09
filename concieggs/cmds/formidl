@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# Foretag en søgning i concieggs' omfattende hukommelse efter detaljer
+# omkring et givent emne.
+
+
+lookup() {
+     cat $CONCIEGGS_DB_DIR/viden | sort | fgrep -i "$*"
+}
+
+if [ "$*" ]; then
+    if ! lookup "$*"; then
+        echo "Jeg har ikke selv studeret $* endnu."
+    fi
+else
+    echo "Men hvad skal jeg formidle?"
+fi 

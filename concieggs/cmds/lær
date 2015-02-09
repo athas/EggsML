@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+# Husk et givent faktum til senere opslag via 'forklar'.
+
+
+if [ $# -gt 0 ]; then
+    echo "$@" >> $CONCIEGGS_DB_DIR/viden
+    echo "Det er lært!"
+else
+    echo "Men hvad skal jeg lære?"
+fi

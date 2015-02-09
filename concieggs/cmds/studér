@@ -33,7 +33,7 @@ if [ "$emne" ]; then
     then
         echo "Der var ikke noget at lære om $emne."
     else
-        runcmd "husk" "$result" > /dev/null 2>&1 &
+        runcmd "lær" "$result" > /dev/null 2>&1 &
         echo "$EGGS_USER: $ok $emne."
     fi
 else
