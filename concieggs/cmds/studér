@@ -1,10 +1,8 @@
 #!/bin/sh
 #
-# concieggs læser op på et emne efter eget valg
-#
+# concieggs læser op på et emne efter eget valg , 
+# som herefter kan formidles tilbage til EggsML-chatten
 
-echo "Too kool for skool 8)"
-exit 0
 
 ok=`randomElement <<EOF
 Så, nu er jeg blevet klogere på
@@ -32,7 +30,7 @@ eval "$(echo "$@" | parse '(?<emne>.+)')"
 if [ "$emne" ]; then
     result=$(runcmd "$motor" "$emne")
 
-    if [ "$result" = "Jeg kan ikke finde viden." ]; 
+    if [ "$result" = "Jeg kan ikke finde viden." ];
     then
         echo "Der var ikke noget at lære om $emne."
     else
