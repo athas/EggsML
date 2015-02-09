@@ -1,0 +1,132 @@
+#!/bin/sh
+#
+# Lad concieggs være din spillemand for et forsvindende øjeblik.  Brug: spil på
+# <instrument>
+
+eval "$(echo "$@" | tolower | parse 'på (?<instrument>[^ ]+)')"
+
+if ! [ "$instrument" ]; then
+    say "$EGGS_USER: Nej, brug mig ordentligt!"
+    exit
+fi
+
+Nu() {
+    randomElement <<EOF
+Nu
+Så
+Her
+EOF
+}
+
+enSyngendeFortaelling() {
+    randomElement <<EOF
+en syngende fortælling
+en lystig vise
+et dejligt musikstykke
+EOF
+}
+
+tingIntetkoen() {
+    randomElement <<EOF
+mejeri
+hønsehus
+hotel
+bur
+øvelseslokale
+EOF
+}
+
+tingFaelleskoen() {
+    randomElement <<EOF
+stoleleg
+hæmsko
+følelsesrejse
+EOF
+}
+
+ting() {
+    case $(random 0 1) in
+        0)
+            tingIntetkoen;;
+        1)
+            tingFaelleskoen;;
+    esac
+}
+
+glade() {
+    randomElement <<EOF
+glade
+morskabsfyldte
+fremtidige
+endelige
+EOF
+}
+
+Dramatisk() {
+    randomElement <<EOF
+Dramatisk
+Teatrisk
+Dramatistisk
+Følende
+Hjertets
+EOF
+}
+
+ode() {
+    randomElement <<EOF
+ode
+serenade
+EOF
+}
+
+sangtitelType0() {
+    case $(random 0 1) in
+        0)
+            say "Den $(glade) $(tingFaelleskoen)";;
+        1)
+            say "Det $(glade) $(tingIntetkoen)";;
+    esac
+}
+
+sangtitelType1() {
+    say "$(Dramatisk) $(ode) til $(ting)"
+}
+
+sangtitel() {
+    case $(random 0 1) in
+        0)
+            sangtitelType0;;
+        1)
+            sangtitelType1;;
+    esac
+}
+
+flot() {
+    randomElement <<EOF
+flot
+fransk
+harmonisk
+bronzet
+fint udseende
+velrejst
+bevægende
+lydbringende
+spændende
+stor
+lille
+pæn
+EOF
+}
+
+a() {
+    for i in $(seq 0 $(random 0 8)); do
+        echo -n a
+    done
+}
+
+say "$(Nu) skal I høre $(enSyngendeFortaelling): »$(sangtitel)«."
+fa=$(flot)
+sleep 1
+fb=$(flot)
+say "/me tager $fa, $fb $instrument frem."
+say "L$(a)l$(a)l$(a)$(a)!"
