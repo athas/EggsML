@@ -12,7 +12,7 @@ apply_db_filter() {
     if [ "$destuser" != '' ]; then
         cmd=$(echo -n $(dbRead "outfilter_command_$destuser"))
     fi
-    if [ "$channel" != '' ]; then
+    if ! [ "$cmd" ] && [ "$channel" != '' ]; then
         cmd=$(echo -n $(dbRead "outfilter_command_$channel"))
     fi
     if ! [ "$cmd" ]; then
