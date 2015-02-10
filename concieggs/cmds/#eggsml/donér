@@ -41,7 +41,7 @@ fi
 
 kroners="$(echo $amount / 100 | bc)"
 oerers="$(echo $amount % 100 | bc)"
-if [ "$(echo $oerers | wc -c)" = 2 ]; then # 1
+if [ "$(echo $oerers | wc -c)" -lt 10 ]; then
     oerers=0$oerers
 fi
 total="$kroners.$oerers"
