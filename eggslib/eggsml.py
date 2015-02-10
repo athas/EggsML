@@ -458,7 +458,6 @@ class eggsml:
 		day = date(int(t[0]), int(t[1]), int(t[2]))
 		tmp = {'date' : day, 'users' : u}
 		self.dates.append(tmp)
-		self.dates.sort(self.datesort)
 
 		if day not in self.uniquedates_dict:
 			self.uniquedates_dict[day] = {}
@@ -534,5 +533,6 @@ class eggsml:
 					self.add_colour(l)
 				else:
 					pass
-		#print "parsed; yo", len(self.dates)
+
+		self.dates.sort(self.datesort)
 		self.users = self.get_users()
