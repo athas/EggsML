@@ -1,0 +1,49 @@
+#!/bin/sh
+
+producents() {
+    randomElement <<EOF
+Dr. Oetkers
+Karen Wolfs
+Kelloggs'
+Maren Malkepiges
+Duniyas
+Jensens Bøfhus'
+EOF
+}
+
+gode() {
+    randomElement <<EOF
+nye
+fantastiske
+billige
+tilbudsramte
+luksuriøse
+frosne
+anderledes
+vitaminfyldte
+fedtfattige
+opfriskende
+EOF
+}
+
+ret() {
+    ting=$(randomElement <<EOF
+burger
+pizza
+pomfritter
+sushi
+småkager
+grillkylling
+løgringe
+durumrulle
+nuggets
+blæksprutteefterligning
+milkshake
+pitabrød
+EOF
+)
+    bogstav=$(echo $ting | sed -r 's/^(.).*$/\1/')
+    echo $(grep "^$bogstav" "$CONCIEGGS_DB_DIR/ordbog-dansk-navneord-gode" | randomElement)-$ting
+}
+
+echo Du kunne spise $(producents) $(gode) $(ret).
