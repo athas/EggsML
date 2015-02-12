@@ -4,7 +4,7 @@ import sys
 from string import punctuation
 
 def run_main(args):
-    output = "<root><status>Success</status><response><sentence>"
+    output = "<?xml version="1.0"?><root><status>Success</status><response><sentence>"
     for word in args:
         word = word.strip()
         if word[0] in punctuation:
