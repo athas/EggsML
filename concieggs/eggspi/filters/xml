@@ -1,11 +1,20 @@
 #!/usr/bin/env python3
 
 import sys
+from string import punctuation
 
 def run_main(args):
     output = "<root><status>Success</status><response><sentence>"
     for word in args:
-        output += "<word>" + word + "</word>"
+        word = word.strip()
+        if word[0] in punctuation:
+            output += "<punctuation>" + word[0] + "</punctuation>"
+            word = word[1:]
+        if word[-1] in punctuation:
+            output += "<word>" + word[:-1] + "</word>"
+            output += "<punctuation>" + word[-1] + "</punctuation>"
+        else:
+            output += "<word>" + word + "</word>"
     output += "</sentence></response></root>"
     print(output)
 
