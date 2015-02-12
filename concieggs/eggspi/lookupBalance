@@ -1,7 +1,0 @@
-#!/bin/sh
-
-# ja, vi beregner alles gæld, selv om vi kun er interesseret i et
-# enkelt af tallene
-penge=$(eggstool balance_of_payments)
-
-echo $penge

@@ -3,17 +3,7 @@
 # Spørg om din gæld til frokostkassen, eller få hjælp til diverse
 # personlighedsfremmende gøremål.
 
-eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|har (?<debtor>[^ ]+) til gode$|(?<time>er klokken)$|(?<balance>er betalingsbalancen)$|(?<missing>mangler jeg)$|(?<wtf>hulen)$|(?<status>så)$|(?<meaning>mener (?<who>[^ ]+) med (?<what>[^ ]+)$)')"
-
-if [ "$balance" ]; then
-  balance="$(lookupBalance)"
-  if [ "$(echo "$balance" | grep "-")" ]; then
-      echo "Uha, samlet set er der en gæld på $balance kroner."
-  else
-      echo "Spiser I slet ingen ting? EggsML har et samlet overskud på $balance kroner."
-  fi
-  exit
-fi
+eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|har (?<debtor>[^ ]+) til gode$|(?<time>er klokken)$|(?<missing>mangler jeg)$|(?<wtf>hulen)$|(?<status>så)$|(?<meaning>mener (?<who>[^ ]+) med (?<what>[^ ]+)$)')"
 
 if [ "$debtor" ]; then
     if [ "$debtor" = "jeg" ]; then

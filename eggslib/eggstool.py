@@ -25,8 +25,6 @@ if __name__ == '__main__':
         print_wishes(e)
     elif command == "balances":
         print_balances(e)
-    elif command == "balance_of_payments":
-        print_balance_of_payments(e)
     elif command == "lunches":
         if len(sys.argv) != 4:
             exit("Usage: %s %s %s <alias>" % (sys.argv[0], lunchfile, command))
