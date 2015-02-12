@@ -39,6 +39,8 @@ EOF`
   say "Hey, hvad er det derovre?!"
   echo "/me peger væk fra sig selv"
   echoToServer ":nick $navn"
+  export CONCIEGGS_NAME=$navn
+
 fi
 
 
