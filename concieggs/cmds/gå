@@ -37,10 +37,8 @@ nanna
 randi
 EOF`
   say "Hey, hvad er det derovre?!"
-  echo "/me peger væk fra sig selv"
+  echo "/me peger på $(recentlyActive | head -n 1)."
   echoToServer ":nick $navn"
-  export CONCIEGGS_NAME=$navn
-
 fi
 
 
