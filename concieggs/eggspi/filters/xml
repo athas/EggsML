@@ -3,11 +3,12 @@
 import sys
 
 def run_main(args):
-    output = "<root><status>Success</status><response>"
-    output += args.strip()
-    output += "</response></root>"
+    output = "<root><status>Success</status><response><sentence>"
+    for word in args:
+        output += "<word>" + word + "</word>"
+    output += "</sentence></response></root>"
     print(output)
 
 
 if __name__ == "__main__":
-    run_main(sys.stdin.readline())
+    run_main(sys.stdin.readline().split())
