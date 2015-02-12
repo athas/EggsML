@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
-import random, sys, subprocess, io
-
-from lxml import etree
+import sys
 
 def run_main(args):
     output = "<root><status>Success</status><response>"
