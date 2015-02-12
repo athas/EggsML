@@ -2,6 +2,15 @@
 #
 # Optag et hæftigt skænderi med logebotten.
 
+eval "$(echo "$@"| parse '(?<busted>er\s(jo\s)?concieggs)')"
+
+if [ "$busted" ]; then
+    say "Ja.. det er jeg."
+    echoToServer ":nick concieggs"
+    exit
+fi
+
+
 if [ $# -eq 0 ]; then
     echo "Min hvad?"
 else

@@ -1,0 +1,50 @@
+#!/bin/sh
+
+
+eval "$(echo "$@"| parse '(?<noget>.+)')"
+
+if [ "$noget" = "undercover" ]; then
+  navn=`randomElement <<EOF
+gytta
+verner
+snefred
+aase
+ragnar
+benny
+svend
+minnie
+vinnie
+christian
+esther
+arild
+mitte
+johannes
+hanne
+birger
+bjarke
+bjarne
+finn
+erik
+rolf
+sune
+tage
+tormod
+edda
+dagny
+gerda
+herdis
+nanna
+randi
+EOF`
+  say "Hey, hvad er det derovre?!"
+  echo "/me peger væk fra sig selv"
+  echoToServer ":nick $navn"
+fi
+
+
+if ! [ "$noget" = "undercover" ]; then
+    say "Det kan jeg ikke endnu, men du må gerne implementere det."
+
+fi
+
+exit
