@@ -4,6 +4,7 @@ import time, re
 import eggsml_math
 from datetime import date
 import random
+import numpy
 
 class eggsml:
 
@@ -261,6 +262,7 @@ class eggsml:
 				meals.append(0)
 				i = i+1
 		
+
 		# convolve with gaussian kernel to smooth out the expenses 
 		filter_size = 700
 		span = filter_size/2
@@ -272,7 +274,7 @@ class eggsml:
 #		linear = [1./filter_size]*filter_size
 #		price_meal = eggsml_math.conv(price_meal, linear, shape='same')
 		gauss = eggsml_math.make_gaussian(filter_size, 150)
-		price_meal = eggsml_math.conv(price_meal, gauss, shape='same')
+		price_meal = numpy.convolve(price_meal, gauss, mode='same')
 		price_meal = price_meal[span:-span]
 
 		# map the meal prices to price per day
@@ -458,7 +460,6 @@ class eggsml:
 		day = date(int(t[0]), int(t[1]), int(t[2]))
 		tmp = {'date' : day, 'users' : u}
 		self.dates.append(tmp)
-		self.dates.sort(self.datesort)
 
 		if day not in self.uniquedates_dict:
 			self.uniquedates_dict[day] = {}
@@ -534,5 +535,6 @@ class eggsml:
 					self.add_colour(l)
 				else:
 					pass
-		#print "parsed; yo", len(self.dates)
+
+		self.dates.sort(self.datesort)
 		self.users = self.get_users()

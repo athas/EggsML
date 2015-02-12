@@ -1,9 +1,9 @@
 #!/bin/sh
 #
-# Bed concieggs om at være på en bestemt led.  Brug: 'vær MÅDE' eller 'vær mod
-# BRUGER MÅDE' eller 'vær på KANAL MÅDE'.  Der er mange MÅDER.
+# Bed concieggs om at være på en bestemt led.  Brug: 'vær MÅDE' eller 'vær MÅDE
+# mod BRUGER' eller 'vær MÅDE på KANAL'.  Der er mange MÅDER.
 
-eval "$(echo "$@" | parse '^((mod|på) +(?<specific>#?[^ /]+ ))?(?<what>.+)$')"
+eval "$(echo "$@" | parse '^(?<what>.+?)(?: (?:mod|på) (?<specific>#?[^\s/]+))?$')"
 
 if [ ! "$what" ]; then
     echo "Du mangler en væremåde."
@@ -12,7 +12,6 @@ fi
 
 if [ "$specific" ]; then
     file=outfilter_command_$specific
-    shift 2
 else
     file=outfilter_command
 fi
@@ -22,7 +21,7 @@ save() {
     echo "$(ack)  Væremåden er sat!"
 }
 
-case "$*" in
+case "$what" in
     # Gå tilbage til normal kedsomhed.
     normal)
         save '';;
@@ -38,15 +37,15 @@ case "$*" in
     # Sprog el.lign.
     *)
         s='translate da'
-        while [ "$1" != '' ]; do
-            lc=$(langcode "$1")
+        for lang in $what
+        do
+            lc=$(langcode "$lang")
             if [ "$lc" != '' ]; then
                 s="$s $lc"
             else
-                echo "$1 er ikke et sprog!"
+                echo "$lang er ikke et sprog!"
                 exit
             fi
-            shift
         done
         save "$s"
 esac

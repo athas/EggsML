@@ -1,0 +1,6 @@
+#!/bin/sh
+
+exec < ordbog-dansk-navneord
+exec > ordbog-dansk-navneord-gode
+
+grep -Ev "[nters']$" | grep -E '.{5,}'

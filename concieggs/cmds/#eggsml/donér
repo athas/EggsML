@@ -4,7 +4,7 @@
 # Brug: donér <n> ører til <bruger>
 
 
-eval "$(echo "$@" | parse '(?<amount>([2-9]|[1-9][0-9]+)) ((ører|af de gode|hundreddelsmoneter) )?til (?<recipient>[^ ]+)')"
+eval "$(echo "$@" | parse '(?<amount>([2-9]|[1-9][0-9]+)) (((hånd)?ører|skillinger|hundreddelsmoneter|af de (gode|fine|jobskabende)) )?til (?<recipient>[^ ]+)')"
 
 if [ ! "$recipient" ]; then
     echo "Hvor meget?  Til hvem?  Skriv: donér <n> ører til <bruger>"
@@ -41,7 +41,7 @@ fi
 
 kroners="$(echo $amount / 100 | bc)"
 oerers="$(echo $amount % 100 | bc)"
-if [ "$(echo $oerers | wc -c)" = 2 ]; then # 1
+if [ "$(echo $oerers | wc -c)" -lt 10 ]; then
     oerers=0$oerers
 fi
 total="$kroners.$oerers"
