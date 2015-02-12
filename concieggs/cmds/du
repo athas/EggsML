@@ -2,7 +2,9 @@
 #
 # Optag et hæftigt skænderi med logebotten.
 
-eval "$(echo "$@"| parse '(?<busted>er\s(jo\s)?$(regexEscape $CONCIEGGS_DEFAULT_NAME))')"
+navn=$(regexEscape $CONCIEGGS_DEFAULT_NAME)
+echo "$navn"
+eval "$(echo "$@"| parse '(?<busted>er\s(jo\s)?$navn)')"
 
 if [ "$busted" ]; then
     say "Ja.. det er jeg."
