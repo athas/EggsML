@@ -9,7 +9,8 @@ cmddir=$dir/cmds/
 
 . $dir/concieggs.conf
 
-export CONCIEGGS_NAME=$irc_username
+export CONCIEGGS_DEFAULT_NAME=$irc_username
+export CONCIEGGS_NAME=${CONCIEGGS_NAME:-$CONCIEGGS_DEFAULT_NAME}
 export CONCIEGGS_DIR=$dir
 export CONCIEGGS_DB_DIR=$dir/db
 export EGGS_DAEMON_SOCKET=$CONCIEGGS_DIR/eggsmld.socket
