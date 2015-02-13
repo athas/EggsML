@@ -9,6 +9,11 @@ my $args = join(" ", @ARGV);
 
 use Env qw/EGGS_USER/;
 
+if ($EGGS_USER ne 'Sebbe') {
+    print "Work in progress! Ikke røre!\n"
+    exit;
+}
+
 if ($args =~ qr/
                 (?<command>.*)\s+
                 om\s+
@@ -22,8 +27,8 @@ if ($args =~ qr/
         print "Kører '$command' om $when!\n";
         fork and exit;
         sleep $realWhen;
-        my $cmd = $command;
-        `set -f && runcmd $cmd`;
+        my ($cmd, @args) = split (/ /, $command);
+        exec('runcmd', $cmd, join(' ', @args));
     } else {
         print "$EGGS_USER: Det synes jeg lyder som en dum idé.\n";
         `annoyedBy $EGGS_USER`;
