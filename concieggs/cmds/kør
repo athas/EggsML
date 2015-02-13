@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# Kør en kommando om lidt.
+
+# disable globbing
+set -f
+
+eval "$(echo "$@" | parse '(?<command>.*) om (?<when>\d+ (?:sekunder|minutter|timer|dage))[.!\s]*$')"
+
+if [ "$command" ]; then
+    realWhen="$(parseHumanTime "$when")"
+    if [ "$realWhen" ]; then
+        echo "Kører '$command' om $when!"
+        ( sleep $realWhen && runcmd $command ) &
+        exit
+    else
+        echo "$EGGS_USER: Det synes jeg lyder som en dum idé."
+        annoyedBy $EGGS_USER
+    fi
+else
+    echo "$EGGS_USER: Kør hvad, og hvornår? Brug 'kør <kommando> om <interval>'"
+fi
