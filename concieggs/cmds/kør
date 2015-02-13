@@ -10,7 +10,7 @@ my $args = join(" ", @ARGV);
 use Env qw/EGGS_USER/;
 
 if ($EGGS_USER ne 'Sebbe') {
-    print "Work in progress! Ikke røre!\n"
+    print "Work in progress! Ikke røre!\n";
     exit;
 }
 
