@@ -49,8 +49,8 @@ if __name__ == '__main__':
                 print_wishes(e)
             elif command == "balances":
                 print_balances(e)
-#            elif command == "balance_of_payments":
-#                print_balance_of_payments(e)
+            elif command == "balance_of_payments":
+                print_balance_of_payments(e)
             elif command == "allaliases":
                 print_all_aliases(e)
             elif command == "lunches":
