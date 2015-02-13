@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# encoding: utf8
+
 
 from random import choice
 import sys
@@ -23,6 +22,15 @@ def print_all_aliases(eggs):
 def print_wishes(eggs):
     for wish in eggs.get_wishes():
         print wish
+
+def print_balance_of_payments(eggs):
+    userinfo = eggs.get_userinfo()
+    balance = 0.0
+    for v in userinfo:
+        balance += round(userinfo[v]['balance'], 2)
+    print "%.f2" % balance
+
+
 
 def print_balances(eggs):
     userinfo = eggs.get_userinfo()
