@@ -1,22 +1,34 @@
-#!/bin/sh
+#!/usr/bin/env perl
 #
 # Kør en kommando om lidt.
 
-# disable globbing
-set -f
+use 5.012;
+use warnings;
 
-eval "$(echo "$@" | parse '(?<command>.*) om (?<when>\d+ (?:sekunder|minutter|timer|dage))[.!\s]*$')"
+my $args = join(" ", @ARGV);
 
-if [ "$command" ]; then
-    realWhen="$(parseHumanTime "$when")"
-    if [ "$realWhen" ]; then
-        echo "Kører '$command' om $when!"
-        ( sleep $realWhen && runcmd $command ) &
-        exit
-    else
-        echo "$EGGS_USER: Det synes jeg lyder som en dum idé."
-        annoyedBy $EGGS_USER
-    fi
-else
-    echo "$EGGS_USER: Kør hvad, og hvornår? Brug 'kør <kommando> om <interval>'"
-fi
+use Env qw/EGGS_USER/;
+
+if ($args =~ qr/
+                (?<command>.*)\s+
+                om\s+
+                (?<when>\d+\s+(?:sekunder|minutter|timer|dage))
+                [\.!\s]*$
+              /x) {
+    my $command = $+{"command"};
+    my $when = $+{"when"};
+    my $realWhen = `parseHumanTime "$when"`;
+    if ($realWhen) {
+        print "Kører '$command' om $when!\n";
+        fork and exit;
+        sleep $realWhen;
+        my $cmd = $command;
+        `set -f && runcmd $cmd`;
+    } else {
+        print "$EGGS_USER: Det synes jeg lyder som en dum idé.\n";
+        `annoyedBy $EGGS_USER`;
+    }
+} else {
+    print "$EGGS_USER: Kør hvad, og hvornår? Brug 'kør <kommando> om <interval>'.\n";
+}
+
