@@ -1,4 +1,7 @@
 #!/usr/bin/env perl
+#
+# 'kvidr' med pilene vendt om.
+
 use 5.012;
 use warnings;
 use Net::Twitter;

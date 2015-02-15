@@ -1,4 +1,7 @@
 #!/bin/sh
+#
+# Er concieggs rodet uklar med nogle suspekte typer?  Så kan det være
+# en god idé at lade den gå undercover.
 
 
 eval "$(echo "$@"| parse '(?<noget>.+)')"

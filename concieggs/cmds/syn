@@ -1,3 +1,5 @@
 #!/bin/sh
+#
+# Opret forbindelse til concieggs.
 
-echo "ACK"
+echo "SYNACK"

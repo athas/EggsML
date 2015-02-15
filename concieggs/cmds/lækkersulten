@@ -1,4 +1,6 @@
 #!/bin/sh
+#
+# Få et forslag til en lækker snack.
 
 producents() {
     randomElement <<EOF

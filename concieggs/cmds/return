@@ -1,2 +1,5 @@
 #!/bin/sh
+#
+# Injicér resultat i concieggs-monaden.
+
 echo "$@"
