@@ -1,8 +1,3 @@
 #!/bin/sh
 
-
-if [ "$(aliases "$EGGS_USER")" ]; then
-    say "$EGGS_BODY" | dbUserWrite "$EGGS_USER" lastmsg
-else
-    say "$EGGS_BODY" | dbWrite "strangers/$EGGS_USER" lastmsg
-fi
+say "$EGGS_BODY" | dbUserWrite "$EGGS_USER" lastmsg

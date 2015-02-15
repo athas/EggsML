@@ -29,7 +29,7 @@ shift; shift; shift;
 
 msg="$@"
 
-msgnode=$(dbInsertNode "users/$to/messages")
+msgnode=$(dbUserInsertNode "$to" "messages")
 
 fiksStedord() {
     sed -e 's/han/du/g' -e 's/hun/du/g' -e 's/hans/din/g' -e 's/hendes/din/g' \

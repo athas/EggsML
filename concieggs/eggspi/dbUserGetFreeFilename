@@ -1,0 +1,20 @@
+#!/bin/sh
+
+user="$1"
+parent="$2"
+
+alias="$(mainAlias "$user")"
+if ! [ "$alias" ]; then
+    alias=$user
+fi
+userdir="users/$alias"
+
+if [ -f "$CONCIEGGS_DB_DIR/store/$userdir/$parent" ] \
+    || ! mkdir -p "$CONCIEGGS_DB_DIR/store/$userdir/$parent"; then
+    false
+else
+    newfile="$(ls "$CONCIEGGS_DB_DIR/store/$userdir/$parent" | \
+        egrep '^[0-9]+$'|sort -n| \
+        awk 'BEGIN { seen=-1 } { if ($0==seen+1) { seen++ } else { exit }} END { print seen+1 }')"
+    echo "$userdir/$parent/$newfile"
+fi

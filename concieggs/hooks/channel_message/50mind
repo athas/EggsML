@@ -1,9 +1,6 @@
 #!/bin/sh
 
-
-allNamesOf "$EGGS_USER" | while read -r alias; do
-    for x in $(dbIterate "users/$alias/messages"); do
-        echo "$EGGS_USER: $(dbRead $x/from) har bedt mig minde dig om at $(dbRead $x/message)"
-        dbDelete "$x";
-    done
+for x in $(dbUserIterate "$EGGS_USER" messages); do
+    echo "$EGGS_USER: $(dbRead $x/from) har bedt mig minde dig om at $(dbRead $x/message)"
+    dbDelete "$x";
 done

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+node=$(dbUserGetFreeFilename "$1" "$2")
+dbNewNode "$node" && echo "$node"
