@@ -2,8 +2,7 @@
 
 # For far more speed, use the EggsML daemon if it works!
 if [ -S "$EGGS_DAEMON_SOCKET" ]; then
-    $EGGS_LIB_DIR/eggsmld-client.py $EGGS_DAEMON_SOCKET "$@" \
-        || $EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost "$@"
+    $EGGS_LIB_DIR/eggsmld-client.py $EGGS_DAEMON_SOCKET "$@"
 else
     $EGGS_LIB_DIR/eggstool.py $EGGS_DIR/slashdotfrokost "$@"
 fi
