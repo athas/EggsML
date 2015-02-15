@@ -2,7 +2,7 @@
 #
 # Concieggs er i sådan et dejligt julehumør!
 
-(shuttingUp || !christmas) && exit
+(shuttingUp || ! christmas) && exit
 
 if [ "$(random 0 9)" = 0 ]; then
     runcmd jul
