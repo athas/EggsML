@@ -1,9 +1,6 @@
 #!/usr/bin/env perl
 use 5.012;
 use warnings;
-use utf8::all;
-
-use Env qw/EGGS_USER CONCIEGGS_NAME/;
 use Encode qw/decode/;
 
 my $EGGS_BODY = decode('utf-8', $ENV{EGGS_BODY});
@@ -12,12 +9,16 @@ system("shuttingUp");
 exit if ($? >> 8) == 0;
 
 sub randomName {
+    my $EGGS_USER = $ENV{EGGS_USER};
     my $name = `randomName $EGGS_USER` // $EGGS_USER;
     chomp $name;
     return $name;
 }
 
 if (my ($body) = $EGGS_BODY =~ qr/^Jeg kan godt lide ([^.!?]*[.!?]?)/i) {
+    eval "use utf8::all;";
+    my $CONCIEGGS_NAME = decode('utf-8', $ENV{CONCIEGGS_NAME});
+
     $body =~ s#$CONCIEGGS_NAME#randomName()#eg;
     print "Jeg kan også godt lide $body\n";
 }
