@@ -34,12 +34,13 @@ match(payload, /^>< ([0-9][0-9][0-9]) \(([^)]*)\): (.*)$/, matches) {
   server_message_code=matches[1]
   server_message_arg=matches[2]
   server_message_body=matches[3]
-  # FIXME: Actually make some hooks for this.
   if (server_message_code == "001") {
+    # We just (re)?connected.
     system("export EGGS_USER=" shellquote(context) "\n"                 \
            "export EGGS_WHERE=" shellquote(shell_message_body) "\n"     \
            "export CONCIEGGS_NAME=" shellquote(name) "\n"                    \
            "runFor \"$EGGS_WHERE\" runHooks server_connect")
+    name = ENVIRON["CONCIEGGS_DEFAULT_NAME"]
   }
 }
 
