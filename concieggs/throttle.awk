@@ -1,6 +1,6 @@
 BEGIN { now=systime(); lines = 0 }
 {
-  if (lines++ > 4) {
+  if (lines++ > 2) {
     if (now == systime()) {
       system("sleep 1")
     }
