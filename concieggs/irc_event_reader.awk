@@ -45,7 +45,7 @@ match(payload, /^>< ([0-9][0-9][0-9]) \(([^)]*)\): (.*)$/, matches) {
 }
 
 # Did my name change?
-match(payload, /^>< NICK \(\): ([^ ]+)/, matches) {
+match(payload, /^>< NICK \(\): ([^ ]+)/, matches) && context == name {
   name = matches[1]
 }
 
