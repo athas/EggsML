@@ -4,7 +4,7 @@
 
 maybeGood .02 || exit
 
-echo "$EGGS_BODY" | grep -q '^concieggs[:,] ' && exit
+echo "$EGGS_BODY" | grep -q '^$CONCIEGGS_NAME''[:,] ' && exit
 
 postskinke=$(echo "$EGGS_BODY" | skinkefy)
 

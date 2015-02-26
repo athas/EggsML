@@ -7,12 +7,13 @@ use Env qw/EGGS_USER CONCIEGGS_DB_DIR/;
 use Encode qw/decode/;
 
 my $EGGS_BODY = decode('utf-8', $ENV{EGGS_BODY});
+my $CONCIEGGS_NAME = decode('utf-8', $ENV{CONCIEGGS_NAME});
 
 system("notOnEggsChannel || shuttingUp");
 exit if ($? >> 8) == 0;
 
 exit if $EGGS_USER eq 'hej_fra_github';
-exit if $EGGS_BODY =~ qr/^concieggs[,:]/;
+exit if $EGGS_BODY =~ qr/^$CONCIEGGS_NAME[,:]/;
 
 my %daneng;
 open(my $f, '<', "$CONCIEGGS_DB_DIR/ordbog-dansk-eggs");
