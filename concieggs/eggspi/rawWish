@@ -7,16 +7,14 @@ what="$2"
 
 if gitRefresh; then
     cd $EGGS_DIR
-    for i in `seq 1 $count`; do
-        ed slashdotfrokost > /dev/null <<EOF
+    ed slashdotfrokost > /dev/null <<EOF
 /::INDKØBSØNSKER::/
 +1
 i
-$(echo "$what")
+$(for i in `seq 1 $count`; do echo "$what"; done)
 .
 w
 EOF
-    done
     if tryGitChange "ønsk $count af $what" slashdotfrokost; then
         echo "Det er noteret at $count $what er ønsket."
     else
