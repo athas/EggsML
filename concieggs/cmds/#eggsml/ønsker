@@ -2,6 +2,19 @@
 #
 # Udskriv en liste over de nuværende indkøbsønsker.
 
+dugodeste=$(randomElement <<EOF
+Du godeste!
+Mein Gott!
+Bred ymer!
+Sacre bleu !
+Mon Dieu !
+Dios mio!
+Ach du lieber!
+Sikke noget!
+Hillemænd!
+Ryd forsiden!
+EOF
+)
 
 wishes=$(eggstool wishes \
     | sort \
@@ -12,5 +25,5 @@ wishes=$(eggstool wishes \
 if [ "$wishes" ]; then
     echo "Indkøbsønsker: $wishes."
 else
-    echo "Bred ymer!  Der er ingen indkøbsønsker!"
+    echo "$dugodeste  Der er ingen indkøbsønsker!"
 fi
