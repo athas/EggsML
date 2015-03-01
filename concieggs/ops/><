@@ -9,47 +9,19 @@ import eggsthon.shell
 import re
 import random
 
-# TǑDǑ: Gør lidt tilfældig.
 def interleave(xs, ys):
+    xss, yss = xs.split(), ys.split()
 
-    # har nu to lister af afsluttede sætninger.
-    xss = re.findall("[^(XYZZY)\ ]+", re.sub("\. ", ".XYZZY", re.sub("\, ", ",XYZZY", xs)))
-    yss = re.findall("[^(XYZZY)\ ]+", re.sub("\. ", ".XYZZY", re.sub("\, ", ",XYZZY", ys)))
-    zippedwords = []
-    for x,y in itertools.izip_longest(xss, yss):
-        zippedwords.append((x,y))
-    i = 0
-#    while(i < len(zippedwords)):
-#        if(zippedwords[i][1] == None):
-#            zippedwords[i] = (zippedwords[i][0], zippedwords[i][0])
-#            i += 1
-#            continue
-#        if(zippedwords[i][0] == None):
-#            zippedwords[i] = (zippedwords[i][1], zippedwords[i][1])
-#            i += 1
-#            continue
-#        i += 1
+    ws = []
+    for a, b in itertools.izip_longest(xss, yss):
+        if a is None:
+            ws.append(b)
+        elif b is None:
+            ws.append(a)
+        else:
+            ws.append(random.choice([a, b]))
 
-
-
-    ts = []
-    for element in zippedwords:
-        a = element[0]
-        b = element[1]
-        if a == None:
-            if ts[-1] == previouselement[0]:
-                break
-            ts.append(previouselement[0])
-
-        if b == None:
-            if ts[-1] == previouselement[1]:
-                break
-            ts.append(previouselement[1])
-
-        ts.append(element[random.randint(0,1)])
-        previouselement = element
-
-    return ' '.join(ts)
+    return ' '.join(ws)
 
 print interleave(*[eggsthon.shell.runcmd(*c.split())
                    for c in sys.argv[1:3]])
