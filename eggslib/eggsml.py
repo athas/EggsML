@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-# vim: noexpandtab:ts=4 :
+# vim: noexpandtab :
 import time, re
 import eggsml_math
 from datetime import date
@@ -23,11 +23,11 @@ class eggsml:
 	enddate = None
 	nodays = None
 
-	def get_alias_rand(self,eggname):
-		for aliaslist in self.aliases: 
-			if eggname==aliaslist[0]:
-				return random.choice(aliaslist)
-		return None
+        def get_alias_rand(self,eggname):
+          for aliaslist in self.aliases: 
+            if eggname==aliaslist[0]:
+              return random.choice(aliaslist)
+          return None
 
 	def set_startdate(self, somedate):
 		self.startdate = somedate
@@ -199,10 +199,6 @@ class eggsml:
 			return str(i)
 	
 	def get_alias(self, alias, maxlength=None):
-		if maxlength == None:
-			if alias not in self.aliasmap: return None
-			return self.aliasmap[alias]
-
 		found = False
 		aliases = None
 		for row in self.aliases:
@@ -213,16 +209,21 @@ class eggsml:
 			if found:
 				aliases = row
 				break
-
-		shortest = None
-		for a in aliases:
-			if len(shortest)>len(a) or shortest == None:
-				shortest = a
-			if len(a)>maxlength:
-				continue
-			else:
-				return a
-		return shortest
+		if maxlength==None:
+			if aliases==None:
+				return None
+			return aliases[0]
+		else:
+			shortest = ''
+			for a in aliases:
+				if len(shortest)>len(a) or shortest=='':
+					shortest = a
+				if len(a)>maxlength:
+					continue
+				else:
+					return a
+			return shortest
+		return None
 	
 	# calculate the meal price for each day
 	# returns a list of dictionaries containing date and price
@@ -402,11 +403,8 @@ class eggsml:
 			return
 		aliases = line.strip().split(',')
 		tmp = []
-		baseAlias = aliases[0].strip()
 		for a in aliases:
-			sa = a.strip()
-			tmp.append(sa)
-			self.aliasmap[sa] = baseAlias
+			tmp.append(a.strip())
 		self.aliases.append(tmp)
 		self.count.update({tmp[0] : 0})
 	
@@ -487,7 +485,6 @@ class eggsml:
 
 	def parse(self, filename):
 		self.aliases = []
-		self.aliasmap = {}
 		self.count = {}
 		self.wishes = []
 		self.purchases = []
