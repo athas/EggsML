@@ -3,7 +3,7 @@
 import os
 
 
-os.system('./restart.sh event')
+os.system('./concieggs/restart.sh event')
 
 print '''Content-type: text/plain; charset=UTF-8
 
