@@ -6,15 +6,16 @@ set -e # Die on error
 set -f # No globbing
 
 setTrap() {
-    # Kill all children when we quit.
-    trap 'exit' INT QUIT TERM
-    trap 'cleanup' EXIT
-
-    # Remove eggsmld's socket.
-    rm $EGGS_DAEMON_SOCKET
+    # Kill all children when we quit, and remove eggsmld's socket.
+    trap 'eggsmld_cleanup; exit' INT QUIT TERM
+    trap 'eggsmld_cleanup; cleanup' EXIT
 }
 
 setTrap
+
+eggsmld_cleanup() {
+    rm $EGGS_DAEMON_SOCKET
+}
 
 cleanup() {
     kill 0
