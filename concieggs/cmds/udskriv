@@ -24,7 +24,7 @@ formatWishes() {
 eggstool wishes \
     | sort \
     | uniq -c \
-    | sed -e 's/ *1 //' -e 's/ *//' -e 's/^/* /' -e 'i.TP' -e 's/^/.B /'
+    | sed -e 's/ *1 //' -e 's/ *//' -e 's/^/* /' -e "$(printf 'i\\\n.TP')" -e 's/^/.B /'
 }
 
 doc=$(cat <<EOF
