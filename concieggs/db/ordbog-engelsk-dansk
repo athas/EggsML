@@ -19,6 +19,7 @@
 'uppercase' 'greltegn'
 'hashtag' 'gullashetiket'
 'push' 'skub'
+'pull[ -]?request' 'haleanmodning'
 'pull' 'hal'
 'pc' 'hjemmedatamat'
 'web ?site' 'hjemmeside'
