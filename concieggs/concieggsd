@@ -9,6 +9,9 @@ setTrap() {
     # Kill all children when we quit.
     trap 'exit' INT QUIT TERM
     trap 'cleanup' EXIT
+
+    # Remove eggsmld's socket.
+    rm $EGGS_DAEMON_SOCKET
 }
 
 setTrap
