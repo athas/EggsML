@@ -3,6 +3,4 @@ pidfile="$(mktemp)"
 
 trap 'kill $(cat "$pidfile") 2> /dev/null; rm $pidfile' INT QUIT TERM EXIT
 
-while true; do
-    /bin/sh -c -i "$(printf '/bin/sh '$(dirname $0)'/concieggsd &\necho $! > '"$pidfile"'\nfg')"
-done
+/bin/sh -c -i "$(printf '/bin/sh '$(dirname $0)'/concieggsd &\necho $! > '"$pidfile"'\nfg')"
