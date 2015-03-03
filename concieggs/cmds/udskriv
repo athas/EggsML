@@ -53,7 +53,7 @@ EOF
 process() {
     if [ "$mail" ]; then
         (   echo 'Find indkøbslisten vedhæftet.'
-            ps2pdf - - | uuencode indkøbsliste.pdf
+            uuencode indkøbsliste.pdf
         ) | mailx -s "Indkøbsliste til EggsML" "$mail" -- -r concieggs@eggsml.dk
         echo "Sender til $mail!"
     else
@@ -64,7 +64,7 @@ process() {
 
 if [ "$wishes" ]; then
     echo "$doc" \
-    | groff -m mandoc -D utf8 \
+    | groff -m mandoc -D utf8 -T pdf \
     | process
 else
     echo "Nægter at udskrive: Der er ingen indkøbsønsker!"
