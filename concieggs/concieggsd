@@ -66,7 +66,9 @@ ircloop () {
 }
 
 eventprocessor () {
-    gawk -f $dir/irc_event_reader.awk
+    while true; do
+        gawk -f $dir/irc_event_reader.awk
+    done
 }
 
 throttle() {
