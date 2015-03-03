@@ -8,7 +8,5 @@ t = open('template.html')
 temp = t.read()
 t.close()
 content =  concieggs_vm.run('hw','frej') 
-print "Content-type: text/html; charset=UTF-8\n"
+print "Content-type: text/plain; charset=UTF-8\n"
 print temp.replace('{{CONTENT}}', content)
-
-
