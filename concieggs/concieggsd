@@ -71,7 +71,7 @@ ircloop () {
 
 eventprocessor () {
     while true; do
-        gawk -f $dir/irc_event_reader.awk
+        gawk -f $dir/irc_event_reader.awk || true
     done
 }
 
