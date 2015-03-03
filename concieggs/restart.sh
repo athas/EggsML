@@ -3,7 +3,7 @@
 # Restart one of concieggsd's subsystems.
 
 if [ $# -lt 1 ]; then
-    echo usage: $0 event|irc
+    echo "usage: $0 event|irc"
 fi
 
 case "$1" in
