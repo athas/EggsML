@@ -37,8 +37,15 @@ if [ "$1" = spiser -a $# -ge 3 ]; then
         if [ "$remove" ]; then
             echo "$EGGS_USER: Logeprotokollen anfører i forvejen ikke, at $(du $who) skulle have den slags tilbøjeligheder."
         else
-            echo "$@" | dbUserInsertData $who "preferences/food/" > /dev/null
-            echo "$(ack)  Jeg vil nedfælde at $(du $who) ynder at indtage $@."
+
+            there="$(checkCatalogue "$@")"
+            if [ "$there" ];
+               then
+                 echo "$@" | dbUserInsertData $who "preferences/food/" > /dev/null
+                 echo "$(ack)  Jeg vil nedfælde at $(du $who) ynder at indtage $@."
+            else
+                echo "Hvordan tilbereder man $@? Jeg har altså ikke serveret dét endnu."
+            fi
         fi
     fi
 else
