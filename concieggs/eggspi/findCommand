@@ -1,0 +1,26 @@
+#!/bin/sh
+
+cmddir=$CONCIEGGS_DIR/cmds
+
+if [ "$1" = -a ]; then
+    check_all_places=-a
+    shift
+fi
+
+cmd=$1
+
+if [ $check_all_places ]; then
+    acmd="$(find "$CONCIEGGS_DIR/cmds" -name "$cmd" | head -n 1)"
+else
+    t="$cmddir/$cmd"
+    if [ -x "$t" ] && [ -f "$t" ]; then
+        acmd="$t"
+    else
+        t="$cmddir/$(ircChannel)/$cmd"
+        if [ -x "$t" ] && [ -f "$t" ]; then
+            acmd="$t"
+        fi
+    fi
+fi
+
+echo $acmd

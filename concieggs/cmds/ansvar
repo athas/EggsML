@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# Hvem er ansvarlig for en given kommando?
+
+if [ $# != 1 ]; then
+    echo "Brug: ansvar <kommando>"
+fi
+
+cmd=$(findCommand $1)
+
+if ! [ "$cmd" ]; then
+    echo "$EGGS_USER: Jeg er ikke bekendt med nogen '$1'-kommando."
+    exit
+fi
+
+guilty=$(git log --pretty=format:"%an" $cmd)
+first=$(echo "$guilty"|tail -n 1)
+last=$(echo "$guilty"|head -n 1)
+
+if ! [ "$guilty" ]; then
+    echo "$EGGS_USER: Jeg er ikke i stand til at placere ansvaret nærmere, men jeg mistænker $(recentlyActive | head -n 1)"
+else
+    if [ "$first" = "$last" ]; then
+        echo "$EGGS_USER: Ansvaret kan placeres udelukkende hos $first."
+    else
+        echo "$EGGS_USER: $last har bevirket den sidste ændring, men $first stod bag første udgave."
+    fi
+fi
