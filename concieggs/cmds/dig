@@ -3,6 +3,8 @@
 # Bed concieggs foretage et DNS opslag.
 # concieggs: dig [@<server>] <name> <record type>
 
+set -e
+
 if echo "$1" | grep '^@'; then
     server=$1
     name=$2
@@ -24,7 +26,7 @@ if [ ! "$type" ]; then
     exit
 fi
 
-r=`/usr/bin/dig +short $server $name $type`
+r=$(/usr/sbin/dig +short $server $name $type)
 if [ "$r" ]; then
     echo $r
 else
