@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+
+import sys
+import re
+import os.path
+import eggsthon
+
+def er_nok_navneord(s):
+    # MEGET DÅRLIGT
+    return len(s) > 3 and re.search('[abcdfghijklmnopquvwxyzæøå]$', s) is not None
+    
+def ret_ord(s):
+    return s[0].upper() + s[1:] if er_nok_navneord(s) else s
+
+text = sys.stdin.read()
+text = re.sub(r'\w+', lambda s: ret_ord(s.group(0)), text)
+text = text.replace('å', 'aa').replace('Å', 'AA')
+
+sys.stdout.write(text)
