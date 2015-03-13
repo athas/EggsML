@@ -8,6 +8,11 @@ use utf8::all;
 while (my $text = <>) {
     $text =~ s/ kræver / vil ha' sygt meget /g;
     $text =~ s/ jeg / denne dogg her /g;
+    $text =~ s/Jeg /Denne dogg her /g;
+    $text =~ s/antager /tror /g;
+    $text =~ s/ at du / du /g;
+    $text =~ s/ tilberedes / smokes /g;
+    $text =~ s/ Endvidere / Og /g;
     $text =~ s/, /, øh, /g;
     $text =~ s/\. /, dér\. /g;
     $text =~ s/siger /rapper /g;
