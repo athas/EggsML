@@ -6,4 +6,4 @@ if [ $# -eq 0 ]; then
    exit
 fi
 
-(echo "$@"; echo ")OFF") | apl -s | head -n -1
+(echo "$@"; echo ")OFF") | apl -s | grep -v '^$'
