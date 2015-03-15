@@ -5,11 +5,11 @@
 producents() {
     randomElement <<EOF
 Dr. Oetkers
-Karen Wolfs
+Karen Volfs
 Kelloggs'
 Maren Malkepiges
 Duniyas'
-Jensens Bøfhus'
+Jensen's Bøfhus'
 EOF
 }
 
@@ -42,6 +42,7 @@ nuggets
 blæksprutteefterligning
 milkshake
 pitabrød
+snøfler
 EOF
 )
     bogstav=$(echo $ting | sed -r 's/^(.).*$/\1/')
