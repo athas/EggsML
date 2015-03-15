@@ -3,11 +3,9 @@
 # Lad concieggs bringe en anonym skrifte til logebrødrene, hvori man
 # kan erkende sine synder.
 
-. $CONCIEGGS_DIR/concieggs.conf
-
 if [ $# -eq 0 ]; then
     echo "Alle har noget at indrømme, broder."
     exit
 fi
 
-echo "Denne anonyme konfession af brøde og svigt er netop blevet bragt til mig: $@" > $CONCIEGGS_IRC_DIR/$irc_channel/in
+echo "Denne anonyme konfession af brøde og svigt er netop blevet bragt til mig: $@" | sayTo "$CONCIEGGS_DEFAULT_CHANNEL"
