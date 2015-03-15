@@ -6,14 +6,26 @@ if [ $# != 1 ]; then
     echo "Brug: ansvar <kommando>"
 fi
 
-cmd=$(findCommand $1)
+eval "$(echo "$@" | parse '^((?<cmd>[^/]+)|eggspi/(?<eggspi>[^/]+)|hooks/(?<hook>[^/]+/[^/]+))$')"
 
-if ! [ "$cmd" ]; then
+if [ "$cmd" ]; then
+    file=$(findCommand $1)
+elif [ "$eggspi" ] && [ -f "eggspi/$eggspi" ]; then
+    file="eggspi/$eggspi"
+elif [ "$hook" ] && [ -f "hooks/$hook" ]; then
+    file="hooks/$hook"
+else
+    echo "$EGGS_USER: Jeg kan ikke afgøre om '$@' overhovedet er et problem."
+    annoyedBy "$EGGS_USER"
+    exit
+fi
+
+if ! [ "$file" ]; then
     echo "$EGGS_USER: Jeg er ikke bekendt med nogen '$1'-kommando."
     exit
 fi
 
-guilty=$(git log --pretty=format:"%an" $cmd)
+guilty=$(git log --pretty=format:"%an" "$file")
 first=$(echo "$guilty"|tail -n 1)
 last=$(echo "$guilty"|head -n 1)
 
