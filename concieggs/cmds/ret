@@ -35,6 +35,8 @@ compileExp
 checkExp
 t
 x
+syscall_halt
+TLB
 EOF
 }
 
@@ -45,6 +47,9 @@ t gullaschtegn
 n $(operation)soperator
 n '$(navn)'-funktion
 n '$(navn)'-variabel
+n TLB
+t filsystem
+t systemkald
 EOF
 }
 
@@ -59,6 +64,7 @@ Du mangler e$ting i din '$(navn)' på linje $(linjenummer).
 Di$ting skal i stedet være e$(ting).
 Husk endeligt at e$ting ikke må distribueres over *hele* funktionskroppen!
 Di$ting kan ikke hedde '$(navn)'!
+Du korrumperer di$ting i $(navn).
 EOF
 }
 
