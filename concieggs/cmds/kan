@@ -2,7 +2,7 @@
 #
 # Find ud af om concieggs kan lide nogen.
 
-eval "$(echo "$@" | parse '(du|De) lide (?<user>[^ ]+)')"
+eval "$(echo "$@" | parse '(du|De) (derimod |mon |så )?lide (?<user>[^ ]+)')"
 if [ "$user" ]; then
     if [ "$user" = "mig" ]; then
         alias=$EGGS_USER
@@ -33,4 +33,6 @@ if [ "$user" ]; then
             echo "Jeg kender ikke $user godt nok."
         fi
     fi
+else
+    echo "$EGGS_USER: Kan hvem hvad hvornår?  Jeg kan bedst lide at svare på om jeg kan lide folk."
 fi
