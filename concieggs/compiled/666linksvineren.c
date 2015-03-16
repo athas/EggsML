@@ -63,13 +63,16 @@ void checklink(const char* link) {
         } else {
           unit = "timer";
         }
-      } else {
+      } else if (diff < 60 * 60 * 24 * 365) {
         unit_number = diff / 60 / 60 / 24;
         if (unit_number == 1) {
           unit = "dag";
         } else {
           unit = "dage";
         }
+      } else {
+        unit_number = diff / 60 / 60 / 24 / 365;
+        unit = "år";
       }
       
       switch (rand()%3) {
