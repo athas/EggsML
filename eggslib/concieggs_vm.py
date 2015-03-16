@@ -10,14 +10,15 @@ DIR = '/eggsml/concieggs'
 CMDDIR  = os.path.join(DIR,'cmds')
 EGGSCMD = os.path.join(CMDDIR,'#eggsml')
 DBDIR  = os.path.join(DIR,'db')
-      
-ENV = {'CONCIEGGS_DIR' : DIR 
-      ,'CONCIEGGS_DB_DIR' : DBDIR
-      ,'EGGS_DIR'         : os.path.join(DIR,'..')
-      ,'EGGS_LIB_DIR'     : os.path.join(DIR,'..','eggslib')
+
+ENV = {'CONCIEGGS_DIR'      : DIR
+      ,'CONCIEGGS_DB_DIR'   : DBDIR
+      ,'EGGS_DAEMON_SOCKET' : os.path.join(DIR, 'eggsmld.socket')
+      ,'EGGS_DIR'           : os.path.join(DIR,'..')
+      ,'EGGS_LIB_DIR'       : os.path.join(DIR,'..','eggslib')
       }
 #Intet kan antages
-PATH = os.path.join(DIR,'eggspi')+":/bin:/usr/bin"
+PATH = os.path.join(DIR,'eggspi')+":/usr/local/bin:/bin:/usr/bin"
 import logging
 logging.basicConfig(level=logging.DEBUG)
 
