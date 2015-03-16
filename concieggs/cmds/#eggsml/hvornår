@@ -2,7 +2,7 @@
 #
 # Spørg om essentielle datoer.
 
-eval "$(echo "$@" | parse '(?<birthday>har jeg fødselsdag)')"
+eval "$(echo "$@" | parse '(?<birthday>har (?<birthday_kid>[^ ]+) fødselsdag)')"
 
 who=$(randomName $EGGS_USER)
 if ! [ "$who" ]; then
@@ -11,14 +11,24 @@ if ! [ "$who" ]; then
 fi
 
 if [ "$birthday" ]; then
+    if [ "$birthday_kid" != jeg ]; then
+        who=$(randomName "$birthday_kid")
+        if ! [ "$who" ]; then
+            echo "$EGGS_USER: Hvem i alverden er denne '$birthday_kid'???"
+            exit
+        fi
+        recp="$who"
+    else
+        recp="Du"
+    fi
     date=$(dbUserRead $who birthday)
     if ! [ "$date" ]; then
-        echo "$EGGS_USER: Du har aldrig fødselsdag!"
+        echo "$EGGS_USER: $recp har aldrig fødselsdag!"
     elif [ "$date" == $(dateToday) ]; then
-        echo "$EGGS_USER: DU HAR FØDSELSDAG I DAG!  HURRRAAAAA!"
+        echo "$EGGS_USER: $recp HAR FØDSELSDAG I DAG!  HURRRAAAAA!"
     else
-        echo "$EGGS_USER: Du har fødselsdag d. $date!"
+        echo "$EGGS_USER: $recp har fødselsdag d. $date!"
     fi
 else
-    echo "Brug: hvornår <har jeg fødselsdag>?"
+    echo "Brug: hvornår har (jeg|<bruger>) fødselsdag?"
 fi
