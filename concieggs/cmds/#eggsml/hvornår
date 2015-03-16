@@ -12,7 +12,13 @@ fi
 
 if [ "$birthday" ]; then
     date=$(dbUserRead $who birthday)
-    echo "$EGGS_USER: Du har fødselsdag d. $date!"
+    if ! [ "$date" ]; then
+        echo "$EGGS_USER: Du har aldrig fødselsdag!"
+    elif [ "$date" == $(dateToday) ]; then
+        echo "$EGGS_USER: DU HAR FØDSELSDAG I DAG!  HURRRAAAAA!"
+    else
+        echo "$EGGS_USER: Du har fødselsdag d. $date!"
+    fi
 else
     echo "Brug: hvornår <har jeg fødselsdag>?"
 fi
