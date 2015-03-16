@@ -6,7 +6,7 @@ if [ $# != 1 ]; then
     echo "Brug: ansvar <kommando>"
 fi
 
-eval "$(echo "$@" | parse '^((?<cmd>[^/]+)|eggspi/(?<eggspi>[^/]+)|hooks/(?<hook>[^/]+/[^/]+))$')"
+eval "$(echo "$@" | parse '^((?<cmd>[^/]+)|eggspi/(?<eggspi>[^/]+)|hooks/(?<hook>[^/]+/[^/]+)|compiled/(?<compiled>[^/]+))$')"
 
 if [ "$cmd" ]; then
     file=$(findCommand $1)
@@ -14,6 +14,8 @@ elif [ "$eggspi" ] && [ -f "eggspi/$eggspi" ]; then
     file="eggspi/$eggspi"
 elif [ "$hook" ] && [ -f "hooks/$hook" ]; then
     file="hooks/$hook"
+elif [ "$compiled" ] && [ -f "compiled/$compiled" ]; then
+    file="compiled/$compiled"
 else
     echo "$EGGS_USER: Jeg kan ikke afgøre om '$@' overhovedet er et problem."
     annoyedBy "$EGGS_USER"
