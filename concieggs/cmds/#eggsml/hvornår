@@ -2,7 +2,7 @@
 #
 # Spørg om essentielle datoer.
 
-eval "$(echo "$@" | parse '(?<birthday>har jeg fødselsdag?)')"
+eval "$(echo "$@" | parse '(?<birthday>har jeg fødselsdag)')"
 
 who=$(randomName $EGGS_USER)
 if ! [ "$who" ]; then
