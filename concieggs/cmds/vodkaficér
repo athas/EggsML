@@ -21,13 +21,19 @@ words() {
     done
 }
 
+m() {
+    for i in $(seq 0 $(random 0 7)); do
+        echo -n $1
+    done
+}
+
 druk() {
     randomElement <<EOF
 HiK
-<bræk>
-LOOOoort
-TIIIhihi
-skinkenn
+br$(m æ)rk
+L$(m O)$(m o)rt
+T$(m I)h$(m i)h$(m i)
+skinke$(m n)
 EOF
 }
 
@@ -44,7 +50,7 @@ runcmd autoviden $emne | unwords | head -n 10 | {
         esac
     done
     randomElement <<EOF
-BLuuuuurRRRCCH!
-Wrououeh.
+Bl$(m u)r$(m R)CH!
+Wr$(m ou)eh.
 EOF
 } | words
