@@ -62,7 +62,7 @@ umask 002
 
 ircloop () {
     while true; do
-        # Connect to IRC
+        # Connect to IRC.
         sic -h irc.freenode.net -n "$irc_username" || true
         say "IRC crashed - reconnecting in a few seconds." >&2
         # Sleep a few seconds before trying again.
@@ -72,7 +72,12 @@ ircloop () {
 
 eventprocessor () {
     while true; do
+        # Run commands from lines.
         gawk -f $dir/irc_event_reader.awk || true
+        # We might terminate gawk if we wish to restart the eventprocessor.
+        say "gawk was terminated - reconnecting in a second." >&2
+        # Sleep a second before trying again.
+        sleep 1
     done
 }
 
