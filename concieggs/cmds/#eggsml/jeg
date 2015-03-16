@@ -3,7 +3,7 @@
 # Nedfæld essentielle personlige fakta og præferencer i logeprotokollen.
 
 
-eval "$(echo "$@" | parse 'er ((?<beneggter>beneggter)|(?<eggsalteret>eggsalteret))|foretrækker ((?<nothing>intet)|(?<pref>.+))|(?<birthday>(har fødselsdag i dag))')"
+eval "$(echo "$@" | parse 'er ((?<beneggter>beneggter)|(?<eggsalteret>eggsalteret))|foretrækker ((?<nothing>intet)|(?<pref>.+))|(?<birthday>har fødselsdag i dag)')"
 
 who=$(randomName $EGGS_USER)
 if ! [ "$who" ]; then
@@ -40,5 +40,5 @@ elif [ "$birthday" ]; then
     echo $date | dbUserWrite $who birthday
     echo "$(ack)  Nu ved jeg at du har fødselsdag i dag, d. $date."
 else
-    echo "Brug: jeg <er <beneggter|eggsalteret>|foretrækker <præference>>"
+    echo "Brug: jeg <er <beneggter|eggsalteret>>|<foretrækker <præference>>|<har fødselsdag i dag>"
 fi

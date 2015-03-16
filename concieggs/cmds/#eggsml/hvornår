@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# Spørg om essentielle datoer.
+
+eval "$(echo "$@" | parse '(?<birthday>har jeg fødselsdag?)')"
+
+who=$(randomName $EGGS_USER)
+if ! [ "$who" ]; then
+    echo "$EGGS_USER: Jeg kender dig slet, slet, slet ikke.  Hvad laver du her?"
+    exit
+fi
+
+if [ "$birthday" ]; then
+    date=$(dbUserRead $who birthday)
+    echo "$EGGS_USER: Du har fødselsdag d. $date!"
+else
+    echo "Brug: hvornår <har jeg fødselsdag>?"
+fi
