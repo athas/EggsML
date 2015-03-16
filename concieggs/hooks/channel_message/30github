@@ -8,8 +8,5 @@ if [ "$EGGS_USER" = hej_fra_github ]; then
         else
             echoToServer ":m $CONCIEGGS_DEFAULT_CHANNEL Noget gik galt da jeg lavede git pull."
         fi
-    elif echo "$EGGS_BODY" | grep '^\[futhark\]' | egrep 'pushed|merged' > /dev/null; then
-        # Concieggs - the HIPERFIT continuous integration server.
-        ( cd /home/concieggs/futhark; tools/ci.sh .) >&2 &
     fi
 fi
