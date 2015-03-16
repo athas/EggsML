@@ -1,0 +1,50 @@
+#!/bin/sh
+#
+# Gør et emne sjovere.
+
+emne="$1"
+
+uppercase() {
+    # TODO: Make nice.
+    $CONCIEGGS_LIB_DIR/filters/grel
+}
+
+unwords() {
+    python -c 'import sys; sys.stdout.write("\n".join(sys.stdin.read().split()))'
+}
+
+words() {
+    read word
+    echo -n $word
+    while read word; do
+        echo -n " $word"
+    done
+}
+
+druk() {
+    randomElement <<EOF
+HiK
+<bræk>
+LOOOoort
+TIIIhihi
+skinkenn
+EOF
+}
+
+runcmd autoviden $emne | unwords | head -n 10 | {
+    while read word; do
+        rand=$(python -c 'import random; print random.randint(0, 2)')
+        case $(expr $rand % 4) in
+            0)
+                echo $word;;
+            1)
+                druk;;
+            2)
+                echo $word | uppercase;;
+        esac
+    done
+    randomElement <<EOF
+BLuuuuurRRRCCH!
+Wrououeh.
+EOF
+} | words
