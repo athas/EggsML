@@ -24,7 +24,7 @@ if [ "$birthday" ]; then
     date=$(dbUserRead $who birthday)
     if ! [ "$date" ]; then
         echo "$EGGS_USER: $recp har aldrig fødselsdag!"
-    elif [ "$date" == $(dateToday | sed 's/^....//') ]; then
+    elif [ "$date" == $(dateToday | sed 's/^....-//') ]; then
         echo "$EGGS_USER: $recp HAR FØDSELSDAG I DAG!  HURRRAAAAA!"
     else
         echo "$EGGS_USER: $recp har fødselsdag d. $date!"
