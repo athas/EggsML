@@ -37,15 +37,55 @@ void checklink(const char* link) {
       char* whoend = strstr(whostart, "\n");
       time_t then = atoi(nstart);
       *whoend = 0;
-      switch (rand()%2) {
+
+      time_t diff = now - then;
+      char* unit;
+      int unit_number;
+
+      if (diff < 60) {
+        if (diff == 1) {
+          unit = "sekund";
+        } else {
+          unit = "sekunder";
+        }
+        unit_number = diff;
+      } else if (diff < 60 * 60) {
+        unit_number = diff / 60;
+        if (unit_number == 1) {
+          unit = "minut";
+        } else {
+          unit = "minutter";
+        }
+      } else if (diff < 60 * 60 * 24) {
+        unit_number = diff / 60 / 60;
+        if (unit_number == 1) {
+          unit = "time";
+        } else {
+          unit = "timer";
+        }
+      } else {
+        unit_number = diff / 60 / 60 / 24;
+        if (unit_number == 1) {
+          unit = "dag";
+        } else {
+          unit = "dage";
+        }
+      }
+      
+      switch (rand()%3) {
       case 0:
-        printf("%s: Det har %s allerede lænket!\n", eggsuser, whostart);
+        printf("%s: Det har %s allerede lænket for %d %s siden!\n",
+               eggsuser, whostart, unit_number, unit);
         break;
       case 1:
-        printf("%s: OOOOOOOOOODLZ!!!\n", eggsuser);
+        printf("%s: OOOOOOOOOODLZ!!!  Det skete jo allerede for %d %s siden!\n",
+               eggsuser, unit_number, unit);
+        break;
+      case 2:
+        printf("%s: Sikken nostalgi!  Det er jo ligesom med %s for %d %s siden!\n",
+               eggsuser, whostart, unit_number, unit);
         break;
       }
-      printf("OOOOOOOOLDZ %s af %s for %ld sekunder siden\n", link, whostart, now - then);
     }
   }
   /* Always log */
