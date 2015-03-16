@@ -35,6 +35,7 @@ void checklink(const char* link) {
       char* nstart = foundlink + l + 1;
       char* whostart = strstr(nstart + 1, " ") + 1;
       char* whoend = strstr(whostart, "\n");
+      time_t then = atoi(nstart);
       *whoend = 0;
       switch (rand()%2) {
       case 0:
@@ -44,7 +45,7 @@ void checklink(const char* link) {
         printf("%s: OOOOOOOOOODLZ!!!\n", eggsuser);
         break;
       }
-      /*printf("OOOOOOOOLDZ %s af %s for %ld dage siden\n", link, whostart, (now.tv_sec - then.tv_sec)/60/60/24);*/
+      printf("OOOOOOOOLDZ %s af %s for %ld sekunder siden\n", link, whostart, now - then);
     }
   }
   /* Always log */
