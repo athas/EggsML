@@ -8,10 +8,20 @@ if ! [ $lines ]; then
     lines=1000
 fi
 
+filterIsOnline() {
+    while read user; do
+        if isOnline $user; then
+            echo $user
+        fi
+    done
+}
+
 tail -n $lines "$CONCIEGGS_IRC_DIR/out" \
     | egrep -o '^#[a-z]+ +:[0-9 :\-]+<([^ >]+)' \
     | cut -d'<' -f2 \
     | grep -v '^hej_fra_github$' \
-    | grep -v "^\$CONCIEGGS_NAME$" \
+    | grep -v "^$CONCIEGGS_NAME\$" \
     | grep -v '^guest_' \
     | sort -u
+
+#    | filterIsOnline \ # This is too inefficient, but at least it's there.

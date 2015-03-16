@@ -1,0 +1,9 @@
+#!/bin/sh
+#
+# Is the user logged in?
+
+user="$1"
+
+echoToServer ":WHOIS $user"
+sleep 1
+tail -n 20 "$CONCIEGGS_IRC_DIR/out" | grep -q "$user"
