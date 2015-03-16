@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Current date in YYYY-MM-DD format.
+
+date +%F
