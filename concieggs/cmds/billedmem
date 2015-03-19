@@ -10,7 +10,7 @@ import os
 from functools import partial
 import itertools
 import random
-import urllib2
+import urllib.request as urllib
 import re
 from lxml import html
 
@@ -26,7 +26,7 @@ def run_main(args):
         list = specifiktMem(args)
     else:
         specifik = False
-        list = urllib2.urlopen("http://imgur.com/hot/viral/")
+        list = urllib.urlopen("http://imgur.com/hot/viral/")
 
     content = list.read()
     tree = html.fromstring(content)
@@ -84,14 +84,14 @@ def specifiktMem(args):
 
     query = ""
     for arg in args:
-	query = query + "+" + arg
+        query = query + "+" + arg
     query = query[1:]
 
     if (random.randint(0,2)):
         query = "http://imgur.com/search/score?q=" + query
     else:
         query = "http://imgur.com/search/relevance?q=" + query
-    return urllib2.urlopen(query)
+    return urllib.urlopen(query)
 
 
 if __name__ == '__main__':
