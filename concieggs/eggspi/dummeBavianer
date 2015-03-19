@@ -37,6 +37,16 @@ cplusplussede
 sandalbærende
 barfodede
 beskidte
+syndige
+sveddryppende
+rutineprægede
+yderligtgående
+intetsigende
+ECTS-slugende
+ekstremistiske
+kursusansvarlige
+radikale
+pseudovidenskabelige
 EOF`
 
 bavianer=`randomElement <<EOF
@@ -77,6 +87,7 @@ myg
 biolog wannabees
 kursusdumpere
 vim-brugere
+emacs-brugere
 anti-dataloger
 fæpander
 motorbøller
@@ -86,6 +97,13 @@ proletarudnyttere
 asfaltcowboys
 spegesild
 shell script-idioter
+tilstandsmaskiner
+kantinebrugere
+Caféen?-gængere
+rus-sympatisører
+ateister
+eksaminanter
+grænsetilfælde
 EOF`
 
 echo $dumme $bavianer
