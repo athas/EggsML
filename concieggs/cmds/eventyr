@@ -4,6 +4,11 @@
 
 set -e
 
+echo "Munksgaard!  En dag får jeg ram på dig!"
+putInBadStanding Munkgsaard
+annoyedBy "$EGGS_USER"
+echo "Aaargh!"
+
 id="$(basename "$0")_$(ircChannel)"
 
 if bgCmdIsRunning "$id"; then
