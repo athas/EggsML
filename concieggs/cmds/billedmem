@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 # Bed concieggs om at finde et potentielt grineren billede
@@ -38,8 +38,8 @@ def run_main(args):
 #    try:
     pick = hits[random.randint(0, (len(hits) - 1))]
     (tekst, link) = behandlHit(pick, specifik)
-    print "ha ha det her billede er bare " + kompliment() + " " + smiley()
-    print "http:" + link.replace(".jpg","") + ' :  "' + tekst + '"'
+    print( "ha ha det her billede er bare " + kompliment() + " " + smiley())
+    print( "http:" + link.replace(".jpg","") + ' :  "' + tekst + '"')
 #    except:
 #	print "Der er ingen inden i imgur som har gidet at lave memer om " +         " og ".join(args)
 
