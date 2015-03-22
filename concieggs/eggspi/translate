@@ -9,6 +9,7 @@ t() {
         "$filter"
     else
         cat
+        exit
         gawk -f $HOME/bin/google-translate.awk "{$1=$2}" -
     fi
 }
