@@ -7,6 +7,7 @@ import StringIO
 import socket
 import sys
 import os
+import stat
 
 if __name__ == '__main__':
     if len(sys.argv) != 3:
@@ -19,6 +20,8 @@ if __name__ == '__main__':
     s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
     s.bind(filename)
     s.listen(1)
+    st = os.stat(filename)
+    os.chmod(filename, st.st_mode | stat.S_IWOTH)
     while True:
         conn, addr = s.accept()
         fd = conn.makefile()
