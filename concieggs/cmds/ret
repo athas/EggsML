@@ -50,6 +50,30 @@ n '$(navn)'-variabel
 n TLB
 t filsystem
 t systemkald
+n concatMap
+EOF
+}
+
+funktion() {
+    randomElement <<EOF
+map
+foldl
+foldr
+concatMap
+mapM
+liftM2
+EOF
+}
+
+snedigtTrick() {
+    randomElement <<EOF
+punktfri notation
+fixpunktsiteration
+monader
+monadisk parsing
+implicitte semikoloner
+partiel evaluering
+let-bindinger
 EOF
 }
 
@@ -65,6 +89,9 @@ Di$ting skal i stedet være e$(ting).
 Husk endeligt at e$ting ikke må distribueres over *hele* funktionskroppen!
 Di$ting kan ikke hedde '$(navn)'!
 Du korrumperer di$ting i $(navn).
+Din $(navn) kan forenkles ved brug af $(funktion).
+Når du laver e$ting skal den altid efterfølges af e$(ting)!
+Du kan med fordel gøre mere brug af $(snedigtTrick) når du skriver di$ting.
 EOF
 }
 
