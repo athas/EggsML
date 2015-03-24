@@ -5,9 +5,12 @@
 eval "$(echo "$@" | tolower | parse '.*(?<shutUp>[kK][æÆ]+[fF][tT])[!.]*')"
 
 if [ "$shutUp" ]; then
-    count=$(echo "$@" |  sed 's/[^!æÆ]*//g' |wc -c)
+    countaggression=$(echo "$@" |  sed 's/[^!æÆ]*//g' |wc -c)
+    countwords=$(echo "$@" | wc -w)
+    count=$(($countaggression - 2 + $countwords - 1))
     duration=$((60*10*$count))
     time=$(($(nowTime) + $duration))
+    echo $count
 
     echo $time | dbWrite shutUpUntil
     if isKing "$EGGS_USER"; then
