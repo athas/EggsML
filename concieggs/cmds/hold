@@ -10,7 +10,6 @@ if [ "$shutUp" ]; then
     count=$(($countaggression - 2 + $countwords - 1))
     duration=$((60*10*$count))
     time=$(($(nowTime) + $duration))
-    echo $count
 
     echo $time | dbWrite shutUpUntil
     if isKing "$EGGS_USER"; then
