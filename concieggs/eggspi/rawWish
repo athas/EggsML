@@ -16,7 +16,11 @@ $(for i in `seq 1 $count`; do echo "$what"; done)
 w
 EOF
     if tryGitChange "ønsk $count af $what" slashdotfrokost; then
-        echo "Det er noteret at $count $what er ønsket."
+        if [ $count = 1 ]; then
+            echo "Det er noteret at $what er ønsket."
+        else
+            echo "Det er noteret at $count $what er ønsket."
+        fi
     else
         gitRepair slashdotfrokost
         echo "Katastrofe!  Noget gik galt med Git!"
