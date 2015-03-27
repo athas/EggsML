@@ -1,5 +1,17 @@
 #!/bin/sh
+#
 # Sig pænt tak til concieggs.
 
-echo Det var så lidt.
+if isKing "$EGGS_USER"; then
+    randomElement <<EOF
+Alt for Dem!
+De behøver da ikke at takke mig!
+Men jeg er blot en undersåt.  Tak.  TAK!
+Min konge.
+Lad månen skinne på din søvn, o herre.
+EOF
+else
+    echo Det var så lidt.
+fi
+
 pleasedBy "$EGGS_USER"
