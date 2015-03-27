@@ -3,11 +3,20 @@
 # Vær mere kongelig end 'jeg'.
 
 if isKing $EGGS_USER; then
-    eval "$(echo "$@" | parse 'spiser med (kl.|klokken) (?<tid>[0-9][0-9]?(:[0-9][0-9]?)?)')"
-    if [ "$tid" ]; then
-        runcmd eggsml "$tid"
+    if [ "$1" = "ses" ]; then
+        randomElement <<EOF
+Hav det godt, Deres Majestæt!
+Jeg ønsker Dem al lykke i verden!
+Deres tilstedeværelse har været en ære!
+Lad solen skinne på din skygge, herre.
+EOF
     else
-        runcmd jeg $@
+        eval "$(echo "$@" | parse 'spiser med (kl.|klokken) (?<tid>[0-9][0-9]?(:[0-9][0-9]?)?)')"
+        if [ "$tid" ]; then
+            runcmd eggsml "$tid"
+        else
+            runcmd jeg $@
+        fi
     fi
 else
     echo -n "$EGGS_USER: "
