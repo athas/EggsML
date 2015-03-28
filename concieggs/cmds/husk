@@ -4,7 +4,7 @@
 
 
 if [ $# -gt 0 ]; then
-    echo "$@" >> $CONCIEGGS_DB_DIR/fakta
+    say "$@" >> $CONCIEGGS_DB_DIR/fakta
     echo "Det er husket!"
 else
     echo "Men hvad skal jeg huske?"
