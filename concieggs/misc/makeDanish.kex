@@ -1,11 +1,13 @@
 /* Makes a message more Danish */
 
-message := word sep message
-        |  word
-        |  sep
-        |  ""
+message := maybeSep inner maybeSep
 
-sep := <[^A-Za-zæøå0-9]+>
+inner := word sep inner
+       | word
+       | ""
+
+maybeSep := <[^A-Za-zæøå0-9]*>
+sep      := <[^A-Za-zæøå0-9]+>
 
 word := ~<computer> "datamat"
       | ~<debugger> "afluser"
