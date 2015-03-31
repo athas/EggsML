@@ -7,12 +7,14 @@
 # køre kommandoen.
 
 
-if [ $# -lt 1 -o $# -gt 2 ]; then
-    echo 'Brug: indkøb <beløb> [hvem]'
+if [ $# -lt 1 -o $# -gt 3 ]; then
+    echo 'Brug: indkøb <beløb> [hvem] [hvornår]'
+    exit 0
 fi
 
 maybeamount=$1
 who=${2:-$EGGS_USER}
+when=${3:-$(date '+%Y-%m-%d')}
 
 auth="$(isTrusted "$EGGS_USER")"
 if ! [ "$auth" ]; then
@@ -32,7 +34,12 @@ if ! [ "$alias" ]; then
     exit 0
 fi
 
-when=$(date '+%Y-%m-%d')
+date -d "$when" '+%Y-%m-%d' 1> /dev/null 2> /dev/null
+if [ $? -eq 1 ]; then
+    echo "$when synes ikke at være en gyldig dato, brug ÅÅÅÅ-MM-DD format"
+    exit 0
+fi
+
 
 if gitRefresh; then
     cd $EGGS_DIR
