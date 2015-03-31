@@ -2,6 +2,7 @@
 
 message := word sep message
         |  word
+        |  sep
         |  ""
 
 sep := <[^A-Za-zæøå0-9]+>
