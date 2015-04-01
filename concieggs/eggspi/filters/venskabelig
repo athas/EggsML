@@ -16,4 +16,4 @@ smiley=$(randomElement <<EOF
 EOF
 )
 
-sed -r -e "s/^/$hilsen, /" -e "s/\$/ $smiley/"
+sed -r -e "s/^/$hilsen: /" -e "s/\$/ $smiley/"
