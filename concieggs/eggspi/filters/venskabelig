@@ -1,0 +1,19 @@
+#!/bin/sh
+
+hilsen=$(randomElement <<EOF
+Min ven
+Vennen min
+Kære ven
+EOF
+)
+
+smiley=$(randomElement <<EOF
+:)
+:-)
+(:
+(-:
+:D
+EOF
+)
+
+sed -r -e "s/^/$hilsen, /" -e "s/\$/ $smiley/"
