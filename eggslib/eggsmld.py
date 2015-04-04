@@ -9,7 +9,7 @@ import sys
 import os
 import stat
 
-if __name__ == '__main__':
+def run_main():
     if len(sys.argv) != 3:
         exit("Usage: %s <lunchfile> <socket-filename>" % sys.argv[0])
     lunchfile = sys.argv[1]
@@ -96,3 +96,9 @@ if __name__ == '__main__':
         fd.write(str(int(exit))+'\n')
         fd.write(sys.stdout.getvalue())
         fd.close()
+
+if __name__ == '__main__':
+    try:
+        run_main()
+    except KeyboardInterrupt:
+        pass
