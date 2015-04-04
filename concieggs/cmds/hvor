@@ -10,7 +10,7 @@ tusindedele
 hundrededele
 EOF`
 
-eval "$(echo "$@" | parse '^ *((?<gammel>(gammelt?|ungt?|lang tid))|(?<lang>(langt?|kort|højt?|lavt?))|(?<tung>(tungt?|let))|(?<klog>(dumt?|klogt?|stupid))|(?<stor>(stort?|lille|meget))|(?<irriterende>(irriterende|udmattende|enerverende|trættende))|(?<grim>(grimt?|ulækkert?|monstrøst?|klamt?))).*')"
+eval "$(echo "$@" | parse '^ *((?<gammel>(gammelt?|ungt?|lang tid|længe))|(?<lang>(langt?|kort|højt?|lavt?))|(?<tung>(tungt?|let))|(?<klog>(dumt?|klogt?|stupid))|(?<stor>(stort?|lille|meget))|(?<irriterende>(irriterende|udmattende|enerverende|trættende))|(?<grim>(grimt?|ulækkert?|monstrøst?|klamt?))).*')"
 
 if [ "$gammel" ]; then
     unit=$(randomElement <<EOF
