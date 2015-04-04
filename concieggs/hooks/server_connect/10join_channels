@@ -4,5 +4,5 @@ ircJoinChannel "$CONCIEGGS_ERROR_CHANNEL"
 ircJoinChannel "$CONCIEGGS_DEFAULT_CHANNEL"
 
 dbIterate "channels" | while read channel; do
-                           ircJoinChannel "$channel"
+                           ircJoinChannel "$(echo "$channel" | cut -d '/' -f 2)"
                        done
