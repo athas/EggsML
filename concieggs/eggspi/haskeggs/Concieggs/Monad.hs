@@ -95,14 +95,14 @@ runcmd = run . ("runcmd " ++)
 
 
 -- SOME OPERATORS
-(<++>) :: ConcieggsM [a] -> ConcieggsM [a] -> ConcieggsM [a]
+(<++>) :: Monad m => m [a] -> m [a] -> m [a]
 m <++> n = do
   s <- m
   t <- n
   return (s ++ t)
 
-(<++) :: ConcieggsM [a] -> [a] -> ConcieggsM [a]
-m <++ t = m <++> pure t
+(<++) :: Monad m => m [a] -> [a] -> m [a]
+m <++ t = m <++> return t
 
-(++>) :: [a] -> ConcieggsM [a] -> ConcieggsM [a]
+(++>) :: Monad m => [a] -> m [a] -> m [a]
 (++>) = flip (<++)

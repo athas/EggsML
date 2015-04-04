@@ -42,30 +42,33 @@ tilfældigTing =
 
 tilfældigFørsteperson :: Random String
 tilfældigFørsteperson =
-  choice
-  [ "destrueres"
-  , "æder"
-  , "sluger"
-  , "gnasker"
-  , "griner"
-  , "bestemmer det hele"
-  , "lugter"
-  , "spilder på gulvet"
-  , "gør nar ad Dronningen"
-  , "pletter på lagnet"
-  , "fiser højlydt"
-  , "galloperer deruda'"
-  , "siger nej"
-  , "har slået  noget"
-  , "arbejder for Illuminat"
-  , "spiller høj musik efter midnat"
-  , "har tabt sig"
-  , "snyder i brætspil"
-  , "er til grin"
-  , "er noget pis"
-  , "er det bedste produkt i verden"
-  , "er den helt store revolution"
-  , "smager af sylte"
+  choiceM
+  [ pure "destrueres"
+  , pure "æder " <++> tilfældigTing
+  , pure "sluger " <++> tilfældigTing
+  , pure "gnasker " <++> tilfældigTing
+  , pure "griner"
+  , pure "griner over " <++> tilfældigTing
+  , pure "bestemmer det hele"
+  , pure "lugter"
+  , pure "lugter til " <++> tilfældigTing
+  , pure "spilder på gulvet"
+  , pure "gør nar ad Dronningen"
+  , pure "pletter på lagnet"
+  , pure "fiser højlydt"
+  , pure "galloperer deruda'"
+  , pure "siger nej"
+  , pure "har slået  noget"
+  , pure "arbejder for Illuminaten"
+  , pure "spiller høj musik efter midnat"
+  , pure "har tabt sig"
+  , pure "snyder i brætspil"
+  , pure "kaster PlayStation controllers ad h til"
+  , pure "er til grin"
+  , pure "er noget pis"
+  , pure "er det bedste produkt i verden"
+  , pure "er den helt store revolution"
+  , pure "smager af sylte"
   ]
 
 tilfældigTyper :: Random String
@@ -142,8 +145,8 @@ tilfældigMådeform =
   , "rumle-skide helt vildt!"
   , "stjæle fra kontoret"
   , "lytte til den nye med Scooter"
-  , "spille sygt dum"
-  , "spille sygt smart"
+  , "spille sygt dumme"
+  , "spille sygt smarte"
   , "være flabet"
   , "bryde ophavsretten"
   , "skrive læserbreve"
