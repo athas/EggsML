@@ -1,0 +1,5 @@
+#!/bin/sh
+
+ircJoinChannel "$1"
+
+dbNewNode "channels/$1"

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+ircPartChannel "$1"
+
+dbDelete "channels/$1"

@@ -9,10 +9,10 @@ if [ $# -lt 2 ]; then
 else
     if [ "$1" = "på" ]; then
         echo "$(ack)  Jeg hopper ind på $2."
-        ircJoinChannel "$2"
+        ircJoinChannelAdditional "$2"
     elif [ "$1" = "af" ]; then
         echo "$(ack)  Jeg forlader $2."
-        ircPartChannel "$2"
+        ircPartChannelAdditional "$2"
     else
         echo "Jeg forstår ikke hvad du mener."
     fi
