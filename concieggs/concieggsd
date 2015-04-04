@@ -88,7 +88,7 @@ throttle() {
 outfile=$irc_dir/out
 
 # Make sure the outfile exists.
-touch "$outfile" || true
+touch "$outfile" 2>/dev/null || true
 
 # Start eggsmld.
 $EGGS_DIR/eggslib/eggsmld.py $EGGS_DIR/slashdotfrokost $EGGS_DAEMON_SOCKET &
