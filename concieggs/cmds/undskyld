@@ -14,7 +14,13 @@ else
 fi
 
 if [ "$to" = "concieggs" ]; then
-    if isInBadStanding "$EGGS_USER"; then
+    if isKing "$EGGS_USER"; then
+        randomElement <<EOF
+Det må du virkelig undskylde, min Konge!
+Deres Majestæt, jeg undskylder!  Undskyld!
+EOF
+        removeFromBadStanding "$EGGS_USER" # For en sikkerheds skyld.
+    elif isInBadStanding "$EGGS_USER"; then
         # if maybeGood .35; then
             pleasedBy "$EGGS_USER" 25
             removeFromBadStanding "$EGGS_USER"
