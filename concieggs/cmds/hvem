@@ -82,6 +82,15 @@ elif [ "$buy" ]; then
             echo $(lookupDebt "$eggser") "$eggser"
         done | sort -n -r | cut -d' ' -f2- | head -n 1 | while read -r debtor; do
             echo "$debtor bør købe ind!"
+            if isKing "$debtor"; then
+                randomElement <<EOF
+$debtor: Vi er vel ikke på vej mod et nyt statsbankerot, Deres Majestæt?
+Har De overvejet at hæve skatterne, $debtor?
+$debtor: Hvad med en krig som distraktion for Deres tomme kiste?
+$debtor: Har De overvejet en koloni i den Nye Verden?  Der skulle efter sigende være mange værdier.
+$debtor, Deres højtærede Majestæt, pøblen klager over at de ikke har brød.  Måske De bør motivere dem.
+EOF
+            fi
         done
     else
         echo "Der er ingen tilmeldt Eggs, så jeg går ud fra at ingen køber ind."
