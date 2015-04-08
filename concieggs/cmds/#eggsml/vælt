@@ -1,0 +1,47 @@
+#!/bin/sh
+#
+# Vælt kongen hvis I er nok!
+
+rebel="$(randomName "$EGGS_USER")"
+
+if ! [ "$rebel" ]; then
+    echo "$EGGS_USER: Du er ikke egnet."
+    exit
+fi
+
+harVaeltet() {
+    dbRead vilvæltekongen | {
+        while read user; do
+            if cmpNames $rebel $user; then
+                exit 0
+            fi
+        done
+        exit 1
+    }
+}
+
+if harVaeltet; then
+    echo "$EGGS_USER: Næææ, du er allerede ved at vælte kongen!  Find dig nogle medrebeller!"
+    exit
+fi
+echo "$rebel" | dbWriteAppend vilvæltekongen
+
+v="$(dbRead vilvæltekongen | wc -l)"
+
+if [ "$v" -gt 4 ]; then
+    dbDelete eggsking
+    dbDelete vilvæltekongen
+    randomElement <<EOF
+KONGEN ER VÆLTET!
+Kongen er død!  Længe leve anarkiet!
+EOF
+else
+    randomElement <<EOF
+Du forsøger dristigt at hugge hovedet af majestæten.
+Du bagtaler kongen på en bar.
+Du planlægger en retningsbestemt slotseksplosion.
+Du lægger dit hovede i blød.
+Du tager dit sværd ud af kisten.
+EOF
+    echo "Der er kun $v der vil vælte kongen!  I skal være flere!"
+fi
