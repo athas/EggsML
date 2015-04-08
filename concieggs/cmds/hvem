@@ -81,8 +81,11 @@ elif [ "$buy" ]; then
         listEggsers $neggst | while read -r eggser; do
             echo $(lookupDebt "$eggser") "$eggser"
         done | sort -n -r | cut -d' ' -f2- | head -n 1 | while read -r debtor; do
-            echo "$debtor bør købe ind!"
+            echo "$(Du $debtor) bør købe ind!"
             if isKing "$debtor"; then
+                if cmpNames "$debtor" "$EGGS_USER"; then
+                    debtor="$EGGS_USER"
+                fi
                 randomElement <<EOF
 $debtor: Vi er vel ikke på vej mod et nyt statsbankerot, Deres Majestæt?
 Har De overvejet at hæve skatterne, $debtor?
