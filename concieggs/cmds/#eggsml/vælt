@@ -2,6 +2,12 @@
 #
 # Vælt kongen hvis I er nok!
 
+kingname="$(dbRead eggsking)"
+if [ -z "$kingname" ]; then
+    echo "Øhhh, der er altså ikke nogen konge af EggsML i øjeblikket.  Prøv igen senere."
+    exit
+fi
+
 rebel="$(randomName "$EGGS_USER")"
 
 if ! [ "$rebel" ]; then
