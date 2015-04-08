@@ -1,0 +1,13 @@
+#!/bin/sh
+
+if cmpNames "$3" "$EGGS_USER"; then
+    if isKing "$3"; then
+        echo -n "$1"
+    else
+        echo -n "$2"
+    fi
+elif [ "$4" != '' ]; then
+    echo -n "$4"
+else
+    echo -n "$3"
+fi

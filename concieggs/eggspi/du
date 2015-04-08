@@ -1,7 +1,3 @@
 #!/bin/sh
 
-if isKing $1; then
-    echo -n De
-else
-    echo -n du
-fi
+tiltale De du "$@"
