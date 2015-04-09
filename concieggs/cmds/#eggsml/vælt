@@ -4,14 +4,14 @@
 
 kingname="$(dbRead eggsking)"
 if [ -z "$kingname" ]; then
-    echo "Øhhh, der er altså ikke nogen konge af EggsML i øjeblikket.  Prøv igen senere."
+    echo "$EGGS_USER: Uagtet dit ønske om at gøre oprør mod 'manden', så er tronen allerede ganske tom."
     exit
 fi
 
 rebel="$(randomName "$EGGS_USER")"
 
 if ! [ "$rebel" ]; then
-    echo "$EGGS_USER: Du er ikke egnet."
+    echo "$EGGS_USER: Ingen udefrakommende indblanding i intern logepolitik, tak."
     exit
 fi
 
@@ -27,7 +27,7 @@ harVaeltet() {
 }
 
 if harVaeltet; then
-    echo "$EGGS_USER: Næææ, du er allerede ved at vælte kongen!  Find dig nogle medrebeller!"
+    echo "$EGGS_USER: Du har allerede meldt dig under tricoloren.  Det kan anbefales at dirigere al denne energi mod at hverve medsammensvorne."
     exit
 fi
 echo "$rebel" | dbWriteAppend vilvæltekongen
@@ -49,5 +49,5 @@ Du planlægger en retningsbestemt slotseksplosion.
 Du lægger dit hovede i blød.
 Du tager dit sværd ud af kisten.
 EOF
-    echo "Der er kun $v der vil vælte kongen!  I skal være flere!"
+    echo "Kun $v har meldt sig under den revolutionære fane!  I skal være flere!"
 fi
