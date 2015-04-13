@@ -51,6 +51,7 @@ else
             compile() {
                 repg compile "$1" --out "$2" >&2    
             }
+            ;;
         *)
             echo "Cannot compile file $srcfile - unknown extension."
             exit 2
