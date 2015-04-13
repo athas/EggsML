@@ -49,8 +49,8 @@ else
             ;;
         *kex)
             compile() {
-                repg compile "$1" --out "$2" >&2    
-                touch "$2"
+                repg compile "$1" --srcout "$1.c" >&2    
+                gcc "$1.c" -o "$2" -O3 -xc -D FLAG_WORDALIGNED >&2
             }
             ;;
         *)
