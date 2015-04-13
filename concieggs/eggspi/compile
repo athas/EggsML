@@ -47,6 +47,10 @@ else
                 ghc "$1" -o "$2" -i"$CONCIEGGS_DIR/compiled:$CONCIEGGS_LIB_DIR/haskeggs" >&2
             }
             ;;
+        *kex)
+            compile() {
+                repg compile "$1" --out "$2" >&2    
+            }
         *)
             echo "Cannot compile file $srcfile - unknown extension."
             exit 2
