@@ -50,6 +50,7 @@ else
         *kex)
             compile() {
                 repg compile "$1" --out "$2" >&2    
+                touch "$2"
             }
             ;;
         *)
