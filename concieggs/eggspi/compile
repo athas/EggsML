@@ -50,7 +50,7 @@ else
         *kex)
             compile() {
                 repg compile "$1" --srcout "$1.c" >&2    
-                gcc "$1.c" -o "$2" -O3 -xc -D FLAG_WORDALIGNED >&2
+                gcc -o "$2" -O3 -xc -D FLAG_WORDALIGNED "$1.c" >&2
             }
             ;;
         *)
