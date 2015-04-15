@@ -2,8 +2,8 @@
 
 hilsen=$(randomElement <<EOF
 Min ven
-Vennen min
-Kære ven
+Kære
+Søde
 EOF
 )
 
@@ -16,4 +16,4 @@ smiley=$(randomElement <<EOF
 EOF
 )
 
-sed -r -e "s/^/$hilsen: /" -e "s/\$/ $smiley/"
+sed -r -e "s/^/$hilsen /" -e "s/\$/ $smiley/"

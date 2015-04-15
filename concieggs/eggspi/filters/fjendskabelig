@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+hilsen=$(randomElement <<EOF
+For helvede,
+Forbandede
+Hop i havet,
+Brænd dig på noget,
+Dumme
+Idioten
+Fjolset
+EOF
+)
+
+smiley=$(randomElement <<EOF
+For helvede!
+Hvor tit skal jeg sige det?
+DNUR!
+Og hold så kæft.
+Er det så svært at fatte?
+>:(
+...er det til at fatte?
+EOF
+)
+
+sed -r -e "s/^/$hilsen /" -e "s/\$/ $smiley/"
