@@ -16,11 +16,11 @@ if [ "$beneggter" ]; then
         echo "Jeg er allerede bekendt med $(dine $EGGS_USER) afvigelser, $EGGS_USER."
     else
         dbUserWrite $who beneggter < /dev/null
-        echo "$(ack)  Meget vel, $EGGS_USER, under antagelse af at logebrødrene gør deres forabejde, vil der ikke længere tilberedes æg til $(dig $EGGS_USER)."
+        echo "$(ack)  Meget vel, $EGGS_USER, under antagelse af at logebrødrene gør deres forarbejde, vil der ikke længere tilberedes æg til $(dig $EGGS_USER)."
     fi
 elif [ "$eggsalteret" ]; then
     if [ "$(dbUserGet $who beneggter)" ]; then
-        echo "$(ack)  Velkommen tilbage i folden, $EGGS_USER!  Under antagelse af at logebrødrene gør deres forabejde, vil der igen være æg at finde til $(dig $EGGS_USER)."
+        echo "$(ack)  Velkommen tilbage i folden, $EGGS_USER!  Under antagelse af at logebrødrene gør deres forarbejde, vil der igen være æg at finde til $(dig $EGGS_USER)."
         dbUserDelete $who beneggter
     else
         echo "Jovist, $EGGS_USER, det ved jeg skam allerede.  Er der et formål med denne udmelding?"
