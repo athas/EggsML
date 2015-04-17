@@ -40,7 +40,11 @@ nanna
 randi
 EOF`
   say "Hey, hvad er det derovre?!"
-  echo "/me peger på $(recentlyActive | head -n 1)."
+  bruger="$(recentlyActive | head -n 1)"
+  if ! [ "$bruger" ]; then
+      bruger=nogen
+  fi
+  echo "/me peger på $bruger."
   echoToServer ":nick $navn"
 fi
 
