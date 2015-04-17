@@ -7,7 +7,7 @@ author=$(echo "$line" | cut -d ':' -f 1)
 hash=$(echo "$line" | cut -d ':' -f 2)
 subject=$(echo "$line" | cut -d ':' -f 3-)
 
-echo "Hvem mon skrev følgende?  $subject"
+echo "Hvem mon skrev følgende?  $subject" | gawk '{print; fflush()}'
 
 sleep 5
 
