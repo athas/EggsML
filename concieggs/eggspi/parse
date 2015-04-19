@@ -12,7 +12,6 @@ if ($data =~ $regex) {
     my %matches = %+;
     for my $key (keys %matches) {
         my $val = $matches{$key};
-        $val =~ s/(\\)/\\$1/g;
-        print "$key=\"\$(cat <<\"EOF\"\n$val\nEOF\n)\"\n"
+        print "$key=\"\$(cat <<\"EOF\" | sed 's/.\$//'\n$val.\nEOF\n)\"\n"
     }
 }
