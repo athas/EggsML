@@ -29,7 +29,7 @@ else
             ;;
         *c)
             compile() {
-                gcc $1 -o $2
+                gcc -std=c99 $1 -o $2
             }
             ;;
         *sml)
