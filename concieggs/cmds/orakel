@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+# Giv en Markov-kædet visdom.  Brug: orakel [ANTAL ORD]
+
+antal_ord="$1"
+
+if ! [ "$antal_ord" ]; then
+    antal_ord=10;
+fi
+
+fakta_path="$CONCIEGGS_DB_DIR/fakta"
+fakta_ready_path="$(dbPath fakta-markov-ready)"
+
+if ! dbExists fakta-markov-ready || [ "$fakta_path" -nt "$fakta_ready_path" ]; then
+    python3 <<EOF | dbWrite fakta-markov-ready
+with open('$fakta_path', 'r') as f_in:
+    for line in f_in.read().strip().split('\n'):
+        for word in line.split():
+            print(word)
+        print()
+        print()
+EOF
+fi
+
+markov "$antal_ord" fakta "$fakta_path" "$fakta_ready_path" | withSpaces

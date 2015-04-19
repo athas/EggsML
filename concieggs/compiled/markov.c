@@ -33,7 +33,7 @@ size_t gen_markov(size_t** out_buffer, FILE* read_fd) {
   size_t* start_words = NULL;
   bool is_start_word;
 
-  char *line = NULL;
+  char* line = NULL;
   size_t len = 0;
   ssize_t read;
 
@@ -93,7 +93,7 @@ size_t gen_markov(size_t** out_buffer, FILE* read_fd) {
         is_start_word = false;
       }
     }
-    
+
     prev_word_i = word_i;
   }
   free(line);
@@ -103,7 +103,7 @@ size_t gen_markov(size_t** out_buffer, FILE* read_fd) {
   size_t entry_size;
   size_t* offset = (size_t*) malloc(n_words * sizeof(size_t));
   size_t buffer_size = 1 + n_start_words;
-  
+
   for (size_t i = 0; i < n_words; i++) {
     offset[i] = buffer_size;
     entry_size = (1
@@ -166,9 +166,11 @@ void gen_words(size_t* buffer, int n_gen_words) {
     word = (char*) &entry[1 + n_nexts];
     puts(word);
     if (n_nexts == 0) {
-      break;
+      entry = &buffer[start_words[poooooor_random(n_start_words)]];
     }
-    entry = &buffer[nexts[poooooor_random(n_nexts)]];
+    else {
+      entry = &buffer[nexts[poooooor_random(n_nexts)]];
+    }
   }
 }
 
@@ -180,12 +182,11 @@ int main(int argc, char** argv) {
   srand(time(NULL));
 
   int n_gen_words = atoi(argv[1]);
-  char* source_path = argv[2];
   size_t* buffer = NULL;
   size_t buffer_size;
   char* db_dir = getenv("CONCIEGGS_DB_DIR");
   char sub_dir[] = "/markov-cache/";
-  char* name = argv[3];
+  char* name = argv[2];
   char* buffer_path = (char*) malloc(strlen(db_dir) + sizeof(sub_dir) + strlen(name));
   buffer_path[0] = '\0';
   strcat(buffer_path, db_dir);
@@ -193,18 +194,29 @@ int main(int argc, char** argv) {
   mkdir(buffer_path, S_IRUSR | S_IWUSR | S_IXUSR);
   strcat(buffer_path, name);
 
+  char* source_path_source;
+  char* source_path_data;
+  source_path_source = argv[3];
+  if (argc == 5) {
+    source_path_data = argv[4];
+  }
+  else {
+    source_path_data = source_path_source;
+  }
+
   struct stat attr_source;
   struct stat attr_buffer;
-  stat(source_path, &attr_source);
+  stat(source_path_source, &attr_source);
   int bufstatret = stat(buffer_path, &attr_buffer);
 
   int buffd = open(buffer_path, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+  FILE* source_fd;
 
   if (bufstatret == -1 || attr_source.st_mtime > attr_buffer.st_mtime) {
-    FILE* source_fd = fopen(source_path, "r");
+    source_fd = fopen(source_path_data, "r");
     buffer_size = gen_markov(&buffer, source_fd);
-
     fclose(source_fd);
+
     write(buffd, buffer, buffer_size * sizeof(size_t));
     gen_words(buffer, n_gen_words);
     free(buffer);

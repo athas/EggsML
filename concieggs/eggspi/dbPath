@@ -1,0 +1,3 @@
+#!/bin/sh
+
+echo "$CONCIEGGS_DB_DIR/store/$1"
