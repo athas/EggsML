@@ -12,7 +12,7 @@ if ($data =~ $regex) {
     my %matches = %+;
     for my $key (keys %matches) {
         my $val = $matches{$key};
-        $val =~ s/(\\)/\\$1/g;
+        $val =~ s/(\\)/\\\\$1/g;
         print "$key=\$(cat <<\"EOF\" | sed -r 's/[[:space:]]+\$//'\n$val\n\nEOF\n)\n"
     }
 }
