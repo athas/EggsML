@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# Make a user King!
+
+echo "$1" | dbWrite eggsking
+
+dbDelete vilvæltekongen

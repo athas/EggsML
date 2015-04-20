@@ -29,4 +29,4 @@ while true; do
 done
 
 echo "Fluen har fundet lorten, og lander på $last! $last er den nye konge af #eggsml!"
-randomName "$last" | dbWrite eggsking
+makeKing "$last"

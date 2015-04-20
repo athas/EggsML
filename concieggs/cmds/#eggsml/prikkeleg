@@ -107,7 +107,7 @@ def hvemFoerer(dictionary, Vindersekvens=False):
         print("Her er din cutscene!")
         sys.stdout.flush()
         subprocess.call(["runcmd heldigvideo"], shell=True)
-        subprocess.call(["randomName \'" + vinder + "\' | dbWrite eggsking"], shell=True)
+        subprocess.call(["makeKing \'" + vinder + "\'"], shell=True)
         nytSpil()
         subprocess.call(["runcmd topic \"" + vinder + " er kongen\""], shell=True)
 
