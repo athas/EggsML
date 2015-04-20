@@ -1,3 +1,1 @@
-#!/bin/sh
-
-date -d "1970-01-01 UTC $1 seconds" "$2"
+#!/usr/bin/env compile

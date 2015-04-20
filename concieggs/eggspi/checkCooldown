@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set -e
+
+cooldown=$1
+cooldown_duration=$2
+file="$CONCIEGGS_DB_DIR/cooldowns/$1"
+
+if [ -f "$file" ]; then
+    until=$(cat "$file")
+    if [ "$until" ]; then
+        if [ $(dateSecs) -lt $until ]; then
+            exit 1
+        fi
+    fi
+fi
+
+mkdir -p "$(dirname "$file")"
+echo $(($(dateSecs) + $cooldown_duration)) > "$file"

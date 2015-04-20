@@ -8,6 +8,11 @@ sleep 3
 echo "/me går hen til hylden, finder bøtten og slipper FLUEN løs."
 sleep 3
 
+if ! checkCooldown fluen $((3600 * 24)); then
+    echo "/me ryster krukken, men fluen er bare for træt til at flyve mere."
+    exit
+fi
+
 iter=0
 while true; do
     last="$(echo "$who" | randomElement)"

@@ -1,0 +1,8 @@
+#!/bin/sh
+
+set -e
+
+cooldown=$1
+file="$CONCIEGGS_DB_DIR/cooldowns/$1"
+
+rm -f "$file"
