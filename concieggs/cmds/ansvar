@@ -11,11 +11,11 @@ eval "$(echo "$@" | parse '^((?<cmd>[^/]+)|eggspi/(?<eggspi>[^/]+)|hooks/(?<hook
 if [ "$cmd" ]; then
     file=$(findCommand $1)
 elif [ "$eggspi" ] && [ -f "eggspi/$eggspi" ]; then
-    file="$CONCIEGGS_DIR/eggspi/$eggspi"
+    file="eggspi/$eggspi"
 elif [ "$hook" ] && [ -f "hooks/$hook" ]; then
-    file="$CONCIEGGS_DIR/hooks/$hook"
+    file="hooks/$hook"
 elif [ "$compiled" ] && [ -f "compiled/$compiled" ]; then
-    file="$CONCIEGGS_DIR/compiled/$compiled"
+    file="compiled/$compiled"
 else
     echo "$EGGS_USER: Jeg kan ikke afgøre om '$@' overhovedet er et problem."
     annoyedBy "$EGGS_USER"
@@ -27,7 +27,7 @@ if ! [ "$file" ]; then
     exit
 fi
 
-guilty=$(git log --pretty=format:"%an" "$file")
+guilty=$(cd $CONCIEGGS_DIR; git log --pretty=format:"%an" "$file")
 first=$(echo "$guilty"|tail -n 1)
 last=$(echo "$guilty"|head -n 1)
 
