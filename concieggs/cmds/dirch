@@ -1,0 +1,64 @@
+#!/bin/sh
+#
+# Jeg... jeg ka' osse sige ligesom en prut.  IuuuuuuuuuUUH.  Brug: dirch [ANTAL ORD]
+
+antal_ord="$1"
+
+if ! [ "$antal_ord" ]; then
+    antal_ord=30;
+fi
+
+tmpfile=$(mktemp)
+
+case $(random 0 2) in
+    0)
+        markov "$antal_ord" dirch-monolog \
+               "$CONCIEGGS_DB_DIR/dirchpasser/monologer.txt" > $tmpfile
+        ;;
+    1)
+        markov "$antal_ord" dirch-sketch \
+               "$CONCIEGGS_DB_DIR/dirchpasser/sketcher.txt" > $tmpfile
+        ;;
+    2)
+        markov "$antal_ord" dirch-vise \
+               "$CONCIEGGS_DB_DIR/dirchpasser/viser.txt" > $tmpfile
+        ;;
+esac
+
+python3 <<EOF
+with open(1, 'wb') as out:
+    with open('$tmpfile', 'rb') as f:
+        prev_was_token = False
+        for token in f.read().strip().split():
+            if token.startswith(b'w'):
+                if prev_was_token:
+                    out.write(b' ')
+                out.write(token[1:])
+                prev_was_token = True
+            else:
+                prev_was_token = False
+                if token == b',':
+                    out.write(b', ')
+                elif token == b'..':
+                    out.write(b'.\n') # Not optimal
+                elif token == b'.':
+                    out.write(b'. ')
+                elif token == b'...':
+                    out.write(b'...\n') # Not optimal
+                elif token == b':':
+                    out.write(b': ')
+                elif token == b"'<":
+                    out.write(b" '")
+                elif token == b"'>":
+                    out.write(b"' ")
+                elif token == b'"<':
+                    out.write(b' "')
+                elif token == b'">':
+                    out.write(b'" ')
+                elif token == b'n':
+                    out.write(b'\n')
+                else:
+                    out.write(token)
+EOF
+
+rm $tmpfile
