@@ -11,11 +11,11 @@ eval "$(echo "$@" | parse '^((?<cmd>[^/]+)|eggspi/(?<eggspi>[^/]+)|hooks/(?<hook
 if [ "$cmd" ]; then
     file=$(findCommand $1)
 elif [ "$eggspi" ] && [ -f "eggspi/$eggspi" ]; then
-    file="eggspi/$eggspi"
+    file="$CONCIEGGS_DIR/eggspi/$eggspi"
 elif [ "$hook" ] && [ -f "hooks/$hook" ]; then
-    file="hooks/$hook"
+    file="$CONCIEGGS_DIR/hooks/$hook"
 elif [ "$compiled" ] && [ -f "compiled/$compiled" ]; then
-    file="compiled/$compiled"
+    file="$CONCIEGGS_DIR/compiled/$compiled"
 else
     echo "$EGGS_USER: Jeg kan ikke afgøre om '$@' overhovedet er et problem."
     annoyedBy "$EGGS_USER"
@@ -32,7 +32,7 @@ first=$(echo "$guilty"|tail -n 1)
 last=$(echo "$guilty"|head -n 1)
 
 if ! [ "$guilty" ]; then
-    echo "$EGGS_USER: Jeg er ikke i stand til at placere ansvaret nærmere, men jeg mistænker $(recentlyActive | head -n 1)"
+    echo "$EGGS_USER: Jeg er ikke i stand til at placere ansvaret nærmere, men jeg mistænker $(recentlyActive | randomElement)"
 else
     if [ "$first" = "$last" ]; then
         echo "$EGGS_USER: Ansvaret kan placeres udelukkende hos $first."
