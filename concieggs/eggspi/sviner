@@ -1,0 +1,20 @@
+#!/bin/sh
+
+usle=`randomElement <<EOF
+Usle
+Gemene
+Blødsødne
+Latterlige
+EOF`
+
+slambert=`randomElement <<EOF
+slambert
+IP-genganger
+humanist
+PHK-wannabe
+kujon
+EOF`
+
+randomElement <<EOF
+$usle $slambert!
+EOF

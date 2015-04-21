@@ -12,9 +12,10 @@ subscribeToEggs() {
     if [ "$(isInEggs "$time" "$name")" != "" ]; then
         echo "$name spiser allerede med til $(titleEggs $time)!"
     elif addToEggs "$time" "$name" "0.5"; then
-        message="$(ack)  $name truntespiser med til $(titleEggs $time)!  $(nag $name)"
-        echo $message
-        notOnEggsChannel && (echo $message | sayTo "$CONCIEGGS_DEFAULT_CHANNEL")
+        echo "$(ack) $name truntespiser med til $(titleEggs $time)! $(nag $name)"
+        if notOnEggsChannel; then
+            echo "$name har i al diskretion meldt sig til truntespisning til $(titleEggs $time)! Troede du ikke vi ville opdage det, hva'? $(sviner)" | sayTo "$CONCIEGGS_DEFAULT_CHANNEL"
+        fi
     else
         exit 1
     fi
