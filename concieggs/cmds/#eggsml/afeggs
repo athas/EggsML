@@ -11,7 +11,9 @@ unsubscribeFromEggs() {
     if [ "$gut" = "" ]; then
         echo "Men $name spiser jo alligevel ikke med $(timeToDate $time)!"
     elif rmFromEggs "$time" "$gut"; then
-        echo "$(ack)  $name spiser ikke længere med $(timeToDate $time)!"
+        message="$(ack)  $name spiser ikke længere med $(timeToDate $time)!"
+        echo $message
+        notOnEggsChannel && (echo $message | sayTo "$CONCIEGGS_DEFAULT_CHANNEL")
     else
         exit 1
     fi

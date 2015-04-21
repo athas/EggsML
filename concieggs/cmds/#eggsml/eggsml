@@ -16,7 +16,9 @@ subscribeToEggs() {
     if [ "$(isInEggs "$time" "$name")" != "" ]; then
         echo "$name spiser allerede med til $(titleEggs $time)!"
     elif addToEggs "$time" "$name"; then
-        echo "$(ack)  $name spiser med til $(titleEggs $time)!  $(nag $name)"
+        message="$(ack)  $name spiser med til $(titleEggs $time)!  $(nag $name)"
+        echo $message
+        notOnEggsChannel && (echo $message | sayTo "$CONCIEGGS_DEFAULT_CHANNEL")
     else
         exit 1
     fi
