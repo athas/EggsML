@@ -25,7 +25,7 @@ fi
 
 amount=$(echo "$maybeamount" | egrep '^-?[0-9]+(\.[0-9][0-9])?$')
 if ! [ "$amount" ]; then
-    echo "$maybeamount synes ikke at være et gyldigt kronebeløb."
+    echo "$maybeamount synes ikke at være et gyldigt kronebeløb. Ved øre, brug 2 decimaler."
     exit 0
 fi
 
