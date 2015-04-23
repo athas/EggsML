@@ -1,5 +1,6 @@
 #!/bin/sh
 #
+# Format: Brug: indkøb <beløb> [hvem] [hvornår]
 # Notér i databasen at der er blevet foretaget et indkøb.  Man skal
 # være registreret hos Nickserv, med et kendt navn, før man får lov
 # til at notere et indkøb.  Man kan godt notere på andres vegne, men
