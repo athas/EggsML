@@ -6,7 +6,7 @@
 eval "$(echo "$@"| parse '(?<amount>-?[0-9]+(\.[0-9][0-9]?)?) ?(?<currency>[^ ]+) til (?<maybeto>[^ ]+)')"
 
 if ! [ "$amount" ]; then
-    echo 'Brug: overfør <beløb> til <modtager>'
+    echo 'Brug: overfør <beløb> <valuta> til <modtager>'
     exit
 fi
 
@@ -18,8 +18,7 @@ if ! [ "$from" ]; then
     exit
 fi
 
-#auth="$(isTrusted "$EGGS_USER")"
-auth=jaja
+auth="$(isTrusted "$EGGS_USER")"
 if ! [ "$auth" ]; then
     echo "Jeg stoler ikke på folk som $(dig $EGGS_USER), $EGGS_USER."
     exit
