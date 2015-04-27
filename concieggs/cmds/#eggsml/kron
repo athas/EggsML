@@ -2,13 +2,14 @@
 # Kongen kan vha. kron give sin magt videre til en anden eggser.
 
 if isKing "$EGGS_USER"; then
-  echo "$EGGS_USER har valgt at træde i Edward VIII's fodspor ..."
-  dbDelete eggsking
-if isTrusted "$1"; then 
-  makeKing $1
-  echo "Kongen er abdiceret, længe leve kongen!"
-  fi
-  echo "Konger er abdiceret, men kunne ikke finde en værdig efterfølger. Vinteren er på vej ..."
+    echo "$EGGS_USER har valgt at træde i Edward VIII's fodspor ..."
+    dbDelete eggsking
+    if isTrusted "$1"; then 
+	makeKing $1
+	echo "Kongen er abdiceret, længe leve kongen!"
+    else
+	echo "Konger er abdiceret, men kunne ikke finde en værdig efterfølger. Vinteren er på vej ..."
+    fi
 else
-  echo "Jeg tror allerede du ikke er konge, men undersåt. Kun kongen kan krone. Tror du det her er anarki!?"
+    echo "Jeg tror allerede du ikke er konge, men undersåt. Kun kongen kan krone. Tror du det her er anarki!?"
 fi
