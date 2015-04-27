@@ -1,0 +1,6 @@
+#!/bin/sh
+
+if isTrusted "$1"; then
+echo "Kong $1 længe leve!"
+makeKing "$1"
+fi
