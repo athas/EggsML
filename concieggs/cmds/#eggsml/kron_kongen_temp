@@ -1,6 +1,8 @@
 #!/bin/sh
 
 if isTrusted "$1"; then
-echo "Kong $1 længe leve!"
-makeKing "$1"
+    echo "Kong $1 længe leve!"
+    makeKing "$1"
+else
+    echo "Jeg kender ikke $1"
 fi
