@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo "Kongen er dræbt af ebola."
+dbDelete eggsking
