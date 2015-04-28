@@ -2,6 +2,14 @@
 #
 # Vælt kongen hvis I er nok!
 
+if [ "$#" = 0 ]; then
+    echo "$EGGS_USER: Vælt hvad?  Et glas vand?  Læsset?  På dansegulvet?  ...Kongen?"
+    exit
+elif [ "$1" != "kongen" ]; then
+    echo "$EGGS_USER: $(ack)  Vi siger bare at $@ er væltet."
+    exit
+fi
+
 kingname="$(dbRead eggsking)"
 if [ -z "$kingname" ]; then
     echo "$EGGS_USER: Uagtet dit ønske om at gøre oprør mod 'manden', så er tronen allerede ganske tom."
