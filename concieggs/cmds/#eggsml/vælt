@@ -35,12 +35,22 @@ echo "$rebel" | dbWriteAppend vilvæltekongen
 v="$(dbRead vilvæltekongen | wc -l | sed 's/ //g')"
 
 if [ "$v" -gt 4 ]; then
+
+    newKing=$(dbRead vilvæltekongen | randomElement)
+
     dbDelete eggsking
     dbDelete vilvæltekongen
+
     randomElement <<EOF
 KONGEN ER VÆLTET!
 Kongen er død!  Længe leve anarkiet!
 EOF
+
+    if [ "$newking" -a $(random 4) = 4 -a "$(isTrusted $newking)" ]; then
+        sleep 2
+        echo "Men hvad er nu dette?  $newking griber magten!  Længe leve den nye konge!"
+        makeKing "$newking"
+    fi
 else
     randomElement <<EOF
 Du forsøger dristigt at hugge hovedet af majestæten.
