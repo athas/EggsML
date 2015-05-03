@@ -10,8 +10,12 @@ if [ "$name" = "$CONCIEGGS_DEFAULT_NAME" ]; then
     exit
 fi
 
-
-if [ $# -eq 0 ]; then
+if isKing "$EGGS_USER"; then
+    randomElement <<EOF
+Ja, De har fuldstændig ret!
+Jeg undskylder, selvfølgelig er De korrekt i Deres observation.
+EOF
+elif [ $# -eq 0 ]; then
     echo "Min hvad?"
 else
     echo "$EGGS_USER: Nej, $(echo $(basename "$0"|awk '{print toupper($0)}')) $(echo "$@"|sed 's/[.!?]*$//')!"
