@@ -22,7 +22,7 @@ if [ "$user" ]; then
     if isInBadStanding "$alias" || [ $(echo "$s" | bc) = 1 ]; then
         if isKing "$alias"; then
             echo "Selvfølgelig kan jeg lide $alias, det er jo kongen..."
-            remove "$alias"
+            removeFromBadStanding "$alias"
         else
             echo "Nej, $user er et dumt svin."
         fi
