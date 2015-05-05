@@ -6,24 +6,32 @@ debt=$(lookupDebt $who)
 wish=$(eggstool wishes | randomElement)
 
 if [ "$(echo "$debt" | grep -v "-")" ]; then
-    echo "På kredit igen?  Javel ja..."
-    echo "$(Du $who) skal altså snart betale gælden på $debt kroner!"
-    echo "Tror $(du $who) EggsML er en velgørende fond?  Hvornår får vi vores penge?"
-    echo "Og de $debt kroner $(du $who) allerede skylder, hvor bliver de af?"
-    echo "Lad mig gætte: Det skal bare skrives på regningen."
-    echo "Hvis $(du $who) ikke snart betaler, så sender Dybber sine rockervenner efter $(dig $who)!"
-    echo "Hvis du har penge, så kan du få..."
-    echo "Nasserøv!"
-    if [ "$wish" ]; then
-        echo "$(Du $who) skylder allerede $debt kroner.  Hvad med at købe $wish før frokosten?"
-        echo "Hvis $(du $who) mødte op med $wish, så kunne det være, at dine logebrødre ville tolerere dit skammelige mislighold af din gæld."
-    fi
-    echo "Ender $(du $who) ikke snart i 'Luksusfælden'?"
-    echo "Og de $debt kroner $(du $who) allerede skylder?  Hvor er de?"
-    echo "Det kan ikke blive ved på den her måde - $(du $who) bør få et job!"
-    echo "Tror du ikke hellere $(du $who) bør skralde den i dag?  Gælden er allerede på $debt kroner."
-    echo "Og hvordan regner $(du $who) med at betale for det?"
-    echo "Og i modsætning til al tilgængelig evidens, så påstår $(du $who) naturligvis at $(du $who) vil betale denne gang, ikke?"
-    echo "Jeg er blot en bot, men $(du $who) skylder råt."
-    echo "$(Du $who) skylder altså over 0 kr.  Jeg tolererer det ikke."
-fi | randomElement
+    if isKing "$who"; then
+        echo "På kredit igen?  Javel ja..."
+        echo "$(Du $who) skal altså snart betale gælden på $debt kroner!"
+        echo "Tror $(du $who) EggsML er en velgørende fond?  Hvornår får vi vores penge?"
+        echo "Og de $debt kroner $(du $who) allerede skylder, hvor bliver de af?"
+        echo "Lad mig gætte: Det skal bare skrives på regningen."
+        echo "Hvis $(du $who) ikke snart betaler, så sender Dybber sine rockervenner efter $(dig $who)!"
+        echo "Hvis du har penge, så kan du få..."
+        echo "Nasserøv!"
+        if [ "$wish" ]; then
+            echo "$(Du $who) skylder allerede $debt kroner.  Hvad med at købe $wish før frokosten?"
+            echo "Hvis $(du $who) mødte op med $wish, så kunne det være, at dine logebrødre ville tolerere dit skammelige mislighold af din gæld."
+        fi
+        echo "Ender $(du $who) ikke snart i 'Luksusfælden'?"
+        echo "Og de $debt kroner $(du $who) allerede skylder?  Hvor er de?"
+        echo "Det kan ikke blive ved på den her måde - $(du $who) bør få et job!"
+        echo "Tror du ikke hellere $(du $who) bør skralde den i dag?  Gælden er allerede på $debt kroner."
+        echo "Og hvordan regner $(du $who) med at betale for det?"
+        echo "Og i modsætning til al tilgængelig evidens, så påstår $(du $who) naturligvis at $(du $who) vil betale denne gang, ikke?"
+        echo "Jeg er blot en bot, men $(du $who) skylder råt."
+        echo "$(Du $who) skylder altså over 0 kr.  Jeg tolererer det ikke."
+    else
+        echo "Vi er vel ikke på vej mod et nyt statsbankerot, Deres Majestæt?"
+        echo "Har De overvejet at hæve skatterne, $(randomKingName $who)?"
+        echo "Hvad med en krig som distraktion for Deres tomme kiste?"
+        echo "Har De overvejet en koloni i den Nye Verden?  Der skulle efter sigende være mange værdier."
+        echo "Deres højtærede Majestæt, pøblen klager over at de ikke har brød.  Måske De bør motivere dem."
+    fi | randomElement
+fi
