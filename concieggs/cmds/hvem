@@ -4,7 +4,7 @@
 # at benytte komplette sætninger!  Alternativt, spørg hvem der skal
 # købe ind eller hvem der har en ting.
 
-eval "$(echo "$@" | parse 'er (?<king>kongen?( (af|på) #?[Ee]ggs[Mm][Ll])?|(?<user>[^ ]+))$|(?<buy>(køber ind|skal købe ind|handler|skal handle ind))|(?<prikkede>(prikkede sidst))|har (?<thing>[^ ]+)')"
+eval "$(echo "$@" | parse 'er (?<king>kongen?( (af|på) #?[Ee]ggs[Mm][Ll])?|(?<user>[^ ]+))$|(?<buy>(køber ind|skal købe ind|handler|skal handle ind))|(?<prikkede>(prikkede sidst))|har (?<thing>[^ ]+)|(?<neggst>eggser)')"
 
 if [ "$king" ] && ! [ "$user" ]; then
     kingname="$(dbRead eggsking)"
@@ -109,6 +109,9 @@ elif [ "$thing" ]; then
     else
         echo "Ingen!"
     fi
+elif [ "$neggst" ]; then
+    runcmd neggst
+    exit
 else
     echo "Brug: hvem <er [navn|jeg]|skal købe ind|køber ind|prikkede sidst>"
     exit
