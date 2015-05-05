@@ -12,7 +12,7 @@ if [ "$(echo "$debt" | grep -v "-")" ]; then
         echo "Hvad med en krig som distraktion for Deres tomme kiste?"
         echo "Har De overvejet en koloni i den Nye Verden?  Der skulle efter sigende være mange værdier."
         echo "Deres højtærede Majestæt, pøblen klager over at de ikke har brød.  Måske De bør motivere dem."
-    echo
+    else
         echo "På kredit igen?  Javel ja..."
         echo "$(Du $who) skal altså snart betale gælden på $debt kroner!"
         echo "Tror $(du $who) EggsML er en velgørende fond?  Hvornår får vi vores penge?"
