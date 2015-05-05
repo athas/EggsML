@@ -23,6 +23,7 @@ if [ "$user" ]; then
         if isKing "$alias"; then
             echo "Selvfølgelig kan jeg lide $alias, det er jo kongen..."
             removeFromBadStanding "$alias"
+            pleasedBy "$alias" 25
         else
             echo "Nej, $user er et dumt svin."
         fi
