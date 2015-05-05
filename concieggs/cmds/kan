@@ -20,11 +20,20 @@ if [ "$user" ]; then
     fi
     s="$(annoyanceAt "$alias") > 0"
     if isInBadStanding "$alias" || [ $(echo "$s" | bc) = 1 ]; then
-        echo "Nej, $user er et dumt svin."
+        if isKing "$alias"; then
+            echo "Selvfølgelig kan jeg lide $alias, det er jo kongen..."
+            remove "$alias"
+        else
+            echo "Nej, $user er et dumt svin."
+        fi
     fi
     s="$(annoyanceAt "$alias") < 0"
     if [ $(echo "$s" | bc) = 1 ]; then
-        echo "Ja, $user er god nok."
+        if isKing "$alias"; then
+            echo "Selvfølgelig, det er jo vores alles konge."
+        else
+            echo "Ja, $user er god nok."
+        fi
     fi
     if [ $(annoyanceAt "$alias") = 0 ]; then
         if [ "$user" = "du" ]; then
