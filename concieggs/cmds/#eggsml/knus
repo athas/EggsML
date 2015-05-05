@@ -1,0 +1,37 @@
+#!/bin/sh
+#
+# Knus oprøret
+
+if [ "$#" = 0 ]; then
+    if isKing "$EGGS_USER"; then
+        echo "Det er ikke passende, Deres Majestæt."
+    else
+        echo "Skal du allerede have en krammer?"
+    fi
+    exit
+elif [ "$1" != "oprøret" ]; then
+    echo "Jeg har knust $@."
+    exit
+fi
+
+v="$(dbRead vilvæltekongen | wc -l | sed 's/ //g')"
+
+if [ v = 0 ]; then
+    echo "Der er intet oprør."
+    exit
+fi
+
+if ! isKing "$EGGS_USER"; then
+    kingname="$(dbRead eggsking)"
+    echo "Jeg vil straks fortælle kongen at der er et oprør imod ham!"
+    echo "$(randomKingName $kingname)!  Der er nogle rebeller der prøver at fratage Dem Deres retmæssig magt!"
+else
+    echo "Jeg vil gøre mit bedste, Deres Majestæt!"
+    if [ $(random 4) = 4 ]; then
+        echo "De fik mig, Deres Majestæt, oprøret lever videre..."
+    else
+        dbDelete vilvæltekongen
+        echo "Oprøret er stoppet, Deres Majestæt."
+    fi
+fi
+
