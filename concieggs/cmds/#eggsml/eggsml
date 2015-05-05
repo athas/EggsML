@@ -18,7 +18,11 @@ subscribeToEggs() {
     elif addToEggs "$time" "$name"; then
         echo "$(ack) $name spiser med til $(titleEggs $time)! $(nag $name)"
         if notOnEggsChannel; then
-            echo "$name har i al diskretion meldt sig til $(titleEggs $time)! Troede du ikke vi ville opdage det, hva'? $(sviner)" | sayTo "$CONCIEGGS_DEFAULT_CHANNEL"
+            if isKing "$name"; then
+                echo "Kong $name har i absentia tilmeldt sig $(titleEggs $time)!" | sayTo "$CONCIEGGS_DEFAULT_CHANNEL"
+            else
+                echo "$name har i al diskretion meldt sig til $(titleEggs $time)! Troede du ikke vi ville opdage det, hva'? $(sviner)" | sayTo "$CONCIEGGS_DEFAULT_CHANNEL"
+            fi
         fi
     else
         exit 1
