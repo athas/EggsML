@@ -61,10 +61,11 @@ EOF
     fi
 else
     randomElement <<EOF
-Du forsøger dristigt at hugge hovedet af majestæten.
+Du ser en gammel film.
 Du bagtaler kongen på en bar.
 Du planlægger en retningsbestemt slotseksplosion.
 Du lægger dit hovede i blød.
+Du drømmer dig langt væk.
 Du tager dit sværd ud af kisten.
 EOF
     echo "Kun $v har meldt sig under den revolutionære fane!  I skal være flere!"
