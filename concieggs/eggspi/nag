@@ -7,6 +7,12 @@ wish=$(eggstool wishes | randomElement)
 
 if [ "$(echo "$debt" | grep -v "-")" ]; then
     if isKing "$who"; then
+        echo "Vi er vel ikke på vej mod et nyt statsbankerot, Deres Majestæt?"
+        echo "Har De overvejet at hæve skatterne, $(randomKingName $who)?"
+        echo "Hvad med en krig som distraktion for Deres tomme kiste?"
+        echo "Har De overvejet en koloni i den Nye Verden?  Der skulle efter sigende være mange værdier."
+        echo "Deres højtærede Majestæt, pøblen klager over at de ikke har brød.  Måske De bør motivere dem."
+    echo
         echo "På kredit igen?  Javel ja..."
         echo "$(Du $who) skal altså snart betale gælden på $debt kroner!"
         echo "Tror $(du $who) EggsML er en velgørende fond?  Hvornår får vi vores penge?"
@@ -27,11 +33,5 @@ if [ "$(echo "$debt" | grep -v "-")" ]; then
         echo "Og i modsætning til al tilgængelig evidens, så påstår $(du $who) naturligvis at $(du $who) vil betale denne gang, ikke?"
         echo "Jeg er blot en bot, men $(du $who) skylder råt."
         echo "$(Du $who) skylder altså over 0 kr.  Jeg tolererer det ikke."
-    else
-        echo "Vi er vel ikke på vej mod et nyt statsbankerot, Deres Majestæt?"
-        echo "Har De overvejet at hæve skatterne, $(randomKingName $who)?"
-        echo "Hvad med en krig som distraktion for Deres tomme kiste?"
-        echo "Har De overvejet en koloni i den Nye Verden?  Der skulle efter sigende være mange værdier."
-        echo "Deres højtærede Majestæt, pøblen klager over at de ikke har brød.  Måske De bør motivere dem."
     fi | randomElement
 fi
