@@ -23,6 +23,11 @@ if ! [ "$rebel" ]; then
     exit
 fi
 
+if isKing "$rebel"; then
+    echo "Ærede majestæt, det ville være upassende hvis De skulle begå attentat mod eget embede.  Hvad vil folket ikke tænke?"
+    exit
+fi
+
 harVaeltet() {
     dbRead vilvæltekongen | {
         while read user; do
