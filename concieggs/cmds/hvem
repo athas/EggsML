@@ -21,7 +21,7 @@ elif [ "$god" ] && ! [ "$user" ]; then
         godname="$(dbRead eggsgod)"
         echo "$godname er vor Herre!  Underkast jer hans fromhed!"
     else
-        echo "Vores mytologi har $v guder!  De er $(listGods)."
+        echo "Vores mytologi har $v guder: $(listGods)."
     fi
 elif [ "$user" ]; then
     if [ $user = jeg ]; then
