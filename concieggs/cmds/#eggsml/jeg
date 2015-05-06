@@ -3,7 +3,7 @@
 # Nedfæld essentielle personlige fakta og præferencer i logeprotokollen.
 
 
-eval "$(echo "$@" | parse 'er ((?<beneggter>beneggter)|(?<eggsalteret>eggsalteret))|foretrækker ((?<nothing>intet)|(?<pref>.+))|(?<birthday>har fødselsdag i dag)|er (?<king>konge)|er(?:<also> også)(?:<truegod> den (?: eneste) (sande|rigtige)) (?<god>gud)')"
+eval "$(echo "$@" | parse 'er ((?<beneggter>beneggter)|(?<eggsalteret>eggsalteret))|foretrækker ((?<nothing>intet)|(?<pref>.+))|(?<birthday>har fødselsdag i dag)|er (?<king>konge)|er (?<god>gud)|er (?<alsogod>også gud)|er (?<truegod>den (?: eneste) (sande|rigtige) gud)')"
 
 who=$(randomName $EGGS_USER)
 if ! [ "$who" ]; then
@@ -61,7 +61,7 @@ elif [ "$god" ]; then
             echo "De er jo allerede en af vor guder!"
         fi
     elif isThereAGod; then
-        if [ "$also" ]; then
+        if [ "$alsogod" ]; then
             if [ v = 1 ]; then
                 echo "Moderne monotenitiske religioner er forkerte!  Flere guder er vejen!"
             else
