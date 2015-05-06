@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Make a user God!
+
+echo "$1" | dbWrite eggsgod

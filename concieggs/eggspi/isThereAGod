@@ -1,0 +1,5 @@
+#!/bin/sh
+
+v="$(dbRead eggsgod | wc -l | sed 's/ //g')"
+
+[ $v -gt 0 ]

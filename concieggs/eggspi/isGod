@@ -1,0 +1,11 @@
+#!/bin/sh
+
+u=$1
+dbRead eggsgod | {
+    while read user; do
+        if cmpNames $u $user; then
+            exit 0
+        fi
+    done
+    exit 1
+}
