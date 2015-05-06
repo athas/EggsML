@@ -89,6 +89,7 @@ PtxDK
 for/indenfor
 <h1>HTML-injection</h1>
 <body
+<style>body{background:#80BFFF;}</style>
 
 # Husk på, farvesektionen kan ikke have kommentarer, da det
 # kan indgå i farvesyntaksen.
