@@ -3,9 +3,11 @@
 name=$(randomName "$1")
 if isGod "$1"; then
     randomElement <<EOF
-    pave $name I
-    pape $name IX
-    pompus $name VI
+hans Hellighed
+den Øverste
+vor Frelser
+vor Ophøjede Skaber
+$1 Augustus
 EOF
 else
     randomElement <<EOF
