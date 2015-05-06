@@ -89,6 +89,7 @@ PtxDK
 <a\
 <?php\
 <?php
+echo
 
 # Husk på, farvesektionen kan ikke have kommentarer, da det
 # kan indgå i farvesyntaksen.
