@@ -15,9 +15,9 @@ if [ "$king" ] && ! [ "$god" ] && ! [ "$user" ]; then
     fi
 elif [ "$god" ] && ! [ "$user" ]; then
     v="$(dbRead eggsgod | wc -l | sed 's/ //g')"
-    if [ v = 0 ]; then
+    if [ $v = 0 ]; then
         echo "Der er ingen gud!  Alt er kaos!"
-    elif [ v = 1 ]; then
+    elif [ $v = 1 ]; then
         godname="$(dbRead eggsgod)"
         echo "$godname er vor Herre!  Underkast jer hans fromhed!"
     else
