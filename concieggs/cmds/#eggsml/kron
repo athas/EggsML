@@ -4,11 +4,18 @@
 if isKing "$EGGS_USER"; then
     echo "$EGGS_USER har valgt at træde i Edward VIII's fodspor ..."
     dbDelete eggsking
-    if isTrusted "$1"; then 
-	makeKing "$1"
-	echo "Kongen er abdiceret, længe leve kongen!"
+    if isTrusted "$1"; then
+        makeKing "$1"
+        echo "Kongen er abdiceret, længe leve kongen!"
     else
-	echo "Kongen er abdiceret, men kunne ikke finde en værdig efterfølger. Der blæser en kold vind fra nord. Kun den stærke vil overleve ..."
+        echo "Kongen er abdiceret, men kunne ikke finde en værdig efterfølger. Der blæser en kold vind fra nord. Kun den stærke vil overleve ..."
+    fi
+elif isGod "$EGGS_USER"; then
+    if isTrusted "$1"; then
+        echo "Gud har skænget kronen til $1!  Længe leve $1!"
+        makeKing "$1"
+    else
+        echo "End ikke alle er lige i Guds øjne."
     fi
 else
     echo "Jeg tror allerede du ikke er konge, men undersåt. Kun kongen kan krone. Tror du det her er anarki!?"
