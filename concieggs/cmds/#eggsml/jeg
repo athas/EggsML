@@ -3,7 +3,7 @@
 # Nedfæld essentielle personlige fakta og præferencer i logeprotokollen.
 
 
-eval "$(echo "$@" | parse 'er ((?<beneggter>beneggter)|(?<eggsalteret>eggsalteret))|foretrækker ((?<nothing>intet)|(?<pref>.+))|(?<birthday>har fødselsdag i dag)|er (?<king>konge)')"
+eval "$(echo "$@" | parse 'er ((?<beneggter>beneggter)|(?<eggsalteret>eggsalteret))|foretrækker ((?<nothing>intet)|(?<pref>.+))|(?<birthday>har fødselsdag i dag)|er (?<king>konge)|er(?<also>: også)(?<truegod>: den (?: eneste) (sande|rigtige)) (?<god>gud)')"
 
 who=$(randomName $EGGS_USER)
 if ! [ "$who" ]; then
@@ -51,6 +51,37 @@ elif [ "$king" ]; then
         else
             echo "Nej haj!"
         fi
+    fi
+elif [ "$god" ]; then
+    v="$(dbRead eggsgod | wc -l | sed 's/ //g')"
+    if isGod "$god"; then
+        if [ v = 1 ]; then
+            echo "Men De er jo allerede vor Herre!"
+        else
+            echo "De er jo allerede en af vor guder!"
+        fi
+    elif isThereAGod; then
+        if [ "$also" ]; then
+            if [ v = 1 ]; then
+                echo "Moderne monotenitiske religioner er forkerte!  Flere guder er vejen!"
+            else
+                echo "Vores mytologi vokser!  Jo flere guder jo bedre!"
+            fi
+            makeGod "$EGGS_USER"
+        elif [ "$truegod" ]; then
+            echo "Ud med de hedenske guder!  Hil vor Herre $EGGS_USER!"
+            removePaganGods
+            makeGod "$EGGS_USER"
+        else
+            if [ v = 1 ]; then
+                echo "Men der er allerede en gud!"
+            else
+                echo "Måske du skal spørge de andre guder først?"
+            fi
+        fi
+    else
+        echo "Vor Herre $EGGS_USER!  Lad os alle bede."
+        makeGod "$EGGS_USER"
     fi
 else
     echo "Brug: jeg <er <beneggter|eggsalteret>>|<foretrækker <præference>>|<har fødselsdag i dag>"
