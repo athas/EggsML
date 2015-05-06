@@ -67,11 +67,11 @@ elif [ "$god" ] || [ "$alsogod" ] || [ "$truegod" ]; then
             else
                 echo "Vores mytologi vokser!  Jo flere guder jo bedre!"
             fi
-            makeGod "$EGGS_USER"
+            makeGod "$who"
         elif [ "$truegod" ]; then
-            echo "Ud med de hedenske guder!  Hil vor Herre $EGGS_USER!"
+            echo "Ud med de hedenske guder!  Hil vor Herre $who!"
             removePaganGods
-            makeGod "$EGGS_USER"
+            makeGod "$who"
         else
             if [ "$v" = 1 ]; then
                 echo "Men der er allerede en gud!"
@@ -80,8 +80,8 @@ elif [ "$god" ] || [ "$alsogod" ] || [ "$truegod" ]; then
             fi
         fi
     else
-        echo "Vor Herre $EGGS_USER!  Lad os alle bede."
-        makeGod "$EGGS_USER"
+        echo "Vor Herre $who!  Lad os alle bede."
+        makeGod "$who"
     fi
 else
     echo "Brug: jeg <er <beneggter|eggsalteret>>|<foretrækker <præference>>|<har fødselsdag i dag>"
