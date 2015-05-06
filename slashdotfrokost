@@ -88,6 +88,7 @@ ziggimaguagua, signe, enhjørning, zididada, rigtig-svensker
 PtxDK
 <a\
 <?php\
+<?php
 
 # Husk på, farvesektionen kan ikke have kommentarer, da det
 # kan indgå i farvesyntaksen.
