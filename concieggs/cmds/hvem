@@ -6,7 +6,7 @@
 
 eval "$(echo "$@" | parse 'er (?<king>kongen?( (af|på) #?[Ee]ggs[Mm][Ll])?|(?<god>gud)|(?<user>[^ ]+))$|(?<buy>(køber ind|skal købe ind|handler|skal handle ind))|(?<prikkede>(prikkede sidst))|har (?<thing>[^ ]+)|(?<neggst>eggser)')"
 
-if [ "$king" ] && ! [ "$user" ]; then
+if [ "$king" ] && ! [ "$god" ] ! [ "$user" ]; then
     kingname="$(dbRead eggsking)"
     if [ -z "$kingname" ]; then
         echo "Der er ingen siddende konge af EggsML."
