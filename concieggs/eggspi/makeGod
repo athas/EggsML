@@ -2,4 +2,4 @@
 #
 # Make a user God!
 
-echo "$1" | dbWrite eggsgod
+echo "$1" | dbWriteAppend eggsgod
