@@ -4,7 +4,7 @@
 # at benytte komplette sætninger!  Alternativt, spørg hvem der skal
 # købe ind eller hvem der har en ting.
 
-eval "$(echo "$@" | parse 'er (?<king>kongen?( (af|på) #?[Ee]ggs[Mm][Ll])?|(?<user>[^ ]+))$|(?<buy>(køber ind|skal købe ind|handler|skal handle ind))|(?<prikkede>(prikkede sidst))|har (?<thing>[^ ]+)|(?<neggst>eggser)')"
+eval "$(echo "$@" | parse 'er (?<king>kongen?( (af|på) #?[Ee]ggs[Mm][Ll])?|(?<god>gud)|(?<user>[^ ]+))$|(?<buy>(køber ind|skal købe ind|handler|skal handle ind))|(?<prikkede>(prikkede sidst))|har (?<thing>[^ ]+)|(?<neggst>eggser)')"
 
 if [ "$king" ] && ! [ "$user" ]; then
     kingname="$(dbRead eggsking)"
@@ -12,6 +12,16 @@ if [ "$king" ] && ! [ "$user" ]; then
         echo "Der er ingen siddende konge af EggsML."
     else
         echo "$(randomName $kingname) sidder på tronen!  Hil $(randomName $kingname)!  Han længe leve!"
+    fi
+elif [ "$god" ] && ! [ "$user" ]; then
+    v="$(dbRead eggsgod | wc -l | sed 's/ //g')"
+    if [ v = 0 ]; then
+        echo "Der er ingen gud!  Alt er kaos!"
+    elif [ v = 1 ]; then
+        godname="$(dbRead eggsgod)"
+        echo "$godname er vor Herre!  Underkast jer hans fromhed!"
+    else
+        echo "Vores mytologi har $v guder!  De er $(listGods)."
     fi
 elif [ "$user" ]; then
     if [ $user = jeg ]; then
