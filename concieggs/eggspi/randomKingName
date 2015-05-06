@@ -1,10 +1,18 @@
 #!/bin/sh
 
 name=$(randomName "$1")
-randomElement <<EOF
+if isGod "$1"; then
+    randomElement <<EOF
+    pave $name I
+    pape $name IX
+    pompus $name VI
+EOF
+else
+    randomElement <<EOF
 kong $name
 hans majestæt $name
 hans majestæt
 $name rex
 hans kongelige højhed $1
 EOF
+fi
