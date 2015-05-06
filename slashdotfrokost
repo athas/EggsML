@@ -92,6 +92,7 @@ PtxDK
 echo
 "test"
 ?>
+<h1>fiks_me</h1>
 
 # Husk på, farvesektionen kan ikke have kommentarer, da det
 # kan indgå i farvesyntaksen.
