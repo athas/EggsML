@@ -1,0 +1,21 @@
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+use utf8::all;
+use Env qw/CONCIEGGS_LIB_DIR/;
+
+my %aliases = map { (lc($_) => 1) } split("\n", `allAliases`);
+
+sub preben {
+    my $name = shift;
+
+    return $name unless $aliases{lc($name)};
+
+    return "Preben";
+}
+
+while (my $line = <>) {
+    $line =~ s/\b(\S*)\b/preben($1)/ge;
+
+    print $line;
+}
