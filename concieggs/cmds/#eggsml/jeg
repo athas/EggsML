@@ -3,7 +3,7 @@
 # Nedfæld essentielle personlige fakta og præferencer i logeprotokollen.
 
 
-eval "$(echo "$@" | parse 'er ((?<beneggter>beneggter)|(?<eggsalteret>eggsalteret))|foretrækker ((?<nothing>intet)|(?<pref>.+))|(?<birthday>har fødselsdag i dag)|er (?<king>konge)|er (?<god>gud)|er (?<alsogod>også gud)|er (?<truegod>den eneste (sande|rigtige) gud)')"
+eval "$(echo "$@" | parse 'er ((?<beneggter>beneggter)|(?<eggsalteret>eggsalteret))|foretrækker ((?<nothing>intet)|(?<pref>.+))|(?<birthday>har fødselsdag i dag)|er (?<king>konge)|er (?<god>gud)|er (?<alsogod>også gud)|er (?<truegod>den eneste (sande|rigtige) gud)|er (?<root>root)')"
 
 who=$(randomName $EGGS_USER)
 if ! [ "$who" ]; then
@@ -82,6 +82,17 @@ elif [ "$god" ] || [ "$alsogod" ] || [ "$truegod" ]; then
     else
         echo "Vor Herre $who!  Lad os alle bede."
         makeGod "$who"
+    fi
+elif [ "$root" ]; then
+    auth="$(authedName $EGGS_USER)"
+    if ! [ "$auth" ]; then
+        echo "$EGGS_USER: Det har jeg svært ved at sige."
+        annoyedBy "$EGGS_USER" 2
+    elif [ "$auth" = Athas ]; then
+        echo "$EGGS_USER: Ja."
+    else
+        echo "$EGGS_USER: Nej."
+        annoyedBy "$EGGS_USER" 10
     fi
 else
     echo "Brug: jeg <er <beneggter|eggsalteret>>|<foretrækker <præference>>|<har fødselsdag i dag>"
