@@ -1,22 +1,25 @@
 #!/bin/sh
-# Kongen kan vha. kron give sin magt videre til en anden eggser.
+# Kongen kan vha. kron give sin magt videre til en anden eggser. Også Gud Vorherre kan krone en konge. Staver du forkert, kan det dog få voldsomme konsekvenser.
 
 if isKing "$EGGS_USER"; then
     echo "$EGGS_USER har valgt at træde i Edward VIII's fodspor ..."
     dbDelete eggsking
     if isTrusted "$1"; then
         makeKing "$1"
-        echo "Kongen er abdiceret, længe leve kongen!"
+        echo "Kongen er abdiceret! Længe leve kongen!"
+	echo "Hil Kong $1!"
     else
-        echo "Kongen er abdiceret, men kunne ikke finde en værdig efterfølger. Der blæser en kold vind fra nord. Kun den stærke vil overleve ..."
+        echo "Kongen er abdiceret, men magtede ikke at finde en værdig efterfølger. Der blæser en kold vind fra nord. Kun den stærke vil overleve i dette anarki ..."
     fi
 elif isGod "$EGGS_USER"; then
     if isTrusted "$1"; then
-        echo "Gud har skænget kronen til $1!  Længe leve $1!"
+        echo "Gud har skænket kronen til $1!  Længe leve $1!"
         makeKing "$1"
     else
         echo "End ikke alle er lige i Guds øjne."
+	dbDelete eggsking
+	echo "Gud har dog fundet $1 uværdig til tronen, og anarkiet hersker nu i EggsML. Kun den stærke vil overleve ..."
     fi
 else
-    echo "Jeg tror allerede du ikke er konge, men undersåt. Kun kongen kan krone. Tror du det her er anarki!?"
+    echo "Du ikke er konge, men undersåt. Kun kongen kan krone. Tror du det her er anarki!?"
 fi
