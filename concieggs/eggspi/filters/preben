@@ -11,7 +11,7 @@ sub preben {
 
     return $name unless $aliases{lc($name)};
 
-    return "Preben";
+    return navn();
 }
 
 while (my $line = <>) {
@@ -19,3 +19,10 @@ while (my $line = <>) {
 
     print $line;
 }
+
+sub navn {
+    @array   = ("Preben", "Snefred", "Sigurd", "Musse");
+    $index   = rand @array;
+    $element = $array[$index];
+    return $element
+    }
