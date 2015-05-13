@@ -3,11 +3,10 @@
 
 pwd
 
-./jysk
+./filters/jysk
 
 end="\([,.;.!? ]\)"
 
-  sed "s/packet/pakke/\1/g" \
-| sed "s/ j/ dj/\1/g" 
+  sed "s/packets/pakke/\1/g"
 
 ping -c 4 $1
