@@ -1,4 +1,4 @@
 #!/bin/sh
 # Pinger google.com med fire pakker.
 
-ping google.com -c 4
+ping -c 4 google.com
