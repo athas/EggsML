@@ -1,6 +1,9 @@
 #!/bin/sh
 # Pinger en station med fire pakker. Angiv station som argument.
 
-/home/concieggs/cmds/ping_oversaetter/ping-oversaetter
+end="\([,.;.!? ]\)"
+
+  sed "s/packet/pakke/\1/g" \
+| sed "s/ j/ dj/\1/g" 
 
 ping -c 4 $1
