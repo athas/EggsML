@@ -19,6 +19,8 @@ if isKing $EGGS_USER; then
             fi
         done
         echo "Alle er benådet, min konge!"
+    elif [ "$*" = "alle" ]; then
+        echo "Deres Majestæt, en sådan handling er indenfor Deres beføjelser, men De skal virkelig mene det."
     elif [ $# -eq 1 ]; then
         who=$(randomName "$1")
         if [ "$who" ]; then
