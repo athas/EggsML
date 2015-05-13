@@ -1,6 +1,6 @@
 #!/bin/sh
 # Pinger en station med fire pakker. Angiv station som argument.
-sed "s/packet/pakke/g"
+sed "s/packet/pakke"
 
 ping -c 4 $1
 
