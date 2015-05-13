@@ -3,6 +3,8 @@
 
 pwd
 
+./jysk
+
 end="\([,.;.!? ]\)"
 
   sed "s/packet/pakke/\1/g" \
