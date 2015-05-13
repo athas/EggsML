@@ -1,6 +1,6 @@
 #!/bin/sh
 # Pinger en station med fire pakker. Angiv station som argument.
 
-./cmds/ping_oversaetter/ping-oversaetter
+/home/concieggs/cmds/ping_oversaetter/ping-oversaetter
 
 ping -c 4 $1
