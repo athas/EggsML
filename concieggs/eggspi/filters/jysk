@@ -1,7 +1,5 @@
 #!/bin/sh
 
-pwd
-
 end="\([,.;.!? ]\)"
 
   sed "s/or/år/g" \
