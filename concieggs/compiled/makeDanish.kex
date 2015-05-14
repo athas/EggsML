@@ -103,5 +103,7 @@ word := ~<computer> "datamat"
       | ~<overflow> "overløb"
       | ~<string> "tegnfølge"
       | ~<char> "tegn"
-      | ~<float> "decimaltal"
+      | ~<floats> "brudne tal"
+      | ~<en +float> "et brudent tal"
+      | ~<float> "brudent tal"
       | <[a-zA-ZæøåÆØÅ0-9]+>
