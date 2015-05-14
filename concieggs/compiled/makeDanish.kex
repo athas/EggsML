@@ -104,6 +104,6 @@ word := ~<computer> "datamat"
       | ~<string> "tegnfølge"
       | ~<char> "tegn"
       | ~<floats> "brudne tal"
-      | ~<en +float> "et brudent tal"
+      | ~<en float> "et brudent tal"
       | ~<float> "brudent tal"
       | <[a-zA-ZæøåÆØÅ0-9]+>
