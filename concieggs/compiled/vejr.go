@@ -76,13 +76,22 @@ func main() {
 	windDirectionstr := wind["direction"].(string)
 	item := channel["item"].(map[string]interface{})
 	pubDate := item["pubDate"].(string) //tid for observation
-	
-	
-	/* Manipuler størrelser og converter til m/s */
+
+	/* Hent temperaturdata */
+	condition := item["condition"].(map[string]interface{})
+	tempFstr := condition["temp"].(string)
+	tempF,_ := strconv.Atoi(tempFstr)
+	tempC := float64(tempF-32.0)*5.0/9.0
+
+	/* Hent vejrforhold -- skal fra eng til dk!! */
+	//text := condition["text"].(map[string]interface{})
+
+
+	/* Manipuler vindstørrelser og converter til m/s */
 	windSpeedmph, _ := strconv.Atoi(windSpeedstr)
 	windSpeedms := 0.447*float64(windSpeedmph)
 
-
+	/* Hvorfra blæser det? */
 	windDirection, _ := strconv.Atoi(windDirectionstr)
 	switch {
 	case (projicerVindretning(windDirection, 0, OPLOESNING)):
@@ -106,6 +115,8 @@ func main() {
 	}
 
 	fmt.Println("Vejrdata fra: ", pubDate)
-	fmt.Println("Vindhastigheden er: ", windSpeedms, "sekundmeter")
+	fmt.Println("Temperaturen er", int(tempC), " grader celcius.")
+	fmt.Printf("Vindhastigheden er: %.1f sekundmeter.", windSpeedms)
 	fmt.Println("Det blæser fra " + windDirectionstr)
+	//fmt.Println("Vejrforholdene beskrives som:")
 }
