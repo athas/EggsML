@@ -86,11 +86,23 @@ func main() {
 	windDirection, _ := strconv.Atoi(windDirectionstr)
 	switch {
 	case (projicerVindretning(windDirection, 0, OPLOESNING)):
-		windDirectionstr = "Nord"
+		windDirectionstr = "nord"
 	case (projicerVindretning(windDirection, 360, OPLOESNING )):
-		windDirectionstr = "Nord"
-	case (true):
-		windDirectionstr = "Ikke nord"
+		windDirectionstr = "nord"
+	case (projicerVindretning(windDirection, 45, OPLOESNING )):
+		windDirectionstr = "nordøst"
+	case (projicerVindretning(windDirection, 90, OPLOESNING )):
+		windDirectionstr = "øst"
+	case (projicerVindretning(windDirection, 135, OPLOESNING )):
+		windDirectionstr = "sydøst"
+	case (projicerVindretning(windDirection, 180, OPLOESNING )):
+		windDirectionstr = "syd"
+	case (projicerVindretning(windDirection, 225, OPLOESNING )):
+		windDirectionstr = "sydvest"
+	case (projicerVindretning(windDirection, 270, OPLOESNING )):
+		windDirectionstr = "vest"
+	case (projicerVindretning(windDirection, 315, OPLOESNING )):
+		windDirectionstr = "nordvest"
 	}
 
 	fmt.Println("Vejrdata fra: ", pubDate)
