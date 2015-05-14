@@ -114,9 +114,11 @@ func main() {
 		windDirectionstr = "nordvest"
 	}
 
-	fmt.Println("Vejrdata fra: %s.", pubDate)
+	fmt.Printf("Vejrdata fra: %s.", pubDate)
+	fmt.Println("")
 	fmt.Println("Temperaturen er", int(tempC), " grader celcius.")
 	fmt.Printf("Vindhastigheden er: %.1f sekundmeter. ", windSpeedms)
-	fmt.Println("Det blæser fra %s.", windDirectionstr)
+	fmt.Printf("Det blæser fra %s.", windDirectionstr)
+	fmt.Println("")
 	//fmt.Println("Vejrforholdene beskrives som:")
 }
