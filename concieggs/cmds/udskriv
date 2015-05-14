@@ -54,7 +54,7 @@ process() {
     if [ "$mail" ]; then
         (   echo 'Find indkøbslisten vedhæftet.'
             uuencode indkøbsliste.pdf
-        ) | mailx -s "Indkøbsliste til EggsML" "$mail" -- -r concieggs@eggsml.dk
+        ) | mailx -r concieggs@eggsml.dk -s "Indkøbsliste til EggsML" "$mail"
         echo "Sender til $mail!"
     else
         ssh athas@brok.diku.dk 'lpr -P'"$printer"
