@@ -23,5 +23,5 @@ rose() {
 if ircChannel | grep -q '^#'; then
     rose
 else
-    rose | sayTo "$CONCIEGGS_IRC_CHANNEL"
+    rose | sayTo "$CONCIEGGS_DEFAULT_CHANNEL"
 fi
