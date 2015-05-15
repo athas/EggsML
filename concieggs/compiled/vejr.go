@@ -65,24 +65,35 @@ func projicerVindretning(koordinat float64, hovedretning, oploesning int) bool {
 }
 
 func main() {
-	var city, country string
-	if len(os.Args) == 1 {
-		city = "København"
-		country = "Danmark"
-	} else if len(os.Args) == 2 {
-		city = os.Args[1]
-		country = "Danmark"
-	} else {
-		city = strings.Trim(os.Args[1], ",")
-		country = os.Args[2]
+	city := "København"
+	country := "Danmark"
+	if len(os.Args) > 1 {
+		args := append(os.Args[:0], os.Args[1:]...)
+		argsStr := strings.Join(args, " ")
+		ss := strings.Split(argsStr, ",")
+		if len(ss) == 1 {
+			city = ss[0]
+		}
+		if len(ss) >= 2 {
+			city = strings.Trim(ss[0], " ")
+			country = strings.Trim(ss[1], " ")
+		}
 	}
 	
-	resp, _ := http.Get(fmt.Sprintf("http://api.openweathermap.org/data/2.5/weather?q=%s,%s&lang=da&units=metric&APPID=%s", url.QueryEscape(city), url.QueryEscape(country), APIKEY))
+	resp, err := http.Get(fmt.Sprintf("http://api.openweathermap.org/data/2.5/weather?q=%s,%s&lang=da&units=metric&APPID=%s", url.QueryEscape(city), url.QueryEscape(country), APIKEY))
+	if err != nil {
+		fmt.Println("Den by findes vist ikke.")
+		return
+	}
 	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
 	
 	var dat JsonAPI
-	json.Unmarshal(body,&dat)
+	err = json.Unmarshal(body,&dat)
+	if err != nil {
+		fmt.Println("Den by findes vist ikke.")
+		return
+	}
 
 	/* Hent relevant vinddata fra JSON-struktur */
 	degrees := dat.Main.Temp
