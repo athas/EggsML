@@ -76,7 +76,6 @@ func main() {
 		city = strings.Trim(os.Args[1], ",")
 		country = os.Args[2]
 	}
-	fmt.Println(city, country)
 	
 	resp, _ := http.Get(fmt.Sprintf("http://api.openweathermap.org/data/2.5/weather?q=%s,%s&lang=da&units=metric&APPID=%s", url.QueryEscape(city), url.QueryEscape(country), APIKEY))
 	defer resp.Body.Close()
