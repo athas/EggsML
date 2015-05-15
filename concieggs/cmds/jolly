@@ -1,4 +1,5 @@
 #!/bin/sh
+#
 # Sig Jolly til din concieggs!
 
 nam=`randomElement <<EOF
