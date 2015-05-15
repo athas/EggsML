@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# Brug concieggs' tid på at rose folk.
+
+ass=$EGGS_USER
+
+if [ $# -gt 0 ]; then
+    rose="$1"
+else
+    echo "Brug: ros <navn>"
+    exit
+fi
+
+if [ "$rose" = "$CONCIEGGS_NAME" -o "$rose" = "dig" ]; then
+    echo "$ass: Det føler jeg nu intet behov for."
+    exit
+fi
+
+rose() {
+    echo "$rose: Godt gået!"
+}
+
+if ircChannel | grep -q '^#'; then
+    rose
+else
+    rose | sayTo "$CONCIEGGS_IRC_CHANNEL"
+fi
