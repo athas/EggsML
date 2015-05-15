@@ -47,7 +47,7 @@ if [ "$taken" ]; then
     exit
 fi
 
-if [ "$newalias" = concieggs ]; then
+if ! isValidAlias "$newalias"; then
     echo "$EGGS_USER: Haha.  Nej."
     exit
 fi

@@ -1,0 +1,18 @@
+#!/bin/sh
+
+alias="$1"
+
+case "$alias" in
+    concieggs)
+        exit 1;;
+    dig)
+        exit 1;;
+    mig)
+        exit 1;;
+    konge)
+        exit 1;;
+    gud)
+        exit 1;;
+    *)
+        exit 0;;
+esac

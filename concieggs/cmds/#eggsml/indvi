@@ -26,6 +26,11 @@ if ! (echo "$1" | egrep '^[^, ]+$' > /dev/null); then
     exit
 fi
 
+if ! isValidAlias "$1"; then
+    echo "$EGGS_USER: Næhæ, dét er for mærkeligt!"
+    exit
+fi
+
 if gitRefresh; then
     cd $EGGS_DIR
     ed slashdotfrokost > /dev/null <<EOF
