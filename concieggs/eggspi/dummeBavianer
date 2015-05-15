@@ -48,6 +48,9 @@ kursusansvarlige
 radikale
 pseudovidenskabelige
 makrel-lugtende
+underforståede
+web-udviklende
+Facebook-afhængige
 light-mayonaisse-købende
 EOF`
 
@@ -92,6 +95,7 @@ vim-brugere
 emacs-brugere
 anti-dataloger
 fæpander
+republikanere
 motorbøller
 luskebukser
 luksusdyr
@@ -109,6 +113,7 @@ grænsetilfælde
 socialdemokrater
 mider
 amøber
+ådselædere
 EOF`
 
 echo $dumme $bavianer
