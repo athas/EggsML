@@ -1,3 +1,1 @@
-#!/bin/sh
-
-seq $1 $2 | randomElement
+#!/usr/bin/env compile
