@@ -2,10 +2,17 @@
 #
 # Sig Jolly til din concieggs!
 
+ting="$1"
+
+if ! [ "$ting" ]; then
+    ting=jolly
+fi
+
 nam=`randomElement <<EOF
 Ja, det kan du lide
 Nam-nam
-Jep, jolly
+Jepsidasse
+Det siger vi bare
 EOF`
 
-echo "$nam: $(seq 1 $(random 1 100) | sed s'/.*/jolly/' | enumerate)."
+echo "$nam: $(seq 1 $(random 1 100) | sed s"/.*/$ting/" | enumerate)."
