@@ -4,6 +4,6 @@ ls "$CONCIEGGS_DIR/hooks/$hooks/" |
     while read -r f; do
         hook=$CONCIEGGS_DIR/hooks/$hooks/$f
         if [ -x "$hook" ]; then
-            runhook "$hook"
+            decorateStderr "hooks/$hook" runhook "$hook"
         fi
     done

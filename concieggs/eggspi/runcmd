@@ -29,10 +29,10 @@ run() {
     shift
     case "$cmd" in
         er|hvem|hvad|hvor|hvornår|har*|kan|skal|hvilke*)
-            "$acmd" $(echo "$@" | sed 's/\?*$//') || broke
+            decorateStderr "$acmd" "$acmd" $(echo "$@" | sed 's/\?*$//') || broke
             ;;
         *)
-            "$acmd" "$@" || broke
+            decorateStderr "$acmd" "$acmd" "$@" || broke
 
             ;;
     esac | gawk '{print; fflush()}' # Hack: use awk to newline-terminate.

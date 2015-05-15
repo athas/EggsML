@@ -1,0 +1,10 @@
+#!/bin/sh
+
+decoration=$1
+shift
+
+decorate() {
+    gawk -e '{ print DECORATION ": " $0 }' "DECORATION=$decoration"
+}
+
+("$@" 2>&1 1>&3 | decorate >&2) 3>&1
