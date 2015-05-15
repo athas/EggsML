@@ -133,7 +133,7 @@ case "$1" in
     yi|jiddisch)
         echo yi;;
     *)
-        filter="$(dirname "$0")/filters/$1"
+        filter="$CONCIEGGS_DIR/filters/$1"
         if test -x "$filter"; then
             echo "$1"
         else

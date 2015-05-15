@@ -4,7 +4,7 @@
 # chain.
 
 t() {
-    filter="$(dirname "$0")/filters/$2"
+    filter="$CONCIEGGS_DIR/filters/$2"
     if test -x "$filter"; then
         "$filter"
     else

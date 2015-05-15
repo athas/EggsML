@@ -2,4 +2,4 @@
 #
 # Run a filter from the filters directory on input.
 
-"$(dirname "$0")/filters/$1"
+"$CONCIEGGS_DIR/filters/$1"
