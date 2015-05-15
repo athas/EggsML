@@ -3,21 +3,21 @@
 package main
 
 import (
-	"fmt"
+	"bytes"
 	"encoding/json"
-	"net/http"
+	"fmt"
 	"io/ioutil"
 	"math"
-	"text/template"
-	"bytes"
+	"net/http"
 	"net/url"
 	"os"
 	"strings"
+	"text/template"
 )
 
 const (
 	OPLOESNING = 45
-	APIKEY = "4b42ecc61fd13e0a0cb7006d583fb3e0"
+	APIKEY     = "4b42ecc61fd13e0a0cb7006d583fb3e0"
 )
 
 type JsonAPI struct {
@@ -29,35 +29,35 @@ type JsonAPI struct {
 		Message float64
 		Country string
 		Sunrise int
-		Sunset int
+		Sunset  int
 	}
 	Weather []struct {
-		Id int
-		Main string
+		Id          int
+		Main        string
 		Description string
-		Icon string
+		Icon        string
 	}
 	Base string
 	Main struct {
-		Temp float64
-		Temp_min float64
-		Temp_max float64
-		Pressure float64
-		Sea_level float64
+		Temp       float64
+		Temp_min   float64
+		Temp_max   float64
+		Pressure   float64
+		Sea_level  float64
 		Grnd_level float64
-		Humidity int
+		Humidity   int
 	}
 	Wind struct {
 		Speed float64
-		Deg float64
+		Deg   float64
 	}
 	Clouds struct {
 		All int
 	}
-	Dt int
-	Id int
+	Dt   int
+	Id   int
 	Name string
-	Cod int
+	Cod  int
 }
 
 func projicerVindretning(koordinat float64, hovedretning, oploesning int) bool {
@@ -79,7 +79,7 @@ func main() {
 			country = strings.Trim(ss[1], " ")
 		}
 	}
-	
+
 	resp, err := http.Get(fmt.Sprintf("http://api.openweathermap.org/data/2.5/weather?q=%s,%s&lang=da&units=metric&APPID=%s", url.QueryEscape(city), url.QueryEscape(country), APIKEY))
 	if err != nil {
 		fmt.Println("Den by findes vist ikke.")
@@ -87,9 +87,9 @@ func main() {
 	}
 	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
-	
+
 	var dat JsonAPI
-	err = json.Unmarshal(body,&dat)
+	err = json.Unmarshal(body, &dat)
 	if err != nil {
 		fmt.Println("Den by findes vist ikke.")
 		return
@@ -100,40 +100,39 @@ func main() {
 	windSpeed := dat.Wind.Speed
 	windDirection := dat.Wind.Deg
 	//condition := dat.Weather[0].Main
+	description := dat.Weather[0].Description
 
 	/* Hvorfra blæser det? */
 	var windDirectionstr string
 	switch {
 	case (projicerVindretning(windDirection, 0, OPLOESNING)):
 		windDirectionstr = "nord"
-	case (projicerVindretning(windDirection, 360, OPLOESNING )):
+	case (projicerVindretning(windDirection, 360, OPLOESNING)):
 		windDirectionstr = "nord"
-	case (projicerVindretning(windDirection, 45, OPLOESNING )):
+	case (projicerVindretning(windDirection, 45, OPLOESNING)):
 		windDirectionstr = "nordøst"
-	case (projicerVindretning(windDirection, 90, OPLOESNING )):
+	case (projicerVindretning(windDirection, 90, OPLOESNING)):
 		windDirectionstr = "øst"
-	case (projicerVindretning(windDirection, 135, OPLOESNING )):
+	case (projicerVindretning(windDirection, 135, OPLOESNING)):
 		windDirectionstr = "sydøst"
-	case (projicerVindretning(windDirection, 180, OPLOESNING )):
+	case (projicerVindretning(windDirection, 180, OPLOESNING)):
 		windDirectionstr = "syd"
-	case (projicerVindretning(windDirection, 225, OPLOESNING )):
+	case (projicerVindretning(windDirection, 225, OPLOESNING)):
 		windDirectionstr = "sydvest"
-	case (projicerVindretning(windDirection, 270, OPLOESNING )):
+	case (projicerVindretning(windDirection, 270, OPLOESNING)):
 		windDirectionstr = "vest"
-	case (projicerVindretning(windDirection, 315, OPLOESNING )):
+	case (projicerVindretning(windDirection, 315, OPLOESNING)):
 		windDirectionstr = "nordvest"
 	}
-	
-	description := dat.Weather[0].Description
-	
+
 	t, _ := template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}: {{.Description}}, med en temperatur på {{.Degrees}}° og en blæst med {{.WindSpeed}} m/s fra {{.WindDirection}}.`)
 	out := bytes.NewBufferString("")
 	t.Execute(out, struct {
-		City string
-		Country string
-		Description string
-		Degrees string
-		WindSpeed string
+		City          string
+		Country       string
+		Description   string
+		Degrees       string
+		WindSpeed     string
 		WindDirection string
 	}{
 		city,
@@ -143,6 +142,7 @@ func main() {
 		fmt.Sprintf("%.1f", windSpeed),
 		windDirectionstr,
 	})
-	
+
 	fmt.Println(out.String())
 }
+
