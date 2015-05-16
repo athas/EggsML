@@ -152,6 +152,11 @@ EOF
 udenHumor() {
 randomElement <<EOF
 uden humor
+fra kælderen
+fra under sengen
+med mere
+(seriøst)
+og deres "venner"
 EOF
 }
 
