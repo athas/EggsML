@@ -8,7 +8,7 @@
    might complain if the code runs only on OpenBSD. */
 
 int main(int argc, char** argv) {
-  unsigned int seed = 0;
+  unsigned int seed;
   int min, range;
 
   if (argc != 3) {
@@ -18,8 +18,12 @@ int main(int argc, char** argv) {
     int lower = atoi(argv[1]);
     int upper = atoi(argv[2]);
     range = upper - lower + 1;
-    min  = lower;
+    min = lower;
   }
+
+  FILE* f = fopen("/dev/urandom", "rb");
+  fread(&seed, sizeof(unsigned int), 1, f);
+  fclose(f);
 
   seed ^= time(NULL);
   seed ^= getpid();

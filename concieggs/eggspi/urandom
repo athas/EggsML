@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+# Copy $1 bytes from /dev/urandom.
+
+n="$1"
+
+if ! [ "$n" ]; then
+    exit 1
+fi
+
+dd status=none if=/dev/urandom bs=1 count=$n

@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Line at position.
+
+head -n "$1" | tail -n 1
