@@ -2,8 +2,6 @@
 #
 # TODO: Write this in C.
 
-import sys
-
 with open(0, 'rb') as stdin:
     bytes_int = stdin.read()
 
