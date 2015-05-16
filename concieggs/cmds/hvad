@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # Spørg om din gæld til frokostkassen, eller få hjælp til diverse
-# personlighedsfremmende gøremål.
+# personlighedsfremmende gøremål.  Brug naturligt sprog.
 
 eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|har (?<debtor>[^ ]+) til gode$|(?<time>er klokken)$|(?<balance>er betalingsbalancen)$|(?<missing>mangler jeg)$|(?<wtf>hulen)$|(?<status>så)$|(?<meaning>mener (?<who>[^ ]+) med (?<what>[^ ]+)$)')"
 
@@ -93,6 +93,10 @@ elif [ "$meaning" ]; then
         fi
     fi
 else
-    echo "Brug: hvad skylder [navn|jeg] (eller et andet spørgsmål)"
+    randomElement <<EOF
+$EGGS_USER: Hmm, det er e$(tPattedyr).
+$EGGS_USER: E$(tPattedyr) så vidt jeg ved.
+Måske e$(tPattedyr), $EGGS_USER?
+EOF
     exit
 fi
