@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# Giv noget Markov-kædet grundlov.  Brug: ugrundlov [ANTAL ORD]
+
+antal_ord="$1"
+
+if ! [ "$antal_ord" ]; then
+    antal_ord=40;
+fi
+
+tmpfile=$(mktemp)
+
+echo -n "§$(random 1 89), stk. $(random 1 5). "
+markov "$antal_ord" grundlov "$CONCIEGGS_DB_DIR/grundloven/grundlov-markov-ready" | withSpaces
