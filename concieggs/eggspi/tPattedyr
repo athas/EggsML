@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Et tilfældigt pattedyr præfikset med artikelendelse.
+
+randomElement < $CONCIEGGS_DB_DIR/tPattedyr
