@@ -11,4 +11,4 @@ Syyyygt nice
 EOF
 )
 
-sed -r "s/^/$Imponerende, /"
+sed -r "s/^/$Imponerende.  /"
