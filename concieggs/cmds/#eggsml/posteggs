@@ -33,7 +33,7 @@ EOF
             rm $CONCIEGGS_DB_DIR/eggs/$lastEggs
 
             if [ ! "$*" ]; then
-                comment="De har spist af mig igen, disse `dummeBavianer`."
+                comment="$(deHarSpistIgen)"
             else
                 comment="$*"
             fi

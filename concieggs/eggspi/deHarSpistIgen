@@ -1,0 +1,10 @@
+#!/bin/sh
+
+randomElement <<EOF
+De har spist af mig igen, disse $(dummeBavianer).
+Disse $(dummeBavianer) har endnu en gang spist fra min hånd.
+I ved de $(dummeBavianer)?  De har ædt igen...
+Giv mig dog snart frokostfred, I $(dummeBavianer)!
+Mere madindtag fra de $(dummeBavianer).
+Hvad sker der lige for de $(dummeBavianer)?  "Mad, mad, mad"!
+EOF
