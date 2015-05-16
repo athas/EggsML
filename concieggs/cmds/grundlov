@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# Giv en bid af grundloven.  Brug: grundlov ORD
+
+ord="$1"
+
+if ! [ "ord" ]; then
+   echo "$EGGS_USER: Giv mig venligst et ord at slå op på, for eksempel 'konge'."
+   exit
+fi
+
+{
+    grep -i "$ord" "$CONCIEGGS_DB_DIR/grundloven/grundlov-sætninger" \
+        || echo "$EGGS_USER: Det ord findes ikke i grundloven."
+} | randomElement

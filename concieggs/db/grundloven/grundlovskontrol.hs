@@ -117,22 +117,29 @@ pænParagraf (Paragraf i a) = "§" ++ show i ++ "\n" ++ show a
 pænParagraf (ParagrafMedStk i stkr) = "§" ++ show i ++ "\n" ++ show stkr
 
 
+sektionAfsnit :: Sektion -> [Afsnit]
+sektionAfsnit (Sektion _ pr) = concatMap paragrafAfsnit pr
+
+paragrafAfsnit :: Paragraf -> [Afsnit]
+paragrafAfsnit (Paragraf _ ar) = ar
+paragrafAfsnit (ParagrafMedStk _ stkr) = concatMap stkAfsnit stkr
+
+stkAfsnit :: Stk -> [Afsnit]
+stkAfsnit (Stk _ ar) = ar
+
 markovtekst :: Lov -> String
 markovtekst (Lov sektioner) =
   intercalate "\n\n\n"
-  $ map (intercalate "\n\n\n" . map (intercalate "\n"))
-  $ concatMap markovtekstSektion sektioner
+  $ concatMap (map (intercalate "\n"))
+  $ concatMap sektionAfsnit sektioner
 
-markovtekstSektion :: Sektion -> [Afsnit]
-markovtekstSektion (Sektion _ pr) = concatMap markovtekstParagraf pr
+alleSætninger :: Lov -> String
+alleSætninger (Lov sektioner) =
+  intercalate "\n"
+  $ concatMap (map (intercalate " "))
+  $ concatMap sektionAfsnit sektioner
 
-markovtekstParagraf :: Paragraf -> [Afsnit]
-markovtekstParagraf (Paragraf _ ar) = ar
-markovtekstParagraf (ParagrafMedStk _ stkr) = concatMap markovtekstStk stkr
-
-markovtekstStk :: Stk -> [Afsnit]
-markovtekstStk (Stk _ ar) = ar
-
+  
 main :: IO ()
 main = do
   argumenter <- getArgs
@@ -142,5 +149,6 @@ main = do
       case action of
         "pæn" -> putStrLn $ pæn lov
         "markovtekst" -> putStrLn $ markovtekst lov
+        "sætninger" -> putStrLn $ alleSætninger lov
         _ -> exitWith $ ExitFailure 1
     _ -> exitWith $ ExitFailure 1
