@@ -1,9 +1,11 @@
 #!/bin/sh
 
-dumme=`randomElement <<EOF
+dumme() {
+    randomElement <<EOF
 dumme
 stupide
 træge
+fulde
 ghettoskabende
 trampolinfaldende
 antimajestætiske
@@ -12,10 +14,11 @@ slatne
 politiske
 upolitiske
 glassmadrende
-noob
-newb
-n00b
+noobede
+newbede
+n00bede
 skinkede
+skinkende
 tunge
 beskidthårede
 barbariske
@@ -46,15 +49,28 @@ ECTS-slugende
 ekstremistiske
 kursusansvarlige
 radikale
+konservative
 pseudovidenskabelige
 makrel-lugtende
 underforståede
 web-udviklende
+jQuery-fanatiske
 Facebook-afhængige
 light-mayonaisse-købende
-EOF`
+halvhumoristiske
+tidsrejsemaskinedestruerende
+æggeslugende
+døddovne
+støvsamlende
+intelligenstomme
+trampolinfaldende
+ikke-minimerede
+VHS-piratkopierende
+EOF
+}
 
-bavianer=`randomElement <<EOF
+bavianer() {
+    randomElement <<EOF
 bavianer
 kameler
 øldrikkere
@@ -65,6 +81,7 @@ kamæleoner
 burgøjsere
 idioter
 hackerz
+gamere
 newbs
 noobs
 n00bs
@@ -96,11 +113,15 @@ emacs-brugere
 anti-dataloger
 fæpander
 republikanere
+vaccinebenægtere
+DFU-medlemmer
+desillusionister
 motorbøller
 luskebukser
 luksusdyr
 proletarudnyttere
 asfaltcowboys
+sofarækkebesiddere
 spegesild
 shell script-idioter
 tilstandsmaskiner
@@ -114,6 +135,28 @@ socialdemokrater
 mider
 amøber
 ådselædere
-EOF`
+DDR-betonvrag
+humorbenægtere
+firserlævn
+Lars von Trier-efterabere
+Otto Leisner-fanboys
+P3-lyttere
+valnøddesnaps-hipstere
+reklamesamlere
+VGA-skærme
+sørovsfændrikker
+Tintin-nyoversættere
+EOF
+}
 
-echo $dumme $bavianer
+udenHumor() {
+randomElement <<EOF
+uden humor
+EOF
+}
+
+randomElement<<EOF
+$(dumme) $(bavianer)
+$(dumme), $(dumme) $(bavianer)
+$(dumme) $(bavianer) $(udenHumor)
+EOF
