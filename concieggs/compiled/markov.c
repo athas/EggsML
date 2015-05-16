@@ -165,9 +165,11 @@ void gen_words(size_t* buffer, int n_gen_words) {
     nexts = &entry[1];
     word = (char*) &entry[1 + n_nexts];
     puts(word);
-    if (n_nexts == 0 && i + 1 < n_gen_words) {
+    if (n_nexts == 0) {
       puts("");
-      entry = &buffer[start_words[poooooor_random(n_start_words)]];
+      if (i + 1 < n_gen_words) {
+        entry = &buffer[start_words[poooooor_random(n_start_words)]];
+      }
     }
     else {
       entry = &buffer[nexts[poooooor_random(n_nexts)]];
