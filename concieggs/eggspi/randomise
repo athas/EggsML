@@ -3,7 +3,7 @@
 # Shuffle lines of standard in.
 
 # Don't let temporally close runs of 'randomise' use the same seed.
-seed=$(urandom 4 | bytesToInteger)
+seed=$(random 0 1000000)
 
 awk -v seed=$seed 'BEGIN{srand(seed);} {printf "%06d %s\n", rand()*1000000, $0;}' \
     | sort -n | cut -c8-
