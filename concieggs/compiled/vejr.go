@@ -178,7 +178,7 @@ func main() {
 
 	/* Tid for opdatering */
 	timeForUpdate := dat.Dt
-	age := (int(time.Now().UTC().Unix()) - int(timeForUpdate))/60 //dividere med 60 angiver minutter
+	age := (int(time.Now().UTC().Unix()) - int(timeForUpdate))/60 //dividering med 60 angiver minutter
 
 
 	/* Hvorfra blæser det? */
