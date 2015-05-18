@@ -2,7 +2,7 @@
 #
 # Få concieggs til at holde sin kæft i ti minutter.
 
-eval "$(echo "$@" | tolower | parse '.*(?<shutUp>[kK][æÆ]+[fF][tT])[!.]*')"
+eval "$(echo "$@" | tolower | parse '.*(?<shutUp>([kK][æÆ]+[fF][tT]|[mM]+[uU]+[nN]+[dD]+|[oO]+[pP]+))[!.]*')"
 
 if [ "$shutUp" ]; then
     countaggression=$(echo "$@" |  sed 's/[^!æÆ]*//g' |wc -c)
