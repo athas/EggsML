@@ -18,7 +18,7 @@ import (
 
 
 const (
-	OPLOESNING = 45
+	OPLOESNING = 45 //Bruges til vindretningsangivelse
 	APIKEY     = "4b42ecc61fd13e0a0cb7006d583fb3e0"
 	DIKULON    = 12.561210 //længdegrad for DIKUs Kantine
 	DIKULAT    = 55.702082 //breddegrad for DIKUs Kantine
@@ -67,14 +67,15 @@ type JsonAPI struct {
 	Cod  int
 }
 
-func projicerVindretning(koordinat float64, hovedretning, oploesning int) bool {
-	return math.Abs(koordinat-float64(hovedretning)) <= float64(oploesning)
+/* Konverterer grad til verdenshjørne-angivelse */
+func projicerVindretning(koordinat int, hovedretning, oploesning int) bool {
+	return math.Abs(float64(koordinat)-float64(hovedretning)) <= float64(oploesning)
 }
 
-/* Returner beaufort vindskala beskrivelse (f.eks. hård vind/stiv kuling) fra funktionsargumentet, som er vindhastighed i m/s */
+/* Returner Beaufort vindskala beskrivelse (f.eks. hård vind/stiv kuling) fra funktionsargumentet, som er vindhastighed i m/s */
 func beaufort(windSpeed float64) string {
 
-	/* Disse kunne ikke placeres i const.-feltet, da der ikke tillades arrays der */
+	/* Disse to definitioner er definitionen på Beauforts skala. Enhed for vind: m/s. Arrays kan ikke placeres i const-felt. */
 	beaufortHastighed := [12]float64{
 		.3,
 		.6,
@@ -123,6 +124,32 @@ func afstand(longitude, latitude float64) int {
 }
 
 
+	/* Hvorfra blæser det? */
+func windDirectionString(windDirection int) string {
+	switch {
+	case (projicerVindretning(windDirection, 0, OPLOESNING)):
+		return "nord"
+	case (projicerVindretning(windDirection, 360, OPLOESNING)):
+		return  "nord"
+	case (projicerVindretning(windDirection, 45, OPLOESNING)):
+		return  "nordøst"
+	case (projicerVindretning(windDirection, 90, OPLOESNING)):
+		return  "øst"
+	case (projicerVindretning(windDirection, 135, OPLOESNING)):
+		return  "sydøst"
+	case (projicerVindretning(windDirection, 180, OPLOESNING)):
+		return  "syd"
+	case (projicerVindretning(windDirection, 225, OPLOESNING)):
+		return  "sydvest"
+	case (projicerVindretning(windDirection, 270, OPLOESNING)):
+		return  "vest"
+	case (projicerVindretning(windDirection, 315, OPLOESNING)):
+		return  "nordvest"
+	}
+	return "noget er gået galt"
+}
+
+
 func main() {
 	city := "København"
 	country := "Danmark"
@@ -166,43 +193,19 @@ func main() {
 	windSpeed := dat.Wind.Speed
 	windBeaufortName := beaufort(dat.Wind.Speed)
 	windDirection := dat.Wind.Deg
-	//condition := dat.Weather[0].Main
 	description := dat.Weather[0].Description
-
 
 	/* Hent coordinater for målestation og udregn afstand til Kantinen */
 	lon := dat.Coord.Lon
 	lat := dat.Coord.Lat
 	afstand := afstand(lon, lat)
 
-
 	/* Tid for opdatering */
 	timeForUpdate := dat.Dt
 	age := (int(time.Now().UTC().Unix()) - int(timeForUpdate))/60 //dividering med 60 angiver minutter
 
 
-	/* Hvorfra blæser det? */
-	var windDirectionstr string
-	switch {
-	case (projicerVindretning(windDirection, 0, OPLOESNING)):
-		windDirectionstr = "nord"
-	case (projicerVindretning(windDirection, 360, OPLOESNING)):
-		windDirectionstr = "nord"
-	case (projicerVindretning(windDirection, 45, OPLOESNING)):
-		windDirectionstr = "nordøst"
-	case (projicerVindretning(windDirection, 90, OPLOESNING)):
-		windDirectionstr = "øst"
-	case (projicerVindretning(windDirection, 135, OPLOESNING)):
-		windDirectionstr = "sydøst"
-	case (projicerVindretning(windDirection, 180, OPLOESNING)):
-		windDirectionstr = "syd"
-	case (projicerVindretning(windDirection, 225, OPLOESNING)):
-		windDirectionstr = "sydvest"
-	case (projicerVindretning(windDirection, 270, OPLOESNING)):
-		windDirectionstr = "vest"
-	case (projicerVindretning(windDirection, 315, OPLOESNING)):
-		windDirectionstr = "nordvest"
-	}
+	windDirectionstr := windDirectionString(int(windDirection))
 
 	t, _ := template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}: {{.Description}}, med en temperatur på {{.Degrees}}°. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}. Målestationens afstand til Kantinen er ca. {{.Afstand}} km. Målingen er (vist nok) {{.Age}} minutter gammel.`)
 	out := bytes.NewBufferString("")
