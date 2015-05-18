@@ -126,6 +126,12 @@ func main() {
 	city := "København"
 	country := "Danmark"
 	if len(os.Args) > 1 {
+		/* Hvad er vejret i Kantinen? */
+		if (os.Args[1] == "Kantinen") {
+			fmt.Println("Kantinen er inden døre, og der er derfor nok tørvejr og stuetemperatur. Men det ved du nok bedre end jeg!")
+			return
+		}
+
 		args := append(os.Args[:0], os.Args[1:]...)
 		argsStr := strings.Join(args, " ")
 		ss := strings.Split(argsStr, ",")
