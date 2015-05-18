@@ -19,6 +19,9 @@ import (
 const (
 	OPLOESNING = 45
 	APIKEY     = "4b42ecc61fd13e0a0cb7006d583fb3e0"
+	DIKULON    = 12.561210 //længdegrad for DIKUs Kantine
+	DIKULAT    = 55.702082 //breddegrad for DIKUs Kantine
+	MEAN_EARTH_RADIUS = 6371 //enhed er i kilometer!
 )
 
 
@@ -106,6 +109,18 @@ func beaufort(windSpeed float64) string {
 	return beaufortBeskrivelse[cap(beaufortBeskrivelse)-1] //orkan!!
 }
 
+
+/* Udregner afstanden fra målestationen til DIKUs Kantine */
+func afstand(longitude, latitude float64) int {
+	lonRad := math.Pi/180*longitude
+	latRad := math.Pi/180*latitude
+	dikuLonRad := math.Pi/180*DIKULON
+	dikuLatRad := math.Pi/180*DIKULAT
+	storCirkelVinkel := math.Acos(math.Sin(dikuLatRad)*math.Sin(latRad)+math.Cos(dikuLatRad)*math.Cos(latRad)*math.Cos(math.Abs(lonRad-dikuLonRad))) //se evt. wiki/Great-circle_distance
+	return int(MEAN_EARTH_RADIUS*storCirkelVinkel)
+}
+
+
 func main() {
 	city := "København"
 	country := "Danmark"
@@ -146,6 +161,13 @@ func main() {
 	//condition := dat.Weather[0].Main
 	description := dat.Weather[0].Description
 
+
+	/* Hent coordinater for målestation og udregn afstand til Kantinen */
+	lon := dat.Coord.Lon
+	lat := dat.Coord.Lat
+	afstand := afstand(lon, lat)
+	
+
 	/* Hvorfra blæser det? */
 	var windDirectionstr string
 	switch {
@@ -169,7 +191,7 @@ func main() {
 		windDirectionstr = "nordvest"
 	}
 
-	t, _ := template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}: {{.Description}}, med en temperatur på {{.Degrees}}°. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}.`)
+	t, _ := template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}: {{.Description}}, med en temperatur på {{.Degrees}}°. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}. Målestationens afstand til Kantinen er ca. {{.Afstand}} km.`)
 	out := bytes.NewBufferString("")
 	t.Execute(out, struct {
 		City              string
@@ -179,6 +201,7 @@ func main() {
 		WindBeaufortName  string
 		WindSpeed         string
 		WindDirection     string
+		Afstand           int
 	}{
 		city,
 		country,
@@ -187,6 +210,7 @@ func main() {
 		fmt.Sprint(windBeaufortName),
 		fmt.Sprintf("%.1f", windSpeed),
 		windDirectionstr,
+		afstand,
 	})
 
 	fmt.Println(out.String())
