@@ -13,6 +13,7 @@ import (
 	"os"
 	"strings"
 	"text/template"
+	"time"
 )
 
 
@@ -166,7 +167,12 @@ func main() {
 	lon := dat.Coord.Lon
 	lat := dat.Coord.Lat
 	afstand := afstand(lon, lat)
-	
+
+
+	/* Tid for opdatering */
+	timeForUpdate := dat.Dt
+	age := (int(time.Now().UTC().Unix()) - int(timeForUpdate))/60 //dividere med 60 angiver minutter
+
 
 	/* Hvorfra blæser det? */
 	var windDirectionstr string
@@ -191,7 +197,7 @@ func main() {
 		windDirectionstr = "nordvest"
 	}
 
-	t, _ := template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}: {{.Description}}, med en temperatur på {{.Degrees}}°. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}. Målestationens afstand til Kantinen er ca. {{.Afstand}} km.`)
+	t, _ := template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}: {{.Description}}, med en temperatur på {{.Degrees}}°. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}. Målestationens afstand til Kantinen er ca. {{.Afstand}} km. Målingen er (vist nok) {{.Age}} minutter gammel.`)
 	out := bytes.NewBufferString("")
 	t.Execute(out, struct {
 		City              string
@@ -202,6 +208,7 @@ func main() {
 		WindSpeed         string
 		WindDirection     string
 		Afstand           int
+		Age               int
 	}{
 		city,
 		country,
@@ -211,6 +218,7 @@ func main() {
 		fmt.Sprintf("%.1f", windSpeed),
 		windDirectionstr,
 		afstand,
+		age,
 	})
 
 	fmt.Println(out.String())
