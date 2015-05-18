@@ -84,19 +84,19 @@ func beaufort(windSpeed float64) string {
 		28.5,
 		32.7 }
 	beaufortBeskrivelse := [13]string{
-		"stille",
-		"næsten stille",
-		"svag",
-		"let vind",
-		"jævn vind",
-		"frisk vind",
-		"hård vind",
-		"stiv kuling",
-		"hård kuling",
-		"stormende kuling",
-		"storm",
-		"stærk storm",
-		"orkan" }
+		"Stille",
+		"Næsten stille",
+		"Svag",
+		"Let vind",
+		"Jævn vind",
+		"Frisk vind",
+		"Hård vind",
+		"Stiv kuling",
+		"Hård kuling",
+		"Stormende kuling",
+		"Storm",
+		"Stærk storm",
+		"Orkan" }
 
 	for i := range beaufortHastighed {
 		if (beaufortHastighed[i] > windSpeed) {
