@@ -1,12 +1,4 @@
 #!/bin/sh
 # Pinger en station med fire pakker. Angiv station som argument.
 
-pwd
-
-./filters/jysk
-
-end="\([,.;.!? ]\)"
-
-  sed "s/packets/pakke/\1/g"
-
 ping -c 4 $1
