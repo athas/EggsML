@@ -86,7 +86,7 @@ func beaufort(windSpeed float64) string {
 	beaufortBeskrivelse := [13]string{
 		"Stille",
 		"Næsten stille",
-		"Svag",
+		"Svag vind",
 		"Let vind",
 		"Jævn vind",
 		"Frisk vind",
