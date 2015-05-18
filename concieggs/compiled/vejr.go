@@ -15,10 +15,12 @@ import (
 	"text/template"
 )
 
+
 const (
 	OPLOESNING = 45
 	APIKEY     = "4b42ecc61fd13e0a0cb7006d583fb3e0"
 )
+
 
 type JsonAPI struct {
 	Coord struct {
@@ -64,6 +66,46 @@ func projicerVindretning(koordinat float64, hovedretning, oploesning int) bool {
 	return math.Abs(koordinat-float64(hovedretning)) <= float64(oploesning)
 }
 
+/* Returner beaufort vindskala beskrivelse (f.eks. hård vind/stiv kuling) fra funktionsargumentet, som er vindhastighed i m/s */
+func beaufort(windSpeed float64) string {
+
+	/* Disse kunne ikke placeres i const.-feltet, da der ikke tillades arrays der */
+	beaufortHastighed := [12]float64{
+		.3,
+		.6,
+		3.4,
+		5.5,
+		8.0,
+		10.8,
+		13.9,
+		17.2,
+		20.8,
+		24.5,
+		28.5,
+		32.7 }
+	beaufortBeskrivelse := [13]string{
+		"stille",
+		"næsten stille",
+		"svag",
+		"let vind",
+		"jævn vind",
+		"frisk vind",
+		"hård vind",
+		"stiv kuling",
+		"hård kuling",
+		"stormende kuling",
+		"storm",
+		"stærk storm",
+		"orkan" }
+
+	for i := range beaufortHastighed {
+		if (beaufortHastighed[i] > windSpeed) {
+			return beaufortBeskrivelse[i]
+		}
+	}
+	return beaufortBeskrivelse[cap(beaufortBeskrivelse)-1] //orkan!!
+}
+
 func main() {
 	city := "København"
 	country := "Danmark"
@@ -95,9 +137,11 @@ func main() {
 		return
 	}
 
+
 	/* Hent relevant vinddata fra JSON-struktur */
 	degrees := dat.Main.Temp
 	windSpeed := dat.Wind.Speed
+	windBeaufortName := beaufort(dat.Wind.Speed)
 	windDirection := dat.Wind.Deg
 	//condition := dat.Weather[0].Main
 	description := dat.Weather[0].Description
@@ -125,20 +169,22 @@ func main() {
 		windDirectionstr = "nordvest"
 	}
 
-	t, _ := template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}: {{.Description}}, med en temperatur på {{.Degrees}}° og en blæst med {{.WindSpeed}} m/s fra {{.WindDirection}}.`)
+	t, _ := template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}: {{.Description}}, med en temperatur på {{.Degrees}}°. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}.`)
 	out := bytes.NewBufferString("")
 	t.Execute(out, struct {
-		City          string
-		Country       string
-		Description   string
-		Degrees       string
-		WindSpeed     string
-		WindDirection string
+		City              string
+		Country           string
+		Description       string
+		Degrees           string
+		WindBeaufortName  string
+		WindSpeed         string
+		WindDirection     string
 	}{
 		city,
 		country,
 		description,
 		fmt.Sprintf("%.1f", degrees),
+		fmt.Sprint(windBeaufortName),
 		fmt.Sprintf("%.1f", windSpeed),
 		windDirectionstr,
 	})
