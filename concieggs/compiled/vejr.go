@@ -23,6 +23,7 @@ const (
 	DIKULON    = 12.561210 //længdegrad for DIKUs Kantine
 	DIKULAT    = 55.702082 //breddegrad for DIKUs Kantine
 	MEAN_EARTH_RADIUS = 6371 //enhed er i kilometer!
+	kantinevejrBeskrivelse = "Kantinen er inden døre, og der er derfor nok tørvejr og stuetemperatur. Men det ved du nok bedre end jeg!"
 )
 
 
@@ -128,7 +129,7 @@ func main() {
 	if len(os.Args) > 1 {
 		/* Hvad er vejret i Kantinen? */
 		if (os.Args[1] == "Kantinen") {
-			fmt.Println("Kantinen er inden døre, og der er derfor nok tørvejr og stuetemperatur. Men det ved du nok bedre end jeg!")
+			fmt.Println(kantinevejrBeskrivelse)
 			return
 		}
 
