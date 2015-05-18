@@ -106,4 +106,8 @@ word := ~<computer> "datamat"
       | ~<floats> "brudne tal"
       | ~<en float> "et brudent tal"
       | ~<float> "brudent tal"
+      | ~<et array> "en tabel"
+      | ~<arrayet> "tabellen"
+      | ~<arrays> "tabeller"
+      | ~<array> "tabel"
       | <[a-zA-ZæøåÆØÅ0-9]+>
