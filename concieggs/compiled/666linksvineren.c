@@ -107,6 +107,7 @@ int main() {
   eggsuser = getenv("EGGS_USER");
 
   now = time(NULL);
+  srand(now);
 
   if (eggsbody != NULL && eggsuser != NULL) {
     struct stat fs;
