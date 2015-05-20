@@ -113,7 +113,7 @@ func beaufort(windSpeed float64) string {
 }
 
 
-func fraGradTilRad(grad float64) {
+func fraGradTilRad(grad float64) float64 {
 	return math.Pi/180*grad //pi radianer per 180	
 }
 
