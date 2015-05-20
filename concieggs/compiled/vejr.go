@@ -67,7 +67,7 @@ type JsonAPI struct {
 	Cod  int
 }
 
-/* Konverterer grad til verdenshjørne-angivelse */
+/* Tjekker om en grad (vinkel) passer til et bestemt verdenshjørne */
 func projicerVindretning(koordinat int, hovedretning, oploesning int) bool {
 	return math.Abs(float64(koordinat)-float64(hovedretning)) <= float64(oploesning)
 }
@@ -90,7 +90,7 @@ func beaufort(windSpeed float64) string {
 		28.5,
 		32.7 }
 	beaufortBeskrivelse := [13]string{
-		"Stille",
+		"Stille", //Er vindhastigheden under .3 m/s, betegnes vindfholdet som "stille".
 		"Næsten stille",
 		"Svag vind",
 		"Let vind",
@@ -113,12 +113,17 @@ func beaufort(windSpeed float64) string {
 }
 
 
+func fraGradTilRad(grad float64) {
+	return math.Pi/180*grad //pi radianer per 180	
+}
+
+
 /* Udregner afstanden fra målestationen til DIKUs Kantine */
 func afstand(longitude, latitude float64) int {
-	lonRad := math.Pi/180*longitude
-	latRad := math.Pi/180*latitude
-	dikuLonRad := math.Pi/180*DIKULON
-	dikuLatRad := math.Pi/180*DIKULAT
+	lonRad := fraGradTilRad(longitude)
+	latRad := fraGradTilRad(latitude)
+	dikuLonRad := fraGradTilRad(DIKULON)
+	dikuLatRad := fraGradTilRad(DIKULAT)
 	storCirkelVinkel := math.Acos(math.Sin(dikuLatRad)*math.Sin(latRad)+math.Cos(dikuLatRad)*math.Cos(latRad)*math.Cos(math.Abs(lonRad-dikuLonRad))) //se evt. wiki/Great-circle_distance
 	return int(MEAN_EARTH_RADIUS*storCirkelVinkel)
 }
