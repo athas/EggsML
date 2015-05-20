@@ -18,7 +18,7 @@ import (
 
 
 const (
-	OPLOESNING = 45 //Bruges til vindretningsangivelse
+	OPLOESNING = 22.5 //Bruges til vindretningsangivelse
 	APIKEY     = "4b42ecc61fd13e0a0cb7006d583fb3e0"
 	DIKULON    = 12.561210 //længdegrad for DIKUs Kantine
 	DIKULAT    = 55.702082 //breddegrad for DIKUs Kantine
@@ -69,8 +69,8 @@ type JsonAPI struct {
 }
 
 /* Tjekker om en grad (vinkel) passer til et bestemt verdenshjørne */
-func projicerVindretning(koordinat int, hovedretning, oploesning int) bool {
-	return math.Abs(float64(koordinat)-float64(hovedretning)) <= float64(oploesning)
+func projicerVindretning(koordinat float64, hovedretning, oploesning float64) bool {
+	return math.Abs(koordinat-hovedretning) <= oploesning
 }
 
 /* Fortolker vejrkode og returnerer en vejrbeskrivelse */
@@ -218,30 +218,22 @@ func afstand(longitude, latitude float64) int {
 }
 
 
-	/* Hvorfra blæser det? */
-func windDirectionString(windDirection int) string {
-	switch {
-	case (projicerVindretning(windDirection, 0, OPLOESNING)):
-		return "nord"
-	case (projicerVindretning(windDirection, 360, OPLOESNING)):
-		return  "nord"
-	case (projicerVindretning(windDirection, 45, OPLOESNING)):
-		return  "nordøst"
-	case (projicerVindretning(windDirection, 90, OPLOESNING)):
-		return  "øst"
-	case (projicerVindretning(windDirection, 135, OPLOESNING)):
-		return  "sydøst"
-	case (projicerVindretning(windDirection, 180, OPLOESNING)):
-		return  "syd"
-	case (projicerVindretning(windDirection, 225, OPLOESNING)):
-		return  "sydvest"
-	case (projicerVindretning(windDirection, 270, OPLOESNING)):
-		return  "vest"
-	case (projicerVindretning(windDirection, 315, OPLOESNING)):
-		return  "nordvest"
+/* Hvorfra blæser det? */
+func windDirectionString(windDirection float64) string {
+	verdenshjoerner := [17]string{"nord","nordnordøst","nordøst","østnordøst","øst","østsydøst",
+		"sydøst","sydsydøst","syd","sydsydvest","sydvest","vestsydvest","vest",
+		"vestnordvest","nordvest","nordnordvest","nord"}
+	if (len(verdenshjoerner) != 360 / OPLOESNING + 1) {
+		return "Du har begået en alvorlig fejl og bør skamme dig!"
+	}
+	for i := 0; i < len(verdenshjoerner); i++ {
+		if (projicerVindretning(windDirection, float64(i)*OPLOESNING, OPLOESNING)) {
+			return verdenshjoerner[i]
+		}
 	}
 	return "noget er gået galt"
 }
+
 
 
 func main() {
@@ -303,7 +295,7 @@ func main() {
 	
 	
 
-	windDirectionstr := windDirectionString(int(windDirection))
+	windDirectionstr := windDirectionString(windDirection)
 
 	t, _ := template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}: {{.Beskrivelse}}, med en temperatur på {{.Degrees}}°C. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}. Målestationens afstand til Kantinen er ca. {{.Afstand}} km. Målingen er {{.Age}} minutter gammel.`)
 	out := bytes.NewBufferString("")
