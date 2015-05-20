@@ -260,7 +260,7 @@ func main() {
 
 	resp, err := http.Get(fmt.Sprintf("http://api.openweathermap.org/data/2.5/weather?q=%s,%s&lang=da&units=metric&APPID=%s", url.QueryEscape(city), url.QueryEscape(country), APIKEY))
 	if err != nil {
-		fmt.Println("Den by findes vist ikke.")
+		fmt.Println("Den by findes ikke eller også er der noget andet, der er gået galt!")
 		return
 	}
 	defer resp.Body.Close()
@@ -269,7 +269,7 @@ func main() {
 	var dat JsonAPI
 	err = json.Unmarshal(body, &dat)
 	if err != nil {
-		fmt.Println("Den by findes vist ikke.")
+		fmt.Println("Den by findes ikke eller også er der noget andet, der er gået galt!.")
 		return
 	}
 
