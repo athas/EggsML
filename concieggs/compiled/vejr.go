@@ -76,7 +76,7 @@ func projicerVindretning(koordinat int, hovedretning, oploesning int) bool {
 /* Fortolker vejrkode og returnerer en vejrbeskrivelse */
 func vejrbeskrivelse(kode int) string {
 	// Vejrbeskrivelser er hentet fra openweathermap.org/weather-conditions
-vejrBeskrivelse := map[string]int{
+vejrBeskrivelse := map[int]string{
     200: "tordenvejr med let regn",
     201: "tordenvejr med regn",
     202: "tordenvejr med kraftig regn",
@@ -287,7 +287,10 @@ func main() {
 	windSpeed := dat.Wind.Speed
 	windBeaufortName := beaufort(dat.Wind.Speed)
 	windDirection := dat.Wind.Deg
-	description := dat.Weather[0].Description
+
+	/* Hent vejrbeskrivelse, fortolk og fordansk denne */
+	description := dat.Weather[0].Id
+	beskrivelse := vejrbeskrivelse(description)
 
 	/* Hent coordinater for målestation og udregn afstand til Kantinen */
 	lon := dat.Coord.Lon
@@ -302,12 +305,12 @@ func main() {
 
 	windDirectionstr := windDirectionString(int(windDirection))
 
-	t, _ := template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}: {{.Description}}, med en temperatur på {{.Degrees}}°. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}. Målestationens afstand til Kantinen er ca. {{.Afstand}} km. Målingen er (vist nok) {{.Age}} minutter gammel.`)
+	t, _ := template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}: {{.Beskrivelse}}, med en temperatur på {{.Degrees}}°. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}. Målestationens afstand til Kantinen er ca. {{.Afstand}} km. Målingen er (vist nok) {{.Age}} minutter gammel.`)
 	out := bytes.NewBufferString("")
 	t.Execute(out, struct {
 		City              string
 		Country           string
-		Description       string
+		Beskrivelse       string
 		Degrees           string
 		WindBeaufortName  string
 		WindSpeed         string
@@ -317,7 +320,7 @@ func main() {
 	}{
 		city,
 		country,
-		description,
+		beskrivelse,
 		fmt.Sprintf("%.1f", degrees),
 		fmt.Sprint(windBeaufortName),
 		fmt.Sprintf("%.1f", windSpeed),
