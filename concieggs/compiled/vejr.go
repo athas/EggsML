@@ -70,7 +70,7 @@ type JsonAPI struct {
 
 /* Tjekker om en grad (vinkel) passer til et bestemt verdenshjørne */
 func projicerVindretning(koordinat float64, hovedretning, oploesning float64) bool {
-	return math.Abs(koordinat-hovedretning) <= oploesning
+	return math.Abs(koordinat - hovedretning) <= oploesning/2
 }
 
 /* Fortolker vejrkode og returnerer en vejrbeskrivelse */
