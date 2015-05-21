@@ -29,6 +29,6 @@ else
     if ircChannel | grep -q '^#'; then
         sviner
     else
-        sviner > $CONCIEGGS_IRC_DIR/$irc_channel/in
+        sviner | sayTo "$CONCIEGGS_DEFAULT_CHANNEL"
     fi
 fi
