@@ -224,7 +224,7 @@ func windDirectionString(windDirection float64) string {
 		"sydøst","sydsydøst","syd","sydsydvest","sydvest","vestsydvest","vest",
 		"vestnordvest","nordvest","nordnordvest","nord"}
 	if (len(verdenshjoerner) != 360 / OPLOESNING + 1) {
-		return "Du har begået en alvorlig fejl og bør skamme dig!"
+		return "Der er sket en fejl og nogen bør skamme sig!"
 	}
 	for i := 0; i < len(verdenshjoerner); i++ {
 		if (projicerVindretning(windDirection, float64(i)*OPLOESNING, OPLOESNING)) {
@@ -269,7 +269,7 @@ func main() {
 	var dat JsonAPI
 	err = json.Unmarshal(body, &dat)
 	if err != nil {
-		fmt.Println("Den by findes ikke eller også er der noget andet, der er gået galt!.")
+		fmt.Println("Den by findes ikke eller også er der noget andet, der er gået galt!")
 		return
 	}
 
