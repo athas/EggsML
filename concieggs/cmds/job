@@ -4,7 +4,11 @@
 #
 # Brug: job [EMNE (standard: IT)]
 
-s="${1:-IT}"
+s="$*"
+
+if ! [ "$s" ]; then
+    s='IT'
+fi
 
 q="v0.1|SO:date desc|PS:50|CR:Freetext:$s|v0.1"
 
