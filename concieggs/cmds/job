@@ -1,0 +1,10 @@
+#!/bin/sh
+#
+# Få dig et tilfældigt job!
+
+curl --silent 'http://www.ofir.dk/Resultat.aspx?soegeord=IT' \
+    | grep '<div class="Teaser">' \
+    | sed -r -e 's/ *<div class="Teaser">//' \
+          -e 's/(<br \/>|<\/p>).*//' \
+          -e 's/<[^>]+>//' \
+    | randomElement
