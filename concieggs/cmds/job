@@ -2,7 +2,7 @@
 #
 # Få dig et tilfældigt job!
 
-curl --silent 'http://www.ofir.dk/Resultat.aspx?soegeord=IT' \
+curl --silent "http://www.ofir.dk/Resultat.aspx?soegeord=${1:-IT}" \
     | grep '<div class="Teaser">' \
     | sed -r -e 's/ *<div class="Teaser">//' \
           -e 's/(<br \/>|<\/p>).*//' \
