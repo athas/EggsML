@@ -11,7 +11,7 @@ q="v0.1|SO:date desc|PS:50|CR:Freetext:$s|v0.1"
 p="queryfilter:"
 
 ENCRYPT() {
-    echo -n "$1" | base64
+    python -c "import base64; print base64.b64encode('$1')"
 }
 
 url="http://www.ofir.dk/Resultat.aspx?soegeord=$s&query=$(ENCRYPT "$q")&params=$(ENCRYPT "$p")"
