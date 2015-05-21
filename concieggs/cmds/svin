@@ -20,7 +20,11 @@ if [ "$swine" = "$irc_username" -o "$swine" = "dig" ]; then
 fi
 
 sviner() {
-    echo "$swine: Din mor!"
+    if [ "$2" = "sofistikeret" ]; then
+        echo "$swine: Deres moder."
+    else
+        echo "$swine: Din mor!"
+    fi
 }
 
 if isKing "$swine"; then
