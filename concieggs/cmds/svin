@@ -19,13 +19,15 @@ if [ "$swine" = "$irc_username" -o "$swine" = "dig" ]; then
     exit
 fi
 
-sviner() {
-    if [ "$2" = "sofistikeret" ]; then
+if [ "$2" = "sofistikeret" ]; then
+    sviner() {
         echo "$swine: Deres moder."
-    else
+    }
+else
+    sviner() {
         echo "$swine: Din mor!"
-    fi
-}
+    }
+fi
 
 if isKing "$swine"; then
     echo "$EGGS_USER: Under ingen omstændigheder!  Det ville være majestætsfornærmelse."
