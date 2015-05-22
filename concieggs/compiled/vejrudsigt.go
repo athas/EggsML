@@ -240,17 +240,17 @@ func main() {
 		country = strings.Trim(ss[2], " ")
 	}
 
-	fmt.Println("tidspunkt: ", tidspunkt)
-	fmt.Println("city: ", city)
-	fmt.Println("country: ", country)
 
-
-	advance := 1
+	advance := -1
 	if (tidspunkt == "i morgen") {
 		advance = 1
 	}
 	if (tidspunkt == "i overmorgen") {
 		advance = 2
+	}
+	if (advance == -1) {
+		fmt.Println("Gyldige tidspunkter er \"i morgen\" eller \"i overmorgen\"")
+		return
 	}
 
 	resp, err := http.Get(fmt.Sprintf("http://api.openweathermap.org/data/2.5/forecast/daily?q=%s,%s&lang=da&mode=json&units=metric&cnt=5&APPID=%s", url.QueryEscape(city), url.QueryEscape(country), APIKEY))
