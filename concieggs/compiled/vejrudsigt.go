@@ -294,7 +294,7 @@ func main() {
 	windDirectionStr := windDirectionString(windDirection)
 
 
-	t, _ := template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}} {{.Tidspunkt}}: {{.Beskrivelse}} med en forventet temperatur på {{.Degrees}}°C. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}.`)
+	t, _ := template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}, {{.Tidspunkt}}: {{.Beskrivelse}} med en forventet temperatur på {{.Degrees}}°C. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}.`)
 	out := bytes.NewBufferString("")
 	t.Execute(out, struct {
 		City              string
