@@ -5,7 +5,8 @@
 eval "$(echo "$@" | parse '^#(?<channel>[^ :]+): (?<command>.*)$')"
 
 if [ "$channel" ]; then
-    runcmd $command | ircify_actions | sayTo "#$channel"
+    shift # Pas på!
+    runcmd "$@" | ircify_actions | sayTo "#$channel"
 else
     echo "$EGGS_USER: Brug: på #kanal: kommando..."
 fi
