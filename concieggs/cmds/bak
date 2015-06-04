@@ -2,7 +2,7 @@
 #
 # Få concieggs's støtte.
 
-eval "$(echo "$@" | parse '^(?<ok>mig op)( på #(?<kanal>[^ ]+))?$')"
+eval "$(echo "$@" | parse '^(?<ok>mig( nu| så)?( lige)? op)( på #(?<kanal>[^ ]+))?$')"
 
 support() {
     (echo "$EGGS_USER: Du har så ret!"
