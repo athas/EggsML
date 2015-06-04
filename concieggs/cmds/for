@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Bed logebotten om at agere på en anden IRC-kanal.
+# Anmod logebotten om at udføre en handling på vegne af en anden logebroder.
 
 eval "$(echo "$@" | parse '^(?<who>[^ :]+): (?<command>.*)$')"
 
