@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# Bed logebotten om at agere på en anden IRC-kanal.
+
+eval "$(echo "$@" | parse '^(?<who>[^ :]+): (?<command>.*)$')"
+
+if ! sejNok "$EGGS_USER"; then
+    echo "$EGGS_USER: Beklager, men du er ikke stor nok endnu."
+    exit
+fi
+
+if [ "$who" ]; then
+    export EGGS_USER="$who"
+    runcmd $command
+else
+    echo "$EGGS_USER: Brug: på #kanal: kommando..."
+fi
