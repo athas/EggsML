@@ -24,7 +24,7 @@ else
     case $srcfile in
         *go)
             compile() {
-		GOPATH="$CONCIEGGS_DIR/compiled:$CONCIEGGS_LIB_DIR/golangbiblioteggs" >&2
+		GOPATH=$CONCIEGGS_DIR/compiled:$CONCIEGGS_LIB_DIR/golangbiblioteggs >&2
                 go build $1 >&2
             }
             ;;
