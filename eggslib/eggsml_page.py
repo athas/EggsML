@@ -6,8 +6,6 @@ import random
 import cgitb; cgitb.enable()
 import cgi
 import sys
-#import os
-#import web
 
 class eggsml_page:
     e = None
@@ -161,10 +159,10 @@ class eggsml_page:
     def index(self):
         o = '<h1>Brainfuck pr&aelig;senterer Brainfuck\'s EggsML</h1>'
         o += '<h2>Nu uden Brainfuck!</h2>'
-        o += '<h3>Tilmeld og indvi nye personer -- Virker EGGE endnu</h3>'
-        o += '<b>Tilmeld indviet person til næste eggs:</b><br><form action="/" method="get"><input type="text" name="tilmeld"><br>'
-        o += '<input type="submit" value="Submit"></form>'
-        o += self.eggsml_tilmeld()
+        # o += '<h3>Tilmeld personer til næste eggs -- Virker EGGE endnu</h3>'
+        # o += '<b>Tilmeld indviet person til næste eggs:</b><br><form action="/" method="get"><input type="text" name="tilmeld"><br>'
+        # o += '<input type="submit" value="Submit"></form>'
+        # o += self.eggsml_tilmeld()
         o += '<a href="./graph_timeline.aspeggs">Se graf over deltagelse til Eggs</a>.'
         o += '<br/><a href="./graph_timeline2.aspeggs">Eggs Enterprise Beta v2 graf</a>.'
         
@@ -179,7 +177,7 @@ class eggsml_page:
     def neggst(self): 
         return concieggs_vm.neggst()
 
-        #Ny funktion skrevet af TV og SF
+        #Ny funktion skrevet af TV og SF. Denne kan nok godt bruges, selvom conieggs_vm-funktion skal omkodes.
     def eggsml_tilmeld(self):
         try:
             form = cgi.FieldStorage()

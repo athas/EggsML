@@ -54,6 +54,8 @@ def neggst():
 def preggs():
   return run('preggs','dummy').replace("\n", "<br />\n");
 
+# Denne her funktion virker ikke, da processer afvikles af en netbruger, som ikke har skriverettigheder!!
+# For at fikse spindel-tilmelding skal denne funktion laves om. Kan evt. implementeres vha. ny IRC-bot.
 def eggsml_tilmeld(user):
   #command = str(os.getenv('CONCIEGGS_DIR')) + '/cmds/\#eggsml/eggsml'
   #l =  "command value:" + command
