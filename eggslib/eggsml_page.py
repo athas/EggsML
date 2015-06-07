@@ -185,7 +185,8 @@ class eggsml_page:
         try:
             form = cgi.FieldStorage()
             tilmeld = form['tilmeld'].value
-            return concieggs_vm.eggsml_tilmeld(tilmeld) + '<br>'
+            return tilmeld
+            #return concieggs_vm.eggsml_tilmeld(tilmeld) + '<br>'
         except KeyError:
             return ""
         #GET={}
