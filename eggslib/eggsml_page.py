@@ -3,8 +3,8 @@
 from eggsml import eggsml
 import concieggs_vm
 import random
-#import os
-import web
+import os
+#import web
 
 class eggsml_page:
     e = None
