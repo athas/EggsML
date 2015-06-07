@@ -13,8 +13,6 @@ subscribeToEggs() {
     if [ "$(dateSecs "$time" '+%u')" = "5" ]; then
         echo "Det er en fredag!  Der er muligvis FF!"
     fi
-    echo "$time" "$name"
-    exit 0
     if [ "$(isInEggs "$time" "$name")" != "" ]; then
         echo "$name spiser allerede med til $(titleEggs $time)!"
     elif addToEggs "$time" "$name"; then
@@ -27,11 +25,12 @@ subscribeToEggs() {
             fi
         fi
     else
-        exit 1
+        echo "Hvad røv er der galt med $time og $name?"
+        exit 0
+        #exit 1
     fi
 }
 
-echo "$@"
 time=$(extractDate "$@")
 name=$(extractUsername "$@")
 if [ ! "$time" ]; then
