@@ -13,6 +13,8 @@ subscribeToEggs() {
     if [ "$(dateSecs "$time" '+%u')" = "5" ]; then
         echo "Det er en fredag!  Der er muligvis FF!"
     fi
+    echo "$time" "$name"
+    exit 0
     if [ "$(isInEggs "$time" "$name")" != "" ]; then
         echo "$name spiser allerede med til $(titleEggs $time)!"
     elif addToEggs "$time" "$name"; then
@@ -40,6 +42,4 @@ if [ ! "$name" ]; then
     echo "Giv mig et navn jeg kender!"
     exit 0
 fi
-echo "$time" "$name"
-exit 0
 subscribeToEggs "$time" "$name"
