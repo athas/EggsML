@@ -42,7 +42,7 @@ def run(cmd,user,args=None):
     try:
       return ("failed retcode[%s] output:[%s]" %(retcode,) )
     except TypeError:
-      return "Noget gik galt:" retcode
+      return "Noget gik galt:" + retcode
   else:
     return output
 
