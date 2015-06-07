@@ -28,6 +28,7 @@ def run(cmd,user,args=None):
   os.environ['EGGS_USER'] = user
   os.environ['EGGS_LINE'] = 'dummy'
   os.environ['PATH'] = PATH
+  os.environ['PWD'] = DIR
   if args == []: args = [str(int(time()))]
   try:
     cmdline = os.path.join(CMDDIR,cmd)
