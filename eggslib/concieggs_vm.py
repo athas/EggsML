@@ -50,6 +50,9 @@ def neggst():
 def preggs():
   return run('preggs','dummy').replace("\n", "<br />\n");
 
+def Eggsml(user):
+  return run('eggsml',user).replace("\n", "<br />\n");
+
 
 def test():
   print neggst()
