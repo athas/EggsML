@@ -182,8 +182,10 @@ class eggsml_page:
 
         #Ny funktion skrevet af TV og SF
     def eggsml_tilmeld(self):
+        form = cgi.FieldStorage()
+        tilmeld = form['tilmeld'].value
             #form = web.input(tilmeld="")
-            return "hej"
+            return tilmeld
         #GET={}
         #args=os.getenv("tilmeld").split('&')
         #for arg in args: 
