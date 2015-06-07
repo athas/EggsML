@@ -156,11 +156,11 @@ class eggsml_page:
     def index(self):
         o = '<h1>Brainfuck pr&aelig;senterer Brainfuck\'s EggsML</h1>'
         o += '<h2>Nu uden Brainfuck!</h2>'
-        o += '<h3>Tilmeld og indvi nye personer -- Virker EGGE endnu</h3>'
-        o += '<form><b>Indvi med følgende IRC-navn:</b><br><input type="text" name="indvi"><br>'
-        o += '<input type="submit" value="Indvi"></form>'
-        o += '<b>Tilmeld indviet person til næste eggs:</b><br><form><input type="text" name="tilmeld"><br>'
-        o += '<input type="submit" value="Tilmeld"></form>'
+        #o += '<h3>Tilmeld og indvi nye personer -- Virker EGGE endnu</h3>'
+        #o += '<form><b>Indvi med følgende IRC-navn:</b><br><input type="text" name="indvi"><br>'
+        #o += '<input type="submit" value="Indvi"></form>'
+        #o += '<b>Tilmeld indviet person til næste eggs:</b><br><form><input type="text" name="tilmeld"><br>'
+        #o += '<input type="submit" value="Tilmeld"></form>'
         o += '<a href="./graph_timeline.aspeggs">Se graf over deltagelse til Eggs</a>.'
         o += '<br/><a href="./graph_timeline2.aspeggs">Eggs Enterprise Beta v2 graf</a>.'
         
