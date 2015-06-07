@@ -44,7 +44,7 @@ def run(cmd,user,args=None):
     except TypeError:
       return "Noget gik galt:" retcode
   else:
-      return output
+    return output
 
   
 def neggst():
