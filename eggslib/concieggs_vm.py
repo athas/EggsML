@@ -54,7 +54,7 @@ def preggs():
   return run('preggs','dummy').replace("\n", "<br />\n");
 
 def eggsml_tilmeld(user):
-  return run('eggsml','dummy',user).replace("\n", "<br />\n");
+  return run('eggsml',user,user).replace("\n", "<br />\n");
 
 
 def test():
