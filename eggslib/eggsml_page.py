@@ -3,7 +3,8 @@
 from eggsml import eggsml
 import concieggs_vm
 import random
-import os
+#import os
+import web
 
 class eggsml_page:
     e = None
@@ -158,8 +159,8 @@ class eggsml_page:
         o = '<h1>Brainfuck pr&aelig;senterer Brainfuck\'s EggsML</h1>'
         o += '<h2>Nu uden Brainfuck!</h2>'
         o += '<h3>Tilmeld og indvi nye personer -- Virker EGGE endnu</h3>'
-        o += '<b>Tilmeld indviet person til næste eggs:</b><br><form action="/" method="get"><input type="text" name="tilmeld"><br>'
-        o += '<input type="submit" value="Submit"></form>'
+        #o += '<b>Tilmeld indviet person til næste eggs:</b><br><form action="/" method="get"><input type="text" name="tilmeld"><br>'
+        #o += '<input type="submit" value="Submit"></form>'
         o += self.eggsml_tilmeld()
         o += '<a href="./graph_timeline.aspeggs">Se graf over deltagelse til Eggs</a>.'
         o += '<br/><a href="./graph_timeline2.aspeggs">Eggs Enterprise Beta v2 graf</a>.'
@@ -176,14 +177,16 @@ class eggsml_page:
         return concieggs_vm.neggst()
 
         #Ny funktion skrevet af TV og SF
-    def eggsml_tilmeld(self):
+        def eggsml_tilmeld(self):
+            form = web.input(tilmeld="")
+            return form.tilmeld
         #GET={}
-        args=os.getenv("tilmeld").split('&')
-        for arg in args: 
-            t=arg.split('=')
-            if len(t)>1: k,v=arg.split('='); GET[k]=v
+        #args=os.getenv("tilmeld").split('&')
+        #for arg in args: 
+            #t=arg.split('=')
+            #if len(t)>1: k,v=arg.split('='); GET[k]=v
         #tilmeld = os.getenv("tilmeld")
-        return Get.get('tilmeld')
+        #return Get.get('tilmeld')
         # tilmeld = urlparse.parse_qs(tilmeld)
         # if tilmeld != "":
         #     return concieggs_vm.eggsml_tilmeld(tilmeld) + '<br>'
