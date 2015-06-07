@@ -1,5 +1,6 @@
 #!/bin/sh
 
+pwd
 aliases "$1" | while read -r alias; do
     dbDelete "users/$alias/eggsactly";
 done
