@@ -177,8 +177,13 @@ class eggsml_page:
 
         #Ny funktion skrevet af TV og SF
     def eggsml_tilmeld(self):
-        tilmeld = os.getenv("tilmeld")
-        return tilmeld
+        GET={}
+        args=os.getenv("QUERY_STRING").split('&')
+        for arg in args: 
+            t=arg.split('=')
+            if len(t)>1: k,v=arg.split('='); GET[k]=v
+        #tilmeld = os.getenv("tilmeld")
+        return Get.get('tilmeld')
         # tilmeld = urlparse.parse_qs(tilmeld)
         # if tilmeld != "":
         #     return concieggs_vm.eggsml_tilmeld(tilmeld) + '<br>'
