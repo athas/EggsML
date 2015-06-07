@@ -179,6 +179,7 @@ class eggsml_page:
         tilmeld = urlparse.parse_qs(tilmeld)
         if tilmeld != "":
             return concieggs_vm.eggsml_tilmeld(tilmeld) + '<br>'
+        return ""    
     
     def preggs(self):
         return concieggs_vm.preggs()
