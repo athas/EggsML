@@ -22,7 +22,7 @@ PATH = os.path.join(DIR,'eggspi')+":/usr/local/bin:/bin:/usr/bin"
 import logging
 logging.basicConfig(level=logging.DEBUG)
 
-def run(cmd,user,args):
+def run(cmd,user,args=None):
   if args is None: args=[] #
   os.environ.update(ENV)
   os.environ['EGGS_USER'] = user
