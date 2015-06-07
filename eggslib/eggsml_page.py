@@ -165,7 +165,6 @@ class eggsml_page:
         o += '<b>Tilmeld indviet person til næste eggs:</b><br><form action="/" method="get"><input type="text" name="tilmeld"><br>'
         o += '<input type="submit" value="Submit"></form>'
         o += self.eggsml_tilmeld()
-        o += self.neggst()
         o += '<a href="./graph_timeline.aspeggs">Se graf over deltagelse til Eggs</a>.'
         o += '<br/><a href="./graph_timeline2.aspeggs">Eggs Enterprise Beta v2 graf</a>.'
         
@@ -186,21 +185,8 @@ class eggsml_page:
             form = cgi.FieldStorage()
             tilmeld = form['tilmeld'].value
             return concieggs_vm.eggsml_tilmeld(tilmeld) + '<br>'
-            #return tilmeld
         except KeyError:
             return ""
-        #GET={}
-        #args=os.getenv("tilmeld").split('&')
-        #for arg in args: 
-            #t=arg.split('=')
-            #if len(t)>1: k,v=arg.split('='); GET[k]=v
-        #tilmeld = os.getenv("tilmeld")
-        #return Get.get('tilmeld')
-        # tilmeld = urlparse.parse_qs(tilmeld)
-        # if tilmeld != "":
-        #     return
-        # else:    
-        #     return ""    
     
     def preggs(self):
         return concieggs_vm.preggs()
