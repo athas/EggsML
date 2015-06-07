@@ -158,8 +158,8 @@ class eggsml_page:
         o += '<h2>Nu uden Brainfuck!</h2>'
         o += '<h3>Tilmeld og indvi nye personer -- Virker EGGE endnu</h3>'
         o += '<b>Tilmeld indviet person til næste eggs:</b><br><form action="/" method="get"><input type="text" name="tilmeld"><br>'
-        o += '<input type="submit" value="Tilmeld"></form>'
-        o += self.eggsml_tilmeld()
+        o += '<input type="submit" value="Submit"></form>'
+        #o += self.eggsml_tilmeld()
         o += '<a href="./graph_timeline.aspeggs">Se graf over deltagelse til Eggs</a>.'
         o += '<br/><a href="./graph_timeline2.aspeggs">Eggs Enterprise Beta v2 graf</a>.'
         
@@ -179,7 +179,8 @@ class eggsml_page:
         tilmeld = urlparse.parse_qs(tilmeld)
         if tilmeld != "":
             return concieggs_vm.eggsml_tilmeld(tilmeld) + '<br>'
-        return ""    
+        else:    
+            return ""    
     
     def preggs(self):
         return concieggs_vm.preggs()
