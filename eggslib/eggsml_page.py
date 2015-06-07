@@ -186,9 +186,9 @@ class eggsml_page:
             form = cgi.FieldStorage()
             tilmeld = form['tilmeld'].value
             return tilmeld
-            #return concieggs_vm.eggsml_tilmeld(tilmeld) + '<br>'
         except KeyError:
             return ""
+        #return concieggs_vm.eggsml_tilmeld(tilmeld) + '<br>'
         #GET={}
         #args=os.getenv("tilmeld").split('&')
         #for arg in args: 
