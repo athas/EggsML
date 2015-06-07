@@ -178,8 +178,8 @@ class eggsml_page:
 
         #Ny funktion skrevet af TV og SF
         def eggsml_tilmeld(self):
-            form = web.input(tilmeld="")
-            return form.tilmeld
+            #form = web.input(tilmeld="")
+            return "hej"
         #GET={}
         #args=os.getenv("tilmeld").split('&')
         #for arg in args: 
