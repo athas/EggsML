@@ -177,7 +177,7 @@ class eggsml_page:
 
         #Ny funktion skrevet af TV og SF
     def eggsml_tilmeld(self):
-        GET={}
+        #GET={}
         args=os.getenv("Submit").split('&')
         for arg in args: 
             t=arg.split('=')
