@@ -3,7 +3,10 @@
 from eggsml import eggsml
 import concieggs_vm
 import random
-import os
+import cgitb; cgitb.enable()
+import cgi
+import sys
+#import os
 #import web
 
 class eggsml_page:
