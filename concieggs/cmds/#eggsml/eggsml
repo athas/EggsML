@@ -41,4 +41,5 @@ if [ ! "$name" ]; then
     exit 0
 fi
 echo "$time" "$name"
+exit 0
 subscribeToEggs "$time" "$name"
