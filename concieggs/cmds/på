@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+# Bed logebotten om at agere på en anden IRC-kanal.
+
+eval "$(echo "$@" | parse '^#(?<channel>[^ :]+): (?<command>.*)$')"
+
+if [ "$channel" ]; then
+    shift # Pas på!
+    runcmd "$@" | ircify_actions | sayTo "#$channel"
+else
+    echo "$EGGS_USER: Brug: på #kanal: kommando..."
+fi

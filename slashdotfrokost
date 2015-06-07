@@ -71,7 +71,7 @@ valberg, islændingen, vulkanperkeren, eyjafjallajokull, øl, dr_django, tituler
 RasmusWL, rasmus, ægkoger, pestolover, rasmuswriedt, utf8bølle, destroyer_of_memes
 lurpak, smør, rené, réñé, renerene, rensdyr
 nobook, rusfrederik, Kongen, Gøgleren, NejBog, IngenBog, NoBookSkole
-sword_smith, thorkil, sværdsmed, bitcoin_fanboy, selvtægtsfar, hvor_svært_kan_det_være?, metusalem-rus, cykelvogter, rumæn_fordriver
+sword_smith, thorkil, sværdsmed, bitcoin_fanboy, selvtægtsfar, hvor_svært_kan_det_være?, metusalem-rus, cykelvogter, rumæn_fordriver, pksu-gruppe-sergent
 nwillems, willems, Sid, dovendyret
 Orkeren, sven, frenzel, maskinel_troldmand, PKSU_slacker, pksu-gruppe-spøgelse
 mhd, coqlover
@@ -84,8 +84,9 @@ Ninn, Ceryn-sidekick, Manden-uden-bemyndigelse, ninn_og_tonic, eggssluger
 hybelkanin
 rainnwind
 drdimon, linneberg, dårlig_humor_simon, dimon_og_pumba, blender
-ziggimaguagua, signe, enhjørning, zididada, rigtig-svensker
+ziggimaguagua, signe, enhjørning, zididada, rigtig-svensker, rekvisigne
 PtxDK, PK
+Hitler_Stalin_Mao_Elbaek
 
 # Husk på, farvesektionen kan ikke have kommentarer, da det
 # kan indgå i farvesyntaksen.
@@ -124,19 +125,22 @@ kim:  X
 brian: X|
 
 ::INDKØBSØNSKER::
-minieggs (kaviar)
-eggs (ikke økologisk og i bur)
-den gode pesto
-aubergine
-avokado
-rugbrød til kantinen
-hotwings
-spegepølse
+heroin
+rævesovs
+Nutella-erstatningsprodukt
+mini-frække deller
+jordnøddesmør
 lugteost
-kyllingenuggets
+hotwings
 
 ::INDKØB::
 # I danske kroner, svin.
+2015-06-07, golang-hviskeren: 45
+2015-06-04, ;ls: 193
+2015-06-02, desertøren: -5
+2015-06-02, Ceryn-sidekick: 179.90
+2015-05-28, PåleggsMaskinen: 64
+2015-05-26, kriztw: 231
 2015-05-20, destroyer_of_memes: 215
 2015-05-15, sven: 250.30
 2015-05-15, sværdsmed: 222
@@ -1171,6 +1175,18 @@ kyllingenuggets
 2009-04-11, abll: 113.75
 
 ::MÅLTIDSDATA::
+2015-06-06, hitler-kanelsnegl # (20:40)
+2015-06-05, snowden, tituler_ngws_som, rensdyr # (12:00)
+2015-06-04, no_sweat, mathias-sidekick, Prinsebbe, oleggs, cykelvogter, rené, RasmusWL # (12:00)
+2015-06-03, røvpianisten, eggssluger, Ninn-sidekick, roleggs, Hr._Niels-Niels # (12:00)
+2015-06-02, eggssluger, renerene, maskinel_troldmand, cykelvogter, desertøren, Γ⊢1337↓1337, næsten_blåt_blod, PtxDK # (12:00) Jeg tror vi mangler mayo.
+2015-06-01, tituler_ngws_som # (18:50) "fire russer spiste med i dag"
+2015-06-01, Ninn, hvor_svært_kan_det_være?, mathias-sidekick, C++bastian # (12:00)
+2015-05-29, metusalem-rus, frenzel, beundre_børge # (12:00) vi skal bruge ny køleboks
+2015-05-28, pksu-gruppe-spøgelse, selvtægtsfar, roleggs, Manden-uden-bemyndigelse, renerene # (12:00)
+2015-05-27, Ceryn-sidekick, mosmllex # (12:00)
+2015-05-26, RasmusWL, mathias-sidekick, sebastian, thorkil, réñé, OpenBSD-lokker # (12:00) med Kong kragernes_kerub et al.
+2015-05-24, roleggs # (15:40)
 2015-05-22, selvtægtsfar # (12:00)
 2015-05-21, nikkel # (17:00)
 2015-05-21, Manden-uden-bemyndigelse, kragernes_kerub, bitcoin_fanboy, rensdyr, søholmen, latin1 # (12:00) I dag med fem en halv halv eggs!

@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# Få concieggs's støtte.
+
+eval "$(echo "$@" | parse '^(?<who>[^ ]+)( nu| så)?( lige)? op( på #(?<kanal>[^ ]+))?$')"
+
+support() {
+    (echo "$who: Du har så ret!"
+     echo "$who: Enig!"
+     echo "$who har helt ret."
+     echo "Fandeme godt sagt, $who!"
+     echo "Prædk det, $who!"
+     echo "Lyt til $who, han ved hvad han taler om.") |
+        randomElement
+}
+
+if [ "$who" ]; then
+    if [ "$who" = mig ]; then
+        who=$EGGS_USER
+    fi
+    if [ "$kanal" ]; then
+        support | sayTo "#$kanal"
+    else
+        support
+    fi
+else
+    echo "$who: Brug: bak mig op [på #kanal]"
+fi

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+[ "$(authedName $1)" = Athas ]

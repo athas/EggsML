@@ -3,6 +3,7 @@
 # Find ud af om concieggs kan lide nogen.
 
 eval "$(echo "$@" | parse '(du|De) (derimod |mon |så )?lide (?<user>[^ ]+)')"
+
 if [ "$user" ]; then
     if [ "$user" = "mig" ]; then
         alias=$EGGS_USER
@@ -10,6 +11,9 @@ if [ "$user" ]; then
     elif [ "$user" = "concieggs" ]; then
         echo "Ha ha, det er fandme sjovt at du spørger, om jeg kan lide mig selv. Ha ha ha, ikke også?"
         annoyedBy "$EGGS_USER" 25
+        exit
+    elif echo "$user" | grep -qi OpenBSD; then
+        echo "$EGGS_USER: Naturligvis - det er det tænkende individs styresystem."
         exit
     else
         alias=$user

@@ -1,0 +1,5 @@
+#!/bin/sh
+# Converts "/me does stuff" to "\x01ACTION does stuff"
+
+soh=$(echo | tr '\n' '\001')
+sed -ur "s|^/me|${soh}ACTION|"
