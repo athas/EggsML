@@ -58,7 +58,7 @@ def eggsml_tilmeld(user):
   #l =  "command value:" + command
   #return l + str(os.system(command + user))
   #return str(os.system('eggsml'))
-  return "argumentet var: " + user + "\n" + run('eggsml',user,user).replace("\n", "<br />\n");
+  return "argumentet var: " + user + "\n" + run('eggsml','dummy',user).replace("\n", "<br />\n");
 
 
 def test():
