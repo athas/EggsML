@@ -14,5 +14,6 @@ if [ $# -eq 3 ]; then
 else
     new="$2, $(echo $num + 1 | bc)"
 fi
+echo "$new"
 echo "$new" >> $CONCIEGGS_DB_DIR/eggs/$1
 updateSubTime "$2" "$(nowTime)"
