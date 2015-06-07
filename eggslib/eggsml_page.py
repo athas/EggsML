@@ -161,7 +161,8 @@ class eggsml_page:
         o += '<h3>Tilmeld og indvi nye personer -- Virker EGGE endnu</h3>'
         #o += '<b>Tilmeld indviet person til næste eggs:</b><br><form action="/" method="get"><input type="text" name="tilmeld"><br>'
         #o += '<input type="submit" value="Submit"></form>'
-        o += self.eggsml_tilmeld()
+        #o += self.eggsml_tilmeld()
+        o += self.neggst()
         o += '<a href="./graph_timeline.aspeggs">Se graf over deltagelse til Eggs</a>.'
         o += '<br/><a href="./graph_timeline2.aspeggs">Eggs Enterprise Beta v2 graf</a>.'
         
