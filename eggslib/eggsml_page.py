@@ -157,7 +157,7 @@ class eggsml_page:
         o = '<h1>Brainfuck pr&aelig;senterer Brainfuck\'s EggsML</h1>'
         o += '<h2>Nu uden Brainfuck!</h2>'
         o += '<h3>Tilmeld og indvi nye personer -- Virker EGGE endnu</h3>'
-        o += '<b>Tilmeld indviet person til næste eggs:</b><br><form action="eggsml_page.py" method="get"><input type="text" name="tilmeld"><br>'
+        o += '<b>Tilmeld indviet person til næste eggs:</b><br><form action="/" method="get"><input type="text" name="tilmeld"><br>'
         o += '<input type="submit" value="Tilmeld"></form>'
         #o += self.eggsml_tilmeld()
         o += '<a href="./graph_timeline.aspeggs">Se graf over deltagelse til Eggs</a>.'
