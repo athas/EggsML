@@ -13,7 +13,7 @@ subscribeToEggs() {
     if [ "$(dateSecs "$time" '+%u')" = "5" ]; then
         echo "Det er en fredag!  Der er muligvis FF!"
     fi
-    n=`whereis addToEggs`
+    whereis addToEggs
     echo "Hvor er addToEggs: $n"
     exit 0
     if [ "$(isInEggs "$time" "$name")" != "" ]; then
