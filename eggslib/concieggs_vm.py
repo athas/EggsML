@@ -42,7 +42,7 @@ def run(cmd,user,args=None):
     try:
       return ("failed retcode[%s] output:[%s]" %(retcode,) )
     except TypeError:
-      return retcode
+      return str(retcode)
   else:
     return output
 
