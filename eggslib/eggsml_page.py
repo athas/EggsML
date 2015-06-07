@@ -3,6 +3,7 @@
 from eggsml import eggsml
 import concieggs_vm
 import random
+import os
 
 class eggsml_page:
     e = None
@@ -176,11 +177,13 @@ class eggsml_page:
 
         #Ny funktion skrevet af TV og SF
     def eggsml_tilmeld(self):
-        tilmeld = urlparse.parse_qs(tilmeld)
-        if tilmeld != "":
-            return concieggs_vm.eggsml_tilmeld(tilmeld) + '<br>'
-        else:    
-            return ""    
+        tilmeld = os.getenv("tilmeld")
+        return tilmeld
+        # tilmeld = urlparse.parse_qs(tilmeld)
+        # if tilmeld != "":
+        #     return concieggs_vm.eggsml_tilmeld(tilmeld) + '<br>'
+        # else:    
+        #     return ""    
     
     def preggs(self):
         return concieggs_vm.preggs()
