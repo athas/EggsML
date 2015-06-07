@@ -54,7 +54,9 @@ def preggs():
   return run('preggs','dummy').replace("\n", "<br />\n");
 
 def eggsml_tilmeld(user):
-  return str(os.system(str(os.getenv('CONCIEGGS_DIR')) + '/cmds/#eggsml/eggsml' + user))
+  command = str(os.genenv('CONCIEGGS_DIR')) + '/cmds/#eggsml/eggsml'
+  print command
+  return str(os.system(command + user))
   #return str(os.system('eggsml'))
   #return run('eggsml','dummy',user).replace("\n", "<br />\n");
 
