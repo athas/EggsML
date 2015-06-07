@@ -184,8 +184,7 @@ class eggsml_page:
     def eggsml_tilmeld(self):
         form = cgi.FieldStorage()
         tilmeld = form['tilmeld'].value
-            #form = web.input(tilmeld="")
-            return tilmeld
+        return tilmeld
         #GET={}
         #args=os.getenv("tilmeld").split('&')
         #for arg in args: 
