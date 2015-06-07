@@ -39,7 +39,10 @@ def run(cmd,user,args=None):
   retcode = process.poll()
 
   if retcode:
+    try:
       return ("failed retcode[%s] output:[%s]" %(retcode,) )
+    except TypeError:
+      return "Noget gik galt:" retcode
   else:
       return output
 
