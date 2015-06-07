@@ -28,14 +28,14 @@ def run(cmd,user,args=None):
   os.environ['EGGS_USER'] = user
   os.environ['EGGS_LINE'] = 'dummy'
   os.environ['PATH'] = PATH
-  os.environ['PWD'] = DIR
+  pwd = "/home/concieggs"
   if args == []: args = [str(int(time()))]
   try:
     cmdline = os.path.join(CMDDIR,cmd)
-    process = Popen([cmdline]+args,stdout=subprocess.PIPE)
+    process = Popen([cmdline]+args,stdout=subprocess.PIPE,workingdir=pwd)
   except OSError:
     cmdline = os.path.join(EGGSCMD,cmd)
-    process = Popen([cmdline]+args,stdout=subprocess.PIPE)
+    process = Popen([cmdline]+args,stdout=subprocess.PIPE,workingdir=pwd)
   output, unused_err = process.communicate() 
   retcode = process.poll()
 
