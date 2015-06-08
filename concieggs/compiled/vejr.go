@@ -116,7 +116,7 @@ func main() {
 	/* Hent coordinater for målestation og udregn afstand til Kantinen */
 	lon := dat.Coord.Lon
 	lat := dat.Coord.Lat
-	afstand := vejrLib.Afstand(lon, lat)
+	afstandStr := vejrLib.AfstandStr(lon, lat)
 
 	/* Tid for opdatering */
 	timeForUpdate := dat.Dt
@@ -125,7 +125,7 @@ func main() {
 	
 	windDirectionstr := vejrLib.WindDirectionString(windDirection)
 
-	t, _ := template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}: {{.Beskrivelse}} med en temperatur på {{.Degrees}}°C. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}. Målestationens afstand til Kantinen er ca. {{.Afstand}} km. {{.Age}}`)
+	t, _ := template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}: {{.Beskrivelse}} med en temperatur på {{.Degrees}}°C. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}. {{.Afstand}} {{.Age}}`)
 	out := bytes.NewBufferString("")
 	t.Execute(out, struct {
 		City              string
@@ -135,7 +135,7 @@ func main() {
 		WindBeaufortName  string
 		WindSpeed         string
 		WindDirection     string
-		Afstand           int
+		Afstand           string
 		Age               string
 	}{
 		city,
@@ -145,7 +145,7 @@ func main() {
 		fmt.Sprint(windBeaufortName),
 		fmt.Sprintf("%.1f", windSpeed),
 		windDirectionstr,
-		afstand,
+		afstandStr,
 		ageStr,
 	})
 

@@ -12,6 +12,9 @@ const (
 	DIKULAT    = 55.702082 //breddegrad for DIKUs Kantine
 	MEAN_EARTH_RADIUS = 6371 //enhed er i kilometer!
 	OPLOESNING = 22.5 //Bruges til vindretningsangivelse
+	AFSTANDSTEGGST1 = "Målestationens afstand til Kantinen er ca. "
+	AFSTANDSTEGGST2 = " km."
+	
 )
 
 
@@ -166,13 +169,22 @@ func fraGradTilRad(grad float64) float64 {
 
 
 /* Udregner afstanden fra målestationen til DIKUs Kantine */
-func Afstand(longitude, latitude float64) int {
+func afstand(longitude, latitude float64) int {
 	lonRad := fraGradTilRad(longitude)
 	latRad := fraGradTilRad(latitude)
 	dikuLonRad := fraGradTilRad(DIKULON)
 	dikuLatRad := fraGradTilRad(DIKULAT)
 	storCirkelVinkel := math.Acos(math.Sin(dikuLatRad)*math.Sin(latRad)+math.Cos(dikuLatRad)*math.Cos(latRad)*math.Cos(math.Abs(lonRad-dikuLonRad))) //se evt. wiki/Great-circle_distance
 	return int(MEAN_EARTH_RADIUS*storCirkelVinkel)
+}
+
+/* Vi er kun interesseret i afstanden, hvis det ikke er for målestationen nærmest Kantinen */
+func AfstandStr(longitude, latitude float64) string {
+	afstand := afstand(longitude, latitude)
+	if afstand > 2 {
+		return AFSTANDSTEGGST1 + strconv.Itoa(afstand) + AFSTANDSTEGGST2
+	}
+	return ""
 }
 
 
