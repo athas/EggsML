@@ -123,7 +123,6 @@ func main() {
 	ageStr := vejrLib.ErMaalingenGammel(timeForUpdate) 
 	
 	
-
 	windDirectionstr := vejrLib.WindDirectionString(windDirection)
 
 	t, _ := template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}: {{.Beskrivelse}} med en temperatur på {{.Degrees}}°C. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}. Målestationens afstand til Kantinen er ca. {{.Afstand}} km. {{.Age}}`)
