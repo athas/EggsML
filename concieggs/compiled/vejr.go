@@ -12,7 +12,6 @@ import (
 	"os"
 	"strings"
 	"text/template"
-	//"time"
 	"vejrLib"
 )
 
