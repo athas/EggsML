@@ -17,7 +17,7 @@ int main() {
   srand(seed);
 
   while ((c = getchar()) != EOF) {
-    if (inword && !isalpha(c) && rand() % 100 < satans_chance) {
+    if (inword && !isalpha(c) && rand() % 1000 < satans_chance) {
       puts("...");
       fflush(stdout);
       sleep(5);
