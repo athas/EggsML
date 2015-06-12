@@ -19,6 +19,10 @@ int main() {
   while ((c = getchar()) != EOF) {
     if (inword && !isalpha(c) && rand() % 100 < satans_chance) {
       puts("...");
+      fflush(stdout);
+      sleep(1);
+      puts("...");
+      fflush(stdout);
       sleep(2);
       puts("Satans!");
       return 0;
