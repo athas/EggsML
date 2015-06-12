@@ -4,7 +4,7 @@
 #include <time.h>
 #include <ctype.h>
 
-static unsigned int satans_chance = 5; /* In percent. */
+static unsigned int satans_chance = 1; /* In percent. */
 
 int main() {
   int c;
