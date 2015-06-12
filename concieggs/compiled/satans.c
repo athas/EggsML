@@ -20,10 +20,10 @@ int main() {
     if (inword && !isalpha(c) && rand() % 100 < satans_chance) {
       puts("...");
       fflush(stdout);
-      sleep(1);
+      sleep(5);
       puts("...");
       fflush(stdout);
-      sleep(2);
+      sleep(3);
       puts("Satans!");
       return 0;
     }
