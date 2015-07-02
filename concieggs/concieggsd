@@ -25,6 +25,9 @@ cleanup() {
 # Try to figure out where this executable resides.
 dir=$(readlink -f $(dirname $0))
 
+# Go there.
+cd $dir
+
 # Load the configuration file.
 cfg=$dir/concieggs.conf
 . $cfg
