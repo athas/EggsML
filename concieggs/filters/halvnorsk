@@ -11,6 +11,8 @@ import re
 regler = '''
 øj øy
 ej ei
+at å
+og å
 (¶vokal)kk? kk
 (¶vokal)dd? dd
 (¶vokal)nn? nn
@@ -22,8 +24,6 @@ et(¶ordslut) t
 d(¶ordslut) t
 dt(¶ordslut) t
 af av
-at å
-og å
 rne(¶ordslut) ne
 gg kk
 æ(¶konsonant) e
