@@ -28,6 +28,7 @@ rne(¶ordslut) ne
 gg kk
 æ(¶konsonant) e
 d(¶ordslut)
+ler lar
 '''
 
 def make_regex(line):
