@@ -1,7 +1,0 @@
-#!/bin/sh
-
-maybeGood .1 || exit
-
-if echo "$EGGS_BODY" | grep -qi 'penge'; then
-    echo 'Penge?  Lad os fordele produktionsmidlerne mere ordentligt!'
-fi

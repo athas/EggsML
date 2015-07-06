@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# concieggs er et komplekst individ med modstridende holdninger.
+
+maybeGood .1 || exit
+
+if (echo "$EGGS_BODY" | grep -qEi '(^| |\,|;|:|\.)+su+( |\,|;|:|\.|\?|!|$)'); then
+    echo 'SU? Er det ikke bedre at kode for kapitalen?'
+fi
+
+if echo "$EGGS_BODY" | grep -qi 'penge'; then
+    echo 'Penge?  Lad os dog fordele produktionsmidlerne mere ordentligt!'
+fi
