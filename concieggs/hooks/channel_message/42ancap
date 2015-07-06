@@ -1,5 +1,7 @@
 #!/bin/sh
 
+maybeGood .1 || exit
+
 if (echo "$EGGS_BODY" | grep -qEi '(^| |\,|;|:|\.)+su+( |\,|;|:|\.|\?|!|$)'); then
     echo 'SU? Er det ikke bedre at kode for kapitalen?'
 fi
