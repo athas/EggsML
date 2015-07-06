@@ -1,0 +1,57 @@
+#!/usr/bin/env python3
+# "¶" er en genvej.  Genveje:
+# ¶vokal
+# ¶konsonant
+# ¶ordslut
+
+import sys
+import re
+
+
+regler = '''
+øj øy
+ej ei
+(¶vokal)kk? kk
+(¶vokal)dd? dd
+(¶vokal)nn? nn
+(¶vokal)pp? pp
+(¶vokal)tt? tt
+(¶vokal)g k
+ig eg
+et(¶ordslut) t
+d(¶ordslut) t
+dt(¶ordslut) t
+af av
+at å
+og å
+rne(¶ordslut) ne
+gg kk
+æ(¶konsonant) e
+d(¶ordslut)
+'''
+
+def make_regex(line):
+    l = line.split(' ', 2)
+    if len(l) == 1:
+        l.append('')
+    return (make_regex_start(l[0]), l[1])
+
+def make_regex_start(t):
+    subs = (
+        (r'^\(¶vokal\)', '(?<=[aeiouyæøå])'),
+        (r'\(¶vokal\)$', '(?=[aeiouyæøå])'),
+        (r'^\(¶konsonant\)', '(?<=[bcdfghjklmnpqrstvwxz])'),
+        (r'\(¶konsonant\)$', '(?=[bcdfghjklmnpqrstvwxz])'),
+        (r'\(¶ordslut\)$', '(?=[ ,.$])')
+    )
+    for a, b in subs:
+        t = re.sub(a, b, t)
+    return t
+
+regexer = [make_regex(line) for line in regler.strip().split('\n')]
+
+text = sys.stdin.read().strip()
+for a, b in regexer:
+    text = re.sub(a, b, text)
+
+print(text)
