@@ -9,8 +9,14 @@ if [ $hour -eq 13 -a $minute -eq 0 ]; then
     else
         echo "gentleman Eggs $(timeToRelDay $1)"
     fi
+elif [ $hour -eq 13 -a $minute -eq 37 ]; then
+    echo "h4x0r eggs $(timeToRelDay $1)"
 elif [ $hour -eq 14 -a $minute -eq 0 ]; then
     echo "Eggs royale $(timeToRelDay $1)"
+elif [ $hour -eq 15 -a $minute -eq 0 ]; then
+    echo "bispens Eggs $(timeToRelDay $1)"
+elif [ $hour -eq 0 -a $minute -eq 0 ]; then
+    echo "Den Sorte Eggs $(timeToRelDay $1)"
 else
     echo "Eggs $(timeToDate $1)"
 fi
