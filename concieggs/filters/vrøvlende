@@ -4,6 +4,7 @@
 
 import sys
 import os
+import re
 import subprocess
 from eggsthon import *
 import eggsthon.shell as shell
@@ -30,4 +31,7 @@ def babble(w):
             return random_word(f)
     return w
 
-sys.stdout.write(' '.join(babble(w) for w in sys.stdin.read().rstrip().split(' ')) + '\n')
+
+i = sys.stdin.read()
+o = re.sub(r'[\w-]+', lambda m: babble(m.group(0)), i)
+sys.stdout.write(o)
