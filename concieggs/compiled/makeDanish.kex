@@ -110,4 +110,6 @@ word := ~<computer> "datamat"
       | ~<arrayet> "tabellen"
       | ~<arrays> "tabeller"
       | ~<array> "tabel"
+      | ~<dollars> "dalere"
+      | ~<dollar> "daler"
       | <[a-zA-ZæøåÆØÅ0-9]+>
