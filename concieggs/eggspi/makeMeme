@@ -5,9 +5,13 @@
 import sys
 import os
 import random
-from urllib.request import urlopen
+from urllib.request import urlopen, Request
 from urllib.parse import urlencode
 import json
+
+def urlread(url):
+    req = Request(url, headers={'User-Agent': 'Mozilla/5.0 (X11; U; Linux i686) Gecko/20071127 Firefox/2.0.0.11'})
+    return urlopen(req).read()
 
 
 def main(args):
@@ -24,23 +28,21 @@ def main(args):
         except ValueError:
             print('Løsenfil er væk.', file=sys.stderr)
             return 1
-    
-    text = urlopen('https://api.imgflip.com/get_memes').read()
+
+    text = urlread('https://api.imgflip.com/get_memes')
     memes = json.loads(text.decode('utf-8'))
     if not memes['success']:
         print('Kunne ikke finde en memskabelon.', file=sys.stderr)
         return 1
-    meme = random.choice(meme['data'])
-    generator = meme['generatorID']
+    meme = random.choice(memes['data']['memes'])
     params = {
         'template_id': meme['id'],
-        'username': username,
+        'username': user,
         'password': password,
         'text0': top,
         'text1': bottom,
     }
-    text = urlopen('http://version1.api.memegenerator.net/Instance_Create?'
-                   + urlencode(params)).read()
+    text = urlread('https://api.imgflip.com/caption_image?' + urlencode(params))
     result = json.loads(text.decode('utf-8'))
     if not result['success']:
         print('Kunne ikke lave et mem.', file=sys.stderr)
