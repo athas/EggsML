@@ -5,7 +5,7 @@
 
 if maybeGood 0.1; then
     RANDOM=$(od -vAn -N4 -tu4 < /dev/urandom)
-    echo "$EGGS_USER:$RANDOM"
+    echo "$EGGS_USER: $RANDOM"
 elif ! shuttingUp; then
     echo "$EGGS_USER: Jamen naturligvis - hvorfor skulle andet være tilfældet?"
 else
