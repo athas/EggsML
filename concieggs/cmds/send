@@ -10,7 +10,7 @@ eval "$(echo "$@" | parse '(?<rawcmd>.+)( til (?<addr>.+@.+|twitter|internettet|
 if [ "$rawcmd" ]; then
     cmd=$(echo "$rawcmd" | cut -d' ' -f 1)
     args=$(echo "$rawcmd"| sed 's/[^ ]* *//')
-    if [ $args ]; then
+    if [ "$args" ]; then
         args=" $args"
     fi
 
@@ -24,6 +24,7 @@ if [ "$rawcmd" ]; then
     else
         echo "Sender $cmd$args til $addr!"
 
+        echo "Afvikling af $cmd$args, anmodet af $EGGS_USER"
         echo $result | mailx -r concieggs@eggsml.dk -s "Afvikling af $cmd$args, anmodet af $EGGS_USER" "$addr"
     fi
 else
