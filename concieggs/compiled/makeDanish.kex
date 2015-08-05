@@ -112,4 +112,6 @@ word := ~<computer> "datamat"
       | ~<array> "tabel"
       | ~<dollars> "dalere"
       | ~<dollar> "daler"
+      | ~<[Ii]stanbul> "Miklagård"
+      | ~<[Kk]onstantinopel> "Miklagård"
       | <[a-zA-ZæøåÆØÅ0-9]+>
