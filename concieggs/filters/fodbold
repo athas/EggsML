@@ -1,0 +1,45 @@
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+use strict;
+use utf8::all;
+
+
+my @startstavelser = ("trå", "sjå", "lå");
+my @stavelser = ("lå", "låååååh", "-lå-");
+my @endestavelser = ("dååååh.", "då", "lå", "lå", "lååååh");
+
+my $string       = <STDIN>;
+my @array     = split ' ', $string;
+
+my @outarray = ();
+
+foreach my $word (@array){
+    ($word =~ /[.?!]/);
+    my $syllables = 0;
+    $syllables++ while ($word =~ /[aeiouyæåø]{1,2}/gi);
+    push (@outarray, &sing($syllables) . $1);
+    }
+
+
+my $song = join(" ", @outarray);
+$song =~ s/^(.)/\U$1\E/;
+$song =~ s/([^\w]) (.)/$1 \U$2\E/g;
+say $song . "!";
+
+
+sub sing
+{
+    my $sylls = $_[0];
+    my $out   = $startstavelser[rand @startstavelser];
+    if ($sylls > 1){
+      while ($sylls > 1){
+        $out = $out . $stavelser[rand @stavelser];
+        $sylls--;
+        }
+      $out . $endestavelser[rand @endestavelser];
+      }
+    else {
+       $out;
+       }
+}
