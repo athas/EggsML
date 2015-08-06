@@ -114,4 +114,5 @@ word := ~<computer> "datamat"
       | ~<dollar> "daler"
       | ~<[Ii]stanbul> "Miklagård"
       | ~<[Kk]onstantinopel> "Miklagård"
+      | ~<output> "uddata"
       | <[a-zA-ZæøåÆØÅ0-9]+>
