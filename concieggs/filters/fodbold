@@ -5,9 +5,20 @@ use strict;
 use utf8::all;
 
 
-my @startstavelser = ("trå", "sjå", "lå");
-my @stavelser = ("lå", "låååååh", "-lå-");
-my @endestavelser = ("dååååh.", "då", "lå", "lå", "lååååh");
+my @startstavelser = ("trå",
+                      "sjå",
+                      "lå");
+
+my @stavelser = ("lå",
+                 "lååh",
+                 "-lå-",
+                 "å");
+
+my @endestavelser = ("dååååh.",
+                     "då",
+                     "lå",
+                     "lå",
+                     "låh");
 
 my $string       = <STDIN>;
 my @array     = split ' ', $string;
