@@ -7,8 +7,8 @@ author=$(echo "$line" | cut -d ':' -f 1)
 hash=$(echo "$line" | cut -d ':' -f 2)
 subject=$(echo "$line" | cut -d ':' -f 3-)
 
-echo "Hvem mon skrev følgende?  $subject" | gawk '{print; fflush()}'
+echo "Hvem mon skrev følgende?  $subject"
 
-sleep 25
+sleep 10
 
 echo "Det var $author!  Se <https://github.com/Athas/EggsML/commit/$hash>."
