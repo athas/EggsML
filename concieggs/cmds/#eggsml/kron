@@ -6,6 +6,7 @@ if isKing "$EGGS_USER"; then
     dbDelete eggsking
     if isTrusted "$1"; then
         makeKing "$1"
+        removeFromBadStanding "$1"
         echo "Kongen er abdiceret! Længe leve kongen!"
 	echo "Hil Kong $1!"
     else
@@ -15,11 +16,12 @@ elif isGod "$EGGS_USER"; then
     if isTrusted "$1"; then
         echo "Gud har skænket kronen til $1!  Længe leve $1!"
         makeKing "$1"
+        removeFromBadStanding "$1"
     else
         echo "End ikke alle er lige i Guds øjne."
-	dbDelete eggsking
-	echo "Gud har dog fundet $1 uværdig til tronen, og anarkiet hersker nu i EggsML. Kun den stærke vil overleve ..."
+	    dbDelete eggsking
+	    echo "Gud har dog fundet $1 uværdig til tronen, og anarkiet hersker nu i EggsML. Kun den stærke vil overleve ..."
     fi
 else
-    echo "Du ikke er konge, men undersåt. Kun kongen kan krone. Tror du det her er anarki!?"
+    echo "$EGGS_USER: Du ikke er konge, men undersåt. Kun kongen kan krone. Tror du det her er anarki!?"
 fi
