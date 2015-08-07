@@ -62,7 +62,7 @@
 'backtracking' 'blindgydesøgning'
 'divide and conquer' 'del og hersk'
 'branch and bound' 'del og begræns'
-'deadline' 'dødslinje'
+'deadline' 'skæringsdato'
 'escape sequence' 'flugttegn'
 'hash function' 'gullaschfunktion'
 'interpreter' 'fortolker'
