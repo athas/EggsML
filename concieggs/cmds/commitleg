@@ -2,13 +2,13 @@
 #
 # Gæt hvem der har lavet en commit!
 
-line=$(git log --pretty=format:"%an:%H:%s" | grep -vi '^concieggs' | grep -v "Merge branch 'master' of github.com:Athas/EggsML" | randomElement)
-author=$(echo "$line" | cut -d ':' -f 1)
-hash=$(echo "$line" | cut -d ':' -f 2)
-subject=$(echo "$line" | cut -d ':' -f 3-)
+line="$(git log --pretty=format:"%an:%H:%s" | grep -vi '^concieggs' | grep -v "Merge branch 'master' of github.com:Athas/EggsML" | randomElement)"
 
-echo "Hvem mon skrev følgende?  $subject"
+subject="$(echo "$line" | cut -d ':' -f 3-)"
+echo "Hvem mon skrev følgende?  \"$subject\""
 
 sleep 10
 
-echo "Det var $author!  Se <https://github.com/Athas/EggsML/commit/$hash>."
+author="$(echo "$line" | cut -d ':' -f 1)"
+commithash="$(echo "$line" | cut -d ':' -f 2)"
+echo "Det var $author!  Se <https://github.com/Athas/EggsML/commit/$commithash>."
