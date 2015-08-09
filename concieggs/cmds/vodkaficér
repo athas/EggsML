@@ -5,8 +5,7 @@
 emne="$1"
 
 uppercase() {
-    # TODO: Make nice.
-    $CONCIEGGS_DIR/filters/grel
+    filter grel
 }
 
 unwords() {
