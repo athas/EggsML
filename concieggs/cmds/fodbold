@@ -1,0 +1,14 @@
+#!/bin/sh
+
+if [ "$1" ]; then
+  last=$(dbUserRead "$1" lastmsg)
+  if ! [ "$last" ]; then
+    last=$(dbRead "strangers/$EGGS_USER" lastmsg)
+  fi
+
+else
+  last=$(dbRead "strangers/$EGGS_USER" lastmsg)
+
+fi
+
+echo "$last" | $CONCIEGGS_DIR/filters/fodbold
