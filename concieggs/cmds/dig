@@ -27,8 +27,7 @@ if [ ! "$type" ]; then
 fi
 
 if [ "$type" == "ledighed" ]; then
-    r=$(/usr/sbin/dig $name | grep -q "AUTHORITY: 1")
-    if [ "$r" ]; then
+    if /usr/sbin/dig $name | grep -q "AUTHORITY: 1"; then
         echo "Den er ledig! Køb køb køb!"
     else
         echo "Den er desværre optaget. Bedre held næste gang!"
