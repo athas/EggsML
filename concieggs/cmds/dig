@@ -29,7 +29,7 @@ fi
 if [ "$type" == "ledighed" ]; then
     r=$(/usr/sbin/dig $name)
     slamkode=$(echo $r | grep "AUTHORITY: 1")
-    if [ $slamkode ]; then
+    if [ "$slamkode" ]; then
         echo "Den er ledig! Køb køb køb!"
     else
         echo "Den er desværre optaget. Bedre held næste gang!"
