@@ -1,6 +1,7 @@
 #!/bin/sh
 #
 # Spørg det sociale centerpunkt, concieggs, om to navne dækker over samme misdæder.
+# - eller om et domæne er ledig.
 
 
 if [ $# -eq 3 -a "$2" = "bare" ]; then
@@ -27,7 +28,7 @@ if [ $# -eq 3 -a "$2" = "bare" ]; then
     else
         echo "Nej, $(randomName "$user1") og $(randomName "$user2") er ikke samme person."
     fi
-elif [[ ( "$2" == "ledigt" ) || ( "$2" == "ledigt?" ) ]]; then
+elif [[ ( "$2" == "ledig" ) || ( "$2" == "ledig?" ) ]]; then
     runcmd dig "$1" "ledighed"
 elif [ $# -gt 1 ]; then
     runcmd 8ball "$@"
