@@ -26,6 +26,15 @@ if [ ! "$type" ]; then
     exit
 fi
 
+if [ "$type" == "ledighed" ]; then
+    r=$(/usr/sbin/dig $name)
+    if [ "$r" == *"AUTHORITY: 1"* ]; then
+        echo "Den er ledig! Køb køb køb!"
+    else
+        echo "Den er desværre optaget. Bedre held næste gang!"
+    fi
+fi
+
 r=$(/usr/sbin/dig +short $server $name $type)
 if [ "$r" ]; then
     echo $r
