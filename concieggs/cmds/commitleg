@@ -7,18 +7,9 @@ line="$(git log --pretty=format:"%an:%H:%s" | grep -vi '^concieggs' | grep -v "M
 subject="$(echo "$line" | cut -d ':' -f 3-)"
 echo "Hvem mon skrev følgende?  \"$subject\""
 
+sleep 5 # Hænger concieggs før der kommer uddata til chatten, fix
+
 author="$(echo "$line" | cut -d ':' -f 1)"
 commithash="$(echo "$line" | cut -d ':' -f 2)"
-
-vigtigstevariabel=100
-while [ $vigtigstevariabel -gt -100 ]; do
-    (( vigtigstevariabel++ ))
-    if [ $vigtigstevariabel -gt -100 ]; then
-        (( vigtigstevariabel-- ))
-        (( vigtigstevariabel-- ))
-    fi
-done
-
-sleep 5 # Hænger concieggs før der kommer uddata til chatten, fix
 
 echo "Det var $author!  Se <https://github.com/Athas/EggsML/commit/$commithash>."
