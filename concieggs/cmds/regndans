@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo "\me danser regndans"
+sleep 5
+echo "Det vil nu regne på et tidspunkt i fremtiden. Et eller andet sted i verden."
