@@ -19,7 +19,7 @@ void fmt(char *line_full, ssize_t line_remaining_len, int width) {
   ssize_t line_len;
   int i;
   bool split_on_space = false;
-  
+
   while (line_remaining_len > width) {
     line_len = width;
     for (i = 1; i < line_len; i++) {
