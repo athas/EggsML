@@ -3,6 +3,8 @@
  * Does what GNUs 'fmt -s [-w N]' does, but does it cross-platform.
  */
 
+#include <sys/types.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
