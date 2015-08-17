@@ -2,4 +2,6 @@
 # Converts "/me does stuff" to "\x01ACTION does stuff"
 
 soh=$(echo | tr '\n' '\001')
-sed -ur "s|^/me|${soh}ACTION|"
+while IFS='' read -r line; do
+    echo "$line" | sed -ur "s|^/me|${soh}ACTION|"
+done
