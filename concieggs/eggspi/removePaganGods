@@ -1,5 +1,5 @@
 #!/bin/sh
 #
-# Remove Gods
+# Remove Gods.
 
 dbDelete eggsgod
