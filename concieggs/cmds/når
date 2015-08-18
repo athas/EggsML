@@ -20,6 +20,10 @@ else
         echo "$EGGS_USER: Og hvem skulle $who forestille at være?"
         exit 0
     fi
+    if ! isKing "$EGGS_USER"; then
+        echo "$EGGS_USER: Man skal være adelig for at kunne ændre andres aliaser!"
+        exit 0
+    fi
 fi
 
 if [ ! "$alias" ] || [ ! "$command" ]; then
