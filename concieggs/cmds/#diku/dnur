@@ -19,6 +19,6 @@ if [ "$rus" = "concieggs" ]; then
     exit
 fi
 
-maybeGood .7 && echo "$roevhul: Gamle røvhul." && exit
+maybeGood .5 && echo "$roevhul: Gamle røvhul." && exit
 
 echo "$rus: DNUR!"
