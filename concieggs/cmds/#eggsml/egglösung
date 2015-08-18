@@ -3,7 +3,6 @@
 # Alle har fået hvad de har brug for, og ryd derfor alle ønsker fra
 # indkøbslisten!
 
-
 if gitRefresh; then
     cd $EGGS_DIR
     ed slashdotfrokost > /dev/null <<EOF

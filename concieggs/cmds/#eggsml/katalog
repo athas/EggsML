@@ -4,7 +4,6 @@
 # denne liste.  Brug 'indfør' til at tilføje nye muligheder, og
 # 'bandlys' til at fjerne dem.
 
-
 echo -n "Der eksisterer følgende indkøbsmuligheder: "
 dbIterate katalog | while read -r item; do
     dbRead "$item"

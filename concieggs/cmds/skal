@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
 #
 # Lad concieggs vælge mellem to muligheder.  Brug: skal jeg A eller B?
+
 import sys, random; (lambda s: print('Bedre held næste gang.' if not s else random.choice(['Min mor sagde altid: Husk at', 'Du skal', 'Det er bedst hvis du vil']) + ' ' + s + random.choice(['.', '!', '!!!'])))(random.choice(' '.join(sys.argv[2:]).split(' eller ')))

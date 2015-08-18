@@ -1,4 +1,7 @@
 #!/usr/bin/env perl
+#
+# Lav stavekontrol på din foregående besked.
+
 use 5.012;
 use warnings;
 

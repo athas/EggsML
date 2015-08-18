@@ -2,7 +2,6 @@
 #
 # Udskriv alle kommende Eggs med tilmeldte deltagere.
 
-
 next=$(nextEggs)
 if [ "$next" != "" ]; then
     echo "$next" | while read eggs; do eggsplain $eggs; done

@@ -1,4 +1,7 @@
 #!/usr/bin/env perl
+#
+# Find nye mem fra DIKUMemes-gruppen på Facebook.
+
 use 5.012;
 use warnings;
 

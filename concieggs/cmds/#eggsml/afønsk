@@ -2,7 +2,6 @@
 #
 # Fjern blot et enkelt element fra listen over indkøbsønsker.
 
-
 if [ $# -lt 1 ]; then
     echo "Brug: afønsk ønske..."
 else

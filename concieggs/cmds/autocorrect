@@ -1,4 +1,6 @@
 #!/bin/sh
+#
+# Slå autokorrektion af tekst til eller fra.
 
 if hasAutocorrect "$EGGS_USER"; then
   echo "$(ack) Fra nu af vil jeg ikke rette dine fejl."

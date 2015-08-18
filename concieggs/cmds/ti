@@ -2,4 +2,9 @@
 #
 # Bed concieggs om at tie stille i et stykke tid.
 
-echo Næhæ!
+randomElement <<EOF
+Næhæ!
+Du kan selv tie stille!
+Som om.
+Du er ikke min mor!
+EOF

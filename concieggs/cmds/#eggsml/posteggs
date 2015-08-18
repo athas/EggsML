@@ -5,7 +5,6 @@
 # skal disse ordnes manuelt (øv!).  Alle argumenter til posteggs
 # gemmes som kommentarer i slashdotfrokost.
 
-
 from=$(randomName $EGGS_USER)
 if ! [ "$from" ]; then
     echo "$EGGS_USER: Dig kender jeg ikke.  Hvem skulle du forestille at være?"

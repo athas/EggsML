@@ -1,5 +1,1 @@
-#!/bin/sh
-#
-# Fortæl concieggs at han/hun tager fejl.
-
-sayNo
+nej

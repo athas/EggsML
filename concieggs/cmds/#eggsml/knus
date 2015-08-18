@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Knus oprøret
+# Knus oprøret!
 
 if [ "$#" = 0 ]; then
     if isKing "$EGGS_USER"; then

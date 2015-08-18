@@ -3,7 +3,6 @@
 # Tilføj en ny indkøbmulighed til kataloget.  Vælg så deskriptivt et
 # navn som muligt, gerne med kommentarer i parentes!
 
-
 if [ $# -lt 1 ]; then
     echo "Brug: kanoniser <ting>"
     exit

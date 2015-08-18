@@ -1,5 +1,8 @@
 #!/bin/sh
-# Kongen kan vha. kron give sin magt videre til en anden eggser. Også Gud Vorherre kan krone en konge. Staver du forkert, kan det dog få voldsomme konsekvenser.
+#
+# Kongen kan vha. kron give sin magt videre til en anden eggser. Også Gud
+# Vorherre kan krone en konge. Staver du forkert, kan det dog få voldsomme
+# konsekvenser.
 
 if isKing "$EGGS_USER"; then
     echo "$EGGS_USER har valgt at træde i Edward VIII's fodspor ..."

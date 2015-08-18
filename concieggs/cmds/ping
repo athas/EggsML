@@ -1,4 +1,5 @@
 #!/bin/sh
-# Pinger en station med fire pakker. Angiv station som argument.
+#
+# Ping en station med fire pakker. Angiv station som argument.
 
 ping -c 4 $1

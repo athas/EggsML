@@ -3,6 +3,7 @@
 #
 # Bed concieggs om hjælp til at sige det du føler.
 # Brug sig <ting> til <person>
+
 import sys
 import os
 from functools import partial

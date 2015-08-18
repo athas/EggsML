@@ -2,7 +2,7 @@
 #
 # Giv noget til nogen.  Brug: giv TING til BRUGER
 
-eval "$(echo "$@" | tolower | parse '(?<thing>[^ ]+) til (?<user>[^ ]+)|(?<person>[^ ]+) et billede')"
+eval "$(echo "$@" | parse '(?<thing>[^ ]+) til (?<user>[^ ]+)|(?<person>[^ ]+) et billede')"
 
 if [ "$person" ]; then
     if [ "$person" = "mig" ]; then

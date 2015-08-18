@@ -2,7 +2,6 @@
 #
 # Som 'eggsml', men for småtspisende eggsere.
 
-
 subscribeToEggs() {
     time=$1
     name=$2

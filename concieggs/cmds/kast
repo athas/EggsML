@@ -2,7 +2,7 @@
 #
 # Tag noget og kast det ad helvede til!
 
-eval "$(echo "$@" | tolower | parse '(?<thing>[^ ]+) ad helvede til')"
+eval "$(echo "$@" | parse '(?<thing>[^ ]+) ad helvede til')"
 
 if [ "$thing" ]; then
     who="$(dbRead has_$thing)"

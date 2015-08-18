@@ -1,6 +1,6 @@
 #!/bin/sh
 # 
-# Bed concieggs om at bedømme noget
+# Bed concieggs om at bedømme noget.
 
 if [ $# -eq 0 ]; then
     echo "Jeg giver Dem -3 i Deres brug af denne kommando."

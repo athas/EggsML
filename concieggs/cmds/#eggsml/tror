@@ -2,9 +2,8 @@
 # -*- coding: utf-8 -*-
 #
 # Find ud af om concieggs tror på dig.  Brug: tror du på mig|<bruger>?
-
+#
 # Formålet med dette script er at afprøve eggsthon.shell-grænsefladen.
-
 
 import sys
 import re

@@ -3,7 +3,6 @@
 # Afmeld den givne Eggs.  Kun Eggs der endnu ikke er afholdt kan
 # afmeldes - bordet fanger!
 
-
 unsubscribeFromEggs() {
     time=$1
     name=$2

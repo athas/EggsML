@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Laver en fejl.
+# Lav en fejl.
 
 echo En fejl >&2
 

@@ -2,7 +2,6 @@
 #
 # Find dine BFFs.
 
-
 if [ $# -eq 1 ]; then
     user="$1"
 elif [ $# -eq 0 ]; then

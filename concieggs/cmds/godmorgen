@@ -1,4 +1,5 @@
 #!/bin/sh
+#
 # Hils pænt på concieggs.
 
 greet=$(basename $0)

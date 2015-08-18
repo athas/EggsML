@@ -1,4 +1,5 @@
 #!/bin/sh
+#
 # Afvikl SML-kode i gudernes SML-fortolker
 
 echo "$EGGS_USER: Desværre - denne kommando er et gerningssted, så den er afskærmet med polititape."

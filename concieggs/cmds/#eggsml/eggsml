@@ -6,7 +6,6 @@
 # med en bindestreg.  Således kan du derfor kun melde dig til spisning
 # i dag, i morgen eller i går.
 
-
 subscribeToEggs() {
     time=$1
     name=$2

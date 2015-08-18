@@ -2,4 +2,4 @@
 #
 # Prik til concieggs, men pas på, for det kan hurtigt gå over gevind.
 
-runcmd prikkeleg prik $(echo "$@")
+runcmd prikkeleg prik "$@"

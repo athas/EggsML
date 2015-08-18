@@ -1,4 +1,6 @@
 #!/bin/sh
+#
+# Gå frivilligt af tronen.
 
 if isKing "$EGGS_USER"; then
   echo "Hvis Deres Majestæt er sikker..."

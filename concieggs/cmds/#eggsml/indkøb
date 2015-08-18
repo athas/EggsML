@@ -7,7 +7,6 @@
 # det registreres i Git-beskeden hvem der sagde god for det ved at
 # køre kommandoen.
 
-
 if [ $# -lt 1 -o $# -gt 3 ]; then
     echo 'Brug: indkøb <beløb> [hvem] [hvornår]'
     exit 0

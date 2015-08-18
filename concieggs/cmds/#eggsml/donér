@@ -3,7 +3,6 @@
 # Mikrodonér ører til en person fra EggsML der har gjort et godt stykke arbejde.
 # Brug: donér <n> ører til <bruger>
 
-
 eval "$(echo "$@" | parse '(?<amount>([2-9]|[1-9][0-9]+)) (((hånd)?ører|skillinger|hundreddelsmoneter|af de (gode|fine|jobskabende)) )?til (?<recipient>[^ ]+)')"
 
 if [ ! "$recipient" ]; then

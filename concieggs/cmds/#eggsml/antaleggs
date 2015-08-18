@@ -3,7 +3,6 @@
 # Informér logen om hvor mange gange den angivne broder har spist med
 # til eggs.
 
-
 if [ $# -eq 1 ]; then
     user="$1"
 elif [ $# -eq 0 ]; then
