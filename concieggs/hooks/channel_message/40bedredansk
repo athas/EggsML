@@ -2,7 +2,7 @@
 
 (shuttingUp || talkingToConcieggs) && exit
 
-body="$(echo "$EGGS_BODY" | makeDanish)"
+body="$(say "$EGGS_BODY" | makeDanish)"
 
 if [ "$body" != "$EGGS_BODY" ]; then
     prefix=`randomElement <<EOF
@@ -13,6 +13,6 @@ $EGGS_USER, her på dansk
 Nejnej, på dansk
 EOF`
 
-    echo "$prefix: $body"
+    say "$prefix: $body"
     annoyedBy "$EGGS_USER" 1
 fi
