@@ -5,6 +5,12 @@
 a="$1"
 b="$2"
 
+if ! [ "$a" ]; then
+    exit 1
+elif ! [ "$b" ]; then
+    exit 1
+fi
+
 ag="$(dbUserRead "$a" githubname)"
 bg="$(dbUserRead "$b" githubname)"
 
