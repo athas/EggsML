@@ -3,7 +3,7 @@
 # Spørg om din gæld til frokostkassen, eller få hjælp til diverse
 # personlighedsfremmende gøremål.  Brug naturligt sprog.
 
-eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|har (?<debtor>[^ ]+) til gode$|(?<time>er klokken)$|(?<balance>er betalingsbalancen)$|(?<missing>mangler jeg)$|(?<wtf>hulen)$|(?<status>så)$|(?<meaning>mener (?<who>[^ ]+) med (?<what>[^ ]+)$)|(?<githubname>hedder jeg på GitHub)')"
+eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|har (?<debtor>[^ ]+) til gode$|(?<time>er klokken)$|(?<balance>er betalingsbalancen)$|(?<missing>mangler jeg)$|(?<wtf>hulen)$|(?<status>så)$|(?<meaning>mener (?<who>[^ ]+) med (?<what>[^ ]+)$)|hedder (?<githubname>[^ ]+) på GitHub')"
 
 if [ "$balance" ]; then
   balance="$(lookupBalance)"
@@ -93,11 +93,20 @@ elif [ "$meaning" ]; then
         fi
     fi
 elif [ "$githubname" ]; then
-    name=$(dbUserRead "$EGGS_USER" githubname)
-    if [ "$name" ]; then
-        echo "$EGGS_USER: Du hedder sørme '$name'!"
+    if [ "$githubname" = jeg ]; then
+        name=$(dbUserRead "$EGGS_USER" githubname)
+        if [ "$name" ]; then
+            echo "$EGGS_USER: $(Du "$EGGS_USER") hedder sørme '$name'!"
+        else
+            echo "$EGGS_USER: $(Du "$EGGS_USER") hedder da vist ikke noget.  Fortæl mig det med 'jeg hedder NAVN på GitHub'."
+        fi
     else
-        echo "$EGGS_USER: Du hedder da vist ikke noget.  Fortæl mig det med 'jeg hedder NAVN på GitHub'."
+        name=$(dbUserRead "$githubname" githubname)
+        if [ "$name" ]; then
+            echo "$EGGS_USER: $githubname hedder sørme '$name'!"
+        else
+            echo "$EGGS_USER: $githubname ser ikke ud til at hedde noget."
+        fi
     fi
 else
     randomElement <<EOF
