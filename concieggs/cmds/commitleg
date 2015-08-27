@@ -1,15 +1,26 @@
-#!/bin/sh
+#!/usr/bin/env rash
 #
 # Gæt hvem der har lavet et commit!
 
-line="$(git log --pretty=format:"%an:%H:%s" | grep -vi '^concieggs' | grep -v "Merge branch 'master' of github.com:Athas/EggsML" | randomElement)"
+line=>git log --pretty=format:"%an:%H:%s"
+line=<${line}>grep -vi '^concieggs'
+line=<${line}>grep -v "Merge branch 'master' of github.com:Athas/EggsML"
+line=<${line}>randomElement
 
-subject="$(echo "$line" | cut -d ':' -f 3-)"
-echo "Hvem mon skrev følgende?  \"$subject\""
+subject=<${line}>cut -d ':' -f 3-
+author=<${line}>cut -d ':' -f 1
+commithash=<${line}>cut -d ':' -f 2
 
-sleep 10
+>echo "Hvem mon skrev følgende?  \"${subject}\""
 
-author="$(echo "$line" | cut -d ':' -f 1)"
-commithash="$(echo "$line" | cut -d ':' -f 2)"
+read guess
 
-echo "Det var $author!  Se <https://github.com/Athas/EggsML/commit/$commithash>."
+EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
+>test "${guess}" = "${author}"
+jz correctguess
+
+>echo "${EGGS_USER}: Forkert!  Det var ${author}!  Se <https://github.com/Athas/EggsML/commit/${commithash}>."
+exit
+
+:correctguess
+>echo "${EGGS_USER}: Rigtigt, det var nemlig ${author}!  Se <https://github.com/Athas/EggsML/commit/${commithash}>."
