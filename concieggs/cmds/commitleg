@@ -11,6 +11,7 @@ subject=<${line}>cut -d ':' -f 3-
 author=<${line}>cut -d ':' -f 1
 commithash=<${line}>cut -d ':' -f 2
 
+
 >echo "Hvem mon skrev følgende?  \"${subject}\""
 
 read guess
