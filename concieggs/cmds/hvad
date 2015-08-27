@@ -103,9 +103,9 @@ elif [ "$githubname" ]; then
     else
         name=$(dbUserRead "$githubname" githubname)
         if [ "$name" ]; then
-            echo "$EGGS_USER: $githubname hedder sørme '$name'!"
+            echo "$EGGS_USER: $(randomName "$githubname") hedder sørme '$name'!"
         else
-            echo "$EGGS_USER: $githubname ser ikke ud til at hedde noget."
+            echo "$EGGS_USER: $(randomName "$githubname") ser ikke ud til at hedde noget."
         fi
     fi
 else
