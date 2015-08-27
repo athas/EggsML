@@ -11,12 +11,14 @@ subject=<${line}>cut -d ':' -f 3-
 author=<${line}>cut -d ':' -f 1
 commithash=<${line}>cut -d ':' -f 2
 
-
 >echo "Hvem mon skrev følgende?  \"${subject}\""
 
 read guess
 
 EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
+
+>echo "${EGGS_USER}: Du gættede på: ${guess}"
+
 >cmpUsers "${guess}" "${author}"
 jz correctguess
 
