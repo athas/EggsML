@@ -8,7 +8,23 @@ b="$2"
 ag="$(dbUserRead "$a" githubname)"
 bg="$(dbUserRead "$b" githubname)"
 
-cmpNames "$a" "$b" || \
+small() {
     test "$a" = "$b" || \
-    test "$ag" = "$b" || \
-    test "$a" = "$bg"
+        test "$ag" = "$b" || \
+        test "$a" = "$bg"
+}
+
+large() {
+    cmpNames "$a" "$b" || \
+        test "$a" = "$b" || \
+        test "$ag" = "$b" || \
+        test "$a" = "$bg"
+}
+
+if echo "$a" | grep -q ' '; then
+    small
+elif echo "$b" | grep -q ' '; then
+    small
+else
+    large
+fi
