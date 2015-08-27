@@ -16,7 +16,7 @@ commithash=<${line}>cut -d ':' -f 2
 read guess
 
 EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
->test "${guess}" = "${author}"
+>cmpUsers "${guess}" "${author}"
 jz correctguess
 
 >echo "${EGGS_USER}: Forkert!  Det var ${author}!  Se <https://github.com/Athas/EggsML/commit/${commithash}>."

@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# Same as `cmpNames`, except it also looks at GitHub names if they exist.
+
+a="$1"
+b="$2"
+
+ag="$(dbUserRead "$a" githubname)"
+bg="$(dbUserRead "$b" githubname)"
+
+cmpNames "$a" "$b" || \
+    test "$a" = "$b" || \
+    test "$ag" = "$b" || \
+    test "$a" = "$bg"
