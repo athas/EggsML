@@ -2,7 +2,7 @@
 #
 # Nedfæld essentielle personlige fakta og præferencer i logeprotokollen.
 
-eval "$(echo "$@" | parse 'er ((?<beneggter>beneggter)|(?<eggsalteret>eggsalteret))|foretrækker ((?<nothing>intet)|(?<pref>.+))|(?<birthday>har fødselsdag i dag)|er (?<king>konge)|er (?<god>gud)|er (?<alsogod>også gud)|er (?<truegod>den eneste (sande|rigtige) gud)|er (?<notgod>ikke (længere|mere) gud)|er (?<root>root)')"
+eval "$(echo "$@" | parse 'er ((?<beneggter>beneggter)|(?<eggsalteret>eggsalteret))|foretrækker ((?<nothing>intet)|(?<pref>.+))|(?<birthday>har fødselsdag i dag)|er (?<king>konge)|er (?<god>gud)|er (?<alsogod>også gud)|er (?<truegod>den eneste (sande|rigtige) gud)|er (?<notgod>ikke (længere|mere) gud)|er (?<root>root)|hedder (?<githubname>.+?) på GitHub')"
 
 who=$(randomName $EGGS_USER)
 if ! [ "$who" ]; then
@@ -111,6 +111,9 @@ elif [ "$root" ]; then
         echo "$EGGS_USER: Nej."
         annoyedBy "$EGGS_USER" 10
     fi
+elif [ "$githubname" ]; then
+    echo "$githubname" | dbUserWrite "$EGGS_USER" githubname
+    echo "$EGGS_USER: OK, det er noteret at du hedder $githubname på GitHub!"
 else
-    echo "Brug: jeg <er <beneggter|eggsalteret>>|<foretrækker <præference>>|<har fødselsdag i dag>"
+    echo "$EGGS_USER: Vær venlig at læse dokumentationen."
 fi

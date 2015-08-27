@@ -3,7 +3,7 @@
 # Spørg om din gæld til frokostkassen, eller få hjælp til diverse
 # personlighedsfremmende gøremål.  Brug naturligt sprog.
 
-eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|har (?<debtor>[^ ]+) til gode$|(?<time>er klokken)$|(?<balance>er betalingsbalancen)$|(?<missing>mangler jeg)$|(?<wtf>hulen)$|(?<status>så)$|(?<meaning>mener (?<who>[^ ]+) med (?<what>[^ ]+)$)')"
+eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|har (?<debtor>[^ ]+) til gode$|(?<time>er klokken)$|(?<balance>er betalingsbalancen)$|(?<missing>mangler jeg)$|(?<wtf>hulen)$|(?<status>så)$|(?<meaning>mener (?<who>[^ ]+) med (?<what>[^ ]+)$)|(?<githubname>hedder jeg på GitHub)')"
 
 if [ "$balance" ]; then
   balance="$(lookupBalance)"
@@ -91,6 +91,13 @@ elif [ "$meaning" ]; then
         else
             echo "$EGGS_USER: Ganske som det står skrevet."
         fi
+    fi
+elif [ "$githubname" ]; then
+    name=$(dbUserRead "$EGGS_USER" githubname)
+    if [ "$name" ]; then
+        echo "$EGGS_USER: Du hedder sørme '$name'!"
+    else
+        echo "$EGGS_USER: Du hedder da vist ikke noget.  Fortæl mig det med 'jeg hedder NAVN på GitHub'."
     fi
 else
     randomElement <<EOF
