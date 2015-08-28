@@ -74,20 +74,37 @@ void checklink(const char* link) {
         unit_number = diff / 60 / 60 / 24 / 365;
         unit = "år";
       }
-      
-      switch (rand()%3) {
-      case 0:
-        printf("%s: Det har %s allerede lænket for %d %s siden!\n",
-               eggsuser, whostart, unit_number, unit);
-        break;
-      case 1:
-        printf("%s: OOOOOOOOOODLZ!!!  Det skete jo allerede for %d %s siden!\n",
-               eggsuser, unit_number, unit);
-        break;
-      case 2:
-        printf("%s: Sikken nostalgi!  Det er jo ligesom med %s for %d %s siden!\n",
-               eggsuser, whostart, unit_number, unit);
-        break;
+
+      if (strcmp(eggsuser, whostart) == 0) {
+        switch (rand()%3) {
+        case 0:
+          printf("%s: Det skrev du også for %d %s siden!\n",
+                 eggsuser, unit_number, unit);
+          break;
+        case 1:
+          printf("%s: Vi hørte dig første gang (for %d %s siden).\n",
+                 eggsuser, unit_number, unit);
+          break;
+        case 2:
+          printf("%s: For %d %s siden sagde du noget lignende.  Hvad med at finde på noget nyt?\n",
+                 eggsuser, whostart, unit_number, unit);
+          break;
+        }
+      } else {
+        switch (rand()%3) {
+        case 0:
+          printf("%s: Det har %s allerede lænket for %d %s siden!\n",
+                 eggsuser, whostart, unit_number, unit);
+          break;
+        case 1:
+          printf("%s: OOOOOOOOOODLZ!!!  Det skete jo allerede for %d %s siden!\n",
+                 eggsuser, unit_number, unit);
+          break;
+        case 2:
+          printf("%s: Sikken nostalgi!  Det er jo ligesom med %s for %d %s siden!\n",
+                 eggsuser, whostart, unit_number, unit);
+          break;
+        }
       }
     }
   }
