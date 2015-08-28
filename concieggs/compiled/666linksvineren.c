@@ -87,7 +87,7 @@ void checklink(const char* link) {
           break;
         case 2:
           printf("%s: For %d %s siden sagde du noget lignende.  Hvad med at finde på noget nyt?\n",
-                 eggsuser, whostart, unit_number, unit);
+                 eggsuser, unit_number, unit);
           break;
         }
       } else {
