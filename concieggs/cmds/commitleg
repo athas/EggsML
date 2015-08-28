@@ -4,7 +4,7 @@
 
 line=>git log --pretty=format:"%an:%H:%s"
 line=<${line}>grep -vi '^concieggs'
-line=<${line}>grep -v "Merge branch 'master' of github.com:Athas/EggsML"
+line=<${line}>grep -v "Merge branch 'master'"
 line=<${line}>randomElement
 
 subject=<${line}>cut -d ':' -f 3-
