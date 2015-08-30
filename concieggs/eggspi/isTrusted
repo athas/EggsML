@@ -2,5 +2,5 @@
 
 auth="$(authedName "$1")"
 if [ "$auth" ]; then
-    cat "$CONCIEGGS_DB_DIR/mestre" | decomment | fgrep -qx "$auth"
+    cat "$CONCIEGGS_DB_DIR/mestre" | decomment | fgrep -x "$auth"
 fi
