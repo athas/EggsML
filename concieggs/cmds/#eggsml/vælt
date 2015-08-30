@@ -72,6 +72,13 @@ Du planlægger en retningsbestemt slotseksplosion.
 Du lægger dit hovede i blød.
 Du drømmer dig langt væk.
 Du tager dit sværd ud af kisten.
+Du læser en bog skrevet af en gut i fængsel.
+Du skriver et langt digt.
+Du går rundt og råber bandeord i en hel time.
+Du putter rottegift i slotsvinen.
+Du sender et brev om hjælp til en nærliggende republiks præsident.
+Du øver dig i at ride på hest.
+Du bestiller en guillotine fra et postordrekatalog.
 EOF
     echo "Kun $v har meldt sig under den revolutionære fane!  I skal være flere!"
 fi
