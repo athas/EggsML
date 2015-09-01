@@ -12,5 +12,5 @@ else
 fi
 progfile=$(mktemp) || exit 1
 echo "$prog" > $progfile
-echo "$@" | bf "$progfile" 2>&1 | cat -v
+echo -n "$@" | bf "$progfile" 2>&1 | cat -v
 rm -f $progfile
