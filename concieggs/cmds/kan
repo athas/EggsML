@@ -2,7 +2,7 @@
 #
 # Find ud af om concieggs kan lide nogen.
 
-eval "$(echo "$@" | parse '(du|De) (derimod |mon |så )?lide (?<user>[^ ]+)')"
+eval "$(echo "$@" | parse '(du|De) (derimod |mon |så )?(godt )?lide (?<user>[^ ]+)')"
 
 if [ "$user" ]; then
     if [ "$user" = "mig" ]; then
