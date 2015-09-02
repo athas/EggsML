@@ -28,10 +28,10 @@ if [ "$user" ]; then
             echo "Selvfølgelig kan jeg lide $alias, det er jo kongen..."
             removeFromBadStanding "$alias"
             pleasedBy "$alias" 25
-            exit
         else
             echo "Nej, $user er et dumt svin."
         fi
+        exit
     fi
     s="$(annoyanceAt "$alias") < 0"
     if [ $(echo "$s" | bc) = 1 ]; then
@@ -40,6 +40,7 @@ if [ "$user" ]; then
         else
             echo "Ja, $user er god nok."
         fi
+        exit
     fi
     if [ $(annoyanceAt "$alias") = 0 ]; then
         if [ "$user" = "du" ]; then
