@@ -1,5 +1,10 @@
 #!/bin/sh
 
-lcalias="$(echo "$2" | perl -ne 'print (lc $_)')"
-dbUserRead "$1" "cmd_aliases" | fgrep -i "$lcalias=" | cut -d'=' -f 2
-# The above is wrong in some cases.
+case "$2" in
+    \*) echo "${2##\\}"
+        ;;
+    *)
+        lcalias="$(echo "$2" | perl -ne 'print (lc $_)')"
+        dbUserRead "$1" "cmd_aliases" | fgrep -i "$lcalias=" | cut -d'=' -f 2
+        # The above is wrong in some cases.
+esac
