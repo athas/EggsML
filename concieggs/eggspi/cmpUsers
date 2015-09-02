@@ -1,6 +1,11 @@
 #!/bin/sh
 #
-# Same as `cmpNames`, except it also looks at GitHub names if they exist.
+# Same as `cmpNames`, except it also looks at GitHub names if they exist.  Only
+# compare first names.
+
+firstname() {
+    echo "$1" | cut -d' ' -f1
+}
 
 a="$1"
 b="$2"
@@ -14,13 +19,17 @@ fi
 ag="$(dbUserRead "$a" githubname)"
 bg="$(dbUserRead "$b" githubname)"
 
-small() {
-    test "$a" = "$b" || \
-        test "$ag" = "$b" || \
-        test "$a" = "$bg"
+small_check() {
+    a1="$(firstname "$a")"
+    b1="$(firstname "$b")"
+    ag1="$(firstname "$ag")"
+    bg1="$(firstname "$bg")"
+    test "$a1" = "$b1" || \
+        test "$ag1" = "$b1" || \
+        test "$a1" = "$bg1"
 }
 
-large() {
+large_check() {
     cmpNames "$a" "$b" || \
         test "$a" = "$b" || \
         test "$ag" = "$b" || \
@@ -28,9 +37,9 @@ large() {
 }
 
 if echo "$a" | grep -q ' '; then
-    small
+    small_check
 elif echo "$b" | grep -q ' '; then
-    small
+    small_check
 else
-    large
+    large_check
 fi

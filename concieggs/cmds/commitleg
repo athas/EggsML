@@ -17,8 +17,6 @@ read guess
 
 EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
 
->echo "${EGGS_USER}: Du gættede på: ${guess}"
-
 >cmpUsers "${guess}" "${author}"
 jz correctguess
 
