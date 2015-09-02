@@ -158,7 +158,7 @@ class eggsml_page:
         
     def index(self):
         o = '<h1>Brainfuck pr&aelig;senterer Brainfuck\'s EggsML</h1>'
-        o += '<h2>Nu uden Brainfuck!</h2>'
+        o += '<h2>Plads til forbedring</h2>'
         # o += '<h3>Tilmeld personer til næste eggs -- Virker EGGE endnu</h3>'
         # o += '<b>Tilmeld indviet person til næste eggs:</b><br><form action="/" method="get"><input type="text" name="tilmeld"><br>'
         # o += '<input type="submit" value="Submit"></form>'
