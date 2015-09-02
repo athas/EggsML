@@ -21,8 +21,7 @@ else
         exit 0
     fi
     if ! isKing "$EGGS_USER"; then
-        echo "$EGGS_USER: Man skal være adelig for at kunne ændre andres aliaser!"
-        exit 0
+        echo "$EGGS_USER: Man skal være faktisk ikke være adelig for at kunne ændre andres aliaser!"
     fi
 fi
 
