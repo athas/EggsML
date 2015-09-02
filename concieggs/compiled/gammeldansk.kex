@@ -1,0 +1,27 @@
+/* Gør det ordentligt, forkert, forfinet, gammelt dansk. */
+/* Fokuserer på at rette op på de mest brugte ord. */
+
+message := maybeSep inner maybeSep
+
+inner := word sep inner
+       | word
+       | ""
+
+maybeSep := <[^A-Za-zæøå0-9]*>
+sep      := <[^A-Za-zæøå0-9]+>
+
+word := ~<igen> "atter"
+      | ~<og> "samt"
+      | ~<mens> "medens"
+      | ~<jeres> "eders"
+      | ~<lidt> "liden"
+      | ~<se> "besyne"
+      | ~<ser> "besyner"
+      | ~<glad> "fortryllet"
+      | ~<far> "fader"
+      | ~<mor> "moder"
+      | ~<komme> "arrivere"
+      | ~<kommer> "arriverer"
+      | ~<vil ikke> "ønsker ikke at"
+      | ~<vil> "ønsker at"
+      | <[a-zA-ZæøåÆØÅ0-9]+>
