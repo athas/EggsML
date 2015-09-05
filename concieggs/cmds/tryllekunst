@@ -1,0 +1,30 @@
+#!/bin/sh
+#
+# Anmod logebotten om at fremføre en tryllekunst.
+
+echo "/me tager høj hat og stok frem."
+sleep 2
+echo "Abrakadabra!"
+sleep 2
+echo "/me (∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ. * ･ ｡ﾟ,"
+
+enTing() {
+    (randomElement <<EOF
+kanin|er
+hat|te
+due|r
+EOF
+    )
+}
+
+n=$(random 1 7)
+ting=$(enTing)
+hvor=$(enTing | cut -d'|' -f1)
+
+if [ n = 1 ]; then
+    what="en $(echo "$ting"|cut -d'|' -f1) fra en $hvor"
+else
+    what="$n $(echo "$ting"|sed 's/|//') fra en $hvor"
+fi
+
+echo "/me fremtryller $what!"
