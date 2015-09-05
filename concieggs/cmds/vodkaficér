@@ -27,7 +27,7 @@ m() {
 }
 
 druk() {
-    randomElement <<EOF
+    randomLine <<EOF
 HiK
 br$(m æ)rk
 L$(m O)$(m o)rt
@@ -48,7 +48,7 @@ runcmd autoviden $emne | unwords | head -n 10 | {
                 echo $word | uppercase;;
         esac
     done
-    randomElement <<EOF
+    randomLine <<EOF
 Bl$(m u)r$(m R)CH!
 Wr$(m ou)eh.
 EOF

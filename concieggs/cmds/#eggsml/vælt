@@ -49,12 +49,12 @@ v="$(dbRead vilvæltekongen | wc -l | sed 's/ //g')"
 
 if [ "$v" -gt 4 ]; then
 
-    newKing=$(dbRead vilvæltekongen | randomElement)
+    newKing=$(dbRead vilvæltekongen | randomLine)
 
     dbDelete eggsking
     dbDelete vilvæltekongen
 
-    randomElement <<EOF
+    randomLine <<EOF
 KONGEN ER VÆLTET!
 Kongen er død!  Længe leve anarkiet!
 EOF
@@ -65,7 +65,7 @@ EOF
         makeKing "$newking"
     fi
 else
-    randomElement <<EOF
+    randomLine <<EOF
 Du ser en gammel film.
 Du bagtaler kongen på en bar.
 Du planlægger en retningsbestemt slotseksplosion.

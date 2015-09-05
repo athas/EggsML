@@ -32,7 +32,7 @@ if [ "$debtor" ]; then
         if [ "$(echo "$debt" | grep "-")" ]; then
             echo "$alias har $(echo $debt | sed 's/-//') kr. til gode i frokostkassen!"
         else
-            wish=$(eggstool wishes | randomElement)
+            wish=$(eggstool wishes | randomLine)
             echo "$(Du $alias) skylder $debt kr. til frokostkassen!  $(Du $alias Vedkommende) kunne overveje at købe $wish."
         fi
     else
@@ -43,7 +43,7 @@ elif [ "$time" ]; then
 elif [ "$status" ]; then
         reaktion
 elif [ "$missing" ]; then
-    echo "Du mangler $(randomElement < "$CONCIEGGS_DB_DIR/ordbog-dansk-navneord")!"
+    echo "Du mangler $(randomLine < "$CONCIEGGS_DB_DIR/ordbog-dansk-navneord")!"
 elif [ "$wtf" ]; then
     behaviour=$(dbRead outfilter_command)
     user_behaviour=$(dbRead "outfilter_command_$EGGS_USER")
@@ -109,7 +109,7 @@ elif [ "$githubname" ]; then
         fi
     fi
 else
-    randomElement <<EOF
+    randomLine <<EOF
 $EGGS_USER: Hmm, det er e$(tPattedyr).
 $EGGS_USER: E$(tPattedyr) så vidt jeg ved.
 Måske e$(tPattedyr), $EGGS_USER?

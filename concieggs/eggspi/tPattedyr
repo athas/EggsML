@@ -2,4 +2,4 @@
 #
 # Et tilfældigt pattedyr præfikset med artikelendelse.
 
-randomElement < $CONCIEGGS_DB_DIR/tPattedyr
+randomLine < $CONCIEGGS_DB_DIR/tPattedyr

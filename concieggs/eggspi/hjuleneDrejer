@@ -1,6 +1,6 @@
 #!/bin/sh
 
-biblen=`randomElement <<EOF
+biblen=`randomLine <<EOF
 Gabriel
 Michael
 Raphael
@@ -16,7 +16,7 @@ Satanas
 Lucifer
 EOF`
 
-omskrivning=`randomElement <<EOF
+omskrivning=`randomLine <<EOF
 .., men det snakker vi ikke om.
  "noget"
  "dét"
@@ -24,7 +24,7 @@ omskrivning=`randomElement <<EOF
  det "frække"
 EOF`
 
-hjulene=`randomElement <<EOF
+hjulene=`randomLine <<EOF
 hjulene
 Illuminati
 menneskeheden
@@ -38,7 +38,7 @@ Electra
 $biblen
 EOF`
 
-drejer=`randomElement <<EOF
+drejer=`randomLine <<EOF
 drejer
 styrer
 fortsat ånder

@@ -3,7 +3,7 @@
 # Sig pænt tak til concieggs.
 
 if isKing "$EGGS_USER"; then
-    randomElement <<EOF
+    randomLine <<EOF
 Alt for Dem!
 De behøver da ikke at takke mig!
 Men jeg er blot en undersåt.  Tak.  TAK!

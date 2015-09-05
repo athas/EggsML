@@ -26,5 +26,5 @@ else
     echo "Det er dandy"
     echo "EXIT_SUCCESS"
 
-fi | randomElement | xargs echo -n
-(echo "!"; echo ".") | randomElement
+fi | randomLine | xargs echo -n
+(echo "!"; echo ".") | randomLine

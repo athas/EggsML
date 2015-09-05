@@ -2,7 +2,7 @@
 #
 # Udskriv en liste over de nuværende indkøbsønsker.
 
-dugodeste=$(randomElement <<EOF
+dugodeste=$(randomLine <<EOF
 Du godeste!
 Mein Gott!
 Bred ymer!

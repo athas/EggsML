@@ -2,7 +2,7 @@
 #
 # Spørg hvor mange ...
 
-factor=`randomElement <<EOF
+factor=`randomLine <<EOF
 millioner
 tusinde
 milliarder
@@ -13,7 +13,7 @@ EOF`
 eval "$(echo "$@" | parse '^ *((?<gammel>(gammelt?|ungt?|lang tid|længe))|(?<lang>(langt?|kort|højt?|lavt?))|(?<tung>(tungt?|let))|(?<klog>(dumt?|klogt?|stupid))|(?<stor>(stort?|lille|meget))|(?<irriterende>(irriterende|udmattende|enerverende|trættende))|(?<grim>(grimt?|ulækkert?|monstrøst?|klamt?))).*')"
 
 if [ "$gammel" ]; then
-    unit=$(randomElement <<EOF
+    unit=$(randomLine <<EOF
 år
 dage
 sekunder
@@ -23,7 +23,7 @@ måneder
 EOF
 )
 elif [ "$lang" ]; then
-    unit=$(randomElement <<EOF
+    unit=$(randomLine <<EOF
 centimeter
 millimeter
 kilometer
@@ -36,7 +36,7 @@ lysår
 EOF
 )
 elif [ "$tung" ]; then
-       unit=$(randomElement <<EOF
+       unit=$(randomLine <<EOF
 kilo
 gram
 ton
@@ -45,14 +45,14 @@ din mor
 EOF
 )
 elif [ "$klog" ]; then
-       unit=$(randomElement <<EOF
+       unit=$(randomLine <<EOF
 gange så klog som Brainfuck
 gange så dum som John Strand
 gange så klogdum som Troels
 EOF
 )
 elif [ "$stor" ]; then
-       unit=$(randomElement <<EOF
+       unit=$(randomLine <<EOF
 kubikmeter
 brændestakke
 kubikfod
@@ -62,13 +62,13 @@ din mor
 EOF
 )
 elif [ "$irriterende" ]; then
-       unit=$(randomElement <<EOF
+       unit=$(randomLine <<EOF
 gange så irriterende som kode der fejler
 gange så udmattende som din mor
 EOF
 )
 elif [ "$grim" ]; then
-       unit=$(randomElement <<EOF
+       unit=$(randomLine <<EOF
 gange grimmere end dig selv
 gange pænere end fingermaling
 EOF
@@ -78,14 +78,14 @@ fi
 if [ "$unit" ]; then
     echo "$EGGS_USER: $(random 2 1337) $factor $unit!"
 else
-    prep=`randomElement <<EOF
+    prep=`randomLine <<EOF
 På
 I
 Over
 Under
 EOF
 `
-    place=`randomElement <<EOF
+    place=`randomLine <<EOF
 Danmark
 Sverige
 Norge

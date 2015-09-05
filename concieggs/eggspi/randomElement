@@ -1,7 +1,0 @@
-#!/bin/sh
-#
-# Random line from standard in.
-
-lines="$(cat)"
-max="$(echo "$lines" | wc -l)"
-echo "$lines" | lineAt $(random 1 $max)

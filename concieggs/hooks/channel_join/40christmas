@@ -4,14 +4,14 @@ shuttingUp && exit
 
 if christmas && maybeGood .7; then
     if isKing "$EGGS_USER"; then
-        randomElement <<EOF
+        randomLine <<EOF
 Deres Majestæt!  Det er jul!
 Pøblen glæder sig over højtiden, Deres Majestæt.
 Vi forventer mange gaver til Dem, Kong $EGGS_USER.
 $EGGS_USER: Julen er den gladeste tid i riget.
 EOF
     else
-        randomElement <<EOF
+        randomLine <<EOF
 $EGGS_USER: Hohoho!  Glædelig jul!
 $EGGS_USER, det er jul!
 $EGGS_USER, jul-jul-jul!

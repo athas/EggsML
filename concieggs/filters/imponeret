@@ -2,7 +2,7 @@
 #
 # Wooooow!!!
 
-Imponerende=$(randomElement <<EOF
+Imponerende=$(randomLine <<EOF
 Imponerende
 Det må jeg nok sige
 Wauw

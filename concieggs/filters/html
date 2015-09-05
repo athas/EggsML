@@ -1,7 +1,7 @@
 #!/bin/sh
 
 random_name() {
-    randomElement <<EOF
+    randomLine <<EOF
 foo
 bar
 header
@@ -14,14 +14,14 @@ EOF
 random_style() {
     n_styles=$(random 0 3)
     for i in $(seq 1 $n_styles); do
-        a=$(randomElement <<EOF
+        a=$(randomLine <<EOF
 background
 font-family
 colour
 position
 EOF
 )
-        b=$(randomElement <<EOF
+        b=$(randomLine <<EOF
 black
 red
 #ff0191
@@ -35,7 +35,7 @@ EOF
 }
 
 while read line; do
-    tag=$(randomElement <<EOF
+    tag=$(randomLine <<EOF
 p
 h1
 h2
@@ -46,7 +46,7 @@ EOF
     n_attribs=$(random 0 2)
     attribs=''
     for i in $(seq 1 $n_attribs); do
-        attrib=$(randomElement <<EOF
+        attrib=$(randomLine <<EOF
 id="$(random_name)"
 class="$(random_name)"
 style="$(random_style)"

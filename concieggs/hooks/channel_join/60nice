@@ -10,7 +10,7 @@ isCool "$EGGS_USER" && setCooldown "$EGGS_USER" 120 || exit
 
 maybeGood .7 || exit
 
-rar=$(randomElement <<EOF
+rar=$(randomLine <<EOF
 rar
 sød
 behagelig
@@ -28,7 +28,7 @@ bedre end mig :-(
 EOF
 )
 
-synes=(randomElement <<EOF
+synes=(randomLine <<EOF
 synes
 har opfattelsen
 mener

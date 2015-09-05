@@ -3,7 +3,7 @@
 # Få et forslag til en lækker snack.
 
 producents() {
-    randomElement <<EOF
+    randomLine <<EOF
 Dr. Oetkers
 Karen Volfs
 Kelloggs'
@@ -14,7 +14,7 @@ EOF
 }
 
 gode() {
-    randomElement <<EOF
+    randomLine <<EOF
 nye
 fantastiske
 billige
@@ -29,7 +29,7 @@ EOF
 }
 
 ret() {
-    ting=$(randomElement <<EOF
+    ting=$(randomLine <<EOF
 burger
 pizza
 pomfritter
@@ -46,7 +46,7 @@ snøfler
 EOF
 )
     bogstav=$(echo $ting | sed -r 's/^(.).*$/\1/')
-    echo $(grep "^$bogstav" "$CONCIEGGS_DB_DIR/ordbog-dansk-navneord-gode" | randomElement)-$ting
+    echo $(grep "^$bogstav" "$CONCIEGGS_DB_DIR/ordbog-dansk-navneord-gode" | randomLine)-$ting
 }
 
 echo Du kunne spise $(producents) $(gode) $(ret).

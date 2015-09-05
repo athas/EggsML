@@ -22,7 +22,7 @@ if [ "$prog" ]; then
             echo "Nej, men har du virkelig brug for det?"
             echo "$prog?  Lyder ubehageligt.  Jeg tror jeg holder mig fra det."
         )
-    fi | randomElement
+    fi | randomLine
 elif [ "$tome" ]; then
     echo "Har jeg hvad?  Brug 'har du <program> installeret'."
 else

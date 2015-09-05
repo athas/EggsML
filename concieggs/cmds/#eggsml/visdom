@@ -2,7 +2,7 @@
 #
 # Uddel et enkelt kvantum af den opsamlede visdom.
 
-visdom="$(cat $CONCIEGGS_DB_DIR/fakta | grep -i ".*$1" | randomElement)"
+visdom="$(cat $CONCIEGGS_DB_DIR/fakta | grep -i ".*$1" | randomLine)"
 if [ "$visdom" ]; then
     echo $visdom
 else

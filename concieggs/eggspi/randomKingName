@@ -2,7 +2,7 @@
 
 name=$(randomName "$1")
 if isGod "$1"; then
-    randomElement <<EOF
+    randomLine <<EOF
 hans Hellighed
 den Øverste
 vor Frelser
@@ -10,7 +10,7 @@ vor Ophøjede Skaber
 $1 Augustus
 EOF
 else
-    randomElement <<EOF
+    randomLine <<EOF
 kong $name
 hans majestæt $name
 hans majestæt

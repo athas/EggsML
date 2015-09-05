@@ -5,7 +5,7 @@
 body="$(say "$EGGS_BODY" | makeDanish)"
 
 if [ "$body" != "$EGGS_BODY" ]; then
-    prefix=`randomElement <<EOF
+    prefix=`randomLine <<EOF
 $EGGS_USER mener nok
 /me foretrækker nu
 $EGGS_USER, her på dansk

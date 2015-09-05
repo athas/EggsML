@@ -11,7 +11,7 @@ if ! [ "$instrument" ]; then
 fi
 
 Nu() {
-    randomElement <<EOF
+    randomLine <<EOF
 Nu
 Så
 Her
@@ -19,7 +19,7 @@ EOF
 }
 
 enSyngendeFortaelling() {
-    randomElement <<EOF
+    randomLine <<EOF
 en syngende fortælling
 en lystig vise
 et dejligt musikstykke
@@ -27,7 +27,7 @@ EOF
 }
 
 tingIntetkoen() {
-    randomElement <<EOF
+    randomLine <<EOF
 mejeri
 hønsehus
 hotel
@@ -37,7 +37,7 @@ EOF
 }
 
 tingFaelleskoen() {
-    randomElement <<EOF
+    randomLine <<EOF
 stoleleg
 hæmsko
 følelsesrejse
@@ -54,7 +54,7 @@ ting() {
 }
 
 glade() {
-    randomElement <<EOF
+    randomLine <<EOF
 glade
 morskabsfyldte
 fremtidige
@@ -63,7 +63,7 @@ EOF
 }
 
 Dramatisk() {
-    randomElement <<EOF
+    randomLine <<EOF
 Dramatisk
 Teatrisk
 Dramatistisk
@@ -73,7 +73,7 @@ EOF
 }
 
 ode() {
-    randomElement <<EOF
+    randomLine <<EOF
 ode
 serenade
 EOF
@@ -102,7 +102,7 @@ sangtitel() {
 }
 
 flot() {
-    randomElement <<EOF
+    randomLine <<EOF
 flot
 fransk
 harmonisk

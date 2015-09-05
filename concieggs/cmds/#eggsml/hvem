@@ -46,7 +46,7 @@ elif [ "$user" ]; then
     fi
 
     if [ "$user" = Spartacus -o "$user" = spartacus ]; then
-        alias=$(eggstool balances | cut -d' ' -f 2 | randomElement)
+        alias=$(eggstool balances | cut -d' ' -f 2 | randomLine)
     else
         alias=$(randomName "$user")
         auth=$(authedName "$user")
@@ -58,7 +58,7 @@ elif [ "$user" ]; then
          echo "Ej, gisp, jeg kan simpelthen ikke forestille mig hvem det kunne være."
          echo "..."
          echo "Tjek dit pas."
-        ) | randomElement
+        ) | randomLine
         annoyedBy $EGGS_USER
         exit
     fi
@@ -96,7 +96,7 @@ elif [ "$buy" ]; then
                 if cmpNames "$debtor" "$EGGS_USER"; then
                     debtor="$EGGS_USER"
                 fi
-                randomElement <<EOF
+                randomLine <<EOF
 $debtor: Vi er vel ikke på vej mod et nyt statsbankerot, Deres Majestæt?
 Har De overvejet at hæve skatterne, $debtor?
 $debtor: Hvad med en krig som distraktion for Deres tomme kiste?

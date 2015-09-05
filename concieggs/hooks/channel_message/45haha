@@ -13,7 +13,7 @@ ha=$(for i in $(seq 1 $(random 4 20)); do
     fi
     done)
 
-foranSjov=$(randomElement <<EOF
+foranSjov=$(randomLine <<EOF
 VILDT
 ULTRA
 ROFLENDE
@@ -22,7 +22,7 @@ LOLLENDE
 EOF
 )
     
-sjov="$foranSjov $(randomElement <<EOF
+sjov="$foranSjov $(randomLine <<EOF
 GRINERN
 SJOVT
 MORSOMT

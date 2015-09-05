@@ -4,7 +4,7 @@
 
 startkommentar() {
     opgave="$1"
-    randomElement <<EOF
+    randomLine <<EOF
 Hmm, $opgave er ikke helt i orden.
 $opgave?  Hvad fanden er det for noget lort??
 Nuvel, nuvel...
@@ -18,7 +18,7 @@ EOF
 }
 
 operation() {
-    randomElement <<EOF
+    randomLine <<EOF
 addition
 subtraktion
 multiplikation
@@ -28,7 +28,7 @@ EOF
 }
 
 navn() {
-    randomElement <<EOF
+    randomLine <<EOF
 foo
 bar
 compileExp
@@ -41,7 +41,7 @@ EOF
 }
 
 ting() {
-    randomElement <<EOF
+    randomLine <<EOF
 n startparantes
 t gullaschtegn
 n $(operation)soperator
@@ -55,7 +55,7 @@ EOF
 }
 
 funktion() {
-    randomElement <<EOF
+    randomLine <<EOF
 map
 foldl
 foldr
@@ -66,7 +66,7 @@ EOF
 }
 
 snedigtTrick() {
-    randomElement <<EOF
+    randomLine <<EOF
 punktfri notation
 fixpunktsiteration
 monader
@@ -83,7 +83,7 @@ linjenummer() {
 
 kommentarsaetning() {
     ting="$(ting)"
-    randomElement <<EOF
+    randomLine <<EOF
 Du mangler e$ting i din '$(navn)' på linje $(linjenummer).
 Di$ting skal i stedet være e$(ting).
 Husk endeligt at e$ting ikke må distribueres over *hele* funktionskroppen!

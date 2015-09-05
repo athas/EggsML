@@ -8,7 +8,7 @@ if ! [ "$ting" ]; then
     ting=jolly
 fi
 
-nam=`randomElement <<EOF
+nam=`randomLine <<EOF
 Ja, det kan du lide
 Nam-nam
 Jepsidasse

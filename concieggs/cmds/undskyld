@@ -15,7 +15,7 @@ fi
 
 if [ "$to" = "concieggs" ]; then
     if isKing "$EGGS_USER"; then
-        randomElement <<EOF
+        randomLine <<EOF
 Det må du virkelig undskylde, min Konge!
 Deres Majestæt, jeg undskylder!  Undskyld!
 EOF
@@ -45,7 +45,7 @@ undskyldninger() {
     echo "$to, jeg har en besked fra $from... han har det som en bamse der er kommet til at spise al honningen, men vil virkelig gerne være ven igen."
 }
 
-u="$(undskyldninger $1 $2 | randomElement)"
+u="$(undskyldninger $1 $2 | randomLine)"
 if [ "$u" ]; then
     echo "$u"
 fi

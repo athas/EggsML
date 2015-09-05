@@ -40,6 +40,6 @@ else
         echo "Jeg tror ikke, at hans majestæt ville værdsætte at du prøver at tilrane hans beføjelser."
         echo "Med hvis bemyndigelse?"
         echo "Du er ikke konge - det er dokumentfalsk det der."
-    ) | randomElement
+    ) | randomLine
     annoyedBy "$EGGS_USER" 5
 fi

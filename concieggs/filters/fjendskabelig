@@ -1,6 +1,6 @@
 #!/usr/bin/env dash
 
-hilsen=$(randomElement <<EOF
+hilsen=$(randomLine <<EOF
 For helvede,
 Forbandede
 Hop i havet,
@@ -11,7 +11,7 @@ Fjolset
 EOF
 )
 
-smiley=$(randomElement <<EOF
+smiley=$(randomLine <<EOF
 For helvede!
 Hvor tit skal jeg sige det?
 DNUR!

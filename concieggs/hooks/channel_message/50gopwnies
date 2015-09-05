@@ -7,7 +7,7 @@
 maybeGood .2 || exit
 
 if echo "$EGGS_USER" | fgrep -q "[pwn]"; then
-    randomElement <<EOF
+    randomLine <<EOF
 Hurra $EGGS_USER! I vinder ctf'et!
 $EGGS_USER; jeg ved bare at I vinder :>
 $EGGS_USER, hvad plads er I på nu?

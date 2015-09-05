@@ -12,4 +12,4 @@ fi
 {
     grep -i "$ord" "$CONCIEGGS_DB_DIR/grundloven/grundlov-sætninger" \
         || echo "$EGGS_USER: Det ord findes ikke i grundloven."
-} | randomElement
+} | randomLine

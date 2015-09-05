@@ -21,7 +21,7 @@ else
                  echo "$EGGS_USER: Du er en mesterlig komiker.  Jeg kan ikke forestille mig, at andre har tænkt på det før dig.  Bravo!"
                  echo "$EGGS_USER: Ja, det lyder som en virkelig god idé."
                  echo "$EGGS_USER: Dig først."
-                ) | randomElement
+                ) | randomLine
                 putInBadStanding "$EGGS_USER"
             fi
         else

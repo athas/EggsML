@@ -28,7 +28,7 @@ sviner() {
 }
 
 fuck() {
-    ex="$(sviner $1 $2 | randomElement)"
+    ex="$(sviner $1 $2 | randomLine)"
     if [ "$ex" ]; then
         echo "$ex"
     fi

@@ -14,7 +14,7 @@ if [ -n "$debt" ]; then
         else
             echo -n "Stram op! "
         fi
-        wish=$(eggstool wishes | randomElement)
+        wish=$(eggstool wishes | randomLine)
         if [ "$wish" ]; then
             echo "Du kunne f.eks. købe $wish!"
         else

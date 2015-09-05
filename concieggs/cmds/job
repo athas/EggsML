@@ -26,4 +26,4 @@ curl --silent "$url" \
           -e 's/&ndash;/--/g' \
           -e "s/ [^. ]+\.\.\./ e$(tPattedyr)./" \
     | grep -E '.{30,}' \
-    | randomElement
+    | randomLine

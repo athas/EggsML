@@ -1,13 +1,13 @@
 #!/usr/bin/env dash
 
-hilsen=$(randomElement <<EOF
+hilsen=$(randomLine <<EOF
 Min ven
 Kære
 Søde
 EOF
 )
 
-smiley=$(randomElement <<EOF
+smiley=$(randomLine <<EOF
 :)
 :-)
 (:

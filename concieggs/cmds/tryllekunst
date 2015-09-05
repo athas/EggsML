@@ -9,7 +9,7 @@ sleep 2
 echo "/me (∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ. * ･ ｡ﾟ,"
 
 enTing() {
-    (randomElement <<EOF
+    (randomLine <<EOF
 kanin|er
 hat|te
 due|r

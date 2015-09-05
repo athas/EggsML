@@ -11,7 +11,7 @@ support() {
      echo "Fandeme godt sagt, $who!"
      echo "Prædk det, $who!"
      echo "Lyt til $who, han ved hvad han taler om.") |
-        randomElement
+        randomLine
 }
 
 if [ "$who" ]; then

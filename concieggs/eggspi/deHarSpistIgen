@@ -1,6 +1,6 @@
 #!/bin/sh
 
-randomElement <<EOF
+randomLine <<EOF
 De har spist af mig igen, disse $(dummeBavianer).
 Disse $(dummeBavianer) har endnu en gang spist fra min hånd.
 Bliver de da aldrig mætte, de her $(dummeBavianer)?

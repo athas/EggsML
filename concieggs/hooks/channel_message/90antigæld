@@ -8,7 +8,7 @@ maybeGood .05 || exit
 
 debt=$(lookupDebt $EGGS_USER)
 
-penge=`randomElement <<EOF
+penge=`randomLine <<EOF
 klejner
 kontanter
 skejser
@@ -19,21 +19,21 @@ penge
 Hellige Bitcoins
 EOF`
 
-konserves=`randomElement <<EOF
+konserves=`randomLine <<EOF
 torskerogn
 makrel
 kippers
 kapers
 EOF`
 
-nederen=`randomElement <<EOF
+nederen=`randomLine <<EOF
 en investeringsbank (genindfør Glass-Steagall nu!)
 din børneopsparing
 komplet uden din deltagelse ved det ærede frokostbord
 blot et skjul du kan gemme dine $konserves i
 EOF`
 
-opfordring=`randomElement <<EOF
+opfordring=`randomLine <<EOF
 Brug nu dine $penge, EggsML er jo ikke $nederen!
 Brug nu dine $penge, inden inflationen kommer!
 SPIS NU MED!

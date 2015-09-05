@@ -1,13 +1,13 @@
 #!/bin/sh
 
-usle=`randomElement <<EOF
+usle=`randomLine <<EOF
 Usle
 Gemene
 Blødsødne
 Latterlige
 EOF`
 
-slambert=`randomElement <<EOF
+slambert=`randomLine <<EOF
 slambert
 IP-genganger
 humanist
@@ -15,6 +15,6 @@ PHK-wannabe
 kujon
 EOF`
 
-randomElement <<EOF
+randomLine <<EOF
 $usle $slambert!
 EOF

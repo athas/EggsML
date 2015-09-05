@@ -9,7 +9,7 @@ maybeGood .9 || exit
 user=$EGGS_USER
 lookupDebt $user | grep -vq '\-' || exit
 
-penge=`randomElement <<EOF
+penge=`randomLine <<EOF
 penge
 moneter
 danske kroner
@@ -19,7 +19,7 @@ mønter
 kronesedler
 EOF`
 
-randomElement <<EOF
+randomLine <<EOF
 /me ved at $user er i negativ.
 Hmm... Med alle de $penge $user skylder, får vi mon $user at se igen?
 $user: Du skylder pengeeeeeee.  Så smutter $user bare.

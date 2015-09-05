@@ -1,6 +1,6 @@
 #!/bin/sh
 
-randomElement <<EOF
+randomLine <<EOF
 Næ.
 Næh.
 Nå.

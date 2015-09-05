@@ -6,4 +6,4 @@
     echo "Ummm ja... jeg kunne godt bruge lidt kebab."
     echo "Ja, jeg er også ved at være sulten."
     echo "Oasen på Jagtvej har rigtig god kebab."
-) | randomElement
+) | randomLine

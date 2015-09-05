@@ -4,7 +4,7 @@
 
 
 nummer(){
-echo `randomElement <<EOF
+echo `randomLine <<EOF
 1
 2
 3
@@ -18,14 +18,14 @@ EOF`
 }
 
 numre(){
-echo `randomElement <<EOF
+echo `randomLine <<EOF
 $(nummer)
 $(nummer)$(nummer)$(nummer)
 $(nummer)$(nummer)
 EOF`
 }
 
-bande=`randomElement <<EOF
+bande=`randomLine <<EOF
 fanden
 satan
 dælen
@@ -37,7 +37,7 @@ helvede
 EOF
 `
 
-nam=`randomElement <<EOF
+nam=`randomLine <<EOF
 juleøl
 snaps
 sne-bajer
@@ -61,7 +61,7 @@ nougat
 EOF
 `
 
-tale=`randomElement <<EOF
+tale=`randomLine <<EOF
 Pøblen sig glæder, sig glæder over højtiden!
 Der ligger en gave, og smiler til mig - sh sh.
 Gaven den er lækker, det samme er jeg - sh sh.

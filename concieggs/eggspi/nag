@@ -3,7 +3,7 @@
 who=$1
 
 debt=$(lookupDebt $who)
-wish=$(eggstool wishes | randomElement)
+wish=$(eggstool wishes | randomLine)
 
 if [ "$(echo "$debt" | grep -v "-")" ]; then
     if isKing "$who"; then
@@ -33,5 +33,5 @@ if [ "$(echo "$debt" | grep -v "-")" ]; then
         echo "Og i modsætning til al tilgængelig evidens, så påstår $(du $who) naturligvis at $(du $who) vil betale denne gang, ikke?"
         echo "Jeg er blot en bot, men $(du $who) skylder råt."
         echo "$(Du $who) skylder altså over 0 kr.  Jeg tolererer det ikke."
-    fi | randomElement
+    fi | randomLine
 fi

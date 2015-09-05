@@ -14,7 +14,7 @@ if [ "$detached" ]; then
         echo "Men savnes de ikke?"
         echo "Jeg har nu alligevel også rigeligt at lave."
         echo "Det er jo krisetid."
-    ) | randomElement
+    ) | randomLine
 else
     echo "$EGGS_USER: Alt synes at være tilkoblet."
 fi

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ungerne=`randomElement <<EOF
+ungerne=`randomLine <<EOF
 ungerne
 børnene
 Java
@@ -25,7 +25,7 @@ WebGL
 PHP
 EOF`
 
-enHipster=`randomElement <<EOF
+enHipster=`randomLine <<EOF
 en hipster
 en humanist
 en fysiker
@@ -43,7 +43,7 @@ en Mac-fanatiker
 en polit
 EOF`
 
-styre=`randomElement <<EOF
+styre=`randomLine <<EOF
 styre
 styer
 kontrollere
@@ -58,18 +58,18 @@ tvinge
 nedgøre
 EOF`
 
-afhaengeAf=`randomElement <<EOF
+afhaengeAf=`randomLine <<EOF
 afhænge af
 bero på
 EOF`
 
-paaKnappen=`randomElement <<EOF
+paaKnappen=`randomLine <<EOF
 på knappen
 her
 lige her
 EOF`
 
-klikkeHer=`randomElement <<EOF
+klikkeHer=`randomLine <<EOF
 klikke $paaKnappen som $enHipster
 være $enHipster for at forstå det
 $afhaengeAf $ungerne
@@ -77,7 +77,7 @@ gøre dét
 $styre mig selv
 EOF`
 
-lort=`randomElement <<EOF
+lort=`randomLine <<EOF
 lort
 søm
 skruer
@@ -85,12 +85,12 @@ tis
 klamhed
 EOF`
 
-egerntype=`randomElement <<EOF
+egerntype=`randomLine <<EOF
 jord
 flyve
 EOF`
 
-nuttedeDyr=`randomElement <<EOF
+nuttedeDyr=`randomLine <<EOF
 ${egerntype}egern
 kaniner
 katte
@@ -99,13 +99,13 @@ hundehvalpe
 delfiner
 EOF`
 
-DINIDIOT=`randomElement <<EOF
+DINIDIOT=`randomLine <<EOF
 DIN IDIOT
 DIT FJOLS
 DIN KAMODÉVERAN
 EOF`
 
-menHvadMedUngerne=`randomElement <<EOF
+menHvadMedUngerne=`randomLine <<EOF
 Men hvad med $ungerne?
 Kan du give et eksempel, $DINIDIOT?
 Jeg er ikke tryg ved fokus på $ungerne.
@@ -122,7 +122,7 @@ Ikke $ungerne igen...
 Hvad fanden sker der?
 EOF`
 
-deSkalVelHaveMad=`randomElement <<EOF
+deSkalVelHaveMad=`randomLine <<EOF
 De skal vel også spise!
 Slår du dine venner?
 Det er urealistisk.
@@ -144,7 +144,7 @@ Tag dig dog sammen.
 Er du også sådan i morgen?
 EOF`
 
-erDuMaaskeDum=`randomElement <<EOF
+erDuMaaskeDum=`randomLine <<EOF
 Er du måske dum?
 Spis tis.
 Fucking latterligt.
@@ -155,7 +155,7 @@ For helvede!
 Vil du ha' med hammeren?
 EOF`
 
-randomElement <<EOF
+randomLine <<EOF
 $menHvadMedUngerne  $deSkalVelHaveMad  $erDuMaaskeDum
 $menHvadMedUngerne  $erDuMaaskeDum  $deSkalVelHaveMad
 $erDuMaaskeDum

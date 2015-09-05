@@ -2,7 +2,7 @@
 #
 # Fortæl concieggs en anekdote.
 
-randomElement <<EOF
+randomLine <<EOF
 Ja, man er vel ikke født i går!
 Nånå, er det med den på?
 Hvorledes?  Fortæl, fortæl!

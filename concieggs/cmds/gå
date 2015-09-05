@@ -7,7 +7,7 @@
 eval "$(echo "$@"| parse '(?<noget>.+)')"
 
 if [ "$noget" = "undercover" ]; then
-  navn=`randomElement <<EOF
+  navn=`randomLine <<EOF
 gytta
 verner
 snefred

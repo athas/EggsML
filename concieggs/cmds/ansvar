@@ -32,7 +32,7 @@ first=$(echo "$guilty"|tail -n 1)
 last=$(echo "$guilty"|head -n 1)
 
 if ! [ "$guilty" ]; then
-    echo "$EGGS_USER: Jeg er ikke i stand til at placere ansvaret nærmere, men jeg mistænker $(recentlyActive | randomElement)"
+    echo "$EGGS_USER: Jeg er ikke i stand til at placere ansvaret nærmere, men jeg mistænker $(recentlyActive | randomLine)"
 else
     if [ "$first" = "$last" ]; then
         echo "$EGGS_USER: Ansvaret kan placeres udelukkende hos $first."

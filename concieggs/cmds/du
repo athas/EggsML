@@ -11,7 +11,7 @@ if [ "$name" = "$CONCIEGGS_DEFAULT_NAME" ]; then
 fi
 
 if isKing "$EGGS_USER"; then
-    randomElement <<EOF
+    randomLine <<EOF
 Ja, De har fuldstændig ret!
 Jeg undskylder, selvfølgelig er De korrekt i Deres observation.
 EOF
