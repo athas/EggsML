@@ -67,17 +67,14 @@ else
 fi
 
 if [ $check_all_places ]; then
-    acmd="$(find "$CONCIEGGS_DIR/cmds" -name "$cmd" | head -n 1)"
+    acmd="$(find "$CONCIEGGS_DIR/cmds" -iname "$cmd" -type f | head -n 1)"
 else
-    t="$cmddir/$cmd"
-    if [ -x "$t" ] && [ -f "$t" ]; then
-        acmd="$t"
+    if [ -d "$cmddir/$(ircChannel)/$cmd" ]; then
+        extradir="$cmddir/$(ircChannel)/$cmd"
     else
-        t="$cmddir/$(ircChannel)/$cmd"
-        if [ -x "$t" ] && [ -f "$t" ]; then
-            acmd="$t"
-        fi
+        extradir="/dev/null"
     fi
+    acmd="$(find "$cmddir" "$extradir" -maxdepth 1 -iname "$cmd" -type f | head -n 1)"
 fi
 
 if [ "$cmd" ] && [ "$EGGS_USER" != "$CONCIEGGS_NAME" ]; then
@@ -88,9 +85,7 @@ if [ "$cmd" ] && [ "$EGGS_USER" != "$CONCIEGGS_NAME" ]; then
     else
         othercmd="$(commands $check_all_places|levenshtein "$cmd"|sort -n|head -n 1|cut -d ' ' -f 2-)"
         if [ "$othercmd" ]; then
-            if [ "$(echo $othercmd | tolower)" != "$(echo $cmd | tolower)" ]; then
-               echo "Jeg antager at du mente $othercmd!"
-            fi
+            echo "Jeg antager at du mente $othercmd!"
             otheracmd="$(find "$CONCIEGGS_DIR/cmds" -name "$othercmd" | head -n 1)"
             run "$othercmd" "$otheracmd" $args
         else
