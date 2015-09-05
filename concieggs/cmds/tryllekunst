@@ -21,7 +21,7 @@ n=$(random 1 7)
 ting=$(enTing)
 hvor=$(enTing | cut -d'|' -f1)
 
-if [ n = 1 ]; then
+if [ $n = 1 ]; then
     what="en $(echo "$ting"|cut -d'|' -f1) fra en $hvor"
 else
     what="$n $(echo "$ting"|sed 's/|//') fra en $hvor"
