@@ -18,6 +18,10 @@ if [ "$who" ]; then
     if [ "$who" = mig ]; then
         who=$EGGS_USER
     fi
+    if [ "$who" = $CONCIEGGS_NAME ]; then
+        echo "$EGGS_USER: Det er nu ikke nødvendigt."
+        exit
+    fi
     if [ "$kanal" ]; then
         support | sayTo "#$kanal"
     else
