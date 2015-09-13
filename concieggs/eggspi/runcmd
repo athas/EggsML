@@ -28,7 +28,7 @@ run() {
     shift
     shift
     dbRead cur_cmd | dbWrite last_cmd
-    echo "$acmd $@" | dbWrite cur_cmd
+    echo "$cmd $@" | dbWrite cur_cmd
     case "$cmd" in
         er|hvem|hvad|hvor|hvornår|har*|kan|skal|hvilke*)
             decorateStderr "$acmd" "$acmd" $(echo "$@" | sed 's/\?*$//') || broke
@@ -68,14 +68,14 @@ else
 fi
 
 if [ $check_all_places ]; then
-    acmd="$(find "$CONCIEGGS_DIR/cmds" -iname "$cmd" -type f | head -n 1)"
+    acmd="$(find -L "$CONCIEGGS_DIR/cmds" -iname "$cmd" -type f | head -n 1)"
 else
     if [ -d "$cmddir/$(ircChannel)" ]; then
         extradir="$cmddir/$(ircChannel)/"
     else
         extradir="/dev/null"
     fi
-    acmd="$(find "$cmddir" "$extradir" -maxdepth 1 -iname "$cmd" -type f | head -n 1)"
+    acmd="$(find -L "$cmddir" "$extradir" -maxdepth 1 -iname "$cmd" -type f | head -n 1)"
 fi
 
 if [ "$cmd" ] && [ "$EGGS_USER" != "$CONCIEGGS_NAME" ]; then

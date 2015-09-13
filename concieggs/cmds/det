@@ -2,11 +2,16 @@
 #
 # Giv feedback på concieggs's muntre løjer og skarnstreger.
 
-if [ $# -eq 1 -a "$1" = samme ]; then
+eval "$(echo "$@" | parse '(?<samme>samme)(, men s/(?<regex>[^/]*)/(?<replacement>[^/]*)/(?<flag>[g]?))?')"
+
+if [ "$samme" ]; then
     last=$(dbRead last_cmd)
     if ! [ "$last" ]; then
         echo "$EGGS_USER: Beklager, jeg erindrer ikke hvad herren før dig bestilte."
         exit
+    fi
+    if [ "$regex" ]; then
+        last=$(echo "$last" | sed -e "s/$regex/$replacement/$flag")
     fi
     runcmd $last
     echo $last | dbWrite cur_cmd
