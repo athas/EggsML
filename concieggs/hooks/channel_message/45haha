@@ -2,9 +2,9 @@
 #
 # Grin højlydt.
 
-(notOnEggsChannel || shuttingUp) && exit
+# (notOnEggsChannel || shuttingUp) && exit
 
-maybeGood .4 || exit
+# maybeGood .4 || exit
 
 ha=$(for i in $(seq 1 $(random 4 20)); do
     echo -n HA
@@ -18,20 +18,20 @@ VILDT
 ULTRA
 ROFLENDE
 MEGA
-LOLLENDE 
+LOLLENDE
 EOF
 )
     
 sjov="$foranSjov $(randomLine <<EOF
 GRINERN
-SJOVT
-MORSOMT
+SJOV
+MORSOM
 LOLZ
 ROFLCOPTER
 EOF
 )"
 
-new=$(echo "$EGGS_BODY" | sed -r -e "s/(h[aøe](h[aøe])+|[Hh]eh)/$ha/g" -e "s/(sjovt?|grinern?|morsomt?|skægt?)/$sjov/g")
+new=$(echo "$EGGS_BODY" | sed -r -e "s/(h[aøe](h[aøe])+|[Hh]eh)/$ha/g" -e "s/(sjov[te]?|grinern|morsom(t|me)?|skæg(t|ge)?)([ .,:;$])/${sjov}\2/g")
 
 if [ "$new" != "$EGGS_BODY" ]; then
     echo "$new"
