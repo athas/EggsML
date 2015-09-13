@@ -27,6 +27,7 @@ run() {
     acmd="$2"
     shift
     shift
+    echo "$acmd $@" | dbWrite lastcmd
     case "$cmd" in
         er|hvem|hvad|hvor|hvornår|har*|kan|skal|hvilke*)
             decorateStderr "$acmd" "$acmd" $(echo "$@" | sed 's/\?*$//') || broke

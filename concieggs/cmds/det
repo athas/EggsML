@@ -2,7 +2,15 @@
 #
 # Giv feedback på concieggs's muntre løjer og skarnstreger.
 
-if echo "$@" | grep -i -E '^ *sagde +hun +i +går: *' > /dev/null; then
+if [ $# -eq 1 -a "$1" = samme ]; then
+    last=$(dbRead lastcmd)
+    if ! [ "$last" ]; then
+        echo "$EGGS_USER: Beklager, jeg erindrer ikke hvad herren før dig bestilte."
+        exit
+    fi
+    runcmd $last
+    echo $last | dbWrite lastcmd
+elif echo "$@" | grep -i -E '^ *sagde +hun +i +går: *' > /dev/null; then
     shift; shift; shift; shift
     if [ $# -eq 0 ]; then
         echo "Men hvad sagde hun?"
@@ -10,23 +18,21 @@ if echo "$@" | grep -i -E '^ *sagde +hun +i +går: *' > /dev/null; then
         echo "$@" >> $CONCIEGGS_DB_DIR/sjove_dshoig
         echo "Ok, hun sagde $@ i går."
     fi
-
 elif ! [ -f $CONCIEGGS_DB_DIR/last_dshoig ]; then
     echo 'Jeg har altså ikke sagt noget!'
     annoyedBy "$EGGS_USER" 10
 
+elif (echo "$@" | grep -i -E '^ *(der )?(var|er) +(jo|slet) +ikke +sjovt\.? *$') > /dev/null; then
+    echo "Øv, jeg syntes ellers det var et ret morsomt svar til $(cat $CONCIEGGS_DB_DIR/last_dshoig)."
+    cat $CONCIEGGS_DB_DIR/last_dshoig >> $CONCIEGGS_DB_DIR/usjove_dshoig
+    rm $CONCIEGGS_DB_DIR/last_dshoig
+    annoyedBy "$EGGS_USER" 5
+elif echo "$@" | grep -i -E '^ *(der )?(var|er) +faktisk +(ret|pænt)? +sjovt\.? *$' > /dev/null; then
+    echo "Ja, pænt sjovt svar til $(cat $CONCIEGGS_DB_DIR/last_dshoig), ikke?"
+    cat $CONCIEGGS_DB_DIR/last_dshoig >> $CONCIEGGS_DB_DIR/sjove_dshoig
+    rm $CONCIEGGS_DB_DIR/last_dshoig
+    pleasedBy "$EGGS_USER" 5
 else
-    if (echo "$@" | grep -i -E '^ *(der )?(var|er) +(jo|slet) +ikke +sjovt\.? *$') > /dev/null; then
-        echo "Øv, jeg syntes ellers det var et ret morsomt svar til $(cat $CONCIEGGS_DB_DIR/last_dshoig)."
-        cat $CONCIEGGS_DB_DIR/last_dshoig >> $CONCIEGGS_DB_DIR/usjove_dshoig
-        rm $CONCIEGGS_DB_DIR/last_dshoig
-        annoyedBy "$EGGS_USER" 5
-    elif echo "$@" | grep -i -E '^ *(der )?(var|er) +faktisk +(ret|pænt)? +sjovt\.? *$' > /dev/null; then
-        echo "Ja, pænt sjovt svar til $(cat $CONCIEGGS_DB_DIR/last_dshoig), ikke?"
-        cat $CONCIEGGS_DB_DIR/last_dshoig >> $CONCIEGGS_DB_DIR/sjove_dshoig
-        rm $CONCIEGGS_DB_DIR/last_dshoig
-        pleasedBy "$EGGS_USER" 5
-    else
-        echo "$EGGS_USER: Brug 'det er jo ikke sjovt', 'det er faktisk ret sjovt' eller 'det sagde hun i går:'."
-    fi
+    echo "$EGGS_USER: Brug 'det er jo ikke sjovt', 'det er faktisk ret sjovt' eller 'det sagde hun i går:'."
 fi
+
