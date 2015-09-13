@@ -4,12 +4,6 @@
 # Tager ingen argumenter, men prøver at bringe dig på rette vej.
 
 EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
->shuttingUp
-jz continue1
->echo "${EGGS_USER}: Nej, jeg har fået at vide at jeg skal tie stille.  Det er for dit eget bedste."
-exit
-
-:continue1
 
 >echo "${EGGS_USER}: Er du sikker på at du vil høre en tærte-kommentar?  De kan altså være ret grove."
 
