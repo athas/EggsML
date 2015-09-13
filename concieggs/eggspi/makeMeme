@@ -16,8 +16,8 @@ def urlread(url):
 
 def main(args):
     try:
-        top = sys.argv[1]
-        bottom = sys.argv[2]
+        top = sys.argv[1].upper()
+        bottom = sys.argv[2].upper()
     except IndexError:
         print('Mangler argumenter.', file=sys.stderr)
         return 1
