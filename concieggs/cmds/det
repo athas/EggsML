@@ -3,13 +3,13 @@
 # Giv feedback på concieggs's muntre løjer og skarnstreger.
 
 if [ $# -eq 1 -a "$1" = samme ]; then
-    last=$(dbRead lastcmd)
+    last=$(dbRead last_cmd)
     if ! [ "$last" ]; then
         echo "$EGGS_USER: Beklager, jeg erindrer ikke hvad herren før dig bestilte."
         exit
     fi
     runcmd $last
-    echo $last | dbWrite lastcmd
+    echo $last | dbWrite cur_cmd
 elif echo "$@" | grep -i -E '^ *sagde +hun +i +går: *' > /dev/null; then
     shift; shift; shift; shift
     if [ $# -eq 0 ]; then

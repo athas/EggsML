@@ -27,14 +27,14 @@ run() {
     acmd="$2"
     shift
     shift
-    echo "$acmd $@" | dbWrite lastcmd
+    dbRead cur_cmd | dbWrite last_cmd
+    echo "$acmd $@" | dbWrite cur_cmd
     case "$cmd" in
         er|hvem|hvad|hvor|hvornår|har*|kan|skal|hvilke*)
             decorateStderr "$acmd" "$acmd" $(echo "$@" | sed 's/\?*$//') || broke
             ;;
         *)
             decorateStderr "$acmd" "$acmd" "$@" || broke
-
             ;;
     esac | gawk '{print; fflush()}' # Hack: use awk to newline-terminate.
 }
