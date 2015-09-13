@@ -27,18 +27,21 @@ set earlyreplies {
     "Gaaaab!"
     "Det er alt for tidligt at være så aktiv!"
     "ER DU A_MENNESKEÆÆ?"
+    "Du er vild!  At stå så tidligt op!"
 }
 
 set latereplies {
     "Se dét er et tidspunkt at stå op på."
     "Et eller andet sted i verden, måske."
     "Jeg tror også at jeg tager en eftermiddagslur."
+    "Vi er fra den samme slægt, du og jeg."
 }
 
 set kingreplies {
     "Godmorgen, deres majestæt."
     "Kongen er vågen!"
-    "Hil dem!"
+    "Hil Eder!"
+    "Må Deres dag være solstrålende!"
 }
 
 if {[regexp -nocase {^(g(?:o?'?|od)?)?[ \t]*m[oå](?:rn|rgen)} $text {} g]} {

@@ -1,8 +1,31 @@
-#!/bin/sh
+#!/usr/bin/env rash
 #
-# Få concieggs til at komme med en meningsfyldt kommentar til alle
-# slags debatter.  Tager ingen argumenter.
+# Få concieggs til at komme med en uoplyst kommentar til alle slags debatter.
+# Tager ingen argumenter, men prøver at bringe dig på rette vej.
 
-shuttingUpComplain && exit
+EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
+>shuttingUp
+jz continue1
+>echo "${EGGS_USER}: Nej, jeg har fået at vide at jeg skal tie stille.  Det er for dit eget bedste."
+exit
 
-tærteKommentar
+:continue1
+
+>echo "${EGGS_USER}: Er du sikker på at du vil høre en tærte-kommentar?  De kan altså være ret grove."
+
+read answer
+EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
+
+>test "${answer}" = "ja"
+jz continue2
+>echo "${EGGS_USER}: Godt valg!  Hav en god dag!"
+exit
+
+:continue2
+
+>echo "${EGGS_USER}: OK, men det ER altså på eget ansvar."
+>echo "${EGGS_USER}: Nu kommer tærte-kommentaren."
+>echo "..."
+>tærteKommentar
+>echo "..."
+>echo "Pyha, nu skal jeg vidst slappe lidt af.  Undskyld min hårde kommentar."

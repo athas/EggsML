@@ -2,7 +2,7 @@
 #
 # Tøjet!
 
-shuttingUpComplain && exit
+shuttingUp && exit
 
 (randomLine | sed "s/TING/`tøj`/g") <<EOF
 /me tager miTING af.
