@@ -2,7 +2,7 @@
 #
 # Giv feedback på concieggs's muntre løjer og skarnstreger.
 
-eval "$(echo "$@" | parse '(?<samme>samme)(, men s/(?<regex>[^/]*)/(?<replacement>[^/]*)/(?<flag>[g]?))?')"
+eval "$(echo "$@" | parse '^(?<samme>samme)(, (men|dog|omend|blot)( med)? s/(?<regex>[^/]*)/(?<replacement>[^/]*)/(?<flag>[g]?))? *$')"
 
 if [ "$samme" ]; then
     last=$(dbRead last_cmd)
