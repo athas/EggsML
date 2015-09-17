@@ -1,5 +1,5 @@
 #!/bin/sh
-# 
+#
 # Bed concieggs om at bedømme noget.
 
 if [ $# -eq 0 ]; then
