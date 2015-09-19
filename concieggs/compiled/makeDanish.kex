@@ -115,4 +115,6 @@ word := ~<computer> "datamat"
       | ~<[Ii]stanbul> "Miklagård"
       | ~<[Kk]onstantinopel> "Miklagård"
       | ~<output> "uddata"
+      | ~<dates> "stævnemøder"
+      | ~<date> "stævnemøde"
       | <[a-zA-ZæøåÆØÅ0-9]+>
