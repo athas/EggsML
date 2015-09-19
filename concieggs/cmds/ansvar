@@ -4,6 +4,7 @@
 
 if [ $# != 1 ]; then
     echo "Brug: ansvar <kommando>"
+    exit
 fi
 
 eval "$(echo "$@" | parse '^((?<cmd>[^/]+)|eggspi/(?<eggspi>[^/]+)|hooks/(?<hook>[^/]+/[^/]+)|compiled/(?<compiled>[^/]+))$')"
