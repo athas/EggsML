@@ -3,7 +3,7 @@
 # Spørg om din gæld til frokostkassen, eller få hjælp til diverse
 # personlighedsfremmende gøremål.  Brug naturligt sprog.
 
-eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|har (?<debtor>[^ ]+) til gode$|(?<time>er klokken)$|(?<balance>er betalingsbalancen)$|(?<missing>mangler jeg)$|(?<wtf>hulen)$|(?<status>så)$|(?<meaning>mener (?<who>[^ ]+) med (?<what>[^ ]+)$)|hedder (?<githubname>[^ ]+) på GitHub')"
+eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|har (?<debtor>[^ ]+) til gode$|(?<time>er klokken)$|(?<balance>er betalingsbalancen)$|(?<missing>mangler jeg)$|(?<wtf>hulen)$|(?<status>så)$|(?<meaning>mener (?<who>[^ ]+) med (?<what>[^ ]+)$)|hedder (?<githubname>[^ ]+) på GitHub|(?<happening>(sker der( lige)?|mener du))')"
 
 if [ "$balance" ]; then
   balance="$(lookupBalance)"
@@ -40,6 +40,14 @@ if [ "$debtor" ]; then
     fi
 elif [ "$time" ]; then
     echo "Den store viser peger på $(date +%H), den lille på $(date +%M), og den helt lille på $(date +%S)."
+elif [ "$happening" ]; then
+     echo -n "$EGGS_USER: "
+     (echo "Ja, det må du nok sige."
+      echo "Verden er af lave."
+      echo "Det var aldrig sket førhen."
+      echo "Og hvor er politikerne, må man spørge!"
+      echo "Det hører ingen steder hjemme."
+     ) | randomLine
 elif [ "$status" ]; then
         reaktion
 elif [ "$missing" ]; then
