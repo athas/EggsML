@@ -26,7 +26,7 @@ ROFLCOPTER
 EOF
 )"
 
-new=$(echo "$EGGS_BODY" | sed -r -e "s/(h[aøe](h[aøe])+|[Hh]eh)/$ha/g" -e "s/(sjov[te]?|grinern|morsom(t|me)?|skæg(t|ge)?)([ .,:;$])/${sjov}\2/g")
+new=$(echo "$EGGS_BODY" | sed -r -e "s/(h[aøe](h[aøe])+|[Hh]eh)/$ha/g" -e "s/(sjov[te]?|grinern|morsom(t|me)?|skæg(t|ge)?)([ .,:;$])/${sjov}\4/g")
 
 if [ "$new" != "$EGGS_BODY" ]; then
     echo "$new"
