@@ -1,0 +1,9 @@
+#!/bin/sh
+#
+#
+# Anmod logebotten om at udtrykke sit velbehag ved en netop ytret morsomhed.
+
+funny=$(echo "$@"|wc -c)
+
+laughter $(($funny / 4 + 4)) $funny
+echo
