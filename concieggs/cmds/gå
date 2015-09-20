@@ -45,7 +45,7 @@ EOF`
       bruger=nogen
   fi
   echo "/me peger på $bruger."
-  echoToServer ":nick $navn"
+  (sleep 4; echoToServer ":nick $navn")
 fi
 
 
