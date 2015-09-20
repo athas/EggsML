@@ -1,0 +1,23 @@
+#!/bin/sh
+#
+# Slå ting fra og til (og måske ihjel?).
+
+eval "$(echo "$@" | parse '((?<debug_on>fejlsøgning til)|(?<debug_off>fejlsøgning fra))')"
+
+if [ "$debug_on" ]; then
+    if ! dbExists debugging; then
+        echo | dbWrite debugging
+        echo "$(ack)  Fejlsøgning er slået til."
+    else
+        echo "$EGGS_USER: Fejlsøgning er allerede slået til."
+    fi
+elif [ "$debug_off" ]; then
+    if dbExists debugging; then
+        dbDelete debugging
+        echo "$(ack)  Fejlsøgning er slået fra."
+    else
+        echo "$EGGS_USER: Fejlsøgning er allerede slået fra."
+    fi
+else
+    echo "Brug: slå fejlsøgning <til|fra>"
+fi

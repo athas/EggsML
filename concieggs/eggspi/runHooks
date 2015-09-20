@@ -4,6 +4,10 @@ ls "$CONCIEGGS_DIR/hooks/$hooks/" |
     while read -r f; do
         hook=$CONCIEGGS_DIR/hooks/$hooks/$f
         if [ -x "$hook" ]; then
-            decorateStderr "hooks/$f" runhook "$hook"
+            if dbExists debugging; then
+                decorateStdout "hooks/$f" decorateStderr "hooks/$f" runhook "$hook"
+            else
+                decorateStderr "hooks/$f" runhook "$hook"
+            fi
         fi
     done
