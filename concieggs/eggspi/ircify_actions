@@ -3,5 +3,5 @@
 
 soh=$(echo | tr '\n' '\001')
 while IFS='' read -r line; do
-    echo "$line" | sed -ur "s|^/me|${soh}ACTION|"
+    say "$line" | sed -ur "s|^/me|${soh}ACTION|"
 done
