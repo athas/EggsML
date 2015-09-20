@@ -35,9 +35,17 @@ if ($input =~ /(mig en opskrift på (?<dish>.*)|en opskrift på (?<dish>.*) til 
     my $totalWeight = 0;
     for my $recipe (@recipeElms) {
         $q = Query(text => $recipe->as_HTML);
-        my ($scoreElm, $titleElm) = $q->query('td h4')->get_elements();
-        next unless defined($scoreElm);
-        my ($score, $votes) = $scoreElm->as_text =~ /(\d+(?:\.\d)?)\s+-\s+(\d+)/;
+        my ($scoreElm) = $q->query('td[width=38]')->get_elements();
+        my ($voteElm)  = $q->query('td[width=70] font')->get_elements();
+        my ($titleElm) = $q->query('td h4')->get_elements();
+        next unless defined($scoreElm) && defined($voteElm) && defined($titleElm);
+
+        my $score = $scoreElm->as_text;
+        $score =~ s/[^.\d]//g;
+
+        my $votes = $voteElm->as_text;
+        $votes =~ s/[^.\d]//g;
+
         my ($link) = $titleElm->content_list();
         my $title = $link->as_text();
         my $url = URI->new_abs($link->attr('href'), 'http://www.dk-kogebogen.dk');
@@ -46,7 +54,7 @@ if ($input =~ /(mig en opskrift på (?<dish>.*)|en opskrift på (?<dish>.*) til 
         delete $qargs{'sognavn'};
         $url->query_form(%qargs);
 
-        if ($score > 7.0) {
+        if ($score > 3.5) {
             push(@recipes, { url => $url->as_string, title => $title, weight => int($votes) } );
             $totalWeight += $votes;
         }
