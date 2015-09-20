@@ -2,7 +2,7 @@
 #
 # Optag et hæftigt skænderi med logebotten.
 
-eval "$(echo "$@"| parse 'er\s(jo\s)?(?<name>[^ ]+)')"
+eval "$(echo "$@"| parse 'er\s(jo\s)?(?<name>[^ !]+)')"
 
 if [ "$name" = "$CONCIEGGS_DEFAULT_NAME" ]; then
     say "Ja... det er jeg."
