@@ -4,10 +4,11 @@
 # en god idé at lade den gå undercover.
 
 
-eval "$(echo "$@"| parse '(?<noget>.+)')"
+eval "$(echo "$@"| parse '(?<noget>undercover( som (?<navn>[a-zA-Z_]+))?)')"
 
-if [ "$noget" = "undercover" ]; then
-  navn=`randomLine <<EOF
+if [ "$noget" ]; then
+    if ! [ "$navn" ]; then
+        navn=`randomLine <<EOF
 gytta
 verner
 snefred
@@ -39,19 +40,14 @@ herdis
 nanna
 randi
 EOF`
-  say "Hey, hvad er det derovre?!"
-  bruger="$(recentlyActive | head -n 1)"
-  if ! [ "$bruger" ]; then
-      bruger=nogen
-  fi
-  echo "/me peger på $bruger."
-  (sleep 4; echoToServer ":nick $navn")
-fi
-
-
-if ! [ "$noget" = "undercover" ]; then
+    fi
+    say "Hey, hvad er det derovre?!"
+    bruger="$(recentlyActive | head -n 1)"
+    if ! [ "$bruger" ]; then
+        bruger=nogen
+    fi
+    echo "/me peger på $bruger."
+    (sleep 4; echoToServer ":nick $navn")
+else
     say "Det kan jeg ikke endnu, men du må gerne implementere det."
-
 fi
-
-exit
