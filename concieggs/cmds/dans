@@ -1,0 +1,121 @@
+#!/bin/sh
+#
+# Byd concieggs op til dans!  Brug: dans
+
+eval "$(echo "$@" | tolower | parse 'på (?<ting>.+)')"
+
+if [ "$ting" = roser ]; then
+    say "$EGGS_USER: Hrmpf!"
+    exit
+fi
+
+DM() {
+    randomLine <<EOF
+DM
+Danmarksmesterskabet
+EM
+Europamesterskabet
+VM
+Verdensmesterskabet
+OL
+De olympiske lege
+Wimbledon
+EOF
+}
+
+dans() {
+    randomLine <<EOF
+dans
+danseri
+dansning
+danse-dusse-da
+dancing
+EOF
+}
+
+smukke() {
+    randomLine <<EOF
+smukke
+elegante
+uforståelige
+fantastiske
+dirtey
+rytmiske
+EOF
+}
+
+trin() {
+    randomLine <<EOF
+trin
+moves
+bevægelser
+EOF
+}
+
+benet() {
+    randomLine <<EOF
+benet
+armen
+næsen
+foden
+EOF
+}
+
+frem() {
+    randomLine <<EOF
+frem
+tilbage
+i cirkler
+EOF
+}
+
+pirouette() {
+    randomLine <<EOF
+pirouette
+salto
+pældans
+EOF
+}
+
+tillaeg() {
+    randomLine <<EOF
+
+ så
+ fint
+ drastisk
+EOF
+}
+
+abe() {
+    randomLine <<EOF
+abe
+guerilla
+giraf
+pingvin
+EOF
+}
+
+danser() {
+    randomLine <<EOF
+flytter$(tillaeg) $(benet) $(frem)
+laver en $(pirouette)
+hopper som en $(abe)
+EOF
+}
+
+Tada() {
+    randomLine <<EOF
+Tada!
+Var det ikke bare flot?
+Giv mig nu penge!
+Fuld point!
+Juhuuu!
+EOF
+}
+
+say "$(DM) i $(dans)!"
+say "Nu kommer der $(smukke) $(trin)!"
+for i in $(seq 1 $(random 5 10)); do
+    say "/me $(danser)"
+done
+say "$(Tada)"
