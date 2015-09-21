@@ -22,6 +22,6 @@ tail -n $lines "$CONCIEGGS_IRC_DIR/out" \
     | grep -v '^hej_fra_github$' \
     | grep -v "^$CONCIEGGS_NAME\$" \
     | grep -v '^guest_' \
-    | sort -u
+    | randomise
 
 #    | filterIsOnline \ # This is too inefficient, but at least it's there.
