@@ -16,6 +16,7 @@ while (my $text = <>) {
     $text =~ s/far/mor/ig;
     $text =~ s/fader/moder/ig;
     $text =~ s/penis/vagina/ig;
+    $text =~ s/pikken/kussen/ig;
     $text =~ s/pik/kusse/ig;
     $text =~ s/diller/fjams/ig;
     $text =~ s/skæg\b/bryst/ig;
