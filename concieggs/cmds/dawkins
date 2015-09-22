@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+# Gør op med al denne fjollede overtro.
+
+echo "$(ack)  Dawkins-tilstand aktiveret!"
+sleep 1
+listGods | while read -r god; do
+    (
+        echo "${god}s guddommelighed er blot en lingvistisk virus!"
+        echo "Det Flyvende Spaghettimonster er lige så autentisk en guddom som $god!"
+        echo "Hvis $god er en gud, så er julemanden også!"
+    ) | randomLine
+    sleep 1
+done
+dbDelete eggsgod
+echo | dbWrite dawkins
