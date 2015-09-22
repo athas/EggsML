@@ -8,6 +8,6 @@ else
     echo -n "/me ryster og slår "
     for d in "$@"; do
         echo $d
-    done | gawk -F d 'BEGIN{srand()} { if ($1=="") { $1=1 } ;\
+    done | gawk -F d 'BEGIN{srand()} /^([0-9]+)?d[0-9]+$/{ if ($1=="") { $1=1 } ;\
 for (i=1; i<=$1; i++) { print int(rand()*$2)+1; } }' | enumerate
 fi
