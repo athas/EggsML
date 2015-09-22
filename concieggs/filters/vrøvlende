@@ -19,7 +19,7 @@ def member_of(w, f):
         return True
     except subprocess.CalledProcessError as e:
         return False
-    
+
 def random_word(f):
     with open(f) as s:
         with open(os.devnull) as d:
