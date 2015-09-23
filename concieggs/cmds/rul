@@ -2,7 +2,7 @@
 #
 # Slå en terning... i cyberspace!
 
-if [ $# -eq 0 ]; then
+if echo "$@" | egrep -qv '^ *([0-9]*d[0-9]+)( [0-9]*d[0-9]+)* *$'; then
     echo "Nej, $EGGS_USER, sådan her: rul [N]dM"
 else
     echo -n "/me ryster og slår "
