@@ -16,6 +16,7 @@ if [ $EGGS_USER = svip ]; then
     echo "Vent venligst, $(du $EGGS_USER) tæller..."
 else
     echo "Vent venligst, Brainfuck tæller..."
+    sleep $(random 3 5)
 fi
 
 n="$(eggstool eggscount "$user")"
