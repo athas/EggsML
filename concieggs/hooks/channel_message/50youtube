@@ -1,0 +1,38 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import yaml
+import json
+import os
+import re
+import sys
+import urllib
+
+ytvids = re.finditer(r'\b(?:youtube.com/watch.*?\bv=|youtu.be/)([A-Z0-9-_]{11})', os.getenv('EGGS_BODY'), re.IGNORECASE)
+
+vids = []
+
+# API key obtained from https://console.developers.google.com
+# Restricted to only work on IP: 149.210.169.107, 2a01:7c8:aaac:1cf:fca5:5751:2300:ea09
+# Belongs to the "DIKU Kantine Infoscreen" thing. Ask Sebbe.
+API_KEY = 'AIzaSyBxz24Pvk0zwBfdQDwkRYu2xAcJORdlMjA'
+
+for vid in ytvids:
+    vidid = vid.group(1)
+    url = "https://www.googleapis.com/youtube/v3/videos?id=%s&part=snippet,statistics&key=%s" % (vidid, API_KEY)
+
+    try:
+        result = json.load(urllib.urlopen(url))
+        entry = result['items'][0]
+
+        title = entry['snippet']['title']
+        upvotes = int(entry['statistics']['likeCount'])
+        downvotes = int(entry['statistics']['dislikeCount'])
+        views = int(entry['statistics']['viewCount'])
+        uploader = entry['snippet']['channelTitle']
+
+        print (u"%s (+%d/-%d, %d visninger, uploadet af %s)" % (title, upvotes, downvotes, views, uploader)).encode("utf8")
+    except (KeyError, IndexError):
+        print u"Den dér YouTube-video er vist ikke helt i orden.".encode("utf8")
+    except:
+        print u"Jeg er slet ikke skrevet godt nok til at håndtere UTF-8-tegn der er mere end 8 bit!".encode("utf8")
+
