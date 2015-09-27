@@ -5,11 +5,16 @@
 if [ $# -eq 1 ]; then
     from=$EGGS_USER
     to=$1
-    (
-        echo "$to: Hvorfor vil du ikke have en sød fyr, som $EGGS_USER, der behandler dig som den prinsesse du er?"
-        echo "$to: Hvorfor vil du kun have røvhuller og ikke f.eks. $from?"
-        echo "$to: Drop de jocks og prøv en sød fyr, som $EGGS_USER, der værdsætter dig for hvem du er!"
-    ) | randomLine
+    if [ "$to" = "$CONCIEGGS_NAME" ]; then
+        echo "$EGGS_USER: Tag et bad."
+        annoyedBy "$EGGS_USER" 10
+    else
+        (
+            echo "$to: Hvorfor vil du ikke have en sød fyr, som $EGGS_USER, der behandler dig som den prinsesse du er?"
+            echo "$to: Hvorfor vil du kun have røvhuller og ikke f.eks. $from?"
+            echo "$to: Drop de jocks og prøv en sød fyr, som $EGGS_USER, der værdsætter dig for hvem du er!"
+        ) | randomLine
+    fi
 else
     echo "/me tips fedora."
 fi
