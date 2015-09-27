@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# Optræd som en sand gentleman.
+
+if [ $# -eq 1 ]; then
+    from=$EGGS_USER
+    to=$1
+    (
+        echo "$to: Hvorfor vil du ikke have en sød fyr, som $EGGS_USER, der behandler dig som den prinsesse du er?"
+        echo "$to: Hvorfor vil du kun have røvhuller og ikke f.eks. $from?"
+        echo "$to: Drop de jocks og prøv en sød fyr, som $EGGS_USER, der værdsætter dig for hvem du er!"
+    ) | randomLine
+else
+    echo "/me tips fedora."
+fi
