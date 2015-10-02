@@ -12,6 +12,7 @@ while (my $text = <>) {
     $text =~ s/han/hun/ig;
     $text =~ s/ham/hende/ig;
     $text =~ s/manden/kvinden/ig;
+    $text =~ s/kongen/dronningen/ig;
     $text =~ s/konge/dronning/ig;
     $text =~ s/sværd/skjold/ig;
     $text =~ s/mand/kvinde/ig;
