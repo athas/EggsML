@@ -14,6 +14,10 @@ if [ "$king" ] && ! [ "$god" ] && ! [ "$user" ]; then
         echo "$(randomName $kingname) sidder på tronen!  Hil $(randomName $kingname)!  Han længe leve!"
     fi
 elif [ "$god" ] && ! [ "$user" ]; then
+    if dbRead dawkins; then
+        echo "$EGGS_USER: Dr. Richard Dawkins har allerede i sit værk, The God Delusion, samt utallige gange på sin fremragende blog, forklaret at enhver gud er pure opspind."
+        exit
+    fi
     v="$(dbRead eggsgod | wc -l | sed 's/ //g')"
     if [ $v = 0 ]; then
         echo "Der er ingen gud!  Alt er kaos!"
