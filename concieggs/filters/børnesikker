@@ -7,13 +7,7 @@ import re
 import random
 
 def sample_wr(population, k):
-    n = len(population)
-    _random, _int = random.random, int  # speed hack 
-    result = [None] * k
-    for i in range(k):
-        j = _int(_random() * n)
-        result[i] = population[j]
-    return result
+    return [random.choice(population)for i in range(k)]
 
 tegn = ['!' , '#' , '%', '*', '&', '$', '@']
 
