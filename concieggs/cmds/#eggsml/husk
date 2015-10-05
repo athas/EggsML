@@ -3,7 +3,8 @@
 # Husk et givent faktum til senere opslag via 'forklar'.
 
 if [ "$1" = 'at' ]; then
-    shift
+    say "$EGGS_USER: Hvis du begynder din fakta med 'at', så er det nok ikke en værdig sætning.  Skriv i stedet dit fakta som en hel sætning."
+    exit
 fi
 
 if [ $# -gt 0 ]; then
