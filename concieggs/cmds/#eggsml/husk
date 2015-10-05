@@ -2,6 +2,9 @@
 #
 # Husk et givent faktum til senere opslag via 'forklar'.
 
+if [ "$1" = 'at' ]; then
+    shift
+fi
 
 if [ $# -gt 0 ]; then
     say "$@" >> $CONCIEGGS_DB_DIR/fakta
