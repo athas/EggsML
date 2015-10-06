@@ -1,0 +1,40 @@
+#!/usr/bin/env python3
+#
+# Vær j-poppet, desu.
+
+import sys
+import re
+import random
+
+
+def jpopify(s):
+    starts = [
+        'Ureshii',
+        'Yaru',
+        'Yasashii',
+        'Usu darou'
+    ]
+    
+    ends = [
+        'desu',
+        'uguu',
+        'gyaa',
+        'nyaa',
+        'zuttou',
+        ':3',
+        'sugoi'
+    ]
+
+    def maybe_middle():
+        if random.random() < 0.3:
+            return '~' * random.randint(2, 5)
+        else:
+            return ''
+        
+    return (random.choice(starts) + '!  '
+            + re.sub(' ', lambda _: maybe_middle() + ' ', s.rstrip('.,'))
+            + ', ~' + random.choice(ends) + '~\n')
+
+inp = sys.stdin.read().rstrip()
+out = jpopify(inp)
+sys.stdout.write(out)
