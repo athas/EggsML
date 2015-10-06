@@ -11,3 +11,7 @@ fi
 if echo "$EGGS_BODY" | grep -qi 'penge'; then
     echo 'Penge?  Lad os dog fordele produktionsmidlerne mere ordentligt!'
 fi
+
+if echo "$EGGS_BODY" | grep -qi 'idé'; then
+    echo 'En idé? Hvor uambitiøst. Fortæl hellere verden om din *vision!*'
+fi
