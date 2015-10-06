@@ -4,7 +4,7 @@
 # af KANAL'.
 
 if [ $# -lt 2 ]; then
-    echo "$EGGS_USER: Jeg har aldeles ikke i sinde bare at hoppe og danse for $(dig $EGGS_USER)!  Du må udtrykke $(dig $EGGS_USER) forståeligt."
+    echo "$EGGS_USER: Jeg har aldeles ikke i sinde bare at hoppe og danse for $(dig $EGGS_USER)!  $(Du $EGGS_USER) må udtrykke $(dig $EGGS_USER) forståeligt."
 else
     if [ "$1" = "på" ]; then
         echo "$(ack)  Jeg hopper ind på $2."
