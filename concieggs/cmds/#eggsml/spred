@@ -11,10 +11,14 @@ if [ "$budskab" ]; then
     fi
 
     eggs="$(echo "$eggses" | randomLine)"
-    
-    recentlyActive | head -n 2 | while read user; do
-        echo "$user: Kan du lokkes med til $(titleEggs "$eggs")?"
-    done
+
+    if [ $(random 1 3) = 1 ]; then
+        echo "Internetbruger: Kan du lokkes med til $(titleEggs "$eggs")?" | kvidr
+    else
+        recentlyActive | head -n 2 | while read user; do
+            echo "$user: Kan du lokkes med til $(titleEggs "$eggs")?"
+        done
+    fi
 else
     echo "$EGGS_USER: Spred hvad?  Jeg kan sprede det gode budskab."
 fi
