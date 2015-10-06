@@ -1,0 +1,20 @@
+#!/bin/sh
+
+eval "$(echo "$@" | parse '(?<budskab>(budskabet|det gode budskab))')"
+
+if [ "$budskab" ]; then
+    eggses=$(prevEggs; nextEggs)
+
+    if ! [ "$eggses" ]; then
+        echo "$EGGS_USER: Men der er jo ingen frokost at sprede noget budskab om!"
+        exit
+    fi
+
+    eggs="$(echo "$eggses" | randomLine)"
+    
+    recentlyActive | head -n 2 | while read user; do
+        echo "$user: Kan du lokkes med til $(titleEggs "$eggs")?"
+    done
+else
+    echo "$EGGS_USER: Spred hvad?  Jeg kan sprede det gode budskab."
+fi
