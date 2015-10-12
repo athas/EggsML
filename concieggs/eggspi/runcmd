@@ -68,27 +68,27 @@ else
 fi
 
 if [ $check_all_places ]; then
-    acmd="$(find -L "$CONCIEGGS_DIR/cmds" -iname "$cmd" -type f | head -n 1 | tolower)"
+    acmd="$(find -L "$CONCIEGGS_DIR/cmds" -iname "$cmd" -type f | head -n 1)"
 else
     if [ -d "$cmddir/$(ircChannel)" ]; then
         extradir="$cmddir/$(ircChannel)/"
     else
         extradir="/dev/null"
     fi
-    acmd="$(find -L "$cmddir" "$extradir" -maxdepth 1 -iname "$cmd" -type f | head -n 1 | tolower)"
+    acmd="$(find -L "$cmddir" "$extradir" -maxdepth 1 -iname "$cmd" -type f | head -n 1)"
 fi
 
 if [ "$cmd" ] && [ "$EGGS_USER" != "$CONCIEGGS_NAME" ]; then
     if [ "$acmd" ]; then
-        run "$cmd" "$acmd" $args
+        run "$cmd" "$acmd" $args || run "$cmd" "$(echo "$acmd" | tolower)" $args
     elif $(echo "$args" | grep '\?$' > /dev/null); then
         run 8ball "$cmddir/8ball" $args
     else
         othercmd="$(commands $check_all_places|levenshtein "$cmd"|sort -n|head -n 1|cut -d ' ' -f 2- | tolower)"
         if [ "$othercmd" ]; then
             echo "Jeg antager at du mente $othercmd!"
-            otheracmd="$(find "$CONCIEGGS_DIR/cmds" -name "$othercmd" | head -n 1 | tolower)"
-            run "$othercmd" "$otheracmd" $args
+            otheracmd="$(find "$CONCIEGGS_DIR/cmds" -name "$othercmd" | head -n 1)"
+            run "$othercmd" "$otheracmd" $args || run "$othercmd" "$(echo "$otheracmd" | tolower)" $args
         else
             echo "$EGGS_USER: Du bad mig om $cmd, men den kommando har jeg ikke!";
             echo "Skriv 'concieggs: kommandoer' for at få en liste over mulige kommandoer."
