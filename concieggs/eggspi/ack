@@ -8,6 +8,7 @@ if isKing "$EGGS_USER"; then
     echo "I kongens navn"
     echo "Jeg skal kundgøre Deres royale vilje for almuen, Deres majestæt"
     echo "$EGGS_USER længe leve"
+    echo "Med ære"
 else
     echo "ACK-ACK"
     echo "Javel"
