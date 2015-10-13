@@ -1,0 +1,27 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# Crossfade kommandoer.
+
+import sys
+import itertools
+import eggsthon.shell
+import re
+import random
+
+def interleave(xs, ys):
+    xss, yss = xs.split(), ys.split()
+
+    ws = []
+    for a, b in itertools.izip_longest(xss, yss):
+        if a is None:
+            ws.append(b)
+        elif b is None:
+            ws.append(a)
+        else:
+            ws.append(random.choice([a, b]))
+
+    return ' '.join(ws)
+
+print interleave(*[eggsthon.shell.runcmd(*c.split())
+                   for c in sys.argv[1:3]])

@@ -25,7 +25,6 @@ else
     echo "Jep, det siger vi bare"
     echo "Det er dandy"
     echo "EXIT_SUCCESS"
-    echo "Helt fedt, mand"
 
 fi | randomLine | xargs echo -n
 (echo "!"; echo ".") | randomLine
