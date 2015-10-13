@@ -1,5 +1,0 @@
-#!/bin/sh
-
-set -f
-
-runcmd maxima $1 * $2
