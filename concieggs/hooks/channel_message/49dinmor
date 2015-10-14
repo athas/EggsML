@@ -15,6 +15,6 @@ EOF
 new=$(say "$EGGS_BODY" | perl -Mutf8::all -ne "$rules")
 
 if [ "$new" != "$EGGS_BODY" ]; then
-    new_without_ending=$(say "$new" | sed -r -e 's/\.$/!/')
+    new_without_ending=$(say "$new" | sed -r -e 's/\.$//')
     echo "$EGGS_USER: ${new_without_ending}!"
 fi
