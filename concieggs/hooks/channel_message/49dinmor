@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# Vær på tværs.
+
+# (notOnEggsChannel || shuttingUp) && exit
+
+# maybeGood .3 || exit
+
+rules=$(cat <<'EOF'
+    s/(^|\. )[^ ]+ (var|er)/\1Din mor \2/g;
+    s/, [^ ]+ (var|er)/, din mor \1/g;
+    print;
+EOF
+)
+new=$(say "$EGGS_BODY" | perl -Mutf8::all -ne "$rules")
+
+if [ "$new" != "$EGGS_BODY" ]; then
+    echo "$new"
+fi
