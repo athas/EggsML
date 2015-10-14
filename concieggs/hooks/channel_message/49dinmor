@@ -15,6 +15,6 @@ EOF
 new=$(say "$EGGS_BODY" | perl -Mutf8::all -ne "$rules")
 
 if [ "$new" != "$EGGS_BODY" ]; then
-    new_with_excl=$(say "$new" | sed 's/(\.)?$/!/')
+    new_with_excl=$(say "$new" | sed -r -e 's/(\.)?$/!/')
     echo "$EGGS_USER: $new_with_ecxl"
 fi
