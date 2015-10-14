@@ -2,9 +2,9 @@
 #
 # Vær på tværs.
 
-# (notOnEggsChannel || shuttingUp) && exit
+(notOnEggsChannel || shuttingUp) && exit
 
-# maybeGood .3 || exit
+maybeGood .3 || exit
 
 rules=$(cat <<'EOF'
     s/(^|\. )[^ ]+ (var|er)/\1Din mor \2/g;
