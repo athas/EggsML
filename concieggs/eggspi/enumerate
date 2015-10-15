@@ -1,7 +1,13 @@
 #!/bin/sh
 
+if [ $1 = -n ]; then
+    newline=0
+else
+    newline=1
+fi
+
 awk '{if (out && last) { out = out ", " last; last = $0 }\
 else if (out) { last = $0 }\
 else { out = $0 } }\
 END{ if (last) { if (out) { out = out " og " last } else { out = last } };\
-print out }'
+printf("%s%s", out, newline ? "\n" : "") }' "newline=$newline"

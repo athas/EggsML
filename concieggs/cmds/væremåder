@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+# Anmod logebotten om at udfærdige en liste over indprogrammerede
+# væremåder.
+
+say -n "$EGGS_USER: Jeg er indprogrammet med kendskab til følgende væremåder: "
+for f in $CONCIEGGS_DIR/filters/*; do
+    if [ -x "$f" ]; then
+        say "$(basename $f)"
+    fi
+done | enumerate -n
+say '.'
