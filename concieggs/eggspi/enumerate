@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ $1 = -n ]; then
+if [ "$1" = -n ]; then
     newline=0
 else
     newline=1
