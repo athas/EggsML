@@ -20,7 +20,7 @@ sub stop_url {
 
 my $query = join(' ', @ARGV);
 
-unless ($query =~ qr/kommer( næste)? (?<bus>.*?)/) {
+unless ($query =~ qr/kommer( næste)? (?<bus>.*?) *$/) {
     print "Hvor skulle jeg dog vide det fra?\n";
     exit(0);
 }
