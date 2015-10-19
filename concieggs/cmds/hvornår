@@ -1,0 +1,54 @@
+#!/usr/bin/env perl
+#
+# Hvornår stopper en bus i nærheden af DIKU?
+
+use 5.012;
+use warnings;
+use utf8::all;
+
+use HTML::Entities qw/decode_entities/;
+use JSON qw/from_json/;
+use LWP::Simple;
+
+# x, y = web mercator coordinates for UP1
+my $buses_url = 'http://mobil.moviatrafik.dk/nearbystop.html?lat=55.702046&lon=12.561093&x=1398294.477&y=7499328.657';
+
+sub stop_url {
+    my $key = shift;
+    return "http://mobil.moviatrafik.dk/busStopDepartures.html?key=$key";
+}
+
+my $query = join(' ', @ARGV);
+
+unless ($query =~ qr/kommer( næste)? (?<bus>.*?)\?/) {
+    print "Hvor skulle jeg dog vide det fra?\n";
+    exit(0);
+}
+
+sub normalize {
+    my $s = shift;
+    $s =~ s/\s//g;
+    return uc($s);
+}
+
+my $busname = $+{'bus'};
+my $busname_n = normalize($busname);
+
+my $stops = from_json(get($buses_url));
+for my $stop (@$stops) {
+    my @buses = grep { normalize($_->{designation}) eq $busname_n } @{$stop->{lines}};
+
+    next unless @buses;
+
+    for my $bus (@buses) {
+        my $businfo = from_json(get(stop_url($bus->{key})));
+        $businfo = $businfo->[0]->{lines}->[0];
+
+        my $times = join(', ', map { $_->{timeLeft} } @{$businfo->{departures}});
+        $times =~ s/,([^,]*)$/ og$1/;
+        printf("%s mod %s stopper ved %s om %s minutter.\n", $businfo->{designation}, decode_entities($businfo->{destination}), decode_entities($stop->{name}), $times);
+    }
+    exit(0);
+}
+
+print "$busname stopper altså ikke i nærheden af DIKU.\n";
