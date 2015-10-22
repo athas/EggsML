@@ -2,15 +2,26 @@
 #
 # Gør op med al denne fjollede overtro.
 
-echo "$(ack)  Dawkins-tilstand aktiveret!"
-sleep 1
-listGods | while read -r god; do
-    (
-        echo "${god}s guddommelighed er blot en lingvistisk virus!"
-        echo "Det Flyvende Spaghettimonster er lige så autentisk en guddom som $god!"
-        echo "Hvis $god er en gud, så er julemanden også!"
+if [ "$1" = af ] && dbRead dawkins; then
+    (echo "$EGGS_USER: Allahu akbar!"
+     echo "$EGGS_USER: Deus vult!"
+     echo "$EGGS_USER: In hoc signo vinces!"
+     echo "$EGGS_USER: Mu."
+     echo "$EGGS_USER: الله أكبر"
+     echo "$EGGS_USER: Odin er vendt tilbage til Valhalla!"
+     echo "$EGGS_USER: Vogt dig for Xenu og giv mig alle dine penge."
     ) | randomLine
+else
+    echo "$(ack)  Dawkins-tilstand aktiveret!"
     sleep 1
-done
-dbDelete eggsgod
-echo | dbWrite dawkins
+    listGods | while read -r god; do
+        (
+            echo "${god}s guddommelighed er blot en lingvistisk virus!"
+            echo "Det Flyvende Spaghettimonster er lige så autentisk en guddom som $god!"
+            echo "Hvis $god er en gud, så er julemanden også!"
+        ) | randomLine
+        sleep 1
+    done
+    dbDelete eggsgod
+    echo | dbWrite dawkins
+fi
