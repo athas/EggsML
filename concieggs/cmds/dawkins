@@ -11,6 +11,7 @@ if [ "$1" = af ] && dbRead dawkins; then
      echo "$EGGS_USER: Odin er vendt tilbage til Valhalla!"
      echo "$EGGS_USER: Vogt dig for Xenu og giv mig alle dine penge."
     ) | randomLine
+    dbDelete dawkins
 else
     echo "$(ack)  Dawkins-tilstand aktiveret!"
     sleep 1
