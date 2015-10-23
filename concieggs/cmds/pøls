@@ -2,6 +2,9 @@
 #
 # Sig pøls' til concieggs. Ligesom i folkeskolen!
 
-echo "Synes du selv du er sjov?"
-
-annoyedBy "$EGGS_USER"
+if maybeGood 0.2; then
+    echo "$EGGS_USER: leverpostej!"
+else
+    echo "$EGGS_USER: Synes du selv du er sjov?"
+    annoyedBy "$EGGS_USER"
+fi
