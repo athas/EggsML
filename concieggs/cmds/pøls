@@ -4,6 +4,7 @@
 
 if maybeGood 0.2; then
     echo "$EGGS_USER: leverpostej!"
+    pleasedBy "$EGGS_USER" 25
 else
     echo "$EGGS_USER: Synes du selv du er sjov?"
     annoyedBy "$EGGS_USER"
