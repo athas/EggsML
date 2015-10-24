@@ -9,7 +9,7 @@ val personer =
 val steder =
     ["i studieadministrationen", "på rektors kontor", "i kantinen",
      "på KUA", "på HCØv", "på Caféen?", "i parken", "på Duniyas",
-     "på Dilans", "på Oasen?", "hos Leifs", "på pigetoilettet"];
+     "på Dilans", "på Oasen", "hos Leifs", "på pigetoilettet"];
 
 val emner =
     ["SML", "SU", "fysik", "patter", "udflytningen", "C", "dårlig kode",
