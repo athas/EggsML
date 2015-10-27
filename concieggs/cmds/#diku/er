@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+# Spørg det den netværkskyndige, concieggs, om et domænenavn er ledig.
+
+if [[ ( "$2" == "ledig" ) || ( "$2" == "ledig?" ) ]]; then
+    runcmd dig "$1" "ledighed"
+elif [ $# -gt 1 ]; then
+    runcmd 8ball "$@"
+else
+    echo "Brug: er <domænenavn> ledig?"
+fi
