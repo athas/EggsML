@@ -78,36 +78,34 @@ fi
 if [ "$unit" ]; then
     echo "$EGGS_USER: $(random 2 1337) $factor $unit!"
 else
-    prep=`randomLine <<EOF
-På
-I
-Over
-Under
+    evalIn() {
+        read text
+        eval "echo $text"
+    }
+
+    randEval() {
+        randomLine | evalIn
+    }
+    
+    her() {
+        randEval <<"EOF"
+ved siden af $(tingen)
+ovenpå $(tingen)
 EOF
-`
-    place=`randomLine <<EOF
-Danmark
-Sverige
-Norge
-Tyskland
-Finland
-Island
-Polen
-Frankrig
-Italien
-Portugal
-Spanien
-Egypten
-Rusland
-Hviderusland
-Ukraine
-Litauen
-Letland
-Estland
-Grønland
-Færøerne
-Bornholm
-Skagen
-EOF`
-    echo "$EGGS_USER: $prep $place!"
+    }
+
+    tingen() {
+        randEval <<"EOF"
+katakomberne
+pyramiderne
+den ting der er $(her)
+de ting der ligner at de er $(her)
+EOF
+    }
+
+    randEval <<EOF
+$EGGS_USER: Det er selvfølgelig $(her)!
+$EGGS_USER: Det er $(her), så er det besvaret.
+Det er lige præcis $(her), $EGGS_USER!
+EOF
 fi
