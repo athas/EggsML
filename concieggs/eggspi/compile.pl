@@ -10,10 +10,10 @@ use File::Find::Rule;
 use File::Path qw/make_path/;
 use File::Spec::Functions qw/catfile/;
 use File::Temp qw/tempdir/;
-use IPC::System::Simple qw/run/;
+use IPC::System::Simple qw/capturex EXIT_ANY $EXITVAL/;
 
 unless (@ARGV) {
-    print STDERR "Usage: $0 <srcfile> [args...]\n";
+    say STDERR "Usage: $0 <srcfile> [args...]\n";
     exit(1);
 }
 
@@ -26,7 +26,7 @@ my $cached_file = catfile($cache_dir, $command);
 my ($source_file) = File::Find::Rule->file()->name("$command.*")->in($source_dir);
 
 unless ($source_file) {
-    print STDERR "No source file exists for '$command'.\n";
+    say STDERR "No source file exists for '$command'.\n";
     exit(1);
 }
 
@@ -43,37 +43,37 @@ if ((stat($source_file))[9] > ((stat($cached_file))[9] // 0)) {
         when (/\.go$/) {
             my $golang_lib_dir = catfile($CONCIEGGS_LIB_DIR, 'golangbiblioteggs');
             $ENV{'GOPATH'} = "$source_dir:$golang_lib_dir";
-            run(qw(go build), $source_file);
+            say STDERR capturex(EXIT_ANY, qw(go build), $source_file);
         }
         when (/\.c$/) {
-            run(qw(gcc -std=c99), $source_file, '-o', $cached_file);
+            say STDERR capturex(EXIT_ANY, qw(gcc -std=c99), $source_file, '-o', $cached_file);
         }
         when (/\.sml$/) {
-            run(qw(mosmlc -P full -toplevel -o), $cached_file, $source_file);
+            say STDERR capturex(EXIT_ANY, qw(mosmlc -P full -toplevel -o), $cached_file, $source_file);
         }
         when (/\.pas$/) {
-            run('fpc', $source_file, qq{-o"$cached_file"});
+            say STDERR capturex(EXIT_ANY, 'fpc', $source_file, qq{-o"$cached_file"});
         }
         when (/\.hs$/) {
             my $haskell_lib_dir = catfile($CONCIEGGS_LIB_DIR, 'haskeggs');
             my $include_path = "$source_dir:$haskell_lib_dir";
-            run('ghc', $source_file, '-o', $cached_file, qq{-i"$include_path"});
+            say STDERR capturex(EXIT_ANY, 'ghc', $source_file, '-o', $cached_file, qq{-i"$include_path"});
         }
         when (/\.kex$/) {
-            run(qw(repg compile), $source_file, '--srcout', "$source_file.c");
-            last if $@;
+            say STDERR capturex(EXIT_ANY, qw(repg compile), $source_file, '--srcout', "$source_file.c");
+            last if $EXITVAL;
 
-            run(qw(gcc -o), $cached_file, qw(-O3 -xc -D FLAG_WORDALIGNED -w), "$source_file.c");
+            say STDERR capturex(EXIT_ANY, qw(gcc -o), $cached_file, qw(-O3 -xc -D FLAG_WORDALIGNED -w), "$source_file.c");
         }
         default {
-            print "Cannot compile file $source_file - unknown extension.";
+            say "Cannot compile file $source_file - unknown extension.";
             exit(2);
         }
     }
 
-    if ($@) {
-        print "Error compiling $source_file: $@\n";
-        exit(1);
+    if ($EXITVAL) {
+        say STDERR "Compilation produced an error code ($EXITVAL). Aborting.";
+        exit(3);
     }
 }
 
