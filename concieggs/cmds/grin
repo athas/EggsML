@@ -3,7 +3,7 @@
 #
 # Anmod logebotten om at udtrykke sit velbehag ved en netop ytret morsomhed.
 
-eval "$(echo "$@" | parse 'ad (?<person>.+)')"
+eval "$(echo "$@" | parse 'ad (?<person>[^ ]+)')"
 
 funny=$(echo "$@"|wc -c)
 
