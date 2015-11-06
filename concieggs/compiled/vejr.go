@@ -147,7 +147,7 @@ func main() {
 		fmt.Sprintf("%.1f", windSpeed),
 		windDirectionstr,
 		afstandStr,
-		fmt.sprintf("længdegrad: %.3f, breddegrad: %.3f", lon, lat),
+		fmt.Sprintf("længdegrad: %.3f, breddegrad: %.3f", lon, lat),
 		ageStr,
 	})
 
