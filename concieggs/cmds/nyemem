@@ -56,4 +56,3 @@ if ($cnt == 0) {
 }
 
 $yaml->write($configuration_file);
-
