@@ -117,4 +117,7 @@ word := ~<computer> "datamat"
       | ~<output> "uddata"
       | ~<dates> "stævnemøder"
       | ~<date> "stævnemøde"
+      | ~<etc> "osv"
+      | ~<performance> "ydelse"
+      | ~<bandwidth> "båndbredde"
       | <[a-zA-ZæøåÆØÅ0-9]+>
