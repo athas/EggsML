@@ -55,7 +55,7 @@ elif [ "$user" ]; then
         alias=$(randomName "$user")
         auth=$(authedName "$user")
     fi
-    if [ "$swear" ]; then echo fuck; fi
+
     if cmpNames $user $EGGS_USER; then
         (echo "Hvem du ikke en gang hvem du selv er?"
          echo "ALLE SAMMEN!  $EGGS_USER har glemt hvem _"$EGGS_USER"_ er!"
