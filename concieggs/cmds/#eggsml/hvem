@@ -4,7 +4,7 @@
 # at benytte komplette sætninger!  Alternativt, spørg hvem der skal
 # købe ind eller hvem der har en ting.
 
-eval "$(echo "$@" | parse 'er (?<king>kongen?( (af|på) #?[Ee]ggs[Mm][Ll])?|(?<god>gud)|(?<user>[^ ]+))$|(?<buy>(køber ind|skal købe ind|handler|skal handle ind))|(?<prikkede>(prikkede sidst))|har (?<thing>[^ ]+)|(?<neggst>eggser)')"
+eval "$(echo "$@" | parse '(?<swear>(fuck |helvede |satan ))?er (?<king>kongen?( (af|på) #?[Ee]ggs[Mm][Ll])?|(?<god>gud)|(?<user>[^ ]+))$|(?<buy>(køber ind|skal købe ind|handler|skal handle ind))|(?<prikkede>(prikkede sidst))|har (?<thing>[^ ]+)|(?<neggst>eggser)')"
 
 if [ "$king" ] && ! [ "$god" ] && ! [ "$user" ]; then
     kingname="$(dbRead eggsking)"
@@ -55,7 +55,7 @@ elif [ "$user" ]; then
         alias=$(randomName "$user")
         auth=$(authedName "$user")
     fi
-
+    if [ "$swear" ]; then echo fuck; fi
     if cmpNames $user $EGGS_USER; then
         (echo "Hvem du ikke en gang hvem du selv er?"
          echo "ALLE SAMMEN!  $EGGS_USER har glemt hvem _"$EGGS_USER"_ er!"
@@ -67,22 +67,30 @@ elif [ "$user" ]; then
         exit
     fi
 
+    if [ "$swear" ]; then
+        fucking=" fucking"
+    else
+        fucking=""
+    fi
+
     if [ ! "$alias" -a ! "$auth" -o "$alias" -a "$auth" ]; then
         conj="og"
     else
         conj="men"
     fi
 
+    conj=$conj$fucking
+
     if [ "$alias" ]; then
-        aliasMsg="$user er $alias, $conj"
+        aliasMsg="$user er$fucking $alias, $conj"
     else
-        aliasMsg="Jeg kender ikke $user, $conj vedkommende er"
+        aliasMsg="Jeg kender ikke$fucking $user, $conj vedkommende er$fucking"
     fi
 
     if [ "$auth" ]; then
-        echo "$aliasMsg autenticeret som $auth ifølge Nickserv!"
+        echo "$aliasMsg autenticeret som $auth ifølge$fucking Nickserv!"
     else
-        echo "$aliasMsg ikke autenticeret ifølge Nickserv!"
+        echo "$aliasMsg ikke autenticeret ifølge$fucking Nickserv!"
     fi
 elif [ "$buy" ]; then
     if [ "$buy" = "skal handle ind" ]; then
