@@ -4,7 +4,7 @@
 # at benytte komplette sætninger!  Alternativt, spørg hvem der skal
 # købe ind eller hvem der har en ting.
 
-eval "$(echo "$@" | parse '(?<swear>(fuck |helvede |satan ))?er (?<king>kongen?( (af|på) #?[Ee]ggs[Mm][Ll])?|(?<god>gud)|(?<user>[^ ]+))$|(?<buy>(køber ind|skal købe ind|handler|skal handle ind))|(?<prikkede>(prikkede sidst))|har (?<thing>[^ ]+)|(?<neggst>eggser)')"
+eval "$(echo "$@" | parse '(?<swear>(fuck |helvede |satan ))?er (?<swear2>(fucking |fandens ))?(?<king>kongen?( (af|på) #?[Ee]ggs[Mm][Ll])?|(?<god>gud)|(?<user>[^ ]+))$|(?<buy>(køber ind|skal købe ind|handler|skal handle ind))|(?<prikkede>(prikkede sidst))|har (?<thing>[^ ]+)|(?<neggst>eggser)')"
 
 if [ "$king" ] && ! [ "$god" ] && ! [ "$user" ]; then
     kingname="$(dbRead eggsking)"
@@ -67,7 +67,7 @@ elif [ "$user" ]; then
         exit
     fi
 
-    if [ "$swear" ]; then
+    if [ "$swear" ] || [ "$swear2" ]; then
         fucking=" fucking"
     else
         fucking=""
