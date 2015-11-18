@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# Lol derudaf.
+
+lol() {
+    o=o
+    O=O
+    for i in $(seq 1 $(random 0 4)); do
+        o=$o$o
+        O=$O$O
+    done
+    randomLine <<EOF
+l${o}l
+L${O}L
+lollern
+ROFLMAO
+EOF
+}
+
+if echo "$EGGS_BODY" | grep -qiE 'lol|rofl'; then
+    lol
+fi
