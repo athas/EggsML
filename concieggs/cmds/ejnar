@@ -2,4 +2,4 @@
 #
 # Hvad synes Ejnar?
 
-curl ejnar.sigkill.dk|fgrep '<p>'|sed 's/<[^>]*>//g'
+curl -s ejnar.sigkill.dk|fgrep '<p>'|sed 's/<[^>]*>//g'
