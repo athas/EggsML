@@ -16,11 +16,20 @@ def urlread(url):
 
 def main(args):
     try:
-        top = sys.argv[1].upper()
-        bottom = sys.argv[2].upper()
+        top = sys.argv[1]
     except IndexError:
         print('Mangler argumenter.', file=sys.stderr)
         return 1
+    top = top.upper()
+    try:
+        bottom = sys.argv[2]
+    except IndexError:
+        try:
+            top, bottom = top.split('. ', 1)
+        except ValueError:
+            words = top.split(' ')
+            i = len(words) // 2
+            top, bottom = ' '.join(words[:i]), ' '.join(words[i:])
 
     with open(os.path.join(os.getenv('CONCIEGGS_HOME'), 'credentials', 'imgflip.com')) as f:
         try:

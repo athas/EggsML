@@ -9,11 +9,4 @@ import eggsthon.shell as sheggs
 
 alt = ' '.join(sys.argv[1:])
 
-try:
-    top, bund = alt.split(' .', 1)
-except ValueError:
-    ting = alt.split(' ')
-    i = len(ting) / 2
-    top, bund = ' '.join(ting[:i]), ' '.join(ting[i:])
-
-print 'Se her: %s' % sheggs.makeMeme(top, bund),
+print 'Se her: %s' % sheggs.makeMeme(alt),
