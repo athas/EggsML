@@ -9,6 +9,7 @@ if christmas; then
      echo "$who: Hvad er det for en måde at opføre sig på i julen?"
      echo "$who: Pyt, det er jul!"
     ) | randomLine
+    exit
 fi
 
 isKing "$who" || echo jackass | dbUserWrite "$who" badStanding
