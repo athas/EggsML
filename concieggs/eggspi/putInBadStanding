@@ -1,3 +1,14 @@
 #!/bin/sh
 
-isKing "$1" || echo jackass | dbUserWrite "$1" badStanding
+who=$1
+
+if christmas; then
+    (echo "Egentlig irriterer $who mig en del, men pyt - det er jo jul!"
+     echo "$who: Du er da godt nok en... nej, hvad er det jeg siger.  Det er jul!"
+     echo "Det er jul, så jeg vælger at se bort fra $who's adfærd."
+     echo "$who: Hvad er det for en måde at opføre sig på i julen?"
+     echo "$who: Pyt, det er jul!"
+    ) | randomLine
+fi
+
+isKing "$who" || echo jackass | dbUserWrite "$who" badStanding
