@@ -52,4 +52,4 @@ fflush();
 EOF
 )
 
-awk -- "$prog" | sed "s/træ/juletræ-/g" | sed "s/Træ/Juletræ-/g"
+awk -- "$prog" | sed -r "s/\btræ/juletræ/g" | sed "s/Træ/Juletræ-/g"
