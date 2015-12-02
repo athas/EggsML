@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+# Noget med memer.
+
+url="$(makeMeme "$(autoviden "$@")")"
+
+randomLine <<EOF
+Wassup, internetters: $url
+Yearsirrr, her er guldet: $url
+Hupsahop, $url er godt
+EOF

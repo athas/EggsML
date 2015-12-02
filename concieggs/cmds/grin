@@ -3,7 +3,17 @@
 #
 # Anmod logebotten om at udtrykke sit velbehag ved en netop ytret morsomhed.
 
+eval "$(echo "$@" | parse 'ad (?<person>[^ ]+)')"
+
 funny=$(echo "$@"|wc -c)
 
-laughter $(($funny / 4 + 4)) $funny
+haha="$(laughter $(($funny / 4 + 4)) $funny)"
+
+if [ "$person" ]; then
+   echo "$person: $haha"
+else
+   echo "$haha"
+fi
+
 echo
+

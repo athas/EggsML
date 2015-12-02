@@ -11,8 +11,8 @@ set replies {
     "Svin! <3"
     "Morgenkrammer!"
     "God morgen. Sikke et dejligt vejr udenfor!"
-    "Guten Morgen, meinen Freund!"
-    "¡Hola! Ándale, ándale!"
+    "Guten Morgen, mein Freund!"
+    "¡Hola! ¡Ándale, ándale!"
     "God morgen, god morgen, på hele bondegården!"
 }
 
@@ -38,7 +38,7 @@ set latereplies {
 }
 
 set kingreplies {
-    "Godmorgen, deres majestæt."
+    "Godmorgen, Deres Majestæt."
     "Kongen er vågen!"
     "Hil Eder!"
     "Må Deres dag være solstrålende!"

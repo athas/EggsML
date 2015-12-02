@@ -23,6 +23,9 @@ Jeg kan ikke vente til juleaften, $EGGS_USER!
 $EGGS_USER: Er $(du $EGGS_USER) ikke også spændt på julen?
 $EGGS_USER, tænk på alle de gaver vi får til jul!
 Jubii, $EGGS_USER!  Det er jul!
+Ih altså, $EGGS_USER, jeg kan slet ikke vente!
+$EGGS_USER: Glæder du dig til juleaften?  For det gør jeg!
+Jeg glæder mig så meget til at danse om juletræet, $EGGS_USER!
 EOF
 	fi
     pleasedBy "$EGGS_USER" 1

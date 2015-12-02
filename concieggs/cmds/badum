@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+# Læg hale på prikken over rosinen i pølseenden.
+
+randomLine <<EOF
+-tisch!
+-tis...
+EOF

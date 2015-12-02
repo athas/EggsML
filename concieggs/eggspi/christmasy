@@ -17,7 +17,7 @@ function frobword_inner(s) {
   }
 }
 function frobword(s) {
-  if (match(s, "[jJ]ul") != 1 && rand() > 0.75) {
+  if (match(s, "[jJ]ul") != 1 && rand() > 0.90) {
     return frobword_inner(s)
   } else {
     return s
@@ -44,7 +44,7 @@ function frob(s) {
   }
 }
 {
-festive=1
+festive=0
 srand()
 print frob($0)
 fflush(); 
@@ -52,4 +52,4 @@ fflush();
 EOF
 )
 
-awk -- "$prog" | sed "s/træ/juletræ-/g" | sed "s/Træ/Juletræ-/g"
+awk -- "$prog" | sed -r "s/\btræ/juletræ/g" | sed "s/Træ/Juletræ-/g"
