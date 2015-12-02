@@ -1,0 +1,8 @@
+#!/bin/sh
+# Lav en Ninn
+
+
+last="$(echo "$who" | randomLine)"
+echoToServer ":KICK $(ircChannel) $EGGS_USER :Din gæld til frokostlogen begynder at overstige min tålmodighed!"
+
+exit
