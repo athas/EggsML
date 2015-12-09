@@ -12,7 +12,13 @@ int main(int argc, const char** argv) {
   } else {
   }
 
+  if (*argv) {
+    fputs(*argv, stdout);
+    argv++;
+  }
+
   while (*argv) {
+    fputs(" ", stdout);
     fputs(*argv, stdout);
     argv++;
   }
