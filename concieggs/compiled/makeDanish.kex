@@ -119,5 +119,5 @@ word := ~<computer> "datamat"
       | ~<performance> "ydelse"
       | ~<bandwidth> "båndbredde"
       | ~<bracket> "kantet parentes" (~<s> "er")?
-      | ~<(curly ?)?brace> "tuborgklamme" (~<s> "r")?
+      | ~<(curly[ ]?)?brace> "tuborgklamme" (~<s> "r")?
       | <[a-zA-ZæøåÆØÅ0-9]+>
