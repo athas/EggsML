@@ -120,6 +120,6 @@ word := ~<computer> "datamat"
       | ~<etc> "osv"
       | ~<performance> "ydelse"
       | ~<bandwidth> "båndbredde"
-      | ~<bracket> "kantet parentes" (~<s> "r")?
+      | ~<bracket> "kantet parentes" (~<s> "er")?
       | ~<(curly ?)?brace> "tuborgklamme" (~<s> "r")?
       | <[a-zA-ZæøåÆØÅ0-9]+>
