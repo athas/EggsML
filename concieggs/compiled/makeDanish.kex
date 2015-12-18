@@ -1,6 +1,6 @@
 /* Makes a message more Danish */
 
-message := maybeSep inner maybeSep
+main := maybeSep inner maybeSep
 
 inner := word sep inner
        | word
