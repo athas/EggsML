@@ -17,7 +17,7 @@ function frobword_inner(s) {
   }
 }
 function frobword(s) {
-  if (match(s, "[jJ]ul") != 1 && rand() > 0.90) {
+  if (match(s, "[jJ]ul") != 1 && rand() > 0.10) {
     return frobword_inner(s)
   } else {
     return s
