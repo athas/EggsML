@@ -3,7 +3,7 @@
 # Vælt kongen hvis I er nok!
 
 if [ "$#" = 0 ]; then
-    echo "$EGGS_USER: Vælt hvad?  Et glas vand?  Læsset?  På dansegulvet?  ...Kongen?"
+    echo "$EGGS_USER: Vælt hvad?  Et glas vand?  Læsset?  På dansegulvet?  Richard Stallman?  ...Kongen?"
     exit
 elif [ "$1" != "kongen" ]; then
     echo "$EGGS_USER: $(ack)  Vi siger bare at $@ er væltet."
@@ -57,6 +57,7 @@ if [ "$v" -gt $(random 3 5) ]; then
     randomLine <<EOF
 KONGEN ER VÆLTET!
 Kongen er død!  Længe leve anarkiet!
+Kongen er smidt på porten!  Knap en bajer op!
 EOF
 
     if [ "$newking" -a $(random 4) = 4 -a "$(isTrusted $newking)" ]; then
@@ -67,7 +68,7 @@ EOF
 else
     randomLine <<EOF
 Du ser en gammel film.
-Du bagtaler kongen på en bar.
+Du bagtaler Kongen på en bar.
 Du planlægger en retningsbestemt slotseksplosion.
 Du lægger dit hovede i blød.
 Du drømmer dig langt væk.
@@ -80,6 +81,14 @@ Du sender et brev om hjælp til en nærliggende republiks præsident.
 Du øver dig i at ride på hest.
 Du bestiller en guillotine fra et postordrekatalog.
 Du tænker søde tanker om din familie i den frie naborepublik.
+Du tegner overskæg på et portræt af kongen.
+Du hvisker »det svin« om Kongen til dig selv, mens Hans parade går forbi.
+Du dukker ikke op til Kongens fødselsdagsparade.
+Du tisser op ad slotsmuren.
+Du polerer dine støvler.
+Du prutter i retning ad slotsbygningen.
+Du hænger et billede op af Kongen på dit toilet.
+Du vender hjem fra et studieophold i en fjern republik.
 EOF
     echo "Kun $v har meldt sig under den revolutionære fane!  I skal være flere!"
 fi
