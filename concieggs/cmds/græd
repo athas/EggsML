@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Anmod logebotten om at udtrykke alle verdens dårligdomme i en enkelt linje.
 
