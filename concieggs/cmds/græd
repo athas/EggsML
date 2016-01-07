@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+#
+# Anmod logebotten om at udtrykke alle verdens dårligdomme i en enkelt linje.
+
+eval "$(echo "$@" | parse 'for (?<person>[^ ]+)')"
+
+snoeft=""
+for i in $(seq 0 $(random 10 30)); do
+    snoeft="$snoeft$(randomLine <<EOF
+:'(
+snøft
+piv
+EOF
+) "
+done
+
+if [ "$person" ]; then
+   echo -n "$person: $snoeft"
+else
+   echo -n "$snoeft"
+fi
+
+echo
+
