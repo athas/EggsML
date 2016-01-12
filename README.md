@@ -1,7 +1,7 @@
 EGGSML - FROKOSTMANAGEMENT TIL DEN MODERNE ENTERPRISE
 =====================================================
 
-For dokumentation: find .|xargs cat
+For dokumentation: `find . | xargs cat`
 
 
 BEGÅET AF
@@ -13,4 +13,4 @@ Mest Brainfuck, Lindbo og Dybber.
 FORBEDRET AF
 ------------
 
-En ikke-komplet liste: Niels, Mikkel, Brandt, Sebastian, jer vi har glemt <3
+Mest Troels, Niels, Sebastian, Mikkel, Brandt, jer vi har glemt :<3:
