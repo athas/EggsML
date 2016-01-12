@@ -62,7 +62,7 @@ Kongen er smidt på porten!  Knap en bajer op!  Knap to bajere op!
 "Manden" er nu på SPANDEN!  Byd anarkiet velkomment!
 EOF
 
-    if [ "$newking" -a $(random 4) = 4 -a "$(isTrusted $newking)" ]; then
+    if [ "$newking" -a $(random 1 4) = 4 -a "$(isTrusted $newking)" ]; then
         sleep 2
         echo "Men hvad er nu dette?  $newking griber magten!  Længe leve den nye konge!"
         makeKing "$newking"
