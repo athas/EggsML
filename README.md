@@ -13,4 +13,4 @@ Mest Brainfuck, Lindbo og Dybber.
 FORBEDRET AF
 ------------
 
-Mest Troels, Niels, Sebastian, Mikkel, Brandt, jer vi har glemt :<3:
+Mest Troels, Niels, Sebastian, Mikkel, Brandt, jer vi har glemt <3
