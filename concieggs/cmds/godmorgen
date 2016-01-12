@@ -4,11 +4,11 @@
 
 greet=$(basename $0)
 echo "Og $greet til dig, $EGGS_USER!"
-pleasedBy "$EGGS_USER"
 
 h=$(currentHour)
 
-if checkCooldown "$greet_$EGGS_USER" $((3600*24)); then
+if checkCooldown "$greet_$EGGS_USER" $((3600*12)); then
+    pleasedBy "$EGGS_USER"
     if [ "$greet" = godmorgen -a $h -lt 12 -a $h -gt 6 ]; then
         pleasedBy "$EGGS_USER" 25
     elif [ "$greet" = godaften -a $h -gt 18 -a $h -lt 22 ]; then

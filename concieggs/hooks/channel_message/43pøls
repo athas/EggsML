@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# Pøls'!
+
+leverpostej() {
+    randomLine <<EOF
+$EGGS_USER: Leverpostej!
+Leverpostej, $EGGS_USER!
+EOF
+}
+
+if echo "$EGGS_BODY" | grep -qiE '^.{0,20}pøls.{0,10}$'; then
+    leverpostej
+fi

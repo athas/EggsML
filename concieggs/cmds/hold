@@ -15,7 +15,7 @@ if [ "$shutUp" ]; then
     if isKing "$EGGS_USER"; then
         echo "$(ack)  Jeg skal nok tie stille (indtil $(timeToDate $time))."
     else
-        echo "Det synes du jeg skal? .. Tak. Så er jeg vel først velkommen igen $(timeToDate $time), ikke, \"Mester\" $EGGS_USER?"
+        echo "Nå.  Ses $(timeToDate $time)."
     fi
 else
     echo "Hold min hvad?"
