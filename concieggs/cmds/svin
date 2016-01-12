@@ -21,7 +21,7 @@ fi
 
 if [ "$2" = "sofistikeret" ]; then
     sviner() {
-        echo "$swine: Deres moder."
+        echo "$swine: Eders moder."
     }
 else
     sviner() {
