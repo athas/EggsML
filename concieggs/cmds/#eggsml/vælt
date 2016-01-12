@@ -57,7 +57,9 @@ if [ "$v" -gt $(random 3 5) ]; then
     randomLine <<EOF
 KONGEN ER VÆLTET!
 Kongen er død!  Længe leve anarkiet!
-Kongen er smidt på porten!  Knap en bajer op!
+Kongen er smidt på porten!  Knap en bajer op!  Knap to bajere op!
+¡Viva la revolución!
+"Manden" er nu på SPANDEN!  Byd anarkiet velkomment!
 EOF
 
     if [ "$newking" -a $(random 4) = 4 -a "$(isTrusted $newking)" ]; then
@@ -66,6 +68,20 @@ EOF
         makeKing "$newking"
     fi
 else
+    navn="$(randomLine <<EOF
+Frederik
+Knud
+Niels
+EOF
+)"
+
+    attribut_god="$(randomLine <<EOF
+Gode
+Barmhjertige
+Glædelige
+EOF
+)"
+
     randomLine <<EOF
 Du ser en gammel film.
 Du bagtaler Kongen på en bar.
@@ -96,6 +112,8 @@ Du spytter dristigt på skiltet af en hofleverandør af hvidtøl.
 Ved Hendes Majestæts dronningens officielle helligdag prutter du højlydt på et offentligt toilet.
 Du spiser en af prinsessens kælekaniner til aftensmad.
 På dit arbejde hos den lokale smed imprægnerer du en tissemand på prinsens nye sværd.
+Ved pudsning af en royals lædersko smører du med friskt snot i stedet for skosværte.
+Du lytter til din farfars gamle historier om kong ${navn} den ${god_attribut}.
 EOF
     echo "Kun $v har meldt sig under den revolutionære fane!  I skal være flere!"
 fi
