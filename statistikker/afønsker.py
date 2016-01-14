@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 
-import subprocess
 import re
+import subprocess
+import sys
 
-def run():
+def run(path=None):
+    if path is not None:
+        f = open(path, 'w')
     command = ['git', 'log', '-p', '--pretty=format:%n%%%an:%at:%s']
     commits = subprocess.check_output(command).strip().split(b'\n%')
     commits = filter(lambda c: (c.startswith(b'concieggs')
@@ -20,8 +23,18 @@ def run():
         afønsker = filter(lambda line: line.startswith('-'), diff.split('\n'))
         afønsker = map(lambda line: line[1:], afønsker)
         afønsker = list(set(afønsker))
-        for a in afønsker:
-            print(timestamp, a)
+        if f:
+            for a in afønsker:
+                print(timestamp, file=f)
+                print(a, file=f)
+                print("", file=f)
+        else:
+            for a in afønsker:
+                print(timestamp, a)
+    f.close()
 
 if __name__ == '__main__':
-    run()
+    if len(sys.argv) > 1:
+        run(sys.argv[1])
+    else:
+        run()
