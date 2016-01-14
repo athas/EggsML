@@ -21,12 +21,12 @@ def run(path=None):
         timestamp = line.split(':')[1]
         diff = diff.split('@@', 1)[1]
         afønsker = filter(lambda line: line.startswith('-'), diff.split('\n'))
-        afønsker = map(lambda line: line[1:], afønsker)
+        afønsker = map(lambda line: line[1:].lower(), afønsker)
         afønsker = list(set(afønsker))
         if f:
             for a in afønsker:
-                print(timestamp, file=f)
                 print(a, file=f)
+                print(timestamp, file=f)
                 print("", file=f)
         else:
             for a in afønsker:
