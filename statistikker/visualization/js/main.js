@@ -5,7 +5,7 @@ var base_scale = 39; // magic base scale
 var max_density;
 
 var CHARGE = -200;
-var DISTANCE = 40;
+var DISTANCE = 600;
 var WIDTH = 800;
 var HEIGHT = 600;
 
@@ -50,6 +50,7 @@ function build_page(bonds, densities) {
         ware_name = d[0];
         density = d[1];
         var ware = new Object();
+        nodeById.set(i, ware_name); 
         ware["id"] = nodeById.set(ware_name, i);
         ware["density"] = density;
         graph["nodes"].push(ware);
@@ -93,11 +94,24 @@ function build_page(bonds, densities) {
         .data(graph.nodes)
         .enter().append("circle")
         .attr("class", "node")
-        .attr("r", 6)
-        .style("fill", function(d) {return d.id; })
+        .attr("r", function(d) {return 10 + d.density})
+        .style("fill", function(d) {return hash_color(d.density.toString()); })
+        .style("stroke", "black")
+        .style("stroke-width", "1px")
         .call(force.drag);
 
-    force.on("tick", function() {
+
+    var texts = panel.selectAll("text.label")
+                .data(graph.nodes)
+                .enter().append("text")
+                .attr("class", "label")
+                .attr("fill", "black")
+                .text(function(d) {  return nodeById.get(d.id);  });
+
+
+
+
+      force.on("tick", function() {
       link.attr("x1", function(d) { return d.source.x; })
           .attr("y1", function(d) { return d.source.y; })
           .attr("x2", function(d) { return d.target.x; })
@@ -105,7 +119,12 @@ function build_page(bonds, densities) {
 
       node.attr("cx", function(d) { return d.x; })
           .attr("cy", function(d) { return d.y; });
-    });
+
+      texts.attr("transform", function(d) {
+        return "translate(" + d.x + "," + d.y + ")";
+      });
+
+      });
 
     // Text box for crime descriptions and crime districts.
 }
