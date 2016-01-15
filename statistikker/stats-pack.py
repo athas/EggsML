@@ -2,10 +2,13 @@
 
 import ast
 import itertools
+import json
 import sys
 
 default_tolerance = 86400/2 ## 24/2 hours
 
+
+# Dict (Ware, [Timestamps]) -> [Ware , Dict (Ware, Float) , Int] 
 def users_also_bought(waresdict):
     totals = []
     for ware, timestamps in waresdict.items():
@@ -23,15 +26,41 @@ def users_also_bought(waresdict):
                         break
             if (times_bought_together > 0):
                 adjecent_wares.append((other_ware, times_bought_together/times_bought))
-        adjecent_wares = sorted(adjecent_wares, key=lambda x: x[1], reverse=True)
-        
-        totals.append((ware, adjecent_wares, times_bought))
-
+        adjecent_wares = dict(sorted(adjecent_wares, key=lambda x: x[1], reverse=True))
+        totals.append((ware, [adjecent_wares, times_bought]))
     return totals
+
+def calculate_bonds(wares):
+    bonds = []
+    wares_density = []
+    for (ware, adjecent_wares) in wares:
+        for (other_ware, probability_bought) in adjecent_wares[0].items():
+            bonds.append((ware , other_ware, probability_bought))
+    return bonds 
+
+def calculate_wares_density(wares):
+    bonds = []
+    wares_density = []
+    for (ware, adjecent_wares) in wares:
+        wares_density.append((ware, adjecent_wares[1]))
+    return wares_density
+
 
 def timestamps_are_adjecent(timestamp_x, timestamp_y, tolerance_in_seconds=default_tolerance):
     diff = abs(timestamp_x - timestamp_y)
     return (diff <= tolerance_in_seconds)
+
+def export_to_json(data, prompt):
+    filepath = input(prompt)
+    if filepath is not "":
+        output = json.dumps(data, ensure_ascii=False)
+        with open(filepath, 'w') as f:
+            f.write(output)
+            f.write("\n")
+        f.close()
+
+
+
 
 def users_also_requested():
     return
@@ -66,10 +95,18 @@ def import_oensker_data(filename, granularity):
 
 def main(filename, raw_granularity):
     granularity = int(raw_granularity)
-    wares = import_oensker_data(filename, granularity)
-    test  = users_also_bought(wares)
+    imported_data = import_oensker_data(filename, granularity)
 
-    for item in test:
+    wares  = users_also_bought(imported_data)
+    export_to_json(wares, "Export \"User also bought\" to file? <filepath for yes, empty string for no>\n > ")
+
+    bonds = calculate_bonds(wares)
+    export_to_json(bonds, "Export bonds to file? <filepath for yes, empty string for no>\n > ")
+
+    densities = calculate_wares_density(wares)
+    export_to_json(densities, "Export densities to file? <filepath for yes, empty string for no>\n > ")
+
+    for item in wares:
         print(item)
         print()
 
