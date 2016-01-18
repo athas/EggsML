@@ -3,6 +3,7 @@ var densities_url = 'data/densities.json';
 var wrapper;
 var base_scale = 39; // magic base scale
 var max_density;
+var infobox;
 
 var CHARGE = -200;
 var DISTANCE = 1000;
@@ -122,7 +123,7 @@ function build_page(bonds, densities) {
         .style("fill", function(d) {return hash_color(d.density.toString()); })
         .style("stroke", "black")
         .style("stroke-width", "1px")
-        .on("click" , function(d){alert("implementera meg!");})
+        .on("click" , function(d){show_ware_info(d['ware_name']);})
         .on("mouseover", function(d){
             $("."+d.id.toString()).css("display", "inline");
             })
@@ -156,14 +157,10 @@ function build_page(bonds, densities) {
 
       });
 
-    // Text box for crime descriptions and crime districts.
+    infobox = wrapper.append('div')
+        .attr('id', 'infobox');
 }
 
-
-function hash_grey(i) {
-    // 10 districts => i in [0..9]
-    return '#' + (50 + i * 10).toString(16).repeat(3);
-}
 
 function hash_color(s) {
     var n = 0;
@@ -174,6 +171,9 @@ function hash_color(s) {
             + (15 + Math.floor(Math.abs(Math.sin(n)) * 60)) + '%, 80%)');
 }
 
+function show_ware_info(ware_name) {
+    infobox.style('visibility', 'visible');
+}
 
 String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
