@@ -2,41 +2,115 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Final Project | Interactive Data Exploration</title>
-
+    <title>IDE Final Project: Lunch Club Habits</title>
     <link rel="stylesheet" type="text/css" href="css/index.css">
   </head>
   <body>
     <div id="wrapper">
-      <h1>Final Project | Interactive Data Exploration</h1>
-      <p>By Mikkel Storgaard Knudsen and Niels Gustav Westphal Serup</p>
+      <h1>IDE Final Project: Lunch Club Habits</h1>
+      <p class="author">By Mikkel Storgaard Knudsen and Niels Gustav Westphal Serup</p>
       <hr>
 
-      <h2>The visualization</h2>
+      <h2>The interactive visualization</h2>
+      <p>
+        Just dive in!
+      </p>
       <p>
         See <a href="food-relations.html">food-relations.html</a>.
       </p>
 
       <h2>The code</h2>
+      <p>
+        The food relations visualization is contained in a single Javascript
+        file and a single CSS file:
+      </p>
       <ul>
         <li><a href="js/food-relations.js">js/food-relations.js</a></li>
         <li><a href="css/food-relations.css">css/food-relations.css</a></li>
       </ul>
       <p>
-        We use the D3 and jQuery Javascript libraries.
+        Furthermore, we use the D3 and jQuery Javascript libraries.
       </p>
 
       <h2>Overview</h2>
 
-
-      <h2>Dataset</h2>
-      <p>source and contents</p>
-      <p>filtering input and regarding seldomly unwished items as "noise"</p>
-
-
+      <h2>Introduction</h2>
       <p>
-        See <a href="data-source/">data-source/</a> for the scripts used to
-        extract data from the git history.
+        A group of computer science students at DIKU eat lunch together on a
+        daily basis in the lunch club <a href="http://eggsml.dk/">EggsML</a>.
+        They have done so for about six years with varying members.
+      </p>
+      <p>
+        The lunch club members go to an Internet Relay Chat channel to -- among
+        other things -- register lunches, register purchases, and request goods
+        for future purchases.
+      </p>
+      <p>
+        For at least the past four years, many such lunch-related actions have
+        been recorded in the git repository
+        at <a href="https://github.com/Athas/EggsML">https://github.com/Athas/EggsML</a>
+        by an Internet Relay Chat robot residing on the lunch club channel.
+        These records include:
+      </p>
+      <ul>
+        <li>
+          <strong>Lunches</strong>
+          <ul>
+            <li>The date of every lunch</li>
+            <li>The participants of every lunch</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Purchases</strong>
+          <ul>
+            <li>The cost of every food purchase</li>
+            <li>The products bought together in every purchase</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Requests</strong>
+          <ul>
+            <li>Every food request made by EggsML's members</li>
+            <li>The date and time of every such request</li>
+          </ul>
+        </li>
+      </ul>
+      <p>
+        For this project, we will use only the <strong>Purchases</strong>
+        and <strong>Requests</strong> data.
+      </p>
+
+      <h2>Datasets</h2>
+      <p>
+        Clear as they may be in purpose, the <strong>Purchases</strong>
+        and <strong>Requests</strong> data are not actually <em>represented</em>
+        well in their raw form; a data point is simply a git commit by the chat
+        robot.  The actual data is formatted as a text string and put in the
+        git commit message.
+      </p>
+      <p>
+        For the data to be readable by any sane framework (including D3), we
+        have written a set of scripts to convert the git log into JSON files.
+        See the <a href="data/">data/</a> directory for the JSON datasets.  See
+        the <a href="data-source/">data-source/</a> directory for the scripts.
+        While the scripts do work, do not expect the code to be
+        self-explanatory.
+      </p>
+      <p>
+        However, the purpose of the scripts is not <em>just</em> to extract data
+        from the git history.  We also use them to cut off data that we deem too
+        useless -- data that would just make the "important data" less clear.
+      </p>
+      <p>
+        Currently, we don't include any ware which has been purchased less than
+        10 times.  We do this to make the visualization less messy, as otherwise
+        there would be about 10 more nodes, none of which would relate much to
+        other wares.
+      </p>
+      <p>
+        Note: The lunch club is still active.  As such, our data is likely
+        outdated by the time you review the visualization.  We use data
+        extracted on January 15, 2016.
       </p>
 
       <h2>Discoveries</h2>
