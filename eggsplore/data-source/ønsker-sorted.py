@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+#
+# Requests sorted in descending order by the number of times a product has
+# been requested.
 
 import subprocess
 import itertools

@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+#
+# Un-requests sorted in descending order by the number of times a product has
+# been un-requested.
 
 import subprocess
 import itertools
@@ -7,7 +10,7 @@ import sys
 def run(filepath = None):
     pairs = [(int(stamp), title) for stamp, title in
              (line.split(' ', 1) for line in
-              subprocess.check_output(['./afønsker.sh']).decode('utf-8').strip().split('\n'))]
+              subprocess.check_output(['./afønsker.py']).decode('utf-8').strip().split('\n'))]
     pairs.sort(key=lambda k: (k[1], k[0]))
     reqs = [(name, [stamp for stamp, title in sub_pairs])
             for name, sub_pairs in itertools.groupby(pairs, key=lambda k: k[1])]

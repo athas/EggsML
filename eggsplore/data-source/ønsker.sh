@@ -1,7 +1,9 @@
 #!/bin/sh
+#
+# Get all food requests ("ønsker") from the git log.
 
 oensker() {
-    # Format per linje: <unix timestamp> <mellemrum> <ønske>
+    # Output format per line: <unix timestamp> <space> <food request>
     git log --pretty=format:'%an:%at:%s' \
         | grep -i '^concieggs' \
         | grep -E ':[^:]+:[^:]+: ønsk' \

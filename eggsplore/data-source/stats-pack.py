@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+#
+# Welcome To Mikkel's Black Magic!  Run at your own risk.
 
 import ast
 import itertools
