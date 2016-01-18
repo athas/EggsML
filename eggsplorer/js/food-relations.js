@@ -174,15 +174,18 @@ function build_page(bonds, densities, temporal) {
     var temporal_plot_width = WIDTH - 40;
 
     var time_range = [20, temporal_plot_width - 20];
-    
+
+    var years_elapsed = unix_to_year(time_max) - unix_to_year(time_min);
+
     var time_scale = d3.scale.linear()
         .domain([time_min, time_max])
         .range(time_range);
 
+
     var scale_year = d3.scale.linear()
         .domain([unix_to_year(time_min), unix_to_year(time_max)])
         .range(time_range);
-    
+
     var ware_divs = infobox.selectAll('div')
         .data(wares)
         .enter()
