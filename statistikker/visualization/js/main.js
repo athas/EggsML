@@ -6,8 +6,8 @@ var max_density;
 
 var CHARGE = -200;
 var DISTANCE = 1000;
-var WIDTH = window.innerWidth;
-var HEIGHT = window.innerHeight;
+var WIDTH = window.innerWidth-100;
+var HEIGHT = window.innerHeight-100;
 
 
 
@@ -147,8 +147,8 @@ function build_page(bonds, densities) {
           .attr("x2", function(d) { return d.target.x; })
           .attr("y2", function(d) { return d.target.y; });
 
-      node.attr("cx", function(d) { return d.x; })
-          .attr("cy", function(d) { return d.y; });
+      node.attr("cx", function(d) { return d.x = Math.max(node.attr("r"), Math.min(WIDTH - node.attr("r"), d.x)); })
+          .attr("cy", function(d) { return d.y = Math.max(node.attr("r"), Math.min(WIDTH - node.attr("r"), d.y)); });
 
       texts.attr("transform", function(d) {
         return "translate(" + d.x + "," + d.y + ")";
