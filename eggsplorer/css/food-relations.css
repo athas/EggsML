@@ -43,6 +43,21 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: red;
+    background-color: white;
     visibility: hidden;
+}
+
+#infobox .ware {
+    display: none;
+}
+
+#infobox .ware svg {
+    border-width: 1px;
+    border-color: white;
+    border-style: solid;
+}
+
+#infobox .ware svg line {
+    stroke: black;
+    stroke-width: 1px;
 }
