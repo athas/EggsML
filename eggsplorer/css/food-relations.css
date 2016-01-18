@@ -1,6 +1,9 @@
 body {
     margin: 0;
     overflow: hidden;
+    background-image: url("../img/baggrund.png");
+    background-repeat: repeat;
+    
 }
 
 #loading {
