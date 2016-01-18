@@ -149,7 +149,7 @@ function build_page(bonds, densities, temporal) {
 
     infobox.append('p')
         .attr('class', 'close-button')
-        .text('Close info box.')
+        .text('Close info box')
         .on('click', close_ware_info);
 
     // The temporal graph for each ware.
