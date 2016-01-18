@@ -19,6 +19,36 @@ body {
     height: inherit;
 }
 
+#legend {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: 200px;
+    padding: 5px;
+    background-color: #000000;
+    color: #ffffff;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#legend h1 {
+    font-size: 20px;
+    margin-top: 30px;
+}
+
+#legend h1:first-child {
+    margin-top: 0;
+}
+
+#legend .edge-group {
+    background-color: #555555;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+#legend .edge-group p {
+    margin: 0 0 2px 0;
+}
 
 .node {
     cursor: pointer;
