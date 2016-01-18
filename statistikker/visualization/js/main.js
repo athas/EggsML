@@ -122,7 +122,7 @@ function build_page(bonds, densities) {
         .style("fill", function(d) {return hash_color(d.density.toString()); })
         .style("stroke", "black")
         .style("stroke-width", "1px")
-        .on("click" , function(d){console.log("clicky clicky");})
+        .on("click" , function(d){alert("implementera meg!");})
         .on("mouseover", function(d){
             $("."+d.id.toString()).css("display", "inline");
             })
