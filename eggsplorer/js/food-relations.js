@@ -6,7 +6,7 @@ var CHARGE = -400;
 var DISTANCE = 600;
 var WIDTH = window.innerWidth;
 var HEIGHT = window.innerHeight;
-var TEMPORAL_PLOT_HEIGHT = 400;
+var TEMPORAL_PLOT_HEIGHT = 200;
 
 var WIDESCREEN_FIX = (16/9);
 
@@ -15,6 +15,7 @@ var WIDESCREEN_FIX = (16/9);
 var wrapper;
 var max_density;
 var infobox;
+var infobox_current_ware;
 var ware_divs_lookup;
 
 
@@ -146,6 +147,11 @@ function build_page(bonds, densities, temporal) {
     infobox = wrapper.append('div')
         .attr('id', 'infobox');
 
+    infobox.append('p')
+        .attr('class', 'close-button')
+        .text('Close info box.')
+        .on('click', close_ware_info);
+
     // The temporal graph for each ware.
     var time_min = temporal[0];
     var time_max = temporal[1];
@@ -164,10 +170,16 @@ function build_page(bonds, densities, temporal) {
 
     var temporal_plot_width = WIDTH - 40;
 
+    var time_range = [20, temporal_plot_width - 20];
+    
     var time_scale = d3.scale.linear()
         .domain([time_min, time_max])
-        .range([0, temporal_plot_width]);
+        .range(time_range);
 
+    var scale_year = d3.scale.linear()
+        .domain([unix_to_year(time_min), unix_to_year(time_max)])
+        .range(time_range);
+    
     var ware_divs = infobox.selectAll('div')
         .data(wares)
         .enter()
@@ -178,6 +190,14 @@ function build_page(bonds, densities, temporal) {
     for (var i in wares) {
         ware_divs_lookup[wares[i]['title']] = d3.select(ware_divs[0][i]);
     }
+
+    var info_titles = ware_divs.append('h1');
+    info_titles.text(function(d) {
+        return d['title'];
+    });
+
+    ware_divs.append('h2')
+        .text('Requests for this product');
     
     var line_plots = ware_divs.append('svg');
     line_plots.attr('width', temporal_plot_width);
@@ -190,7 +210,7 @@ function build_page(bonds, densities, temporal) {
         .enter()
         .append('line');
     
-    lines.attr('y1', 0);
+    lines.attr('y1', 30);
     lines.attr('y2', TEMPORAL_PLOT_HEIGHT);
     lines.attr('x1', function(d) {
         return time_scale(d);
@@ -198,12 +218,30 @@ function build_page(bonds, densities, temporal) {
     lines.attr('x2', function(d) {
         return time_scale(d);
     });
+    
+    var axis = d3.svg.axis()
+        .scale(scale_year)
+        .tickValues([2013, 2014, 2015, 2016])
+        .tickFormat(d3.format('d'))
+        .orient('bottom');
+    line_plots.append('g')
+        .attr('class', 'axis')
+        .call(axis);
 
+    ware_divs.append('h2')
+        .text('Connections with other products');
+    
 }
 
 function show_ware_info(ware_name) {
+    infobox_current_ware = ware_name;
     infobox.style('visibility', 'visible');
     ware_divs_lookup[ware_name].style('display', 'block');
+}
+
+function close_ware_info() {
+    infobox.style('visibility', 'hidden');
+    ware_divs_lookup[infobox_current_ware].style('display', 'none');
 }
 
 
