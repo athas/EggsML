@@ -1,56 +1,31 @@
+// Settings.
 var bonds_url = 'data/bonds.json';
 var densities_url = 'data/densities.json';
-var wrapper;
-var base_scale = 39; // magic base scale
-var max_density;
-var infobox;
-
+var temporal_url = 'data/temporal.json';
 var CHARGE = -200;
 var DISTANCE = 1000;
 var WIDTH = window.innerWidth;
 var HEIGHT = window.innerHeight;
+var TEMPORAL_PLOT_HEIGHT = 400;
 
+// Globals.
+var wrapper;
+var max_density;
+var infobox;
 
-
-
-function probability_to_color(probability){
-    if (probability > 0.6){return 'green';}
-    if (probability > 0.4){return 'yellow';}
-    if (probability > 0.2){return 'orange';}
-    else {return 'red'}
-}
-
-function probability_to_strokewidth(probability){
-    if (probability > 0.6){return '40px';}
-    if (probability > 0.4){return '30px';}
-    if (probability > 0.2){return '20px';}
-    else {return '10px'}
-}
 
 function setup_page() {
     json_to_object(bonds_url, function(bonds) {
         json_to_object(densities_url, function(densities) {
-            d3.select('#loading').transition().style('display' , 'none');
-            build_page(bonds, densities);
+            json_to_object(temporal_url, function(temporal) {
+                d3.select('#loading').transition().style('display' , 'none');
+                build_page(bonds, densities, temporal);
+            });
         });
     });
 }
 
-
-// [string, int] => int
-function find_max_value(list){
-    var highest = 0;
-
-    $.each(list, function(i, item){
-        var number = item[1];
-        if (number > highest){
-            highest = number;
-        }
-    });
-    return highest;
-}
-
-function build_page(bonds, densities) {
+function build_page(bonds, densities, temporal) {
     var graph = new Object();
     graph['nodes'] = new Array();
     graph['links'] = new Array();
@@ -159,8 +134,65 @@ function build_page(bonds, densities) {
 
     infobox = wrapper.append('div')
         .attr('id', 'infobox');
+
+    // The temporal graph for each ware.
+    var time_min = temporal[0]
+    var time_max = temporal[1]
+
+    var wares_orig = temporal[2];
+    var wares = [];
+    for (var i in wares_orig) {
+        var pair = wares_orig[i];
+        wares.push({
+            'title': pair[0],
+            'timestamps': pair[1],
+            'color': choose_ware_color(Math.sin(i))
+        });
+    }
+    
+    var line_plot = infobox.append('svg');
+    line_plot.attr('height', TEMPORAL_PLOT_HEIGHT);
 }
 
+function show_ware_info(ware_name) {
+    infobox.style('visibility', 'visible');
+}
+
+
+// Helper functions.
+
+function json_to_object(link, callback) {
+    d3.json(link, function(loaded_data) {
+        callback(loaded_data);
+    });
+}
+
+function probability_to_color(probability){
+    if (probability > 0.6){return 'green';}
+    if (probability > 0.4){return 'yellow';}
+    if (probability > 0.2){return 'orange';}
+    else {return 'red'}
+}
+
+function probability_to_strokewidth(probability){
+    if (probability > 0.6){return '40px';}
+    if (probability > 0.4){return '30px';}
+    if (probability > 0.2){return '20px';}
+    else {return '10px'}
+}
+
+// [string, int] => int
+function find_max_value(list){
+    var highest = 0;
+
+    $.each(list, function(i, item){
+        var number = item[1];
+        if (number > highest){
+            highest = number;
+        }
+    });
+    return highest;
+}
 
 function hash_color(s) {
     var n = 0;
@@ -171,15 +203,22 @@ function hash_color(s) {
             + (15 + Math.floor(Math.abs(Math.sin(n)) * 60)) + '%, 80%)');
 }
 
-function show_ware_info(ware_name) {
-    infobox.style('visibility', 'visible');
+function choose_ware_color(f) {
+    var h = f * 360;
+    var s = 50;
+    var l = 70;
+    
+    return ('hsl(' +
+            h + ', ' +
+            s + '%, ' +
+            l + '%)');
 }
 
-function json_to_object(link, callback) {
-    d3.json(link, function(loaded_data) {
-        callback(loaded_data);
-    });
+function unix_to_year(u) {
+    // Approx.
+    return 1970 + u / (365.24 * 24 * 60 * 60);
 }
+
 
 // Build the entire document.
 setup_page();
