@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
+#
+# Get all food un-requests ("afønsker") from the git log.
 
 import re
 import subprocess
 import sys
 
-def run(path=None):
-    if path is not None:
-        f = open(path, 'w')
+# Output format per line: <unix timestamp> <space> <food un-request>
+def run():
     command = ['git', 'log', '-p', '--pretty=format:%n%%%an:%at:%s']
     commits = subprocess.check_output(command).strip().split(b'\n%')
     commits = filter(lambda c: (c.startswith(b'concieggs')
@@ -23,18 +24,8 @@ def run(path=None):
         afønsker = filter(lambda line: line.startswith('-'), diff.split('\n'))
         afønsker = map(lambda line: line[1:].lower(), afønsker)
         afønsker = list(set(afønsker))
-        if f:
-            for a in afønsker:
-                print(a, file=f)
-                print(timestamp, file=f)
-                print("", file=f)
-        else:
-            for a in afønsker:
-                print(timestamp, a)
-    f.close()
+        for a in afønsker:
+            print(timestamp, a)
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        run(sys.argv[1])
-    else:
-        run()
+    run()

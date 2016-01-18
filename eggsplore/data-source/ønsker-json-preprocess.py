@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+#
+# Put the requests into a fitting JSON structure.
 
 import subprocess
 import itertools
