@@ -2,11 +2,14 @@
 var bonds_url = 'data/bonds.json';
 var densities_url = 'data/densities.json';
 var temporal_url = 'data/temporal.json';
-var CHARGE = -200;
-var DISTANCE = 1000;
+var CHARGE = -20;
+var DISTANCE = 700;
 var WIDTH = window.innerWidth;
 var HEIGHT = window.innerHeight;
 var TEMPORAL_PLOT_HEIGHT = 200;
+
+var WIDESCREEN_FIX = (16/9);
+
 
 // Globals.
 var wrapper;
@@ -132,8 +135,8 @@ function build_page(bonds, densities, temporal) {
           .attr('x2', function(d) { return d.target.x; })
           .attr('y2', function(d) { return d.target.y; });
 
-      node.attr('cx', function(d) { return d.x; })
-          .attr('cy', function(d) { return d.y; });
+      node.attr('cx', function(d) { return d.x = Math.max(node.attr("r"), Math.min(WIDTH - node.attr("r"), d.x  )); })
+          .attr('cy', function(d) { return d.y = Math.max(node.attr("r"), Math.min(HEIGHT - node.attr("r"), d.y )); });
 
       texts.attr('transform', function(d) {
         return 'translate(' + d.x + ',' + d.y + ')';
