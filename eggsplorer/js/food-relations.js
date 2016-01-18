@@ -149,6 +149,13 @@ function build_page(bonds, densities, temporal) {
             'color': choose_ware_color(Math.sin(i))
         });
     }
+
+    var temporal_plot_width = WIDTH - 40;
+
+    var time_scale = d3.scale.linear()
+        .domain([time_min, time_max])
+        .range([0, temporal_plot_width]);
+
     
     var line_plot = infobox.append('svg');
     line_plot.attr('height', TEMPORAL_PLOT_HEIGHT);
