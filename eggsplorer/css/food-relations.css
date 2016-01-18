@@ -53,6 +53,26 @@ body {
     visibility: hidden;
 }
 
+#infobox .close-button {
+    padding: 2px 5px;
+    display: inline-block;
+    background-color: #000000;
+    color: #ffffff;
+    font-weight: bold;
+
+    -webkit-box-shadow: 0px 0px 5px 5px #000000;
+    -moz-box-shadow: 0px 0px 5px 5px #000000;
+    box-shadow: 0px 0px 5px 5px #000000;
+
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 #infobox .ware {
     display: none;
 }

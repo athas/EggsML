@@ -104,8 +104,10 @@ function build_page(bonds, densities, temporal) {
         .data(graph.nodes)
         .enter().append('circle')
         .attr('class', 'node')
-        .attr('r', function(d) {return 10 + d.density})
-        .attr('cx', WIDTH/2 )
+        .attr('r', function(d) {
+            return areaToRadius(200 * d.density);
+        })
+        .attr('cx', WIDTH/2)
         .attr('cy', HEIGHT/2)
         .style('fill', function(d) {return hash_color(d.density.toString()); })
         .style('stroke', 'black')
@@ -149,7 +151,7 @@ function build_page(bonds, densities, temporal) {
 
     infobox.append('p')
         .attr('class', 'close-button')
-        .text('Close info box.')
+        .text('Close info box')
         .on('click', close_ware_info);
 
     // The temporal graph for each ware.
@@ -326,6 +328,10 @@ function choose_ware_color(f) {
 function unix_to_year(u) {
     // Approx.
     return 1970 + u / (365.24 * 24 * 60 * 60);
+}
+
+function areaToRadius(a) {
+    return Math.sqrt(a / Math.PI);
 }
 
 
