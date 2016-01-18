@@ -17,7 +17,7 @@ var max_density;
 var infobox;
 var infobox_current_ware;
 var ware_divs_lookup;
-
+var graph;
 
 function setup_page() {
   json_to_object(bonds_url, function(bonds) {
@@ -38,7 +38,7 @@ function setup_page() {
 }
 
 function build_page(bonds, densities, temporal) {
-    var graph = new Object();
+    graph = new Object();
     graph['nodes'] = new Array();
     graph['links'] = new Array();
 
@@ -164,7 +164,8 @@ function build_page(bonds, densities, temporal) {
         wares.push({
             'title': pair[0],
             'timestamps': pair[1],
-            'color': choose_ware_color(Math.sin(i))
+            'color': choose_ware_color(Math.sin(i)) ,
+            'links': links_for_ware(pair[0], graph.links)
         });
     }
 
@@ -198,18 +199,18 @@ function build_page(bonds, densities, temporal) {
 
     ware_divs.append('h2')
         .text('Requests for this product');
-    
+
     var line_plots = ware_divs.append('svg');
     line_plots.attr('width', temporal_plot_width);
     line_plots.attr('height', TEMPORAL_PLOT_HEIGHT);
-        
+
     var lines = line_plots.selectAll('line')
         .data(function(d) {
             return d['timestamps'];
         })
         .enter()
         .append('line');
-    
+
     lines.attr('y1', 30);
     lines.attr('y2', TEMPORAL_PLOT_HEIGHT);
     lines.attr('x1', function(d) {
@@ -218,7 +219,7 @@ function build_page(bonds, densities, temporal) {
     lines.attr('x2', function(d) {
         return time_scale(d);
     });
-    
+
     var axis = d3.svg.axis()
         .scale(scale_year)
         .tickValues([2013, 2014, 2015, 2016])
@@ -230,7 +231,15 @@ function build_page(bonds, densities, temporal) {
 
     ware_divs.append('h2')
         .text('Connections with other products');
-    
+
+    ware_divs.append("ul")
+             .attr("class","horisontal")
+             .selectAll("li")
+                .data(function( d ){ console.log(d); return d['links'] })
+                .enter()
+                .append("li")
+                    .attr("class", "horisontal")
+                    .text(function(link){return (link.target.ware_name + ": " + (link.probability*100).toFixed(0) + "%" );});
 }
 
 function show_ware_info(ware_name) {
@@ -251,6 +260,20 @@ function json_to_object(link, callback) {
     d3.json(link, function(loaded_data) {
         callback(loaded_data);
     });
+}
+
+function links_for_ware(ware, links){
+    var out = [];
+    for(var i in links){
+        if (links[i].source.ware_name == ware){
+            out.push(links[i]);
+        }
+    }
+
+    out = out.sort(function(a,b){ return b.probability - a.probability });
+
+    return out;
+
 }
 
 function probability_to_color(probability){

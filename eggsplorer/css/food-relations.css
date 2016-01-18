@@ -73,3 +73,14 @@ body {
     stroke: black;
     shape-rendering: crispEdges;
 }
+
+.close-button{
+    border: 1px black solid;
+    cursor: pointer;
+    position: absolute;
+    right: 0px;
+    margin-top: 50px;
+    margin-right: 70px;
+    padding: 15px;
+    background: #F3F3F3;
+}
