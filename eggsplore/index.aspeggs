@@ -5,7 +5,7 @@ from eggslib.eggsml_page import eggsml_page
 class index:
     
     def __init__(self):
-        t = open('index.html')
+        t = open('eggsplore/index.html')
         temp = t.read()
         t.close()
         print "Content-type: text/html; charset=UTF-8\n"
