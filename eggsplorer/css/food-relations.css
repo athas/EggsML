@@ -33,6 +33,7 @@ body {
     color: #ffffff;
     overflow-y: auto;
     overflow-x: hidden;
+    z-index: 80;
 }
 
 #legend h1 {
