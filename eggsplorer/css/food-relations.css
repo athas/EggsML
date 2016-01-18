@@ -104,3 +104,11 @@ body {
     padding: 15px;
     background: #F3F3F3;
 }
+
+.close-button:hover{
+    animation: blinker 1s linear infinite;
+}
+
+  @keyframes blinker {  
+        50% { opacity: 0.0; }
+    }
