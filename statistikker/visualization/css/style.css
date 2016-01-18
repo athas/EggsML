@@ -77,3 +77,10 @@ p.explain {
 .d3-slider {
     clear: both;
 }
+
+.node:hover {
+    cursor : pointer;
+    -webkit-filter: drop-shadow( 0px 0px 5px #FF8484 );
+            filter: drop-shadow( 0px 0px 5px #FF8484 );
+
+}

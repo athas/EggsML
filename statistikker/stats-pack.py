@@ -6,7 +6,7 @@ import json
 import sys
 
 default_tolerance = 86400/2 ## 24/2 hours
-
+least_probability = 0.15
 
 # Dict (Ware, [Timestamps]) -> [Ware , Dict (Ware, Float) , Int] 
 def users_also_bought(waresdict):
@@ -25,7 +25,9 @@ def users_also_bought(waresdict):
                         times_bought_together += 1
                         break
             if (times_bought_together > 0):
-                adjecent_wares.append((other_ware, times_bought_together/times_bought))
+                probability = times_bought_together / times_bought
+                if (probability >= least_probability):
+                    adjecent_wares.append((other_ware, times_bought_together/times_bought))
         adjecent_wares = dict(sorted(adjecent_wares, key=lambda x: x[1], reverse=True))
         totals.append((ware, [adjecent_wares, times_bought]))
     return totals

@@ -5,11 +5,26 @@ var base_scale = 39; // magic base scale
 var max_density;
 
 var CHARGE = -200;
-var DISTANCE = 600;
-var WIDTH = 800;
-var HEIGHT = 600;
+var DISTANCE = 1000;
+var WIDTH = window.innerWidth;
+var HEIGHT = window.innerHeight;
 
 
+
+
+function probability_to_color(probability){
+    if (probability > 0.6){return "green";}
+    if (probability > 0.4){return "yellow";}
+    if (probability > 0.2){return "orange";}
+    else {return "red"}
+    }
+
+function probability_to_strokewidth(probability){
+    if (probability > 0.6){return "40px";}
+    if (probability > 0.4){return "30px";}
+    if (probability > 0.2){return "20px";}
+    else {return "10px"}
+    }
 
 function setup_page() {
     json_to_object(bonds_url, function(bonds) {
@@ -52,6 +67,7 @@ function build_page(bonds, densities) {
         var ware = new Object();
         nodeById.set(i, ware_name); 
         ware["id"] = nodeById.set(ware_name, i);
+        ware["ware_name"] = ware_name;
         ware["density"] = density;
         graph["nodes"].push(ware);
     });
@@ -66,6 +82,8 @@ function build_page(bonds, densities) {
         link["source"] = nodeById.get(ware);
         link["target"] = nodeById.get(other_ware);
         link["probability"] = probability;
+        link["stroke"] = probability_to_color(probability);
+        link["strokewidth"] = probability_to_strokewidth(probability);
         graph["links"].push(link);
     });
 
@@ -88,16 +106,28 @@ function build_page(bonds, densities) {
     var link = panel.selectAll(".link")
         .data(graph.links)
       .enter().append("line")
-        .attr("class", "link");
+        .attr("class", function(d){var out = ["link", d.target.id , d.source.id];
+                                   return out.join(" ");})
+        .style("stroke", function(d){return d.stroke})
+        .style("stroke-width", function(d){return d.strokewidth})
+        .style("display" , "none");
 
     var node = panel.selectAll(".node")
         .data(graph.nodes)
         .enter().append("circle")
         .attr("class", "node")
         .attr("r", function(d) {return 10 + d.density})
+        .attr("cx", WIDTH/2 )
+        .attr("cy", HEIGHT/2)
         .style("fill", function(d) {return hash_color(d.density.toString()); })
         .style("stroke", "black")
         .style("stroke-width", "1px")
+        .on("click" , function(d){console.log("clicky clicky");})
+        .on("mouseover", function(d){
+            $("."+d.id.toString()).css("display", "inline");
+            })
+        .on("mouseout", function(){$(".link").css("display", "none")})
+
         .call(force.drag);
 
 
