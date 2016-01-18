@@ -16,12 +16,13 @@
 
     <div id="wrapper">
       <div id="legend">
-        <h1>Circle colors</h1>
+        <h1 class="legend_button" onclick="toggle_div('#internal_legend')" style="border: 1px white solid; cursor: pointer;">Circle colors</h1>
+        <div id="internal_legend">
         <p>
           The colors of circles contain no meaning, but are supposed to be
           relatively distinct.
         </p>
-        
+
         <h1>Edge colors and widths</h1>
         <p>
           The color and width of an edge between two circles describe how likely
@@ -43,6 +44,7 @@
           <p>20% ≥ p > 0%</p>
           <div style="background-color: red; height: 5px;"></div> 
         </div>
+    </div>
       </div>
     </div>
 

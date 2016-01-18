@@ -337,6 +337,13 @@ function areaToRadius(a) {
     return Math.sqrt(a / Math.PI);
 }
 
-
+function toggle_div(div){
+    if ($(div).css("display") != "none"){
+        $(div).css("display", "none");
+    }
+    else{
+        $(div).css("display", "inline");
+    }
+}
 // Build the entire document.
 setup_page();

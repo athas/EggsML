@@ -28,7 +28,8 @@ body {
     top: 10px;
     width: 200px;
     padding: 5px;
-    background-color: #000000;
+    text-align: center; 
+    background-color: rgba(0, 0, 0, 0.67);
     color: #ffffff;
     overflow-y: auto;
     overflow-x: hidden;
@@ -136,6 +137,10 @@ body {
     margin-right: 70px;
     padding: 15px;
     background: #F3F3F3;
+}
+
+.legend-button{
+    cursor: pointer;
 }
 
 .close-button:hover{
