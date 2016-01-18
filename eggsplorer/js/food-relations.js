@@ -16,14 +16,21 @@ var ware_divs_lookup;
 
 
 function setup_page() {
-    json_to_object(bonds_url, function(bonds) {
-        json_to_object(densities_url, function(densities) {
-            json_to_object(temporal_url, function(temporal) {
-                d3.select('#loading').transition().style('display' , 'none');
-                build_page(bonds, densities, temporal);
-            });
+  json_to_object(bonds_url, function(bonds) {
+    json_to_object(densities_url, function(densities) {
+      json_to_object(temporal_url, function(temporal) {
+        build_page(bonds, densities, temporal);
+        setTimeout(function(){
+        $("#bagtaeppe").animate({top:"-2000px"}, 3000, function(){
+            $("#bagtaeppe").remove();
         });
-    });
+        $("#loading").animate( {opacity: "0"}, 2000, function(){
+            $("#loading").remove();
+            });
+        },1999);
+      });
+      })
+    })
 }
 
 function build_page(bonds, densities, temporal) {

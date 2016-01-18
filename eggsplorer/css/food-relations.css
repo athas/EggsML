@@ -4,16 +4,21 @@ body {
 }
 
 #loading {
-    position: absolute;
-
-    top: 50%;
-    height: 266px;
-    margin-top: -133px;
-
-    left: 50%;
-    width: 266px;
-    margin-left: -133px;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    height: 100%;
+    width: 100%;
 }
+
+#loading img {
+    position: fixed;
+    top: inherit;
+    left: inherit;
+    width: inherit;
+    height: inherit;
+}
+
 
 .node {
     cursor: pointer;
