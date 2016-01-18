@@ -15,6 +15,7 @@ var WIDESCREEN_FIX = (16/9);
 var wrapper;
 var max_density;
 var infobox;
+var ware_divs_lookup;
 
 
 function setup_page() {
@@ -146,11 +147,12 @@ function build_page(bonds, densities, temporal) {
         .attr('id', 'infobox');
 
     // The temporal graph for each ware.
-    var time_min = temporal[0]
-    var time_max = temporal[1]
+    var time_min = temporal[0];
+    var time_max = temporal[1];
 
     var wares_orig = temporal[2];
     var wares = [];
+
     for (var i in wares_orig) {
         var pair = wares_orig[i];
         wares.push({
@@ -166,13 +168,42 @@ function build_page(bonds, densities, temporal) {
         .domain([time_min, time_max])
         .range([0, temporal_plot_width]);
 
+    var ware_divs = infobox.selectAll('div')
+        .data(wares)
+        .enter()
+        .append('div')
+        .attr('class', 'ware');
+
+    ware_divs_lookup = {};
+    for (var i in wares) {
+        ware_divs_lookup[wares[i]['title']] = d3.select(ware_divs[0][i]);
+    }
     
-    var line_plot = infobox.append('svg');
-    line_plot.attr('height', TEMPORAL_PLOT_HEIGHT);
+    var line_plots = ware_divs.append('svg');
+    line_plots.attr('width', temporal_plot_width);
+    line_plots.attr('height', TEMPORAL_PLOT_HEIGHT);
+        
+    var lines = line_plots.selectAll('line')
+        .data(function(d) {
+            return d['timestamps'];
+        })
+        .enter()
+        .append('line');
+    
+    lines.attr('y1', 0);
+    lines.attr('y2', TEMPORAL_PLOT_HEIGHT);
+    lines.attr('x1', function(d) {
+        return time_scale(d);
+    });
+    lines.attr('x2', function(d) {
+        return time_scale(d);
+    });
+
 }
 
 function show_ware_info(ware_name) {
     infobox.style('visibility', 'visible');
+    ware_divs_lookup[ware_name].style('display', 'block');
 }
 
 
