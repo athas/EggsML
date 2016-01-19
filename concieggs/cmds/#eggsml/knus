@@ -44,7 +44,7 @@ if ! isKing "$EGGS_USER"; then
     echo "$(randomKingName $kingname)!  Der er nogle rebeller der prøver at fratage Dem Deres retmæssig magt!"
 else
     echo "Jeg vil gøre mit bedste, Deres Majestæt!"
-    if [ $(random 4) = 4 ]; then
+    if [ $(random 1 4) = 4 ]; then
         echo "De fik mig, Deres Majestæt, oprøret lever videre..."
     else
         dbDelete vilvæltekongen
