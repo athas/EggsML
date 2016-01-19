@@ -12,6 +12,7 @@ body {
     left: 0%;
     height: 100%;
     width: 100%;
+    z-index: 1;
 }
 
 #loading img {
@@ -33,7 +34,6 @@ body {
     color: #ffffff;
     overflow-y: auto;
     overflow-x: hidden;
-    z-index: 80;
 }
 
 #legend h1 {
