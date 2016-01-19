@@ -101,13 +101,21 @@
         However, the purpose of the scripts is not <em>just</em> to extract data
         from the git history.  We also use them to cut off data that we deem too
         useless -- data that would just make the "important data" less clear.
+        We make the following simplifications:
       </p>
-      <p>
-        Currently, we don't include any ware which has been purchased less than
-        10 times.  We do this to make the visualization less messy, as otherwise
-        there would be about twice as many nodes, none of which would relate much to
-        other wares.
-      </p>
+      <ul>
+        <li>
+          We don't include any ware which has been purchased less than 10 times.
+          We do this to make the visualization less messy, as otherwise there
+          would be about twice as many nodes, none of which would relate much to
+          other wares.
+        </li>
+        <li>
+          We don't include a bond from a ware to another ware if the probability
+          of collective purchase is less than 15%.  We do this to limit the
+          numbers of lines between the circles.
+        </li>
+      </ul>
       <p>
         We have split the data into three datasets:
       </p>
