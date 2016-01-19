@@ -3,6 +3,7 @@ body {
     overflow: hidden;
     background-image: url("../img/baggrund.png");
     background-repeat: repeat;
+    font-family: sans;
 }
 
 #loading {
