@@ -107,7 +107,7 @@ function build_page(bonds, densities, temporal) {
         .enter()
         .append('line')
         .attr('class', function(d) {
-            var out = ['link', d.target.id , d.source.id];
+            var out = ['link', d.source.id];
             return out.join(' ');
         })
         .style('stroke', function(d) {
