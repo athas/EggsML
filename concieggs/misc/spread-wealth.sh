@@ -41,7 +41,7 @@ echo "Amount per target: $amount_per_target"
 when="$(date '+%Y-%m-%d')"
 for member in $members_current; do
     echo "Transaction of $amount_per_target kr. from $user_source to $member."
-    ./fakeconcieggs transfer "$when" "$amount_per_target" "$user_source" "$member"
+    ./fakeconcieggs transfer "$when" "$amount_per_target" "$user_source" "$member" 2>&1 >/dev/null
 done
 
 echo "All transactions were successful."
