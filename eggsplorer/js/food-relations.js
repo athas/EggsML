@@ -321,7 +321,7 @@ function choose_ware_color(f) {
     var h = f * 360;
     var s = 50;
     var l = 70;
-    
+
     return ('hsl(' +
             h + ', ' +
             s + '%, ' +
