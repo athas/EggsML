@@ -338,12 +338,14 @@ function areaToRadius(a) {
 }
 
 function toggle_div(div){
-    if ($(div).css("display") != "none"){
-        $(div).css("display", "none");
+    if ($(div).css('display') != 'none') {
+        $(div).css('display', 'none');
     }
-    else{
-        $(div).css("display", "inline");
+    else {
+        $(div).css('display', 'block');
     }
 }
+
+
 // Build the entire document.
 setup_page();
