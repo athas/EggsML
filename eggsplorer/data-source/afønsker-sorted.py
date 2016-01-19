@@ -7,7 +7,7 @@ import subprocess
 import itertools
 import sys
 
-def run(filepath = None):
+def run():
     pairs = [(int(stamp), title) for stamp, title in
              (line.split(' ', 1) for line in
               subprocess.check_output(['./afønsker.py']).decode('utf-8').strip().split('\n'))]
@@ -17,18 +17,10 @@ def run(filepath = None):
     reqs.sort(key=lambda k: len(k[1]))
     reqs = list(filter(lambda k: len(k[1]) > 1, reqs))[::-1]
 
-    if filepath is not None:
-        with open(filepath, 'w') as f:
-            for title, stamps in reqs:
-                print(title, file=f)
-                print(stamps, file=f)
-                print("", file=f)
-            f.close()
-    else:
-        for title, stamps in reqs:
-            print(title, file=f)
-            print(stamps, file=f)
-            print("", file=f)
+    for title, stamps in reqs:
+        print(title)
+        print(stamps)
+        print('')
 
 if __name__ == '__main__':
-    run(sys.argv[1])
+    run()
