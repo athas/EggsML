@@ -12,10 +12,16 @@ if ! [ "$user_source" ]; then
     exit 1
 fi
 
-amount_source="$(./fakeconcieggs eggstool balances | grep "$user_source" | cut -d' ' -f1)"
+user_regex="$user_source"
+for alias in "$(./fakeconcieggs eggstool aliases "$user_source")"; do
+    user_regex="$user_regex|$alias"
+done
+
+amount_source="$(./fakeconcieggs eggstool balances | grep -E "$user_regex" | cut -d' ' -f1)"
 
 if [ "$(expr "$amount_source" '>' 0)" != 1 ]; then
     echo "error: source does not have a positive balance"
+    exit 1
 fi
 
 echo "Source amount: $amount_source"
