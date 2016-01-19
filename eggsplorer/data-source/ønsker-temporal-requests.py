@@ -24,8 +24,8 @@ def run():
         lmax = max([lmax] + stamps)
         d = (title, stamps)
         ds.append(d)
-    with open('ønsker.json', 'w') as f:
-        json.dump((lmin, lmax, ds), f)
+    with open(1, 'w') as f:
+        json.dump((lmin, lmax, ds), f, ensure_ascii=False)
 
 if __name__ == '__main__':
     run()

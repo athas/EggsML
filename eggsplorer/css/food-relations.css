@@ -3,7 +3,7 @@ body {
     overflow: hidden;
     background-image: url("../img/baggrund.png");
     background-repeat: repeat;
-    
+    font-family: sans-serif;
 }
 
 #loading {
@@ -12,6 +12,7 @@ body {
     left: 0%;
     height: 100%;
     width: 100%;
+    z-index: 1;
 }
 
 #loading img {
@@ -28,47 +29,73 @@ body {
     top: 10px;
     width: 200px;
     padding: 5px;
-    text-align: center; 
     background-color: rgba(0, 0, 0, 0.67);
     color: #ffffff;
     overflow-y: auto;
     overflow-x: hidden;
-    z-index: 80;
+    text-align: center;
 }
 
-#legend h1 {
+#legend-button {
+    border: 1px white solid;
+    cursor: pointer;
+    font-size: 25px;
+    margin: 0;
+    padding: 3px;
+    font-weight: bold;
+
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+#legend-internal {
+    padding-top: 15px;
+}
+
+#legend-internal h1 {
     font-size: 20px;
-    margin-top: 30px;
+    margin: 30px 0 0 0;
 }
 
-#legend h1:first-child {
+#legend-internal p {
+    margin: 0 0 3px 0;
+}
+
+#legend-internal h1:first-child {
     margin-top: 0;
 }
 
-#legend .edge-group {
-    background-color: #555555;
+#legend-internal .edge-group {
+    background-color: #000000;
     padding: 5px;
     margin-bottom: 5px;
 }
 
-#legend .edge-group p {
+#legend-internal .edge-group p {
     margin: 0 0 2px 0;
 }
 
 .node {
     cursor: pointer;
+    stroke: black;
+    stroke-width: 1px;
 }
 
 .node:hover {
-    cursor: pointer;
-    -webkit-filter: drop-shadow(0px 0px 5px #FF8484);
     filter: drop-shadow(0px 0px 5px #FF8484);
+    -webkit-filter: drop-shadow(0px 0px 5px #FF8484);
 }
 
 .label {
     stroke: black;
-    
-    cursor: default;
+    text-anchor: middle;
+    dominant-baseline: middle;
+
+    cursor: pointer;
     user-select: none;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -147,8 +174,17 @@ body {
 
 .close-button:hover{
     animation: blinker 1s linear infinite;
+    -webkit-animation: blinker 1s linear infinite;
 }
 
-  @keyframes blinker {  
-        50% { opacity: 0.0; }
+@keyframes blinker {
+    50% {
+        opacity: 0.0;
     }
+}
+
+@-webkit-keyframes blinker {
+    50% {
+        opacity: 0.0;
+    }
+}

@@ -101,33 +101,104 @@
         However, the purpose of the scripts is not <em>just</em> to extract data
         from the git history.  We also use them to cut off data that we deem too
         useless -- data that would just make the "important data" less clear.
+        We make the following simplifications:
       </p>
+      <ul>
+        <li>
+          We don't include any ware which has been purchased less than 10 times.
+          We do this to make the visualization less messy, as otherwise there
+          would be about twice as many nodes, none of which would relate much to
+          other wares.
+        </li>
+        <li>
+          We don't include a bond from a ware to another ware if the probability
+          of collective purchase is less than 15%.  We do this to limit the
+          numbers of lines between the circles.
+        </li>
+      </ul>
       <p>
-        Currently, we don't include any ware which has been purchased less than
-        10 times.  We do this to make the visualization less messy, as otherwise
-        there would be about twice as many nodes, none of which would relate much to
-        other wares.
+        We have split the data into three datasets:
       </p>
+      <ul>
+        <li>
+          <a href="data/densities.json"><code>densities.json</code></a> contains
+          a list of <code>[name, amount]</code> pairs, where each pair describes
+          the number of times a certain ware (from <code>name</code>) has been
+          bought (from <code>amount</code>).
+        </li>
+        <li>
+          <a href="data/bonds.json"><code>bonds.json</code></a> contains a list
+          of <code>[name1, name2, probability]</code> triplets, where each
+          triplet describes the the <code>probability</code>
+          that <code>name2</code> is bought when <code>name1</code is bought
+          (and not the other way around).
+        </li>
+        <li>
+          <a href="data/temporal.json"><code>temporal.json</code></a> contains a
+          list of <code>[name, timestamps]</code> pairs, where each pair
+          describes the times (from <code>timestamps</code>) at which a certain
+          ware (from
+          <code>name</code>) has been requested.
+        </li>
+      </ul>
       <p>
-        Note: The lunch club is still active.  As such, our data is likely
-        outdated by the time you review the visualization.  We use data
+        <em>Note:</em> The lunch club is still active.  As such, our data is
+        likely outdated by the time you review the visualization.  We use data
         extracted on January 15, 2016.
+      </p>
+      <p>
+        Before we go on to describe our data discoveries, we need to point out a
+        possible irregularity in our <code>bonds.json</code> dataset: Actually,
+        the lunch chat bot does not record the purchases directly, but
+        it <em>does</em> record whenever a user un-requests one or more goods.
+        Since it is extremely common practice in the lunch club to un-request a
+        ware once it has been bought, we have deemed that un-requesting is the
+        same as purchasing.  We consider two wares to be part of the same
+        purchase if they have been un-requested within 12 hours of each other.
       </p>
 
       <h2>Discoveries</h2>
-      <p>We can use the visualization to determine, which lunch items that are the most popular, and which items we should try to buy more of.</p>
       <p>
-      As the current data filters wares that are seldomly requested, we can conclude that this lunch club does <em>not like their vegetables</em>.
-      </br>
-      1. Of all regular items, tomatoes, sweet tomatoes, pickles and onions are the only vegetables. Note, that red onions are bigger and therefore more popular than regular white onions.</p>
+        We can use the visualization to determine which lunch items are the most
+        popular, and which items the lunch club should maybe try to buy more of.
+      </p>
+      <p>
+        Just by looking at the visualization, we can conclude that this lunch
+        club does <em>not like their vegetables</em>.
+      </p>
+      <p>
+        Tomatoes, sweet tomatoes, pickles and onions are the only vegetables
+        (within the set of popular wares that the visualization shows).  The
+        circle of red onions ("rødløg") are bigger than the circle of ordinary
+        onions ("almindelige løg") and thus more popular.
+      </p>
+      <p>
+        The lunch club does not eat white bread.  Ryebread is by far the biggest
+        item in the visualization.  For all other bread needs, there are
+        Digestive biscuits and TUC biscuits.
+      </p>
+      <p>
+        <em>Nutella-erstatningsprodukt</em> and <em>mini frække-deller</em> have
+        a peculiar relationship.  Whilst these two goods do not make for the
+        most obvious mix, we can see that whenever Nutella-erstatningsprodukt is
+        bought, there is whopping 71% probability that mini frække-deller is
+        also bought.  After consulting with a member of the lunch club, we have
+        been told that there is indeed a member with a special affinity for both
+        products.  Note that the relationship is only one-way: Whenever mini
+        frække-deller is bought, there is only a 33% probability that
+        Nutella-erstatningsprodukt is also bought.  This is likely due to the
+        fact that mini frække-deller is bought noticably more often than
+        Nutella-erstatningsprodukt, which likely means that a larger variety of
+        members buy mini frække-deller, and most members don't share the
+        affinity for Nutella-erstatningsprodukt.
+      </p>
 
-      <p>2. The lunch club does not eat white bread. Ryebread is by far the biggest item in the visualization. For all other bread needs, there are primarily Digestive- and TUC biscuits.</p>
-
-      <p>3. <em>Nutella-erstatningsprodukt</em> and <em>mini frække-deller</em> has a peculiar relationship. Whilst these two lunch does not make for the most obvious mix, they seem to be bought together very often. After consulting with a member of the lunch club, we have been told that it is because of one specific member of the lunch club!<br/>
-      This member has a strong preference towards these items, and therefore buys them for the club every time he is grocery shopping, to ensure that they are available.</p>.
       <h2>Future work</h2>
-      <!-- add minigames -->
-      Currently, the data scripts has to be run manually. Then the output has to be copied into the correct folder, where the visualization is located.<br/>
-      In the future, we would like to have a script that does all of this automatically, after a grocery shopping has been done.
+      <p>
+        Currently, the data scripts have to be run manually.  Then the output
+        has to be copied into the correct folder, where the visualization is
+        located.  In the future, we would like to have a script that does all of
+        this automatically after grocery shopping.
+      </p>
   </body>
 </html>

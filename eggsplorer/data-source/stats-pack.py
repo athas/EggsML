@@ -10,7 +10,7 @@ import sys
 default_tolerance = 86400/2 ## 24/2 hours
 least_probability = 0.15
 
-# Dict (Ware, [Timestamps]) -> [Ware , Dict (Ware, Float) , Int] 
+# Dict (Ware, [Timestamps]) -> [Ware , Dict (Ware, Float) , Int]
 def users_also_bought(waresdict):
     totals = []
     for ware, timestamps in waresdict.items():
@@ -40,7 +40,7 @@ def calculate_bonds(wares):
     for (ware, adjecent_wares) in wares:
         for (other_ware, probability_bought) in adjecent_wares[0].items():
             bonds.append((ware , other_ware, probability_bought))
-    return bonds 
+    return bonds
 
 def calculate_wares_density(wares):
     bonds = []
@@ -121,5 +121,3 @@ if __name__ == '__main__':
         main(sys.argv[1], sys.argv[2])
     elif (len(sys.argv) == 2):
         main(sys.argv[1], 3)
-
-
