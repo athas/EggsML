@@ -31,8 +31,6 @@ body {
     padding: 5px;
     background-color: rgba(0, 0, 0, 0.67);
     color: #ffffff;
-    overflow-y: auto;
-    overflow-x: hidden;
     text-align: center;
 }
 
@@ -53,7 +51,9 @@ body {
 }
 
 #legend-internal {
-    padding-top: 15px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-top: 10px;
 }
 
 #legend-internal h1 {
