@@ -96,7 +96,7 @@ function build_page(bonds, densities, temporal) {
         .attr('id', 'text-background');
     filter_text_bg
         .append('feFlood')
-        .attr('flood-color', 'white');
+        .attr('flood-color', 'rgba(255, 255, 255, 0.8)');
     filter_text_bg
         .append('feComposite')
         .attr('in', 'SourceGraphic');
@@ -122,9 +122,12 @@ function build_page(bonds, densities, temporal) {
         })
         .style('display', 'none');
 
-    var node = panel.selectAll('circle')
+    var node = panel.selectAll('g')
         .data(graph.nodes)
         .enter()
+        .append('g');
+
+    node
         .append('circle')
         .attr('class', 'node')
         .attr('x', WIDTH / 2)
@@ -143,9 +146,7 @@ function build_page(bonds, densities, temporal) {
 
         .call(force.drag);
 
-    var node_textbox = panel.selectAll('svg')
-        .data(graph.nodes)
-        .enter()
+    var node_textbox = node
         .append('svg')
         .attr('x', WIDTH / 2)
         .attr('y', HEIGHT / 2)
@@ -171,7 +172,7 @@ function build_page(bonds, densities, temporal) {
               .attr('x2', function(d) { return d.target.x; })
               .attr('y2', function(d) { return d.target.y; });
 
-          node
+          node.selectAll('circle')
               .attr('cx', function(d) {
                   d.x = Math.max(node.attr("r"), Math.min(WIDTH - node.attr("r"), d.x));
                   return d.x;
@@ -181,7 +182,7 @@ function build_page(bonds, densities, temporal) {
                   return d.y;
               });
 
-          node_textbox
+          node.selectAll('svg')
               .attr('x', function(d) {
                   return d.x - TEXT_LABEL_WIDTH_FACTOR * areaToRadius(200 * d.density);
               })
@@ -189,7 +190,7 @@ function build_page(bonds, densities, temporal) {
                   return d.y - TEXT_LABEL_WIDTH_FACTOR * areaToRadius(200 * d.density);
               });
 
-          node_textbox.selectAll('.label')
+          node.selectAll('svg').selectAll('.label')
               .attr('x', function(d) {
                   return TEXT_LABEL_WIDTH_FACTOR * areaToRadius(200 * d.density);
               })
@@ -321,16 +322,16 @@ function json_to_object(link, callback) {
 
 function links_for_ware(ware, links){
     var out = [];
-    for(var i in links){
+    for (var i in links) {
         if (links[i].source.ware_name == ware){
             out.push(links[i]);
         }
     }
 
-    out = out.sort(function(a,b){ return b.probability - a.probability });
-
+    out = out.sort(function(a, b) {
+        return b.probability - a.probability;
+    });
     return out;
-
 }
 
 function probability_to_color(probability){
