@@ -113,7 +113,6 @@ body {
     background-color: rgba(255, 255, 255, .9);
     padding: 20px;
     visibility: hidden;
-    z-index: 99;
 }
 
 #infobox .close-button {
