@@ -25,17 +25,17 @@ function setup_page() {
     json_to_object(densities_url, function(densities) {
       json_to_object(temporal_url, function(temporal) {
         build_page(bonds, densities, temporal);
-        setTimeout(function(){
-        $('#bagtaeppe').animate({top:'-2000px'}, 3000, function(){
-            $('#bagtaeppe').remove();
-        });
-        $('#loading').animate( {opacity: '0'}, 2000, function(){
-            $('#loading').remove();
+        setTimeout(function() {
+            $('#bagtaeppe').animate({top : '-2000px'}, 3000, function() {
+                $('#bagtaeppe').remove();
             });
-        },1999);
+            $('#loading').animate({opacity: '0'}, 2000, function() {
+                $('#loading').remove();
+            });
+        }, 1999);
       });
-      })
-    })
+    });
+  });
 }
 
 function build_page(bonds, densities, temporal) {
@@ -49,7 +49,7 @@ function build_page(bonds, densities, temporal) {
 
     max_density = find_max_value(densities);
 
-    $.each(densities, function(i, d ){
+    $.each(densities, function(i, d) {
         var ware_name, density;
         ware_name = d[0];
         density = d[1];
@@ -61,7 +61,7 @@ function build_page(bonds, densities, temporal) {
         graph['nodes'].push(ware);
     });
 
-    $.each(bonds, function(i, d){
+    $.each(bonds, function(i, d) {
         var ware, other_ware, probability;
         ware = d[0];
         other_ware = d[1];
@@ -110,7 +110,7 @@ function build_page(bonds, densities, temporal) {
         .data(graph.links)
         .enter()
         .append('line')
-        .attr('class', function(d){
+        .attr('class', function(d) {
             var out = ['link', d.target.id , d.source.id];
             return out.join(' ');
         })
@@ -133,17 +133,22 @@ function build_page(bonds, densities, temporal) {
         .attr('x', WIDTH / 2)
         .attr('y', HEIGHT / 2)
         .attr('r', function(d) {
-            return areaToRadius(200 * d.density);
+            return area_to_radius(200 * d.density);
         })
-        .style('fill', function(d) {return hash_color(d.density.toString()); })
+        .style('fill', function(d) {
+            return hash_color(d.density.toString());
+        })
         .style('stroke', 'black')
         .style('stroke-width', '1px')
-        .on('dblclick' , function(d){show_ware_info(d['ware_name']);})
-        .on('mouseover', function(d){
+        .on('dblclick' , function(d) {
+            show_ware_info(d['ware_name']);
+        })
+        .on('mouseover', function(d) {
             $('.'+d.id.toString()).css('display', 'inline');
-            })
-        .on('mouseout', function(){$('.link').css('display', 'none')})
-
+        })
+        .on('mouseout', function() {
+            $('.link').css('display', 'none');
+        })
         .call(force.drag);
 
     var node_textbox = node
@@ -151,10 +156,10 @@ function build_page(bonds, densities, temporal) {
         .attr('x', WIDTH / 2)
         .attr('y', HEIGHT / 2)
         .attr('width', function(d) {
-            return TEXT_LABEL_WIDTH_FACTOR * 2 * areaToRadius(200 * d.density);
+            return TEXT_LABEL_WIDTH_FACTOR * 2 * area_to_radius(200 * d.density);
         })
         .attr('height', function(d) {
-            return TEXT_LABEL_WIDTH_FACTOR * 2 * areaToRadius(200 * d.density);
+            return TEXT_LABEL_WIDTH_FACTOR * 2 * area_to_radius(200 * d.density);
         });
 
     node_textbox
@@ -184,18 +189,18 @@ function build_page(bonds, densities, temporal) {
 
           node.selectAll('svg')
               .attr('x', function(d) {
-                  return d.x - TEXT_LABEL_WIDTH_FACTOR * areaToRadius(200 * d.density);
+                  return d.x - TEXT_LABEL_WIDTH_FACTOR * area_to_radius(200 * d.density);
               })
               .attr('y', function(d) {
-                  return d.y - TEXT_LABEL_WIDTH_FACTOR * areaToRadius(200 * d.density);
+                  return d.y - TEXT_LABEL_WIDTH_FACTOR * area_to_radius(200 * d.density);
               });
 
-          node.selectAll('svg').selectAll('.label')
+          node.selectAll('svg').selectAll('text')
               .attr('x', function(d) {
-                  return TEXT_LABEL_WIDTH_FACTOR * areaToRadius(200 * d.density);
+                  return TEXT_LABEL_WIDTH_FACTOR * area_to_radius(200 * d.density);
               })
               .attr('y', function(d) {
-                  return TEXT_LABEL_WIDTH_FACTOR * areaToRadius(200 * d.density);
+                  return TEXT_LABEL_WIDTH_FACTOR * area_to_radius(200 * d.density);
               });
       });
 
@@ -339,26 +344,42 @@ function links_for_ware(ware, links){
 }
 
 function probability_to_color(probability){
-    if (probability > 0.6){return 'green';}
-    if (probability > 0.4){return 'yellow';}
-    if (probability > 0.2){return 'orange';}
-    else {return 'red'}
+    if (probability > 0.6) {
+        return 'green';
+    }
+    else if (probability > 0.4) {
+        return 'yellow';
+    }
+    else if (probability > 0.2) {
+        return 'orange';
+    }
+    else {
+        return 'red';
+    }
 }
 
 function probability_to_strokewidth(probability){
-    if (probability > 0.6){return '40px';}
-    if (probability > 0.4){return '30px';}
-    if (probability > 0.2){return '20px';}
-    else {return '10px'}
+    if (probability > 0.6) {
+        return '40px';
+    }
+    else if (probability > 0.4) {
+        return '30px';
+    }
+    else if (probability > 0.2) {
+        return '20px';
+    }
+    else {
+        return '10px';
+    }
 }
 
 // [string, int] => int
 function find_max_value(list){
     var highest = 0;
 
-    $.each(list, function(i, item){
+    $.each(list, function(i, item) {
         var number = item[1];
-        if (number > highest){
+        if (number > highest) {
             highest = number;
         }
     });
@@ -390,11 +411,11 @@ function unix_to_year(u) {
     return 1970 + u / (365.24 * 24 * 60 * 60);
 }
 
-function areaToRadius(a) {
+function area_to_radius(a) {
     return Math.sqrt(a / Math.PI);
 }
 
-function toggle_div(div){
+function toggle_div(div) {
     if ($(div).css('display') != 'none') {
         $(div).css('display', 'none');
     }
