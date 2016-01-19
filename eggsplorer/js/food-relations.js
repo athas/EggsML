@@ -7,6 +7,7 @@ var DISTANCE = 600;
 var WIDTH = window.innerWidth;
 var HEIGHT = window.innerHeight;
 var TEMPORAL_PLOT_HEIGHT = 200;
+var TEXT_LABEL_WIDTH_FACTOR = 6;
 
 var WIDESCREEN_FIX = (16/9);
 
@@ -85,30 +86,52 @@ function build_page(bonds, densities, temporal) {
         .attr('width', WIDTH)
         .attr('height', HEIGHT);
 
+    var filter_text_bg = panel
+        .append('defs')
+        .append('filter')
+        .attr('x', 0)
+        .attr('y', 0)
+        .attr('width', 1)
+        .attr('height', 1)
+        .attr('id', 'text-background');
+    filter_text_bg
+        .append('feFlood')
+        .attr('flood-color', 'white');
+    filter_text_bg
+        .append('feComposite')
+        .attr('in', 'SourceGraphic');
+
     force
         .nodes(graph['nodes'])
         .links(graph['links'])
         .start();
 
-
-    var link = panel.selectAll('.link')
+    var link = panel.selectAll('line')
         .data(graph.links)
-      .enter().append('line')
-        .attr('class', function(d){var out = ['link', d.target.id , d.source.id];
-                                   return out.join(' ');})
-        .style('stroke', function(d){return d.stroke})
-        .style('stroke-width', function(d){return d.strokewidth})
-        .style('display' , 'none');
+        .enter()
+        .append('line')
+        .attr('class', function(d){
+            var out = ['link', d.target.id , d.source.id];
+            return out.join(' ');
+        })
+        .style('stroke', function(d) {
+            return d.stroke;
+        })
+        .style('stroke-width', function(d) {
+            return d.strokewidth;
+        })
+        .style('display', 'none');
 
-    var node = panel.selectAll('.node')
+    var node = panel.selectAll('circle')
         .data(graph.nodes)
-        .enter().append('circle')
+        .enter()
+        .append('circle')
         .attr('class', 'node')
+        .attr('x', WIDTH / 2)
+        .attr('y', HEIGHT / 2)
         .attr('r', function(d) {
             return areaToRadius(200 * d.density);
         })
-        .attr('cx', WIDTH/2)
-        .attr('cy', HEIGHT/2)
         .style('fill', function(d) {return hash_color(d.density.toString()); })
         .style('stroke', 'black')
         .style('stroke-width', '1px')
@@ -120,30 +143,59 @@ function build_page(bonds, densities, temporal) {
 
         .call(force.drag);
 
+    var node_textbox = panel.selectAll('svg')
+        .data(graph.nodes)
+        .enter()
+        .append('svg')
+        .attr('x', WIDTH / 2)
+        .attr('y', HEIGHT / 2)
+        .attr('width', function(d) {
+            return TEXT_LABEL_WIDTH_FACTOR * 2 * areaToRadius(200 * d.density);
+        })
+        .attr('height', function(d) {
+            return TEXT_LABEL_WIDTH_FACTOR * 2 * areaToRadius(200 * d.density);
+        });
 
-    var texts = panel.selectAll('text.label')
-                .data(graph.nodes)
-                .enter().append('text')
-                .attr('class', 'label')
-                .attr('fill', 'black')
-                .text(function(d) {  return nodeById.get(d.id);  });
-
-
-
+    node_textbox
+        .append('text')
+        .attr('class', 'label')
+        .attr('filter', 'url(#text-background)')
+        .text(function(d) {
+            return nodeById.get(d['id']);
+        });
 
       force.on('tick', function() {
-      link.attr('x1', function(d) { return d.source.x; })
-          .attr('y1', function(d) { return d.source.y; })
-          .attr('x2', function(d) { return d.target.x; })
-          .attr('y2', function(d) { return d.target.y; });
+          link
+              .attr('x1', function(d) { return d.source.x; })
+              .attr('y1', function(d) { return d.source.y; })
+              .attr('x2', function(d) { return d.target.x; })
+              .attr('y2', function(d) { return d.target.y; });
 
-      node.attr('cx', function(d) { return d.x = Math.max(node.attr("r"), Math.min(WIDTH - node.attr("r"), d.x  )); })
-          .attr('cy', function(d) { return d.y = Math.max(node.attr("r"), Math.min(HEIGHT - node.attr("r"), d.y )); });
+          node
+              .attr('cx', function(d) {
+                  d.x = Math.max(node.attr("r"), Math.min(WIDTH - node.attr("r"), d.x));
+                  return d.x;
+              })
+              .attr('cy', function(d) {
+                  d.y = Math.max(node.attr("r"), Math.min(HEIGHT - node.attr("r"), d.y));
+                  return d.y;
+              });
 
-      texts.attr('transform', function(d) {
-        return 'translate(' + d.x + ',' + d.y + ')';
-      });
+          node_textbox
+              .attr('x', function(d) {
+                  return d.x - TEXT_LABEL_WIDTH_FACTOR * areaToRadius(200 * d.density);
+              })
+              .attr('y', function(d) {
+                  return d.y - TEXT_LABEL_WIDTH_FACTOR * areaToRadius(200 * d.density);
+              });
 
+          node_textbox.selectAll('.label')
+              .attr('x', function(d) {
+                  return TEXT_LABEL_WIDTH_FACTOR * areaToRadius(200 * d.density);
+              })
+              .attr('y', function(d) {
+                  return TEXT_LABEL_WIDTH_FACTOR * areaToRadius(200 * d.density);
+              });
       });
 
     infobox = wrapper.append('div')
@@ -240,7 +292,7 @@ function build_page(bonds, densities, temporal) {
     ware_divs.append("ul")
              .attr("class","horisontal")
              .selectAll("li")
-                .data(function( d ){ console.log(d); return d['links'] })
+                .data(function( d ){ return d['links'] })
                 .enter()
                 .append("li")
                     .attr("class", "horisontal")

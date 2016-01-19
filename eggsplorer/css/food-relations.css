@@ -84,13 +84,14 @@ body {
 }
 
 .node:hover {
-    cursor: pointer;
-    -webkit-filter: drop-shadow(0px 0px 5px #FF8484);
     filter: drop-shadow(0px 0px 5px #FF8484);
+    -webkit-filter: drop-shadow(0px 0px 5px #FF8484);
 }
 
 .label {
     stroke: black;
+    text-anchor: middle;
+    dominant-baseline: middle;
 
     cursor: default;
     user-select: none;
