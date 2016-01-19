@@ -109,9 +109,42 @@
         other wares.
       </p>
       <p>
+        We have split the data into three datasets:
+      </p>
+      <ul>
+        <li>
+          <a href="data/densities.json">densities.json</a> contains a list
+          of <code>[name, amount]</code> pairs, where each pair describes the
+          number of times a certain ware (from <code>name</code>) has been
+          bought (from <code>amount</code>).
+        </li>
+        <li>
+          <a href="data/bonds.json">bonds.json</a> contains a list
+          of <code>[name1, name2, probability]</code> triplets, where each
+          triplet describes the the <code>probability</code>
+          that <code>name2</code> is bought when <code>name1</code is bought
+          (and not the other way around).
+        </li>
+        <li>
+          <a href="data/temporal.json">temporal.json</a> contains a list
+          of <code>[name, timestamps]</code> pairs, where each pair describes
+          the times (from <code>timestamps</code>) at which a certain ware (from
+          <code>name</code>) has been requested.
+        </li>
+      </ul>
+      <p>
         Note: The lunch club is still active.  As such, our data is likely
         outdated by the time you review the visualization.  We use data
         extracted on January 15, 2016.
+      </p>
+
+      <h2>Discussion</h2>
+      <p>
+        Before we go on to describe our data discoveries, we need to point out
+        possible irregularities in our datasets.
+      </p>
+      <p>
+        
       </p>
 
       <h2>Discoveries</h2>
