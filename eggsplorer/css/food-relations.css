@@ -28,29 +28,46 @@ body {
     top: 10px;
     width: 200px;
     padding: 5px;
-    text-align: center;
     background-color: rgba(0, 0, 0, 0.67);
     color: #ffffff;
     overflow-y: auto;
     overflow-x: hidden;
+    text-align: center;
 }
 
-#legend h1 {
+#legend-button {
+    border: 1px white solid;
+    cursor: pointer;
+    font-size: 25px;
+    margin: 0;
+    padding: 3px;
+    font-weight: bold;
+}
+
+#legend-internal {
+    padding-top: 15px;
+}
+
+#legend-internal h1 {
     font-size: 20px;
-    margin-top: 30px;
+    margin: 30px 0 0 0;
 }
 
-#legend h1:first-child {
+#legend-internal p {
+    margin: 0 0 3px 0;
+}
+
+#legend-internal h1:first-child {
     margin-top: 0;
 }
 
-#legend .edge-group {
+#legend-internal .edge-group {
     background-color: #555555;
     padding: 5px;
     margin-bottom: 5px;
 }
 
-#legend .edge-group p {
+#legend-internal .edge-group p {
     margin: 0 0 2px 0;
 }
 

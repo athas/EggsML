@@ -18,34 +18,38 @@
 
     <div id="wrapper">
       <div id="legend">
-        <h1 class="legend_button" onclick="toggle_div('#internal_legend')" style="border: 1px white solid; cursor: pointer;">Circle colors</h1>
-        <div id="internal_legend">
-        <p>
-          The colors of circles contain no meaning, but are supposed to be
-          relatively distinct.
+        <p id="legend-button"
+           onclick="toggle_div('#legend-internal')">
+          Legend
         </p>
+        <div id="legend-internal">
+          <h1>Edge colors and widths</h1>
+          <p>
+            The color and width of an edge between two circles describe how likely
+            it is that the two wares are bought together.
+          </p>
+          <div class="edge-group">
+            <p>p &gt; 60%</p>
+            <div style="background-color: green; height: 40px;"></div>
+          </div>
+          <div class="edge-group">
+            <p>60% ≥ p &gt; 40%</p>
+            <div style="background-color: yellow; height: 30px;"></div>
+          </div>
+          <div class="edge-group">
+            <p>40% ≥ p &gt; 20%</p>
+            <div style="background-color: orange; height: 20px;"></div>
+          </div>
+          <div class="edge-group">
+            <p>20% ≥ p &gt; 0%</p>
+            <div style="background-color: red; height: 10px;"></div>
+          </div>
 
-        <h1>Edge colors and widths</h1>
-        <p>
-          The color and width of an edge between two circles describe how likely
-          it is that the two wares are bought together.
-        </p>
-        <div class="edge-group">
-          <p>p &gt; 60%</p>
-          <div style="background-color: green; height: 20px;"></div>
-        </div>
-        <div class="edge-group">
-          <p>60% ≥ p &gt; 40%</p>
-          <div style="background-color: yellow; height: 15px;"></div>
-        </div>
-        <div class="edge-group">
-          <p>40% ≥ p &gt; 20%</p>
-          <div style="background-color: orange; height: 10px;"></div>
-        </div>
-        <div class="edge-group">
-          <p>20% ≥ p > 0%</p>
-          <div style="background-color: red; height: 5px;"></div>
-        </div>
+          <h1>Circle colors</h1>
+          <p>
+            The colors of circles contain no meaning, but are supposed to be
+            relatively distinct.
+          </p>
     </div>
       </div>
     </div>
