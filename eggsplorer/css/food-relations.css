@@ -81,6 +81,8 @@ body {
 
 .node {
     cursor: pointer;
+    stroke: black;
+    stroke-width: 1px;
 }
 
 .node:hover {
@@ -93,7 +95,7 @@ body {
     text-anchor: middle;
     dominant-baseline: middle;
 
-    cursor: default;
+    cursor: pointer;
     user-select: none;
     -webkit-touch-callout: none;
     -webkit-user-select: none;

@@ -9,9 +9,6 @@ var HEIGHT = window.innerHeight;
 var TEMPORAL_PLOT_HEIGHT = 200;
 var TEXT_LABEL_WIDTH_FACTOR = 6;
 
-var WIDESCREEN_FIX = (16/9);
-
-
 // Globals.
 var wrapper;
 var max_density;
@@ -76,7 +73,6 @@ function build_page(bonds, densities, temporal) {
         graph['links'].push(link);
     });
 
-
     force = d3.layout.force()
         .charge(CHARGE)
         .linkDistance(DISTANCE)
@@ -127,82 +123,81 @@ function build_page(bonds, densities, temporal) {
         .enter()
         .append('g');
 
-    node
-        .append('circle')
+    function node_act(elem) {
+        elem
+            .on('dblclick' , function(d) {
+                show_ware_info(d['ware_name']);
+            })
+            .on('mouseover', function(d) {
+                $('.' + d.id.toString()).css('display', 'inline');
+            })
+            .on('mouseout', function() {
+                $('.link').css('display', 'none');
+            })
+            .call(force.drag);
+    }
+
+    var node_circle = node.append('circle');
+    node_circle
         .attr('class', 'node')
-        .attr('x', WIDTH / 2)
-        .attr('y', HEIGHT / 2)
         .attr('r', function(d) {
-            return area_to_radius(200 * d.density);
+            return node_radius(d);
         })
         .style('fill', function(d) {
             return random_circle_color();
         })
-        .style('stroke', 'black')
-        .style('stroke-width', '1px')
-        .on('dblclick' , function(d) {
-            show_ware_info(d['ware_name']);
-        })
-        .on('mouseover', function(d) {
-            $('.'+d.id.toString()).css('display', 'inline');
-        })
-        .on('mouseout', function() {
-            $('.link').css('display', 'none');
-        })
-        .call(force.drag);
+    node_act(node_circle);
 
-    var node_textbox = node
-        .append('svg')
-        .attr('x', WIDTH / 2)
-        .attr('y', HEIGHT / 2)
+    var node_label_box = node.append('svg');
+    node_label_box
         .attr('width', function(d) {
-            return TEXT_LABEL_WIDTH_FACTOR * 2 * area_to_radius(200 * d.density);
+            return TEXT_LABEL_WIDTH_FACTOR * 2 * node_radius(d);
         })
         .attr('height', function(d) {
-            return TEXT_LABEL_WIDTH_FACTOR * 2 * area_to_radius(200 * d.density);
+            return TEXT_LABEL_WIDTH_FACTOR * 2 * node_radius(d);
         });
-
-    node_textbox
-        .append('text')
+    var node_label = node_label_box.append('text');
+    node_label
         .attr('class', 'label')
         .attr('filter', 'url(#text-background)')
         .text(function(d) {
             return nodeById.get(d['id']);
         });
+    node_act(node_label_box);
 
-      force.on('tick', function() {
-          link
-              .attr('x1', function(d) { return d.source.x; })
-              .attr('y1', function(d) { return d.source.y; })
-              .attr('x2', function(d) { return d.target.x; })
-              .attr('y2', function(d) { return d.target.y; });
+    force.on('tick', function() {
+        link
+            .attr('x1', function(d) { return d.source.x; })
+            .attr('y1', function(d) { return d.source.y; })
+            .attr('x2', function(d) { return d.target.x; })
+            .attr('y2', function(d) { return d.target.y; });
 
-          node.selectAll('circle')
-              .attr('cx', function(d) {
-                  d.x = Math.max(node.attr('r'), Math.min(WIDTH - node.attr('r'), d.x));
-                  return d.x;
-              })
-              .attr('cy', function(d) {
-                  d.y = Math.max(node.attr('r'), Math.min(HEIGHT - node.attr('r'), d.y));
-                  return d.y;
-              });
+        node.selectAll('circle')
+            .attr('cx', function(d) {
+                d.x = Math.max(node.attr('r'), Math.min(WIDTH - node.attr('r'), d.x));
+                return d.x;
+            })
+            .attr('cy', function(d) {
+                d.y = Math.max(node.attr('r'), Math.min(HEIGHT - node.attr('r'), d.y));
+                return d.y;
+            });
 
-          node.selectAll('svg')
-              .attr('x', function(d) {
-                  return d.x - TEXT_LABEL_WIDTH_FACTOR * area_to_radius(200 * d.density);
-              })
-              .attr('y', function(d) {
-                  return d.y - TEXT_LABEL_WIDTH_FACTOR * area_to_radius(200 * d.density);
-              });
+        node.selectAll('svg')
+            .attr('x', function(d) {
+                return d.x - TEXT_LABEL_WIDTH_FACTOR * node_radius(d);
+            })
+            .attr('y', function(d) {
+                return d.y - TEXT_LABEL_WIDTH_FACTOR * node_radius(d);
+            });
 
-          node.selectAll('svg').selectAll('text')
-              .attr('x', function(d) {
-                  return TEXT_LABEL_WIDTH_FACTOR * area_to_radius(200 * d.density);
-              })
-              .attr('y', function(d) {
-                  return TEXT_LABEL_WIDTH_FACTOR * area_to_radius(200 * d.density);
-              });
-      });
+        node.selectAll('svg').selectAll('text')
+            .attr('x', function(d) {
+                return TEXT_LABEL_WIDTH_FACTOR * node_radius(d);
+            })
+            .attr('y', function(d) {
+                return TEXT_LABEL_WIDTH_FACTOR * node_radius(d);
+            });
+    });
 
     infobox = wrapper.append('div')
         .attr('id', 'infobox');
@@ -232,13 +227,9 @@ function build_page(bonds, densities, temporal) {
     var temporal_plot_width = WIDTH - 40;
 
     var time_range = [20, temporal_plot_width - 20];
-
-    var years_elapsed = unix_to_year(time_max) - unix_to_year(time_min);
-
     var time_scale = d3.scale.linear()
         .domain([time_min, time_max])
         .range(time_range);
-
 
     var scale_year = d3.scale.linear()
         .domain([unix_to_year(time_min), unix_to_year(time_max)])
@@ -327,6 +318,10 @@ function json_to_object(link, callback) {
     d3.json(link, function(loaded_data) {
         callback(loaded_data);
     });
+}
+
+function node_radius(d) {
+    return area_to_radius(200 * d.density);
 }
 
 function links_for_ware(ware, links){
