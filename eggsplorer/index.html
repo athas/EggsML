@@ -113,38 +113,40 @@
       </p>
       <ul>
         <li>
-          <a href="data/densities.json">densities.json</a> contains a list
-          of <code>[name, amount]</code> pairs, where each pair describes the
-          number of times a certain ware (from <code>name</code>) has been
+          <a href="data/densities.json"><code>densities.json</code></a> contains
+          a list of <code>[name, amount]</code> pairs, where each pair describes
+          the number of times a certain ware (from <code>name</code>) has been
           bought (from <code>amount</code>).
         </li>
         <li>
-          <a href="data/bonds.json">bonds.json</a> contains a list
+          <a href="data/bonds.json"><code>bonds.json</code></a> contains a list
           of <code>[name1, name2, probability]</code> triplets, where each
           triplet describes the the <code>probability</code>
           that <code>name2</code> is bought when <code>name1</code is bought
           (and not the other way around).
         </li>
         <li>
-          <a href="data/temporal.json">temporal.json</a> contains a list
-          of <code>[name, timestamps]</code> pairs, where each pair describes
-          the times (from <code>timestamps</code>) at which a certain ware (from
+          <a href="data/temporal.json"><code>temporal.json</code></a> contains a
+          list of <code>[name, timestamps]</code> pairs, where each pair
+          describes the times (from <code>timestamps</code>) at which a certain
+          ware (from
           <code>name</code>) has been requested.
         </li>
       </ul>
       <p>
-        Note: The lunch club is still active.  As such, our data is likely
-        outdated by the time you review the visualization.  We use data
+        <em>Note:</em> The lunch club is still active.  As such, our data is
+        likely outdated by the time you review the visualization.  We use data
         extracted on January 15, 2016.
       </p>
-
-      <h2>Discussion</h2>
       <p>
-        Before we go on to describe our data discoveries, we need to point out
-        possible irregularities in our datasets.
-      </p>
-      <p>
-        
+        Before we go on to describe our data discoveries, we need to point out a
+        possible irregularity in our <code>bonds.json</code> dataset: Actually,
+        the lunch chat bot does not record the purchases directly, but
+        it <em>does</em> record whenever a user un-requests one or more goods.
+        Since it is extremely common practice in the lunch club to un-request a
+        ware once it has been bought, we have deemed that un-requesting is the
+        same as purchasing.  We consider two wares to be part of the same
+        purchase if they have been un-requested within 12 hours of each other.
       </p>
 
       <h2>Discoveries</h2>
