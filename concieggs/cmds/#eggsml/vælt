@@ -75,7 +75,7 @@ Niels
 EOF
 )"
 
-    attribut_god="$(randomLine <<EOF
+    god_attribut="$(randomLine <<EOF
 Gode
 Barmhjertige
 Glædelige
