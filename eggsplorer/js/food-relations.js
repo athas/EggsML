@@ -26,11 +26,11 @@ function setup_page() {
       json_to_object(temporal_url, function(temporal) {
         build_page(bonds, densities, temporal);
         setTimeout(function(){
-        $("#bagtaeppe").animate({top:"-2000px"}, 3000, function(){
-            $("#bagtaeppe").remove();
+        $('#bagtaeppe').animate({top:'-2000px'}, 3000, function(){
+            $('#bagtaeppe').remove();
         });
-        $("#loading").animate( {opacity: "0"}, 2000, function(){
-            $("#loading").remove();
+        $('#loading').animate( {opacity: '0'}, 2000, function(){
+            $('#loading').remove();
             });
         },1999);
       });
@@ -138,7 +138,7 @@ function build_page(bonds, densities, temporal) {
         .style('fill', function(d) {return hash_color(d.density.toString()); })
         .style('stroke', 'black')
         .style('stroke-width', '1px')
-        .on('click' , function(d){show_ware_info(d['ware_name']);})
+        .on('dblclick' , function(d){show_ware_info(d['ware_name']);})
         .on('mouseover', function(d){
             $('.'+d.id.toString()).css('display', 'inline');
             })
@@ -174,11 +174,11 @@ function build_page(bonds, densities, temporal) {
 
           node.selectAll('circle')
               .attr('cx', function(d) {
-                  d.x = Math.max(node.attr("r"), Math.min(WIDTH - node.attr("r"), d.x));
+                  d.x = Math.max(node.attr('r'), Math.min(WIDTH - node.attr('r'), d.x));
                   return d.x;
               })
               .attr('cy', function(d) {
-                  d.y = Math.max(node.attr("r"), Math.min(HEIGHT - node.attr("r"), d.y));
+                  d.y = Math.max(node.attr('r'), Math.min(HEIGHT - node.attr('r'), d.y));
                   return d.y;
               });
 
@@ -290,14 +290,18 @@ function build_page(bonds, densities, temporal) {
     ware_divs.append('h2')
         .text('Connections with other products');
 
-    ware_divs.append("ul")
-             .attr("class","horisontal")
-             .selectAll("li")
-                .data(function( d ){ return d['links'] })
-                .enter()
-                .append("li")
-                    .attr("class", "horisontal")
-                    .text(function(link){return (link.target.ware_name + ": " + (link.probability*100).toFixed(0) + "%" );});
+    ware_divs
+        .append('ul')
+        .selectAll('li')
+        .data(function(d) {
+            return d['links'];
+        })
+        .enter()
+        .append('li')
+        .text(function(link) {
+            return (link.target.ware_name + ': '
+                    + (link.probability * 100).toFixed(0) + '%');
+        });
 }
 
 function show_ware_info(ware_name) {
