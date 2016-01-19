@@ -136,7 +136,7 @@ function build_page(bonds, densities, temporal) {
             return area_to_radius(200 * d.density);
         })
         .style('fill', function(d) {
-            return hash_color(d.density.toString());
+            return random_circle_color();
         })
         .style('stroke', 'black')
         .style('stroke-width', '1px')
@@ -386,13 +386,11 @@ function find_max_value(list){
     return highest;
 }
 
-function hash_color(s) {
-    var n = 0;
-    for (var i = 0; i < s.length; i++) {
-        n += s.charCodeAt(i);
-    }
-    return ('hsl(' + Math.floor(Math.abs(Math.cos(n)) * 360) + ', '
-            + (15 + Math.floor(Math.abs(Math.sin(n)) * 60)) + '%, 80%)');
+function random_circle_color(s) {
+    return ('hsl(' +
+            Math.floor(Math.random() * 360) + ', ' +
+            (35 + Math.floor(Math.random() * 50)) + '%, ' +
+            (70 + Math.floor(Math.random() * 10)) + '%)');
 }
 
 function choose_ware_color(f) {
