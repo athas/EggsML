@@ -3,7 +3,7 @@
 charm=`checkCharmen`
 anticharm=`expr 10 - ${charm}`
 
-start="\|"
+start="|"
 kasse="□"
 
 until [ ${charm} -lt 1 ]
@@ -18,4 +18,4 @@ do
   anticharm=`expr ${anticharm} - 1`
 done
 
-echo "${start}\|"
+echo "${start}|"
