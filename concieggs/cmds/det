@@ -15,7 +15,7 @@ if [ "$samme" ]; then
     fi
     runcmd $last
     echo $last | dbWrite cur_cmd
-elif echo "$@" | grep -i -E '^ *sagde +hun +også +i +går: *' > /dev/null; then
+elif echo "$@" | grep -i -E '^ *sagde +hun +i +går: *' > /dev/null; then
     shift; shift; shift; shift
     if [ $# -eq 0 ]; then
         echo "Men hvad sagde hun?"
@@ -38,6 +38,6 @@ elif echo "$@" | grep -i -E '^ *(der )?(var|er) +faktisk +(ret|pænt)? +sjovt\.?
     rm $CONCIEGGS_DB_DIR/last_dshoig
     pleasedBy "$EGGS_USER" 5
 else
-    echo "$EGGS_USER: Brug 'det er jo ikke sjovt', 'det er faktisk ret sjovt' eller 'det sagde hun også i går:'."
+    echo "$EGGS_USER: Brug 'det er jo ikke sjovt', 'det er faktisk ret sjovt' eller 'det sagde hun i går:'."
 fi
 
