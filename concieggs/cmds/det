@@ -38,6 +38,6 @@ elif echo "$@" | grep -i -E '^ *(der )?(var|er) +faktisk +(ret|pænt)? +sjovt\.?
     rm $CONCIEGGS_DB_DIR/last_dshoig
     pleasedBy "$EGGS_USER" 5
 else
-    echo "$EGGS_USER: Brug 'det er jo ikke sjovt', 'det er faktisk ret sjovt' eller 'det sagde hun i går:'."
+    echo "$EGGS_USER: Brug 'det er jo ikke sjovt', 'det er faktisk ret sjovt' eller 'det sagde hun også i går:'."
 fi
 
