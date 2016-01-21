@@ -15,7 +15,7 @@ if [ "$samme" ]; then
     fi
     runcmd $last
     echo $last | dbWrite cur_cmd
-elif echo "$@" | grep -i -E '^ *sagde +hun +i +går: *' > /dev/null; then
+elif echo "$@" | grep -i -E '^ *sagde +hun +også +i +går: *' > /dev/null; then
     shift; shift; shift; shift
     if [ $# -eq 0 ]; then
         echo "Men hvad sagde hun?"
