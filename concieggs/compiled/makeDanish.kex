@@ -120,4 +120,6 @@ word := ~/computer/ "datamat"
       | ~/bandwidth/ "båndbredde"
       | ~/bracket/ "kantet parentes" (~/s/ "er")?
       | ~/(curly ?)?brace/ "tuborgklamme" (~/s/ "r")?
+      | ~/throughput/ "gennemstrømning"
+      | ~/latency/ "forsinkelse"
       | /[a-zA-ZæøåÆØÅ0-9]+/
