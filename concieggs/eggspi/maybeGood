@@ -2,7 +2,7 @@
 #
 # Return 0 if everything's okay, 1 if it's not.
 
-default=5
+neutral=2
 
-charm=$( echo "2 k $(checkCharmen || echo $default) $default / $1 100 * * 0 k 1 / p" | dc)
+charm=$( echo "2 k $(checkCharmen || echo $neutral) $neutral / $1 100 * * 0 k 1 / p" | dc)
 [ "$charm" -gt $(random 0 99) ]
