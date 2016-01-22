@@ -36,7 +36,11 @@ def space_standup():
         'kig op!',
         'DET HER ER MORSOMT',
         'jamen, tænk over det her!',
-        'og det kan jeg altså ikke gøre meget ved'
+        'og det kan jeg altså ikke gøre meget ved',
+        'arj, det skal I lige høre',
+        'i tror det er LØGÑ',
+        'I tror det ikke',
+        'Har I hørt den før?'
     ]
     return ' -- ' + random.choice(standup) + ' -- '
 
@@ -55,7 +59,10 @@ def spread_sentence_standup(sentences):
         'Altså...',
         '"HOLD KÆFT!" råber jeg.',
         'Come on, Danmark.',
-        'Jeg TISSER på loven.'
+        'Jeg TISSER på loven.',
+        'Jamen, hvad siger I?',
+        'AAAAAAAAAAAAAAAAAAAAH!!!',
+        'Den bruger jeg ikke igen...',
     ]
 
     sentences_new = []
