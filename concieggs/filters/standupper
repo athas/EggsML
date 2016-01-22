@@ -40,7 +40,9 @@ def space_standup():
         'arj, det skal I lige høre',
         'i tror det er LØGÑ',
         'I tror det ikke',
-        'Har I hørt den før?'
+        'har I hørt den før?',
+        'det skal I lige høre',
+        'den her ser I ikke komme'
     ]
     return ' -- ' + random.choice(standup) + ' -- '
 
@@ -63,6 +65,7 @@ def spread_sentence_standup(sentences):
         'Jamen, hvad siger I?',
         'AAAAAAAAAAAAAAAAAAAAH!!!',
         'Den bruger jeg ikke igen...',
+        'Men piger gør SÅDÅN her!'
     ]
 
     sentences_new = []
