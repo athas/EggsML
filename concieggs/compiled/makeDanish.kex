@@ -122,4 +122,5 @@ word := ~/computer/ "datamat"
       | ~/(curly ?)?brace/ "tuborgklamme" (~/s/ "r")?
       | ~/throughput/ "gennemstrømning"
       | ~/latency/ "forsinkelse"
+      | ~/clock cycle/ "klokcykel"
       | /[a-zA-ZæøåÆØÅ0-9]+/
