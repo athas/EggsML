@@ -1,6 +1,6 @@
 #!/bin/sh
 
-eval "$(echo "$@" | parse '^ *(?<budskab>(nu |dog |roligt |bare )*(budskabet|det gode budskab|rygtet)) *$')"
+eval "$(echo "$@" | parse '^ *(?<budskab>(nu |dog |roligt |bare )*(budskabet|det (gode|glade) (budskab|nyt)|rygtet)) *$')"
 
 if [ "$budskab" ]; then
     eggses=$(prevEggs; nextEggs)
