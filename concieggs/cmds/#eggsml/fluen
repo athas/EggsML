@@ -16,7 +16,7 @@ fi
 iter=0
 while true; do
     last="$(echo "$who" | randomLine)"
-    if (maybeGood 0.66); then
+    if [ random 0 2 -lt 2 ]; then
         echo "Fluen summer hen over hovedet på $last!"
         iter=$(expr $iter + 1)
     else
