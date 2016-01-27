@@ -57,11 +57,13 @@ elif [ "$user" ]; then
     fi
 
     if cmpNames $user $EGGS_USER; then
-        (echo "Hvem du ikke en gang hvem du selv er?"
+        (echo "Ved du ikke hvem du selv er?"
          echo "ALLE SAMMEN!  $EGGS_USER har glemt hvem _"$EGGS_USER"_ er!"
          echo "Ej, gisp, jeg kan simpelthen ikke forestille mig hvem det kunne være."
          echo "..."
          echo "Tjek dit pas."
+         echo "Kig i et spejl."
+         echo "Den klammeste eggsling i kassen."
         ) | randomLine
         annoyedBy $EGGS_USER
         exit
