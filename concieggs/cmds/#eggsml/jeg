@@ -62,6 +62,7 @@ elif [ "$god" ] || [ "$alsogod" ] || [ "$truegod" ]; then
             if [ "$truegod" ]; then
                 echo "Ud med de hedenske guder!  Hil vor Herre $who!"
                 removePaganGods
+                makeGod "$who"
             else
                 echo "De er jo allerede en af vor guder!"
             fi
