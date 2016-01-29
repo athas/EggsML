@@ -21,7 +21,7 @@ while true; do
         iter=$(expr $iter + 1)
     else
         echo "Fluen summer videre rundt i lokalet..."
-        if [ $iter -gt 3 -a "$(printf 'a\nb\nstop' | randomLine)" = "stop" ]; then
+        if [ $iter -gt 3 -a "$(seq 1 3 | randomLine)" = "1" ]; then
             break;
         fi
     fi
