@@ -45,9 +45,9 @@ class eggsml:
 	
 	def get_user_aliases(self, alias):
 		for al in self.aliases:
-			for a in al[1]:
+			for a in al:
 				if a == alias:
-					return al[1]
+					return al
 		return []
 	
 	def get_colours(self):
