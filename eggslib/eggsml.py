@@ -107,7 +107,10 @@ class eggsml:
 			"Kom til at læse YouTube-kommentarer",
 			"Undertøjsmodel",
 			"Skrev en afhandling om \"Dantes Inferno\"",
-			"Tog til Justin Bieber-koncert i Norge"
+			"Tog til Justin Bieber-koncert i Norge",
+			"Professionel bankospiller",
+			"Kigger på skyer",
+			"Ingen kommentar"
 		]
 		return random.choice(fakefates)
 	
