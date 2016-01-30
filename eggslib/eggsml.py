@@ -367,9 +367,9 @@ class eggsml:
 		
 		for u in self.get_users():
 			fate = self.get_fakefate()
-			for f in self.get_fates():
-				if f[0] in self.get_user_aliases(u):
-					fate = f[1]
+			for name, f in self.get_fates():
+				if name in self.get_user_aliases(u):
+					fate = f
 			info[u] = {'balance' : 0.0,
 			           'paid' : 0.0,
 			           'eggscount' : 0,
