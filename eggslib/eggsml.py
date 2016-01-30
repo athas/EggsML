@@ -46,7 +46,7 @@ class eggsml:
 	def get_user_aliases(self, alias):
 		aliases = []
 		found = False
-		for alt, al in self.aliases:
+		for alt, al in self.aliases.iteritems():
 			for a in al:
 				if a == alias:
 					found = True
