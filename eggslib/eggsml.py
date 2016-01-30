@@ -43,6 +43,13 @@ class eggsml:
 	def get_aliases(self):
 		return self.aliases
 	
+	def get_user_aliases(self, alias):
+		for al in self.aliases:
+			for a in al[1]:
+				if a == alias:
+					return al[1]
+		return []
+	
 	def get_colours(self):
 		return self.colours
 	
@@ -65,7 +72,7 @@ class eggsml:
 	def get_fates(self):
 		return self.fates
 	
-	def get_fate(self, alias):
+	def get_fakefate(self):
 		fakefates = [
 			"Blev bidt af en bi",
 			"Så en hund",
@@ -86,10 +93,13 @@ class eggsml:
 			"Paradise Hotel-vinder",
 			"Laver film med Adam Sandler"
 		]
+		return random.choice(fakefates)
+	
+	def get_fate(self, alias):
 		try:
 			fate = self.fates[alias]
 		except KeyError:
-			return random.choice(fakefates)
+			return self.get_fakefate()
 		return fate
 	
 	def get_masters(self):
@@ -340,11 +350,15 @@ class eggsml:
 		info = {}
 		
 		for u in self.get_users():
+			fate = self.get_fakefate()
+			for f in self.get_fates():
+				if f[0] in self.get_user_aliases():
+					fate = f[1]
 			info[u] = {'balance' : 0.0,
 			           'paid' : 0.0,
 			           'eggscount' : 0,
 			           'lasteggs' : None,
-			           'fates': self.get_fate(u)}
+			           'fate': fate}
 
 		for p in self.get_purchases():
 			if p['alias'] in info: # HACK because

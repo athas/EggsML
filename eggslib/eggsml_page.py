@@ -99,7 +99,7 @@ class eggsml_page:
                                                                self.currency(avg_paid),
                                                                latest_lunch)
             if data['lasteggs'] > 30 and abs(balance) < 10:
-                alumne += row + '<td>%s</td>\n</tr>\n' % self.e.get_fate(u[0])
+                alumne += row + '<td>%s</td>\n</tr>\n' % data['fate']
             else:
                 l += row + '\n</tr>\n'
             totalpaid += data['paid']
@@ -171,7 +171,6 @@ class eggsml_page:
         o += self.balances()
         o += self.wishes()
         o += self.purchases()
-        o += "%s" % str(self.e.get_fates())
         self.output = o
         return o
     
