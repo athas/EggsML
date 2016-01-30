@@ -74,6 +74,13 @@ class eggsml:
 			"Så Venedig og døde",
 			"Version2-blogger",
 			"Christian Nobel",
+			"Rudolf Heiss",
+			"Fisker",
+			"Bor i Sydspanien",
+			"Bitcoinminer",
+			"Fik over 1000 point for en kommentar på Reddit",
+			"Fængslet",
+			"Erklæret fredsløs"
 		]
 		user = self.get_alias(user)
 		if user == '':
@@ -336,7 +343,8 @@ class eggsml:
 			info[u] = {'balance' : 0.0,
 			           'paid' : 0.0,
 			           'eggscount' : 0,
-			           'lasteggs' : None}
+			           'lasteggs' : None,
+			           'fates': self.get_fate(u)}
 
 		for p in self.get_purchases():
 			if p['alias'] in info: # HACK because
