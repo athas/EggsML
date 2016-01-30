@@ -46,13 +46,13 @@ class eggsml:
 	def get_user_aliases(self, alias):
 		aliases = []
 		found = False
-		for alt, al in self.aliases.iteritems():
+		for al in self.aliases:
 			for a in al:
 				if a == alias:
 					found = True
 					break
 			if found:
-				aliases = []
+				aliases = al
 				break
 		return aliases
 	
