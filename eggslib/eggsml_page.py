@@ -82,7 +82,7 @@ class eggsml_page:
         alumne = '<h2>Alumne</h2>\n'
         header = '<thead>\n<tr>\n<th>Bruger</th><th>Saldo</th><th>Betalt ialt</th><th>Måltider</th><th>Gns. pris</th><th>Seneste eggs</th>'
         l += '<table id="eggsdata" class="tablesorter">' + header + '\n</tr>\n</thead><tbody>\n'
-        alumne += '<table id="alumne" class="tablesorter">' + header + '<td>Skæbne</td>\n</tr>\n</thead><tbody>\n'
+        alumne += '<table id="alumne" class="tablesorter">' + header + '<th>Skæbne</th>\n</tr>\n</thead><tbody>\n'
         totalpaid = 0.0
         totalcount = 0.0
         new_total = 0
@@ -171,6 +171,7 @@ class eggsml_page:
         o += self.balances()
         o += self.wishes()
         o += self.purchases()
+        o += "%d" % len(self.e.get_fates())
         self.output = o
         return o
     
