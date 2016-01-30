@@ -78,8 +78,9 @@ class eggsml:
 		user = self.get_alias(user)
 		if user == '':
 			return random.choice(fakefates)
-		fate = self.fates[user]
-		if fate == '':
+		try:
+			fate = self.fates[user]
+		except KeyError:
 			return random.choice(fakefates)
 		return fate
 	
