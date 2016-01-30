@@ -46,7 +46,7 @@ class eggsml:
 	def get_user_aliases(self, alias):
 		aliases = []
 		found = False
-		for al in self.aliases:
+		for alt, al in self.aliases:
 			for a in al:
 				if a == alias:
 					found = True
@@ -370,7 +370,7 @@ class eggsml:
 		
 		for u in self.get_users():
 			fate = self.get_fakefate()
-			for name, f in self.get_fates():
+			for name, f in self.get_fates().iteritems():
 				if name in self.get_user_aliases(u):
 					fate = f
 			info[u] = {'balance' : 0.0,
