@@ -171,7 +171,7 @@ class eggsml_page:
         o += self.balances()
         o += self.wishes()
         o += self.purchases()
-        o += "%d" % len(self.e.get_fates())
+        o += "%s" % str(self.e.get_fates())
         self.output = o
         return o
     
