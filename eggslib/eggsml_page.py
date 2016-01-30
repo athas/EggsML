@@ -80,9 +80,9 @@ class eggsml_page:
         uinfsorted1 = sorted(uinfsorted0, key=lambda (k,v): -v['lasteggs'], reverse=True)
         l = '<h2>Saldoer</h2>\n'
         alumne = '<h2>Alumne</h2>\n'
-        header = '<thead>\n<tr>\n<th>Bruger</th><th>Saldo</th><th>Betalt ialt</th><th>Måltider</th><th>Gns. pris</th><th>Seneste eggs</th>\n</tr>\n</thead><tbody>\n'
-        l += '<table id="eggsdata" class="tablesorter">' + header
-        alumne += '<table id="alumne" class="tablesorter">' + header
+        header = '<thead>\n<tr>\n<th>Bruger</th><th>Saldo</th><th>Betalt ialt</th><th>Måltider</th><th>Gns. pris</th><th>Seneste eggs</th>'
+        l += '<table id="eggsdata" class="tablesorter">' + header + '\n</tr>\n</thead><tbody>\n'
+        alumne += '<table id="alumne" class="tablesorter">' + header + '<td>Skæbne</td>\n</tr>\n</thead><tbody>\n'
         totalpaid = 0.0
         totalcount = 0.0
         new_total = 0
@@ -93,15 +93,15 @@ class eggsml_page:
             data = u[1]
             balance = data['balance']
             latest_lunch = self.niceDays(data['lasteggs'])
-            avg_paid = (data['paid'] - balance)/data['eggscount'];
-            row = '<tr>\n<td>%s</td><td%s>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td>\n</tr>\n' % (alias, self.negative(balance), self.currency(balance),
+            avg_paid = (data['paid'] - balance)/data['eggscount']
+            row = '<tr>\n<td>%s</td><td%s>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td>' % (alias, self.negative(balance), self.currency(balance),
                                                                self.currency(data['paid']), self.pointer(data['eggscount']),
                                                                self.currency(avg_paid),
                                                                latest_lunch)
             if data['lasteggs'] > 30 and abs(balance) < 10:
-                alumne += row
+                alumne += row + '<td>%s</td>\n</tr>\n' % self.e.get_fate(u[0])
             else:
-                l += row
+                l += row + '\n</tr>\n'
             totalpaid += data['paid']
             totalcount += data['eggscount']
         #total_avg = (paid - data['totalpaid'])/data['totalcount'];
@@ -145,7 +145,7 @@ class eggsml_page:
         url += '&chds=0,%s' % str(max(values)) # Scale values
         url += '&chl=%s' % "|".join(aliases) # Aliases
         url += '&chco=%s' % "|".join(colours) # Colour spec
-        return url    
+        return url
     
     def wishes(self):
         wl = self.e.get_wishes()
@@ -158,7 +158,7 @@ class eggsml_page:
         
     def index(self):
         o = '<h1>Brainfuck pr&aelig;senterer Brainfuck\'s EggsML</h1>'
-        o += '<h2>Plads til forbedring</h2>'
+        o += '<h2>Ny og forbedret</h2>'
         # o += '<h3>Tilmeld personer til næste eggs -- Virker EGGE endnu</h3>'
         # o += '<b>Tilmeld indviet person til næste eggs:</b><br><form action="/" method="get"><input type="text" name="tilmeld"><br>'
         # o += '<input type="submit" value="Submit"></form>'
