@@ -84,7 +84,17 @@ class eggsml:
 			"Brugte alle sine penge på EggsML",
 			"Præsident for en lilleput-nation",
 			"Paradise Hotel-vinder",
-			"Laver film med Adam Sandler"
+			"Laver film med Adam Sandler",
+			"Ukendt kendis",
+			"Arvning til en villa i Hellerup",
+			"Level 100 i World of Warcraft",
+			"Fik en død pixel på sin skærm",
+			"Dyrskue-opråber",
+			"Traktortræk-entusiast",
+			"Kom til at læse YouTube-kommentarer",
+			"Undertøjsmodel",
+			"Skrev en afhandling om \"Dantes Inferno\"",
+			"Tog til Justin Bieber-koncert i Norge"
 		]
 		user = self.get_alias(user)
 		if user == '':
