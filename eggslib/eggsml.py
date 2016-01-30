@@ -80,7 +80,11 @@ class eggsml:
 			"Bitcoinminer",
 			"Fik over 1000 point for en kommentar på Reddit",
 			"Fængslet",
-			"Erklæret fredsløs"
+			"Erklæret fredsløs",
+			"Brugte alle sine penge på EggsML",
+			"Præsident for en lilleput-nation",
+			"Paradise Hotel-vinder",
+			"Laver film med Adam Sandler"
 		]
 		try:
 			fate = self.fates[alias]
