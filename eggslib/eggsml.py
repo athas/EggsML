@@ -65,7 +65,7 @@ class eggsml:
 	def get_fates(self):
 		return self.fates
 	
-	def get_fate(self, user):
+	def get_fate(self, alias):
 		fakefates = [
 			"Blev bidt af en bi",
 			"Så en hund",
@@ -82,11 +82,8 @@ class eggsml:
 			"Fængslet",
 			"Erklæret fredsløs"
 		]
-		user = self.get_alias(user)
-		if user == '':
-			return random.choice(fakefates)
 		try:
-			fate = self.fates[user]
+			fate = self.fates[alias]
 		except KeyError:
 			return random.choice(fakefates)
 		return fate
@@ -94,9 +91,8 @@ class eggsml:
 	def get_masters(self):
 		return self.masters
 	
-	def is_master(self, user):
-		user = self.get_alias(user)
-		return user in self.masters
+	def is_master(self, alias):
+		return alias in self.masters
 
 	def datesort(self, x, y):
 		return (-1 if x['date']<y['date'] else 1)
