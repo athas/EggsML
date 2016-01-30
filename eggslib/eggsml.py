@@ -76,7 +76,7 @@ class eggsml:
 			"Christian Nobel",
 		]
 		user = self.get_alias(user)
-		if user != '':
+		if user == '':
 			return random.choice(fakefates)
 		fate = self.fates[user]
 		if fate == '':
@@ -496,7 +496,6 @@ class eggsml:
 			uname = usr['user']
 			if uname not in daydata: daydata[uname] = 0
 			daydata[uname] += usr['amount']
-		
 	
 	def add_colour(self, line):
 		tmp = line.strip()
@@ -562,7 +561,7 @@ class eggsml:
 					block = 'dates'
 				elif t=='FARVER':
 					block = 'colours'
-				elif t=='SKÆBNE':
+				elif t=='SKÆBNER':
 					block = 'fate'
 				elif t=='MESTRE':
 					block = 'masters'
