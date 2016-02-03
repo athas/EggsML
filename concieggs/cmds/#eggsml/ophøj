@@ -31,7 +31,7 @@ if gitRefresh; then
 /::MESTRE::/
 +2
 i
-$(if [ $# -eq 0 ]; then echo "$who"; else echo "$who # $*"; done)
+$(if [ $# -eq 0 ]; then echo "$who"; else echo "$who # $*"; fi)
 .
 w
 EOF
