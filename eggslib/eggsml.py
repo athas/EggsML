@@ -560,7 +560,7 @@ class eggsml:
 		self.fates.update({user : fate})
 	
 	def add_master(self, line):
-		user = self.get_alias(line.strip())
+		user = line.strip()
 		if user == '':
 			return
 		self.masters.append(user)

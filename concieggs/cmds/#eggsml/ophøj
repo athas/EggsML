@@ -27,12 +27,17 @@ fi
 
 if gitRefresh; then
     shift
-    if [ $# -eq 0 ]; then
-        echo "$who" >> $CONCIEGGS_DB_DIR/mestre
-    else
-        echo "$who # $*" >> $CONCIEGGS_DB_DIR/mestre
-    fi
-    if tryGitChange "Ophøj $who til mester" $CONCIEGGS_DB_DIR/mestre; then
+    cd "$EGGS_DIR"
+    ed slashdotfrokost > /dev/null <<EOF
+/::MESTRE::/
++2
+i
+$(if [ $# -eq 0 ]; then echo "$who"; else echo "$who # $*"; done)
+.
+w
+EOF
+    exit
+    if tryGitChange "Ophøj $who til mester" slashdotfrokost; then
         echo "Ritualet er fuldendt.  $who regnes nu blandt mestrene udi frokostens kunst."
     else
         gitRepair $CONCIEGGS_DB_DIR/mestre
