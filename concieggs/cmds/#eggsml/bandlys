@@ -8,8 +8,7 @@ if [ $# -lt 1 ]; then
     exit
 fi
 
-auth="$(isTrusted "$EGGS_USER")"
-if ! [ "$auth" ]; then
+if ! isTrusted "$EGGS_USER"; then
     echo "$EGGS_USER: Kun logemestre har bemyndigelse til at indskrænke vores begrebsverden."
     exit
 fi

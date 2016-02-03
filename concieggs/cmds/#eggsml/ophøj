@@ -7,8 +7,7 @@ if [ $# -lt 1 ]; then
     exit 0
 fi
 
-auth="$(isTrusted "$EGGS_USER")"
-if ! [ "$auth" ]; then
+if ! isTrusted "$EGGS_USER"; then
     echo "$EGGS_USER: Det har du på ingen måde bemyndigelse til."
     exit
 fi
@@ -20,7 +19,7 @@ if ! [ "$who" ]; then
     exit
 fi
 
-if [ "$(isTrusted "$1")" ]; then
+if isTrusted "$1"; then
     echo "$EGGS_USER: $who er allerede en af vor respekterede logemestre."
     exit
 fi
