@@ -56,5 +56,13 @@ if __name__ == '__main__':
             exit(0)
         else:
             exit(1)
+    elif command == "isTrusted":
+        if len(sys.argv) != 4:
+            sys.stderr.write("Usage: %s %s %s <name>" % (sys.argv[0], lunchfile, command))
+        else:
+            if e.is_master(sys.argv[3]):
+                exit(0)
+            else:
+                exit(1)
     else:
         exit("Unrecognized command %s" % command)

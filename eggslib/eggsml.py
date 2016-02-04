@@ -17,17 +17,19 @@ class eggsml:
 	uniquedates = None
 	dayprices = {}
 	colours = {}
+	fates = {}
+	masters = []
 	content = ''
 	users = []
 	startdate = None
 	enddate = None
 	nodays = None
 
-        def get_alias_rand(self,eggname):
-          for aliaslist in self.aliases: 
-            if eggname==aliaslist[0]:
-              return random.choice(aliaslist)
-          return None
+	def get_alias_rand(self,eggname):
+		for aliaslist in self.aliases: 
+			if eggname==aliaslist[0]:
+				return random.choice(aliaslist)
+		return None
 
 	def set_startdate(self, somedate):
 		self.startdate = somedate
@@ -41,15 +43,28 @@ class eggsml:
 	def get_aliases(self):
 		return self.aliases
 	
+	def get_user_aliases(self, alias):
+		aliases = []
+		found = False
+		for al in self.aliases:
+			for a in al:
+				if a == alias:
+					found = True
+					break
+			if found:
+				aliases = al
+				break
+		return aliases
+	
 	def get_colours(self):
 		return self.colours
 	
-        def get_colour(self, alias):
-            try:
-                    colour = self.colours[alias]
-                    return colour
-            except:
-                    return '#%02x%02x%02x' % (random.randint(0,200), random.randint(0,200), random.randint(0,200))
+	def get_colour(self, alias):
+		try:
+			colour = self.colours[alias]
+			return colour
+		except:
+			return '#%02x%02x%02x' % (random.randint(0,200), random.randint(0,200), random.randint(0,200))
 
 	def get_purchases(self):
 		return self.purchases
@@ -59,6 +74,58 @@ class eggsml:
 		
 	def get_dates(self):
 		return self.dates
+	
+	def get_fates(self):
+		return self.fates
+	
+	def get_fakefate(self):
+		fakefates = [
+			"Blev bidt af en bi",
+			"Så en hund",
+			"Spiste en tærte",
+			"Skraldemand",
+			"Så Venedig og døde",
+			"Version2-blogger",
+			"Christian Nobel",
+			"Rudolf Heiss",
+			"Fisker",
+			"Bor i Sydspanien",
+			"Bitcoinminer",
+			"Fik over 1000 point for en kommentar på Reddit",
+			"Fængslet",
+			"Erklæret fredsløs",
+			"Brugte alle sine penge på EggsML",
+			"Præsident for en lilleput-nation",
+			"Paradise Hotel-vinder",
+			"Laver film med Adam Sandler",
+			"Ukendt kendis",
+			"Arvning til en villa i Hellerup",
+			"Level 100 i World of Warcraft",
+			"Fik en død pixel på sin skærm",
+			"Dyrskue-opråber",
+			"Traktortræk-entusiast",
+			"Kom til at læse YouTube-kommentarer",
+			"Undertøjsmodel",
+			"Skrev en afhandling om \"Dantes Inferno\"",
+			"Tog til Justin Bieber-koncert i Norge",
+			"Professionel bankospiller",
+			"Kigger på skyer",
+			"Ingen kommentar"
+		]
+		return random.choice(fakefates)
+	
+	def get_fate(self, alias):
+		try:
+			fate = self.fates[alias]
+		except KeyError:
+			return self.get_fakefate()
+		return fate
+	
+	def get_masters(self):
+		return self.masters
+	
+	def is_master(self, alias):
+		return alias in self.masters
 
 	def datesort(self, x, y):
 		return (-1 if x['date']<y['date'] else 1)
@@ -262,7 +329,6 @@ class eggsml:
 				meals.append(0)
 				i = i+1
 		
-
 		# convolve with gaussian kernel to smooth out the expenses 
 		filter_size = 700
 		span = filter_size/2
@@ -284,7 +350,7 @@ class eggsml:
 			half_meals = self.get_half_meals_in_date(d)
 			price = 0
 			for x in range(0, half_meals):
-				price = price + price_meal[i]				
+				price = price + price_meal[i]
 				i = i+1
 			price = price/half_meals*2
 			dayprices.update({d['date'] : price})
@@ -297,50 +363,54 @@ class eggsml:
 			half_meal_count += int(u['amount']*2)
 		return half_meal_count	
 	
-        def get_userinfo(self):
-                prices = self.get_day_prices()
-                # Initialize balances to the users expenses
-                info = {}
-                
-                for u in self.get_users():
-                        info[u] = {'balance' : 0.0,
-                                   'paid' : 0.0,
-                                   'eggscount' : 0,
-                                   'lasteggs' : None}
+	def get_userinfo(self):
+		prices = self.get_day_prices()
+		# Initialize balances to the users expenses
+		info = {}
+		
+		for u in self.get_users():
+			fate = self.get_fakefate()
+			for name, f in self.get_fates().iteritems():
+				if name in self.get_user_aliases(u):
+					fate = f
+			info[u] = {'balance' : 0.0,
+			           'paid' : 0.0,
+			           'eggscount' : 0,
+			           'lasteggs' : None,
+			           'fate': fate}
 
-                for p in self.get_purchases():
-                        if p['alias'] in info: # HACK because
-                                               # get_users fails for
-                                               # people who've never
-                                               # attended a lunch.
-                                info[p['alias']]['paid'] += float(p['amount'])
-                                info[p['alias']]['balance'] += float(p['amount'])
-                                                
-                for d in self.get_dates():
-                        price = prices[d['date']]
-                        for u in d['users']:
-                                info[u['user']]['balance'] -= price * u['amount']
-                                info[u['user']]['eggscount'] +=  u['amount']
+		for p in self.get_purchases():
+			if p['alias'] in info: # HACK because
+								   # get_users fails for
+								   # people who've never
+								   # attended a lunch.
+				info[p['alias']]['paid'] += float(p['amount'])
+				info[p['alias']]['balance'] += float(p['amount'])
+		
+		for d in self.get_dates():
+			price = prices[d['date']]
+			for u in d['users']:
+				info[u['user']]['balance'] -= price * u['amount']
+				info[u['user']]['eggscount'] +=  u['amount']
 
-                for useralias in info.keys():
-                  dates = self.get_dates()
-                  for d in reversed(dates):
-                    for u in d['users']:
-                      if useralias == u['user'] and info[useralias]['lasteggs'] == None:
-                          info[useralias]['lasteggs'] = (date.today() - d['date']).days
-                          break
-                                                      
-                return info
-
-        def get_latest_lunch_date(self, user):
-                dates = self.get_dates()
-                today = date.today()
-                for d in reversed(dates):
-                  for u in d['users']:
-                    if user == u['user']:
-                      diff = today - d['date']
-                      return diff.days
-        	
+		for useralias in info.keys():
+			dates = self.get_dates()
+			for d in reversed(dates):
+				for u in d['users']:
+					if useralias == u['user'] and info[useralias]['lasteggs'] == None:
+						info[useralias]['lasteggs'] = (date.today() - d['date']).days
+						break
+		return info
+	
+	def get_latest_lunch_date(self, user):
+		dates = self.get_dates()
+		today = date.today()
+		for d in reversed(dates):
+			for u in d['users']:
+				if user == u['user']:
+					diff = today - d['date']
+					return diff.days
+	
 	def get_average_price(self, enddate=None):
 		total = 0.0
 		users = {}
@@ -460,7 +530,7 @@ class eggsml:
 		day = date(int(t[0]), int(t[1]), int(t[2]))
 		tmp = {'date' : day, 'users' : u}
 		self.dates.append(tmp)
-
+		
 		if day not in self.uniquedates_dict:
 			self.uniquedates_dict[day] = {}
 		daydata = self.uniquedates_dict[day]
@@ -468,9 +538,7 @@ class eggsml:
 			uname = usr['user']
 			if uname not in daydata: daydata[uname] = 0
 			daydata[uname] += usr['amount']
-		
-
-
+	
 	def add_colour(self, line):
 		tmp = line.strip()
 		if tmp=='':
@@ -479,6 +547,23 @@ class eggsml:
 		user = self.get_alias(tmp[0].strip())
 		colour = tmp[1].strip()
 		self.colours.update({user : colour})
+	
+	def add_fate(self, line):
+		tmp = line.strip()
+		if tmp == '':
+			return
+		tmp = tmp.split(':')
+		user = self.get_alias(tmp[0].strip())
+		fate = tmp[1].strip()
+		if user == '' or fate == '':
+			return
+		self.fates.update({user : fate})
+	
+	def add_master(self, line):
+		user = line.strip()
+		if user == '':
+			return
+		self.masters.append(user)
 	
 	def fix_float(self, f):
 		return round(f, 2)
@@ -500,6 +585,8 @@ class eggsml:
 		self.nodays = None
 		r = re.compile(r"#.*?$", re.MULTILINE | re.UNICODE)
 		self.content = open(filename).read()
+		if self.content.splitlines()[0] != 'NY OG FORBEDRET':
+			raise Exception('slashdotfrokost skal være NY OG FORBEDRET')
 		block = ''
 		for l in self.content.splitlines():
 			if l.strip()[0:2]=='::':
@@ -516,8 +603,12 @@ class eggsml:
 					block = 'dates'
 				elif t=='FARVER':
 					block = 'colours'
+				elif t=='SKÆBNER':
+					block = 'fate'
+				elif t=='MESTRE':
+					block = 'masters'
 				else:
-					block = ''					 
+					block = ''
 			else:
 				if block!='colours':
 					l = r.sub('', l)
@@ -533,8 +624,12 @@ class eggsml:
 					self.add_date(l)
 				elif block=='colours':
 					self.add_colour(l)
+				elif block=='fate':
+					self.add_fate(l)
+				elif block=='masters':
+					self.add_master(l)
 				else:
 					pass
-
+		
 		self.dates.sort(self.datesort)
 		self.users = self.get_users()

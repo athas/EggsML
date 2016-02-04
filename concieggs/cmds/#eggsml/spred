@@ -1,6 +1,6 @@
 #!/bin/sh
 
-eval "$(echo "$@" | parse '^ *(?<budskab>(nu |dog |roligt |bare )*(budskabet|det gode budskab|rygtet)) *$')"
+eval "$(echo "$@" | parse '^ *(?<budskab>(nu |dog |roligt |bare )*(budskabet|det \pL+e (budskab|nyt)|rygtet)) *$')"
 
 if [ "$budskab" ]; then
     eggses=$(prevEggs; nextEggs)
@@ -20,5 +20,5 @@ if [ "$budskab" ]; then
         done
     fi
 else
-    echo "$EGGS_USER: Spred hvad?  Jeg kan sprede det gode budskab."
+    echo "$EGGS_USER: Spred hvad?  Jeg kan sprede de fleste budskaber."
 fi

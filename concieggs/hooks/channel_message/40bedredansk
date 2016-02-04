@@ -14,5 +14,4 @@ Nejnej, på dansk
 EOF`
 
     say "$prefix: $body"
-    annoyedBy "$EGGS_USER" 1
 fi

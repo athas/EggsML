@@ -91,6 +91,14 @@ def run_main():
                         exit = 0
                     else:
                         exit = 1
+            elif command == "isTrusted":
+                if len(words) != 2:
+                    sys.stderr.write("Usage: %s <name>" % (command,))
+                else:
+                    if e.is_master(words[1]):
+                        exit = 0
+                    else:
+                        exit = 1
             else:
                 sys.stderr.write("Unrecognized command %s" % command)
         fd.write(str(int(exit))+'\n')

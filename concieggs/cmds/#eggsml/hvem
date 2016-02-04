@@ -4,7 +4,7 @@
 # at benytte komplette sætninger!  Alternativt, spørg hvem der skal
 # købe ind eller hvem der har en ting.
 
-eval "$(echo "$@" | parse '(?<swear>(fuck |helvede |satan ))?er (?<swear2>(fucking |fandens ))?(?<king>kongen?( (af|på) #?[Ee]ggs[Mm][Ll])?|(?<god>gud)|(?<user>[^ ]+))$|(?<buy>(køber ind|skal købe ind|handler|skal handle ind))|(?<prikkede>(prikkede sidst))|har (?<thing>[^ ]+)|(?<neggst>eggser)')"
+eval "$(echo "$@" | parse '^(?<swear>(fuck |helvede |satan ))?er (?<swear2>(fucking |fandens ))?(?<king>kongen?( (af|på) #?[Ee]ggs[Mm][Ll])?|(?<god>gud)|(?<user>[^ ]+))$|(?<buy>(køber ind|skal købe ind|handler|skal handle ind))|(?<prikkede>(prikkede sidst))|har (?<thing>[^ ]+)|(?<neggst>eggser)|(koder (?<language>.*))')"
 
 if [ "$king" ] && ! [ "$god" ] && ! [ "$user" ]; then
     kingname="$(dbRead eggsking)"
@@ -57,11 +57,13 @@ elif [ "$user" ]; then
     fi
 
     if cmpNames $user $EGGS_USER; then
-        (echo "Hvem du ikke en gang hvem du selv er?"
+        (echo "Ved du ikke hvem du selv er?"
          echo "ALLE SAMMEN!  $EGGS_USER har glemt hvem _"$EGGS_USER"_ er!"
          echo "Ej, gisp, jeg kan simpelthen ikke forestille mig hvem det kunne være."
          echo "..."
          echo "Tjek dit pas."
+         echo "Kig i et spejl."
+         echo "Den klammeste eggsling i kassen."
         ) | randomLine
         annoyedBy $EGGS_USER
         exit
@@ -134,6 +136,12 @@ elif [ "$thing" ]; then
 elif [ "$neggst" ]; then
     runcmd neggst
     exit
+elif [ "$language" ]; then
+    if say "$language" | grep -q '[Pp]ascal'; then
+        echo "$EGGS_USER: Det gør Christian Nobel, alias $(randomName svip)."
+    else
+        echo "$EGGS_USER: $language?  Det skal jeg ikke kunne sige."
+    fi
 else
     echo "Brug: hvem <er [navn|jeg]|skal købe ind|køber ind|prikkede sidst>"
     exit
