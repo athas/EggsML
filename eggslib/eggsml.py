@@ -112,7 +112,7 @@ class eggsml:
 			"Kigger på skyer",
 			"Ingen kommentar"
 		]
-		return random.choice(fakefates)
+		return "Formodet: %s" % random.choice(fakefates)
 	
 	def get_fate(self, alias):
 		try:
