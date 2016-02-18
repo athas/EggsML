@@ -1,0 +1,20 @@
+#!/bin/sh
+
+who=$1
+
+sidste="$(eggstool lunches "$who" | head -n 1)"
+
+if [ "$sidste" ]; then
+    days="$(daysSince $sidste)"
+    if [ "$(echo "$days > 100" | bc)" = 1 ]; then
+        if isKing "$who"; then
+            echo "Velkommen tilbage, Deres Majestæt."
+            echo "Godt at se Dem.  Jeg finder Deres foretrukkende stol frem."
+        else
+            echo "Velkommen tilbage, $(randomName $who)!"
+            echo "Længe siden sidst."
+            echo "Hvordan har du gået uden frokost i $days dage?"
+            echo "Hvordan var pilgremsrejsen?"
+        fi | randomLine
+    fi
+fi
