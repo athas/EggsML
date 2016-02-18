@@ -1,0 +1,89 @@
+#!/usr/bin/env python3
+
+import sys
+import re
+import random
+from eggsthon import *
+
+
+def get_sentences(raw):
+    raw = raw.strip()
+
+    with open(CONCIEGGS_DB_DIR + '/forkortelser') as f:
+        pre_rules = filter(lambda x: x.endswith('.'), f.read().split('\n'))
+
+    pre_rules_formatted = ''.join(
+        '(?<! {})'.format(r.rstrip('.').replace('.', r'\.'))
+        for r in pre_rules)
+
+    split_regex = r'(?<=[.!?]) *(?=\w)'
+
+    sentences = re.split(pre_rules_formatted + '(?<! \w)' + split_regex,
+                         raw, re.DOTALL)
+    return sentences
+
+def maybe_space_standup(sentence):
+    return re.sub(' ',
+                  lambda _: space_standup() if random.random() < 0.1 else ' ',
+                  sentence)
+
+def space_standup():
+    standup = [
+        'jeg prøver sgu',
+        'grin, for fanden',
+        'nu kommer humoren',
+        'og jeg har læst mange bøger engang',
+        'kig op!',
+        'DET HER ER MORSOMT',
+        'jamen, tænk over det her!',
+        'og det kan jeg altså ikke gøre meget ved',
+        'arj, det skal I lige høre',
+        'i tror det er LØGÑ',
+        'I tror det ikke',
+        'har I hørt den før?',
+        'det skal I lige høre',
+        'den her ser I ikke komme'
+    ]
+    return ' -- ' + random.choice(standup) + ' -- '
+
+def spread_sentence_standup(sentences):
+    standup = [
+        'Som om!',
+        'Men helt ærligt?',
+        'Hvad sker der lige for det!',
+        'Okay, okay.',
+        'Lyt lige til det her!',
+        'PRUT!',
+        '"Seriøst?" spørger jeg så.',
+        'Nej, nej, nej, nej, nej, nej, nej.',
+        'Vil de måske have mig til at læse manualen!',
+        'Jeg har jo INTET LIV!',
+        'Altså...',
+        '"HOLD KÆFT!" råber jeg.',
+        'Come on, Danmark.',
+        'Jeg TISSER på loven.',
+        'Jamen, hvad siger I?',
+        'AAAAAAAAAAAAAAAAAAAAH!!!',
+        'Den bruger jeg ikke igen...',
+        'Men piger gør SÅDÅN her!'
+    ]
+
+    sentences_new = []
+    for s in sentences:
+        sentences_new.append(s)
+        if random.random() < 0.4:
+            sentences_new.append(random.choice(standup))
+    return sentences_new
+
+def format_sentences(sentences):
+    return '  '.join(sentences)
+    
+def main():
+    data_in = sys.stdin.read()
+    sentences = get_sentences(data_in)
+    sentences = [maybe_space_standup(s) for s in sentences]
+    sentences = spread_sentence_standup(sentences)
+    print(format_sentences(sentences))
+
+if __name__ == '__main__':
+    main()

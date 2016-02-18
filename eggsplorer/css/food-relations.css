@@ -1,0 +1,189 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background-image: url("../img/baggrund.png");
+    background-repeat: repeat;
+    font-family: sans-serif;
+}
+
+#loading {
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+
+#loading img {
+    position: fixed;
+    top: inherit;
+    left: inherit;
+    width: inherit;
+    height: inherit;
+}
+
+#legend {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: 200px;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.67);
+    color: #ffffff;
+    text-align: center;
+}
+
+#legend-button {
+    border: 1px white solid;
+    cursor: pointer;
+    font-size: 25px;
+    margin: 0;
+    padding: 3px;
+    font-weight: bold;
+
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+#legend-internal {
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-top: 10px;
+}
+
+#legend-internal h1 {
+    font-size: 20px;
+    margin: 30px 0 0 0;
+}
+
+#legend-internal p {
+    margin: 0 0 3px 0;
+}
+
+#legend-internal h1:first-child {
+    margin-top: 0;
+}
+
+#legend-internal .edge-group {
+    background-color: #000000;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+#legend-internal .edge-group p {
+    margin: 0 0 2px 0;
+}
+
+.node {
+    cursor: pointer;
+    stroke: black;
+    stroke-width: 1px;
+}
+
+.node:hover {
+    filter: drop-shadow(0px 0px 5px #FF8484);
+    -webkit-filter: drop-shadow(0px 0px 5px #FF8484);
+}
+
+.label {
+    stroke: black;
+    text-anchor: middle;
+    dominant-baseline: middle;
+
+    cursor: pointer;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+#infobox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, .9);
+    padding: 20px;
+    visibility: hidden;
+}
+
+#infobox .close-button {
+    padding: 2px 5px;
+    display: inline-block;
+    background-color: #000000;
+    color: #ffffff;
+    font-weight: bold;
+
+    -webkit-box-shadow: 0px 0px 5px 5px #000000;
+    -moz-box-shadow: 0px 0px 5px 5px #000000;
+    box-shadow: 0px 0px 5px 5px #000000;
+
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#infobox .ware {
+    display: none;
+}
+
+#infobox .ware svg {
+    border-width: 1px 0;
+    border-color: black;
+    border-style: solid;
+}
+
+#infobox .ware svg line {
+    stroke: black;
+    stroke-width: 1px;
+}
+
+#infobox .axis path, #infobox .axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.close-button{
+    border: 1px black solid;
+    cursor: pointer;
+    position: absolute;
+    right: 0px;
+    margin-top: 50px;
+    margin-right: 70px;
+    padding: 15px;
+    background: #F3F3F3;
+}
+
+.legend-button{
+    cursor: pointer;
+}
+
+.close-button:hover{
+    animation: blinker 1s linear infinite;
+    -webkit-animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0.0;
+    }
+}
+
+@-webkit-keyframes blinker {
+    50% {
+        opacity: 0.0;
+    }
+}

@@ -16,8 +16,7 @@ maybeamount=$1
 who=${2:-$EGGS_USER}
 when=${3:-$(date '+%Y-%m-%d')}
 
-auth="$(isTrusted "$EGGS_USER")"
-if ! [ "$auth" ]; then
+if ! isTrusted "$EGGS_USER"; then
     echo "Jeg stoler ikke på folk som $(dig $EGGS_USER), $EGGS_USER."
     exit 0
 fi

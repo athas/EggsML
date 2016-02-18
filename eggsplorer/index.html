@@ -1,0 +1,283 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IDE Final Project: Lunch Club Habits</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>IDE Final Project: Lunch Club Habits</h1>
+      <p class="author">By Mikkel Storgaard Knudsen and Niels Gustav Westphal Serup</p>
+      <hr>
+
+      <h2>The interactive visualization</h2>
+      <p>
+        Just dive in!  <strong>We recommend running this in a large or full
+        screen window.</strong>
+      </p>
+      <p>
+        See <a href="food-relations.html">food-relations.html</a>.
+      </p>
+      <p>
+        <em>Note:</em> For some reason, our visualization is much smoother in
+        Chromium/Google Chrome than in Firefox-based browsers, although it works
+        in both (assuming relatively new versions).  We have not tested it in
+        any other browsers.
+      </p>
+
+      <h2>The code</h2>
+      <p>
+        The food relations visualization is contained in a single Javascript
+        file and a single CSS file:
+      </p>
+      <ul>
+        <li><a href="js/food-relations.js">js/food-relations.js</a></li>
+        <li><a href="css/food-relations.css">css/food-relations.css</a></li>
+      </ul>
+      <p>
+        Furthermore, we use the D3 and jQuery Javascript libraries.
+      </p>
+
+      <h2>Introduction</h2>
+      <p>
+        A group of computer science students at DIKU eat lunch together on a
+        daily basis in the Danish-speaking lunch
+        club <a href="http://eggsml.dk/">EggsML</a>.  They have done so for
+        about six years with varying members.
+      </p>
+      <p>
+        The lunch club members go to an Internet Relay Chat channel to -- among
+        other things -- register lunches, register purchases, and request goods
+        for future purchases.
+      </p>
+      <p>
+        For at least the past four years, many such lunch-related actions have
+        been recorded in the git repository
+        at <a href="https://github.com/Athas/EggsML">https://github.com/Athas/EggsML</a>
+        by an Internet Relay Chat robot residing on the lunch club channel.
+        These records include:
+      </p>
+      <ul>
+        <li>
+          <strong>Lunches</strong>
+          <ul>
+            <li>The date of every lunch</li>
+            <li>The participants of every lunch</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Purchases</strong>
+          <ul>
+            <li>The cost of every food purchase</li>
+            <li>The products bought together in every purchase</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Requests</strong>
+          <ul>
+            <li>Every food request made by EggsML's members</li>
+            <li>The date and time of every such request</li>
+          </ul>
+        </li>
+      </ul>
+      <p>
+        For this project, we will use only the <strong>Purchases</strong>
+        and <strong>Requests</strong> data.
+      </p>
+
+      <h2>Datasets</h2>
+      <p>
+        Clear as they may be in purpose, the <strong>Purchases</strong>
+        and <strong>Requests</strong> data are not actually <em>represented</em>
+        well in their raw form; a data point is simply a git commit by the chat
+        robot.  The actual data is formatted as a text string and put in the
+        git commit message.
+      </p>
+      <p>
+        For the data to be readable by any sane framework (including D3), we
+        have written a set of scripts to convert the git log into JSON files.
+        See the <a href="data/">data/</a> directory for the JSON datasets.  See
+        the <a href="data-source/">data-source/</a> directory for the scripts.
+        While the scripts do work, do not expect the code to be
+        self-explanatory.
+      </p>
+      <p>
+        However, the purpose of the scripts is not <em>just</em> to extract data
+        from the git history.  We also use them to cut off data that we deem too
+        useless -- data that would just make the "important data" less clear.
+        We make the following simplifications:
+      </p>
+      <ul>
+        <li>
+          We don't include any ware which has been purchased less than 10 times.
+          We do this to make the visualization less messy, as otherwise there
+          would be about twice as many nodes, none of which would relate much to
+          other wares.
+        </li>
+        <li>
+          We don't include a bond from a ware to another ware if the probability
+          of collective purchase is less than 15%.  We do this to limit the
+          numbers of lines between the circles.
+        </li>
+      </ul>
+      <p>
+        We have split the data into three datasets:
+      </p>
+      <ul>
+        <li>
+          <a href="data/densities.json"><code>densities.json</code></a> contains
+          a list of <code>[name, amount]</code> pairs, where each pair describes
+          the number of times a certain ware (from <code>name</code>) has been
+          bought (from <code>amount</code>).
+        </li>
+        <li>
+          <a href="data/bonds.json"><code>bonds.json</code></a> contains a list
+          of <code>[name1, name2, probability]</code> triplets, where each
+          triplet describes the the <code>probability</code>
+          that <code>name2</code> is bought when <code>name1</code is bought
+          (and not the other way around).
+        </li>
+        <li>
+          <a href="data/temporal.json"><code>temporal.json</code></a> contains a
+          list of <code>[name, timestamps]</code> pairs, where each pair
+          describes the times (from <code>timestamps</code>) at which a certain
+          ware (from
+          <code>name</code>) has been requested.
+        </li>
+      </ul>
+      <p>
+        <em>Note:</em> The lunch club is still active.  As such, our data is
+        likely outdated by the time you review the visualization.  We use data
+        extracted on January 15, 2016.
+      </p>
+      <p>
+        Before we go on to describe our data discoveries, we need to point out a
+        possible irregularity in our <code>bonds.json</code> dataset: Actually,
+        the lunch chat bot does not record the purchases directly, but
+        it <em>does</em> record whenever a user un-requests one or more goods.
+        Since it is extremely common practice in the lunch club to un-request a
+        ware once it has been bought, we have deemed that un-requesting is the
+        same as purchasing.  We consider two wares to be part of the same
+        purchase if they have been un-requested within 12 hours of each other.
+      </p>
+
+      <h2>Discoveries</h2>
+      <p>
+        We can use the visualization to determine which lunch items are the most
+        popular, and which items the lunch club should maybe try to buy more of.
+      </p>
+
+      <h3>Vegetables</h3>
+      <p>
+        Just by looking at the visualization, we can conclude that this lunch
+        club does <em>not like their vegetables</em>.
+      </p>
+      <p>
+        Tomatoes, sweet tomatoes, pickles and onions are the only vegetables
+        (within the set of popular wares that the visualization shows).  The
+        circle of red onions ("rødløg") are bigger than the circle of ordinary
+        onions ("almindelige løg") and thus more popular.
+      </p>
+
+      <h3>Bread</h3>
+      <p>
+        The lunch club does not eat white bread.  Ryebread is by far the biggest
+        item in the visualization.  For all other bread needs, there are
+        Digestive biscuits and TUC biscuits.
+      </p>
+
+      <h3>Nutella and meatballs</h3>
+      <p>
+        <em>Nutella-erstatningsprodukt</em> and <em>mini-frække deller</em> have
+        a peculiar relationship.  Whilst these two goods do not make for the
+        most obvious mix, we can see that whenever Nutella-erstatningsprodukt is
+        bought, there is whopping 71% probability that mini-frække deller is
+        also bought.  After consulting with a member of the lunch club, we have
+        been told that there is indeed a member with a special affinity for both
+        products.
+      </p>
+      <p>
+        Note that the relationship is only one-way: Whenever mini-frække deller
+        is bought, there is only a 33% probability that
+        Nutella-erstatningsprodukt is also bought.  This is likely due to the
+        fact that mini-frække deller is bought noticably more often than
+        Nutella-erstatningsprodukt, which likely means that a larger variety of
+        members buy mini-frække deller, and most members don't share the
+        affinity for Nutella-erstatningsprodukt.
+      </p>
+
+      <h3>Changing names</h3>
+      <p>
+        The mini-frække deller ware did not occur until the end of 2014.  Even
+        though apparently it came out of nowhere, it has been bought steadily
+        for the remaining time (although waning a bit in the latter half of
+        2015).  We still found it a bit strange for a new ware to maintain such
+        a consistent high.
+      </p>
+      <p>
+        Then we discovered that the frikadizzles ware was consistently bought
+        once in a while throughout both 2012, 2013, and part of 2014, but never
+        after people started buying mini-frække deller.  We confirmed with a
+        member of the lunch club that both "mini-frække deller" and
+        "frikadizzles" are just names for meatballs.  The member also told us
+        that there was a bug in late 2014 that caused the deletion of a file
+        containing standard requests, prompting the creation of new names for
+        the usual types of food.  Some names were recovered, but some were just
+        rethought.
+      </p>
+
+      <h3>Summer vacations</h3>
+      <p>
+        When you click on one of the large circles (i.e. a ware with many
+        purchases), the requests plot always show an empty space in the middle
+        of at least 2013 and 2014, but sometimes also 2015.  These gaps
+        correlate well with the yearly summer vacation, indicating that the
+        lunch club members eat less lunches, if any, when they are on vacation.
+      </p>
+
+      <h3>Very common wares</h3>
+      <p>
+        Since the lunch club purchases are only indirectly recorded (by looking
+        at un-requests), some purchases may happen outside the request system.
+        In other words, a member may buy a ware without it being requested,
+        simply because it is often required.  In general, this does not seem to
+        be a problem, since all the large circles look like they would be common
+        wares -- for example, ryebread is extremely common in this lunch club,
+        and "rugbrød (ikke kohberg)" has the largest circle.
+      </p>
+      <p>
+        However, looking at the also popular "spegepølse", we can see that there
+        is a year-long gap in its apparent purchases.  Considering the general
+        popularity of spegepølse, this sounds wrong, so we suspect that some
+        members have been buying spegepølse in this period outside of the
+        system.
+      </p>
+
+      <h3>Further discoveries</h3>
+      <p>
+        If you discover any neat food relations, please tell us!
+      </p>
+
+      <h2>Conclusion</h2>
+      <p>
+        We have shown that, even with our limited datasets, we can derive many
+        food relations from the visualization.
+      </p>
+
+      <h2>Future work</h2>
+      <p>
+        Currently, the data scripts have to be run manually.  Then the output
+        has to be copied into the correct folder, where the visualization is
+        located.  In the future, we would like to have a script that does all of
+        this automatically after grocery shopping.
+      </p>
+      <p>
+        As the visualization is right now, it is not always possible to see all
+        circles fully at the same time, effectively limiting the visibility of
+        the ware names.  It would be nice with a fix for this, for example a way
+        to see a list of all wares, and let a click on a list element highlight
+        the matching circle.
+      </p>
+  </body>
+</html>

@@ -87,7 +87,7 @@ word := ~/computer/ "datamat"
       | ~/Winter/ "Vinter"
       | ~/donut/ "munkering"
       | ~/admin(istrator)?/ "bestyrer"
-      | ~/nice/ "dejligt"
+      | ~/n/ es@((~/i/"e")*) ~/ce/ "d" !es "jligt"
       | ~/request/ "anmodning"
       | ~/fail/ "fiasko"
       | ~/not/ "ikke"
@@ -120,4 +120,7 @@ word := ~/computer/ "datamat"
       | ~/bandwidth/ "båndbredde"
       | ~/bracket/ "kantet parentes" (~/s/ "er")?
       | ~/(curly ?)?brace/ "tuborgklamme" (~/s/ "r")?
+      | ~/throughput/ "gennemstrømning"
+      | ~/latency/ "forsinkelse"
+      | ~/clock cycle/ "klokcykel"
       | /[a-zA-ZæøåÆØÅ0-9]+/

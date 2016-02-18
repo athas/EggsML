@@ -55,6 +55,12 @@ else
                 gcc -o "$2" -O3 -xc -D FLAG_WORDALIGNED -w "$1.c" >&2
             }
             ;;
+        *alg)
+            compile() {
+                marst "$1" -o "$1.c"
+                gcc -o "$2" -O3 -lalgol -I/usr/local/include -L/usr/local/lib "$1.c" >&2
+            }
+            ;;
         *)
             echo "Cannot compile file $srcfile - unknown extension."
             exit 2

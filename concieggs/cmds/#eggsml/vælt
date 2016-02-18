@@ -57,15 +57,31 @@ if [ "$v" -gt $(random 3 5) ]; then
     randomLine <<EOF
 KONGEN ER VÆLTET!
 Kongen er død!  Længe leve anarkiet!
-Kongen er smidt på porten!  Knap en bajer op!
+Kongen er smidt på porten!  Knap en bajer op!  Knap to bajere op!
+¡Viva la revolución!
+"Manden" er nu på SPANDEN!  Byd anarkiet velkomment!
 EOF
 
-    if [ "$newking" -a $(random 4) = 4 -a "$(isTrusted $newking)" ]; then
+    if [ "$newking" -a $(random 1 4) = 4 ] && isTrusted "$newking"; then
         sleep 2
         echo "Men hvad er nu dette?  $newking griber magten!  Længe leve den nye konge!"
         makeKing "$newking"
     fi
 else
+    navn="$(randomLine <<EOF
+Frederik
+Knud
+Niels
+EOF
+)"
+
+    god_attribut="$(randomLine <<EOF
+Gode
+Barmhjertige
+Glædelige
+EOF
+)"
+
     randomLine <<EOF
 Du ser en gammel film.
 Du bagtaler Kongen på en bar.
@@ -81,6 +97,9 @@ Du sender et brev om hjælp til en nærliggende republiks præsident.
 Du øver dig i at ride på hest.
 Du bestiller en guillotine fra et postordrekatalog.
 Du tænker søde tanker om din familie i den frie naborepublik.
+Du griner ad regentens nytårstale.
+Du lytter til kontra-revolutionær musik på den lokale smugkro.
+Du lyver i din selvangivelse.
 Du tegner overskæg på et portræt af kongen.
 Du hvisker »det svin« om Kongen til dig selv, mens Hans parade går forbi.
 Du dukker ikke op til Kongens fødselsdagsparade.
@@ -89,6 +108,12 @@ Du polerer dine støvler.
 Du prutter i retning ad slotsbygningen.
 Du hænger et billede op af Kongen på dit toilet.
 Du vender hjem fra et studieophold i en fjern republik.
+Du spytter dristigt på skiltet af en hofleverandør af hvidtøl.
+Ved Hendes Majestæts dronningens officielle helligdag prutter du højlydt på et offentligt toilet.
+Du spiser en af prinsessens kælekaniner til aftensmad.
+På dit arbejde hos den lokale smed imprægnerer du en tissemand på prinsens nye sværd.
+Ved pudsning af en royals lædersko smører du med friskt snot i stedet for skosværte.
+Du lytter til din farfars gamle historier om kong ${navn} den ${god_attribut}.
 EOF
     echo "Kun $v har meldt sig under den revolutionære fane!  I skal være flere!"
 fi

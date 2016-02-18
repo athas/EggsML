@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IDE Final Project: Lunch Club Habits | Food relations</title>
+    <script src="js/vendor/d3.min.js"></script>
+    <script src="js/vendor/jquery-2.2.0.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/food-relations.css">
+  </head>
+  <body>
+    <div id="loading">
+      <img src="img/sidetaeppe.png" alt="Side curtain"
+           class="loading" style="z-index: 2;">
+      <img src="img/bagtaeppe.png" alt="Back curtain" id="bagtaeppe"
+           class="loading" style="z-index: 1;">
+    </div>
+
+    <div id="wrapper">
+      <div id="legend">
+        <p id="legend-button"
+           onclick="toggle_div('#legend-internal')">
+          Legend
+        </p>
+        <div id="legend-internal">
+          <h1>Edge colors and widths</h1>
+          <p>
+            The color and width of an edge between two circles describe how likely
+            it is that the two wares are bought together.
+          </p>
+          <div class="edge-group">
+            <p>p &gt; 60%</p>
+            <div style="background-color: green; height: 40px;"></div>
+          </div>
+          <div class="edge-group">
+            <p>60% ≥ p &gt; 40%</p>
+            <div style="background-color: yellow; height: 30px;"></div>
+          </div>
+          <div class="edge-group">
+            <p>40% ≥ p &gt; 20%</p>
+            <div style="background-color: orange; height: 20px;"></div>
+          </div>
+          <div class="edge-group">
+            <p>20% ≥ p ≥ 15%</p>
+            <div style="background-color: red; height: 10px;"></div>
+          </div>
+
+          <h1>Circle interaction</h1>
+          <p>
+            <em>Hover</em> over a circle to see the node's
+            connections.
+          </p>
+          <p>
+            <em>Click</em> on a circle to move it.  The position of a circle
+            contains no meaning.
+          </p>
+          <p>
+            <em>Double-click</em> on a circle to find out detailed information
+            about the node.
+          </p>
+
+          <h1>Circle colors</h1>
+          <p>
+            The colors of circles contain no meaning, but are supposed to be
+            relatively distinct.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/food-relations.js"></script>
+  </body>
+</html>

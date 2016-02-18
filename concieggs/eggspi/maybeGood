@@ -1,9 +1,8 @@
-#!/usr/bin/env python
-
+#!/bin/sh
+#
 # Return 0 if everything's okay, 1 if it's not.
 
-import sys
-import random
+neutral=2
 
-prob = float(sys.argv[1])
-sys.exit(int(prob < random.random()))
+charm=$( echo "2 k $(checkCharmen || echo $neutral) $neutral / $1 100 * * 0 k 1 / p" | dc)
+[ "$charm" -gt $(random 0 99) ]
