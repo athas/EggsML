@@ -4,7 +4,7 @@ who=$1
 
 debt=$(lookupDebt $who)
 
-if [ "$(echo "$debt > 100 " | bc)" = 1 ]; then
+if [ "$(echo "$debt < -100 " | bc)" = 1 ]; then
     if isKing "$who"; then
         echo "Med Deres økonomi, kan De sagtens spise for to i dag."
         echo "Hvad med lidt drikkepenge, Deres Majestæt?"
