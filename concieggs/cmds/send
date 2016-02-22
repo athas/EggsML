@@ -20,8 +20,8 @@ if [ "$rawcmd" ]; then
         runcmd kvidr "$result"
     else
         echo "Sender $rawcmd til $addr!"
-        echo $result | mailx -r concieggs@eggsml.dk \
-                             -s "Afvikling af $rawcmd, anmodet af $EGGS_USER" "$addr"
+        echo $result | sed s/\n/\r\n/g | mailx -r concieggs@eggsml.dk \
+                                         -s "Afvikling af $rawcmd, anmodet af $EGGS_USER" "$addr"
     fi
 else
     echo 'Brug: send <kommando> til <hvem@hvor>|hvad'
