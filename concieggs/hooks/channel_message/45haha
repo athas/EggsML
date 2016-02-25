@@ -2,7 +2,7 @@
 #
 # Grin højlydt.
 
-# (notOnEggsChannel || shuttingUp) && exit
+shuttingUp && exit
 
 # maybeGood .4 || exit
 
