@@ -1,0 +1,9 @@
+#!/bin/sh
+#
+# Gotta go fast!
+
+(echo "Gotta go fast!";
+ echo "Den ska' vær' travl!";
+ echo "Macht schell!";
+ echo "¡Más rápido!";
+ echo "Enormi veloce!") | randomLine
