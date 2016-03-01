@@ -14,7 +14,7 @@ else
     shift;
     echo "fun $rettype main() = $@" > $file
     if futhark-c "$file" -o "$file.bin" 2>&1; then
-        "$file.bin" 2>&1
+        timeout 10 "$file.bin" 2>&1
     fi
     rm -f "$file" "$file.bin"
 fi
