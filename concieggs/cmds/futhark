@@ -2,8 +2,19 @@
 #
 # Gotta go fast!
 
-(echo "Gotta go fast!";
- echo "Den ska' vær' travl!";
- echo "Macht schell!";
- echo "¡Más rápido!";
- echo "Enormi veloce!") | randomLine
+if [ $# = 0 ]; then
+    (echo "Gotta go fast!";
+     echo "Den ska' vær' travl!";
+     echo "Macht schell!";
+     echo "¡Más rápido!";
+     echo "Enormi veloce!") | randomLine
+else
+    file=$(mktemp)
+    rettype=$1
+    shift;
+    echo "fun $rettype main() = $@" > $file
+    if futhark-c "$file" -o "$file.bin" 2>&1; then
+        "$file.bin" 2>&1
+    fi
+    rm -f "$file" "$file.bin"
+fi
