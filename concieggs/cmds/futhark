@@ -7,7 +7,8 @@ if [ $# = 0 ]; then
      echo "Den ska' vær' travl!";
      echo "Macht schell!";
      echo "¡Más rápido!";
-     echo "Enormi veloce!") | randomLine
+     echo "Enormi veloce!";
+     echo "Arriba!  Arriba!  Andale!  Arriba!") | randomLine
 else
     file=$(mktemp)
     case "$1" in
