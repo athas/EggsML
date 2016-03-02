@@ -13,7 +13,7 @@ else
     case "$1" in
         -*)
             what_to_do() {
-                futhark -s "$file" 2>&1
+                futhark "$1" "$file" 2>&1
             }
             shift;
             ;;
