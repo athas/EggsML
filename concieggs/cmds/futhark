@@ -10,15 +10,23 @@ if [ $# = 0 ]; then
      echo "Enormi veloce!") | randomLine
 else
     file=$(mktemp)
+    case "$1" in
+        -*)
+            what_to_do() {
+                futhark -s "$file" 2>&1
+            }
+            shift;
+            ;;
+        *)
+            what_to_do() {
+                if futhark-c "$file" -o "$file.bin" 2>&1; then
+                    timeout 10 "$file.bin" 2>&1 || echo "$EGGS_USER: Det gik galt."
+                fi
+            }
+    esac
     rettype=$1
     shift;
     echo "fun $rettype main() = $@" > $file
-    if [ "$(basename "$0")" = futhark-simplify ]; then
-        futhark -s "$file" 2>&1
-    else
-        if futhark-c "$file" -o "$file.bin" 2>&1; then
-            timeout 10 "$file.bin" 2>&1 || echo "$EGGS_USER: Det gik galt."
-        fi
-    fi
+    what_to_do
     rm -f "$file" "$file.bin"
 fi
