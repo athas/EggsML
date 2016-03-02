@@ -13,8 +13,12 @@ else
     rettype=$1
     shift;
     echo "fun $rettype main() = $@" > $file
-    if futhark-c "$file" -o "$file.bin" 2>&1; then
-        timeout 10 "$file.bin" 2>&1 || echo "$EGGS_USER: Det gik galt."
+    if [ "$(basename "$0")" = futhark-simplify ]; then
+        futhark -s "$file" 2>&1
+    else
+        if futhark-c "$file" -o "$file.bin" 2>&1; then
+            timeout 10 "$file.bin" 2>&1 || echo "$EGGS_USER: Det gik galt."
+        fi
     fi
     rm -f "$file" "$file.bin"
 fi
