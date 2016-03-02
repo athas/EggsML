@@ -12,7 +12,7 @@ sep      := /[^A-Za-zæøå0-9]+/
 word := ~/computer/ "datamat"
       | ~/debugger/ "afluser"
       | ~/debugging/ "aflusning"
-      | ~/ram/ "arbejdslager"
+      | ~/RAM/ "arbejdslager"
       | ~/whitespace/ "blanktegn"
       | ~/firewall/ "brandmur"
       | ~/cpu/ "central beregningsenhed"
