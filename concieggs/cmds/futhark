@@ -12,8 +12,9 @@ else
     file=$(mktemp)
     case "$1" in
         -*)
+            options="$1"
             what_to_do() {
-                futhark "$1" "$file" 2>&1
+                futhark "$options" "$file" 2>&1
             }
             shift;
             ;;
