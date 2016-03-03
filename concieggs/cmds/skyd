@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+# Det var ikke mig!  Brug: skyd skylden på BRUGER
+
+eval "$(echo "$@" | parse '^skylden på (?<bruger>.+)')"
+
+if ! [ "$bruger" ]; then
+    echo "$EGGS_USER: :O"
+    exit
+fi
+
+randomLine <<EOF
+$EGGS_USER: Du har _så_ ret!  Det var $bruger hele tiden.
+Den $bruger altså.  IIIIIIIH.
+Ja, $EGGS_USER, $bruger er en værre en.
+EOF
