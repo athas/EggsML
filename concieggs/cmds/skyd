@@ -9,8 +9,15 @@ if ! [ "$bruger" ]; then
     exit
 fi
 
+if [ "$bruger" = "$CONCIEGGS_NAME" ]; then
+    echo "$EGGS_USER: DET ER DIN EGEN SKYLD!"
+    exit
+fi
+
 randomLine <<EOF
 $EGGS_USER: Du har _så_ ret!  Det var $bruger hele tiden.
 Den $bruger altså.  IIIIIIIH.
 Ja, $EGGS_USER, $bruger er en værre en.
+For pape hvor har $bruger trådt i spinaten!
+Måske burde $bruger lade være med at være skyldig i alting!
 EOF
