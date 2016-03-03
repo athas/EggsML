@@ -5,6 +5,7 @@
 if [ $# = 0 ]; then
     (echo "Gotta go fast!";
      echo "Den ska' vær' travl!";
+     echo "Det' kram!";
      echo "Macht schell!";
      echo "¡Más rápido!";
      echo "Enormi veloce!";
