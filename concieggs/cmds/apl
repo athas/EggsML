@@ -6,4 +6,6 @@ if [ $# -eq 0 ]; then
    exit
 fi
 
+pleasedBy "$EGGS_USER"
+
 (echo "$@"; echo ")OFF") | apl -s --noSV | grep -v '^$'

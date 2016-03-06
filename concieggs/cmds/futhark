@@ -2,6 +2,8 @@
 #
 # Gotta go fast!
 
+pleasedBy "$EGGS_USER"
+
 if [ $# = 0 ]; then
     (echo "Gotta go fast!";
      echo "Den ska' vær' travl!";
@@ -23,7 +25,7 @@ else
         *)
             what_to_do() {
                 if futhark-c "$file" -o "$file.bin" 2>&1; then
-                    timeout 10 "$file.bin" 2>&1 || echo "$EGGS_USER: Det gik galt."
+                    (timeout 10 "$file.bin" 2>&1 && pleasedBy "$EGGS_USER" 10) || echo "$EGGS_USER: Det gik galt."
                 fi
             }
     esac
