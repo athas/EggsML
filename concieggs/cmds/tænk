@@ -18,6 +18,9 @@ ting() {
     randomLine <<EOF
 lort
 hummus
+gødning
+frikadellefars
+løg
 EOF
 }
 
@@ -27,6 +30,10 @@ sjælen
 sindet
 spejlet
 hjertet
+forståelsen
+meningen
+idéen
+konceptet
 EOF
 }
 
@@ -35,6 +42,9 @@ mundtlig_beskrivelse() {
 lort
 noget der aldrig blev godt
 ligesom de der folk fra Amager
+ahrj, helt ærligt
+too soon
+en tand for meget
 EOF
 }
 
