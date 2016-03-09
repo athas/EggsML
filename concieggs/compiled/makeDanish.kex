@@ -123,4 +123,5 @@ word := ~/computer/ "datamat"
       | ~/throughput/ "gennemstrømning"
       | ~/latency/ "forsinkelse"
       | ~/clock cycle/ "klokcykel"
+      | ~/x64/ "x86-64 eller AMD64"
       | /[a-zA-ZæøåÆØÅ0-9]+/
