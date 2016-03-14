@@ -25,9 +25,9 @@ def print_wishes(eggs):
 
 def print_balance_of_payments(eggs):
     userinfo = eggs.get_userinfo()
-    balance = 0.0
+    balance = 0
     for v in userinfo:
-        balance += round(userinfo[v]['balance'], 2)
+        balance += userinfo[v]['balance']
     print "%.f2" % balance
 
 
