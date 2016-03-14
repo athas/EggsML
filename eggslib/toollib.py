@@ -28,7 +28,7 @@ def print_balance_of_payments(eggs):
     balance = 0
     for v in userinfo:
         balance += userinfo[v]['balance']
-    print "%.f2" % balance
+    print "%.2f" % balance
 
 
 
