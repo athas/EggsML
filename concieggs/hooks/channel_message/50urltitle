@@ -1,0 +1,23 @@
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+
+use Env qw/EGGS_BODY/;
+
+my @links = $EGGS_BODY =~ m{((?:https?://|www\.)\S+?)[.,;!?]*(?:\s|$)}g;
+
+if (@links) {
+    # Load the modules lazily, to save time in the non-matching case
+    eval <<EOU;
+    use WWW::Mechanize;
+EOU
+
+    my $mech = WWW::Mechanize->new( agent => 'ircbot:concieggs:1.0 (by reddit.com/u/Sebbe)' );
+
+    for my $link (@links) {
+        print STDERR "Henter siden '$link' for at finde titlen...\n";
+        $mech->get($link);
+        next unless $mech->title;
+        printf("%s: %s\n", $mech->title, $link);
+    }
+}
