@@ -2,12 +2,6 @@
 
 set -f # Disable globbing.
 
-broke() {
-    annoyedBy "$EGGS_USER" 5
-    echo "Kommandoen fejlede!  Du kan prøve at spørge mig om 'udu', men det hjælper næsten helt sikkert ikke."
-    exit 1
-}
-
 fakebroke() {
     echo "Arh... $EGGS_USER, noget gik galt, du må hellere prøve igen";
     echo "Hm, jeg ved sgu ikke lige, men den gik ikke... prøv igen, $EGGS_USER";
@@ -25,18 +19,7 @@ fakebroke() {
 run() {
     cmd="$1"
     acmd="$2"
-    shift
-    shift
-    dbRead cur_cmd | dbWrite last_cmd
-    echo "$cmd $@" | dbWrite cur_cmd
-    case "$cmd" in
-        er|hvem|hvad|hvor|hvornår|har*|kan|skal|hvilke*)
-            decorateStderr "$acmd" "$acmd" $(echo "$@" | sed 's/\?*$//') || broke
-            ;;
-        *)
-            decorateStderr "$acmd" "$acmd" "$@" || broke
-            ;;
-    esac | gawk '{print; fflush()}' # Hack: use awk to newline-terminate.
+    decorateStderr "$acmd" actual_runcmd "$@"
 }
 
 if [ "$1" = -a ]; then
