@@ -9,6 +9,7 @@ my @links = $EGGS_BODY =~ m{((?:https?://|www\.)\S+?)[.,;!?]*(?:\s|$)}g;
 if (@links) {
     # Load the modules lazily, to save time in the non-matching case
     eval <<EOU;
+    use utf8::all;
     use WWW::Mechanize;
 EOU
 
