@@ -52,6 +52,9 @@ else
         *kex)
             compile() {
                 kexc compile "$1" --srcout "$1.c" >&2
+                if [ "$(uname)" = OpenBSD ]; then
+                    iconv -o "$1.c" -f ISO-8859-1 -t UTF-8 "$1.c"
+                fi
                 gcc -o "$2" -O3 -xc -D FLAG_WORDALIGNED -w "$1.c" >&2
             }
             ;;
