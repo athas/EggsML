@@ -2,7 +2,15 @@
 
 (shuttingUp || talkingToConcieggs) && exit
 
-body="$(say "$EGGS_BODY" | makeDanish)"
+forpuledelort() {
+    if [ $(uname) = "OpenBSD" ]; then
+        iconv -f ISO-8859-1 -t UTF-8
+    else
+        cat
+    fi
+}
+
+body="$(say "$EGGS_BODY" | makeDanish | forpuledelort)"
 
 if [ "$body" != "$EGGS_BODY" ]; then
     prefix=`randomLine <<EOF
