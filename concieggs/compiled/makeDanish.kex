@@ -6,8 +6,8 @@ inner := word sep inner
        | word
        | ""
 
-maybeSep := /[^A-Za-zæøå0-9]*/
-sep      := /[^A-Za-zæøå0-9]+/
+maybeSep := /[^A-Za-zÆØÅæøå0-9]*/
+sep      := /[^A-Za-zÆØÅæøå0-9]+/
 
 word := ~/computer/ "datamat"
       | ~/debugger/ "afluser"
