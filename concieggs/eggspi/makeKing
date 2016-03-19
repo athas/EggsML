@@ -4,4 +4,6 @@
 
 echo "$1" | dbWrite eggsking
 
+kongenavn | dbWrite eggskingname
+
 dbDelete vilvæltekongen
