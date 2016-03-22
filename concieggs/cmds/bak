@@ -41,6 +41,8 @@ if [ "$who" ]; then
     } | {
         if [ "$kanal" ]; then
             sayTo "#$kanal"
+        else
+            cat
         fi
     }
 else
