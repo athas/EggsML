@@ -130,6 +130,8 @@ else
 $EGGS_USER: Hmm, det er e$(tPattedyr).
 $EGGS_USER: E$(tPattedyr) så vidt jeg ved.
 Måske e$(tPattedyr), $EGGS_USER?
+Den er svær, $EGGS_USER, men det minder mig om dengang med $(frase bestemt).
+$EGGS_USER: Det er $(frase ubestemt).
 EOF
     exit
 fi

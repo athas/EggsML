@@ -1,0 +1,144 @@
+#!/bin/sh
+#
+# Generér en tilfældig frase i korrekt rigsdansk med rimelig stor variation.
+# Brug 'frase bestemt' eller 'frase ubestemt'.
+
+ord() {
+    klasse="$1"
+    shift
+    typer="$@"
+    for type in $typer; do
+        sti="$CONCIEGGS_DB_DIR/$klasse/$type"
+        cat "$sti"
+    done | randomLine
+}
+
+navneord() {
+    typer="$@"
+    ord navneord "$typer"
+}
+
+tillaegsord() {
+    typer="$@"
+    ord tillægsord "$typer"
+}
+
+n_bestemt_ental_fk() {
+    navneord 'navneord-bestemt_ental-fælleskøn'
+}
+
+n_bestemt_ental_ik() {
+    navneord 'navneord-bestemt_ental-intetkøn'
+}
+
+n_bestemt_flertal_fk() {
+    navneord 'navneord-bestemt_flertal-fælleskøn'
+}
+
+n_bestemt_flertal_ik() {
+    navneord 'navneord-bestemt_flertal-intetkøn'
+}
+
+n_kun_flertal_bestemt() {
+    navneord 'navneord_flertal-bestemt'
+}
+
+n_kun_flertal_ubestemt() {
+    navneord 'navneord_flertal-ubestemt'
+}
+
+n_ubestemt_ental_fk() {
+    navneord 'navneord-ubestemt_ental-fælleskøn'
+}
+
+n_ubestemt_ental_ik() {
+    navneord 'navneord-ubestemt_ental-intetkøn'
+}
+
+n_ubestemt_flertal_fk() {
+    navneord 'navneord-ubestemt_flertal-fælleskøn'
+}
+
+n_ubestemt_flertal_ik() {
+    navneord 'navneord-ubestemt_flertal-intetkøn'
+}
+
+t_fk() {
+    tillaegsord 'tillægsord-fælleskøn' 'tillægsord-ubøjeligt'
+}
+
+t_ik() {
+    tillaegsord 'tillægsord-intetkøn' 'tillægsord-ubøjeligt'
+}
+
+t_ub() {
+    tillaegsord 'tillægsord-ubøjeligt'
+}
+
+t_ge() {
+    tillaegsord 'tillægsord-generisk' 'tillægsord-ubøjeligt'
+}
+
+som() {
+    randomLine <<EOF
+som
+der
+EOF
+}
+
+er() {
+    randomLine <<EOF
+er
+var
+kan være
+vil blive
+skal være
+må blive
+EOF
+}
+    
+_bestemt_frase() {
+    randomLine <<"EOF"
+$(n_bestemt_ental_fk)
+$(n_bestemt_ental_ik)
+$(n_bestemt_flertal_fk)
+$(n_bestemt_flertal_ik)
+$(n_kun_flertal_bestemt)
+$(n_bestemt_ental_fk) $(som) $(er) $(t_fk)
+$(n_bestemt_ental_ik) $(som) $(er) $(t_ik)
+$(n_bestemt_flertal_fk) $(som) $(er) $(t_ge)
+$(n_bestemt_flertal_ik) $(som) $(er) $(t_ge)
+$(n_kun_flertal_bestemt) $(som) $(er) $(t_ge)
+de $(t_ge) $(n_kun_flertal_ubestemt)
+den $(t_ge) $(n_ubestemt_ental_fk)
+det $(t_ge) $(n_ubestemt_ental_ik)
+de $(t_ge) $(n_ubestemt_flertal_fk)
+de $(t_ge) $(n_ubestemt_flertal_ik)
+EOF
+}
+
+_ubestemt_frase() {
+    randomLine <<"EOF"
+$(n_kun_flertal_ubestemt)
+en $(n_ubestemt_ental_fk)
+et $(n_ubestemt_ental_ik)
+$(n_ubestemt_flertal_fk)
+$(n_ubestemt_flertal_ik)
+$(t_ge) $(n_kun_flertal_ubestemt)
+en $(t_fk) $(n_ubestemt_ental_fk)
+et $(t_ik) $(n_ubestemt_ental_ik)
+$(t_ge) $(n_ubestemt_flertal_fk)
+$(t_ge) $(n_ubestemt_flertal_ik)
+EOF
+}
+
+
+arg="$1"
+if [ "$arg" = bestemt ]; then
+    cmdline="$(_bestemt_frase)"
+elif [ "$arg" = ubestemt ]; then
+    cmdline="$(_ubestemt_frase)"
+else
+    exit 1
+fi
+eval "echo $cmdline"
