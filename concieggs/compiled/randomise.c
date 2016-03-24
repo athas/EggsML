@@ -72,7 +72,7 @@ void shuffle_lines(char *lines[], size_t nlines) {
 }
 
 int main() {
-  unsigned int i, seed = 0;
+  unsigned int i, seed;
   char **lines;
   size_t nlines;
 
@@ -89,11 +89,16 @@ int main() {
   /* Then we find the lines. */
   find_lines(input, &lines, &nlines);
 
-  /* Shuffle the lines. */
+  /* Set the seed. */
+  FILE* f = fopen("/dev/urandom", "rb");
+  fread(&seed, sizeof(unsigned int), 1, f);
+  fclose(f);
   seed ^= time(NULL);
   seed ^= getpid();
   seed ^= getppid();
   srand(seed);
+
+  /* Shuffle the lines. */
   shuffle_lines(lines, nlines);
 
   for (i = 0; i < nlines; i++) {
