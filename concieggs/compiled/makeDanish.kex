@@ -124,5 +124,5 @@ word := ~/computer/ "datamat"
       | ~/latency/ "forsinkelse"
       | ~/clock cycle/ "klokcykel"
       | ~/x64/ "x86-64 eller AMD64"
-      | ~/[wT][tT][fF]/ "hvad søren"
+      | ~/[wW][tT]/ os@((~/[fF]/"ø")*) "hvad s" !os "ren"
       | /[a-zA-ZæøåÆØÅ0-9]+/
