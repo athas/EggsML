@@ -77,7 +77,7 @@ def spread_sentence_standup(sentences):
 
 def format_sentences(sentences):
     return '  '.join(sentences)
-    
+
 def main():
     data_in = sys.stdin.read()
     sentences = get_sentences(data_in)

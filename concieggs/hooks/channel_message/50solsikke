@@ -7,7 +7,7 @@
 maybeGood .3 || exit
 
 rules=$(cat <<'EOF'
-    s/sikke/solsikke/g; 
+    s/sikke/solsikke/g;
     s/Sikke/Solsikke/g;
     print;
 EOF

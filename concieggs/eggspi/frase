@@ -96,7 +96,7 @@ skal være
 må blive
 EOF
 }
-    
+
 _bestemt_frase() {
     randomLine <<"EOF"
 $(n_bestemt_ental_fk)

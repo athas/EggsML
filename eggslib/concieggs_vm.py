@@ -36,7 +36,7 @@ def run(cmd,user,args=None):
   except OSError:
     cmdline = os.path.join(EGGSCMD,cmd)
     process = Popen([cmdline]+args,stdout=subprocess.PIPE,cwd=pwd)
-  output, unused_err = process.communicate() 
+  output, unused_err = process.communicate()
   retcode = process.poll()
 
   if retcode:
@@ -47,7 +47,7 @@ def run(cmd,user,args=None):
   else:
     return output
 
-  
+
 def neggst():
   return run('neggst','dummy').replace("\n", "<br />\n");
 

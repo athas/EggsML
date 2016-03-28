@@ -47,7 +47,7 @@ function frob(s) {
 festive=1
 srand()
 print frob($0)
-fflush(); 
+fflush();
 }
 EOF
 )

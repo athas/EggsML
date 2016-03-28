@@ -26,7 +26,7 @@ def request(urls):
 
 def _request_save(url, results, i):
     results[i] = _request(url)
-    
+
 def _request(url):
     r = url_open(url)
     if r.getcode() != 200:

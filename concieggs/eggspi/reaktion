@@ -1,5 +1,5 @@
 #!/bin/sh
-# Det ville være lækkert, hvis folk lige gad gå ind på http://hexascii.com/japanese-emoticons , 
+# Det ville være lækkert, hvis folk lige gad gå ind på http://hexascii.com/japanese-emoticons ,
 # og tilføje nogle flere
 reaktion=`randomLine <<EOF
 (ノ-_-)ノ ~┻━┻

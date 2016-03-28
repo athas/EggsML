@@ -29,7 +29,7 @@ in
   structure PP       = Dummy
   structure Process  = Dummy
   structure Socket   = Dummy
-  structure Unix     = Dummy 
+  structure Unix     = Dummy
 
   structure TextIO =
   struct

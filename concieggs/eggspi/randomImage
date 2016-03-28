@@ -14,7 +14,7 @@ let generateId len =
     |> List.map (fun s -> s.Chars (random.Next s.Length))
     |> String.Concat
 
-let rec getPicture (client : WebClient) = 
+let rec getPicture (client : WebClient) =
     let id = generateId 5
     let thumbUri = new Uri("http://i.imgur.com/" + id + "s.png")
     client.DownloadDataAsync(thumbUri, id)

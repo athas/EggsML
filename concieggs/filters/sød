@@ -23,7 +23,7 @@ sub nuserfy {
             -trut
             .mus
             -skatten
-            
+
         )),
         qw(
             pullernuller

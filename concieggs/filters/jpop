@@ -14,7 +14,7 @@ def jpopify(s):
         'Yasashii',
         'Usu darou'
     ]
-    
+
     ends = [
         'desu',
         'uguu',
@@ -30,7 +30,7 @@ def jpopify(s):
             return '~' * random.randint(2, 5)
         else:
             return ''
-        
+
     return (random.choice(starts) + '!  '
             + re.sub(' ', lambda _: maybe_middle() + ' ', s.rstrip('.,'))
             + ', ~' + random.choice(ends) + '~\n')

@@ -3,7 +3,7 @@
 from eggslib.eggsml_page import eggsml_page
 
 class index:
-    
+
     def __init__(self):
         t = open('template.html')
         temp = t.read()

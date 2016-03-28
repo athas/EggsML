@@ -2,16 +2,16 @@
 # -*- encoding: utf-8 -*-
 import cgitb; cgitb.enable()  # for troubleshooting
 from eggslib.eggsml import eggsml
-try: 
+try:
   import simplejson as json
-except ImportError: 
+except ImportError:
   import json
 import time
 from calendar import timegm # inverse of gmtime()
 e = eggsml()
 e.parse('slashdotfrokost')
-def jsondate(ts): 
-  return int(timegm(ts.timetuple()) * 1000) 
+def jsondate(ts):
+  return int(timegm(ts.timetuple()) * 1000)
 
 average_day_price = sorted(
       [(jsondate(ts),val)
@@ -26,11 +26,11 @@ __report_indent = [0]
 def usereggs():
   totals = {}
   for item in sorted(e.dates):
-    d = jsondate(item['date']) 
+    d = jsondate(item['date'])
     for u in item['users']:
       name = u['user']
-      if not name in totals.keys():        
-          totals[name] = [(d,1)] # [(d,u['amount'])] 
+      if not name in totals.keys():
+          totals[name] = [(d,1)] # [(d,u['amount'])]
       else:
           (_,acc) = totals[name][-1]
           #totals[name].append((d,acc+u['amount']))
@@ -40,7 +40,7 @@ def usereggs():
 def sumdays(acc,purchase):
   #print "ACC:", acc, "<br/>"
   (ts,sumacc,result) = acc
-  
+
   #print jsondate(purchase['date']),"==",ts," -> ",jsondate(purchase['date']) == ts,"<br/>"
   if sumacc is None:
     return (jsondate(purchase['date']),purchase['amount'],[])
@@ -66,7 +66,7 @@ def eggscount():
   for item in e.dates:
     totals[item['date']] = reduce(lambda acc,x:acc+x['amount'],item['users'],0)
 
-  return [(jsondate(ts),val) 
+  return [(jsondate(ts),val)
               for (ts,val) in totals.iteritems()]
 
 eggs_day_count = eggscount()
@@ -80,7 +80,7 @@ TIME_DATA = \
 {
   'label' : '#Eggsers/dag',
   'data' : sorted(eggs_day_count)[1:],
-  'bars' : {'show': True, 
+  'bars' : {'show': True,
           'barWidth' : 24 * 60 * 60 * 1000,
           'align' : 'left',
           #'fillColor': { 'colors': [ { 'opacity': 1 }, { 'opacity': 1 } ] }
@@ -89,7 +89,7 @@ TIME_DATA = \
 {
   'label' : 'Purcheggs',
   'data'  : sorted(purcheggs()),
-  'bars' : {'show': True, 
+  'bars' : {'show': True,
           'barWidth' : 24 * 60 * 60 * 1000,
           'align' : 'left',
           #'fillColor': { 'colors': [ { 'opacity': 0.8 }, { 'opacity': 0.1 } ] }
@@ -103,7 +103,7 @@ for key,data in usereggs().iteritems():
   if key in e.colours:
       d['color'] = e.colours[key]
   RACE_DATA.append(d)
-   
+
 VARS = {
   'RACE_DATA' :  json.dumps(RACE_DATA),
   'TIME_DATA' :  json.dumps(TIME_DATA)
@@ -131,10 +131,10 @@ TEMPLATE = '''
 <script id="source" language="javascript" type="text/javascript">
 $(function () {
   var race_data = %(RACE_DATA)s;
-  var race_options = { 
+  var race_options = {
       xaxis: { mode : "time",minTickSize: [1, "day"] },
-      yaxis: {  
-               transform : function (v) { return Math.log(v); }, /* ugly... but somehow 0 < v < 1*/ 
+      yaxis: {
+               transform : function (v) { return Math.log(v); }, /* ugly... but somehow 0 < v < 1*/
                inverseTransform: function (v) { return Math.exp(v); },
                min: 1
              },
@@ -144,7 +144,7 @@ $(function () {
 
   var race_plot = $.plot($("#race"),race_data,race_options);
 
-  
+
   var time_data = %(TIME_DATA)s;
   var time_options = {
       xaxis     : { mode : "time", minTickSize: [1, "day"] },
@@ -153,7 +153,7 @@ $(function () {
                {position: "right",max: 1000,
                transform : function (v) { return -v; },
                inverseTransform: function (v) { return -v; },
-               } 
+               }
                 ],
       grid: { markings: weekendAreas, hoverable: true
             , clickable: true
@@ -183,22 +183,22 @@ $(function () {
             if (item) {
                 if (previousPoint != item.dataIndex) {
                     previousPoint = item.dataIndex;
-                    
+
                     $("#tooltip").remove();
                     var x = item.datapoint[0].toFixed(2),
                         y = item.datapoint[1].toFixed(2);
-                    
+
                     showTooltip(item.pageX, item.pageY,
                                 item.series.label + " of " + x + " = " + y);
                 }
             }
             else {
                 $("#tooltip").remove();
-                previousPoint = null;            
+                previousPoint = null;
             }
     });
 
-  
+
   var overview = $.plot($("#overview"), time_data, {
         series: {
             lines: { show: true, lineWidth: 1 },
@@ -208,7 +208,7 @@ $(function () {
         yaxis: { ticks: [], min: 0, autoscaleMargin: 0.1 },
         selection: { mode: "x" },
         legend: { show : false },
-        grid: { borderWidth: 0 } 
+        grid: { borderWidth: 0 }
     });
 
    function weekendAreas(axes) {
@@ -229,7 +229,7 @@ $(function () {
 
         return markings;
     }
-    
+
 
  $("#price").bind("plotselected", function (event, ranges) {
         // do the zooming
@@ -241,7 +241,7 @@ $(function () {
         // don't fire event on the overview to prevent eternal loop
         overview.setSelection(ranges, true);
     });
-    
+
     $("#overview").bind("plotselected", function (event, ranges) {
         plot.setSelection(ranges);
     });

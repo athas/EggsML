@@ -22,7 +22,7 @@ def run():
         unrequest_times[title].append(time)
 
     out_bonds = []
-        
+
     for title, times in unrequest_times.items():
         if len(times) < purchase_times_threshold:
             continue
@@ -44,6 +44,6 @@ def run():
 
 def time_diff(t0, t1):
     return abs(t0 - t1)
-            
+
 if __name__ == '__main__':
     run()
