@@ -11,7 +11,7 @@ else
     exit
 fi
 
-n="$(aliases "$user" | wc -l)"
+n="$(aliases "$user" | wc -l | sed s'/ //g')"
 
 if [ "$n" ]; then
     echo "$(randomName "$user") har $n aliaser."
