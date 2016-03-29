@@ -1,0 +1,20 @@
+#!/bin/sh
+#
+# Informér logen om hvor mange aliaser den angivne broder har.
+
+if [ $# -eq 1 ]; then
+    user="$1"
+elif [ $# -eq 0 ]; then
+    user="$EGGS_USER"
+else
+    echo "Brug: antalaliaser [navn]"
+    exit
+fi
+
+n="$(aliases "$user" | wc -l)"
+
+if [ "$n" ]; then
+    echo "$(randomName "$user") har $n aliaser."
+else
+    echo "$user har mig bekendt ingen aliaser."
+fi
