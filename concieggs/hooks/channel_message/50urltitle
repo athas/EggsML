@@ -13,7 +13,7 @@ if (@links) {
     use WWW::Mechanize;
 EOU
 
-    my $mech = WWW::Mechanize->new( agent => 'ircbot:concieggs:1.0 (by reddit.com/u/Sebbe)' );
+    my $mech = WWW::Mechanize->new( agent => 'ircbot:concieggs:1.0 (by reddit.com/u/Sebbe)', timeout => 5 );
 
     for my $link (@links) {
         print STDERR "Henter siden '$link' for at finde titlen...\n";
