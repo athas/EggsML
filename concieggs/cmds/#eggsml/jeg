@@ -67,6 +67,8 @@ elif [ "$god" ] || [ "$alsogod" ] || [ "$truegod" ]; then
                 echo "De er jo allerede en af vor guder!"
             fi
         fi
+    elif [ "$(lookupDebt $EGGS_USER)" -gt 0 ]; then
+        echo "$EGGS_USER: Det finder jeg usandsynligt.  Skulle vorherre ikke forestille at være ufejlbarlig?"
     elif isThereAGod; then
         if [ "$alsogod" ]; then
             if [ "$v" = 1 ]; then
