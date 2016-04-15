@@ -1,0 +1,9 @@
+#!/bin/sh
+
+(shuttingUp || talkingToConcieggs) && exit
+
+body="$(say "$EGGS_BODY" | perl -pne 's/en en/to/g')"
+
+if [ "$body" != "$EGGS_BODY" ]; then
+    say "En og en gi'r to; den er go': $body"
+fi
