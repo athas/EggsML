@@ -6,8 +6,8 @@ inner := word sep inner
        | word
        | ""
 
-maybeSep := /[^A-Za-zæøå0-9]*/
-sep      := /[^A-Za-zæøå0-9]+/
+maybeSep := /[^A-Za-zÆØÅæøå0-9]*/
+sep      := /[^A-Za-zÆØÅæøå0-9]+/
 
 word := ~/computer/ "datamat"
       | ~/debugger/ "afluser"
@@ -123,4 +123,6 @@ word := ~/computer/ "datamat"
       | ~/throughput/ "gennemstrømning"
       | ~/latency/ "forsinkelse"
       | ~/clock cycle/ "klokcykel"
+      | ~/x64/ "x86-64 eller AMD64"
+      | ~/[wW][tT]/ os@((~/[fF]/"ø")*) "hvad s" !os "ren"
       | /[a-zA-ZæøåÆØÅ0-9]+/

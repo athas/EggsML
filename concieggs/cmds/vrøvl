@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# Bed concieggs om at gå i sit efterhånden rette element.
+
+if [ $(random 0 1) = 0 ]; then
+    f="$(frase bestemt)"
+    randomLine <<EOF
+$EGGS_USER: Jeg kan godt huske $f!
+$EGGS_USER: Ja, $f er noget værre noget.
+$EGGS_USER: Jeg skal hilse fra $f.
+Vil du reelt gerne have $f, $EGGS_USER?
+EOF
+
+else
+    f="$(frase ubestemt)"
+    randomLine <<EOF
+$EGGS_USER: Se til venstre, der er $f.
+$EGGS_USER: Jeg spiste engang $f!
+$EGGS_USER: Har du nogensinde rørt ved $f?
+Hmm, $f er da helt normalt, $EGGS_USER.
+EOF
+fi

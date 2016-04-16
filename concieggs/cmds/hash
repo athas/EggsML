@@ -36,7 +36,7 @@ def run_main(args):
         print "concieggs blæser røg%s..." % (roegting())
         time.sleep(3)
         print m.hexdigest()
-        
+
 def nice():
     grats = [
         "praktisk",

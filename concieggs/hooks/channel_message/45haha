@@ -16,7 +16,7 @@ MEGA
 LOLLENDE
 EOF
 )
-    
+
 sjov="$foranSjov $(randomLine <<EOF
 GRINERN
 SJOV

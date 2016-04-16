@@ -3,39 +3,39 @@
 <title>Brainfuck pr&aelig;senterer Brainfuck's EggsML</title>
 <link rel="stylesheet" href="styles.css" type="text/css" />
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
-<script type="text/javascript" src="/js/jquery.tablesorter.min.js"></script> 
+<script type="text/javascript" src="/js/jquery.tablesorter.min.js"></script>
 <script type="text/javascript"  src="/js/fartscroll.js"></script>
 <script type="text/javascript">
-    $.tablesorter.addParser({ 
-        id: "latest", 
-        is: function(s) { 
+    $.tablesorter.addParser({
+        id: "latest",
+        is: function(s) {
           return false;
-        }, 
+        },
         format: function(s) {
             var day;
-            if(s == "I dag") 
+            if(s == "I dag")
               day = 0;
             else if(s == "I går")
               day = 1;
             else
               day = s.split(" ", 1)[0];
             return day;
-        }, 
-        type: "numeric" 
-    }); 
+        },
+        type: "numeric"
+    });
 
     $.tablesorter.addParser({
-        id: "localNumeric", 
-        is: function(s) { 
+        id: "localNumeric",
+        is: function(s) {
           return false;
-        }, 
+        },
         format: function(s) {
             return s.replace(",", ".");
-        }, 
-        type: "numeric" 
-    }); 
+        },
+        type: "numeric"
+    });
 
-$(document).ready(function() 
+$(document).ready(function()
     {
         var sorterdef = { headers : { 1: {sorter:"localNumeric"}
                                                , 2: {sorter:"localNumeric"}
@@ -48,8 +48,8 @@ $(document).ready(function()
         $("#eggstransactions").tablesorter();
 
         fartscroll(250);
-    } 
-); 
+    }
+);
 </script>
 
 </head>

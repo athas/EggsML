@@ -1,0 +1,55 @@
+#!/bin/sh
+#
+# Giv et godt navn til en konge.
+
+grundnavn() {
+    randomLine <<EOF
+Gorm
+Harald
+Svend
+Knud
+Oluf
+Erik
+Valdemar
+Margrethe
+Christian
+Frederik
+EOF
+}
+
+romertal() {
+    randomLine <<EOF
+II
+III
+IV
+V
+VI
+VII
+EOF
+}
+
+beskrivelse() {
+    randomLine <<EOF
+den Gamle
+Blåtand
+Tveskæg
+den Store
+Hardeknud
+den Gode
+den Hellige
+Ejegod
+Atterdag
+af Pommern
+af Bayern
+den Ædle
+EOF
+}
+
+kongenavn() {
+    randomLine <<EOF
+$(grundnavn) $(romertal)
+$(grundnavn) $(beskrivelse)
+EOF
+}
+
+kongenavn

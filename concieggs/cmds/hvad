@@ -3,7 +3,7 @@
 # Spørg om din gæld til frokostkassen, eller få hjælp til diverse
 # personlighedsfremmende gøremål.  Brug naturligt sprog.
 
-eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|har (?<debtor>[^ ]+) til gode$|(?<time>er klokken)$|(?<balance>er betalingsbalancen)$|(?<missing>mangler jeg)$|(?<wtf>hulen)$|(?<status>så)$|(?<meaning>mener (?<who>[^ ]+) med (?<what>[^ ]+)$)|hedder (?<githubname>[^ ]+) på GitHub|(?<happening>(sker der( lige)?|mener du))')"
+eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|har (?<debtor>[^ ]+) til gode$|(?<time>er klokken)$|(?<balance>er betalingsbalancen)$|(?<missing>mangler jeg)$|(?<wtf>hulen)$|(?<status>så)$|(?<meaning>mener (?<who>[^ ]+) med (?<what>[^ ]+)$)|hedder (?<githubname>[^ ]+) på GitHub|(?<happening>(sker der( lige)?|mener du))|(?<kingname>hedder kongen)')"
 
 if [ "$balance" ]; then
   balance="$(lookupBalance)"
@@ -116,11 +116,22 @@ elif [ "$githubname" ]; then
             echo "$EGGS_USER: $(randomName "$githubname") ser ikke ud til at hedde noget."
         fi
     fi
+elif [ "$kingname" ]; then
+    name="$(dbRead eggsking)"
+    kingname="$(dbRead eggskingname)"
+
+    if [ "$name" ] && [ "$kingname" ]; then
+        echo "$EGGS_USER: Kongens royale navn er naturligvis HKH ${kingname}, også kendt under det borgerlige navn $(randomName "$name")!"
+    else
+        echo "$EGGS_USER: Gisp, det ser ikke ud til at HKH har noget royalt navn!"
+    fi
 else
     randomLine <<EOF
 $EGGS_USER: Hmm, det er e$(tPattedyr).
 $EGGS_USER: E$(tPattedyr) så vidt jeg ved.
 Måske e$(tPattedyr), $EGGS_USER?
+Den er svær, $EGGS_USER, men det minder mig om dengang med $(frase bestemt).
+$EGGS_USER: Det er $(frase ubestemt).
 EOF
     exit
 fi

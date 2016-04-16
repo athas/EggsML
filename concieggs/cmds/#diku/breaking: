@@ -1,0 +1,3 @@
+#!/bin/sh
+
+echo "$EGGS_USER: Tak for informationen!  Jeg tror dog også infoskaerm er interesseret."

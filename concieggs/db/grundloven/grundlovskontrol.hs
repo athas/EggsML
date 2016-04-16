@@ -139,7 +139,7 @@ alleSætninger (Lov sektioner) =
   $ concatMap (map (intercalate " "))
   $ concatMap sektionAfsnit sektioner
 
-  
+
 main :: IO ()
 main = do
   argumenter <- getArgs

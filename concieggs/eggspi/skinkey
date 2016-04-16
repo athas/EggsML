@@ -54,7 +54,7 @@ skinker[""] = 0
 for (i in skinker)
   delete skinker[i]
 print frob($0)
-fflush(); 
+fflush();
 }
 EOF
 )

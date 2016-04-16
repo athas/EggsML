@@ -9,7 +9,7 @@ import sys
 
 class eggsml_page:
     e = None
-    
+
     def aliases(self):
         random.seed()
         al = self.e.get_aliases()
@@ -29,7 +29,7 @@ class eggsml_page:
             l += '%s</li>\n' % t.strip().strip(',')
         l += '</ul>\n'
         return l
-    
+
     def purchases(self):
         pl = self.e.get_purchases()
         pl.reverse()
@@ -140,13 +140,13 @@ class eggsml_page:
         values.append(novicetotalcount)
         colours.append('878787')
 
-        
+
         url += '&chd=t:%s' % ",".join([str(s) for s in values]) # 52,47,46,47,117.5,191.5,86.5
         url += '&chds=0,%s' % str(max(values)) # Scale values
         url += '&chl=%s' % "|".join(aliases) # Aliases
         url += '&chco=%s' % "|".join(colours) # Colour spec
         return url
-    
+
     def wishes(self):
         wl = self.e.get_wishes()
         l = '<h2 id="Ønsker">Indkøbsønsker</h2>\n'
@@ -155,7 +155,7 @@ class eggsml_page:
             l += '<li>%s</li>\n' % w
         l += '</ul>\n'
         return l
-        
+
     def index(self):
         o = '<h1>Brainfuck pr&aelig;senterer Brainfuck\'s EggsML</h1>'
         o += '<h2>Ny og forbedret</h2>'
@@ -165,7 +165,7 @@ class eggsml_page:
         # o += self.eggsml_tilmeld()
         o += '<a href="./graph_timeline.aspeggs">Se graf over deltagelse til Eggs</a>.'
         o += '<br/><a href="./graph_timeline2.aspeggs">Eggs Enterprise Beta v2 graf</a>.'
-        
+
         o += "<h2>Neggst 'n' preggs</h2>" + "<p>" + self.neggst() + "</p>" + "<p>" + self.preggs() + "</p>"
         o += self.aliases()
         o += self.balances()
@@ -173,8 +173,8 @@ class eggsml_page:
         o += self.purchases()
         self.output = o
         return o
-    
-    def neggst(self): 
+
+    def neggst(self):
         return concieggs_vm.neggst()
 
         #Ny funktion skrevet af TV og SF. Denne kan nok godt bruges, selvom conieggs_vm-funktion skal omkodes.
@@ -185,19 +185,19 @@ class eggsml_page:
             return concieggs_vm.eggsml_tilmeld(tilmeld) + '<br>'
         except KeyError:
             return ""
-    
+
     def preggs(self):
         return concieggs_vm.preggs()
-    
+
     def currency(self, i):
         i = str(round(i,2)).split('.')
         if len(i[1])==1:
             i[1] = i[1]+'0'
         return '%s,%s' % (i[0], i[1])
-    
+
     def pointer(self, i):
         return str(i).replace('.', ',')
-    
+
     def __init__(self):
         self.e = eggsml()
         self.e.parse('slashdotfrokost')

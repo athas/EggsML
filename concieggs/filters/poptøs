@@ -3,7 +3,7 @@ use 5.012;
 use warnings;
 use utf8::all;
 
-my @smilies = qw/ :i <3 /; 
+my @smilies = qw/ :i <3 /;
 
 while (<>) {
     s/^(.*)$/\L$1/;

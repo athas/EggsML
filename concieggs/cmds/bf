@@ -14,3 +14,4 @@ progfile=$(mktemp) || exit 1
 echo "$prog" > $progfile
 echo -n "$@" | bf "$progfile" 2>&1 | cat -v
 rm -f $progfile
+pleasedBy "$EGGS_USER"

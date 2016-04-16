@@ -86,7 +86,7 @@ else
     randEval() {
         randomLine | evalIn
     }
-    
+
     her() {
         randEval <<"EOF"
 ved siden af $(tingen)

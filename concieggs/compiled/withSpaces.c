@@ -7,7 +7,7 @@
 ssize_t getline1(char** line) {
   size_t len = 0;
   ssize_t read;
-  
+
   read = getline(line, &len, stdin);
   if (read == -1) {
     return read;

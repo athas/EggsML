@@ -9,8 +9,8 @@ if [ "$body" != "$EGGS_BODY" ]; then
 $EGGS_USER mener nok
 /me foretrækker nu
 $EGGS_USER, her på dansk
-/me oversætter
 Nejnej, på dansk
+/me oversætter
 EOF`
 
     say "$prefix: $body"

@@ -1,42 +1,42 @@
 package vejrLib
 
 import (
-	"math"
-	"time"
-	"strconv"
+    "math"
+    "time"
+    "strconv"
 )
 
 const (
-	fejlVedVejrBeskrivelse = "Jeg kender ikke denne vejrbeskrivelse!"
-	DIKULON    = 12.561210 //længdegrad for DIKUs Kantine
-	DIKULAT    = 55.702082 //breddegrad for DIKUs Kantine
-	MEAN_EARTH_RADIUS = 6371 //enhed er i kilometer!
-	OPLOESNING = 22.5 //Bruges til vindretningsangivelse
-	AFSTANDSTEGGST1 = "Målestationens afstand til Kantinen er ca. "
-	AFSTANDSTEGGST2 = " km."
-	
+    fejlVedVejrBeskrivelse = "Jeg kender ikke denne vejrbeskrivelse!"
+    DIKULON    = 12.561210 //længdegrad for DIKUs Kantine
+    DIKULAT    = 55.702082 //breddegrad for DIKUs Kantine
+    MEAN_EARTH_RADIUS = 6371 //enhed er i kilometer!
+    OPLOESNING = 22.5 //Bruges til vindretningsangivelse
+    AFSTANDSTEGGST1 = "Målestationens afstand til Kantinen er ca. "
+    AFSTANDSTEGGST2 = " km."
+
 )
 
 
 /* Tjekker om en grad (vinkel) passer til et bestemt verdenshjørne */
 func projicerVindretning(koordinat float64, hovedretning, oploesning float64) bool {
-	return math.Abs(koordinat - hovedretning) <= oploesning/2
+    return math.Abs(koordinat - hovedretning) <= oploesning/2
 }
 
 
 /* Fortæller, om målingen er mere end 60 minutter gammel */
 func ErMaalingenGammel (timeForUpdate int) string {
-	age := (int(time.Now().UTC().Unix()) - int(timeForUpdate))/60
-	if (age > 60) {
-		return "Målingen er " + strconv.Itoa(age) + " minutter gammel. "
+    age := (int(time.Now().UTC().Unix()) - int(timeForUpdate))/60
+    if (age > 60) {
+        return "Målingen er " + strconv.Itoa(age) + " minutter gammel. "
 }
-	return ""
+    return ""
 }
 
 
 /* Fortolker vejrkode og returnerer en vejrbeskrivelse */
 func Vejrbeskrivelse(kode int) string {
-	// Vejrbeskrivelser er hentet fra openweathermap.org/weather-conditions
+    // Vejrbeskrivelser er hentet fra openweathermap.org/weather-conditions
 vejrBeskrivelse := map[int]string{
     200: "tordenvejr med let regn",
     201: "tordenvejr med regn",
@@ -111,12 +111,12 @@ vejrBeskrivelse := map[int]string{
     960: "storm",
     961: "stærk storm",
     962: "orkan",
-}	
+}
 
 beskrivelse := vejrBeskrivelse[kode]
-	if (beskrivelse == "") {
-		return fejlVedVejrBeskrivelse	
-	}	
+    if (beskrivelse == "") {
+        return fejlVedVejrBeskrivelse
+    }
 return beskrivelse
 }
 
@@ -125,81 +125,81 @@ return beskrivelse
 /* Returner Beaufort vindskala beskrivelse (f.eks. hård vind/stiv kuling) fra funktionsargumentet, som er vindhastighed i m/s */
 func Beaufort(windSpeed float64) string {
 
-	/* Disse to definitioner er definitionen på Beauforts skala. Enhed for vind: m/s. Arrays kan ikke placeres i const-felt. */
-	beaufortHastighed := [12]float64{
-		.3,
-		.6,
-		3.4,
-		5.5,
-		8.0,
-		10.8,
-		13.9,
-		17.2,
-		20.8,
-		24.5,
-		28.5,
-		32.7 }
-	beaufortBeskrivelse := [13]string{
-		"Stille", //Er vindhastigheden under .3 m/s, betegnes vindfholdet som "stille".
-		"Næsten stille",
-		"Svag vind",
-		"Let vind",
-		"Jævn vind",
-		"Frisk vind",
-		"Hård vind",
-		"Stiv kuling",
-		"Hård kuling",
-		"Stormende kuling",
-		"Storm",
-		"Stærk storm",
-		"Orkan" }
+    /* Disse to definitioner er definitionen på Beauforts skala. Enhed for vind: m/s. Arrays kan ikke placeres i const-felt. */
+    beaufortHastighed := [12]float64{
+        .3,
+        .6,
+        3.4,
+        5.5,
+        8.0,
+        10.8,
+        13.9,
+        17.2,
+        20.8,
+        24.5,
+        28.5,
+        32.7 }
+    beaufortBeskrivelse := [13]string{
+        "Stille", //Er vindhastigheden under .3 m/s, betegnes vindfholdet som "stille".
+        "Næsten stille",
+        "Svag vind",
+        "Let vind",
+        "Jævn vind",
+        "Frisk vind",
+        "Hård vind",
+        "Stiv kuling",
+        "Hård kuling",
+        "Stormende kuling",
+        "Storm",
+        "Stærk storm",
+        "Orkan" }
 
-	for i := range beaufortHastighed {
-		if (beaufortHastighed[i] > windSpeed) {
-			return beaufortBeskrivelse[i]
-		}
-	}
-	return beaufortBeskrivelse[cap(beaufortBeskrivelse)-1] //orkan!!
+    for i := range beaufortHastighed {
+        if (beaufortHastighed[i] > windSpeed) {
+            return beaufortBeskrivelse[i]
+        }
+    }
+    return beaufortBeskrivelse[cap(beaufortBeskrivelse)-1] //orkan!!
 }
 
 
 func fraGradTilRad(grad float64) float64 {
-	return math.Pi/180*grad //pi radianer per 180	
+    return math.Pi/180*grad //pi radianer per 180
 }
 
 
 /* Udregner afstanden fra målestationen til DIKUs Kantine */
 func afstand(longitude, latitude float64) int {
-	lonRad := fraGradTilRad(longitude)
-	latRad := fraGradTilRad(latitude)
-	dikuLonRad := fraGradTilRad(DIKULON)
-	dikuLatRad := fraGradTilRad(DIKULAT)
-	storCirkelVinkel := math.Acos(math.Sin(dikuLatRad)*math.Sin(latRad)+math.Cos(dikuLatRad)*math.Cos(latRad)*math.Cos(math.Abs(lonRad-dikuLonRad))) //se evt. wiki/Great-circle_distance
-	return int(MEAN_EARTH_RADIUS*storCirkelVinkel)
+    lonRad := fraGradTilRad(longitude)
+    latRad := fraGradTilRad(latitude)
+    dikuLonRad := fraGradTilRad(DIKULON)
+    dikuLatRad := fraGradTilRad(DIKULAT)
+    storCirkelVinkel := math.Acos(math.Sin(dikuLatRad)*math.Sin(latRad)+math.Cos(dikuLatRad)*math.Cos(latRad)*math.Cos(math.Abs(lonRad-dikuLonRad))) //se evt. wiki/Great-circle_distance
+    return int(MEAN_EARTH_RADIUS*storCirkelVinkel)
 }
 
 /* Vi er kun interesseret i afstanden, hvis det ikke er for målestationen nærmest Kantinen */
 func AfstandStr(longitude, latitude float64) string {
-	afstand := afstand(longitude, latitude)
-	if afstand > 2 {
-		return AFSTANDSTEGGST1 + strconv.Itoa(afstand) + AFSTANDSTEGGST2
-	}
-	return ""
+    afstand := afstand(longitude, latitude)
+    if afstand > 2 {
+        return AFSTANDSTEGGST1 + strconv.Itoa(afstand) + AFSTANDSTEGGST2
+    }
+    return ""
 }
 
 
 /* Hvorfra blæser det? */
 func WindDirectionString(windDirection float64) string {
-	verdenshjoerner := [17]string{"nord","nordnordøst","nordøst","østnordøst","øst","østsydøst",
-		"sydøst","sydsydøst","syd","sydsydvest","sydvest","vestsydvest","vest",
-		"vestnordvest","nordvest","nordnordvest","nord"}
-	if (len(verdenshjoerner) != 360 / OPLOESNING + 1) {
-		return "Der er sket en fejl og nogen bør skamme sig!"
-	}
-	for i := 0; i < len(verdenshjoerner); i++ {
-		if (projicerVindretning(windDirection, float64(i)*OPLOESNING, OPLOESNING)) {
-			return verdenshjoerner[i]
-		}
-	}
-	return "noget er gået galt"
+    verdenshjoerner := [17]string{"nord","nordnordøst","nordøst","østnordøst","øst","østsydøst",
+        "sydøst","sydsydøst","syd","sydsydvest","sydvest","vestsydvest","vest",
+        "vestnordvest","nordvest","nordnordvest","nord"}
+    if (len(verdenshjoerner) != 360 / OPLOESNING + 1) {
+        return "Der er sket en fejl og nogen bør skamme sig!"
+    }
+    for i := 0; i < len(verdenshjoerner); i++ {
+        if (projicerVindretning(windDirection, float64(i)*OPLOESNING, OPLOESNING)) {
+            return verdenshjoerner[i]
+        }
+    }
+    return "noget er gået galt"
 }

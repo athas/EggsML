@@ -12,4 +12,4 @@ if [ $# -gt 0 ]; then
     echo "Det er husket!"
 else
     echo "Men hvad skal jeg huske?"
-fi 
+fi

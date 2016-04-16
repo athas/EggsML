@@ -1,0 +1,81 @@
+#!/bin/sh
+#
+# Få concieggs' bidrag til den dybere diskussion.  Brug: tænk over EMNE.
+
+eval "$(echo "$@" | parse '^over (?<emne>.+)')"
+
+if ! [ "$emne" ]; then
+    echo "$EGGS_USER: Det der må du selv tænke over."
+    exit
+fi
+
+if [ "$emne" = "$CONCIEGGS_NAME" ]; then
+    echo "$EGGS_USER: IIIIIH HVOR ER DU DA MORSOM HVAR?"
+    exit
+fi
+
+ting() {
+    randomLine <<EOF
+lort
+hummus
+gødning
+frikadellefars
+løg
+EOF
+}
+
+tingen() {
+    randomLine <<EOF
+sjælen
+sindet
+spejlet
+hjertet
+forståelsen
+meningen
+idéen
+konceptet
+EOF
+}
+
+mundtlig_beskrivelse() {
+    randomLine <<EOF
+lort
+noget der aldrig blev godt
+ligesom de der folk fra Amager
+ahrj, helt ærligt
+too soon
+en tand for meget
+EOF
+}
+
+beskrivende() {
+    randomLine <<EOF
+menneskelige
+humane
+tænksomme
+dybere
+bredere
+EOF
+}
+
+handle() {
+    randomLine <<EOF
+se det som et spejl til $(tingen)
+tolke det som postmoderne $(ting)
+beskrive tankerne bag som "$(mundtlig_beskrivelse)"
+tænke mere over især det $(beskrivende) aspekt
+EOF
+}
+
+saetning() {
+    randomLine <<EOF
+$EGGS_USER: Jeg ser to sider af denne sag om $emne: Du kan $(handle) eller $(handle).
+$EGGS_USER: Altså, jeg kan bedst $(handle) når det kommer til $emne.
+Har du tænkt på at man altid kan $(handle), $EGGS_USER?
+$EGGS_USER: "$emne"?  Nej, aldrig i livet!
+Hmm, $EGGS_USER, metafysikkens fader ville nok mene at man udelukkende kan $(handle).
+$EGGS_USER: Hvorom alting er, vil jeg mestendels vælge -- i forhold til $emne -- at $(handle).
+EOF
+}
+
+saetning

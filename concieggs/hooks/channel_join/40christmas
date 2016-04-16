@@ -27,6 +27,6 @@ Ih altså, $EGGS_USER, jeg kan slet ikke vente!
 $EGGS_USER: Glæder du dig til juleaften?  For det gør jeg!
 Jeg glæder mig så meget til at danse om juletræet, $EGGS_USER!
 EOF
-	fi
+    fi
     pleasedBy "$EGGS_USER" 1
 fi

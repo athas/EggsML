@@ -417,14 +417,14 @@ interpretInstruction inst = case inst of
   Read var -> do
     s <- getState
     c <- getContext
-    
+
     if stateJustRestarted s
       then do
       setVar var $ contextReadArgs c
       putState s { stateJustRestarted = False }
       modifyPC (+ 1)
       setExitCode 0
-      
+
       else do
       let paths = contextPaths c
           asm = contextAssembly c
@@ -630,7 +630,7 @@ runFile fname readArgs = do
 isTempLabel :: TempInstruction -> Bool
 isTempLabel (TempLabel _) = True
 isTempLabel _ = False
-          
+
 asmTempToAsm :: TempAssembly -> (Assembly, Int)
 asmTempToAsm (TempAssembly insts) = (Assembly $ listToSequence insts'', nVars)
   where insts' :: [TempInstruction]
@@ -670,7 +670,7 @@ asmTempToAsm (TempAssembly insts) = (Assembly $ listToSequence insts'', nVars)
 
         nVars :: Int
         nVars = M.size varMap
-        
+
         varMap :: M.Map TempID ID
         varMap = M.fromList $ zip (L.nub (L.concatMap instVars insts')) [0..]
 

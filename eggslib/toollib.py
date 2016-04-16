@@ -25,10 +25,10 @@ def print_wishes(eggs):
 
 def print_balance_of_payments(eggs):
     userinfo = eggs.get_userinfo()
-    balance = 0.0
+    balance = 0
     for v in userinfo:
-        balance += round(userinfo[v]['balance'], 2)
-    print "%.f2" % balance
+        balance += userinfo[v]['balance']
+    print "%.2f" % balance
 
 
 
@@ -54,7 +54,7 @@ def print_consecutive(eggs,name):
     return False
   n = aliases[0]
   #acc = {}
-  acc = ([],[]) 
+  acc = ([],[])
   for d in dates:
     for eggs in d['users']:
       if eggs['user'] == n:
@@ -63,7 +63,7 @@ def print_consecutive(eggs,name):
           current.append(d['date'])
        else:
          acc = ([d['date']], current if len(current) > len(longest) else longest)
- 
+
   if len(longest) > len(current):
     print len(longest)
   else:
@@ -80,8 +80,8 @@ def print_lunches(eggs, name):
                 print d['date']
 
 def print_eggsmates(eggs,name):
-    
-  aliases = user_aliases(eggs,name) 
+
+  aliases = user_aliases(eggs,name)
   if aliases == None:
     return False
 
@@ -92,14 +92,14 @@ def print_eggsmates(eggs,name):
       return False
 
   acc = {}
-  for l in eggs.dates: 
+  for l in eggs.dates:
       if ate(l['users'],aliases[0]):
         for x in l['users']:
           if x['user'] <> aliases[0]:
               acc[x['user']] = acc.get(x['user'],0) + 1
 
   eggsmates = sorted(acc.items(),key=lambda i: i[1],reverse=True)
- 
+
   s = choice(aliases) + 's BFFs,'
   for (user,count) in eggsmates[0:5]:
       s += " %s (%s)" % (choice(user_aliases(eggs,user)),count)
@@ -113,11 +113,11 @@ def print_eggscount(eggs,name):
     aliases  = user_aliases(eggs,name)
     if aliases == None:
         return False
-    
+
     def inner(items):
-      #swap x['amount'] with '1' to count partitipation 
+      #swap x['amount'] with '1' to count partitipation
       return reduce(lambda acc,x: (x['amount'] if x['user']==aliases[0] else 0)+acc,items,0)
-    
+
     print reduce(lambda acc,x: inner(x['users'])+acc,eggs.dates,0)
 
 def same_eggser(eggs,x,y):
