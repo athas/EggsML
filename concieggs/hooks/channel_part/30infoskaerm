@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+user=$EGGS_USER
+echo $user | grep 'infoskaerm' || exit
+
+randomLine <<EOF
+Nå, men så farvel, $user.
+Den bot gør simpelthen ikke dagens gode gerning.
+Hvor mon $user skulle hen?
+$user havde nok planlagt nedetid nu, hæ hæ.
+EOF
