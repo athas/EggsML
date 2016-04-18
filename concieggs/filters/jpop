@@ -71,11 +71,11 @@ def jpopify(s):
             s += '.'
         end = '  ' + random.choice(dramatic_exclamations) + '...'
 
-    s = start + s + end
+    s = start + s + end + '\n'
     return s
 
 
-def interact(fun):
+def interact(fun):p
     inp = sys.stdin.read().rstrip()
     out = fun(inp)
     sys.stdout.write(out)
