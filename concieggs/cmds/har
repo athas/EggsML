@@ -3,7 +3,7 @@
 # Spørg om concieggs har et givent program installeret.
 
 if [ "$(ircChannel)" = "#dikurevy" ]; then
-    eval "$(echo "$@" | parse '(?<tome>(?:vi|nogen) skrevet på (?<song>.*?)(?: endnu)?)')"
+    eval "$(echo "$@" | parse '(?<tome>(?:vi|nogen)(?: nogensinde)? skrevet på (?<song>.*?)(?: endnu)?$)')"
     if [ "$song" ]; then
         checkRevueSong "$song"
         exit
