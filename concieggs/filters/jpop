@@ -4,36 +4,75 @@
 
 import random
 import re
+import subprocess
 import sys
 
 
 def jpopify(s):
-    starts = [
+    initial_exclamations = [
         'Ureshii',
         'Yaru',
         'Yasashii',
-        'Usu darou'
+        'Sugoi',
+        'Kawaii',
+        'Zuttou',
+        'Dattebayo',
     ]
 
-    ends = [
+    extra_words = [
+        'darou',
         'desu',
+        'ne',
+        'deshou',
+    ]
+
+    silly_exclamations = [
         'uguu',
         'gyaa',
         'nyaa',
-        'zuttou',
-        ':3',
-        'sugoi'
+        'kyaa'
     ]
 
-    def maybe_middle():
-        if random.random() < 0.3:
-            return '~' * random.randint(2, 5)
-        else:
-            return ''
+    dramatic_exclamations = [
+        'Anata mou',
+        'Kimi ga',
+        'Kono setzubou',
+        'Demou'
+    ]
 
-    return (random.choice(starts) + '!  ' +
-            re.sub(' ', lambda _: maybe_middle() + ' ', s.rstrip('.,')) +
-            ', ~' + random.choice(ends) + '~\n')
+    honorifics = [
+        'sama',
+        'chan',
+        'kun',
+        'san',
+    ]
+
+    recently_active = subprocess.check_output(['recentlyActive'])
+    recently_active = recently_active.decode('utf-8').strip()
+    recently_active = recently_active.split('\n')
+
+    def jpopify_word(word):
+        if word in recently_active:
+            return word + '-' + random.choice(honorifics)
+        else:
+            return word
+
+    s = re.sub(r'\w+', lambda m: jpopify_word(m.group(0)), s)
+
+    start = (random.choice(initial_exclamations) + ' ' +
+             random.choice(extra_words) + '!  ')
+
+    if random.randint(0, 1) == 0:
+        s = s.rstrip('?!.,')
+        end = (', ' + random.choice(silly_exclamations) +
+               ('~' * random.randint(0, 5)))
+    else:
+        if not s[-1] in '?!.,':
+            s += '.'
+        end = '  ' + random.choice(dramatic_exclamations) + '...'
+
+    s = start + s + end
+    return s
 
 
 def interact(fun):
