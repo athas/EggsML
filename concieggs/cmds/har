@@ -10,7 +10,7 @@ if [ "$(ircChannel)" = "#dikurevy" ]; then
     fi
 fi
 
-eval "$(echo "$@" | parse '(?<tome>du( det)? +(?<prog>[^/]+)( +installeret)?)')"
+eval "$(echo "$@" | parse '(?<tome>du( det)? +(?<prog>[^/]+)( +installeret)?)|revyen (nogensinde )?skrevet på (?<song>.+?)( endnu)?$')"
 
 if [ "$prog" ]; then
     file=$(which $(echo "$prog" | tolower))
@@ -31,6 +31,8 @@ if [ "$prog" ]; then
             echo "$prog?  Lyder ubehageligt.  Jeg tror jeg holder mig fra det."
         )
     fi | randomLine
+elif [ "$song" ]; then
+    checkRevueSong "$song"
 elif [ "$tome" ]; then
     echo "Har jeg hvad?  Brug 'har du <program> installeret'."
 else
