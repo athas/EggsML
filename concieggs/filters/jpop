@@ -75,7 +75,7 @@ def jpopify(s):
     return s
 
 
-def interact(fun):p
+def interact(fun):
     inp = sys.stdin.read().rstrip()
     out = fun(inp)
     sys.stdout.write(out)
