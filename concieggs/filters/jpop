@@ -2,9 +2,9 @@
 #
 # Vær j-poppet, desu.
 
-import sys
-import re
 import random
+import re
+import sys
 
 
 def jpopify(s):
@@ -31,10 +31,20 @@ def jpopify(s):
         else:
             return ''
 
-    return (random.choice(starts) + '!  '
-            + re.sub(' ', lambda _: maybe_middle() + ' ', s.rstrip('.,'))
-            + ', ~' + random.choice(ends) + '~\n')
+    return (random.choice(starts) + '!  ' +
+            re.sub(' ', lambda _: maybe_middle() + ' ', s.rstrip('.,')) +
+            ', ~' + random.choice(ends) + '~\n')
 
-inp = sys.stdin.read().rstrip()
-out = jpopify(inp)
-sys.stdout.write(out)
+
+def interact(fun):
+    inp = sys.stdin.read().rstrip()
+    out = fun(inp)
+    sys.stdout.write(out)
+
+
+def main():
+    interact(jpopify)
+    return 0
+
+if __name__ == '__main__':
+    sys.exit(main())
