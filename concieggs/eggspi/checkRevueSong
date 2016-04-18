@@ -1,0 +1,57 @@
+#!/usr/bin/env perl
+#
+# Checker om en given melodi er blevet skrevet på i revysammenhæng.
+
+use utf8::all;
+use LWP::Simple;
+use JSON qw/decode_json/;
+use URI;
+
+my $song = $ARGV[0];
+
+my $uri = URI->new("https://api.github.com/search/code");
+$uri->query_form(
+    q => qq{melody $song in:file language:tex repo:dikurevy/Public-Archive},
+);
+
+my $json = get($uri->as_string);
+unless ($json) {
+    print STDERR "Fik ikke noget svar fra GitHub.\n";
+    exit(1);
+}
+
+my $res = decode_json($json);
+unless ($res) {
+    print STDERR "Kunne ikke dekode GitHubs svar som json.\n";
+    exit(2);
+}
+
+my $count = 0;
+for my $file ( @{ $res->{items} } ) {
+    my $metadata = decode_json( get($file->{url}) // "{}" );
+    unless ($metadata) {
+        print STDERR "Det lykkedes ikke at hente metadata om '" . $file->{path} . "'.\n";
+        next;
+    }
+    my $contents = get( $metadata->{download_url} );
+
+    my ($melody) = $contents =~ qr/\\melody\{(.*?)\}/;
+
+    next unless $melody =~ qr/\Q$song\E/i;
+
+    my ($title) = $contents =~ qr/\\title\{(.*?)\}/;
+    my ($author) = $contents =~ qr/\\author\{(.*?)\}/;
+
+    $count += 1;
+
+    $melody =~ s/[`']//g;
+
+    my ($year) = $file->{path} =~ qr{^([^/]*)};
+
+    my $link = $file->{html_url};
+    $link =~ s/tex$/pdf/;
+
+    print qq{I $year skrev $author sangen "$title" på sangen "$melody": $link\n};
+}
+
+print qq{Nej, den tror jeg aldrig vi har skrevet på.} unless $count;

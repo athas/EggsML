@@ -2,6 +2,14 @@
 #
 # Spørg om concieggs har et givent program installeret.
 
+if [ "$(ircChannel)" = "#dikurevy" ]; then
+    eval "$(echo "$@" | parse '(?<tome>(?:vi|nogen) skrevet på (?<song>.*?)(?: endnu)?)')"
+    if [ "$song" ]; then
+        checkRevueSong "$song"
+        exit
+    fi
+fi
+
 eval "$(echo "$@" | parse '(?<tome>du( det)? +(?<prog>[^/]+)( +installeret)?)')"
 
 if [ "$prog" ]; then
