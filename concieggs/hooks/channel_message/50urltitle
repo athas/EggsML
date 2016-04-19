@@ -11,13 +11,15 @@ if (@links) {
     eval <<EOU;
     use utf8::all;
     use WWW::Mechanize;
+    use Sys::SigAction qw/timeout_call/;
 EOU
 
     my $mech = WWW::Mechanize->new( agent => 'ircbot:concieggs:1.0 (by reddit.com/u/Sebbe)', timeout => 5 );
+    local $| = 1;
 
     for my $link (@links) {
         print STDERR "Henter siden '$link' for at finde titlen...\n";
-        $mech->get($link);
+        next if (timeout_call(5, sub { $mech->get($link); }));
         next unless $mech->title;
         printf("%s: %s\n", $mech->title, $link);
     }
