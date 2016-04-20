@@ -4,6 +4,14 @@
 
 body="$(say "$EGGS_BODY" | perl -pne 's/en en/to/g')"
 
+onkel=$(randomLine <<EOF
+den er go'
+værsgo'
+kan du tro
+prøv at glo
+EOF
+     )
+
 if [ "$body" != "$EGGS_BODY" ]; then
-    say "En og en gi'r to; den er go': $body"
+    say "En og en gi'r to; $onkel: $body"
 fi
