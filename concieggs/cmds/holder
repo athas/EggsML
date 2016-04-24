@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# Anspørg logebotten om årsagen til dens tavshed.
+
+eval "$(echo "$@" | tolower | parse '^d[ue] *(?<shutUp>kæft)\?*$')"
+
+if [ "$shutUp" ]; then
+    if shuttingUp; then
+        time=$(dbRead shutUpUntil)
+        echo "$EGGS_USER: Ja, jeg er blevet bedt om at forholde mig tavs indtil $(timeToDate $time)."
+    else
+        echo "$EGGS_USER: Nejda!  Er der da ønske derom?"
+    fi
+else
+    echo "$EGGS_USER: Jeg forstår desværre ikke hvad du mener."
+fi
+
