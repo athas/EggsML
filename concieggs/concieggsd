@@ -55,6 +55,9 @@ export PATH=$CONCIEGGS_LIB_DIR:$PATH
 # We also use Python!
 export PYTHONPATH=$CONCIEGGS_LIB_DIR:$PYTHONPATH
 
+# And Perl!
+export PERL5LIB=$CONCIEGGS_LIB_DIR/perleggs:$PERL5LIB
+
 # Hack for UTF-8 handling in GHC on OpenBSD
 export HS_ENCODING=UTF-8
 
