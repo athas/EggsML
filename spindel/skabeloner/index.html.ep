@@ -1,0 +1,58 @@
+<div class="jumbotron">
+    <div class="container">
+        <h1>EggsML</h1>
+        <p>Frokostmanagement til den moderne enterprise.</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>Saldoer</h1>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Bruger</th>
+                        <th>Saldo</th>
+                        <th>Betalt i alt</th>
+                        <th>Måltider</th>
+                        <th>Gns. pris</th>
+                        <th>Seneste eggs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    % for my $member (@$members) {
+                    <tr>
+                        <td><%= $member->canonical %></td>
+                        <td<%== $member->balance > 0 ? ' class="text-success"' :
+                               $member->balance < 0 ? ' class="text-danger"' : '' %>><%= sprintf("%.02f", $member->balance) %></td>
+                        <td><%= sprintf("%.02f", $member->total_purchased) %></td>
+                        <td><%= $member->lunch_count %></td>
+                        <td></td>
+                        % my $days_ago = $member->days_since_latest_lunch;
+                        <td><%= $days_ago == 0 ? "I dag" : 
+                                $days_ago == 1 ? "I går" : "For $days_ago dage siden" %></td>
+                    </tr>
+                    % }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2>Ønsker</h2>
+                </div>
+                <ul class="list-group">
+                    % for my $wish (@$wishes) {
+                        <li class="list-group-item"><%= $wish %></li>
+                    % }
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-6">
+
+        </div>
+    </div>
+</div>
