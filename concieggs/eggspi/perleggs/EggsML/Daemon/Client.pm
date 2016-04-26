@@ -5,11 +5,13 @@ use warnings;
 
 use Env qw/EGGS_DAEMON_SOCKET/;
 use IO::Socket::UNIX;
+use utf8::all;
 
 sub _run {
     my ($self, @command) = @_;
 
     my $sock = IO::Socket::UNIX->new(Type => SOCK_STREAM, Peer => $EGGS_DAEMON_SOCKET);
+    binmode $sock => ':encoding(utf-8)';
     { local $, = ' '; $sock->print("@command\n"); }
 
     my $resCode = <$sock>;
