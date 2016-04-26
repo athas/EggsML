@@ -36,7 +36,7 @@ sub _run_nested_list {
 
 sub _run_hash {
     my $self = shift;
-    my ($resCode, $res) = $self->_run(@_);
+    my ($resCode, $res) = $self->_run_list(@_);
     return ($resCode, { map { split (/ /, $_) } @$res });
 }
 
@@ -64,7 +64,7 @@ sub balances {
     my $self = shift;
     my ($resCode, $res) = $self->_run_hash( 'balances' );
     return if $resCode;
-    return $res;
+    return { reverse %$res };
 }
 
 sub balance_of_payments {
