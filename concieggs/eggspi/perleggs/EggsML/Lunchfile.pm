@@ -70,7 +70,9 @@ sub parse {
     }
 
     my @sections = split( qr/^::(.*?)::$/m, $data );
-    shift @sections; # We don't care about "NY OG FORBEDRET"
+
+    my $new_and_improved = shift @sections;
+    die unless $new_and_improved =~ qr/NY OG FORBEDRET/; # meget vigtigt!
 
     while (1) {
         my ($head, $body) = (shift @sections, shift @sections);
