@@ -6,6 +6,9 @@ use warnings;
 use Mojo::Base -base;
 use utf8::all;
 
+use DateTime;
+use EggsML::Member;
+
 =head1 NAME
 
 EggsML::Lunchfile - Parse and extract data from slashdotfrokost.
@@ -104,6 +107,8 @@ sub parse {
             print STDERR "Unknown section $head\n";
         }
     }
+
+    $self->_add_balances;
 }
 
 sub _parse_aliases {
@@ -114,10 +119,10 @@ sub _parse_aliases {
     for my $line (@$lines) {
         my @aliases = split(/[\s,]+/, $line);
         my $primary = $aliases[0];
-        $members{fc $primary} = {
+        $members{fc $primary} = EggsML::Member->new(
             canonical => $primary,
             aliases   => \@aliases,
-        };
+        );
         $members_reverse{fc $_} = $primary for @aliases;
     }
 
@@ -130,7 +135,7 @@ sub _parse_colors {
 
     for my $lines (@$lines) {
         next unless $lines =~ /([^:]*): (#\w{6})/;
-        $self->member($1)->{color} = $2;
+        $self->member($1)->color($2);
     }
 }
 
@@ -139,14 +144,14 @@ sub _parse_destinies {
 
     for my $line (@$lines) {
         my ($name, $destiny) = split(/:\s*/, $line);
-        $self->member($name)->{destiny} = $destiny;
+        $self->member($name)->destiny($destiny);
     }
 }
 
 sub _parse_masters {
     my ($self, $lines) = @_;
     for my $alias (@$lines) {
-        $self->member($alias)->{master} = 1;
+        $self->member($alias)->master(1);
     }
 }
 
@@ -161,9 +166,7 @@ sub _parse_purchases {
 
         my $purchase = { date => $date, alias => $alias, price => $price };
         push( @purchases, $purchase );
-        my $member = $self->member($alias);
-        $member->{total_purchases} += $price;
-        push ( @{ $member->{purchases} }, $purchase );
+        $self->member($alias)->add_purchase( $purchase );
     }
 
     $self->purchases( \@purchases );
@@ -190,13 +193,19 @@ sub _parse_lunches {
         push( @lunches, $lunch_entry );
 
         for my $luncher (@lunchers) {
-            my $member = $self->member( $luncher->{alias} );
-            $member->{lunch_count} += $luncher->{weight};
-            push( @{ $member->{lunches} }, $lunch_entry );
+            $self->member( $luncher->{alias} )->add_lunch( $luncher, $lunch_entry );
         }
     }
 
     $self->lunches( \@lunches );
+}
+
+sub _add_balances {
+    my $self = shift;
+    my $balances = EggsML::Daemon::Client->balances;
+    for my $alias (keys %$balances) {
+        $self->member($alias)->balance( $balances->{$alias} );
+    }
 }
 
 =head3 member
@@ -207,9 +216,18 @@ Resolves an alias to the entry on the user.
 
 sub member {
     my ($self, $alias) = @_;
+    $alias =~ s/^\s*(.*?)\s*$/$1/g;
     my $canonical = $self->members_reverse->{fc $alias};
-    return unless $canonical;
     return $self->members->{fc $canonical};
+}
+
+sub all_members {
+    my $self = shift;
+
+    my @members = sort { DateTime->compare( $b->latest_lunch, $a->latest_lunch ) ||
+                        $a->canonical cmp $b->canonical }
+                  grep { ! $_->retired } (values %{ $self->members });
+    return \@members;
 }
 
 1;
