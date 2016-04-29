@@ -28,7 +28,7 @@ end;
 
 procedure Reviews();
 const
-  rs: array[0..9] of TReview =
+  rs: array[0..10] of TReview =
   (
     (Line: 'The worst thing since the bagpipes.'; Stars: 1; Author: 'Mr. Plinkett'),
     (Line: 'Det var sjovt.'; Stars: 5; Author: 'Spectrum'),
