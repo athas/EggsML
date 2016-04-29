@@ -3,4 +3,4 @@
 exec < ordbog-dansk-navneord
 exec > ordbog-dansk-navneord-gode
 
-grep -Ev "e[nters']$" | grep -E '.{3,}'
+grep -Ev "[nters']$" | grep -E '.{3,}'

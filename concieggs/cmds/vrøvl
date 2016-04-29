@@ -9,6 +9,11 @@ $EGGS_USER: Jeg kan godt huske $f!
 $EGGS_USER: Ja, $f er noget værre noget.
 $EGGS_USER: Jeg skal hilse fra $f.
 Vil du reelt gerne have $f, $EGGS_USER?
+Det er ligesom dengang med $f, $EGGS_USER!
+$EGGS_USER: $f?  Nej?
+$EGGS_USER: Jeg vil da gerne bruge $f.
+$EGGS_USER: Husk nu $f!
+$EGGS_USER, $EGGS_USER, $EGGS_USER...  Glem ej $f.
 EOF
 
 else
@@ -18,5 +23,10 @@ $EGGS_USER: Se til venstre, der er $f.
 $EGGS_USER: Jeg spiste engang $f!
 $EGGS_USER: Har du nogensinde rørt ved $f?
 Hmm, $f er da helt normalt, $EGGS_USER.
+Det der med $f er bare typisk, $EGGS_USER...
+Man kan købe $f på DBA, $EGGS_USER!
+$EGGS_USER: Nøøøj, $f!
+$EGGS_USER: $f er faktisk godt.
+Noget med $f, tak.  $EGGS_USER for pape!
 EOF
 fi
