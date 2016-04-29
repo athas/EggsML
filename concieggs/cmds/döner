@@ -7,4 +7,5 @@
     echo "Ja, jeg er også ved at være sulten."
     echo "Oasen på Jagtvej har rigtig god kebab."
     echo "Kebab King i Ballerup har også rigtig god kebab."
+    echo "Du kan også tage på Noma eller Geranium."
 ) | randomLine

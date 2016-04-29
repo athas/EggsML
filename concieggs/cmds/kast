@@ -1,8 +1,8 @@
 #!/bin/sh
 #
-# Tag noget og kast det ad helvede til!
+# Tag noget og kast det ad helvede til!  Eller andre ting.
 
-eval "$(echo "$@" | parse '(?<thing>[^ ]+) ad helvede til')"
+eval "$(echo "$@" | parse '((?<thing>[^ ]+) ad helvede til)|(?<op>op)')"
 
 if [ "$thing" ]; then
     who="$(dbRead has_$thing)"
@@ -12,6 +12,19 @@ if [ "$thing" ]; then
     else
         echo "Ingen har $thing, så det er nemt gjort."
     fi
+elif [ "$op" ]; then
+    n() {
+        t=''
+        e=$(random 5 9)
+        for i in $(seq 1 $e); do
+            t="$t$1"
+        done
+        echo "$t"
+    }
+
+    echo "/me får det lidt dårligt..."
+    echo "Bw$(n a)$(n d)$(n r)b$(n l)$(n u)$(n r)$(n h)$(n !)"
+    echo "$EGGS_USER: Lige i fjæset!"
 else
     echo "$EGGS_USER: Kast hvad, hvorledes og hvorfor?  Brug 'kast <ting> ad helvede til'"
 fi

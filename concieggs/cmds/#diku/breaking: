@@ -1,3 +1,5 @@
 #!/bin/sh
 
+annoyedBy "$EGGS_USER" 3
+
 echo "$EGGS_USER: Tak for informationen!  Jeg tror dog også infoskaerm er interesseret."

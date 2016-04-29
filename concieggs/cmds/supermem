@@ -4,9 +4,18 @@
 # Lav mem af alting.  Brug: supermem TEKST...
 
 import sys
+import random
 import eggsthon.shell as sheggs
 
 
 alt = ' '.join(sys.argv[1:])
 
-print 'Se her: %s' % sheggs.makeMeme(alt),
+start = random.choice([
+    'Se her',
+    'Wow, kig',
+    'Waaaaat',
+    'Vildt nok',
+    'Wupwup'
+])
+
+print '%: %s' % (start, sheggs.makeMeme(alt))
