@@ -10,6 +10,8 @@ Kelloggs'
 Maren Malkepiges
 Duniyas'
 Jensen's Bøfhus'
+Dilans'
+Toves
 EOF
 }
 
@@ -25,6 +27,7 @@ anderledes
 vitaminfyldte
 fedtfattige
 opfriskende
+mineralpåfyldte
 EOF
 }
 
@@ -43,6 +46,7 @@ blæksprutteefterligning
 milkshake
 pitabrød
 snøfler
+bønner
 EOF
 )
     bogstav=$(echo $ting | sed -r 's/^(.).*$/\1/')

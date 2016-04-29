@@ -33,6 +33,8 @@ hønsehus
 hotel
 bur
 øvelseslokale
+auditorium
+hjemmeplejen
 EOF
 }
 
@@ -41,6 +43,7 @@ tingFaelleskoen() {
 stoleleg
 hæmsko
 følelsesrejse
+hummus
 EOF
 }
 
