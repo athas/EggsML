@@ -36,7 +36,7 @@ EOF
             else
                 comment="$*"
             fi
-            echo "@NSAGov $comment" | kvidr
+            echo "@Pontifex $comment" | kvidr
         else
             gitRepair slashdotfrokost
             echo "Katastrofe!  Noget gik galt under opdatering!"
