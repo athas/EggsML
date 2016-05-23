@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+# Som 'visdom', men alligevel lidt anderledes.
+
+candidates() {
+    cat $CONCIEGGS_DB_DIR/fakta | grep -v http | egrep '.+[?:].+'
+}
+
+first=$(candidates | sed -r 's/(.+[?:]).*/\1/' | randomLine)
+second=$(candidates | sed -r 's/(.*[?:]) *//' | randomLine)
+
+echo "$first  $second"
