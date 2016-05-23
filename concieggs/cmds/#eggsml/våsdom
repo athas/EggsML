@@ -3,10 +3,10 @@
 # Som 'visdom', men alligevel lidt anderledes.
 
 candidates() {
-    cat $CONCIEGGS_DB_DIR/fakta | grep -v http | egrep '.+[?:].+'
+    cat $CONCIEGGS_DB_DIR/fakta | egrep '.+[?:].+'
 }
 
-first=$(candidates | sed -r 's/(.+[?:]).*/\1/' | randomLine)
-second=$(candidates | sed -r 's/(.*[?:]) *//' | randomLine)
+first=$(candidates | sed -r 's/(.+[?:]).*/\1/' | grep -v http | randomLine)
+second=$(candidates | sed -r 's/(.*[?:]) *//' | grep -v http | randomLine)
 
 echo "$first  $second"
