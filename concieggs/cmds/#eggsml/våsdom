@@ -6,7 +6,11 @@ candidates() {
     cat $CONCIEGGS_DB_DIR/fakta | egrep '.+[?:].+'
 }
 
-first=$(candidates | sed -r 's/(.+[?:] ).*/\1/' | grep -v http | randomLine)
+remove_entries_by_people_with_no_creativity_of_form() {
+    egrep -iv 'lifehack|protip'
+}
+
+first=$(candidates | remove_entries_by_people_with_no_creativity_of_form | sed -r 's/(.+[?:] ).*/\1/' | grep -v http | randomLine)
 second=$(candidates | sed -r 's/(.*[?:]) +//' | grep -v http | randomLine)
 
 echo "$first $second"
