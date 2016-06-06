@@ -28,10 +28,10 @@ def random_word(f):
 def babble(w):
     for f in files:
         if member_of(w, f):
-            return random_word(f)
+            return random_word(f).decode('utf-8')
     return w
 
 
-i = sys.stdin.read()
+i = sys.stdin.read().decode('utf-8')
 o = re.sub(r'[\w-]+', lambda m: babble(m.group(0)), i)
-sys.stdout.write(o)
+sys.stdout.write(o.encode('utf-8'))
