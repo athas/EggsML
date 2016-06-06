@@ -96,10 +96,21 @@ EOF
 
     tingen() {
         randEval <<"EOF"
-katakomberne
-pyramiderne
+DIKU
+HCØ
+Duniyas
+Dilans
+Oasen
+Toves
+Biocenteret
+Rundetårn
+Tivoli
+Nørreport
 den ting der er $(her)
 de ting der ligner at de er $(her)
+lige $(her)
+præcist $(her)
+måske $(her)
 EOF
     }
 
