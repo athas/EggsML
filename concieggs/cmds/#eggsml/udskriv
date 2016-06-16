@@ -1,0 +1,69 @@
+#!/bin/sh
+#
+# Udskriv indkøbsønsker.  Brug: udskriv <email-adresse>
+
+wishes() {
+    eggstool wishes \
+        | sort \
+        | uniq -c
+}
+
+formatWishesMan() {
+    wishes \
+        | sed -e 's/ *1 //' -e 's/ *//' -e "$(printf 's/^/.TP\\\n.B */')"
+}
+
+formatWishesPlain() {
+    wishes \
+        | sed -e 's/ *1 //' -e 's/^/* /'
+}
+
+generateDocumentMan() {
+    cat <<EOF
+.TH EGGSML 7 indkøbliste\-$(date +'%d/%m %Y')
+.SH NAME
+Indkøbsliste $(date +'%d/%m %Y')
+.SH SYNOPSIS
+.nh
+concieggs: ønsker
+.SH DESCRIPTION
+.SS Overview
+Denne liste indeholder alt hvad der skal købes ind.  Husk at købe
+fornuftigt.
+.SS Ønsker
+.TP
+$(formatWishesMan)
+.SH BUGS
+Nu og da er der udsolgt af visse varer.
+
+Til tider glemmer folk at afønske indkøbte varer.
+.SH SEE ALSO
+.BR KEN (8)
+EOF
+}
+
+generateDocumentPdf() {
+    generateDocumentMan | groff -m mandoc -D utf8 -T pdf
+}
+
+generateDocumentPlain() {
+    cat <<EOF
+Kære eggs-bruger
+
+Denne liste indeholder alt hvad der skal købes ind:
+
+$(formatWishesPlain | sed -e 's/^/  /')
+
+Husk at afønske de indkøbte varer bagefter.
+EOF
+}
+
+recipient="$1"
+
+if ! [ "$recipient" ]; then
+    echo "$EGGS_USER: Til hvem?  Din mor?"
+    exit
+fi
+
+generateDocumentPlain \
+    | mailx -r concieggs@eggsml.dk -s "Indkøbsliste til EggsML" "$recipient"
