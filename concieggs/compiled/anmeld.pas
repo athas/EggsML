@@ -28,7 +28,7 @@ end;
 
 procedure Reviews();
 const
-  rs: array[0..16] of TReview =
+  rs: array[0..15] of TReview =
   (
     // Brainfuck
     (Line: 'Alle prutter jo bare på hinanden.'; Stars: 0; Author: 'Brainfuck'),
