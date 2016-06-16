@@ -28,19 +28,30 @@ end;
 
 procedure Reviews();
 const
-  rs: array[0..10] of TReview =
+  rs: array[0..12] of TReview =
   (
-    (Line: 'The worst thing since the bagpipes.'; Stars: 1; Author: 'Mr. Plinkett'),
-    (Line: 'Det var sjovt.'; Stars: 5; Author: 'Spectrum'),
-    (Line: 'Alle er Hitler.'; Stars: 3; Author: 'Stalin'),
-    (Line: 'Udmærket.'; Stars: 4; Author: 'Niels'),
+    // Brainfuck
+    (Line: 'Alle prutter jo bare på hinanden.'; Stars: 0; Author: 'Brainfuck'),
+    // 1
     (Line: 'Det værste lort nogensinde.'; Stars: 1; Author: 'Arkimedes fra Syrakus'),
-    (Line: 'You had me at ''Wes Andersson'''; Stars: 5; Author: 'The New York Times'),
+    (Line: 'The worst thing since the bagpipes.'; Stars: 1; Author: 'Mr. Plinkett'),
+    (Line: 'Det er et los i bollerne og en kniv i hjertet.'; Stars: 1; Author: 'Oscar Davidsen'),
+    // 2
+    (Line: 'Jeg mener, at det er moderat sjovt.'; Stars: 2; Author: 'Sword_Smith'),
+    (Line: 'Better than my first ex-wife.'; Stars: 2; Author: 'King Henry VIII'),
+    (Line: '2 skinker for 1 skinkes pris!'; Stars: 2; Author: 'Ekstrabladet'),
+    // 3
+    (Line: 'Alle er Hitler.'; Stars: 3; Author: 'Stalin'),
     (Line: 'Lige lidt mere forberedelsestid'; Stars: 3; Author: 'Bjarne Goldbæk'),
     (Line: 'Jeg følte ikke noget specielt.'; Stars: 3; Author: 'Nikkel'),
-    (Line: 'Det er et los i bollerne og en kniv i hjertet.'; Stars: 1; Author: 'Oscar Davidsen'),
-    (Line: 'Jeg mener, at det er moderat sjovt.'; Stars: 2; Author: 'Sword_Smith'),
-    (Line: 'Alle prutter jo bare på hinanden.'; Stars: 0; Author: 'Brainfuck')
+    // 4
+    (Line: 'Udmærket.'; Stars: 4; Author: 'Niels'),
+    (Line: 'Minder mig om dengang med Mona.'; Stars: 4; Author: 'Leonardo da Vinci'),
+    (Line: 'Som en god kop morgenurin.'; Stars: 4; Author: 'Mohandas Karamchand Gandhi'),
+    // 5
+    (Line: 'Det var sjovt.'; Stars: 5; Author: 'Spectrum'),
+    (Line: 'Hvis pik er Gud er det her Jesus.'; Stars: 5; Author: 'Carl-Mar Møller'),
+    (Line: 'You had me at ''Wes Andersson'''; Stars: 5; Author: 'The New York Times')
   );
 var
   prei, ri: Integer;
