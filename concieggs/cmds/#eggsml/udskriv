@@ -2,6 +2,9 @@
 #
 # Udskriv indkøbsønsker.  Brug: udskriv <email-adresse>
 
+set -e # Exit on first error.
+
+
 wishes() {
     eggstool wishes \
         | sort \
@@ -67,3 +70,5 @@ fi
 
 generateDocumentPlain \
     | mailx -r concieggs@eggsml.dk -s "Indkøbsliste til EggsML" "$recipient"
+
+ack
