@@ -1,0 +1,101 @@
+#!/usr/bin/env python3
+
+import sys
+import re
+import random
+from eggsthon import *
+
+
+def get_sentences(raw):
+    raw = raw.strip()
+
+    with open(CONCIEGGS_DB_DIR + '/forkortelser') as f:
+        pre_rules = filter(lambda x: x.endswith('.'), f.read().split('\n'))
+
+    pre_rules_formatted = ''.join(
+        '(?<! {})'.format(r.replace('.', r'\.'))
+        for r in pre_rules)
+
+    split_regex = r'(?<=[.!?]) +(?=\w)'
+    regex = pre_rules_formatted + r'(?<! \w)' + split_regex
+
+    sentences = re.split(regex, raw, re.DOTALL)
+
+    return sentences
+
+def trumpify_sentences(sentences):
+    sentences = [_trumpify_sentence(sentence)
+                 for sentence in sentences]
+
+    comments = [
+        'Pressen er efter mig!',
+        'Jeg er meget klog!',
+        'Byg en mur!',
+        'TAK SKAL I HAVE!',
+        'Kom med til mine rallyer!',
+        'Nu er jeg jo ikke fan af Obama!',
+        'Nødt til at være hård!'
+    ]
+    
+    comments_used = comments[:]
+    random.shuffle(comments_used)
+
+    sentences_new = []
+    for s in sentences:
+        sentences_new.append(s)
+        if random.randint(1, 7) == 1:
+            sentences_new.append(comments_used[0])
+            del comments_used[0]
+    sentences = sentences_new
+
+    emotions = [
+        'Sørgeligt',
+        'Surt',
+        'Dumt',
+        'Skidt',
+        'Mystisk',
+        'Forfærdeligt',
+        'Morsomt'
+    ]
+    sentences.append(random.choice(emotions) + '!')
+    
+    return sentences
+
+def _trumpify_sentence(sentence):
+    words = sentence.split(' ')
+    words = [_trumpify_word(word) for word in words]
+    if len(words) >= 8:
+        start = random.randint(3, 5)
+        end = random.randint(7, len(words) - 1)
+        a = ' '.join(words[:end])
+        a = a.rstrip(',;:')
+        a += '!'
+        b = ' '.join(words[start:end]).capitalize()
+        b = b.rstrip(',;:')
+        b += '!'
+        c = ' '.join(words[start:]).capitalize()
+        sentence = a + '  ' + b + '  ' + c
+    else:
+        sentence = ' '.join(words)
+    
+    if sentence.endswith('.'):
+        sentence = sentence[:-1] + '!'
+    return sentence
+
+def _trumpify_word(word):
+    if random.randint(1, 5) == 1:
+        return word.upper()
+    else:
+        return word
+
+def format_sentences(sentences):
+    return '  '.join(sentences)
+
+def main():
+    data_in = sys.stdin.read()
+    sentences_in = get_sentences(data_in)
+    sentences_out = trumpify_sentences(sentences_in)
+    print(format_sentences(sentences_out))
+
+if __name__ == '__main__':
+    main()
