@@ -75,7 +75,7 @@ def _trumpify_sentence(sentence):
         b = ' '.join(words_b)
         b = b.rstrip(',;:')
         b += '!'
-        words_c = words[start:]
+        words_c = words[end:]
         words_c[0] = words_c[0].capitalize()
         c = ' '.join(words_c)
         sentence = a + '  ' + b + '  ' + c
