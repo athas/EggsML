@@ -66,7 +66,7 @@ def _trumpify_sentence(sentence):
     words = [_trumpify_word(word) for word in words]
     if len(words) >= 8:
         start = random.randint(3, 5)
-        end = random.randint(7, len(words) - 1)
+        end = random.randint(7, max(start + 6, len(words) - 1))
         a = ' '.join(words[:end])
         a = a.rstrip(',;:')
         a += '!'
