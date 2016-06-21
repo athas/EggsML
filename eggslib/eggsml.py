@@ -109,9 +109,21 @@ class eggsml:
             "Tog til Justin Bieber-koncert i Norge",
             "Professionel bankospiller",
             "Kigger på skyer",
-            "Ingen kommentar"
+            "Ingen kommentar",
+            "Professionel YouTube-personlighed",
+            "Tynget ned af rigdom",
+            "Minister uden portefølje",
+            "Provokunstner i eksil",
+            "Mellemleder i en mellemstor virksomhed",
+            "Fritidsdranker og festryger",
+            "Har købt et .io-domæne og lavet en startup",
+            "Træls over at være så klog",
+            "Beskæftiger sig med tabubelagte emner i avisernes debatsektioner",
+            "Spiller læge i populær sæbeopera",
+            "Bruger hele dagen i Hacker News' kommentarsektion",
+            "Kommenterer på Poul-Henning Kamps blogindlæg"
         ]
-        return "Formodet: %s" % random.choice(fakefates)
+        return "<i>Formodet</i>: %s" % random.choice(fakefates)
 
     def get_fate(self, alias):
         try:
