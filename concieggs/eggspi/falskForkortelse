@@ -92,10 +92,10 @@ t_ge() {
 
 
 forkortelse="$*"
-len=$(expr length "$forkortelse")
+len=$(echo "$forkortelse" | awk '{ print(length($0)) }')
 ud=''
 for i in $(seq 1 $len); do
-    tegn="$(expr substr "$forkortelse" $i 1 | tolower)"
+    tegn="$(echo "$forkortelse" | awk '{ print(tolower(substr($0, '"$i"', 1))) }')"
     if [ "$tegn" = ' ' ]; then
         continue
     fi
