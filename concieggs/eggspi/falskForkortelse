@@ -1,0 +1,116 @@
+#!/bin/sh
+#
+# Generér en falsk forkortelse der passer på bogstaverne i argumenterne.
+
+ord() {
+    bogstav="$1"
+    klasse="$2"
+    shift
+    shift
+    typer="$@"
+    for type in $typer; do
+        sti="$CONCIEGGS_DB_DIR/$klasse/$type"
+        cat "$sti"
+    done | grep -E "^$bogstav" | randomLine
+}
+
+navneord() {
+    bogstav="$1"
+    shift
+    typer="$@"
+    ord "$bogstav" navneord "$typer"
+}
+
+tillaegsord() {
+    bogstav="$1"
+    shift
+    typer="$@"
+    ord "$bogstav" tillægsord "$typer"
+}
+
+n_bestemt_ental_fk() {
+    navneord "$1" 'navneord-bestemt_ental-fælleskøn'
+}
+
+n_bestemt_ental_ik() {
+    navneord "$1" 'navneord-bestemt_ental-intetkøn'
+}
+
+n_bestemt_flertal_fk() {
+    navneord "$1" 'navneord-bestemt_flertal-fælleskøn'
+}
+
+n_bestemt_flertal_ik() {
+    navneord "$1" 'navneord-bestemt_flertal-intetkøn'
+}
+
+n_kun_flertal_bestemt() {
+    navneord "$1" 'navneord_flertal-bestemt'
+}
+
+n_kun_flertal_ubestemt() {
+    navneord "$1" 'navneord_flertal-ubestemt'
+}
+
+n_ubestemt_ental_fk() {
+    navneord "$1" 'navneord-ubestemt_ental-fælleskøn'
+}
+
+n_ubestemt_ental_ik() {
+    navneord "$1" 'navneord-ubestemt_ental-intetkøn'
+}
+
+n_ubestemt_flertal_fk() {
+    navneord "$1" 'navneord-ubestemt_flertal-fælleskøn'
+}
+
+n_ubestemt_flertal_ik() {
+    navneord "$1" 'navneord-ubestemt_flertal-intetkøn'
+}
+
+n_alle_flertal_ubestemt() {
+    navneord "$1" 'navneord_flertal-ubestemt' \
+             'navneord-ubestemt_flertal-fælleskøn' \
+             'navneord-ubestemt_flertal-intetkøn'
+}
+
+t_fk() {
+    tillaegsord "$1" 'tillægsord-fælleskøn' 'tillægsord-ubøjeligt'
+}
+
+t_ik() {
+    tillaegsord "$1" 'tillægsord-intetkøn' 'tillægsord-ubøjeligt'
+}
+
+t_ub() {
+    tillaegsord "$1" 'tillægsord-ubøjeligt'
+}
+
+t_ge() {
+    tillaegsord "$1" 'tillægsord-generisk' 'tillægsord-ubøjeligt'
+}
+
+
+forkortelse="$*"
+len=$(expr length "$forkortelse")
+ud=''
+for i in $(seq 1 $len); do
+    tegn="$(expr substr "$forkortelse" $i 1 | tolower)"
+    if [ "$tegn" = ' ' ]; then
+        continue
+    fi
+
+    case $(random 1 1) in
+        1)
+            if [ $i = $len ]; then
+                ord="$(n_alle_flertal_ubestemt $tegn)"
+            else
+                ord="$(t_ge $tegn)"
+            fi
+            ud="$ud $(echo $ord | capitalise)"
+            ;;
+        
+        # Add more.
+    esac
+done
+echo "$ud" | cut -b 2-

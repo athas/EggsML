@@ -3,7 +3,7 @@
 # Spørg om din gæld til frokostkassen, eller få hjælp til diverse
 # personlighedsfremmende gøremål.  Brug naturligt sprog.
 
-eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|har (?<debtor>[^ ]+) til gode$|(?<time>er klokken)$|(?<balance>er betalingsbalancen)$|(?<missing>mangler jeg)$|(?<wtf>hulen)$|(?<status>så)$|(?<meaning>mener (?<who>[^ ]+) med (?<what>[^ ]+)$)|hedder (?<githubname>[^ ]+) på GitHub|(?<happening>(sker der( lige)?|mener du))|(?<kingname>hedder kongen)')"
+eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|har (?<debtor>[^ ]+) til gode$|(?<time>er klokken)$|(?<balance>er betalingsbalancen)$|(?<missing>mangler jeg)$|(?<wtf>hulen)$|(?<status>så)$|(?<meaning>mener (?<who>[^ ]+) med (?<what>[^ ]+)$)|hedder (?<githubname>[^ ]+) på GitHub|(?<happening>(sker der( lige)?|mener du))|(?<kingname>hedder kongen)|(står (?<forkortelse>[^ ]+) for)')"
 
 if [ "$balance" ]; then
   balance="$(lookupBalance)"
@@ -125,6 +125,14 @@ elif [ "$kingname" ]; then
     else
         echo "$EGGS_USER: Gisp, det ser ikke ud til at HKH har noget royalt navn!"
     fi
+elif [ "$forkortelse" ]; then
+    ordene="$(falskForkortelse $forkortelse)"
+    randomLine <<EOF
+$EGGS_USER: Det står da vist for $ordene.
+$forkortelse, $EGGS_USER?  Det er helt sikkert $ordene!
+Den er nem, $EGGS_USER: $ordene.
+$ordene, naturligvis!
+EOF
 else
     randomLine <<EOF
 $EGGS_USER: Hmm, det er e$(tPattedyr).
