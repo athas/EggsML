@@ -3,7 +3,7 @@
 # Spørg om din gæld til frokostkassen, eller få hjælp til diverse
 # personlighedsfremmende gøremål.  Brug naturligt sprog.
 
-eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|har (?<debtor>[^ ]+) til gode$|(?<time>er klokken)$|(?<balance>er betalingsbalancen)$|(?<missing>mangler jeg)$|(?<wtf>hulen)$|(?<status>så)$|(?<meaning>mener (?<who>[^ ]+) med (?<what>[^ ]+)$)|hedder (?<githubname>[^ ]+) på GitHub|(?<happening>(sker der( lige)?|mener du))|(?<kingname>hedder kongen)|(står (?<forkortelse>[^ ]+) for)')"
+eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|har (?<debtor>[^ ]+) til gode$|(?<time>er klokken)$|(?<balance>er betalingsbalancen)$|(?<missing>mangler jeg)$|(?<wtf>hulen)$|(?<status>så)$|(?<meaning>mener (?<who>[^ ]+) med (?<what>[^ ]+)$)|hedder (?<githubname>[^ ]+) på GitHub|sker der i (?<kodeprojekt>[^ ]+)[ -]land|(?<happening>(sker der( lige)?|mener du))|(?<kingname>hedder kongen)|(står (?<forkortelse>[^ ]+) for)')"
 
 if [ "$balance" ]; then
   balance="$(lookupBalance)"
@@ -133,6 +133,8 @@ $forkortelse, $EGGS_USER?  Det er helt sikkert $ordene!
 Den er nem, $EGGS_USER: $ordene.
 $ordene, naturligvis!
 EOF
+elif [ "$kodeprojekt" ]; then
+    latestGitNews "$kodeprojekt"
 else
     randomLine <<EOF
 $EGGS_USER: Hmm, det er e$(tPattedyr).

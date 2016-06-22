@@ -1,0 +1,29 @@
+#!/usr/bin/env perl6
+use v6;
+
+use JSON::Tiny;
+use LWP::Simple;
+
+my %projects = (
+    'perl'    => 'perl/perl5',
+    'python'  => 'python/cpython',
+    'futhark' => 'HIPERFIT/futhark',
+    'mojo'    => 'kraih/mojo',
+);
+
+sub MAIN(Str $name) {
+    unless (%projects{$name}) {
+        say "Jeg kender ikke noget til $name. Måske skulle du spørge din sidemand.";
+        exit(0);
+    }
+
+    my $json = LWP::Simple.get("https://api.github.com/repos/{%projects{$name}}/commits");
+    my $obj =  from-json($json);
+
+    my @commits = @$obj[0..3];
+
+    for @commits -> $commit {
+        my $message = $commit.{'commit'}.{'message'};
+        say $message.split(/\n/).[0];
+    }
+}
