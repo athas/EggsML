@@ -49,13 +49,13 @@ def trumpify_sentences(sentences):
     sentences = sentences_new
 
     emotions = [
-        'Sørgeligt',
+        'Trist',
         'Surt',
         'Dumt',
         'Skidt',
-        'Mystisk',
-        'Forfærdeligt',
-        'Morsomt'
+        'Sært',
+        'Dårligt',
+        'Sjovt'
     ]
     sentences.append(random.choice(emotions) + '!')
     
