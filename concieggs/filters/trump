@@ -55,7 +55,8 @@ def trumpify_sentences(sentences):
         'Skidt',
         'Sært',
         'Dårligt',
-        'Sjovt'
+        'Sjovt',
+        'Stort'
     ]
     sentences.append(random.choice(emotions) + '!')
     
