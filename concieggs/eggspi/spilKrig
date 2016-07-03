@@ -7,7 +7,7 @@ bruger1="$2"
 antal_runder="$3"
 
 if ! [ "$antal_runder" ]; then
-    antal_runder=5
+    antal_runder=3
 fi
 
 
