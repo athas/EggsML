@@ -1,0 +1,89 @@
+#!/bin/sh
+#
+# Spil autokrig mod hinanden.  Brug: krig BRUGER BRUGER [ANTAL_RUNDER]
+
+bruger0="$1"
+bruger1="$2"
+antal_runder="$3"
+
+if ! [ "$antal_runder" ]; then
+    antal_runder=5
+fi
+
+
+tingMed() {
+    ting=$(randomLine <<EOF
+ luftballonbrigade
+ infanteri
+e fodsoldater
+ bue- og pil-regiment
+ hjemmeværn
+e riddere
+ forsyningslastvogn
+ smørembargo
+e kongelige husarer
+e PET-livvagter
+e plastiske eksplosiver
+, europæisk militær
+ flåde
+ Cyber Defense Force
+e invasionsstyrker
+ bazooka
+e droner
+EOF
+    )
+    landsk=$(randomLine <<EOF
+dansk
+tysk
+fransk
+skotsk
+schweizisk
+canadisk
+russisk
+polsk
+indisk
+australsk
+overnational
+ålborgensisk
+nordsjællandsk
+EOF
+    )
+    echo "$landsk$ting med styrke $1"
+}
+
+
+point0=0
+point1=0
+
+for i in $(seq 1 $antal_runder); do
+    topvaerdi=$(random 10 20)
+    bundvaerdi=$(random 1 $(expr $topvaerdi - 1))
+    topting=$(tingMed $topvaerdi)
+    bundting=$(tingMed $bundvaerdi)
+    if [ $(random 0 1) = 0 ]; then
+        point0=$(expr $point0 + 1)
+        topbruger=$bruger0
+        bundbruger=$bruger1
+    else
+        point1=$(expr $point1 + 1)
+        topbruger=$bruger1
+        bundbruger=$bruger0
+    fi
+    echo "Lad runde $i udi krig begynde."
+    {
+        echo "$(randomName $topbruger) har $topting."
+        echo "$(randomName $bundbruger) har $bundting."
+    } | randomise
+    echo "$(randomName $topbruger) vinder dette slag!"
+done
+
+if [ $point0 -gt $point1 ]; then
+    vinder=$bruger0
+elif [ $point1 -gt $point0 ]; then
+    vinder=$bruger1
+else
+    echo "Det blev uafgjort!  Verden er endnu i urede."
+    exit
+fi
+
+echo "Vinderen er $(randomName $vinder)!  Vildt!"

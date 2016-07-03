@@ -4,7 +4,7 @@
 # en god idé at lade den gå undercover.
 
 
-eval "$(echo "$@"| parse '(?<noget>undercover( som (?<navn>[a-zA-Z_]+))?)')"
+eval "$(echo "$@"| parse '(?<noget>undercover( som (?<navn>[a-zA-Z_]+))?)|(?<krig>i krig m[eo]d (?<alias>[a-zA-Z_]+))')"
 
 if [ "$noget" ]; then
     if ! [ "$navn" ]; then
@@ -48,6 +48,14 @@ EOF`
     fi
     echo "/me peger på $bruger."
     (sleep 4; echoToServer ":nick $navn")
+elif [ "$krig" ]; then
+    ond="$(randomName "$alias")"
+    if [ "$ond" ]; then
+        god="$(randomName "$EGGS_USER")"
+        spilKrig "$god" "$ond"
+    else
+        echo "$EGGS_USER: Jeg tror ikke helt at $alias er indviet."
+    fi
 else
     say "Det kan jeg ikke endnu, men du må gerne implementere det."
 fi
