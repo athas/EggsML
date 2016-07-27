@@ -106,10 +106,7 @@ The pipeline of `rash` loading a new file looks like this:
 import Control.Monad
 import Control.Monad.IO.Class
 import Control.Applicative
-
--- import Control.Exception
--- import Control.Exception.Base
--- import System.IO.Error
+import Control.Exception
 
 import qualified Text.Parsec as P
 import qualified Text.Parsec.String as P
@@ -472,8 +469,9 @@ interpretInstruction inst = case inst of
 
   Exit -> do
     paths <- contextPaths <$> getContext
-    liftIO $ Dir.removeFile $ pathASM paths
-    liftIO $ Dir.removeFile $ pathState paths
+    liftIO $ flip catch (\e -> (e :: IOException) `seq` return ()) $ do
+      Dir.removeFile $ pathASM paths
+      Dir.removeFile $ pathState paths
     liftIO Exit.exitSuccess
 
 
