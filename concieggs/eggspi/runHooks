@@ -1,13 +1,31 @@
 #!/bin/sh
 hooks=$1
+
+onlyFirstHook=$(cat <<"EOF"
+BEGIN { curhook = 0 }
+{
+match($0, "[^:]+: ");
+hook=substr($0, RSTART, RLENGTH-2)
+output=substr($0, RSTART+RLENGTH)
+
+if (!curhook || hook == curhook) {
+  curhook = hook
+  print output
+}
+}
+EOF
+             )
+
 ls "$CONCIEGGS_DIR/hooks/$hooks/" |
     while read -r f; do
+        spoke=''
         hook=$CONCIEGGS_DIR/hooks/$hooks/$f
         if [ -x "$hook" ]; then
-            if dbExists debugging; then
-                decorateStdout "hooks/$f" decorateStderr "hooks/$f" runhook "$hook"
-            else
-                decorateStderr "hooks/$f" runhook "$hook"
-            fi
+            decorateStdout "hooks/$f" decorateStderr "hooks/$f" runhook "$hook"
         fi
-    done
+    done | \
+        if dbExists debugging; then
+            cat
+        else
+            awk "$onlyFirstHook"
+        fi
