@@ -8,9 +8,7 @@ t() {
     if test -x "$filter"; then
         "$filter"
     else
-        cat
-        exit
-        gawk -f $HOME/bin/google-translate.awk "{$1=$2}" -
+        $HOME/bin/translate-shell/translate -brief "$1:$2" -
     fi
 }
 
