@@ -11,6 +11,7 @@ output=substr($0, RSTART+RLENGTH)
 if (!curhook || hook == curhook) {
   curhook = hook
   print output
+  fflush()
 }
 }
 EOF
