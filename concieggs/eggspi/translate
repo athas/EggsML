@@ -8,7 +8,12 @@ t() {
     if test -x "$filter"; then
         "$filter"
     else
-        $HOME/bin/translate-shell/translate -brief "$1:$2" -
+        from="$1"
+        langcodes="$CONCIEGGS_DB_DIR/langcodes"
+        if ! grep -q "$from" "$langcodes"; then
+            from='' # Let Google guess.
+        fi
+        $CONCIEGGS_HOME/bin/translate-shell/translate -brief "$from:$2" -
     fi
 }
 
