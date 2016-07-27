@@ -38,8 +38,8 @@ def run_main(args):
     if len(sentences) > 0:
         s = sentences[0].rstrip('.')
         topic, desc = re.match(jp, s).groups()
-        print topic
-        print desc
+        print topic.encode('utf-8')
+        print desc.encode('utf-8')
         return 0
     else:
         return 1
