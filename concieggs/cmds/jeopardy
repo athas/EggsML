@@ -1,0 +1,28 @@
+#!/usr/bin/env rash
+#
+# Gæt emnet for en beskrivelse!
+
+EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
+
+linjer=>jeopardyIndhold
+jz harlinjer
+>echo "${EGGS_USER}: Jeg har ikke lyst lige nu."
+exit
+
+:harlinjer
+emne=<${linjer}>head -n1
+beskrivelse=<${linjer}>tail -n1
+
+>echo "${EGGS_USER}: Okay, gæt det her: ${beskrivelse}."
+
+read gæt
+EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
+
+<"${gæt}">grep -qE "${emne}"
+jz korrektgæt
+
+>echo "${EGGS_USER}: Forkert!  Hvad er: ${emne}!"
+exit
+
+:korrektgæt
+>echo "${EGGS_USER}: Helt rigtigt!  Flot klaret!"
