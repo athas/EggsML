@@ -34,7 +34,7 @@ try {
 
     print $res->[0]->{text} . "\n";
 } catch {
-    print "Nej. Du gør det forkert\n";
+    print "Nej. Du gør det forkert.\n";
     print STDERR "Fejl i cokvidr: $_\n";
 };
 
