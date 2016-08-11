@@ -1,0 +1,12 @@
+#!/usr/bin/env python3
+#
+# Load newline-separated feed URLs from standard in.  Output a random link.
+
+import sys
+import feedparser
+import random
+
+urls = sys.stdin.read().strip().split('\n')
+url = random.choice(urls)
+feed = feedparser.parse(url)
+print(random.choice(feed['items'])['link'])

@@ -1,0 +1,42 @@
+#!/bin/sh
+#
+# Oplys alle!  Promovér kritisk forbrug af medierne!  Giv demokratiets midler
+# tilbage til folket!  Forhindr demagogers spredning i verdenssamfundet!
+# Forbedr den offentlige debat!  Muliggør kreative løsninger til fremtidens
+# flaskehalse!
+
+# Tilføj gerne kontroversielle feeds.
+url=$(randomFeedLink <<EOF
+http://politiken.dk/rss/senestenyt.rss
+http://www.dr.dk/nyheder/service/feeds/allenyheder
+http://www.politico.com/rss/politicopicks.xml
+http://www.bt.dk/bt/seneste/rss
+https://www.information.dk/feed
+http://modkraft.dk/rss
+http://www.kristeligt-dagblad.dk/rss/nyheder
+http://www.socialister.dk/nyheder/rss.asp
+http://gribskov.lokalavisen.dk/section/senestenytrss
+EOF
+)
+
+udbryd=$(randomLine <<EOF
+Nu går det da helt galt for Kongeriget Danmark
+Wow, nu har jeg aldrig
+Hvad pape
+Jeg ved ikke om jeg skal grine eller græde
+Det her kan jeg ikke hamle op med
+Giv mig jeres holdninger
+Nu igen
+FOR SATAN I HELVEDE
+Pokkers
+Det er vel egentlig meget godt
+Rimelig fornuftigt alligevel
+Kudos herfra
+Læs det her
+Jeg havde slet ikke tænkt over det her
+Hmm, tjoo
+Nu går det ned
+EOF
+)
+
+echo "$udbryd: $url"
