@@ -39,4 +39,12 @@ Nu går det ned
 EOF
 )
 
-echo "$udbryd: $url"
+besked="$udbryd: $url"
+
+bruger="$1"
+
+if ! [ "$bruger" ]; then
+    echo "$besked"
+else
+    echo "$bruger: $besked"
+fi
