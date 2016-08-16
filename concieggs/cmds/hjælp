@@ -5,7 +5,11 @@
 
 
 if [ $# -lt 1 ]; then
-    echo "Brug 'eggsml' hvis du vil melde dig til spisning, 'neggst' og 'preggs' til at se hvem der spiser med. Forstår du ikke frokost? benyt 'hjælp frokost'"
+    if onEggsChannel; then
+        echo "Brug 'eggsml' hvis du vil melde dig til spisning, 'neggst' og 'preggs' til at se hvem der spiser med. Forstår du ikke frokost? benyt 'hjælp frokost'"
+    else
+        echo "Dette er IRC.  Du kan skrive med folk på DIKU og hele verdenen rundt."
+    fi
     echo "Vil du have hjælp til en specific kommando, brug da: hjælp <kommando>"
 elif [ -f "$CONCIEGGS_DIR/cmds/$1" ]; then
     echo "$1: "
@@ -14,5 +18,5 @@ elif [ -f "$CONCIEGGS_DIR/cmds/$(ircChannel)/$1" ]; then
     echo "$1: "
     cat "$CONCIEGGS_DIR/cmds/$(ircChannel)/$1" | docstring
 else
-    echo "Der er ingen kommando ved navn $1."
+    echo "Der er ingen kommando ved navn $1.  Prøv eventuelt at skrive 'hjælp' uden nogen argumenter."
 fi
