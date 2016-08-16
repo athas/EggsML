@@ -11,6 +11,9 @@ if [ ! "$what" ]; then
 fi
 
 if [ "$specific" ]; then
+    if [ "$specific" = "mig" ]; then
+      specific=$EGGS_USER
+    fi
     file=outfilter_command_$specific
 else
     file=outfilter_command
