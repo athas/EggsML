@@ -125,4 +125,7 @@ word := ~/computer/ "datamat"
       | ~/clock cycle/ "klokcykel"
       | ~/x64/ "x86-64 eller AMD64"
       | ~/[wW][tT]/ os@((~/[fF]/"ø")*) "hvad s" !os "ren"
+      | ~/omg/ "jøsses"
+      | ~/OMG/ "JØSSES"
+      | ~/[tT]his is an outrage/ "Det er en skandale"
       | /[a-zA-ZæøåÆØÅ0-9]+/
