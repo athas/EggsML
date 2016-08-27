@@ -2,4 +2,6 @@
 
 annoyedBy "$EGGS_USER" 3
 
-echo "$EGGS_USER: Tak for informationen!  Jeg tror dog også infoskaerm er interesseret."
+echo "infoskaerm: breaking: $EGGS_USER kan ikke finde ud at at skrive til den rigtige bot!"
+echo "Lad os alle grine ad $EGGS_USER!"
+echo "HAHAHA!"
