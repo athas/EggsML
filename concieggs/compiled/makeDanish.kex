@@ -128,4 +128,5 @@ word := ~/computer/ "datamat"
       | ~/jesus/ "jøsses"
       | ~/JESUS/ "JØSSES"
       | ~/[tT]his is an outrage/ "Det er en skandale"
+      | ~/F#/ "ikke-standard ML"
       | /[a-zA-ZæøåÆØÅ0-9]+/
