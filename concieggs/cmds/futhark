@@ -31,7 +31,7 @@ else
     esac
     rettype=$1
     shift;
-    echo "fun $rettype main() = $@" > $file
+    echo "fun main(): $rettype = $@" > $file
     what_to_do
     rm -f "$file" "$file.bin"
 fi
