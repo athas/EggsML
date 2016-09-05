@@ -11,6 +11,4 @@ my @bind = (">>=", $ma, "\lalalalala -> $f lalalalala");
 my $res = capturex('runoperator', @bind);
 chomp $res;
 
-exit(1) unless $a;
-
 printf("%s\n", $res);
