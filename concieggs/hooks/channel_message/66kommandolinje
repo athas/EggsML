@@ -1,0 +1,32 @@
+#!/bin/sh
+#
+# Brok over indtastning af kommandoer i IRC.  Rettet mod folk der bruger en
+# kommandolinje-baseret IRC-klient.
+
+shuttingUp && exit
+
+error() {
+    randomLine <<EOF
+$EGGS_USER: Det ser ud til at du prøver at køre en kommando i din terminal, men dette er altså IRC!
+$EGGS_USER, for fanden.  Det her er IRC, ikke din konsol!
+Jeg er en IRC-kanal og ikke en konsol, kære $EGGS_USER.
+EOF
+}
+
+check() {
+    grep -qx "$EGGS_BODY" && error || exit
+}
+
+check <<EOF
+ls
+cd
+tree
+htop
+top
+ncal
+cal
+df
+vi
+emacs
+nano
+EOF
