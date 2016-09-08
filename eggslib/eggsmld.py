@@ -11,7 +11,7 @@ import stat
 
 def run_main():
     if len(sys.argv) != 3:
-        exit("Usage: %s <lunchfile> <socket-filename>" % sys.argv[0])
+        sys.exit("Usage: %s <lunchfile> <socket-filename>" % sys.argv[0])
     lunchfile = sys.argv[1]
     lunchfile_changetime = os.stat(lunchfile).st_mtime
     filename = sys.argv[2]
