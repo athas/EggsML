@@ -5,6 +5,6 @@ case "$2" in
         ;;
     *)
         lcalias="$(echo "$2" | perl -ne 'print (lc $_)')"
-        dbUserRead "$1" "cmd_aliases" | fgrep -i "$lcalias=" | cut -d'=' -f 2
+        dbUserRead "$1" "cmd_aliases" | fgrep -wi "$lcalias=" | cut -d'=' -f 2
         # The above is wrong in some cases.
 esac
