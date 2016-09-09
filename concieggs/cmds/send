@@ -14,7 +14,7 @@ if [ "$rawcmd" ]; then
 
     cmd=$(echo "$rawcmd" | cut -d' ' -f 1)
     args=$(echo "$rawcmd"| sed 's/[^ ]* *//')
-    result=$(runcmd "$cmd" $args) | \
+    runcmd "$cmd" $args | \
         if [ "$addr" = "twitter" ] || [ "$addr" = "internettet" ]; then
             kvidr
         else
