@@ -17,7 +17,7 @@ if [ "$rawcmd" ]; then
     result=$(runcmd "$cmd" $args)
 
     if [ "$addr" = "twitter" ] || [ "$addr" = "internettet" ]; then
-        runcmd kvidr "$result"
+        kvidr "$result"
     else
         echo "Sender $rawcmd til $addr!"
         echo $result | sed s/\n/\r\n/g | mailx -r concieggs@eggsml.dk \
