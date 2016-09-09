@@ -18,7 +18,7 @@ beskrivelse=<${linjer}>tail -n1
 read gæt
 EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
 
-<"${gæt}">grep -qE "${emne}"
+<"${gæt}">grep -qiE "${emne}"
 jz korrektgæt
 
 >echo "${EGGS_USER}: Forkert!  Hvad er: ${emne}!"
