@@ -25,5 +25,7 @@ while ((! $title) || (! $factoid) && ($i++ < 5)) {
     $factoid =~ s/\s+/ /s;
 }
 
-say $title;
-say $factoid;
+if ($title && $factoid) {
+    say $title;
+    say $factoid;
+}
