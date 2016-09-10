@@ -5,6 +5,7 @@ use utf8;
 
 use LWP::Simple;
 use Mojo::DOM;
+use Mojo::Util qw/trim/;
 
 my ($title, $factoid);
 my $i = 0;
@@ -23,6 +24,7 @@ while ((! $title) || (! $factoid) && ($i++ < 5)) {
 
     $factoid = $dom->find('#trivia_content .soda .sodatext')->shuffle->first->all_text;
     $factoid =~ s/\s+/ /s;
+    $factoid = trim($factoid);
 }
 
 if ($title && $factoid) {
