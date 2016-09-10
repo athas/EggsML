@@ -6,6 +6,7 @@ use utf8;
 use LWP::Simple;
 use Mojo::DOM;
 use Mojo::Util qw/trim/;
+use utf8::all;
 
 my ($title, $factoid);
 my $i = 0;
