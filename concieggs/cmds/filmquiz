@@ -1,0 +1,28 @@
+#!/usr/bin/env rash
+#
+# Gæt en film ud fra et stykke trivia om filmen.
+
+EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
+
+linjer=>movieQuizContent
+jz harlinjer
+>echo "${EGGS_USER}: Jeg har ikke lyst lige nu."
+exit
+
+:harlinjer
+emne=<${linjer}>head -n1
+beskrivelse=<${linjer}>tail -n1
+
+>echo "${EGGS_USER}: ${beskrivelse}."
+
+read gæt
+EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
+
+<"${gæt}">grep -qiE "${emne}"
+jz korrektgæt
+
+>echo "${EGGS_USER}: Forkert! Filmen var: ${emne}!"
+exit
+
+:korrektgæt
+>echo "${EGGS_USER}: Helt rigtigt! Flot klaret!"
