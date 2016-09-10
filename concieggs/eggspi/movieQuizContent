@@ -6,20 +6,24 @@ use utf8;
 use LWP::Simple;
 use Mojo::DOM;
 
-my $page = int( rand() * 20 ) + 1;
-my $url = qq{http://www.imdb.com/search/title?groups=top_1000&sort=user_rating&page=$page&view=simple};
+my ($title, $factoid);
+my $i = 0;
+while ((! $title) || (! $factoid) && ($i++ < 5)) {
+    my $page = int( rand() * 20 ) + 1;
+    my $url = qq{http://www.imdb.com/search/title?groups=top_1000&sort=user_rating&page=$page&view=simple};
 
-my $dom = Mojo::DOM->new( get( $url ) );
+    my $dom = Mojo::DOM->new( get( $url ) );
 
-my $movie = $dom->find('.lister-item .lister-item-header a')->shuffle->first;
-my $title = $movie->text;
-my ($movieid) = $movie->attr('href') =~ qr{/title/(tt\d+)/};
+    my $movie = $dom->find('.lister-item .lister-item-header a')->shuffle->first;
+    $title = $movie->text;
+    my ($movieid) = $movie->attr('href') =~ qr{/title/(tt\d+)/};
 
-my $trivia_url = qq{http://www.imdb.com/title/$movieid/trivia};
-$dom = Mojo::DOM->new( get( $trivia_url ) );
+    my $trivia_url = qq{http://www.imdb.com/title/$movieid/trivia};
+    $dom = Mojo::DOM->new( get( $trivia_url ) );
 
-my $factoid = $dom->find('#trivia_content .soda .sodatext')->shuffle->first->all_text;
-$factoid =~ s/\s+/ /s;
+    $factoid = $dom->find('#trivia_content .soda .sodatext')->shuffle->first->all_text;
+    $factoid =~ s/\s+/ /s;
+}
 
 say $title;
 say $factoid;
