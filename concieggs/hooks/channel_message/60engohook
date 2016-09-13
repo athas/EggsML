@@ -14,4 +14,16 @@ EOF
 
 if [ "$body" != "$EGGS_BODY" ]; then
     say "En og en gi'r to; $onkel: $body"
+else
+    body="$(say "$EGGS_BODY" | perl -pne 's/to to/fire/g')"
+
+    onkel=$(randomLine <<EOF
+det' det jeg siger
+pi'rne skriger
+EOF
+           )
+
+    if [ "$body" != "$EGGS_BODY" ]; then
+        say "To og to gi'r fire; $onkel: $body"
+    fi
 fi
