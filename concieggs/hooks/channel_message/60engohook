@@ -1,29 +1,59 @@
-#!/bin/sh
+#!/usr/bin/env perl
+use v5.20;
+use warnings;
+use utf8;
 
-(shuttingUp || talkingToConcieggs) && exit
+use utf8::all;
+use Env qw/EGGS_BODY/;
 
-body="$(say "$EGGS_BODY" | perl -pne 's/en en/to/g')"
+system("shuttingUp || talkingToConcieggs");
+exit if ($? >> 8) == 0;
 
-onkel=$(randomLine <<EOF
-den er go'
-værsgo'
-kan du tro
-prøv at glo
-EOF
-     )
+# en + en = to
+my @rules = (
+    {
+        en   => 'en',
+        to   => 'to',
+        puns => [
+            "den er go'",
+            "værsgo'",
+            "kan du tro",
+            "prøv at glo",
+        ],
+    },
+    {
+        en   => 'to',
+        to   => 'fire',
+        puns => [
+            "det' det jeg siger",
+            "pi'rne skriger",
+        ],
+    },
+    {
+        en   => 'ni',
+        to   => 'atten',
+        puns => [
+            "så for sat'n",
+            "jeg løfter hatten",
+        ],
+    },
+    {
+        en   => 'ti',
+        to   => 'tyve',
+        puns => [
+            "uden at lyve",
+        ],
+    },
+);
 
-if [ "$body" != "$EGGS_BODY" ]; then
-    say "En og en gi'r to; $onkel: $body"
-else
-    body="$(say "$EGGS_BODY" | perl -pne 's/to to/fire/g')"
+for my $rule (@rules) {
+    my $left = $rule->{en} . '\s+' . $rule->{en};
+    my $right = $rule->{to};
 
-    onkel=$(randomLine <<EOF
-det' det jeg siger
-pi'rne skriger
-EOF
-           )
+    my $body = $EGGS_BODY =~ s/$left/$right/gr;
+    next if ($body eq $EGGS_BODY);
 
-    if [ "$body" != "$EGGS_BODY" ]; then
-        say "To og to gi'r fire; $onkel: $body"
-    fi
-fi
+    my $pun = $rule->{puns}->[rand @{$rule->{puns}}];
+    printf("%s og %s gi'r %s; %s: %s\n", ucfirst $rule->{en}, $rule->{en}, $rule->{to}, $pun, $body);
+    exit(0);
+}
