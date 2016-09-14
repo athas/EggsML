@@ -3,6 +3,7 @@ use v5.20;
 use warnings;
 use utf8;
 
+use Encode qw/decode/;
 use utf8::all;
 my $EGGS_BODY = decode('utf-8', $ENV{EGGS_BODY});
 
