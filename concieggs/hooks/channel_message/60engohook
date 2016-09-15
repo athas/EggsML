@@ -36,6 +36,7 @@ my @rules = (
         puns => [
             "så for sat'n",
             "jeg løfter hatten",
+            "her i chatten",
         ],
     },
     {
