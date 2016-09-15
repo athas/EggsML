@@ -31,6 +31,14 @@ my @rules = (
         ],
     },
     {
+        en => 'tre',
+        to => 'seks',
+        puns => [
+            "er du en heks",
+            "også i hex",
+            ]
+    },
+    {
         en   => 'ni',
         to   => 'atten',
         puns => [
