@@ -13,7 +13,7 @@ exit
 emne=<${linjer}>head -n1
 beskrivelse=<${linjer}>tail -n1
 
->echo "${EGGS_USER}: ${beskrivelse}."
+>echo "${EGGS_USER}: ${beskrivelse}"
 
 read gæt
 EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
