@@ -10,6 +10,8 @@ error() {
 $EGGS_USER: Det ser ud til at du prøver at køre en kommando i din terminal, men dette er altså IRC!
 $EGGS_USER, for fanden.  Det her er IRC, ikke din konsol!
 Jeg er en IRC-kanal og ikke en konsol, kære $EGGS_USER.
+Kære $EGGS_USER.  Jeg har i længere tid været irriteret over at du bruger mig som en konsol.
+Nej...  Nej...  NEJ!  $EGGS_USER, du kan ikke køre konsol-kommandoer på IRC, ligesom!
 EOF
 }
 
