@@ -16,8 +16,11 @@ EOF
 }
 
 check() {
-    regex="$(echo "$EGGS_BODY" | sed 's/\./\\./g')"
-    grep -qx "$regex" && error || exit
+    while IFS='' read -r line; do
+        if [ "$line" = "$EGGS_BODY" ]; then
+            error
+        fi
+    done
 }
 
 check <<EOF
