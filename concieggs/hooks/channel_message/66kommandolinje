@@ -14,7 +14,8 @@ EOF
 }
 
 check() {
-    grep -qx "$EGGS_BODY" && error || exit
+    regex="$(echo "$EGGS_BODY" | sed 's/\./\\./g')"
+    grep -qx "$regex" && error || exit
 }
 
 check <<EOF
