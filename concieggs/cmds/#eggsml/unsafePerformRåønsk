@@ -5,6 +5,27 @@
 if [ $# -lt 1 ]; then
     echo "Brug: unsafePerformRåønsk [antal] ønske..."
 else
+    name="$(randomName "$EGGS_USER")"
+
+    watchout="$(randomLine <<EOF
+Giv agt!
+Pas på!
+Af banen!
+Hold på hestene!
+EOF
+)"
+
+    herecomesarebel="$(randomLine <<EOF
+$name drikker sin kaffe sort!
+$name har taget voksenbleen på i dag!
+$name kører uden cykelhjelm!
+$name kører uden sikkerhedssele!
+$name tager ikke backup!
+EOF
+)"
+
+    say "$watchout $herecomesarebel"
+
     eval "$(echo "$@" | parse '(?<count>[0-9]+) (?<what>.*)|(?<what>.*)')"
     if ! [ "$count" ]; then
         count=1
