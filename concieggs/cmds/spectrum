@@ -2,4 +2,4 @@
 #
 # Hvordan var Spectrum's bytur?
 
-curl spectrum.sigkill.dk|fgrep '<p>'|sed 's/<[^>]*>//g'
+curl -s spectrum.sigkill.dk|fgrep '<p>'|sed 's/<[^>]*>//g'
