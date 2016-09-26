@@ -1,0 +1,28 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# Giv en god video.  Brug: heldigvideo SØGEORD
+
+import sys
+import json
+import random
+import urllib
+
+# API key obtained from https://console.developers.google.com
+# Restricted to only work on IP: 149.210.169.107, 2a01:7c8:aaac:1cf:fca5:5751:2300:ea09
+# Belongs to the "DIKU Kantine Infoscreen" thing. Ask Sebbe.
+API_KEY = 'AIzaSyBxz24Pvk0zwBfdQDwkRYu2xAcJORdlMjA'
+
+url = 'https://www.googleapis.com/youtube/v3/search?key=' + API_KEY + \
+      '&part=snippet&order=viewCount&safeSearch=none&type=video&videoDuration=short&' + \
+      urllib.urlencode([('q', ' '.join(sys.argv[1:]))])
+data = json.loads( urllib.urlopen( url ).read() )
+
+if len(data['items']) == 0:
+    print "Jeg kunne ikke finde nogen videoer om '%s'." % ' '.join(sys.argv[1:])
+    sys.exit(0)
+
+entry = random.choice(data['items'])
+
+videoid = entry['id']['videoId']
+print 'En heldig video?  Se https://youtu.be/' + videoid
