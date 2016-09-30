@@ -22,7 +22,7 @@ word := ~/computer/ "datamat"
       | ~/web/ "spindel"
       | ~/e-?mail/ "elektropost"
       | ~/harddisk/ "fastpladelager"
-      | ~/merge/ "flet"
+      | ~/merge/ "flet" (~/[ -]?sort/ "sortering")
       | ~/quick/ "kvik"
       | ~/escape/ "flygt"
       | ~/free food/ "gratis mad"
