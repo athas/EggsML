@@ -83,12 +83,5 @@ def roegting():
 
     return grats[random.randint(0, len(grats)-1)]
 
-
-
-
-def fejl():
-    print "Brug 'valuta <beløb> <valutatype> <ord> <valutatype>.'"
-
-
 if __name__ == '__main__':
     run_main(sys.argv)
