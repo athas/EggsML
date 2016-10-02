@@ -18,4 +18,4 @@ start = random.choice([
     'Wupwup'
 ])
 
-print '%s: %s' % (start, sheggs.makeMeme(alt))
+print '%s: %s' % (start, sheggs.makeMeme(alt)),
