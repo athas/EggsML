@@ -20,7 +20,7 @@ while (my $line = <>) {
         $i+=$l;
     }
 
-    print join("", zip(@rainbow, @msg)) . "\cO";
+    print join("", zip(@rainbow, @msg)) . "\cO\n";
 }
 
 
