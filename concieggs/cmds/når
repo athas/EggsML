@@ -4,10 +4,10 @@
 
 set -e
 
-eval "$(echo "$@" | parse '(?<who>jeg) (siger|skriver|ytrer|skriger|nævner|prutter|rabler om|hvæser) (?<alias>[^ =]+)(?: så)? mener jeg(?: faktisk)? (?<command>.+)|(?<who>[^ ]+) siger (?<alias>[^ =]+)(?: så)? mener (han|hun)(?: faktisk)? (?<command>.+)')"
+eval "$(echo "$@" | parse '(?<who>jeg) (siger|skriver|ytrer|skriger|nævner|prutter|rabler om|hvæser) (?<alias>[^ =]+)(?: så)? mener jeg(?: faktisk)? (?<command>.+)|(?<who>[^ ]+) siger (?<alias>[^ =]+)(?: så)? mener (han|hun|hen)(?: faktisk)? (?<command>.+)')"
 
 if ! [ "$who" ]; then
-    echo "$EGGS_USER: Brug: når <hvem> siger <hvad> mener <jeg|han|hun> <noget andet>"
+    echo "$EGGS_USER: Brug: når <hvem> siger <hvad> mener <jeg|han|hun|hen> <noget andet>"
     exit
 fi
 
