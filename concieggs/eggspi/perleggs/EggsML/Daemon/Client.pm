@@ -1,4 +1,3 @@
-#!/usr/bin/env perl
 package EggsML::Daemon::Client;
 use 5.012;
 use warnings;
