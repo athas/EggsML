@@ -5,11 +5,19 @@
 # https://en.wikipedia.org/wiki/Cowsay
 
 
-use 5.012;
-#use warnings;
+use 5.020;
+use warnings;
+use Encode qw/decode/;
 
-if ($ARGV[0] =~ /^[bdgpstwy]$/) {
-    system('cowsay', ('-'.$ARGV[0]), @ARGV[1..@ARGV])
-} else {
-    system('cowsay', "-d", @ARGV);
+my $flag = 'd';
+$flag = shift @ARGV if @ARGV > 0 && $ARGV[0] =~ /^[bdgpstwy]$/;
+
+my $message = join(" ", @ARGV);
+unless ($message) {
+    my $user = decode('utf-8', $ENV{EGGS_USER});
+    $message = "$user kan ikke finde ud af koen.";
 }
+
+my @args = ("-$flag",  $message);
+
+system('cowsay', @args);
