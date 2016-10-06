@@ -15,7 +15,7 @@ my @rules = (
     {
         en   => 'en',
         to   => 'to',
-        puns => [
+        uncle => [
             "den er go'",
             "værsgo'",
             "kan du tro",
@@ -25,7 +25,7 @@ my @rules = (
     {
         en   => 'to',
         to   => 'fire',
-        puns => [
+        uncle => [
             "det' det jeg siger",
             "pi'rne skriger",
         ],
@@ -33,7 +33,7 @@ my @rules = (
     {
         en => 'tre',
         to => 'seks',
-        puns => [
+        uncle => [
             "er du en heks",
             "også i hex",
             ]
@@ -41,7 +41,7 @@ my @rules = (
     {
         en   => 'ni',
         to   => 'atten',
-        puns => [
+        uncle => [
             "så for sat'n",
             "jeg løfter hatten",
             "her i chatten",
@@ -50,7 +50,7 @@ my @rules = (
     {
         en   => 'ti',
         to   => 'tyve',
-        puns => [
+        uncle => [
             "uden at lyve",
         ],
     },
@@ -63,7 +63,7 @@ for my $rule (@rules) {
     my $body = $EGGS_BODY =~ s/$left/$right/gr;
     next if ($body eq $EGGS_BODY);
 
-    my $pun = $rule->{puns}->[rand @{$rule->{puns}}];
+    my $pun = $rule->{uncle}->[rand @{$rule->{uncle}}];
     printf("%s og %s gi'r %s; %s: %s\n", ucfirst $rule->{en}, $rule->{en}, $rule->{to}, $pun, $body);
     exit(0);
 }
