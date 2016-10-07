@@ -1,0 +1,17 @@
+#!/usr/bin/env perl
+#
+# Blinde skal også kunne bruge concieggs!
+use 5.020;
+use warnings;
+
+use utf8::all;
+use Convert::Braille;
+use Text::Unaccent::PurePerl qw/unac_string/;
+
+for my $line (<>) {
+    chomp $line;
+    $line = unac_string($line);
+    $line = uc $line;
+
+    say brailleAsciiToUnicode($line);
+}
