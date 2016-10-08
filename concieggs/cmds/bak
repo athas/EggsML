@@ -1,22 +1,32 @@
 #!/bin/sh
 #
-# Få concieggs's støtte.
+# Få eller giv concieggs's støtte.
 
 eval "$(echo "$@" | parse '^(?<who>[^ ]+)( nu| så)?( lige)? op( på #(?<kanal>[^ ]+))?$')"
 
 support_user() {
+    user="$1"
+    behaviour=$(dbRead outfilter_command)
+    if [ "$behaviour" = *"feminazi"* ]; then
+        support_feminazi "$user"
+    else
+        support "$user"
+    fi
+}
+
+support() {
     user="$1"
     randomLine <<EOF
 $user: Du har så ret!
 $user: Enig!
 $user har helt ret.
 Fandeme godt sagt, $user!
-Prædk det, $user!"
+Prædk det, $user!
 Lyt til $user, han ved hvad han taler om.
 EOF
 }
 
-support_user_feminazi() {
+support_feminazi() {
     user="$1"
     randomLine <<EOF
 $user: Godt brølt, søster!
@@ -40,13 +50,10 @@ if [ "$who" ]; then
         exit
     fi
     {
-        behaviour=$(dbRead outfilter_command)
         if [ "$who" = mig ]; then
             support_user "$EGGS_USER"
         elif [ "$who" = os ] || [ "$who" = alle ]; then
             support_all
-	elif [ "$behaviour" = feminazi ]; then
-            support_user_feminazi "$who"
         else 
             support_user "$who"
         fi
