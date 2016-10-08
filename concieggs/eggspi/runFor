@@ -19,7 +19,7 @@ filter_non_commands() {
              if (say "$user" | grep -q ' '); then
                  user=''
              fi
-             outfilter "$(basename "$PWD")" "$user" "$line"
+             outfilter "$EGGS_WHERE" "$user" "$line"
          fi) || say "$line"
     done
 }
