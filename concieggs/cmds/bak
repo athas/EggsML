@@ -6,8 +6,8 @@ eval "$(echo "$@" | parse '^(?<who>[^ ]+)( nu| så)?( lige)? op( på #(?<kanal>[
 
 support_user() {
     user="$1"
-    behaviour=$(dbRead outfilter_command)
-    if [ "$behaviour" = *"feminazi"* ]; then
+    isFeminazi=$(echo "$(dbRead outfilter_command)" | grep -ci "feminazi")
+    if [ $isFeminazi = 1 ]; then
         support_feminazi "$user"
     else
         support "$user"
