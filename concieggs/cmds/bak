@@ -16,6 +16,13 @@ Lyt til $user, han ved hvad han taler om.
 EOF
 }
 
+support_user_feminazi() {
+    user="$1"
+    randomLine <<EOF
+$user: Godt brølt, søster!
+EOF
+}
+
 support_all() {
     randomLine <<EOF
 I har så ret!
@@ -33,10 +40,15 @@ if [ "$who" ]; then
         exit
     fi
     {
+        behaviour=$(dbRead outfilter_command)
         if [ "$who" = mig ]; then
             support_user "$EGGS_USER"
         elif [ "$who" = os ] || [ "$who" = alle ]; then
             support_all
+	elif [ "$behaviour" = feminazi ]; then
+            support_user_feminazi "$who"
+        else 
+            support_user "$who"
         fi
     } | {
         if [ "$kanal" ]; then
