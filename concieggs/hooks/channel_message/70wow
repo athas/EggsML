@@ -12,7 +12,7 @@ lol() {
     randomLine <<EOF
 Ja, hold da kæft!
 Så for satan!
-I du milde!
+Ih du milde!
 Hold da helt fest!
 w${o}w
 W${O}W
@@ -22,6 +22,6 @@ Milde makrel!
 EOF
 }
 
-if echo "$EGGS_BODY" | grep -qiE 'wo+w'; then
+if echo "$EGGS_BODY" | grep -qiE 'w[aeiouæøå]+w'; then
     lol
 fi
