@@ -36,7 +36,7 @@ lcalias="$(echo "$alias" | perl -ne 'print (lc $_)')"
 
 cmd=$(echo "$command" | cut -d' ' -f 1)
 
-if [ "$cmd" = "når" && "$who" != "jeg"]; then
+if [ "$cmd" = "når" ] && [ "$who" != "jeg" ]; then
     echo "$who: Er det rigtigt, at du mener $cmd, når du siger når?"
     echo "For det påstår $EGGS_USER altså, og jeg synes bare at det var et mærkeligt ønske."
     echo " Men hvis du virkelig gerne vil have det, så sig det lige til mig selv."
