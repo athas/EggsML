@@ -2,33 +2,28 @@
 #
 # Få eller giv concieggs's støtte.
 
-eval "$(echo "$@" | parse '^(?<follow>altid |ikke )?(?<who>[^ ]+)( nu| så)?( lige)? op( på #(?<kanal>[^ ]+))?$')"
+eval "$(echo "$@" | parse '^(?<follow>altid |aldrig )?(?<who>[^ ]+)( nu| så)?( lige)? op( på #(?<kanal>[^ ]+))?$')"
 
-name=$(randomName "$EGGS_USER")
-canonical=$(aliases "$EGGS_USER" | head -n 1)
 if [ "$who" ]; then
     if [ "$follow" = "altid" ]; then
-        if [ "$name" ] && [ "$who" = "mig" ]; then
-            echo "1" | dbUserWrite "$canonical" "support"
+        if [ "$who" = "mig" ]; then
+            echo "1" | dbUserWrite "$EGGS_USER" "support"
             echo "Det skal jeg nok, du er jo mega klog!"
             exit 0
-        elif [ "$name" ]; then
-            echo "1" | dbUserWrite "$canonical" "support"
+        else
+            echo "1" | dbUserWrite "$who" "support"
             echo "Åhr ja, jeg har faktisk godt lagt mærke til, at $who siger nogle rimelig fornuftige ting."
             exit 0
-        else
-            echo "Det kender jeg altså ikke $who godt nok til."
-            exit 0
         fi
-   fi
-
-   if [ "$follow" = "ikke" ]; then
-       dbUserDelete "$canonical" "support"
-       echo "Nej, du har ret. Jeg skal blive en stor bot, som tænker selvstændigt!"
+   elif [ "$follow" = "aldrig" ] && [ "$who" = "mig" ]; then
+       dbUserDelete "$EGGS_USER" "support"
+       echo "Nej, du har ret. Jeg hører du er ved at falde af på den."
        exit 0
-   fi
-
-   if  [ "$kanal" ]; then
+   elif [ "$follow" = "aldrig" ]; then
+       dbUserDelete "$who" "support"
+       echo "Nej, det må jeg heller lade være med. Jeg har hørt at $who er ved at blive skør."
+       exit 0
+   elif [ "$kanal" ]; then
        support "$who" "$kanal"
    else
        support "$who"

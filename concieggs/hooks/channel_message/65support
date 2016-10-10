@@ -4,8 +4,7 @@ charmen=$(dbRead charmen)
 num=$(awk "BEGIN{print 0.1 * $charmen}")
 maybeGood $num.0 || exit
 
-canonical=$(aliases "$EGGS_USER" | head -n 1)
-support=$(dbUserRead "$canonical" "support")
+support=$(dbUserRead "$EGGS_USER" "support")
 if [ "$support" = "1" ]; then
    support "$EGGS_USER"
 fi
