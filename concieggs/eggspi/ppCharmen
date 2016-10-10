@@ -3,19 +3,46 @@
 charm=`checkCharmen`
 anticharm=`expr 10 - ${charm}`
 
-start="|"
-kasse="□"
+if [ "$charm" = "10" ]; then
+  echo "/me trækker en kam gennem håret og stikker to tommelfingre i vejret"
+  echo "'eeeey."
 
-until [ ${charm} -lt 1 ]
-do
-  start="${start}${kasse}"
-  charm=`expr ${charm} - 1`
-done
+elif [ "$charm" = "9" ]; then
+  echo "$EGGS_USER: Enchanté
 
-until [ ${anticharm} -lt 1 ]
-do
-  start="${start}-"
-  anticharm=`expr ${anticharm} - 1`
-done
+elif [ "$charm" = "8" ]; then
+  echo "/me sætter charmekluden på en særligt fin måde."
+  echo "Det skal ikke hedde sig, at jeg ikke er en gentleman."
 
-echo "${start}|"
+elif [ "$charm" = "7" ]; then
+  echo "/me flasher tandpasta-smilet"
+  echo "$EGGS_USER: hey, hvad så?"
+
+elif [ "$charm" = "6" ]; then
+  echo "/me rækker $EGGS_USER en æske fyldte chokolader"
+  echo "Jeg syntes bare du skulle have en lille ting :-)"
+  echo "$EGGS_USER" | dbWrite "has_chokoladerne"
+
+elif [ "$charm" = "5" ]; then
+  echo "/me sætter sit slips op i panden."
+
+elif [ "$charm" = "4" ]; then
+  echo "/me forsøger ivrigt at vise kanalen en sjov kattevideo han har fået."
+
+elif [ "$charm" = "3" ]; then
+  echo "Kender I den om løjtnanten og malkepigen? Satan, et yver!"    
+
+elif [ "$charm" = "2" ]; then
+  echo "Hey, skal vi tage på Tagensborg? Jeg giver.."
+  sleep 2
+  echo ".. ikke en skid!"
+
+elif [ "$charm" = "1" ]; then
+  echo "/me slår en højlydt og ildelugtende prut."
+  echo "Det var altså ikke mig."
+  sleep 2
+  echo "/me bøvser"
+
+else
+  echo "/me stirrer olmt på $EGGS_USER, og har synligt bræk på kabinettet."
+  echo "DIN FÅGGIN ABE."
