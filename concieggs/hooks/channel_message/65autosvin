@@ -5,6 +5,6 @@ num=$(awk "BEGIN{print 0.1 * $charmen.0 * 0.5}")
 maybeGood $num || exit
 
 if isInBadStanding "$EGGS_USER"; then
-   svin=sviner
+   svin=$(sviner)
    echo "$EGGS_USER: $svin"
 fi
