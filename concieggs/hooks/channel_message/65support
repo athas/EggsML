@@ -7,5 +7,5 @@ maybeGood $num.0 || exit
 canonical=$(aliases "$EGGS_USER" | head -n 1)
 support=$(dbUserRead "$canonical" "support")
 if [ "$support" = "1" ]; then
-   $(support "$EGGS_USER")
+   support "$EGGS_USER"
 fi
