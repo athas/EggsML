@@ -46,3 +46,4 @@ elif [ "$charm" = "1" ]; then
 else
   echo "/me stirrer olmt på $EGGS_USER, og har synligt bræk på kabinettet."
   echo "DIN FÅGGIN ABE."
+fi
