@@ -8,7 +8,7 @@ if [ "$charm" = "10" ]; then
   echo "'eeeey."
 
 elif [ "$charm" = "9" ]; then
-  echo "$EGGS_USER: Enchanté
+  echo "$EGGS_USER: Enchanté"
 
 elif [ "$charm" = "8" ]; then
   echo "/me sætter charmekluden på en særligt fin måde."
