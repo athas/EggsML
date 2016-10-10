@@ -1,0 +1,64 @@
+#!/bin/sh
+# use $1 as user and $2 as kanal
+
+support_user() {
+    user="$1"
+    isFeminazi=$(echo "$(dbRead outfilter_command)" | grep -ci "feminazi")
+    if [ $isFeminazi = 1 ]; then
+        support_feminazi "$user"
+    else
+        support "$user"
+    fi
+}
+support() {
+    user="$1"
+    randomLine <<EOF
+$user: Du har så ret!
+$user: Enig!
+$user har helt ret.
+Fandeme godt sagt, $user!
+Prædk det, $user!
+Lyt til $user, han ved hvad han taler om.
+EOF
+}
+
+support_feminazi() {
+    user="$1"
+    randomLine <<EOF
+$user: Godt brølt, søster!
+EOF
+}
+
+support_all() {
+    randomLine <<EOF
+I har så ret!
+Enig!
+I har alle helt ret.
+Fandeme godt sagt!
+Prædk det!
+Ved I hvad, I er alle vildt intelligente!
+EOF
+}
+
+who="$1"
+kanal="$2"
+
+if [ "$who" = $CONCIEGGS_NAME ]; then
+    echo "$EGGS_USER: Det er nu ikke nødvendigt."
+    exit
+fi
+{
+    if [ "$who" = mig ]; then
+        support_user "$EGGS_USER"
+    elif [ "$who" = os ] || [ "$who" = alle ]; then
+        support_all
+    else
+        support_user "$who"
+    fi
+} | {
+    if [ "$kanal" ]; then
+        sayTo "#$kanal"
+    else
+        cat
+    fi
+}
