@@ -5,6 +5,9 @@ Usle
 Gemene
 Blødsødne
 Latterlige
+Dumme
+Ubehøvlede
+Perfide
 EOF`
 
 slambert=`randomLine <<EOF
@@ -13,6 +16,8 @@ IP-genganger
 humanist
 PHK-wannabe
 kujon
+krapyl
+hundehandler
 EOF`
 
 randomLine <<EOF
