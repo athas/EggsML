@@ -12,12 +12,19 @@ use Encode qw/decode/;
 my $flag = 'd';
 $flag = shift @ARGV if @ARGV > 0 && $ARGV[0] =~ /^[bdgpstwy]$/;
 
+my $cmd = (rand() < 0.5) ? "cowsay" : "cowthink";
 my $message = join(" ", @ARGV);
 unless ($message) {
-    my $user = decode('utf-8', $ENV{EGGS_USER});
-    $message = "$user kan ikke finde ud af koen.";
+    $cmd = "cowthink";
+    $message = <<'END_OF_COW';
+\|/          (__)
+     `\------(oo)
+       ||    (__)
+       ||w--||     \|/
+   \|/
+END_OF_COW
 }
 
-my @args = ("-$flag",  $message);
-
-system('cowsay', @args);
+open(COWSAY, "|$cmd -$flag -n");
+print COWSAY $message;
+close(COWSAY);
