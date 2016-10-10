@@ -2,68 +2,37 @@
 #
 # Få eller giv concieggs's støtte.
 
-eval "$(echo "$@" | parse '^(?<who>[^ ]+)( nu| så)?( lige)? op( på #(?<kanal>[^ ]+))?$')"
+eval "$(echo "$@" | parse '^(?<follow>altid |ikke )?(?<who>[^ ]+)( nu| så)?( lige)? op( på #(?<kanal>[^ ]+))?$')"
 
-support_user() {
-    user="$1"
-    isFeminazi=$(echo "$(dbRead outfilter_command)" | grep -ci "feminazi")
-    if [ $isFeminazi = 1 ]; then
-        support_feminazi "$user"
-    else
-        support "$user"
-    fi
-}
-
-support() {
-    user="$1"
-    randomLine <<EOF
-$user: Du har så ret!
-$user: Enig!
-$user har helt ret.
-Fandeme godt sagt, $user!
-Prædk det, $user!
-Lyt til $user, han ved hvad han taler om.
-EOF
-}
-
-support_feminazi() {
-    user="$1"
-    randomLine <<EOF
-$user: Godt brølt, søster!
-EOF
-}
-
-support_all() {
-    randomLine <<EOF
-I har så ret!
-Enig!
-I har alle helt ret.
-Fandeme godt sagt!
-Prædk det!
-Ved I hvad, I er alle vildt intelligente!
-EOF
-}
-
+name=$(randomName "$EGGS_USER")
+canonical=$(aliases "$EGGS_USER" | head -n 1)
 if [ "$who" ]; then
-    if [ "$who" = $CONCIEGGS_NAME ]; then
-        echo "$EGGS_USER: Det er nu ikke nødvendigt."
-        exit
-    fi
-    {
-        if [ "$who" = mig ]; then
-            support_user "$EGGS_USER"
-        elif [ "$who" = os ] || [ "$who" = alle ]; then
-            support_all
-        else 
-            support_user "$who"
-        fi
-    } | {
-        if [ "$kanal" ]; then
-            sayTo "#$kanal"
+    if [ "$follow" = "altid" ]; then
+        if [ "$name" ] && [ "$who" = "mig" ]; then
+            echo "1" | dbUserWrite "$canonical" "support"
+            echo "Det skal jeg nok, du er jo mega klog!"
+            exit 0
+        elif [ "$name" ]; then
+            echo "1" | dbUserWrite "$canonical" "support"
+            echo "Åhr ja, jeg har faktisk godt lagt mærke til, at $who siger nogle rimelig fornuftige ting."
+            exit 0
         else
-            cat
+            echo "Det kender jeg altså ikke $who godt nok til."
+            exit 0
         fi
-    }
+   fi
+
+   if [ "$follow" = "ikke" ]; then
+       dbUserDelete "$canonical" "support"
+       echo "Nej, du har ret. Jeg skal blive en stor bot, som tænker selvstændigt!"
+       exit 0
+   fi
+
+   if  [ "$kanal" ]; then
+       support "$who" "$kanal"
+   else
+       support "$who"
+   fi
 else
     echo "$EGGS_USER: Brug: bak mig op [på #kanal]"
 fi
