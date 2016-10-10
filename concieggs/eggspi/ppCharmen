@@ -20,7 +20,7 @@ elif [ "$charm" = "7" ]; then
 
 elif [ "$charm" = "6" ]; then
   echo "/me rækker $EGGS_USER en æske fyldte chokolader"
-  echo "Jeg syntes bare du skulle have en lille ting :-)"
+  echo "Jeg syntes bare du skulle have en lille ting :-\)"
   echo "$EGGS_USER" | dbWrite "has_chokoladerne"
 
 elif [ "$charm" = "5" ]; then
