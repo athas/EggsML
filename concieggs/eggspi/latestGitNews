@@ -9,6 +9,7 @@ my %projects = (
     'python'  => 'python/cpython',
     'futhark' => 'HIPERFIT/futhark',
     'mojo'    => 'kraih/mojo',
+    'revy'    => 'dikurevy/dikurevy.dk',
 );
 
 sub MAIN(Str $name) {

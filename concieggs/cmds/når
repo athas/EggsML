@@ -36,6 +36,15 @@ lcalias="$(echo "$alias" | perl -ne 'print (lc $_)')"
 
 cmd=$(echo "$command" | cut -d' ' -f 1)
 
+if [ "$alias" = "når" ] && [ "$who" != "jeg" ]; then
+    echo "$who: Er det rigtigt, at du mener $cmd, når du siger når?"
+    sleep 2
+    echo "For det påstår $EGGS_USER altså, og jeg synes bare at det var et mærkeligt ønske."
+    sleep 2
+    echo "Men hvis du virkelig gerne vil have det, så sig det lige til mig selv."
+    exit 0
+fi
+
 if ! isCommand "$cmd" ; then
     if [ "$cmd" = "$CONCIEGGS_NAME" ]; then
         echo "$EGGS_USER: Jeg er ikke en kommando! Jeg er et tænkende, følende væsen!"
