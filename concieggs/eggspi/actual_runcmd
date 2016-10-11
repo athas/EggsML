@@ -17,7 +17,7 @@ shift
 dbRead cur_cmd | dbWrite last_cmd
 echo "$cmd $@" | dbWrite cur_cmd
 case "$cmd" in
-er|hvem|hvad|hvor|hvornår|har*|kan|skal|hvilke*)
+er|hvem|hvad|hvor|hvorfor|hvornår|har*|kan|skal|hvilke*)
 "$acmd" $(echo "$@" | sed 's/\?*$//') || broke
 ;;
 *)
