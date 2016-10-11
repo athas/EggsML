@@ -114,12 +114,12 @@ elif [ "$root" ]; then
     auth="$(authedName $EGGS_USER)"
     if ! [ "$auth" ]; then
         echo "$EGGS_USER: Det har jeg svært ved at sige."
-        annoyedBy "$EGGS_USER" 2
+        annoyedBy "$EGGS_USER" 2 "påstod at være root uden at kende Nickserv"
     elif [ "$auth" = Athas ]; then
         echo "$EGGS_USER: Ja."
     else
         echo "$EGGS_USER: Nej."
-        annoyedBy "$EGGS_USER" 10
+        annoyedBy "$EGGS_USER" 10 "påstod at være root"
     fi
 elif [ "$githubname" ]; then
     echo "$githubname" | dbUserWrite "$EGGS_USER" githubname

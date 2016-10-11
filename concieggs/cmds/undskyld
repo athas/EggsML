@@ -30,7 +30,7 @@ EOF
         # fi
     else
         echo "Aldrig i livet.  Jeg vil aldrig tilgive dig for hvad $(du $EGGS_USER) har gjort!"
-        annoyedBy "$EGGS_USER" 1
+        annoyedBy "$EGGS_USER" 1 "undskyldte uden grund"
         maybeGood .1 && sleep 3 && echo "... Ahr, okay så, $(du $EGGS_USER) er tilgivet!" && pleasedBy "$EGGS_USER" 25
     fi
     exit 0

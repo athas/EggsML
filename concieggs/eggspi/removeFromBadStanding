@@ -1,3 +1,4 @@
 #!/bin/sh
 
 dbUserDelete "$1" badStanding
+dbUserDelete "$1" annoyances

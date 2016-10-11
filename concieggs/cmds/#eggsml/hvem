@@ -40,7 +40,7 @@ elif [ "$user" ]; then
         echo 'ROFL!'
         sleep 2
         echo "LAD OS GRINE AF TROELS' DUMME BOT!  LOLDONGS!"
-        annoyedBy "$EGGS_USER" 10
+        annoyedBy "$EGGS_USER" 10 "stillet et dumsmart spørgsmål"
         exit
     fi
 
@@ -65,7 +65,7 @@ elif [ "$user" ]; then
          echo "Kig i et spejl."
          echo "Den klammeste eggsling i kassen."
         ) | randomLine
-        annoyedBy $EGGS_USER
+        annoyedBy $EGGS_USER "ikke kender sig selv"
         exit
     fi
 

@@ -7,7 +7,7 @@ if [ $# -eq 1 ]; then
     to=$1
     if [ "$to" = "$CONCIEGGS_NAME" ]; then
         echo "$EGGS_USER: Tag et bad."
-        annoyedBy "$EGGS_USER" 10
+        annoyedBy "$EGGS_USER" 10 "er en neckbeard"
     else
         (
             echo "$to: Hvorfor vil du ikke have en sød fyr, som $EGGS_USER, der behandler dig som den prinsesse du er?"
