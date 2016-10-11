@@ -7,8 +7,7 @@ Ikke her i hvert fald!
 Skal vi ikke snakke om noget andet bots?
 EOF`
 
-t=$(echo "$EGGS_BODY" | grep -ciE "er der (mon )?en bot til ?stede\??")
-if [ "$t" = "1" ]; then
+if echo "$EGGS_BODY" | grep -qiE "er der (mon )?en bot til ?stede\??"; then
   sleep 2
   echo "$spor"
 fi
