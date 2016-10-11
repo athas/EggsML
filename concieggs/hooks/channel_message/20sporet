@@ -1,12 +1,11 @@
 #!/bin/sh
 
-spor=$(randomLine <<EOF
+spor=`randomLine <<EOF
 Ikke her i hvert fald!
 /me snurrer nervøst med fødderne
 /me kigger ned i gulvet
 Skal vi ikke snakke om noget andet bots?
-EOF
-)
+EOF`
 
 if echo "$EGGS_BODY" | grep -qciE "er der (mon )?en bot til ?stede\??"; then
   sleep 2
