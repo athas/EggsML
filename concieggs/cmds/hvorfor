@@ -10,16 +10,23 @@ fi
 if [ "$who" ]; then
     reasons=$(dbUserRead "$who" annoyances | sort | uniq)
 
-    if cmpNames "$who" "$EGGS_USER"; then
-        who=du
-    fi
-
     if [ "$reasons" ]; then
+        if cmpNames "$who" "$EGGS_USER"; then
+            who=du
+        fi
         echo -n "$EGGS_USER: Fordi $who "
         echo "$reasons" | enumerate -n
         echo "."
     else
-        echo "$EGGS_USER: Det kan jeg nu også godt."
+        s="$(annoyanceAt "$who") > 0"
+        if isInBadStanding "$who" || [ $(echo "$s" | bc) = 1 ]; then
+            if cmpNames "$who" "$EGGS_USER"; then
+                who=dig
+            fi
+            echo "$EGGS_USER: Jeg ved ikke hvorfor, men der er noget afskyeligt ved $who."
+        else
+            echo "$EGGS_USER: Det kan jeg nu også godt."
+        fi
     fi
 else
     echo "Fordi `hjuleneDrejer`."
