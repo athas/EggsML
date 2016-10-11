@@ -5,10 +5,10 @@ if [ $# -eq 3 ]; then
     reason=$3
 elif [ $# -eq 2 ]; then
     ann=$2
-    reason="været generelt træls"
+    reason="har været generelt træls"
 else
     ann=1
-    reason="været generelt træls"
+    reason="har været generelt træls"
 fi
 
 echo "$(annoyanceAt "$1") + $ann" | bc | dbUserWrite "$1" annoyanceAt

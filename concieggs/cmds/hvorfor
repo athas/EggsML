@@ -7,7 +7,7 @@ if [ "$who" ]; then
     reasons=$(dbUserRead "$who" annoyances | sort | uniq)
 
     if [ "$reasons" ]; then
-        echo -n "$EGGS_USER: Fordi $who har "
+        echo -n "$EGGS_USER: Fordi $who "
         echo "$reasons" | enumerate -n
         echo "."
     else
