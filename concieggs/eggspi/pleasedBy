@@ -7,8 +7,8 @@ else
 fi
 
 if cmpNames $1 Sebbe; then
-    annoyedBy "Sebbe" $(echo "$ann * -2" | bc)
-    annoyedBy "svip" $ann
+    annoyedBy "svip" $(echo "$ann * -2" | bc)
+    annoyedBy "Sebbe" $ann "har været Sebbe"
     exit
 fi
 
