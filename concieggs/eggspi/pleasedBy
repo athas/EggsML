@@ -6,9 +6,10 @@ else
     ann=1
 fi
 
-if cmpNames $1 Sebbe; then
-    annoyedBy "Sebbe" $(echo "$ann * -2" | bc)
-    annoyedBy "svip" $ann
+if maybeGood 0.05; then
+    annoyedBy "$1" $(echo "$ann * -2" | bc)
+    victim="$(allAliases | randomLine)"
+    annoyedBy "$victim" $ann "blev valgt som syndebuk for $1's gode opførsel"
     exit
 fi
 

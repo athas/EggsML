@@ -1,6 +1,8 @@
 #!/bin/sh
 # Parses a command given to concieggs.
 
-regex='(?i)(^ *'"$(regexEscape $CONCIEGGS_NAME)"'[,:!] +(?<rawcmd>[^ ]+)(?<args>.*)$|(?<rawcmd>[^ ]+)(?<args>.*), '"$(regexEscape $CONCIEGGS_NAME)"'[!.? ]*)$'
+me=$(regexEscape $CONCIEGGS_NAME)
+
+regex='(?i)(^((ja)?men)? *'"$me"'[,:!] +(?<rawcmd>[^ ]+)(?<args>.*)$|(?<rawcmd>[^ ]+)(?<args>.*), '"$me"'[!.? ]*$)'
 
 echo "$EGGS_BODY" | parse "$regex"

@@ -10,10 +10,22 @@ else
         exit
     fi
     hook=$1
-    if isHookDetached "$hook"; then
-        undetachHook "$hook"
-        echo "$(ack)  Jeg vil igen følge de anvisninger der evt. måtte optræde under '$hook'."
+    if [ "$hook" = "alting" -o "$hook" = "alt" ]; then
+        hooks=$(detachedHooks)
+        if [ "$hooks" ]; then
+            for hook in $hooks; do
+                undetachHook "$hook"
+            done
+            echo "$(ack)  Jeg vil igen følge de anvisninger der evt. måtte optræde under $(echo $hooks | enumerate -n).  Fest i gaden!"
+        else
+            echo "$EGGS_USER: Alt synes allerede at være tilkoblet."
+        fi
     else
-        echo "$EGGS_USER: $hook er skam allerede påhægtet."
+        if isHookDetached "$hook"; then
+            undetachHook "$hook"
+            echo "$(ack)  Jeg vil igen følge de anvisninger der evt. måtte optræde under '$hook'."
+        else
+            echo "$EGGS_USER: $hook er skam allerede påhægtet."
+        fi
     fi
 fi
