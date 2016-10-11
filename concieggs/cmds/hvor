@@ -75,6 +75,7 @@ EOF
 )
 elif [ "$charmerende" ]; then
   ppCharmen
+  exit 0
 fi
 
 if [ "$unit" ]; then
