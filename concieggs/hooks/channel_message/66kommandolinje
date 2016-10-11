@@ -33,6 +33,8 @@ ncal
 cal
 df
 vi
+git add
+git push
 emacs
 nano
 EOF
