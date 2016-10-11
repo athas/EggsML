@@ -23,7 +23,7 @@ else
     else
         if isHookDetached "$hook"; then
             undetachHook "$hook"
-            echo "$(ack)  Jeg vil igen følge de anvisninger der evt. måtte optræde under '$hook'."
+            echo "$(ack)  Jeg vil igen følge de anvisninger der evt. måtte optræde under '$(echo "$hook" | enumerate -n)'."
         else
             echo "$EGGS_USER: $hook er skam allerede påhægtet."
         fi
