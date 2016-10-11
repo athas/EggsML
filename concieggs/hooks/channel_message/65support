@@ -5,6 +5,6 @@ num=$(awk "BEGIN{print 0.1 * $charmen.0}")
 maybeGood $num || exit
 
 support=$(dbUserRead "$EGGS_USER" "support")
-if [ "$support" = "1" ]; then
+if [ "$support" = "1" ] && [ echo "$EGGS_BODY" | grep -qiE ".*[^\?]$" ]; then
    support "$EGGS_USER"
 fi
