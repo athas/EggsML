@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# Tag den store bog ned fra hylden og besku menneskehedens forfald.
+
+any=''
+for who in $(dbIterate "users" | sed 's!users/!!'); do
+    reasons=$(dbUserRead "$who" annoyances | sort | uniq)
+    if [ "$reasons" ]; then
+        echo -n "$(randomName $who) "
+        echo "$reasons" | enumerate -n
+        echo "."
+        any=yes
+    fi
+done
+
+if ! [ "$any" ]; then
+    echo "$EGGS_USER: Ingen er skyldige i mine øjne."
+fi
