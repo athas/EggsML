@@ -3,8 +3,16 @@
 # Spørg concieggs om verdens spørgsmål.
 eval "$(echo "$@" | parse 'kan du ikke lide (?<who>[^ ]+)')"
 
+if [ "$who" = mig ]; then
+    who=$EGGS_USER
+fi
+
 if [ "$who" ]; then
     reasons=$(dbUserRead "$who" annoyances | sort | uniq)
+
+    if cmpNames "$who" "$EGGS_USER"; then
+        who=du
+    fi
 
     if [ "$reasons" ]; then
         echo -n "$EGGS_USER: Fordi $who "
