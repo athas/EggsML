@@ -9,6 +9,7 @@ Dumme
 Ubehøvlede
 Perfide
 Flabede
+Pruttede
 EOF`
 
 slambert=`randomLine <<EOF
@@ -22,6 +23,7 @@ hundehandler
 læs lort
 socialdemokrat
 klaphat
+prut
 EOF`
 
 randomLine <<EOF
