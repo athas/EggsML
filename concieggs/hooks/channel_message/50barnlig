@@ -1,0 +1,27 @@
+#!/bin/sh
+
+charm=$(dbRead charmen)
+fraction=$(awk "BEGIN{print 0.1 * (10.0 - $charm.0)}")
+
+front=$(randomLine <<EOF
+HEY ALLESAMMEN
+WÅUW hvor smart
+opdagede lige
+Øøøøøh
+EOF
+)
+
+back=$(randomLine <<EOF
+WAH WAH WAH!
+hahaha *pruuuuuut*
+, øh, øh, øh.
+EOF
+)
+maybeGood $fraction || exit
+
+
+grimt=$(echo "$EGGS_BODY" | tr '[:upper:]' '[:lower:]')
+
+echo '$front "$grimt"'
+echo '/me giver et trut i båthornet'
+echo "Det er sådan du lyder!"
