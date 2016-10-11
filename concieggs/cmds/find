@@ -77,4 +77,4 @@ if ($input =~ /(mig en opskrift på (?<dish>.*)|en opskrift på (?<dish>.*) til 
 }
 
 printf("$EGGS_USER: Find det dog selv.\n");
-runx(EXIT_ANY, "annoyedBy", $EGGS_USER, 5);
+runx(EXIT_ANY, "annoyedBy", $EGGS_USER, 5, "bad mig om at finde noget umuligt");

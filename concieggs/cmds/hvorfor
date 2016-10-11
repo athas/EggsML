@@ -1,5 +1,18 @@
 #!/bin/sh
 #
 # Spørg concieggs om verdens spørgsmål.
+eval "$(echo "$@" | parse 'kan du ikke lide (?<who>[^ ]+)')"
 
-echo "Fordi `hjuleneDrejer`."
+if [ "$who" ]; then
+    reasons=$(dbUserRead "$who" annoyances | sort | uniq)
+
+    if [ "$reasons" ]; then
+        echo -n "$EGGS_USER: Fordi $who "
+        echo "$reasons" | enumerate -n
+        echo "."
+    else
+        echo "$EGGS_USER: Det kan jeg nu også godt."
+    fi
+else
+    echo "Fordi `hjuleneDrejer`."
+fi

@@ -1,12 +1,20 @@
 #!/bin/sh
 
-if [ $# -eq 2 ]; then
+if [ $# -eq 3 ]; then
     ann=$2
+    reason=$3
+elif [ $# -eq 2 ]; then
+    ann=$2
+    reason="har været generelt træls"
 else
     ann=1
+    reason="har været generelt træls"
 fi
 
 echo "$(annoyanceAt "$1") + $ann" | bc | dbUserWrite "$1" annoyanceAt
+if [ "$ann" -gt 0 ]; then
+    (dbUserRead "$1" annoyances; echo "$reason") | dbUserWrite "$1" annoyances
+fi
 
 if [ $(echo "$ann > 0" | bc) = 1 ]; then
     s="$(annoyanceAt "$1") > $(random 0 100)"

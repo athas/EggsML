@@ -19,7 +19,7 @@ elif [ "$compiled" ] && [ -f "compiled/$compiled" ]; then
     file="compiled/$compiled"
 else
     echo "$EGGS_USER: Jeg kan ikke afgøre om '$@' overhovedet er et problem."
-    annoyedBy "$EGGS_USER"
+    annoyedBy "$EGGS_USER" "spurgte hvem der har ansvar for noget der ikke findes"
     exit
 fi
 

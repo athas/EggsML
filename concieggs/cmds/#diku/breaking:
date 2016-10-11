@@ -1,6 +1,6 @@
 #!/bin/sh
 
-annoyedBy "$EGGS_USER" 3
+annoyedBy "$EGGS_USER" 3 "skrev en infoskærmskommando til mig"
 
 echo "infoskaerm: breaking: $EGGS_USER kan ikke finde ud at at skrive til den rigtige bot!"
 echo "Lad os alle grine ad $EGGS_USER!"

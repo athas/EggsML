@@ -19,6 +19,7 @@ $user har helt ret.
 Fandeme godt sagt, $user!
 Prædk det, $user!
 Lyt til $user, han ved hvad han taler om.
+Hey, $user har altså ret!
 EOF
 }
 
@@ -37,6 +38,7 @@ I har alle helt ret.
 Fandeme godt sagt!
 Prædk det!
 Ved I hvad, I er alle vildt intelligente!
+I er sgu klogere end mig.
 EOF
 }
 

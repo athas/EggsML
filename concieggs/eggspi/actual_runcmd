@@ -5,7 +5,7 @@
 set -f # No globbing
 
 broke() {
-    annoyedBy "$EGGS_USER" 5
+    annoyedBy "$EGGS_USER" 5 "kørte en fejlende kommando"
     echo "Kommandoen fejlede!  Du kan prøve at spørge mig om 'udu', men det hjælper næsten helt sikkert ikke."
     exit 1
 }

@@ -11,6 +11,6 @@ elif ! [ -z "$1" ]; then
 
 else
     echo "$EGGS_USER: Synes du selv du er sjov?"
-    annoyedBy "$EGGS_USER";
+    annoyedBy "$EGGS_USER" "pølsede mig"
 
 fi

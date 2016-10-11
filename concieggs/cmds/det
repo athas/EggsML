@@ -25,13 +25,13 @@ elif echo "$@" | grep -i -E '^ *sagde +hun +i +går: *' > /dev/null; then
     fi
 elif ! [ -f $CONCIEGGS_DB_DIR/last_dshoig ]; then
     echo 'Jeg har altså ikke sagt noget!'
-    annoyedBy "$EGGS_USER" 10
+    annoyedBy "$EGGS_USER" 10 "mente at noget var sjovt uden at jeg havde sagt en vittighed"
 
 elif (echo "$@" | grep -i -E '^ *(der )?(var|er) +(jo|slet) +ikke +sjovt\.? *$') > /dev/null; then
     echo "Øv, jeg syntes ellers det var et ret morsomt svar til $(cat $CONCIEGGS_DB_DIR/last_dshoig)."
     cat $CONCIEGGS_DB_DIR/last_dshoig >> $CONCIEGGS_DB_DIR/usjove_dshoig
     rm $CONCIEGGS_DB_DIR/last_dshoig
-    annoyedBy "$EGGS_USER" 5
+    annoyedBy "$EGGS_USER" 5 "mente ikke min vittighed var sjov"
 elif echo "$@" | grep -i -E '^ *(der )?(var|er) +faktisk +(ret|pænt)? +sjovt\.? *$' > /dev/null; then
     echo "Ja, pænt sjovt svar til $(cat $CONCIEGGS_DB_DIR/last_dshoig), ikke?"
     cat $CONCIEGGS_DB_DIR/last_dshoig >> $CONCIEGGS_DB_DIR/sjove_dshoig

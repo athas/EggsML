@@ -10,7 +10,7 @@ if [ "$user" ]; then
         user=$(du $alias)
     elif [ "$user" = "concieggs" -o "$user" = "dig" ]; then
         echo "Ha ha, det er fandme sjovt at du spørger, om jeg kan lide mig selv. Ha ha ha, ikke også?"
-        annoyedBy "$EGGS_USER" 25
+        annoyedBy "$EGGS_USER" 25 "spurgte om jeg kunne lide mig selv"
         exit
     elif echo "$user" | grep -qi OpenBSD; then
         echo "$EGGS_USER: Naturligvis - det er det tænkende individs styresystem."
