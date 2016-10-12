@@ -6,14 +6,10 @@ else
     ann=1
 fi
 
-sebastiansKodeVarEnGodIde=""
-
-if maybeGood 0.05; then
+if maybeGood 0.01; then
     annoyedBy "$1" $(echo "$ann * -2" | bc)
-    if [ "$sebastiansKodeVarEnGodIde" ]; then
-        victim="$(allAliases | randomLine)"
-        annoyedBy "$victim" $ann "blev valgt som syndebuk for $1's gode opførsel"
-    fi
+    victim="$(recentlyActive | randomLine)"
+    annoyedBy "$victim" $ann "blev valgt som syndebuk for $1's gode opførsel"
     exit
 fi
 
