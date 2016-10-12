@@ -23,13 +23,18 @@ if [ "$user" ]; then
         exit
     fi
     s="$(annoyanceAt "$alias") > 0"
+    reasons=$(annoyances "$alias")
     if isInBadStanding "$alias" || [ $(echo "$s" | bc) = 1 ]; then
         if isKing "$alias"; then
             echo "Selvfølgelig kan jeg lide $alias, det er jo kongen..."
             removeFromBadStanding "$alias"
             pleasedBy "$alias" 25
         else
-            echo "Nej, $user er et dumt svin."
+            if [ "$reasons" ]; then
+                echo "Nej, $user er et dumt svin, da $user $reasons."
+            else
+                echo "Nej, $user er et dumt svin."
+            fi
         fi
         exit
     fi
@@ -38,7 +43,11 @@ if [ "$user" ]; then
         if isKing "$alias"; then
             echo "Selvfølgelig, det er jo vores alles konge."
         else
-            echo "Ja, $user er god nok."
+            if [ "$reasons" ]; then
+                echo "Ja, $user er god nok, omend $user $reasons."
+            else
+                echo "Ja, $user er god nok."
+            fi
         fi
         exit
     fi

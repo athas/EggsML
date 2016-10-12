@@ -8,15 +8,13 @@ if [ "$who" = mig ]; then
 fi
 
 if [ "$who" ]; then
-    reasons=$(dbUserRead "$who" annoyances | sort | uniq)
+    reasons=$(annoyances "$who")
 
     if [ "$reasons" ]; then
         if cmpNames "$who" "$EGGS_USER"; then
             who=du
         fi
-        echo -n "$EGGS_USER: Fordi $who "
-        echo "$reasons" | enumerate -n
-        echo "."
+        echo "$EGGS_USER: Fordi $who $reasons."
     else
         s="$(annoyanceAt "$who") > 0"
         if isInBadStanding "$who" || [ $(echo "$s" | bc) = 1 ]; then

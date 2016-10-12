@@ -4,11 +4,9 @@
 
 any=''
 for who in $(dbIterate "users" | sed 's!users/!!'); do
-    reasons=$(dbUserRead "$who" annoyances | sort | uniq)
+    reasons=$(annoyances "$who")
     if [ "$reasons" ]; then
-        echo -n "$(randomName $who) "
-        echo "$reasons" | enumerate -n
-        echo "."
+        echo "$(randomName $who) $reasons."
         any=yes
     fi
 done

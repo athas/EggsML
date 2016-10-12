@@ -1,0 +1,8 @@
+#!/bin/sh
+who=$1
+
+reasons=$(dbUserRead "$who" annoyances | sort | uniq)
+
+if [ "$reasons" ]; then
+   echo "$reasons" | enumerate -n
+fi
