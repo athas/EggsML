@@ -30,7 +30,7 @@ if [ "$user" ]; then
             removeFromBadStanding "$alias"
             pleasedBy "$alias" 25
         else
-            if [ "$reasons" ]; then
+            if [ -n "$reasons" ]; then
                 echo "Nej, $user er et dumt svin, da $user $reasons."
             else
                 echo "Nej, $user er et dumt svin."
@@ -43,7 +43,7 @@ if [ "$user" ]; then
         if isKing "$alias"; then
             echo "Selvfølgelig, det er jo vores alles konge."
         else
-            if [ "$reasons" ]; then
+            if [ -n "$reasons" ]; then
                 echo "Ja, $user er god nok, omend $user $reasons."
             else
                 echo "Ja, $user er god nok."
