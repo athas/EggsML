@@ -65,7 +65,7 @@ elif [ "$user" ]; then
          echo "Kig i et spejl."
          echo "Den klammeste eggsling i kassen."
         ) | randomLine
-        annoyedBy $EGGS_USER "kender ikke sig selv"
+        annoyedBy $EGGS_USER 1 "kender ikke sig selv"
         exit
     fi
 
