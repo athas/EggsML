@@ -17,6 +17,6 @@ ROFLMAO
 EOF
 }
 
-if echo "$EGGS_BODY" | grep -qiE 'lol|rofl'; then
+if echo "$EGGS_BODY" | grep -qiE 'lol|rofl|xd'; then
     lol
 fi
