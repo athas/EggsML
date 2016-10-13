@@ -127,5 +127,4 @@ word := ~/computer/ "datamat"
       | ~/change request/ "ændringsanmodning"
       | ~/F#/ "ikke-standard ML"
       | ~/(malware|virus|spyware)/ "skadmel"
-      | ~/l[ou]l[sz]?|rofl/ "*klukker lysteligt*"
       | /[a-zA-ZæøåÆØÅ0-9]+/
