@@ -34,12 +34,5 @@ if isKing $EGGS_USER; then
         fi
     fi
 else
-    echo -n "$EGGS_USER: "
-    (
-        echo "Det har du slet ikke bemyndigelse til."
-        echo "Jeg tror ikke, at hans majestæt ville værdsætte at du prøver at tilrane hans beføjelser."
-        echo "Med hvis bemyndigelse?"
-        echo "Du er ikke konge - det er dokumentfalsk det der."
-    ) | randomLine
-    annoyedBy "$EGGS_USER" 5 "bad mig om at benåde uden at være konge"
+    punishNonKing "$EGGS_USER" 5 "bad mig om at benåde uden at være konge"
 fi

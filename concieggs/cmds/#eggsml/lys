@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# Udøv kongelig autoritet til at lyse en logebroder i band.
+
+eval "$(echo "$@" | parse '(?<ban_person>\S+) i band')"
+
+if [ "$ban_person" ]; then
+    if isKing $EGGS_USER; then
+        who="$(randomName "$ban_person")"
+        if [ "$who" ]; then
+            annoyedBy "$who" 10000 "på Royal anmodning"
+            say "$EGGS_USER: $(ack) Lad det være kendt, at $who er lyst i band i hele EggsMLs land!"
+        else
+            say "$EGGS_USER: Jeg er bange for, at jeg ikke ved hvem '$ban_person' skulle være."
+        fi
+    else
+        punishNonKing "$EGGS_USER" 5
+    fi
+else
+    say "$EGGS_USER: Jeg føler mig ikke særligt tændt på idéen."
+    annoyedBy "$EGGS_USER" 1 "havde ikke tændt pæren"
+fi

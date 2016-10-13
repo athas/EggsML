@@ -1,0 +1,9 @@
+#!/bin/sh
+echo -n "$1: "
+(
+    echo "Det har du slet ikke bemyndigelse til."
+    echo "Jeg tror ikke, at hans majestæt ville værdsætte at du prøver at tilrane hans beføjelser."
+    echo "Med hvis bemyndigelse?"
+    echo "Du er ikke konge - det er dokumentfalsk det der."
+) | randomLine
+annoyedBy "$1" "$2" "$3"
