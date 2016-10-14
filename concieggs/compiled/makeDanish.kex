@@ -10,8 +10,7 @@ maybeSep := /[^A-Za-zÆØÅæøå0-9]*/
 sep      := /[^A-Za-zÆØÅæøå0-9]+/
 
 word := ~/computer/ "datamat"
-      | ~/debugger/ "afluser"
-      | ~/debugging/ "aflusning"
+      | ~/debug/ "aflus" (~/ger/ "er" | ~/ging/ "ning")
       | ~/RAM/ "arbejdslager"
       | ~/whitespace/ "blanktegn"
       | ~/firewall/ "brandmur"
