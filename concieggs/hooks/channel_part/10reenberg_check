@@ -5,7 +5,7 @@ onEggsChannel || exit
 time=$(dbUserRead "$EGGS_USER" eggsactly)
 if [ "$time" ]; then
     if [ "$(expr $(nowTime) - $time)" -lt $(expr 5 '*' 60) ]; then
-        echo "$(randomName $alias) har begået en Reenberg!"
+        echo "$(randomName $EGGS_USER) har begået en Reenberg!"
         echo "$(nowTime)" | dbUserWrite "$EGGS_USER" reenberg/when
         echo "$(expr $(nowTime) - $time)" | dbUserWrite "$EGGS_USER" reenberg/loss
     fi
