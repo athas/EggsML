@@ -3,11 +3,11 @@
 (notOnEggsChannel || shuttingUp) && exit
 
 aliases "$EGGS_USER" | while read -r alias; do
-    when=$(dbRead "users/$alias/reenberg/when")
+    when=$(dbUserRead "$EGGS_USER" reenberg/when)
     if [ "$when" ]; then
-        loss=$(expr $(dbRead "users/$alias/reenberg/loss") / 60 + 1)
+        loss=$(expr $(dbUserRead "$EGGS_USER" reenberg/loss) / 60 + 1)
         echo "$EGGS_USER: Skam dig!  Du begik en Reenberg $(timeToFullDate $when), da du forlod kanalen mindre end $loss minutter efter din frokosttilmelding!"
-        dbDelete "users/$alias/reenberg"
-        annoyedBy "$EGGS_USER" 1 "begik en Reenberg"
+        dbUserDelete "$EGGS_USER" reenberg
+        annoyedBy "$EGGS_USER" 10 "begik en Reenberg"
     fi
 done

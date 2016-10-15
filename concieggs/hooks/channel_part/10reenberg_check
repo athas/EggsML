@@ -2,13 +2,11 @@
 
 onEggsChannel || exit
 
-aliases "$EGGS_USER" | while read -r alias; do
-    time=$(dbRead "users/$alias/eggsactly")
-    if [ "$time" ]; then
-        if [ "$(expr $(nowTime) - $time)" -lt $(expr 5 '*' 60) ]; then
-            echo "$(randomName $alias) har begået en Reenberg!"
-            echo "$(nowTime)" | dbWrite "users/$alias/reenberg/when"
-            echo "$(expr $(nowTime) - $time)" | dbWrite "users/$alias/reenberg/loss"
-        fi
+time=$(dbUserRead "$EGGS_USER" eggsactly)
+if [ "$time" ]; then
+    if [ "$(expr $(nowTime) - $time)" -lt $(expr 5 '*' 60) ]; then
+        echo "$(randomName $alias) har begået en Reenberg!"
+        echo "$(nowTime)" | dbUserWrite "$EGGS_USER" reenberg/when
+        echo "$(expr $(nowTime) - $time)" | dbUserWrite "$EGGS_USER" reenberg/loss
     fi
-done
+fi
