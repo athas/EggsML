@@ -13,7 +13,7 @@ my $flag = 'd';
 $flag = shift @ARGV if @ARGV > 0 && $ARGV[0] =~ /^[bdgpstwy]$/;
 
 my $cmd = (rand() < 0.5) ? "cowsay" : "cowthink";
-my $message = $ENV{'EGGS_LINE'};
+my $message = join(" ", @ARGV);
 unless ($message) {
     $cmd = "cowthink";
     $message = <<'END_OF_COW';
