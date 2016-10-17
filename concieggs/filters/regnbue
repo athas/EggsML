@@ -24,7 +24,8 @@ while (my $line = <>) {
         $i+=$l;
     }
 
-    print ($me ? "/me " : "") . join("", zip(@rainbow, @msg)) . "\cO\n";
+    my $meprefix = $me ? "/me " : "";
+    print $meprefix . join("", zip(@rainbow, @msg)) . "\cO\n";
 }
 
 
