@@ -5,5 +5,5 @@ use utf8::all;
 
 while (my $line = <>) {
     chomp $line;
-    say "\cC04\cB\cB$line\cO";
+    say "\cC04\cB\cB☭ $line ☭\cO";
 }
