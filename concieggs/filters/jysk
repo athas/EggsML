@@ -11,6 +11,6 @@ end="\([,.;.!? ]\)"
 | sed "s/ke${end}/k\1/g" \
 | sed "s/ k/ tj/g" \
 | sed "s/gt${end}/gtj\1/g" \
-| sed "s/e/æ/g" \
+| perl -pe 's/(?<!\/m)e/æ/g' \
 | sed "s/ir/er/g" \
 | sed "s/and${end}/ajn\1/g"
