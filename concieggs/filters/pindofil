@@ -1,0 +1,30 @@
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+use utf8::all;
+
+my @facts = split '\n', <<'END_OF_PIND';
+Søren Pind blev født den 20. november 1969 i Herning.
+Søren Pind blev justitsminister (aka Sheriffen) den 28. juni 2015.
+Søren Pind er søn af en tandlæge.
+Søren Pind gik på Bornholms Amtsgymnasium.
+Søren Pind blev cand.jur. fra Københavns Universitet i 1997.
+Søren Pind var lektiehjælper i statsret ved Københavns Universitet fra 1999 til 2005.
+Søren Pind er ridder af Dannebrogordenen.
+Søren Pind er ridder af Æreslegionen.
+Søren Pind blev i 1994 Danmarks yngste borgmester.
+Søren Pind fik i 2001 flest personlige stemmer ved valget i Københavns Borgerrepræsentation.
+Søren Pind har flere gange markeret sig som støtte for Ronald Reagan og USAs udenrigspolitik.
+Søren Pind fik som etårig fjernet højre øje og har glasøje!
+END_OF_PIND
+
+while (my $line = <>) {
+    chomp $line;
+
+    if (rand() < 0.25) {
+        my $fact = $facts[rand @facts];
+        $line =~ s/(?<=[.?!])/ $fact /;
+    }
+
+    say $line;
+}
