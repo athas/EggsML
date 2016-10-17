@@ -3,7 +3,23 @@ use 5.012;
 use warnings;
 use utf8::all;
 
+my $red = "\cC04";
+my %aliases = map { (lc($_) => 1) } split("\n", `allAliases`);
+
+sub commify {
+    my $name = shift;
+    $name = "kammerat " . $name if $aliases{lc $name};
+    return $name;
+}
+
 while (my $line = <>) {
     chomp $line;
-    say "\cC04\cB\cB☭ $line ☭\cO";
+
+    my $me = ($line =~ m!^/me !);
+    $line = substr $line, 4 if $me;
+
+    $line =~ s/\b(\S*)\b/commify($1)/ge;
+
+    my $meprefix = $me ? "/me " : "";
+    say $meprefix . "$red☭ $line $red☭";
 }
