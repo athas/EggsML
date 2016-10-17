@@ -1,0 +1,12 @@
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+use utf8::all;
+use Text::Roman qw(int2roman);
+
+while (my $line = <>) {
+    chomp $line;
+    $line =~ s/(\d)[,.](\d)/$1 komma $2/;
+    $line =~ s/(\d+)/int2roman($1)/eg;
+    say $line;
+}
