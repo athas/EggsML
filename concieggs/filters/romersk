@@ -4,9 +4,18 @@ use warnings;
 use utf8::all;
 use Text::Roman qw(int2roman);
 
+sub romersk {
+    my $int = shift;
+    return $int < 4000 ? int2roman($int) : 'MEGET';
+
+}
+
 while (my $line = <>) {
     chomp $line;
     $line =~ s/(\d)[,.](\d)/$1 komma $2/;
-    $line =~ s/(\d+)/int2roman($1)/eg;
+    $line =~ s/(\d+)/romersk($1)/eg;
+    $line =~ s/ae/æ/g;
+    $line =~ s/u/v/g;
+    $line =~ s/U/V/g;
     say $line;
 }
