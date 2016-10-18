@@ -44,8 +44,8 @@ while (my $text = <>) {
     $text =~ s/\Bman/woman/ig;
     $text =~ s/\bman\b/kvinde/ig;
     $text =~ s/sir\b/lady/ig;
-    $text =~ s/pind/hul/ig;
     $text =~ s/Pind/Hul/ig;
+    $text =~ s/pind/hul/ig;
     $text =~ s/Søren/Sørine/ig;
 
     print $text;
