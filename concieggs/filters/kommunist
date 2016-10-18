@@ -7,9 +7,14 @@ my $red = "\cC04";
 my %aliases = map { (lc($_) => 1) } split("\n", `allAliases`);
 
 sub commify {
-    my $name = shift;
-    $name = "kammerat " . $name if $aliases{lc $name};
-    return $name;
+    my $word = shift;
+    my $prefix = $aliases{lc $word} ? "kammerat " : "";
+
+    if (rand() < 0.25) {
+        $word = "█" x length $word;
+    }
+
+    return $prefix . $word;
 }
 
 while (my $line = <>) {
