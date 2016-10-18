@@ -1,2 +1,25 @@
 #!/usr/bin/env perl
-s/\b([bcdfghjklmnpqrstvwxz]+)([\wæøåÆØÅ]+)/\2\1ej/ig && print while (<>);
+use 5.012;
+use warnings;
+use utf8::all;
+
+my %lc_uc = ('æ' => 'Æ', 'ø' => 'Ø', 'å' => 'Å');
+my %uc_lc = ('Æ' => 'æ', 'Ø' => 'ø', 'Å' => 'å');
+
+sub gris {
+    my $gr = shift;
+    my $is = shift;
+    my $nocaps = ($gr =~ /[a-zæøå]/ || $is =~ /[a-zæøå]/);
+    my $ej = $nocaps ? "ej" : "EJ";
+
+    if ($nocaps && $gr =~ /^[A-ZÆØÅ]/) {
+        substr($gr, 0, 1) = lc substr($gr, 0, 1);
+        substr($gr, 0, 1) =~ s/([ÆØÅ])/$uc_lc{$1}/;
+        substr($is, 0, 1) = uc substr($is, 0, 1);
+        substr($is, 0, 1) =~ s/([æøå])/$lc_uc{$1}/;
+    }
+
+    return $is . $gr . $ej;
+}
+
+s/\b([bcdfghjklmnpqrstvwxz]+)([\wæøåÆØÅ]+)/gris($1,$2)/eig && print while (<>);
