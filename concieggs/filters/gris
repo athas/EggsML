@@ -1,2 +1,2 @@
 #!/usr/bin/env perl
-s/\b([bcdfghjklmnpqrstvwxz]+)(\w+)/\2\1ej/ig && print while (<>);
+s/\b([bcdfghjklmnpqrstvwxz]+)([\wæøåÆØÅ]+)/\2\1ej/ig && print while (<>);
