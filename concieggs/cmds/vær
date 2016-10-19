@@ -3,7 +3,7 @@
 # Bed concieggs om at være på en bestemt led.  Brug: 'vær MÅDE' eller 'vær MÅDE
 # mod BRUGER' eller 'vær MÅDE på KANAL'.  Der er mange MÅDER.
 
-eval "$(echo "$@" | parse '^(?<what>.+?)(?: (?:mod|på) (?<specific>#?[^\s/]+))?$')"
+eval "$(echo "$@" | parse '^(?<additive>også )?(?<what>.+?)(?: (?:mod|på) (?<specific>#?[^\s/]+))?$')"
 
 if [ ! "$what" ]; then
     echo "Du mangler en væremåde."
@@ -39,7 +39,11 @@ case "$what" in
 
     # Sprog el.lign.
     *)
-        s='translate da'
+        if [ "$additive" ]
+            then s="$(dbRead $file)"
+            else s='translate da'
+        fi
+
         for lang in $what
         do
             lc=$(langcode "$lang")
