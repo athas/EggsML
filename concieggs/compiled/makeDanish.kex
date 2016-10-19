@@ -127,4 +127,7 @@ word := ~/computer/ "datamat"
       | ~/F#/ "ikke-standard ML"
       | ~/(malware|virus|spyware)/ "skadmel"
       | ~/crossfit/ "krydstræning"
+      | ~/label/ "mærkat"
+      | ~/et issue/ "en problemstilling"
+      | ~/issue/ "problemstilling"
       | /[a-zA-ZæøåÆØÅ0-9]+/
