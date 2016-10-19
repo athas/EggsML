@@ -1,6 +1,6 @@
 #!/usr/bin/env tclsh
 
-foreach {month day} [split [clock format [clock seconds] -format "%m %d"]] {
-    set ha [expr {$month == 12 && $day <= 25 ? "Ho" : "HA"}]
-    puts [string repeat $ha [expr {2 + int(rand() * 10)}]]
-}
+catch {exec christmas} {} options
+set outside_christmas [dict get $options -code]
+set ha [expr {$outside_christmas ? "HA" : "Ho"}]
+puts [string repeat $ha [expr {2 + int(rand() * 10)}]]

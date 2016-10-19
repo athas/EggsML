@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ $(date +%m) = 12 -a $(date +%d) -lt 25 \
+if [ $(date +%m) = 12 -a $(date +%d) -lt 26 \
     -o $(date +%m) = 11 -a $(date +%d) -gt 23 ]; then
     exit 0
 else
