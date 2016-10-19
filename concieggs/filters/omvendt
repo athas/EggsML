@@ -1,16 +1,1 @@
-#!/usr/bin/env perl
-use 5.012;
-use warnings;
-use utf8::all;
-
-while (my $line = <>) {
-    chomp $line;
-
-    $line =~ s!^(/me )!!;
-    my $prefix = $1;
-
-    $line = reverse lc $line;
-    $line =~ tr/abcdefghijklmnopqrstuvwxyzæøåÆØÅ?!.,/ɐqɔpǝɟƃɥıɾʞʃɯuodbɹsʇnʌʍxʎzɐoɐɐoɐ¿¡˙'/;
-
-    say $prefix . $line;
-}
+spejl
