@@ -3,33 +3,39 @@ use 5.012;
 use warnings;
 use utf8::all;
 
+sub ivrig {
+    my $length = length shift;
+    my $result = '';
+    $result .= $_[rand(@_)] for (1..$length+rand(4));
+    return $result;
+}
+
 while (my $text = <>) {
+    # Mindre kompleks grammatik
+    $text =~ s/[.,;"-]/ /g;
+    $text =~ s/(!+)/ivrig($1, '!', '1')/eg;
+    $text =~ s/(\?+)/ivrig($1, '?', '+')/eg;
+
+    # Stumme bogstaver, fonetisk stavning
     $text =~ s/gjort/gjordt/g;
     $text =~ s/\Ber\b/e/g;
     $text =~ s/nde/ne/g;
     $text =~ s/ind/in/g;
     $text =~ s/hv/v/g;
     $text =~ s/dt/t/g;
-    $text =~ s/[,;]//g;
-    $text =~ s/-/ /g;
-    $text =~ s/"//g;
-    $text =~ s/\.$//;
-    $text =~ s/!$/!!1/;
-    $text =~ s/\.\B/.../g;
     $text =~ s/også/osse/g;
     $text =~ s/ige/ie/g;
-
-    # Stumme bogstaver
     $text =~ s/åd/å/g;
     $text =~ s/ig/i/g;
     $text =~ s/rd/r/g;
+    $text =~ s/ej/aj/g;
 
-    # et->e, ede->et, l
+    # Ord-endelser
     $text =~ s/et\b/ed/;
     $text =~ s/ede\b/et/g;
     $text =~ s/l\b//g;
 
-    # undgå dobbelt-konsonanter
+    # Undgå dobbelt-konsonanter
     $text =~ s/([bcdfghjklmnpqrstvwxz])\1/\1/g;
 
     # nutids-r
