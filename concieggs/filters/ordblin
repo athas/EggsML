@@ -26,9 +26,8 @@ while (my $text = <>) {
     $text =~ s/også/osse/g;
     $text =~ s/ige/ie/g;
     $text =~ s/åd/å/g;
-    $text =~ s/ig/i/g;
     $text =~ s/ej/aj/g;
-    $text =~ s/sk/sg/g;
+    $text =~ s/sk/sg/g if rand() < 0.5;
     $text =~ s/ege/aje/g;
 
     my $rd = rand() < 0.5 ? "r" : "rt";
@@ -39,9 +38,13 @@ while (my $text = <>) {
     $text =~ s/ede\b/et/g;
     $text =~ s/l\b//g if rand() < 0.5;
     $text =~ s/å/or/g if rand() < 0.5;
+    $text =~ s/en\b/æn/ if rand() < 0.5;
+
+    my $ig = qw(i ej aj)[rand(3)];
+    $text =~ s/ig\b/$ig/g;
 
     # Undgå dobbelt-konsonanter
-    $text =~ s/([bcdfghjklmnpqrstvwxz])\1/\1/g;
+    $text =~ s/([bcdfghjklmnpqrstvwxz])\1/$1/g;
 
     # nutids-r
     $text =~ s/rer /\@e\@ /g;
