@@ -1,0 +1,15 @@
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+use utf8::all;
+
+sub cirka {
+    my $n = shift;
+    my $r = int(rand() * 1000) / 100;
+    return $n - 5 + ($n - int($n) ? $r : int($r));
+}
+
+while (<>) {
+    s/(\d+(?:\.\d+)?)/cirka($1)/eg;
+    print;
+}
