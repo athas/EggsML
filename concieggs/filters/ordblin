@@ -5,8 +5,8 @@ use utf8::all;
 
 sub ivrig {
     my $length = length shift;
-    my $result = '';
-    $result .= $_[rand(@_)] for (1..$length+rand(4));
+    my $result = $_[0];
+    $result .= $_[rand(@_)] for (1..$length+rand(3));
     return $result;
 }
 
@@ -27,13 +27,18 @@ while (my $text = <>) {
     $text =~ s/ige/ie/g;
     $text =~ s/åd/å/g;
     $text =~ s/ig/i/g;
-    $text =~ s/rd/r/g;
     $text =~ s/ej/aj/g;
+    $text =~ s/sk/sg/g;
+    $text =~ s/ege/aje/g;
+
+    my $rd = rand() < 0.5 ? "r" : "rt";
+    $text =~ s/rd/$rd/g;
 
     # Ord-endelser
     $text =~ s/et\b/ed/;
     $text =~ s/ede\b/et/g;
-    $text =~ s/l\b//g;
+    $text =~ s/l\b//g if rand() < 0.5;
+    $text =~ s/å/or/g if rand() < 0.5;
 
     # Undgå dobbelt-konsonanter
     $text =~ s/([bcdfghjklmnpqrstvwxz])\1/\1/g;
