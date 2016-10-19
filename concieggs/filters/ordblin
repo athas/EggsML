@@ -8,23 +8,29 @@ while (my $text = <>) {
     $text =~ s/\Ber\b/e/g;
     $text =~ s/nde/ne/g;
     $text =~ s/ind/in/g;
-    $text =~ s/ll/l/g;
-    $text =~ s/nn/n/g;
-    $text =~ s/mm/m/g;
-    $text =~ s/kk/k/g;
     $text =~ s/hv/v/g;
     $text =~ s/dt/t/g;
     $text =~ s/[,;]//g;
     $text =~ s/-/ /g;
     $text =~ s/"//g;
-    $text =~ s/\.$//g;
+    $text =~ s/\.$//;
+    $text =~ s/!$/!!1/;
     $text =~ s/\.\B/.../g;
     $text =~ s/også/osse/g;
     $text =~ s/ige/ie/g;
-    $text =~ s/rer/er/g;
 
-    # ede til et
-    $text =~ s/ede /et /g;
+    # Stumme bogstaver
+    $text =~ s/åd/å/g;
+    $text =~ s/ig/i/g;
+    $text =~ s/rd/r/g;
+
+    # et->e, ede->et, l
+    $text =~ s/et\b/ed/;
+    $text =~ s/ede\b/et/g;
+    $text =~ s/l\b//g;
+
+    # undgå dobbelt-konsonanter
+    $text =~ s/([bcdfghjklmnpqrstvwxz])\1/\1/g;
 
     # nutids-r
     $text =~ s/rer /\@e\@ /g;
