@@ -6,7 +6,9 @@ use Text::Roman qw(int2roman);
 
 sub romersk {
     my $int = shift;
-    return $int < 4000 ? int2roman($int) : '∞';
+    return 'nul dut' if $int == 0;
+    return int2roman($int) if $int > -4000 && $int < 4000;
+    return '∞';
 
 }
 
