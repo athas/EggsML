@@ -1,8 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env tclsh
 
-for i in $(seq 1 $(random ${1:-4} ${2:-20})); do
-    echo -n HA
-    if [ $(random 0 5) = 0 ]; then
-        echo -n HR
-    fi
-done
+foreach {month day} [split [clock format [clock seconds] -format "%m %d"]] {
+    set ha [expr {$month == 12 && $day <= 25 ? "Ho" : "HA"}]
+    puts [string repeat $ha [expr {2 + int(rand() * 10)}]]
+}
