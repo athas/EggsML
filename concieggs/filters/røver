@@ -1,0 +1,3 @@
+#!/bin/sh
+
+sed "s/\([bcdfghjklmnpqrstvwxz]\)/\1o\1/g"
