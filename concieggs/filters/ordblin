@@ -36,7 +36,7 @@ while (my $text = <>) {
     # Ord-endelser
     $text =~ s/et\b/ed/;
     $text =~ s/ede\b/et/g;
-    $text =~ s/l\b//g if rand() < 0.5;
+    $text =~ s/el\b/æl/g if rand() < 0.5;
     $text =~ s/å/or/g if rand() < 0.5;
     $text =~ s/en\b/æn/ if rand() < 0.5;
 
