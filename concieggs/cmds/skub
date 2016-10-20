@@ -7,7 +7,7 @@ use Encode qw/decode/;
 my $arg = join(' ', @ARGV);
 my $EGGS_USER = decode('utf-8', $ENV{EGGS_USER});
 
-if ($arg =~ qr/til grenen/) {
+if ($arg =~ qr/(skub,? ?)*til grenen/) {
     say "$EGGS_USER: La' mig se din' git skillz ved træet!";
 } else {
     say "/me skubber til $EGGS_USER i stedet for.";
