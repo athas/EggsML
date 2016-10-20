@@ -3,13 +3,32 @@ use 5.012;
 use warnings;
 use utf8::all;
 
-sub cirka {
-    my $n = shift;
-    my $r = int(rand() * 1000) / 100;
-    return $n - 5 + ($n - int($n) ? $r : int($r));
+sub max {
+    my $x = shift;
+    my $y = shift;
+    return $x > $y ? $x : $y;
 }
 
-while (<>) {
-    s/(\d+(?:\.\d+)?)/cirka($1)/eg;
-    print;
+my $epsilon = 5;
+
+sub cirka {
+    my $number = shift;
+
+    # random variation
+    my $rand = int(rand() * 2 * $epsilon * 100) / 100;
+    my $delta = ($number - int($number) ? $rand : int($rand));
+    my $result = $number - $epsilon + $delta;
+
+    # zero-padding
+    if ($number =~ /^0/) {
+        my $padding = length $number; $padding++ if $result < 0;
+        $result = sprintf "%0${padding}d", $result;
+    }
+
+    return $result;
+}
+
+while (my $line = <>) {
+    $line =~ s/(\d+(?:\.\d+)?)/cirka($1)/eg;
+    say $line;
 }
