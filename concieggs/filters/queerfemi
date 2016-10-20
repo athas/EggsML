@@ -8,6 +8,7 @@ sub flip {
 }
 
 while (local $_ = <>) {
+    # Personlige stedord
     s/\b(?:hans|hendes)\b/flip('hønnes', 'vedkommendes')/ieg;
     s/han|hun/flip('høn', 'vedkommende')/ieg;
     s/mænd|kvinder/personer/ig;
@@ -24,6 +25,11 @@ while (local $_ = <>) {
     s/woman/womyn/ig;
     s/\Bman/person/ig;
     s/penis|vagina|pik|diller|fisse|kusse/kønsdel/ig;
+
+    # Andre binære opfattelser
+    s/\bhalv/delvis/ig;
+    s/halvt/delvist/ig;
+    s/halvdel/andel/ig;
 
     print;
 }
