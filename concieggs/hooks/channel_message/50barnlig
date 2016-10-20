@@ -22,6 +22,6 @@ maybeGood $fraction || exit
 
 grimt=$(echo "$EGGS_BODY" | tr '[:upper:]' '[:lower:]')
 
-echo '$front "$grimt"'
+echo "$front" "$grimt"
 echo '/me giver et trut i båthornet'
 echo "Det er sådan du lyder!"
