@@ -29,8 +29,9 @@ def run_main(args):
         print "NAL!"
     elif args[-2] != "til":
         forklarSig()
-    elif args[3] == me:
+    elif args[-1] == me:
         print user + ": Hvis du vil mig noget, så sig det direkte."
+        subprocess.call(["annoyedBy " + user + " 8 'bad mig om at snakke med mig selv'"], shell=True)
     else:
         sentence = " ".join(args[1:-2])
         string = args[-1] + ": " + sentence
