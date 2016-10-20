@@ -3,3 +3,4 @@
 *.ppu
 *.un~
 /concieggs/db/store
+.*.swp
