@@ -39,7 +39,7 @@ if [ "$debtor" ]; then
         echo "Fejl ved beregning af gæld for $alias"
     fi
 elif [ "$time" ]; then
-    echo "Den lille viser peger på $(($(date +%I) % 12)), den store på $(($(date +%M))), og den helt lille på $(($(date +%S)))."
+    echo "Den lille viser peger på $(($(date +%l) % 12)), den store på $(($(date +%M))), og den helt lille på $(($(date +%S)))."
 elif [ "$happening" ]; then
      echo -n "$EGGS_USER: "
      (echo "Ja, det må du nok sige."
