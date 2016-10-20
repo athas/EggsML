@@ -1,0 +1,29 @@
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+use utf8::all;
+
+sub flip {
+    return $_[rand(@_)];
+}
+
+while (local $_ = <>) {
+    s/\b(?:hans|hendes)\b/flip('hønnes', 'vedkommendes')/ieg;
+    s/han|hun/flip('høn', 'vedkommende')/ieg;
+    s/mænd|kvinder/personer/ig;
+    s/mand|kvinde/person/ig;
+    s/kongen|dronningen/regenten/ig;
+    s/konge|dronning/regent/ig;
+    s/(far|mor){2}/bedsteforælder/ig;
+    s/far|mor|fader|moder/forælder/ig;
+    s/drengene|pigerne|tøserne|fyrene|knægtene|sønnerne|døtrene/børnene/ig;
+    s/drengen|pigen|tøsen|fyren|knægten|sønnen|datteren/barnet/ig;
+    s/drenge|piger|tøser|fyre|knægte|sønner|døtre/børn/ig;
+    s/dreng|pige|tøs|fyr|knægt|søn|datter/barn/ig;
+    s/bro(?:r|der)|søster|brødre|søstre/søskende/ig;
+    s/woman/womyn/ig;
+    s/\Bman/person/ig;
+    s/penis|vagina|pik|diller|fisse|kusse/kønsdel/ig;
+
+    print;
+}
