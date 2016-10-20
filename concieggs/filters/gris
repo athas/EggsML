@@ -12,10 +12,11 @@ sub gris {
     my $nocaps = ($gr =~ /[a-zæøå]/ || $is =~ /[a-zæøå]/);
     my $ej = $nocaps ? "ej" : "EJ";
 
-    if ($nocaps && $gr =~ /^[A-ZÆØÅ]/) {
+    if ($nocaps && $gr =~ /^[A-Z]/) {
         substr($gr, 0, 1) = lc substr($gr, 0, 1);
-        substr($gr, 0, 1) =~ s/([ÆØÅ])/$uc_lc{$1}/;
         substr($is, 0, 1) = uc substr($is, 0, 1);
+    } elsif ($nocaps && $gr =~ /^[ÆØÅ]/) {
+        substr($gr, 0, 1) =~ s/([ÆØÅ])/$uc_lc{$1}/;
         substr($is, 0, 1) =~ s/([æøå])/$lc_uc{$1}/;
     }
 
