@@ -1,0 +1,71 @@
+#!/usr/bin/env perl
+use 5.012;
+use strict;
+use warnings;
+use utf8::all;
+use IPC::System::Simple qw(systemx EXIT_ANY);
+
+sub randpick {
+    return $_[rand(@_)];
+}
+
+sub enhance {
+    my $word = shift;
+    return "\cC02\$" . $word . "\$\cC\cB\cB";
+}
+
+sub eggsIs {
+    my $category = shift;
+    my @args = @_;
+
+    my $retval = systemx(EXIT_ANY, "is" . $category, @args);
+    return $retval == 0;
+}
+
+sub isKing {
+    my $user = shift;
+    return eggsIs("King", $user);
+}
+
+sub isInBadStanding {
+    my $user = shift;
+    return eggsIs("InBadStanding", $user);
+}
+
+my %aliases = map { (lc($_) => 1) } split("\n", `allAliases`);
+
+sub capitalize {
+    my $word = shift;
+    my $is_name = $aliases{lc $word};
+
+    my $result = $word;
+    my $prefix = '';
+    my $suffix = '';
+    if ($is_name) {
+        my $user = $word;
+
+        if (isKing($user)) { $prefix = 'Direktør '; }
+        elsif (isInBadStanding($user)) { $prefix = ''; }
+        else { $prefix = 'Hr. '; }
+    }
+
+    $result = $prefix . $result . $suffix;
+
+    if ($is_name || (rand() < 0.20 && length $word > 3)) {
+        $result = enhance($result);
+    }
+
+    return $result;
+}
+
+while (my $line = <STDIN>) {
+    chomp $line;
+
+    my $me = $line =~ m!^/me !i;
+    $line = substr $line, 4 if $me;
+
+    $line =~ s/\b(\S+)\b/capitalize($1)/ge;
+
+    my $meprefix = $me ? "/me " : "";
+    say $meprefix . $line;
+}
