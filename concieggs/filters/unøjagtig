@@ -13,7 +13,9 @@ my @categories = (
     [qw(Danmark Sverige Finland)],
     [qw(Færøerne Island)],
     [qw(England Irland Skotland Storbritannien Commonwealth)],
+    [qw(Hillary Trump Bill George)],
     [qw(Trump Bush Clinton)],
+    [qw(Søren Jørgen)],
 );
 
 # Numbers
@@ -51,7 +53,7 @@ while (my $line = <>) {
         $line =~ s/$pattern/randpick(@$values)/egi;
     }
 
-    $line =~ s/(kr(?:\b|\.|oner))/randpick('kr.', 'dollars', 'bobs')/egi;
+    $line =~ s/kr(?:\b|\.|oner)/randpick('kr.', 'dollars', 'bobs')/egi;
 
     say $line;
 }
