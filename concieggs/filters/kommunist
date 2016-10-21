@@ -1,30 +1,56 @@
 #!/usr/bin/env perl
 use 5.012;
+use strict;
 use warnings;
 use utf8::all;
+use Env qw(EGGS_USER);
+use feature qw(switch say);
 
-my $red = "\cC04";
+sub randpick {
+    return $_[rand(@_)];
+}
+
+# fixme: injection
+sub isInBadStanding {
+    my $user = shift;
+    system("isInBadStanding $user");
+    return $? != 0;
+}
+
+sub enhance {
+    my $word = shift;
+    return "\cC04☭" . uc $word . "☭\cC";
+}
+
 my %aliases = map { (lc($_) => 1) } split("\n", `allAliases`);
+
+my @scorns = ('fjenden ', 'forrædderen ', 'desertøren ', 'bedrageren ', 'kapi-');
 
 sub commify {
     my $word = shift;
-    my $prefix = $aliases{lc $word} ? "kammerat " : "";
 
-    if (rand() < 0.1) {
+    my $title = '';
+    if ($aliases{lc $word}) {
+        $title = isInBadStanding($word) ? randpick(@scorns) : 'kammerat ';
+    }
+
+    if (rand() < 0.20) {
+        $word = enhance($word);
+    } elsif (rand() < 0.05) {
         $word = "█" x length $word;
     }
 
-    return $prefix . $word;
+    return $title . $word;
 }
 
-while (my $line = <>) {
+while (my $line = <STDIN>) {
     chomp $line;
 
-    my $me = ($line =~ m!^/me !);
+    my $me = $line =~ m!^/me !i;
     $line = substr $line, 4 if $me;
 
-    $line =~ s/\b(\S*)\b/commify($1)/ge;
+    $line =~ s/\b(\S+)\b/commify($1)/ge;
 
     my $meprefix = $me ? "/me " : "";
-    say $meprefix . "$red☭ $line $red☭";
+    say $meprefix . $line;
 }
