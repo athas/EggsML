@@ -80,7 +80,7 @@ sub tax {
     return $amount if $amount >= 1800 && $amount <= 2100;
 
     my $tax = int(rand($amount * $max_tax_rate));
-    return sprintf "%s (+ %d i skat til partiet)", $amount - $tax, $tax;
+    return sprintf "%s (+ %d i partiskat)", $amount - $tax, $tax;
 }
 
 while (my $line = <STDIN>) {
@@ -91,6 +91,7 @@ while (my $line = <STDIN>) {
 
     $line =~ s/købe/dele/ig;
     $line =~ s/købte/delte/ig;
+    $line =~ s/frokostkassen/enhance('partiet')/egi;
     $line =~ s/\b(\S+)\b/commify($1)/ge;
     $line =~ s/(\d+[.,]\d+|\d{4,})/tax($1)/ge;
 
