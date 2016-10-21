@@ -24,15 +24,17 @@ sub commify {
     my $word = shift;
     my $is_name = $aliases{lc $word};
 
-    if ($is_name || rand() < 0.20) {
-        $word = enhance($word);
-    } elsif (rand() < 0.05) {
-        $word = "█" x length $word;
-    }
-
     my $title = $is_name ? randpick(@titles) : '';
     my $suffix = $is_name ? randpick(@suffixes) : '';
-    return $title . $word . $suffix;
+    $result = $title . $word . $suffix;
+
+    if ($is_name || rand() < 0.20) {
+        $result = enhance($result);
+    } elsif (rand() < 0.05) {
+        $result = "█" x length $word;
+    }
+
+    return $result;
 }
 
 while (my $line = <STDIN>) {
