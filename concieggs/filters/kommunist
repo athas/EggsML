@@ -62,7 +62,7 @@ sub commify {
         $result = $tr->translit_reverse( $result );
     }
 
-    if ($is_name || (rand() < 0.20)) {
+    if ($is_name || (rand() < 0.20 && length $word > 3)) {
         $result = enhance($result);
     } elsif (rand() < 0.05) {
         $result = "█" x length $word;
