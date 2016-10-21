@@ -3,6 +3,21 @@ use 5.012;
 use warnings;
 use utf8::all;
 
+# Categories
+
+sub randpick {
+    return $_[rand(@_)];
+}
+
+my @categories = (
+    [qw(Danmark Sverige Finland)],
+    [qw(Færøerne Island)],
+    [qw(England Irland Skotland Storbritannien Commonwealth)],
+    [qw(Trump Bush Clinton)],
+);
+
+# Numbers
+
 sub max {
     my $x = shift;
     my $y = shift;
@@ -30,5 +45,13 @@ sub cirka {
 
 while (my $line = <>) {
     $line =~ s/(\d+(?:\.\d+)?)/cirka($1)/eg;
+
+    foreach my $values (@categories) {
+        my $pattern = join '|', map(quotemeta, @$values);
+        $line =~ s/$pattern/randpick(@$values)/egi;
+    }
+
+    $line =~ s/(kr(?:\b|\.|oner))/randpick('kr.', 'dollars', 'bobs')/egi;
+
     say $line;
 }
