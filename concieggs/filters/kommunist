@@ -10,13 +10,6 @@ sub randpick {
     return $_[rand(@_)];
 }
 
-# fixme: injection
-sub isInBadStanding {
-    my $user = shift;
-    system("isInBadStanding $user");
-    return $? != 0;
-}
-
 sub enhance {
     my $word = shift;
     return "\cC04☭" . uc $word . "☭\cC";
@@ -24,22 +17,19 @@ sub enhance {
 
 my %aliases = map { (lc($_) => 1) } split("\n", `allAliases`);
 
-my @scorns = ('fjenden ', 'forrædderen ', 'desertøren ', 'bedrageren ', 'kapi-');
+my @titles = ('kapi-', 'kammerat ', 'bolsjevik ');
 
 sub commify {
     my $word = shift;
+    my $is_name = $aliases{lc $word};
 
-    my $title = '';
-    if ($aliases{lc $word}) {
-        $title = isInBadStanding($word) ? randpick(@scorns) : 'kammerat ';
-    }
-
-    if (rand() < 0.20) {
+    if ($is_name || rand() < 0.20) {
         $word = enhance($word);
     } elsif (rand() < 0.05) {
         $word = "█" x length $word;
     }
 
+    my $title = $is_name ? randpick(@titles) : '';
     return $title . $word;
 }
 
