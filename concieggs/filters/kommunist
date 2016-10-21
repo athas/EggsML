@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use utf8::all;
 use IPC::System::Simple qw(systemx EXIT_ANY);
+use Lingua::Translit;
 
 sub randpick {
     return $_[rand(@_)];
@@ -41,6 +42,7 @@ sub commify {
     my $word = shift;
     my $is_name = $aliases{lc $word};
 
+    my $result = $word;
     my $prefix = '';
     my $suffix = '';
     if ($is_name) {
@@ -53,12 +55,16 @@ sub commify {
         $suffix = randpick(@suffixes);
     }
 
-    my $result = $prefix . $word . $suffix;
+    $result = $prefix . $result . $suffix;
 
-    my $chance = rand();
-    if ($is_name || $chance < 0.20) {
+    if (rand() < 0.15) {
+        my $tr = Lingua::Translit->new('ISO 9');
+        $result = $tr->translit_reverse( $result );
+    }
+
+    if ($is_name || (rand() < 0.20)) {
         $result = enhance($result);
-    } elsif ($chance < 0.05) {
+    } elsif (rand() < 0.05) {
         $result = "█" x length $word;
     }
 
