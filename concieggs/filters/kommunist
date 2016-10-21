@@ -12,12 +12,13 @@ sub randpick {
 
 sub enhance {
     my $word = shift;
-    return "\cC04☭" . uc $word . "SKI☭\cC";
+    return "\cC04☭" . uc $word . "☭\cC";
 }
 
 my %aliases = map { (lc($_) => 1) } split("\n", `allAliases`);
 
 my @titles = ('kapi-', 'kammerat ', 'bolsjevik ');
+my @suffixes = (qw(ski ev ov sky));
 
 sub commify {
     my $word = shift;
@@ -30,7 +31,8 @@ sub commify {
     }
 
     my $title = $is_name ? randpick(@titles) : '';
-    return $title . $word;
+    my $suffix = $is_name ? randpick(@suffixes) : '';
+    return $title . $word . $suffix;
 }
 
 while (my $line = <STDIN>) {
