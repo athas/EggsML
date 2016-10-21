@@ -3,8 +3,7 @@ use 5.012;
 use strict;
 use warnings;
 use utf8::all;
-use Env qw(EGGS_USER);
-use feature qw(switch say);
+use IPC::System::Simple qw(systemx EXIT_ANY);
 
 sub randpick {
     return $_[rand(@_)];
@@ -15,22 +14,51 @@ sub enhance {
     return "\cC04☭" . uc $word . "☭\cC";
 }
 
+sub eggsIs {
+    my $category = shift;
+    my @args = @_;
+
+    my $retval = systemx(EXIT_ANY, "is" . $category, @args);
+    return $retval == 0;
+}
+
+sub isKing {
+    my $user = shift;
+    return eggsIs("King", $user);
+}
+
+sub isInBadStanding {
+    my $user = shift;
+    return eggsIs("InBadStanding", $user);
+}
+
 my %aliases = map { (lc($_) => 1) } split("\n", `allAliases`);
 
-my @titles = ('kapi-', 'kammerat ', 'bolsjevik ');
-my @suffixes = (qw(ski ev ov sky));
+my @prefixes = ('kapi-', 'kammerat ', 'bolsjevik ');
+my @suffixes = (qw(ski sky ov chenko));
 
 sub commify {
     my $word = shift;
     my $is_name = $aliases{lc $word};
 
-    my $title = $is_name ? randpick(@titles) : '';
-    my $suffix = $is_name ? randpick(@suffixes) : '';
-    $result = $title . $word . $suffix;
+    my $prefix = '';
+    my $suffix = '';
+    if ($is_name) {
+        my $user = $word;
 
-    if ($is_name || rand() < 0.20) {
+        if (isKing($user)) { $prefix = 'formand '; }
+        elsif (isInBadStanding($user)) { $prefix = 'klasseforrædder '; }
+        else { $prefix = randpick(@prefixes); }
+
+        $suffix = randpick(@suffixes);
+    }
+
+    my $result = $prefix . $word . $suffix;
+
+    my $chance = rand();
+    if ($is_name || $chance < 0.20) {
         $result = enhance($result);
-    } elsif (rand() < 0.05) {
+    } elsif ($chance < 0.05) {
         $result = "█" x length $word;
     }
 
