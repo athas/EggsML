@@ -16,6 +16,7 @@ my @categories = (
     [qw(Hillary Donald Bill George Barack)],
     [qw(Trump Bush Clinton Reagan Obama)],
     [qw(Søren Jørgen)],
+    [qw(Troels Truls Athas trulsa)],
 );
 
 # Numbers
