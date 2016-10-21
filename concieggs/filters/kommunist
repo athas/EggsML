@@ -83,6 +83,8 @@ while (my $line = <STDIN>) {
     my $me = $line =~ m!^/me !i;
     $line = substr $line, 4 if $me;
 
+    $line =~ s/købe/dele/ig;
+    $line =~ s/købte/delte/ig;
     $line =~ s/\b(\S+)\b/commify($1)/ge;
     $line =~ s/(\d+[.,]\d+|\d{4,})/tax($1)/ge;
 
