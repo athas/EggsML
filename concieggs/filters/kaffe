@@ -1,0 +1,3 @@
+#!/bin/sh
+
+sed "s/[[:alnum:]]\{5\}/kaffe/g" 
