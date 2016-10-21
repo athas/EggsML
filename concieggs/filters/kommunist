@@ -56,7 +56,7 @@ sub commify {
     my $result = $prefix . $word . $suffix;
 
     my $chance = rand();
-    if ($is_name || ($chance < 0.20 && length $word > 3)) {
+    if ($is_name || $chance < 0.20) {
         $result = enhance($result);
     } elsif ($chance < 0.05) {
         $result = "█" x length $word;
@@ -71,7 +71,7 @@ sub tax {
     my $amount = shift;
     $amount =~ s/,/./g;
 
-    return $amount if $amount > 1800 && $amount < 2100;
+    return $amount if $amount >= 1800 && $amount <= 2100;
 
     my $tax = int(rand($amount * $max_tax_rate));
     return sprintf "%s (+ %d i skat til partiet)", $amount - $tax, $tax;
