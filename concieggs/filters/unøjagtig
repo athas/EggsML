@@ -13,7 +13,7 @@ my @categories = (
     [qw(Danmark Sverige Finland)],
     [qw(Færøerne Island)],
     [qw(England Irland Skotland Storbritannien Commonwealth)],
-    [qw(Hillary Trump Bill George)],
+    [qw(Hillary Donald Bill George)],
     [qw(Trump Bush Clinton)],
     [qw(Søren Jørgen)],
 );
