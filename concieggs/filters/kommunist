@@ -69,11 +69,12 @@ my $max_tax_rate = 1.2;
 
 sub tax {
     my $amount = shift;
+    $amount =~ s/,/./g;
 
     return $amount if $amount > 1800 && $amount < 2100;
 
     my $tax = int(rand($amount * $max_tax_rate));
-    return sprintf "%d (+ %d i skat til partiet)", $amount - $tax, $tax;
+    return sprintf "%s (+ %d i skat til partiet)", $amount - $tax, $tax;
 }
 
 while (my $line = <STDIN>) {
@@ -83,7 +84,7 @@ while (my $line = <STDIN>) {
     $line = substr $line, 4 if $me;
 
     $line =~ s/\b(\S+)\b/commify($1)/ge;
-    $line =~ s/(\d{4,})/tax($1)/ge;
+    $line =~ s/(\d+[.,]\d+|\d{4,})/tax($1)/ge;
 
     my $meprefix = $me ? "/me " : "";
     say $meprefix . $line;
