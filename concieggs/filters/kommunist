@@ -12,7 +12,7 @@ sub randpick {
 
 sub enhance {
     my $word = shift;
-    return "\cC04☭" . uc $word . "☭\cC";
+    return "\cC04☭" . uc $word . "-SKI☭\cC";
 }
 
 my %aliases = map { (lc($_) => 1) } split("\n", `allAliases`);
