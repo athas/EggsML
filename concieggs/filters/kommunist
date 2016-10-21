@@ -11,7 +11,7 @@ sub randpick {
 
 sub enhance {
     my $word = shift;
-    return "\cC04☭" . uc $word . "☭\cC";
+    return "\cC04☭" . uc $word . "☭\cC\cB\cB";
 }
 
 sub eggsIs {
