@@ -16,6 +16,18 @@ sub translate {
     close GOOGLE;
 }
 
+my @udraab = (
+    "Ja da!",
+    "Ikkje sant?",
+    "Fy faen!",
+    "Fy flate!",
+    "Faen i helvete!",
+);
+
+sub udraab {
+    return rand() < 0.33 ? ' ' . $udraab[rand(@udraab)] . ' ' : '';
+}
+
 my $vowel = "[aeiouyæøå]";
 my $consonant = "[bcdfghjklmnpqrstvwxz]";
 
@@ -37,6 +49,9 @@ while (my $text = <STDIN>) {
     $text =~ s/hvordan/korleis/ig;
     $text =~ s/\bvi\b/me/ig;
     $text =~ s/\bderes\b/dykk/ig;
+
+    # Tilfældige udråb
+    $text =~ s/(?<=[.?!](?: |$))/udraab()/ge;
 
     translate("da", "no", $text);
 }
