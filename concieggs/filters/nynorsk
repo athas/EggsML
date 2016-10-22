@@ -25,33 +25,35 @@ my @udraab = (
 );
 
 sub udraab {
-    return rand() < 0.33 ? ' ' . $udraab[rand(@udraab)] . ' ' : '';
+    return rand() < 0.25 ? ' ' . $udraab[rand(@udraab)] . ' ' : '';
 }
 
 my $vowel = "[aeiouyæøå]";
 my $consonant = "[bcdfghjklmnpqrstvwxz]";
 
 while (my $text = <STDIN>) {
-    $text =~ s/jeg/eg/ig;
+    $text =~ s/\bjeg\b/eg/ig;
     $text =~ s/ikke/ikkje/ig;
     $text =~ s/meget/mykje/ig;
-    $text =~ s/\bet\b/ett/ig;
-    $text =~ s/\ben\b/ein/ig;
-    $text =~ s/\Bdt\b/tt/ig;
-    $text =~ s/æ/e/ig;
-    $text =~ s/ved/veit/ig;
-    $text =~ s/\Bo\B/u/ig;
-    $text =~ s/(?<=${vowel})d(?=${vowel})/t/ig;
-    $text =~ s/\Bvd/dd/ig;
+    $text =~ s/\bved\b/veit/ig;
+    $text =~ s/\bvi\b/me/ig;
+    $text =~ s/\bderes\b/dykk/ig;
+
     $text =~ s/hvorfor/kvifor/ig;
     $text =~ s/hvad/kva/ig;
     $text =~ s/\bhvor\b/kor/ig;
     $text =~ s/hvordan/korleis/ig;
-    $text =~ s/\bvi\b/me/ig;
-    $text =~ s/\bderes\b/dykk/ig;
+
+    $text =~ s/æ/e/ig;
+    $text =~ s/\bet\b/ett/ig;
+    $text =~ s/\ben\b/ein/ig;
+    $text =~ s/\Bdt\b/tt/ig;
+    $text =~ s/\Bvd/dd/ig;
+    $text =~ s/\Bo\B/u/ig;
+    $text =~ s/(?<=${vowel})d(?=${vowel})/t/ig;
 
     # Tilfældige udråb
-    $text =~ s/(?<=[.?!](?: |$))/udraab()/ge;
+    $text =~ s/(?<=[.?!])/udraab()/ge;
 
     translate("da", "no", $text);
 }
