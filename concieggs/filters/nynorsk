@@ -11,12 +11,21 @@ sub translate {
     my $target_lang = shift;
     my $text        = shift;
 
-    local $/;
+    print "1";
+
     open( GOOGLE, "|translate $source_lang $target_lang" );
+
+    print "2";
+
     print GOOGLE $text;
+
+    print "3";
 
     my $result = <GOOGLE>;
     close GOOGLE;
+
+    print "4";
+
     return $result;
 }
 
