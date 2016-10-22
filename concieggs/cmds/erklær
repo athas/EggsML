@@ -7,7 +7,7 @@ use utf8::all;
 use IPC::System::Simple qw/systemx capturex/;
 
 sub verdenssituationen {
-    my $verdenssituationen = capturex('dbRead', "verdenssituationen");
+    my $verdenssituationen = capturex(EXIT_ANY, 'dbRead', "verdenssituationen");
     chomp $verdenssituationen;
     return $verdenssituationen;
 }
@@ -17,8 +17,8 @@ my $new = $ARGV[0];
 
 if ($new ~~ @tilstande) {
     my $previous = verdenssituationen();
-    systemx("dbWrite", ("verdenssituationen", $new));
-    my $ack = capturex("ack");
+    systemx(EXIT_ANY, "dbWrite", ("verdenssituationen", $new));
+    my $ack = capturex(EXIT_ANY, "ack");
     chomp $ack;
     print "$ack  Der var $previous.  Der er nu $new.";
 }
