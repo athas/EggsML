@@ -16,6 +16,27 @@ sub translate {
     close GOOGLE;
 }
 
+my $lande = join "|", qw(
+  Danmark
+  Norge
+  Sverige
+  Finland
+  Tyskland
+  USA
+  Storbritannien
+  Island
+  Canada
+  Mexico
+  Brasilien
+  Rusland
+  Frankrig
+  Spanien
+  Italien
+  Kina
+  Indien
+  Egypten
+);
+
 my @udraab = (
     "Ja da!",
     "Ikkje sant?",
@@ -23,7 +44,7 @@ my @udraab = (
     "Fy flate!",
     "Faen i helvete!",
     "Ja, vi elskar dette landet!",
-    "Noreg er verdas besste land!",
+    "Noreg er verdas beste land!",
     "Skriv nynorsk, tal dialekt!",
 );
 
@@ -35,6 +56,7 @@ my $vowel = "[aeiouyæøå]";
 my $consonant = "[bcdfghjklmnpqrstvwxz]";
 
 while (my $text = <STDIN>) {
+    $text =~ s/$lande/Noreg/ig;
     $text =~ s/\bjeg\b/eg/ig;
     $text =~ s/ikke/ikkje/ig;
     $text =~ s/meget/mykje/ig;
@@ -50,7 +72,7 @@ while (my $text = <STDIN>) {
 
     $text =~ s/\bet\b/eit/ig;
     $text =~ s/\ben\b/ein/ig;
-    $text =~ s/\Bo\B/u/ig;
+    $text =~ s/(?<!n)o\B/u/ig;
     $text =~ s/(?<=${vowel})d(?=${vowel})/t/ig;
 
     # Tilfældige udråb
