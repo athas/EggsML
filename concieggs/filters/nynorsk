@@ -9,30 +9,17 @@ use utf8::all;
 sub translate {
     my $source_lang = shift;
     my $target_lang = shift;
-    my $text        = shift;
+    my $source_text = shift;
 
-    print "1";
-
-    open( GOOGLE, "|translate $source_lang $target_lang" );
-
-    print "2";
-
-    print GOOGLE $text;
-
-    print "3";
-
-    my $result = <GOOGLE>;
+    open( GOOGLE, "| translate $source_lang $target_lang" );
+    print GOOGLE $source_text;
     close GOOGLE;
-
-    print "4";
-
-    return $result;
 }
 
 my $vowel = "[aeiouyæøå]";
 my $consonant = "[bcdfghjklmnpqrstvwxz]";
 
-while (my $text = <>) {
+while (my $text = <STDIN>) {
     $text =~ s/jeg/eg/ig;
     $text =~ s/ikke/ikkje/ig;
     $text =~ s/meget/mykje/ig;
@@ -50,5 +37,6 @@ while (my $text = <>) {
     $text =~ s/hvordan/korleis/ig;
     $text =~ s/\bvi\b/me/ig;
     $text =~ s/\bderes\b/dykk/ig;
-    print translate( "da", "no", $text );
+
+    translate("da", "no", $text);
 }
