@@ -22,10 +22,13 @@ my @udraab = (
     "Fy faen!",
     "Fy flate!",
     "Faen i helvete!",
+    "Ja, vi elskar dette landet!",
+    "Noreg er verdas besste land!",
+    "Skriv nynorsk, tal dialekt!",
 );
 
 sub udraab {
-    return rand() < 0.25 ? ' ' . $udraab[rand(@udraab)] . ' ' : '';
+    return rand() < 0.2 ? ' ' . $udraab[rand(@udraab)] . ' ' : '';
 }
 
 my $vowel = "[aeiouyæøå]";
@@ -38,17 +41,15 @@ while (my $text = <STDIN>) {
     $text =~ s/\bved\b/veit/ig;
     $text =~ s/\bvi\b/me/ig;
     $text =~ s/\bderes\b/dykk/ig;
+    $text =~ s/navn/namn/ig;
 
     $text =~ s/hvorfor/kvifor/ig;
     $text =~ s/hvad/kva/ig;
     $text =~ s/\bhvor\b/kor/ig;
     $text =~ s/hvordan/korleis/ig;
 
-    $text =~ s/æ/e/ig;
-    $text =~ s/\bet\b/ett/ig;
+    $text =~ s/\bet\b/eit/ig;
     $text =~ s/\ben\b/ein/ig;
-    $text =~ s/\Bdt\b/tt/ig;
-    $text =~ s/\Bvd/dd/ig;
     $text =~ s/\Bo\B/u/ig;
     $text =~ s/(?<=${vowel})d(?=${vowel})/t/ig;
 
