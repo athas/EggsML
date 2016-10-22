@@ -1,0 +1,24 @@
+#!/usr/bin/env perl
+use 5.020;
+use strict;
+use warnings;
+use experimental qw/smartmatch/;
+use utf8::all;
+use IPC::System::Simple qw/systemx capturex/;
+
+sub verdenssituationen {
+    my $verdenssituationen = capturex('dbRead', "verdenssituationen");
+    chomp $verdenssituationen;
+    return $verdenssituationen;
+}
+
+my @tilstande = qw(fred koldkrig verdenskrig);
+my $new = $ARGV[0];
+
+if ($new ~~ @tilstande) {
+    my $previous = verdenssituationen();
+    systemx("dbWrite", ("verdenssituationen", $new));
+    my $ack = capturex("ack");
+    chomp $ack;
+    print "$ack  Der var $previous.  Der er nu $new.";
+}
