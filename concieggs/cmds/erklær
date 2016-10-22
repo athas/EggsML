@@ -2,9 +2,9 @@
 use 5.020;
 use strict;
 use warnings;
-use experimental qw/smartmatch/;
 use utf8::all;
-use IPC::System::Simple qw/systemx capturex/;
+use experimental qw/smartmatch/;
+use IPC::System::Simple qw/systemx capturex EXIT_ANY/;
 
 sub verdenssituationen {
     my $verdenssituationen = capturex(EXIT_ANY, 'dbRead', "verdenssituationen");
@@ -15,10 +15,12 @@ sub verdenssituationen {
 my @tilstande = qw(fred koldkrig verdenskrig);
 my $new = $ARGV[0];
 
-if ($new ~~ @tilstande) {
+if ($new && $new ~~ @tilstande) {
     my $previous = verdenssituationen();
     systemx(EXIT_ANY, "dbWrite", ("verdenssituationen", $new));
     my $ack = capturex(EXIT_ANY, "ack");
     chomp $ack;
     print "$ack  Der var $previous.  Der er nu $new.";
+} else {
+    printf "Brug: erklær <%s>.", (join '/', @tilstande);
 }
