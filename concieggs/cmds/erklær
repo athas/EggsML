@@ -7,7 +7,7 @@ use experimental qw/smartmatch/;
 use IPC::System::Simple qw/systemx capturex EXIT_ANY/;
 
 sub verdenssituationen {
-    my $verdenssituationen = capturex(EXIT_ANY, 'dbRead', "verdenssituationen");
+    my $verdenssituationen = `dbRead verdenssituationen`;
     chomp $verdenssituationen;
     return $verdenssituationen;
 }
