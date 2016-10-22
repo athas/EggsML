@@ -1,0 +1,21 @@
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+use utf8::all;
+
+# Et syntetisk skriftsprog opfundet af Ivar Aasen i midten af 1800-tallet
+# i et forsøg på at undslippe det danske koloniale åg.
+
+while (my $text = <>) {
+    $text =~ s/jeg/eg/ig;
+    $text =~ s/ikke/ikkje/ig;
+    $text =~ s/meget/mykje/ig;
+    $text =~ s/\bet\b/ett/ig;
+    $text =~ s/\ben\b/ein/ig;
+    $text =~ s/\Bdt\b/tt/ig;
+    $text =~ s/æ/e/ig;
+    $text =~ s/ved/veit/ig;
+    $text =~ s/\Bo\B/u/ig;
+    # Spoergeordene, hvorfor, kvifor etc.
+    print $text;
+}
