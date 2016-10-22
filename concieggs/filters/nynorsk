@@ -6,6 +6,9 @@ use utf8::all;
 # Et syntetisk skriftsprog opfundet af Ivar Aasen i midten af 1800-tallet
 # i et forsøg på at undslippe det danske koloniale åg.
 
+my $vowel = "[aeiouyæøå]";
+my $consonant = "[bcdfghjklmnpqrstvwxz]";
+
 while (my $text = <>) {
     $text =~ s/jeg/eg/ig;
     $text =~ s/ikke/ikkje/ig;
@@ -16,6 +19,9 @@ while (my $text = <>) {
     $text =~ s/æ/e/ig;
     $text =~ s/ved/veit/ig;
     $text =~ s/\Bo\B/u/ig;
+    $text =~ s/(?<=${vowel})d(?=${vowel})/t/ig;
+    $text =~ s/\Bvd/dd/ig;
+
     # Spoergeordene, hvorfor, kvifor etc.
     print $text;
 }
