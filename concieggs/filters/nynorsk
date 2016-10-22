@@ -6,16 +6,18 @@ use utf8::all;
 # Et syntetisk skriftsprog opfundet af Ivar Aasen i midten af 1800-tallet
 # i et forsøg på at undslippe det danske koloniale åg.
 
-sub translate{
-  my $source_lang = shift;
-  my $target_lang = shift;
-  my $text        = shift;
-  open( my $fh, "|translate $source_lang $target_lang" );
-  print $fh $text;
-  local $/;
-  my $res = <$fh>;
-  close $fh;
-  return $res;
+sub translate {
+    my $source_lang = shift;
+    my $target_lang = shift;
+    my $text        = shift;
+
+    local $/;
+    open( GOOGLE, "|translate $source_lang $target_lang" );
+    print GOOGLE $text;
+
+    my $result = <GOOGLE>;
+    close GOOGLE;
+    return $result;
 }
 
 my $vowel = "[aeiouyæøå]";
