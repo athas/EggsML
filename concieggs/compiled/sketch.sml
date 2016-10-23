@@ -35,7 +35,7 @@ fun kommaer []      = ""
 fun sketch () = let val r = newgen ()
                     val (helte, restp)   = vaelg personer (range (3,4) r) r
                     val (harmoni, reste) = vaelg emner (range (3,4) r) r
-                    val (skurke, _)      = vaelg restp (range (1,2) r) r
+                    val (skurke, _)      = vaelg restp (range (1,3) r) r
                     val (konflikt, _)    = vaelg reste (range (1,2) r) r
                 in "Vi ser " ^ (kommaer helte)
                    ^ " der mødes " ^ vaelgEn steder r
