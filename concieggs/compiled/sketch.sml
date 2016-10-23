@@ -2,7 +2,7 @@ open List;
 open Random;
 
 val personer =
-    ["en nørd", "en sekretær", "rektor", "lektor",
+    ["en nørd", "en sekretær", "rektor", "en lektor",
      "Jyrki", "Pawel", "Hitler", "nogle fysikere", "en rus", "en gammel bitter datalog",
      "Stroustrup", "Peter Naur", "en KUAine"];
 
