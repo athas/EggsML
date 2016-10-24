@@ -1,5 +1,5 @@
 #!/bin/sh
 
-for word in "$(echo "$EGGS_BODY" | grep -i -f $CONCIEGGS_DB_DIR/dumme_ord -o)"; do
+echo "$EGGS_BODY" | grep -i -f $CONCIEGGS_DB_DIR/dumme_ord -o | while read -r word; do
     annoyedBy "$EGGS_USER" 5 "brugte ordet '$word'"
 done
