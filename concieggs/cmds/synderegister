@@ -4,9 +4,13 @@
 
 any=''
 for who in $(dbIterate "users" | sed 's!users/!!'); do
+    name=$(randomName "$who")
+    if ! [ "$name" ]; then
+        name="$who"
+    fi
     reasons=$(annoyances "$who")
     if [ "$reasons" ]; then
-        echo "$(randomName $who) $reasons."
+        echo "$name $reasons."
         any=yes
     fi
 done
