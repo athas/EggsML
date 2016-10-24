@@ -1,10 +1,17 @@
 #!/bin/sh
 
+
 if [ "$EGGS_USER" = hej_fra_github ]; then
     if echo "$EGGS_BODY" | grep '^\[EggsML\]' | grep pushed | grep -v 'concieggs pushed' > /dev/null; then
         cd $EGGS_DIR
         if git pull; then
-            echoToServer ":m $CONCIEGGS_DEFAULT_CHANNEL Jeg har hentet de nyeste ændringer fra https://github.com/Athas/EggsML!"
+            eval "$(echo "$EGGS_BODY" | parse '^\[EggsML\] (?<EGGS_PUSHER>.*?) pushed')"
+            if [ $EGGS_PUSHER ]
+                then MSG="Jeg har hentet de nyeste ændringer begået af $EGGS_PUSHER fra https://github.com/Athas/EggsML!"
+                else MSG="Jeg har hentet de nyeste ændringer fra https://github.com/Athas/EggsML!"
+            fi
+
+            echoToServer ":m $CONCIEGGS_DEFAULT_CHANNEL $MSG"
         else
             echoToServer ":m $CONCIEGGS_DEFAULT_CHANNEL Noget gik galt da jeg lavede git pull."
         fi
