@@ -22,7 +22,7 @@ EOF
         removeFromBadStanding "$EGGS_USER" # For en sikkerheds skyld.
     elif isInBadStanding "$EGGS_USER"; then
         # if maybeGood .35; then
-            pleasedBy "$EGGS_USER" 1
+            pleasedBy "$EGGS_USER" 25
             removeFromBadStanding "$EGGS_USER"
             echo "$EGGS_USER: Så lad gå.  Men lad det ikke gentage sig!"
         # else
