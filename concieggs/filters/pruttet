@@ -1,3 +1,2 @@
 #!/usr/bin/env perl
-sub prut { return rand() < 0.25 ? sprintf(" *pr%st* ", "u" x (1 + rand(5))) : ""; }
-s/(?<=[.!?])/prut()/ge && print while (<>);
+s/(?<=[.!?] )/rand()<0.25?("\cC05*pr".("u"x(1+rand(5)))."ut*\cB\cB "):""/ge && print while(<>);
