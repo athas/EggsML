@@ -2,7 +2,7 @@
 
 who=$1
 
-if christmas; then
+if isChristmas; then
     (echo "Egentlig irriterer $who mig en del, men pyt - det er jo jul!"
      echo "$who: Du er da godt nok en... nej, hvad er det jeg siger.  Det er jul!"
      echo "Det er jul, så jeg vælger at se bort fra $who's adfærd."

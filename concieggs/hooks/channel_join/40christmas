@@ -2,7 +2,7 @@
 
 shuttingUp && exit
 
-if christmas && maybeGood .7; then
+if isChristmas && maybeGood .7; then
     if isKing "$EGGS_USER"; then
         randomLine <<EOF
 Deres Majestæt!  Det er jul!
