@@ -1,2 +1,2 @@
 #!/usr/bin/env perl
-s/(?<=[.!?] )/rand()<0.25?("\cC05*pr".("u"x(1+rand(5)))."ut*\cB\cB "):""/ge && print while(<>);
+while(<>){s/(?<=[.!?] )/rand() < 0.25 ? ("\cC05*pr".("u"x(1+rand(5)))."ut*\cC\cB\cB ") : ""/ge;print}
