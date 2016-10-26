@@ -1,6 +1,12 @@
 #!/usr/bin/env perl
-sub randpick { return $_[rand(@_)]; }
 my @prutfis = ([qw(pr u t)], [qw(f i s)]);
+my @skidegodt = split '\n', <<'END_OF_LORT';
+For helvede, jeg skal skide.
+Øj, det er godt nok svært at holde sig.
+Det presser på!
+Nu er det snart pølletid.
+MOAR, JEG SKAL SKIDE!
+END_OF_LORT
 
 sub luft {
     my $ekstra = shift;
@@ -8,12 +14,20 @@ sub luft {
     chomp $luft;
     $luft += $ekstra;
     `echo $luft | dbWrite luft_i_maven`;
+    return $luft;
 }
 
 sub prutfis {
+    return "" if rand() < 0.75;
+
     my ($pr, $u, $t) = @{$prutfis[rand(@prutfis)]};
-    luft(5);
-    return rand() < 0.40 ? sprintf("\cC05*%s%s%s*\cC\cB\cB ", $pr, $u x (1+rand(5)), $t) : "";
+
+    # TODO: concieggs har ikke lært at skide.
+    if (luft(5) > 50) {
+        return $skidegodt[rand(@skidegodt)] . " ";
+    }
+
+    return sprintf("\cC05*%s%s%s*\cC\cB\cB ", $pr, $u x (1+rand(5)), $t);
 }
 
 while (<>) {
