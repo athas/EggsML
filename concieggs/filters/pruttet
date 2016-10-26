@@ -1,2 +1,22 @@
 #!/usr/bin/env perl
-while(<>){s/(?<=[.!?] )/rand() < 0.25 ? ("\cC05*pr".("u"x(1+rand(5)))."ut*\cC\cB\cB ") : ""/ge;print}
+sub randpick { return $_[rand(@_)]; }
+my @prutfis = ([qw(pr u t)], [qw(f i s)]);
+
+sub luft {
+    my $ekstra = shift;
+    my $luft = `dbRead luft_i_maven`;
+    chomp $luft;
+    $luft += $ekstra;
+    `echo $luft | dbWrite luft_i_maven`;
+}
+
+sub prutfis {
+    my ($pr, $u, $t) = @{$prutfis[rand(@prutfis)]};
+    luft(5);
+    return rand() < 0.40 ? sprintf("\cC05*%s%s%s*\cC\cB\cB ", $pr, $u x (1+rand(5)), $t) : "";
+}
+
+while (<>) {
+    s/(?<=[.!?] )/prutfis()/ge;
+    print;
+}
