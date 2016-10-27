@@ -89,6 +89,9 @@ while (my $line = <STDIN>) {
     my $me = $line =~ m!^/me !i;
     $line = substr $line, 4 if $me;
 
+    $line =~ s/kongen/formanden/ig;
+    $line =~ s/konge\B/formands/ig;
+    $line =~ s/konge?/formand/ig;
     $line =~ s/købe/dele/ig;
     $line =~ s/købte/delte/ig;
     $line =~ s/frokostkassen/enhance('partiet')/egi;
