@@ -17,10 +17,8 @@ my $new = $ARGV[0];
 
 if ($new && $new ~~ @tilstande) {
     my $previous = verdenssituationen();
-    systemx(EXIT_ANY, "dbWrite", ("verdenssituationen", $new));
-    my $ack = capturex(EXIT_ANY, "ack");
-    chomp $ack;
-    print "$ack  Der var $previous.  Der er nu $new.";
+    `echo $new | dbWrite verdenssituationen`;
+    print `ack` . "Der var $previous.  Der er nu $new.";
 } else {
     printf "Brug: erklær <%s>.", (join '/', @tilstande);
 }
