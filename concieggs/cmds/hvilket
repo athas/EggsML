@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# Spørg concieggs om ting.
+
+eval "$(echo "$@" | parse 'tal tænker (?<who>[^ ]+) på')"
+
+if [ "$who" = jeg ]; then
+    n=$(random 1000 9999)
+    echo "$EGGS_USER: Mit gæt er $n."
+elif [ "$who" = du ]; then
+    n=$(random 1000 9999)
+    echo "$EGGS_USER: Jeg tænker på $n."
+else
+    echo "$EGGS_USER: Det ved jeg ikke lige."
+fi
