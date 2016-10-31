@@ -14,7 +14,7 @@ fi
 echo "$(annoyanceAt "$1") + $ann" | bc | dbUserWrite "$1" annoyanceAt
 if [ "$ann" -gt 0 ]; then
     old="$(dbUserRead "$1" annoyances)"
-    (echo -n "$old"; echo "$reason") | dbUserWrite "$1" annoyances
+    (echo "$old"; echo "$reason") | egrep -v '^$' | dbUserWrite "$1" annoyances
 fi
 
 if [ $(echo "$ann > 0" | bc) = 1 ]; then
