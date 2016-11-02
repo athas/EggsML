@@ -7,8 +7,8 @@ if [ "$EGGS_USER" = hej_fra_github ]; then
         if git pull; then
             eval "$(echo "$EGGS_BODY" | parse '^\[EggsML\] (?<EGGS_PUSHER>.*?) pushed')"
             if [ $EGGS_PUSHER ]
-                then MSG="Jeg har hentet de nyeste ændringer begået af $EGGS_PUSHER fra https://github.com/Athas/EggsML!"
-                else MSG="Jeg har hentet de nyeste ændringer fra https://github.com/Athas/EggsML!"
+                then MSG="Jeg har hentet de nyeste ændringer begået af $EGGS_PUSHER fra https://github.com/Athas/EggsML"
+                else MSG="Jeg har hentet de nyeste ændringer fra https://github.com/Athas/EggsML"
             fi
 
             echoToServer ":m $CONCIEGGS_DEFAULT_CHANNEL $MSG"
