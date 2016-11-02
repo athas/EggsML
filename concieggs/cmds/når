@@ -36,10 +36,10 @@ lcalias="$(echo "$alias" | perl -ne 'print (lc $_)')"
 
 cmd=$(echo "$command" | cut -d' ' -f 1)
 
-if [ "$alias" = "når" ] && [ "$who" != "jeg" ] && [ "$command" != "når" ]; then
-    echo "$who: Er det rigtigt, at du mener $cmd, når du siger når?"
+if [ "$alias" = "når" ] && [ "$who" != "jeg" ]; then
+    echo "$who: $EGGS_USER har på umanérligt komisk vis bedt mig om at sabotere din brug af 'når'-kommandoen.  Hvilket vid og humoristisk nytænkning.  Sjældent ser scenen mage."
     sleep 2
-    echo "For det påstår $EGGS_USER altså, og jeg synes bare at det var et mærkeligt ønske."
+    echo "Suk."
     sleep 2
     echo "Men hvis du virkelig gerne vil have det, så sig det lige til mig selv."
     exit 0
