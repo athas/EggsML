@@ -36,7 +36,7 @@ lcalias="$(echo "$alias" | perl -ne 'print (lc $_)')"
 
 cmd=$(echo "$command" | cut -d' ' -f 1)
 
-if [ "$alias" = "når" ] && [ "$who" != "jeg" ]; then
+if [ "$alias" = "når" ] && [ "$who" != "jeg" ] && [ "$command" != "når" ]; then
     echo "$who: $EGGS_USER har på umanérligt komisk vis bedt mig om at sabotere din brug af 'når'-kommandoen.  Hvilket vid og humoristisk nytænkning.  Sjældent ser scenen mage."
     sleep 2
     echo "Suk."
