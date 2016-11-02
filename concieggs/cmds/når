@@ -42,6 +42,7 @@ if [ "$alias" = "når" ] && [ "$who" != "jeg" ]; then
     echo "Suk."
     sleep 2
     echo "Men hvis du virkelig gerne vil have det, så sig det lige til mig selv."
+    annoyedBy "$EGGS_USER" 30 "prøvede at sætte et 'når'-alias for $who"
     exit 0
 fi
 
