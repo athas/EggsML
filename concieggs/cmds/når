@@ -65,5 +65,9 @@ fi
 
 printf "$EGGS_USER: %s For fremtiden vil jeg huske, at når $you siger '$alias', så mener $you '$command'$insteadOf.\n" "$(ack)"
 
+if [ "$who" != "jeg" ]; then
+    annoyedBy "$EGGS_USER" 2 "satte et '$lcalias'-alias for $who"
+fi
+
 (echo "$allAliases" | grep -iv "^$lcalias=" &&
  echo "$lcalias=$command") | dbUserWrite "$name" "cmd_aliases"
