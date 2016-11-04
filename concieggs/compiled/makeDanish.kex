@@ -30,7 +30,7 @@ word := ~/computer/ "datamat"
       | ~/uppercase/ "greltegn"
       | ~/hashtag/ "gullashetiket"
       | ~/push/ "skub"
-      | ~/pull/ "hal" (~/[ -]?request/ "eanmodning")?
+      | ~/pull/ "hal" (~/[ -]?request/ "eanmodning" (~/s/ "er" | ~/et/ "en")?)?
       | ~/pc|PC/ "hjemmedatamat"
       | ~/standby/ "hviletilstand"
       | ~/database/ "kartotek"
