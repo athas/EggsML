@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-my @prutfis = ([qw(pr u t)], [qw(f i s)]);
+my @prutfis = ([qw(pr u t)], [qw(f i s)], [qw(tr u t)]);
 my @skidegodt = split '\n', <<'END_OF_LORT';
 Øj, det er godt nok svært at holde sig.
 De herrer må have mig undskyldt.
@@ -23,10 +23,10 @@ sub prutfis {
     my ($pr, $u, $t) = @{$prutfis[rand(@prutfis)]};
     my $luft = luft(5);
 
-    return sprintf("\cC05*%s%s%s*\cC\cB\cB %s", $pr, $u x (1+rand(5)), $t, $luft > 50 ? $skidegodt[rand @skidegodt] . " " : " ");
+    return sprintf("\cC05*%s%s%s*\cC\cB\cB %s", $pr, $u x (1+rand(8)), $t, $luft > 50 ? $skidegodt[rand @skidegodt] . " " : " ");
 }
 
 while (<>) {
-    s/(?<=[.!?] )/prutfis()/ge;
+    s/(?<=[.!?])/prutfis()/ge;
     print;
 }
