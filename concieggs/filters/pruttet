@@ -1,11 +1,10 @@
 #!/usr/bin/env perl
 my @prutfis = ([qw(pr u t)], [qw(f i s)]);
 my @skidegodt = split '\n', <<'END_OF_LORT';
-For helvede, jeg skal skide.
 Øj, det er godt nok svært at holde sig.
-Det presser på!
+De herrer må have mig undskyldt.
 Nu er det snart pølletid.
-MOAR, JEG SKAL SKIDE!
+Har nogen set latrinen?
 END_OF_LORT
 
 sub luft {
