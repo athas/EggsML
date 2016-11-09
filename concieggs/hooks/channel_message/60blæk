@@ -1,0 +1,44 @@
+#!/bin/sh
+#
+# Concieggs vil også være med.
+
+shuttingUp && exit
+
+check() {
+    echo "$EGGS_BODY" | grep -qEi ' '"$1"'[ .,;:]'
+}
+
+nerd_alert() {
+    check blæk || check pen || check fyldepen
+}
+
+farve() {
+    randomLine <<EOF
+sort
+blåt
+brunt
+rødt
+orange
+grønt
+gult
+EOF
+}
+
+fjollede() {
+    randomLine <<EOF
+fjollede
+dumme
+newbede
+nedern
+kedelige
+dårlige
+EOF
+}
+
+if nerd_alert; then
+    randomLine <<EOF
+Jeg synes nu at $(farve) blæk er bedst.
+Ja, kuglepenne er ret $(fjollede).
+Jeg bruger også fyldepenne!
+EOF
+fi
