@@ -75,7 +75,7 @@ word := ~/computer/ "datamat"
       | ~/branch and bound/ "del og begræns"
       | ~/deadline/ "skæringsdato"
       | ~/escape sequence/ "flugttegn"
-      | ~/hash function/ "gullaschfunktion"
+      | ~/hash[- ]?fun[ck]tion/ "gullaschfunktion"
       | ~/interpreter/ "fortolker"
       | ~/race condition/ "kapløbsstrid"
       | ~/laptop/ "mappedatamat" (~/s/ "er")?
