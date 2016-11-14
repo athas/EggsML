@@ -39,12 +39,42 @@ my @rules = (
             ]
     },
     {
+        en => 'fire',
+        to => 'otte',
+        uncle => [
+            "uden at måbe",
+            "vær' ikk' en tåbe",
+            "jeg går i kåbe"
+        ]
+    },
+    {
+        en => 'fem',
+        to => 'ti',
+        uncle => [
+            "det kan vi li'",
+            "ud'n at vi'",
+            "I hør' mig si'",
+            "uden pli"
+        ]
+    },
+    {
+        en => 'seks',
+        to => 'tolv',
+        uncle => [
+            "betal din told",
+            "brug ingen vold",
+            "gå med en trold",
+            "jeg siger lol"
+        ]
+    },
+    {
         en   => 'ni',
         to   => 'atten',
         uncle => [
             "så for sat'n",
             "jeg løfter hatten",
             "her i chatten",
+            "gå med katten",
         ],
     },
     {
