@@ -8,7 +8,8 @@ sub vuf {
     return " *$vuf $vuf* ";
 }
 
-while (<>) {
-    s/^|(?<=[.!?])/vuf()/ge;
-    print;
+while (my $line = <>) {
+    my $me = ($line =~ s!^/me !!);
+    $line =~ s/^|(?<=[.!?])/vuf()/ge;
+    print +($me ? "/me " : "") . $line;
 }
