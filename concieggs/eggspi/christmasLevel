@@ -1,16 +1,22 @@
 #!/bin/sh
+# Generér et juleniveau fra mellem 0 og 1.  Desto tættere på 1, desto mere julet.
+# Virker kun mellem 23. november og 26. december, begge dage inklusiv.
+# Funktionen er eksponetiel udtrykt som (1,1 ^ x)/20, hvor x er antal dage
+# siden 23. november.
 
 start=`date --date="$(date +%Y)-11-23" +%j`
 end=`date --date="$(date +%Y)-12-26" +%j`
 today=`date +%j`
 
+# Er det efter slutdatoen, så er det ikke længere jul.
 if [ $today -gt $end ]; then
   exit 0
 fi
 
-x=$(($end-$start+$today))
+x=$(($today-$start))  # Skaf antal dage siden start.
 
-if [ $x -gt 0 ]; then
+# Er x mindre end 0, så er det ikke jul endnu.
+if [ $x -gt -1 ]; then
   v=`bc <<< "scale=10; (1.1 ^ $x)/20"`
   exit $v
 else
