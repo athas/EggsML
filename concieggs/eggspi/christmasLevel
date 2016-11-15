@@ -11,7 +11,7 @@ fi
 x=$end-$start+$today
 
 if [ $x -gt 0 ]; then
-  v=`bc <<< "scale=10; (1.1 $x)/20"`
+  v=`bc <<< "scale=10; (1.1 ^ $x)/20"`
   exit $v
 else
   exit 0
