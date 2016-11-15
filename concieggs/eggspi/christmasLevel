@@ -1,7 +1,7 @@
 #!/bin/sh
 
-start=`date --date="$(date +$Y)-11-23" +%j`
-end=`date --date="$(date +$Y)-12-26" +%j`
+start=`date --date="$(date +%Y)-11-23" +%j`
+end=`date --date="$(date +%Y)-12-26" +%j`
 today=`date +%j`
 
 if [ $today -gt $end ]; then
