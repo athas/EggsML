@@ -1,0 +1,14 @@
+#!/usr/bin/env perl
+use strict;
+
+my @vuf = qw(vuf vov );
+
+sub vuf {
+    my $vuf = $vuf[rand @vuf];
+    return " *$vuf $vuf* ";
+}
+
+while (<>) {
+    s/^|(?<=[.!?])/vuf()/ge;
+    print;
+}

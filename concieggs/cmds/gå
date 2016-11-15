@@ -4,7 +4,7 @@
 # en god idé at lade den gå undercover.
 
 
-eval "$(echo "$@"| parse '(?<noget>undercover( som (?<navn>[a-zA-Z_]+))?)|(?<krig>i krig m[eo]d (?<alias>[a-zA-Z_]+))')"
+eval "$(echo "$@"| parse '(?<noget>undercover( som (?<navn>[a-zA-Z_]+))?)|(?<krig>i krig m[eo]d (?<alias>[a-zA-Z_]+))|(?<hundene>i hundene)')"
 
 if [ "$noget" ]; then
     if ! [ "$navn" ]; then
@@ -65,6 +65,8 @@ elif [ "$krig" ]; then
     else
         echo "$EGGS_USER: Jeg tror ikke helt at $alias er indviet."
     fi
+elif [ "$hundene" ]; then
+    $CONCIEGGS_DIR/cmds/vær også hund
 else
     say "Det kan jeg ikke endnu, men du må gerne implementere det."
 fi
