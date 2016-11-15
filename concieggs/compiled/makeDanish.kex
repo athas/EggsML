@@ -124,6 +124,7 @@ word := ~/computer/ "datamat"
       | ~/multiplayer/ "flerspiller"
       | ~/singleplayer/ "enkeltspiller"
       | ~/feature/ "funktionalitet" (~/[- ]?request/ "sanmodning")?
+      | ~/troll/ "trold" (~/ing/ "ning" | ~/s/ "e")?
       | ~/change request/ "ændringsanmodning"
       | ~/F#/ "ikke-standard ML"
       | ~/(malware|virus|spyware)/ "skadmel"
