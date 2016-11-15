@@ -1,0 +1,18 @@
+#!/bin/sh
+
+start=`date --date="$(date +$Y)-11-23" +%j`
+end=`date --date="$(date +$Y)-12-26" +%j`
+today=`date +%j`
+
+if [ $today -gt $end ]; then
+  exit 0
+fi
+
+x=$end-$start+$today
+
+if [ $x -gt 0 ]; then
+  v=`bc <<< "scale=10; (1.1 $x)/20"`
+  exit $v
+else
+  exit 0
+fi
