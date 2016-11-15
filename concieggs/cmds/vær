@@ -41,8 +41,10 @@ case "$what" in
     *)
         if [ "$additive" ]
             then s="$(dbRead $file)"
+                 s="${s:-translate da}"
             else s='translate da'
         fi
+
 
         for lang in $what
         do
