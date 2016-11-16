@@ -4,6 +4,11 @@
 
 shuttingUp && exit
 
+charmen=$(dbRead charmen)
+num=$(awk "BEGIN{print 0.1 * $charmen.0}")
+maybeGood $num || exit
+
+
 check() {
     echo "$EGGS_BODY" | grep -qEi ' '"$1"'[ .,;:]'
 }
