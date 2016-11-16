@@ -1,0 +1,49 @@
+#!/usr/bin/env node
+// Skæld ud på nogen.  Brug: skæld ud på PERSON.
+
+EGGS_USER = process.env.EGGS_USER;
+
+function answer(message, to) {
+  if (to == null) {
+    to = EGGS_USER;
+  }
+  console.log(to + ': ' + message);
+}
+
+if (process.argv[2] == 'ud') {
+  if (process.argv[3] == 'på'
+      && process.argv[4]) {
+    var recp = process.argv[4];
+    if (recp == 'concieggs') {
+      answer('Fuck selv af, din humørswinger!')
+    }
+    else {
+      var choices_backfire = ['På ' + recp + '?  Nej, det ville ikke være rart!',
+                              'Man må ikke være ond!',
+                              'Rolig nu, vi skal alle være her.',
+                              'Nej, jeg vil insistere på at have en positiv tilgang!'
+                             ];
+      var choices_real = ['Fyfy!',
+                          EGGS_USER + ' er meget ked af hvad du gjorde, okay?',
+                          'Det må man ikke!',
+                          'Pas lige på med det der næste gang.'
+                         ];
+      if (Math.random() < 0.5) {
+        var choices = choices_backfire;
+        var to = null;
+      }
+      else {
+        var choices = choices_real;
+        var to = recp;
+      }
+      var choice = choices[Math.floor(choices.length * Math.random())];
+      answer(choice, to);
+    }
+  }
+  else {
+    answer('På hvem?');
+  }
+}
+else {
+  answer('Det kan jeg ikke, men du må da gerne fortælle mig hvordan jeg skal gøre det.')
+}
