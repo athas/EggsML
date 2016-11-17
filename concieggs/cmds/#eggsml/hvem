@@ -149,6 +149,6 @@ elif [ "$language" ]; then
         echo "$EGGS_USER: $language?  Det skal jeg ikke kunne sige."
     fi
 else
-    echo "Brug: hvem <er [navn|jeg]|skal købe ind|køber ind|prikkede sidst>"
+    echo "Brug: hvem <er [navn|jeg|du kærester med]|skal købe ind|køber ind|prikkede sidst|>"
     exit
 fi
