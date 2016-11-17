@@ -1,6 +1,15 @@
-#!/bin/sh
+#!/usr/bin/env php-7.0
+<?php
 
-if [ "$EGGS_USER" = "simon" ]
-then
-    echo "Du skrev '$EGGS_BODY'"
-fi
+$user = $_ENV['EGGS_USER'];
+$body = $_ENV['EGGS_BODY'];
+
+if (strlen($user) > 0 && stripos($body, "\x01ACTION kysser concieggs") == 0) {
+    $out = shell_exec("echo ".escapeshellarg($user)." | dbWrite kaereste");
+    echo "Out: $out";
+}
+
+exec("shuttingUp", $output, $shuttingUp);
+if ($shuttingUp) { exit(0); }
+
+echo "Tihi! Så er vi vel kærester, $user!";
