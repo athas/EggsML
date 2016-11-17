@@ -4,7 +4,7 @@
 # at benytte komplette sætninger!  Alternativt, spørg hvem der skal
 # købe ind eller hvem der har en ting.
 
-if [ "$@" = "er din kæreste" -o "$@" = "er du kærester med" ]
+if [ "$@" = "er din kæreste" ] || [ "$@" = "er du kærester med" ]
 then
     echo "Jeg er kærester med $(dbRead kaereste). <3"
     exit
