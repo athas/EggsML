@@ -130,5 +130,5 @@ word := ~/computer/ "datamat"
       | ~/(malware|virus|spyware)/ "skadmel"
       | ~/crossfit/ "krydstræning"
       | ~/label/ "mærkat"
-      | (~/et / "en ")? ~/issue/ "problemstilling"
+      | (~/et / "en ")? ~/issue/ "problemstilling" (~/s/ "er")?
       | /[a-zA-ZæøåÆØÅ0-9]+/
