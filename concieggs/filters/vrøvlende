@@ -15,7 +15,7 @@ files = [os.path.join(ndir, f) for f in os.listdir(ndir)]
 
 def member_of(w, f):
     try:
-        subprocess.check_output(['grep', '-q', '^' + w + '$', f])
+        subprocess.check_output(['grep', '-iq', '^' + w + '$', f])
         return True
     except subprocess.CalledProcessError as e:
         return False
