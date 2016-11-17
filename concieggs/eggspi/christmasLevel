@@ -1,18 +1,1 @@
-#!/bin/sh
-# Genererer et juleniveau mellem 0 og 100.  Desto tættere på 100, desto mere
-# julet.  Virker kun mellem 23. november og 26. december, begge dage inklusiv.
-
-start=$(date --date="$(date +%Y)-11-23" +%j)
-end=$(date --date="$(date +%Y)-12-26" +%j)
-today=$(date +%j)
-
-days=$(($today - $start))
-maxdays=$(($end - $start))
-
-if [ $today -gt $end -o $today -lt $start ]
-then
-  exit 0
-fi
-
-level=$(python -c "print int(1.1 ** $days / 1.1 ** $maxdays * 100)")
-exit $level
+#!/usr/bin/env compiled

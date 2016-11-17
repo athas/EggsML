@@ -31,7 +31,7 @@ else
             ;;
         *c)
             compile() {
-                gcc -std=c99 $1 -o $2
+                gcc -std=c99 -lm $1 -o $2
             }
             ;;
         *sml)
