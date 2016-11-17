@@ -7,10 +7,17 @@
 if [ $# -eq 3 -a "$2" = "bare" ]; then
     user1=$1
     user2=$3
+
     if [ $user1 = $user2 ]; then
         echo "Hmm... nej, jeg kan slet ikke se hvad de to navne skulle have tilfælles."
         exit
     fi
+
+    if [ "$user1" = det -a "$user2" = "jul?" ]; then
+        isChristmas && echo "Det tror jeg nok det er." || echo "Ikke just."
+        exit
+    fi
+
     if [ "$user1" = jeg ]; then
         user1=$EGGS_USER
     fi
