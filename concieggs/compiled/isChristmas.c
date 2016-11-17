@@ -12,7 +12,7 @@
 #define NOVEMBER (10)
 #define DECEMBER (11)
 
-int christmasLevel(time_t rawtoday)
+double christmasLevel(time_t rawtoday)
 {
     struct tm begin, end, *today;
     time_t rawbegin, rawend;
@@ -32,22 +32,23 @@ int christmasLevel(time_t rawtoday)
     days = difftime(rawtoday, rawbegin) / (60*60*24);
     maxdays = difftime(rawend, rawbegin) / (60*60*24);
 
-    return (int)(pow(1.1, days) / pow(1.1, maxdays) * 100);
+    return pow(1.1, days) / pow(1.1, maxdays);
 }
 
-bool isChristmas(time_t rawtime)
+bool isChristmas(time_t rawtoday)
 {
-    return christmasLevel(rawtime) > 0;
+    return christmasLevel(rawtoday) > 0;
 }
 
 int main(int argc, char *argv[])
 {
-    time_t rawtime = time(NULL);
+    time_t rawtoday = time(NULL);
 
     if (strstr(argv[0], "christmasLevel") != NULL) {
-        return christmasLevel(rawtime);
+        printf("%.2f", christmasLevel(rawtoday));
+        return 0;
     } else if (strstr(argv[0], "isChristmas") != NULL) {
-        return !isChristmas(rawtime); // 0 is success
+        return !isChristmas(rawtoday); // 0 is success
     }
 
     return 0;
