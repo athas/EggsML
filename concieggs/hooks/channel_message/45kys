@@ -6,9 +6,9 @@ $body = getenv('EGGS_BODY');
 
 if (strlen($user) > 0 && stripos($body, "\x01ACTION kysser concieggs") == 0) {
     shell_exec("echo ".escapeshellarg($user)." | dbWrite kaereste");
+
+    exec("shuttingUp", $output, $shuttingUp);
+    if ($shuttingUp == 0) { exit(0); }
+
+    echo "Tihi! Så er vi vel kærester, $user!";
 }
-
-exec("shuttingUp", $output, $shuttingUp);
-if ($shuttingUp == 0) { exit(0); }
-
-echo "Tihi! Så er vi vel kærester, $user!";
