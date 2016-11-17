@@ -4,9 +4,8 @@
 # at benytte komplette sætninger!  Alternativt, spørg hvem der skal
 # købe ind eller hvem der har en ting.
 
-if [ $(echo "$@") = "er du kærester med" ]
-then
-    echo "Lige nu er jeg kærester med $(dbRead kaereste). <3"
+if [ "$*" = "er din kæreste" ]; then
+    echo "Lige nu er min kæreste $(dbRead kaereste). <3"
     exit
 fi
 
