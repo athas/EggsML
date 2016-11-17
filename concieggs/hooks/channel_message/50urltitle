@@ -1,15 +1,30 @@
 #!/usr/bin/env perl
 use 5.012;
 use warnings;
+use utf8::all;
 
 use Env qw/EGGS_BODY/;
 
 my @links = $EGGS_BODY =~ m{((?:https?://|www\.)\S+?)[.,;!?]*(?:\s|$)}g;
 
+my %blocked_domains = map { $_ => 1 } qw(
+    pol.dk
+    politiken.dk
+    jp.dk
+    jyllands-posten.dk
+    version2.dk
+);
+
+(my $block_message = <<'END_OF_ADBLOCK_BLOCK_BLOCK') =~ s/\n/ /g;
+[GIV DIN ADBLOCKER-BLOCKER EN PAUSE!] Siden du forsøger at tilgå blokerer for
+adblockere, som er en forudsætning for, at besøgende får leveret det ypperste
+inden for propaganda og smålig underholdning.  Derfor skal du helst linke til
+sider, som ikke deaktiverer den besøgendes adblocker. Tak!
+END_OF_ADBLOCK_BLOCK_BLOCK
+
 if (@links) {
     # Load the modules lazily, to save time in the non-matching case
     eval <<EOU;
-    use utf8::all;
     use WWW::Mechanize;
     use Sys::SigAction qw/timeout_call/;
 EOU
@@ -18,6 +33,11 @@ EOU
     local $| = 1;
 
     for my $link (@links) {
+        if ($link =~ m!://(?:www\.)?([^/\s]+)! && $blocked_domains{$1}) {
+            print $block_message;
+            next;
+        }
+
         print STDERR "Henter siden '$link' for at finde titlen...\n";
         next if (timeout_call(5, sub { $mech->get($link); }));
         next unless $mech->title;
