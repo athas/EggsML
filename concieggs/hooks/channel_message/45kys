@@ -4,11 +4,11 @@
 $user = getenv('EGGS_USER');
 $body = getenv('EGGS_BODY');
 
-if (strlen($user) > 0 && stripos($body, "\x01ACTION kysser concieggs") == 0) {
+if (strlen($user) > 0 && stripos($body, "ACTION kysser concieggs") === 1) {
     shell_exec("echo ".escapeshellarg($user)." | dbWrite kaereste");
 
     exec("shuttingUp", $output, $shuttingUp);
-    if ($shuttingUp == 0) { exit(0); }
+    if ($shuttingUp === 0) { exit(0); }
 
     echo "Tihi! Så er vi vel kærester, $user!";
 }
