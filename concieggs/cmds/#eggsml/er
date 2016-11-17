@@ -1,10 +1,11 @@
 #!/bin/sh
 #
-# Spørg det sociale centerpunkt, concieggs, om to navne dækker over samme misdæder.
-# - eller om et domæne er ledig.
+# Spørg det sociale centerpunkt, concieggs, om
+# - to navne dækker over samme misdæder,
+# - et domæne er ledigt,
+# - det er jul.
 
-
-if [ "$1" = det -a "$2" = "jul?" ]; then
+if [ "$1" = det -a "$2" = "jul" ]; then
     isChristmas && echo "Ja!!!" || echo "Nej!!!"
     exit
 fi
@@ -34,7 +35,7 @@ if [ $# -eq 3 -a "$2" = "bare" ]; then
     else
         echo "Nej, $(randomName "$user1") og $(randomName "$user2") er ikke samme person."
     fi
-elif [[ ( "$2" == "ledig" ) || ( "$2" == "ledig?" ) ]]; then
+elif [ "$2" -eq "ledig" ]; then
     runcmd dig "$1" "ledighed"
 elif [ $# -gt 1 ]; then
     runcmd 8ball "$@"
