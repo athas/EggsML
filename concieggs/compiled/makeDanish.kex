@@ -131,4 +131,6 @@ word := ~/computer/ "datamat"
       | ~/crossfit/ "krydstræning"
       | ~/label/ "mærkat"
       | (~/et / "en ")? ~/issue/ "problemstilling" (~/s/ "er")?
+      | ~/piper/ "kanaliserer"
+      | ~/pipe/ "rørledning"
       | /[a-zA-ZæøåÆØÅ0-9]+/
