@@ -4,8 +4,9 @@
 # at benytte komplette sætninger!  Alternativt, spørg hvem der skal
 # købe ind eller hvem der har en ting.
 
-if [ "$EGGS_USER" = "sshine" ]; then
-    echo "Du skrev '$@'"
+if [ "$@" = "er du kærester med" ]; then
+    echo "Lige nu er jeg kærester med $(dbRead kaereste). <3"
+    exit
 fi
 
 eval "$(echo "$@" | parse '^(?<swear>(fuck |helvede |satan ))?er (?<swear2>(fucking |fandens ))?(?<king>kongen?( (af|på) #?[Ee]ggs[Mm][Ll])?|(?<god>gud)|(?<user>[^ ]+))$|(?<buy>(køber ind|skal købe ind|handler|skal handle ind))|(?<prikkede>(prikkede sidst))|har (?<thing>[^ ]+)|(?<neggst>eggser)|(koder (?<language>.*))')"
