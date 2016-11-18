@@ -43,7 +43,7 @@ EOU
         if ($link =~ m!://(?:www\.)?([^/\s]+)! && $blocked_domains{$1}) {
             if ($EGGS_USER eq "svip") {
                 print $pedantic_block_message;
-            else {
+            } else {
                 print $block_message;
                 next;
             }
