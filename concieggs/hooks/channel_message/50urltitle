@@ -3,7 +3,7 @@ use 5.012;
 use warnings;
 use utf8::all;
 
-use Env qw/EGGS_BODY/;
+use Env qw/EGGS_USER EGGS_BODY/;
 
 my @links = $EGGS_BODY =~ m{((?:https?://|www\.)\S+?)[.,;!?]*(?:\s|$)}g;
 
@@ -14,11 +14,19 @@ my %blocked_domains = map { $_ => 1 } qw(
     jyllands-posten.dk
 );
 
+(my $pedantic_block_message = <<'END_OF_PEDANTIC') =~ s/\n/ /g;
+[GIV DIN ADBLOCKER EN PAUSE!] Bemærk at følgende side blokerer brugen af
+adblockers.  Mens reklamer kan forekomme irriterende, er adblockers generelt
+noget skrammel.  Der er to *rigtige* måder at gøre tingene på.  Enten sørge for
+at ens datamat overhovedet ikke kan forbinde til reklamedomæner, eller bare slå
+JavaScript fra.  Bruger man adblockere, så har man selv bedt om det.
+END_OF_PEDANTIC
+
 (my $block_message = <<'END_OF_ADBLOCK_BLOCK_BLOCK') =~ s/\n/ /g;
 [GIV DIN ADBLOCKER-BLOCKER EN PAUSE!] Siden du forsøger at tilgå blokerer for
 adblockere, som er en forudsætning for, at besøgende får leveret det ypperste
 inden for propaganda og smålig underholdning.  Derfor skal du helst linke til
-sider, som ikke deaktiverer den besøgendes adblocker. Tak!
+sider, som ikke deaktiverer den besøgendes adblocker.  Tak!
 END_OF_ADBLOCK_BLOCK_BLOCK
 
 if (@links) {
@@ -33,8 +41,12 @@ EOU
 
     for my $link (@links) {
         if ($link =~ m!://(?:www\.)?([^/\s]+)! && $blocked_domains{$1}) {
-            print $block_message;
-            next;
+            if ($EGGS_USER eq "svip") {
+                print $pedantic_block_message;
+            else {
+                print $block_message;
+                next;
+            }
         }
 
         print STDERR "Henter siden '$link' for at finde titlen...\n";
