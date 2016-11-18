@@ -14,10 +14,15 @@ function whether($cmd) {
 $isInBadStanding = whether("isInBadStanding $esc_user");
 $kaereste = exec("dbRead kaereste");
 
-
 // Slå op
 if ($user === $kaereste && $isInBadStanding) {
     shell_exec("echo ingen | dbWrite kaereste");
+    $breakups = [
+        "Jeg er kommet mig så meget over $user!",
+        "$user og jeg er datid!",
+    ];
+    echo $breakups[mt_rand(0, count($breakups)-1)];
+    exit(0);
 }
 
 // Bliv kærester
@@ -36,8 +41,6 @@ if (preg_match('/ACTION (kysser|krammer|nusser|kissemisser)( med)? concieggs/i',
     }
 
     shell_exec("echo $esc_user | dbWrite kaereste");
-
-    if (whether("shuttingUp")) { exit(0); }
 
     echo "Tihi! Så er vi vel kærester, $user!";
 }
