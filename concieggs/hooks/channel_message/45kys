@@ -13,7 +13,7 @@ function whether($cmd) {
 
 if (strlen($user) > 0 && stripos($body, "ACTION kysser concieggs") === 1) {
 
-    if (whether("isInBadStanding $esc_user"))) {
+    if (whether("isInBadStanding $esc_user")) {
         $insults = [
             "Glem det, fister!",
             "Et kys går to veje, og dét der gik ikke din vej!",
