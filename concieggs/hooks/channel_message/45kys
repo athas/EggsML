@@ -11,9 +11,19 @@ function whether($cmd) {
     return !$exit;
 }
 
-if (strlen($user) > 0 && stripos($body, "ACTION kysser concieggs") === 1) {
+$isInBadStanding = whether("isInBadStanding $esc_user");
+$kaereste = exec("dbRead kaereste");
 
-    if (whether("isInBadStanding $esc_user")) {
+
+// Slå op
+if ($user === $kaereste && $isInBadStanding) {
+    shell_exec("echo ingen | dbWrite kaereste");
+}
+
+// Bliv kærester
+if (preg_match('/ACTION (kysser|krammer|nusser|kissemisser)( med)? concieggs/i', $body)) {
+
+    if ($isInBadStanding) {
         $insults = [
             "Glem det, fister!",
             "Et kys går to veje, og dét der gik ikke din vej!",

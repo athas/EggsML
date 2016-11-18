@@ -12,7 +12,6 @@ my %blocked_domains = map { $_ => 1 } qw(
     politiken.dk
     jp.dk
     jyllands-posten.dk
-    version2.dk
 );
 
 (my $block_message = <<'END_OF_ADBLOCK_BLOCK_BLOCK') =~ s/\n/ /g;
