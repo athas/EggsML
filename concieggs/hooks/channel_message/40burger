@@ -1,3 +1,0 @@
-#!/bin/sh
-
-sed "s/bruger/AAAAAAAA/g" | sed "s/burger/bruger/g" | sed "s/AAAAAAAA/burger/g"
