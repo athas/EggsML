@@ -29,7 +29,7 @@ else
     echo "Helt fedt, mand"
     echo "Tip top"
     echo "Godtaget"
-    echo "Den er jeg med på
+    echo "Den er jeg med på"
 
 fi | randomLine | xargs echo -n
 (echo "!"; echo ".") | randomLine
