@@ -5,9 +5,9 @@
 shuttingUp && exit
 
 (randomLine | sed "s/TING/`tøj`/g") <<EOF
-/me tager miTING af.
+/me tager siTING af.
 Kun hvis du tager diTING af...
-/me giver dig miTING.
+/me giver dig siTING.
 Ad, jeg er ikke til sådan noget.  Skal man så smide siTING?
 Jeg giver dig miTING hvis du giver mig diTING.
 Vrinsk.
