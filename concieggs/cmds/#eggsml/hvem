@@ -9,7 +9,7 @@ if [ "$*" = "er din kæreste" ]; then
     exit
 fi
 
-eval "$(echo "$@" | parse '^(?<swear>(fuck |helvede |satan ))?er (?<swear2>(fucking |fandens ))?(?<king>kongen?( (af|på) #?[Ee]ggs[Mm][Ll])?|(?<god>gud)|(?<user>[^ ]+))$|(?<buy>(køber ind|skal købe ind|handler|skal handle ind))|(?<prikkede>(prikkede sidst))|har (?<thing>[^ ]+)|(?<neggst>eggser)|(koder (?<language>.*))')"
+eval "$(echo "$@" | parse 'er (?<hveranden>hveranden)|^(?<swear>(fuck |helvede |satan ))?er (?<swear2>(fucking |fandens ))?(?<king>kongen?( (af|på) #?[Ee]ggs[Mm][Ll])?|(?<god>gud)|(?<user>[^ ]+))$|(?<buy>(køber ind|skal købe ind|handler|skal handle ind))|(?<prikkede>(prikkede sidst))|har (?<thing>[^ ]+)|(?<neggst>eggser)|(koder (?<language>.*))|vil ikke (?<livet>livet)')"
 
 if [ "$king" ] && ! [ "$god" ] && ! [ "$user" ]; then
     kingname="$(dbRead eggsking)"
@@ -147,6 +147,10 @@ elif [ "$language" ]; then
     else
         echo "$EGGS_USER: $language?  Det skal jeg ikke kunne sige."
     fi
+elif [ "$livet" ]; then
+    echo "$EGGS_USER: Jamen, det vil hveranden!"
+elif [ "$hveranden" ]; then
+    echo "$EGGS_USER: De vil ikke livet!"
 else
     echo "Brug: hvem <er [navn|jeg|du kærester med]|skal købe ind|køber ind|prikkede sidst|>"
     exit

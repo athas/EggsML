@@ -2,9 +2,11 @@
 #
 # Giv feedback på concieggs's muntre løjer og skarnstreger.
 
-eval "$(echo "$@" | parse '^(?<samme>samme)(, (men|dog|omend|blot)( med)? s/(?<regex>[^/]*)/(?<replacement>[^/]*)/(?<flag>[g]?))? *$')"
+eval "$(echo "$@" | parse 'kan jeg ikke (?<have>ha(ve)?)|^(?<samme>samme)(, (men|dog|omend|blot)( med)? s/(?<regex>[^/]*)/(?<replacement>[^/]*)/(?<flag>[g]?))? *$')"
 
-if [ "$samme" ]; then
+if [ "$have" ]; then
+    echo "$EGGS_USER: Nej, hvem vil ikke livet?"
+elif [ "$samme" ]; then
     last=$(dbRead last_cmd)
     if ! [ "$last" ]; then
         echo "$EGGS_USER: Beklager, jeg erindrer ikke hvad herren før dig bestilte."
