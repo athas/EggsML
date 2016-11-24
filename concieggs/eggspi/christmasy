@@ -1,55 +1,42 @@
-#!/bin/sh
+#!/usr/bin/env perl
+use 5.020;
+use warnings;
+use utf8::all;
+use POSIX qw(ceil);
 
-# Niels må godt ændre i dette program.
+chomp(my $christmasLevel = `christmasLevel`);
 
-# Niels har nu ændret i dette program.
+sub christmasify {
+    my $word = shift;
 
-prog=$(cat <<"EOF"
-function frobword_inner(s) {
-  fst = substr(s,1,1)
-  prefix = toupper(s) == s ? "JULE-" : toupper(fst) == fst ? "Jule-" : "jule-"
-  if (length(s) > 3 && !festive) {
-    return prefix s
-  } else if (length(s) > 3 && rand() > 0.1) {
-    return frobword_inner(prefix s)
-  } else {
-    return s
-  }
+    # Skip short words
+    return $word if length($word) < 4;
+
+    # Skip URLs
+    return $word if $word =~ qr#://#;
+
+    # 20% chance on max Christmas level
+    return $word unless rand() * 100 < $christmasLevel * 0.2;
+
+    my $juleCount = ceil(rand() * $christmasLevel / 10);
+
+    my $jule =
+        $word =~ m/^\p{Uppercase_Letter}+$/ ? "JULE" :
+        $word =~ m/^\p{Uppercase_Letter}/   ? "Jule" : "jule";
+
+    return join('-', ($jule) x $juleCount, $word);
 }
-function frobword(s) {
-  if (match(s, "[jJ]ul") != 1 && rand() > 0.10) {
-    return frobword_inner(s)
-  } else {
-    return s
-  }
-}
-function frob(s) {
-  match(s, "[a-zA-ZæøåÆØÅ]+")
-  if (RSTART == 0) {
-    return s
-  } else {
-    wstart=RSTART
-    wlength=RLENGTH
 
-    match(s, "(https?|ftp|gopher)://[^ ]+")
-    if (RSTART > 0 && RSTART <= wstart+wlength) {
-        pre=substr(s,1,RSTART+RLENGTH)
-        post=substr(s,RSTART+RLENGTH+1,length(s))
-        return pre frob(post)
-    } else {
-        pre=substr(s,1,wstart-1)
-        post=substr(s,wstart+wlength,length(s))
-        return pre frobword(substr(s,wstart,wlength)) frob(post)
-    }
-  }
-}
-{
-festive=1
-srand()
-print frob($0)
-fflush();
-}
-EOF
-)
+for my $line (<>) {
+    $line =~ s{
+        \b(
+        (?:https?|ftp|gopher)://\S+|
+        \w+
+        )\b
+    }{christmasify($1)}xge;
 
-awk -- "$prog" | sed -r "s/\btræ/juletræ/g" | sed "s/Træ/Juletræ-/g"
+    $line =~ s/\btræ/juletræ/g;
+    $line =~ s/\bTræ/Juletræ/g;
+
+    print $line;
+}
