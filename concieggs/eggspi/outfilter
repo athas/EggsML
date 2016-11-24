@@ -25,4 +25,4 @@ apply_db_filter() {
     fi
 }
 
-echo "$line" | apply_db_filter
+echo "$line" | christmasy | apply_db_filter
