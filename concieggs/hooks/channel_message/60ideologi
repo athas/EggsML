@@ -2,16 +2,12 @@
 #
 # concieggs er et komplekst individ med modstridende holdninger.
 
+shuttingUp && exit
 maybeGood .1 || exit
+checkCooldown ideologi 300 || exit
 
-if (echo "$EGGS_BODY" | grep -qEi '(^| |\,|;|:|\.)+su+( |\,|;|:|\.|\?|!|$)'); then
-    echo 'SU? Er det ikke bedre at kode for kapitalen?'
-fi
+case "$EGGS_BODY" in
+  *idé*) echo 'En idé?  Hvor uambitiøst.  Fortæl hellere verden om din *vision!*' ;;
+  *penge*) echo 'Penge?  Lad os dog fordele produktionsmidlerne mere ordentligt!' ;;
+esac
 
-if echo "$EGGS_BODY" | grep -qi 'penge'; then
-    echo 'Penge?  Lad os dog fordele produktionsmidlerne mere ordentligt!'
-fi
-
-if echo "$EGGS_BODY" | grep -qi 'idé'; then
-    echo 'En idé? Hvor uambitiøst. Fortæl hellere verden om din *vision!*'
-fi
