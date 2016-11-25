@@ -15,8 +15,8 @@ sub christmasify {
     # Skip URLs
     return $word if $word =~ qr#://#;
 
-    # 20% chance on max Christmas level
-    return $word unless rand() * 100 < $christmasLevel * 0.2;
+    # 60% chance on max Christmas level
+    return $word unless rand() * 100 < $christmasLevel * 0.6;
 
     my $juleCount = ceil(rand() * $christmasLevel / 10);
 
