@@ -1,0 +1,40 @@
+#!/usr/bin/env php-7.0
+<?php
+
+if ($argc != 3) {
+  echo "Det ved jeg virkeligt ikke!";
+  exit(0);
+}
+
+$user = getenv('EGGS_USER');
+$me = "concieggs";
+
+switch ($argv[1]) {
+  case "du": $source = $me; break;
+  case "jeg": $source = $user; break;
+  default: $source = $argv[1];
+}
+
+switch ($argv[2]) {
+  case "mig": $target = $me; break;
+  case "dig": $target = $user; break;
+  default: $target = $argv[2];
+}
+
+if ($source == $user) {
+  echo $target == $me ?
+    "$user: Det håber jeg!" :
+    "$user: Det må du virkeligt bedst vide selv!";
+  exit(0);
+}
+
+if ($source != $me) {
+  echo "$user: Det må du spørge $source om!";
+  exit(0);
+}
+
+$kaereste = exec("dbRead kaereste");
+
+echo $target == $kaereste ?
+  "$user: Ja!" :
+  "$user: Nej!";
