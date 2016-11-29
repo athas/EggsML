@@ -1,4 +1,3 @@
-#define _DEFAULT_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -62,32 +61,12 @@ bool isChristmas(time_t rawtoday)
     return christmasLevel(rawtoday) > 0;
 }
 
-int getCharm()
-{
-    int charm;
-    FILE *fp;
-
-    fp = popen("checkCharmen", "r");
-    if (fp == NULL) {
-        exit(1);
-    }
-    if (fscanf(fp, "%d", &charm) != 1) {
-        exit(1);
-    }
-    pclose(fp);
-
-    return charm;
-}
-
 int main(int argc, char *argv[])
 {
     time_t rawtoday = time(NULL);
 
     if (strstr(argv[0], "christmasLevel") != NULL) {
-        int charm = getCharm();
-        char format_string[] = "%.\0\0\0";
-        sprintf((char *) format_string + 2, "%df", charm + 1);
-        printf(format_string, christmasLevel(rawtoday));
+        printf("%.2f", christmasLevel(rawtoday));
         return 0;
     } else if (strstr(argv[0], "isChristmas") != NULL) {
         return !isChristmas(rawtoday); // 0 is success
