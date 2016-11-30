@@ -8,6 +8,8 @@
 #include <unistd.h>
 #include <errno.h>
 
+#define MAX_BUFSIZE (1024 * 1024 * 64)
+
 /* Read all of file into *buf. */
 size_t fgetall(FILE *file, char **buf) {
   size_t bufsize = 8 * 1024;
@@ -22,7 +24,7 @@ size_t fgetall(FILE *file, char **buf) {
     }
     errno = 0;
     bufread += fread(*buf, sizeof(char), bufsize - bufread, file);
-    if (feof(file)) {
+    if (bufsize > MAX_BUFSIZE || feof(file)) {
       return bufread;
     }
     if (errno != 0) {
