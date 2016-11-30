@@ -34,6 +34,7 @@ double christmasLevel(time_t rawtoday)
 
     level = pow(1.1, days) / pow(1.1, maxdays);
 
+    // Boost christmas level on Advent Sundays!
     if (today->tm_wday == 0) {
         struct tm in_four_weeks, end_of_advent;
         time_t raw_in_four_weeks, raw_end_of_advent;
@@ -47,11 +48,9 @@ double christmasLevel(time_t rawtoday)
         raw_end_of_advent = mktime(&end_of_advent);
 
         if (difftime(raw_end_of_advent, rawtoday) > 0 || difftime(raw_in_four_weeks, raw_end_of_advent) > 0) {
-            level += 0.2;
+            level = level > 0.8 ? level : 0.8;
         }
     }
-
-    if (level > 1) level = 1;
 
     return 100*level;
 }
