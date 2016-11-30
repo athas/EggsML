@@ -78,6 +78,7 @@ word := ~/computer/ "datamat"
       | ~/hash[- ]?fun[ck]tion/ "gullaschfunktion"
       | ~/interpreter/ "fortolker"
       | ~/race condition/ "kapløbsstrid"
+      | ~/condition/ "betingelse" (~/s/ "r")?
       | ~/laptop/ "mappedatamat" (~/s/ "er")?
       | ~/partitioner/ "opdel"
       | ~/git repo(sitory)?/ "skvatgrube"
