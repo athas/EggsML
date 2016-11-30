@@ -1,0 +1,49 @@
+# This file is read by configure and is used during the build of the
+# Debian package.
+
+# Don't run configure interactively.
+bsd_games_cfg_non_interactive=y
+
+# Install into here for building the package.
+bsd_games_cfg_install_prefix=`pwd`/debian/bsdgames
+
+# Do not build or install these games:
+bsd_games_cfg_no_build_dirs="dm banner fortune factor"
+
+# Keep huntd in /usr/sbin as it was in the past. I may
+# change this later.
+bsd_games_cfg_sbindir=/usr/sbin
+
+# Debian doesn't like cluttering up the /usr/*/games/ dirs too much,
+# use a subdir. /var too.
+bsd_games_cfg_usrlibdir=/usr/lib/games/bsdgames
+bsd_games_cfg_sharedir=/usr/share/games/bsdgames
+bsd_games_cfg_varlibdir=/var/games/bsdgames
+
+# Do not do chown now, we arn't running as root.
+bsd_games_cfg_do_chown=n
+
+# Debian perfers symlinks for manpages.
+bsd_games_cfg_use_dot_so=symlinks
+
+# I'll handle manpage compressing.
+bsd_games_cfg_gzip_manpages=n
+
+# Policy says to use /usr/bin/pager by default.
+bsd_games_cfg_pager=/usr/bin/pager
+
+# Always use the same wordlist for boggle, and don't use web2, it's too
+# big. Instead, use the union of the wenglish and wbritish wordlists.
+bsd_games_cfg_dictionary_src=`pwd`/temp-dictionary
+
+# Put it in /usr/share/games with the rest of the games data.
+bsd_games_cfg_wtf_acronymfile=/usr/share/games/bsdgames/acronyms
+
+bsd_games_cfg_docdir=/usr/share/doc/bsdgames
+
+# Enable the use of hardening (and other) build flags
+bsd_games_cfg_other_cflags="$(dpkg-buildflags --get CFLAGS) $(dpkg-buildflags --get CPPFLAGS)"
+bsd_games_cfg_other_ldflags="$(dpkg-buildflags --get LDFLAGS)"
+# This is for dab, the corresponding variable other_cxxflags does not
+# exist, so append it to the "warning" flags
+bsd_games_cfg_cxx_warning_flags="-Wall -W -Wpointer-arith -Wcast-align -Wcast-qual -Wwrite-strings $(dpkg-buildflags --get CXXFLAGS) $(dpkg-buildflags --get CPPFLAGS)"

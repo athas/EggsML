@@ -1,0 +1,22 @@
+From: Tobias Quathamer <toddy@debian.org>
+Date: Thu, 16 Feb 2012 12:53:51 +0100
+Subject: quiz: Add answers to adults/babies. Closes: #659528
+
+---
+ quiz/datfiles/babies |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/quiz/datfiles/babies b/quiz/datfiles/babies
+index 5305c0c..45c4bb3 100644
+--- a/quiz/datfiles/babies
++++ b/quiz/datfiles/babies
+@@ -3,7 +3,7 @@ kitten:cat|fox|skunk|rabbit|bobcat|panther
+ gosling:goose
+ colt|foal:horse|donkey|zebra
+ puppy:dog
+-pup:seal|fox|beaver
++pup:seal|fox|beaver|dog|shark|rat
+ duckling:duck
+ fawn:deer
+ piglet|shoat:pig
+-- 

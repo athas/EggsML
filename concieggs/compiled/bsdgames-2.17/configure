@@ -1,0 +1,821 @@
+#!/bin/sh
+# configure - home-grown configuration script for bsd-games.
+#
+# Copyright (c) 1997, 1998, 1999, 2000, 2003, 2004 Joseph Samuel Myers.
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+# 1. Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+# 3. The name of the author may not be used to endorse or promote products
+#    derived from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+# IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+# OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+# IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+# INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+# BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+# AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+# OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+# OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+# SUCH DAMAGE.
+
+# Default paths follow Filesystem Hierarchy Standard version 2.0.
+
+# This will only ask some questions if the previous answers are appropriate.
+# It will substitute values in the directories built in, and the main
+# GNUmakefile.
+
+# Allow defaults to be given by a script
+if [ -e ./config.params ]; then
+    . ./config.params
+fi
+
+subst_vars=srcdir
+
+srcdir="`pwd`"
+
+ask () {
+    long_query="$1"
+    query_var="$2"
+    dflt_var="bsd_games_cfg_$query_var"
+    eval default=\"\$\{${dflt_var}-\$3\}\"
+    printf "%s [%s] " "$long_query" "$default"
+    if [ "x$bsd_games_cfg_non_interactive" = xy ]; then
+	# Follow default
+	input=''
+	echo "[ Using default ]"
+    else
+	read input
+    fi
+    case "$input" in
+	('')
+	    input="$default"
+	    ;;
+	(*)
+	    ;;
+    esac
+    eval $query_var=\"\$input\"
+    subst_vars="$subst_vars $query_var"
+}
+
+ask_yn () {
+    eval $2=
+    eval answer=\$$2
+    while test "x$answer" = x; do
+	ask "$1" $2 $3
+	eval answer=\$$2
+	case "$answer" in
+	    ([yY]*)
+		answer=y
+		;;
+	    ([nN]*)
+		answer=n
+		;;
+	    (*)
+		answer=
+		echo "Please answer y or n"
+		;;
+        esac
+    done
+    eval $2=\$answer
+}
+
+askperms () {
+    filetype=$1
+    var_prefix=$2
+    def_owner=$3
+    def_group=$4
+    def_perms=$5
+    if [ $do_chown = y ]; then
+	ask "$filetype owner" ${var_prefix}_owner $def_owner
+	ask "$filetype group" ${var_prefix}_group $def_group
+    fi
+    ask "$filetype permissions" ${var_prefix}_perms $def_perms
+    if [ $do_chown = y ]; then
+	eval install_$var_prefix=\"install -c -m \$${var_prefix}_perms -o \$${var_prefix}_owner -g \$${var_prefix}_group\"
+    else
+	eval install_$var_prefix=\"install -c -m \$${var_prefix}_perms\"
+    fi
+    subst_vars="$subst_vars install_$var_prefix"
+}
+
+building_in () {
+    echo " $build_dirs " |grep -q " $1 "
+}
+
+not_building_in () {
+    echo " $no_build_dirs " |grep -q " $1 "
+}
+
+game_ask () {
+    game="$1"
+    if building_in "$game"; then
+	ask "$2" "$3" "$4"
+    fi
+}
+
+check_func () {
+    funcname=$1
+    subst_vars="$subst_vars ${funcname}_defs"
+    cat >conftest.c
+    printf "Checking for %s..." "$funcname"
+    compiler="$cc $optimize_flags $other_cflags $other_ldflags"
+    if $compiler conftest.c >/dev/null 2>&1; then
+	echo "found."
+	echo "#define HAVE_$funcname 1" >>include/bsd-games.h
+	# Check whether we need _GNU_SOURCE for a prototype.
+	if $compiler -Wall -Werror conftest.c >/dev/null 2>&1; then
+	    eval ${funcname}_defs=
+	else
+	    # Prototype not in headers by default (try _GNU_SOURCE).
+	    eval ${funcname}_defs=-D_GNU_SOURCE
+	fi
+	rm -f a.out conftest.c
+	true
+    else
+	echo "not found."
+	rm -f a.out conftest.c
+	eval ${funcname}_defs=
+	false
+    fi
+}
+
+echo "For normal usage the installation prefix will be empty.  If you wish"
+echo "to install everything in another directory to that in which it will"
+echo "finally be located (so that your packaging system can then move it"
+echo "there) you should name that directory here.  This is most likely to"
+echo "be the case if you are packaging bsd-games for a Linux distribution."
+ask "Installation prefix" install_prefix ''
+
+echo "There may be some programs here you have from another package and so"
+echo "do not want to build and install.  The most likely ones are banner,"
+echo "factor and fortune."
+
+ask "Games not to build" no_build_dirs ''
+
+# Normalise white space in no_build_dirs
+no_build_dirs="`echo $no_build_dirs`"
+
+def_build_dirs=
+for file in *; do
+    if [ -e "$file/Makefrag" ] && ! not_building_in "$file" && [ "$file" != lib ]; then
+	def_build_dirs="$def_build_dirs $file"
+    fi
+done
+def_build_dirs=${def_build_dirs## }
+
+ask "Games to build" build_dirs "$def_build_dirs"
+
+# Normalise white space in build_dirs
+build_dirs="`echo $build_dirs`"
+
+echo
+echo "*** NOTE - The default directories for installation follow the"
+echo "*** Filesystem Hierarchy Standard version 2.0 (FHS).  If your"
+echo "*** system still uses the older FSSTND 1.2, or if you wish to install"
+echo "*** under /usr/local, you will need to check the paths and make"
+echo "*** changes as appropriate.  If this is your first installation with"
+echo "*** the new FHS paths, you may need to remove some old files after"
+echo "*** installation."
+echo
+
+ask "Games directory" gamesdir /usr/games
+
+# We put huntd in /usr/games by default (instead of /usr/sbin as earlier,
+# or /usr/lib) since it can reasonably be called by users and counts
+# properly more as a game than an ordinary user binary.
+if building_in hunt; then
+    echo
+    echo "Hunt includes a daemon for coordinating games with multiple players"
+    ask "Daemon directory" sbindir /usr/games
+else
+    sbindir=
+    subst_vars="$subst_vars sbindir"
+fi
+if building_in fortune; then
+    echo
+    echo "Fortune includes a non-game utility strfile"
+    ask "Non-game binary directory" usrbindir /usr/bin
+else
+    usrbindir=
+    subst_vars="$subst_vars usrbindir"
+fi
+
+hidegame=:
+subst_vars="$subst_vars hidegame"
+if building_in dm; then
+    echo
+    echo "You may wish to restrict the use of games by user, terminal, load,"
+    echo "etc..  This can be done by the use of dm.  If you use this"
+    echo "configuration, then games will be kept in a non-world-searchable"
+    echo "directory such as /usr/lib/games/dm and replaced by symlinks to dm."
+    echo "Even if you don't choose this option, you will still be asked"
+    echo "for the directory name, since you are building dm, and can change"
+    echo "manually later.  It is strongly recommended that you keep the"
+    echo "default answer of 'n'."
+    ask_yn "Use dm and hide games" use_dm n
+    # The default location is now /usr/lib/games/dm to conform to FHS 2.0.
+    ask "Directory for hidden games" libexecdir /usr/lib/games/dm
+    if [ "$use_dm" = y ]; then
+	hidegame=$srcdir/hide-game
+    fi
+fi
+ask "Section 6 manpage directory" man6dir /usr/share/man/man6
+if building_in dm || building_in fortune; then
+    ask "Section 8 manpage directory" man8dir /usr/share/man/man8
+else
+    man8dir=
+    subst_vars="$subst_vars man8dir"
+fi
+if building_in dm; then
+    ask "Section 5 manpage directory" man5dir /usr/share/man/man5
+else
+    man5dir=
+    subst_vars="$subst_vars man5dir"
+fi
+
+if building_in trek || building_in rogue; then
+    ask "Directory for miscellaneous documentation" docdir /usr/share/doc/bsd-games
+else
+    docdir=
+    subst_vars="$subst_vars docdir"
+fi
+
+# The paths for data are as per the FHS.  If a future version removes the
+# games ghettoes of /usr/games, /var/games, etc., then a subdirectory for
+# this package (/usr/share/bsdgames, /var/state/bsdgames, etc.) would be
+# desirable, but I don't feel it necessary at present.
+
+ask "Library directory for constant data
+	(architecture independent)" sharedir /usr/share/games
+ask "Library directory for variable data" varlibdir /var/games
+
+ask_yn "Set owners/groups on installed files" do_chown y
+
+echo
+echo "See SECURITY for a discussion of security issues related to score files."
+echo "There are at least two possible security policies if you want them to"
+echo "work.  You can make the files world-writable, and then anyone who wants"
+echo "can put anything in them, which may not be desirable if you think people"
+echo "might cheat this way.  Or you can make the games that use them setgid"
+echo "games, and give the files permissions 0664.  Note, however, that some"
+echo "of the games may well be insecure when this is done and"
+echo "malicious users may still be able to overwrite anything writable by"
+echo "group games, since the games were probably not designed with security in"
+echo "mind, although version 2.2 is more secure than earlier versions."
+echo "The default is neither of these: it creates scorefiles with"
+echo "permissions 0644 and gives the games no special privileges, which is"
+echo "more secure but means that the games will fail when trying to write"
+echo "to their scorefiles."
+
+askperms "Binary" binary root root 0755
+askperms "Game with scorefile" score_game root root 0755 # or root games 2755?
+if building_in hunt; then
+    askperms "Daemon" daemon root root 0755
+fi
+if building_in dm; then
+    askperms "Directory for hidden games" dmdir root games 0750
+    install_dmdir=`echo "$install_dmdir"| sed 's/install -c/install -d/'`
+    askperms "dm" dm root games 2755
+fi
+askperms "Manpage" manpage root root 0644
+askperms "Constant data" constdata root root 0644
+askperms "Variable data" vardata root root 0644 # or 0666?
+
+ask "Permissions on variable data that should not be world readable" vardata_perms_priv 0640
+
+use_dot_so=
+while test x$use_dot_so = x; do
+    ask "Use .so or symlinks for manpages" use_dot_so .so
+    case "$use_dot_so" in
+        (.so)
+    	;;
+        (syml*)
+    	use_dot_so=symlinks
+    	;;
+        (*)
+    	use_dot_so=
+	echo "Please answer \`.so\' or \`symlinks\'"
+    	;;
+    esac
+done
+subst_vars="$subst_vars use_dot_so"
+
+ask_yn "Gzip manpages" gzip_manpages y
+
+# What we do with manpages is a bit complicated.  If either ppt or morse is
+# being built, we must also install the bcd manpage, even if bcd isn't being
+# built.  We then need to do either .so or symlink.  This should all be handled
+# by the install-man.in script, but the installation of linked-to manpages
+# isn't implemented yet.
+
+# Copy install_binary to install_script
+install_script="$install_binary"
+subst_vars="$subst_vars install_script"
+
+echo
+echo "It is presumed in some places by the Makefiles that the compiler"
+echo "will be some form of gcc."
+ask "C compiler" cc gcc
+if building_in dab; then
+    ask "C++ compiler" cxx g++
+fi
+ask "Optimize flags" optimize_flags "-g -O2"
+echo
+echo "The default warning flags should give a compile with few warnings."
+# -Wbad-function-cast and -Wshadow give lots of warnings that are basically
+# harmless.
+ask "C compiler warning flags" warning_flags "-Wall -W -Wstrict-prototypes -Wmissing-prototypes -Wpointer-arith -Wcast-align -Wcast-qual -Wwrite-strings"
+if building_in dab; then
+    ask "C++ compiler warning flags" cxx_warning_flags "-Wall -W -Wpointer-arith -Wcast-align -Wcast-qual -Wwrite-strings"
+fi
+echo
+echo "You probably want the default here, or could use -lncurses_g for"
+echo "debugging ncurses.  Use -lcurses -ltermcap if you want to try that,"
+echo "but note that this is no longer supported and may not work."
+ask "Ncurses library" ncurses_lib -lncurses
+echo
+echo "If you have a directory /usr/include/ncurses with the ncurses include"
+echo "files in it, and the <curses.h>, <termcap.h>, etc. in /usr/include"
+echo "are for BSD curses/termcap, you will need to put -I/usr/include/ncurses"
+echo "here.  Otherwise (if the ncurses includes are in /usr/include), leave"
+echo "this blank.  Leave it blank if /usr/include/ncurses is a symbolic link"
+echo "to /usr/include."
+ask "Ncurses includes" ncurses_includes ''
+
+openssl_lib=
+openssl_includes=
+if building_in factor; then
+    echo
+    echo "factor can use libcrypto from OpenSSL to handle large numbers."
+    ask_yn "Use libcrypto" use_libcrypto y
+    if [ $use_libcrypto = y ]; then
+	echo "If the OpenSSL includes (with files such as bn.h) are not in"
+	echo "/usr/include/openssl, then you will need to specify a -I option"
+	echo "here, naming a directory containing an \"openssl\" subdirectory"
+	echo "with the OpenSSL headers."
+	ask "OpenSSL includes" openssl_includes ''
+	echo "If the OpenSSL libcrypto library is not in a location searched"
+	echo "by the compiler by default, or has a strange name, you will"
+	echo "need to specify the appropriate options to find it here"
+	echo "(for example, -L/usr/ssl/lib -lcrypto); otherwise, leave the"
+	echo "default, which is probably correct."
+	ask "OpenSSL libcrypto library" openssl_lib -lcrypto
+    fi
+fi
+subst_vars="$subst_vars openssl_lib openssl_includes"
+
+ask "Other CFLAGS" other_cflags ''
+ask "Other LDFLAGS" other_ldflags ''
+
+# Check for functions - not in glibc 2.1.1, but could be added later.
+echo "#ifndef LINUX_BSD_GAMES_H" >include/bsd-games.h
+echo "#define LINUX_BSD_GAMES_H 1" >>include/bsd-games.h
+
+if [ "$use_libcrypto" = "y" ]; then
+    echo "#define HAVE_OPENSSL 1" >>include/bsd-games.h
+fi
+
+check_func getloadavg <<EOF
+#include <stdlib.h>
+
+int
+main(void)
+{
+  double la[3];
+  getloadavg(la, 3);
+  return 0;
+}
+EOF
+
+check_func fgetln <<EOF
+#include <stdio.h>
+
+int
+main(void)
+{
+  char *f;
+  size_t l;
+  f = fgetln(stdin, &l);
+  return 0;
+}
+EOF
+
+check_func strlcpy <<EOF
+#include <string.h>
+
+int
+main(void)
+{
+  char s[1] = "";
+  char d[1];
+  strlcpy(d, s, 1);
+  return 0;
+}
+EOF
+
+check_func sig_t <<EOF
+#include <signal.h>
+
+sig_t s;
+
+int
+main(void)
+{
+  return 0;
+}
+EOF
+
+check_func getprogname <<EOF
+#include <stdlib.h>
+
+int
+main(void)
+{
+  const char *n = getprogname();
+  return 0;
+}
+EOF
+
+echo "#endif /* !defined(LINUX_BSD_GAMES_H) */" >>include/bsd-games.h
+
+
+echo
+echo "For some special purposes you may want to link all games with a"
+echo "particular library, in addition to those they would normally be linked"
+echo "with.  Unless you know you want this, you can leave it empty."
+ask "Base libraries" base_libs ''
+
+if building_in atc; then
+    ask "Yacc program" yacc "bison -y"
+fi
+if building_in atc; then
+    ask "Lex program" lex flex
+    ask "Lex library" lex_lib -lfl
+fi
+
+echo
+echo "You can choose the default pager for those games that use one (for"
+echo "example, for viewing instructions).  This can be an absolute path,"
+echo "or the name of the pager to be searched for via the PATH at runtime."
+echo "All these games will also honour the PAGER environment variable if set,"
+echo "in the correct (POSIX.2) way."
+ask "Pager" pager /usr/bin/less
+
+if building_in fortune; then
+    echo
+    echo "Fortune comes with some potentially offensive fortunes.  You should"
+    echo "only install these if you are sure that your users want them."
+    ask_yn "Install offensive fortunes" offensive_fortunes n
+    if [ $offensive_fortunes = y ]; then
+	fortune_type=real
+    else
+	fortune_type=fake
+    fi
+    subst_vars="$subst_vars fortune_type"
+fi
+
+if building_in sail; then
+    echo
+    echo "Sail needs its own directory it can write to for temporary files"
+    echo "to synchronise among multiple players.  Note that with the"
+    echo "default permissions given here this will not work: you may want"
+    echo "to choose permissions appropriate to the security policy you are"
+    echo "using.  It may be more secure if this directory is not world"
+    echo "accessible (e.g. mode 2770)."
+    ask "Directory for sail temporary files" sail_dir "$varlibdir/sail"
+    askperms "Sail directory" sail_dir root root 0750
+    install_sail_dir=`echo "$install_sail_dir" |sed 's/install -c/install -d/'`
+fi
+
+echo
+echo "You can configure the exact names used for data files by various"
+echo "of the games.  Most probably the defaults are OK."
+echo
+echo "Note that bsd-games no longer comes with its own word list."
+echo "For hangman you should specify the path to a word list to be read"
+echo "at runtime (probably /usr/share/dict/words or /usr/dict/words)."
+echo "For boggle you should specify one to be used at compile time to"
+echo "generate boggle's own data.  In both cases they should probably be"
+echo "English dictionaries; all words which do not consist entirely of"
+echo "lower-case ASCII letters will be silently ignored."
+echo
+game_ask atc "Directory for atc static data" atc_dir "$sharedir/atc"
+game_ask atc "Score file for atc" atc_scorefile "$varlibdir/atc_score"
+game_ask battlestar "Score file for battlestar" battlestar_scorefile "$varlibdir/battlestar.log"
+# Bog has some other configuration
+game_ask boggle "Dictionary for boggle (CHECK ANSWER)" dictionary_src /usr/share/dict/words
+game_ask boggle "Directory for boggle static data" boggle_dir "$sharedir/boggle"
+game_ask canfield "Score file for canfield" canfield_scorefile "$varlibdir/cfscores"
+game_ask cribbage "File for cribbage instructions" cribbage_instrfile "$sharedir/cribbage.instr"
+game_ask cribbage "Score file for cribbage" cribbage_scorefile "$varlibdir/criblog"
+game_ask dm "Configuration file for dm" dm_configfile /etc/dm.conf
+game_ask dm "File to disable games playing" dm_nogamesfile /etc/nogames
+game_ask dm "Log file for dm" dm_logfile "$varlibdir/games.log"
+game_ask fish "File for fish instructions" fish_instrfile "$sharedir/fish.instr"
+game_ask fortune "Directory for fortune files" fortune_dir "$sharedir/fortune"
+game_ask hack "Directory for hack variable data" hack_dir "$varlibdir/hack"
+
+if building_in hack; then
+    echo
+    echo "This directory will need to be writable by hack at runtime."
+    echo "Note that with the default permissions given here this will"
+    echo "not work: you may want to choose permissions appropriate to the"
+    echo "security policy you are using (e.g. 2775 root.games for setgid"
+    echo "games)."
+    askperms "Hack directory" hack_dir root root 0755
+    install_hack_dir=`echo "$install_hack_dir" |sed 's/install -c/install -d/'`
+fi
+
+game_ask hangman "Words file for hangman (CHECK ANSWER)" hangman_wordsfile /usr/share/dict/words
+# Hunt has some other configuration
+game_ask monop "File for monop cards" monop_cardsfile "$sharedir/monop-cards.pck"
+game_ask phantasia "Directory for phantasia variable data" phantasia_dir "$varlibdir/phantasia"
+game_ask quiz "Directory for quiz static data" quiz_dir "$sharedir/quiz"
+game_ask robots "Score file for robots" robots_scorefile "$varlibdir/robots_roll"
+game_ask rogue "Score file for rogue" rogue_scorefile "$varlibdir/rogue.scores"
+game_ask sail "Score file for sail" sail_scorefile "$varlibdir/saillog"
+game_ask snake "Score file for snake" snake_scorefile "$varlibdir/snake.log"
+game_ask snake "Raw score file for snake" snake_rawscorefile "$varlibdir/snakerawscores"
+game_ask tetris "Score file for tetris" tetris_scorefile "$varlibdir/tetris-bsd.scores"
+game_ask wtf "Acronym database for wtf" wtf_acronymfile "/usr/share/misc/acronyms"
+game_ask wump "File for wump info" wump_infofile "$sharedir/wump.info"
+
+# Generate simplistic substitution script.
+# This does not allow escaped @s in the substituted file, will fail on
+# newline or % in filenames, etc..  The justification is that proper insertion
+# of arbitrary 8-bit data in different files requires too much knowledge
+# of escapes specific to the particular file type, so these things would
+# probably fail anyway.
+: >subst.sed
+for var in $subst_vars; do
+    eval echo \""s%@$var@%\$$var%g"\" >> subst.sed
+done
+
+substitute () {
+    for file in "$@"; do
+	dir="${file%%/*}"
+	if building_in $dir || [ "$file" = "$dir" ]; then
+	    source_file="${file}.in"
+	    case "$file" in
+	    (quiz/datfiles/index)
+		# Can't put a comment in this file
+		subst_type=n
+		;;
+	    (Makeconfig)
+		subst_type=h
+		;;
+	    (*.[1-9])
+		subst_type=m
+		;;
+	    (*.[ch])
+		subst_type=c
+		;;
+	    (*)
+		subst_type=s
+		;;
+	    esac
+	    if [ "$rules_only" = y ]; then
+		./substscr r "$subst_type" "$source_file" "$file"
+	    else
+		./substscr gr "$subst_type" "$source_file" "$file"
+	    fi
+	fi
+    done
+}
+
+: >subst.rules
+
+rules_only=n
+subst_files="`sed '/^#/d' <substfiles`"
+
+substitute $subst_files
+
+rules_only=y
+subst_files="`sed '/^#/d' <substfiles2`"
+
+substitute $subst_files
+
+# Now we want to create the main GNUmakefile that includes the subdirectory
+# fragments and all the necessary dependencies.  This may take some time.
+
+echo "Generating the main GNUmakefile, please wait..."
+
+prog_to_exec () {
+    if [ "x$(dirname $1)" = x. ]; then
+	echo "$1/$1"
+    else
+	echo "$1"
+    fi
+}
+
+slashdot_to_under () {
+    echo "$1" |sed 's:/:_:g' |sed 's:\.:_:g'
+}
+
+exec_to_libs () {
+    eval echo \$$(slashdot_to_under $1)_libs
+}
+
+exec_to_objs () {
+    eval echo \$$(slashdot_to_under $1)_objs
+}
+
+make_dirs_tmp="$(find $build_dirs -depth -type d) lib"
+
+make_dirs=
+
+for dir in $make_dirs_tmp; do
+    if [ -e $dir/Makefrag ]; then
+	make_dirs="$make_dirs $dir"
+    fi
+done
+
+all_dependencies=
+
+for dir in $make_dirs; do
+    udir=$(slashdot_to_under $dir)
+    all_dependencies="$all_dependencies ${udir}_all"
+done
+
+cat >GNUmakefile <<EOF
+# GNUmakefile - automatically generated by configure.  Do not edit.
+
+# No suffix rules
+.SUFFIXES:
+
+# Include configuration
+include Makeconfig
+
+.PHONY:	all $all_dependencies
+all:	$all_dependencies
+
+# Include substitution rules.
+include subst.rules
+
+EOF
+
+for dir in $make_dirs; do
+    udir=$(slashdot_to_under $dir)
+    eval clean_$udir=
+    if [ $dir = dab ]; then
+	cat >>GNUmakefile <<EOF
+include $dir/Makefrag
+
+$dir/%.o:	$dir/%.cc
+	\$(CXX) \$(CXXFLAGS) \$(${udir}_CXXFLAGS) \$(${udir}_DEFS) \$(BASE_INCS) -I$dir \$(${udir}_INCS) -c \$< -o \$@
+
+$dir/%.ii:	$dir/%.cc
+	\$(CXX) \$(CXXFLAGS) \$(${udir}_CXXFLAGS) \$(${udir}_DEFS) \$(BASE_INCS) -I$dir \$(${udir}_INCS) -E \$< -o \$@
+
+$dir/%.s:	$dir/%.cc
+	\$(CXX) \$(CXXFLAGS) \$(${udir}_CXXFLAGS) \$(${udir}_DEFS) \$(BASE_INCS) -I$dir \$(${udir}_INCS) -S -fverbose-asm \$< -o \$@
+
+$dir/%.d:	$dir/%.cc
+	./mkdep \$< \$@ \$(CXX) \$(CXXFLAGS) \$(${udir}_CXXFLAGS) \$(${udir}_DEFS) \$(BASE_INCS) -I$dir \$(${udir}_INCS)
+
+EOF
+    else
+	cat >>GNUmakefile <<EOF
+include $dir/Makefrag
+
+$dir/%.o:	$dir/%.c
+	\$(CC) \$(CFLAGS) \$(${udir}_CFLAGS) \$(${udir}_DEFS) \$(BASE_INCS) -I$dir \$(${udir}_INCS) -c \$< -o \$@
+
+$dir/%.i:	$dir/%.c
+	\$(CC) \$(CFLAGS) \$(${udir}_CFLAGS) \$(${udir}_DEFS) \$(BASE_INCS) -I$dir \$(${udir}_INCS) -E \$< -o \$@
+
+$dir/%.s:	$dir/%.c
+	\$(CC) \$(CFLAGS) \$(${udir}_CFLAGS) \$(${udir}_DEFS) \$(BASE_INCS) -I$dir \$(${udir}_INCS) -S -fverbose-asm \$< -o \$@
+
+$dir/%.d:	$dir/%.c
+	./mkdep \$< \$@ \$(CC) \$(CFLAGS) \$(${udir}_CFLAGS) \$(${udir}_DEFS) \$(BASE_INCS) -I$dir \$(${udir}_INCS)
+
+EOF
+    fi
+done
+
+# This temporary file is needed because we don't know whether the last
+# part of a pipeline is in the current shell execution environment
+# (POSIX.2, 3.12 and rationale).
+sed '/^#/d' <exec.libs >exec.libs.tmp
+while read prog libs; do
+    if ! building_in ${prog%%/*}; then
+	continue
+    fi
+    exec=$(prog_to_exec $prog)
+    evar=$(slashdot_to_under $exec)_libs
+    eval $evar=\"\$libs\"
+done <exec.libs.tmp
+
+sed '/^#/d' <exec.objs >exec.objs.tmp
+while read prog objs; do
+    if ! building_in ${prog%%/*}; then
+	continue
+    fi
+    exec=$(prog_to_exec $prog)
+    evar=$(slashdot_to_under $exec)_libs
+    eval libs=\"\$$evar\"
+    dir=$(dirname $exec)
+    udir=$(slashdot_to_under $dir)
+    nobjs=
+    deps_to_inc=
+    eval clean_$udir=\"\$clean_$udir $(basename $exec)\"
+    for obj in $objs; do
+	if [ "x$(dirname $obj)" = x. ]; then
+	    obj=$dir/$obj
+	fi
+	nobjs="$nobjs $obj"
+	obj_dep_var=$(slashdot_to_under $obj)
+	obj_dep_var=${obj_dep_var}_deps_included
+	eval obj_dep_val=\$$obj_dep_var
+	if [ "x$obj_dep_val" = "x" ]; then
+	    deps_to_inc="$deps_to_inc ${obj%%.o}.d"
+	    eval $obj_dep_var=y
+	fi
+    done
+    if [ $dir = dab ]; then
+	ccvar=CXX
+    else
+	ccvar=CC
+    fi
+    cat >>GNUmakefile <<EOF
+ifneq (\$(nodep),true)
+include $deps_to_inc
+endif
+
+$exec:	$nobjs
+	\$($ccvar) \$(LDFLAGS) \$^ $libs \$(BASE_LIBS) -o \$@
+
+EOF
+done <exec.objs.tmp
+
+rm -f exec.libs.tmp exec.objs.tmp
+
+clean_dependencies=
+install_dependencies=
+
+for dir in $make_dirs; do
+    udir=$(slashdot_to_under $dir)
+    clean_dependencies="$clean_dependencies ${udir}_clean"
+    install_dependencies="$install_dependencies ${udir}_install"
+    eval clean=\"\$clean_$udir\"
+    cat >>GNUmakefile <<EOF
+.PHONY:	${udir}_clean
+${udir}_clean:
+	cd $dir && rm -f -- a.out core *.o *.d *.i *.s *.d.tmp $clean \$(${udir}_CLEANFILES)
+
+.PHONY:	${udir}_install ${udir}_install-strip ${udir}_installdirs
+${udir}_install:	${udir}_installdirs
+
+${udir}_install-strip:
+	\$(MAKE) ${udir}_install \$(DEFS_TO_PASS_STRIP)
+
+${udir}_installdirs:
+	set -e; for d in \$(${udir}_DIRS) /; do mkdir -p \$(INSTALL_PREFIX)\$\$d; done
+
+EOF
+done
+
+cat >>GNUmakefile <<EOF
+.PHONY:	clean mostlyclean distclean maintainer-clean
+clean mostlyclean:	$clean_dependencies
+
+distclean maintainer-clean:	clean
+	rm -f subst.sed subst.rules
+	rm -f test.out
+	rm -f \`cat substfiles substfiles2 |sed '/^#/d'\`
+	rm -f GNUmakefile
+	rm -f a.out conftest.c include/bsd-games.h
+	rm -f exec.libs.tmp exec.objs.tmp
+
+.PHONY:	install install-strip
+
+install:	$install_dependencies
+
+install-strip:
+	\$(MAKE) install \$(DEFS_TO_PASS_STRIP)
+
+.PHONY: check test
+check test:	all
+	set -e; for f in tests/*.test; do echo \$\$f; \$\$f; done
+
+# Standard GNU targets we don't support
+.PHONY:	uninstall TAGS dist
+uninstall TAGS dist:
+	@echo "The GNU target \\\`\$@' is not supported by this package." >&2; exit 1
+
+# GNU targets that can do nothing
+.PHONY:	info dvi
+info dvi:
+	@echo "This package comes with no Texinfo documentation."
+
+EOF

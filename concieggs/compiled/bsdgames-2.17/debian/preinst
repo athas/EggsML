@@ -1,0 +1,85 @@
+#!/bin/sh
+# Pre-install script for ‘python-coverage’.
+#
+# Man page: ‘dh_installdeb(1)’
+
+set -e
+
+# Summary of ways this script can be called:
+#   * <new-preinst> ‘install’
+#   * <new-preinst> ‘install’ <old-version>
+#   * <new-preinst> ‘upgrade’ <old-version>
+#   * <old-preinst> ‘abort-upgrade’ <new-version>
+# For details, see the Debian Policy §6.5 in the ‘debian-policy’ package
+# or on the web at <URL:http://www.debian.org/doc/debian-policy/>.
+
+action="$1"
+
+SCOREFILES="
+	/var/games/bsdgames/atc_score
+	/var/games/bsdgames/battlestar.log
+	/var/games/bsdgames/cfscores
+	/var/games/bsdgames/criblog
+	/var/games/bsdgames/saillog
+	/var/games/bsdgames/snake.log
+	/var/games/bsdgames/snakerawscores
+	/var/games/bsdgames/tetris-bsd.scores
+	/var/games/bsdgames/phantasia/characs
+	/var/games/bsdgames/phantasia/gold
+	/var/games/bsdgames/phantasia/lastdead
+	/var/games/bsdgames/phantasia/mess
+	/var/games/bsdgames/phantasia/motd
+	/var/games/bsdgames/phantasia/scoreboard
+	/var/games/bsdgames/phantasia/void
+	/var/games/bsdgames/phantasia/monsters"
+
+# We used to keep score files in /var/lib/games, and if files are there,
+# move them into the new location.
+if [ -d /var/lib/games ]; then
+
+	# Have to set up directory hierarchy, since this is running as a
+	# preinst.
+	mkdir -p /var/games/bsdgames/phantasia
+	chown root:games /var/games/bsdgames \
+		/var/games/bsdgames/phantasia
+	chmod g+rws /var/games/bsdgames \
+		/var/games/bsdgames/phantasia
+
+	for file in $SCOREFILES; do
+		oldfile=`echo $file | sed s:/var/games/:/var/lib/games/:`
+		if [ -e $oldfile ]; then
+			if [ ! -e $file ]; then
+				mv -f $oldfile $file
+			else
+				rm -f $oldfile
+			fi
+		fi
+	done
+	
+	# Delete the old directory hierarchy.
+	rm -rf /var/lib/games/bsdgames
+fi
+
+case "$action" in
+
+    install|upgrade|abort-upgrade)
+        ;;
+
+    *)
+        printf "preinst called with unknown action ‘%s’\n" "$action" >&2
+        exit 1
+        ;;
+
+esac
+
+
+# I didn't move robots_roll above, because the version used by old bsdgames has
+# a different file format. Make sure that if I'm ugrading from pre 2.8 days,
+# the old file is deleted.
+if [ "$1" = "upgrade" ] && dpkg --compare-versions "$2" lt 2.8; then
+	rm -rf /var/games/bsdgames/robots_roll
+fi
+
+#DEBHELPER#
+
+exit 0

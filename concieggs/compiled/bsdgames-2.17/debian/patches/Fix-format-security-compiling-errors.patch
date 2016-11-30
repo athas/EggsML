@@ -1,0 +1,298 @@
+From: Tobias Quathamer <toddy@debian.org>
+Date: Mon, 26 Mar 2012 10:51:46 +0200
+Subject: Fix format-security compiling errors
+
+---
+ battlestar/room.c   |    2 +-
+ cribbage/io.c       |   10 +++++-----
+ hack/hack.apply.c   |    2 +-
+ hack/hack.eat.c     |    2 +-
+ hack/hack.end.c     |    4 ++--
+ hack/hack.invent.c  |    4 ++--
+ hack/hack.main.c    |    2 +-
+ hack/hack.options.c |    2 +-
+ hack/hack.pager.c   |    4 ++--
+ hack/hack.potion.c  |    2 +-
+ hack/hack.rumors.c  |    2 +-
+ hack/hack.timeout.c |    2 +-
+ hunt/hunt/hunt.c    |    4 ++--
+ monop/misc.c        |    2 +-
+ sail/assorted.c     |    6 +++---
+ 15 files changed, 25 insertions(+), 25 deletions(-)
+
+diff --git a/battlestar/room.c b/battlestar/room.c
+index 5cbaf85..f99d5de 100644
+--- a/battlestar/room.c
++++ b/battlestar/room.c
+@@ -58,7 +58,7 @@ writedes()
+ 					putchar(c);
+ 			} else {
+ 				if (c != '*')
+-					printf(truedirec(compass, c));
++					printf("%s", truedirec(compass, c));
+ 				compass++;
+ 			}
+ 	}
+diff --git a/cribbage/io.c b/cribbage/io.c
+index 8100ddd..17853b2 100644
+--- a/cribbage/io.c
++++ b/cribbage/io.c
+@@ -103,13 +103,13 @@ msgcrd(c, brfrank, mid, brfsuit)
+ 	if (brfrank)
+ 		addmsg("%1.1s", rankchar[c.rank]);
+ 	else
+-		addmsg(rankname[c.rank]);
++		addmsg("%s", rankname[c.rank]);
+ 	if (mid != NULL)
+-		addmsg(mid);
++		addmsg("%s", mid);
+ 	if (brfsuit)
+ 		addmsg("%1.1s", suitchar[c.suit]);
+ 	else
+-		addmsg(suitname[c.suit]);
++		addmsg("%s", suitname[c.suit]);
+ 	return (TRUE);
+ }
+ 
+@@ -192,7 +192,7 @@ infrom(hand, n, prompt)
+ 		exit(74);
+ 	}
+ 	for (;;) {
+-		msg(prompt);
++		msg("%s", prompt);
+ 		if (incard(&crd)) {	/* if card is full card */
+ 			if (!is_one(crd, hand, n))
+ 				msg("That's not in your hand");
+@@ -345,7 +345,7 @@ number(lo, hi, prompt)
+ 	int sum;
+ 
+ 	for (sum = 0;;) {
+-		msg(prompt);
++		msg("%s", prompt);
+ 		if (!(p = get_line()) || *p == '\0') {
+ 			msg(quiet ? "Not a number" :
+ 			    "That doesn't look like a number");
+diff --git a/hack/hack.apply.c b/hack/hack.apply.c
+index 391cbf4..fa91c88 100644
+--- a/hack/hack.apply.c
++++ b/hack/hack.apply.c
+@@ -392,7 +392,7 @@ dig()
+ 			digtxt = "Now what exactly was it that you were digging in?";
+ 		mnewsym(dpx, dpy);
+ 		prl(dpx, dpy);
+-		pline(digtxt);	/* after mnewsym & prl */
++		pline("%s", digtxt);	/* after mnewsym & prl */
+ 		return (0);
+ 	} else {
+ 		if (IS_WALL(levl[dpx][dpy].typ)) {
+diff --git a/hack/hack.eat.c b/hack/hack.eat.c
+index e533ca5..4093f96 100644
+--- a/hack/hack.eat.c
++++ b/hack/hack.eat.c
+@@ -132,7 +132,7 @@ opentin()
+ 	useup(tin.tin);
+ 	r = rn2(2 * TTSZ);
+ 	if (r < TTSZ) {
+-		pline(tintxts[r].txt);
++		pline("%s", tintxts[r].txt);
+ 		lesshungry(tintxts[r].nut);
+ 		if (r == 1) {	/* SALMON */
+ 			Glib = rnd(15);
+diff --git a/hack/hack.end.c b/hack/hack.end.c
+index 2ffa5cf..3145fd7 100644
+--- a/hack/hack.end.c
++++ b/hack/hack.end.c
+@@ -535,7 +535,7 @@ outentry(int rank, struct toptenentry *t1, int so)
+ 		if (t1->maxlvl != t1->level)
+ 			Sprintf(eos(linebuf), " [max %d]", t1->maxlvl);
+ 		if (quit && t1->death[4])
+-			Sprintf(eos(linebuf), t1->death + 4);
++			Sprintf(eos(linebuf), "%s", t1->death + 4);
+ 	}
+ 	if (killed)
+ 		Sprintf(eos(linebuf), " by %s%s",
+@@ -548,7 +548,7 @@ outentry(int rank, struct toptenentry *t1, int so)
+ 		char           *bp = eos(linebuf);
+ 		char            hpbuf[10];
+ 		int             hppos;
+-		Sprintf(hpbuf, (t1->hp > 0) ? itoa(t1->hp) : "-");
++		Sprintf(hpbuf, "%s", (t1->hp > 0) ? itoa(t1->hp) : "-");
+ 		hppos = COLNO - 7 - strlen(hpbuf);
+ 		if (bp <= linebuf + hppos) {
+ 			while (bp < linebuf + hppos)
+diff --git a/hack/hack.invent.c b/hack/hack.invent.c
+index c33d502..2c8ed6e 100644
+--- a/hack/hack.invent.c
++++ b/hack/hack.invent.c
+@@ -671,7 +671,7 @@ askchain(objchn, olets, allflag, fn, ckfn, max)
+ 		if (ckfn && !(*ckfn) (otmp))
+ 			continue;
+ 		if (!allflag) {
+-			pline(xprname(otmp, ilet));
++			pline("%s", xprname(otmp, ilet));
+ 			addtopl(" [nyaq]? ");
+ 			sym = readchar();
+ 		} else
+@@ -717,7 +717,7 @@ void
+ prinv(obj)
+ 	struct obj     *obj;
+ {
+-	pline(xprname(obj, obj_to_let(obj)));
++	pline("%s", xprname(obj, obj_to_let(obj)));
+ }
+ 
+ static char    *
+diff --git a/hack/hack.main.c b/hack/hack.main.c
+index ce4715c..88402f3 100644
+--- a/hack/hack.main.c
++++ b/hack/hack.main.c
+@@ -418,7 +418,7 @@ not_recovered:
+ 		}
+ 		if (multi < 0) {
+ 			if (!++multi) {
+-				pline(nomovemsg ? nomovemsg :
++				pline("%s", nomovemsg ? nomovemsg :
+ 				      "You can move again.");
+ 				nomovemsg = 0;
+ 				if (afternmv)
+diff --git a/hack/hack.options.c b/hack/hack.options.c
+index ea55cb8..ef7012e 100644
+--- a/hack/hack.options.c
++++ b/hack/hack.options.c
+@@ -268,7 +268,7 @@ doset()
+ 			if (*--eop == ',')
+ 				*eop = 0;
+ 		}
+-		pline(buf);
++		pline("%s", buf);
+ 	} else
+ 		parseoptions(buf, FALSE);
+ 
+diff --git a/hack/hack.pager.c b/hack/hack.pager.c
+index d72d800..03c0847 100644
+--- a/hack/hack.pager.c
++++ b/hack/hack.pager.c
+@@ -104,7 +104,7 @@ dowhatis()
+ 						buf[0] = q;
+ 						(void) strncpy(buf + 1, "       ", 7);
+ 					}
+-					pline(buf);
++					pline("%s", buf);
+ 					if (ep[-1] == ';') {
+ 						pline("More info? ");
+ 						if (readchar() == 'y') {
+@@ -298,7 +298,7 @@ cornline(mode, text)
+ 	}
+ 	/* --- now we really do it --- */
+ 	if (mode == 2 && linect == 1)	/* topline only */
+-		pline(texthead->line_text);
++		pline("%s", texthead->line_text);
+ 	else if (mode == 2) {
+ 		int             curline, lth;
+ 
+diff --git a/hack/hack.potion.c b/hack/hack.potion.c
+index 9d210d4..a906cb3 100644
+--- a/hack/hack.potion.c
++++ b/hack/hack.potion.c
+@@ -286,7 +286,7 @@ strange_feeling(obj, txt)
+ 	if (flags.beginner)
+ 		pline("You have a strange feeling for a moment, then it passes.");
+ 	else
+-		pline(txt);
++		pline("%s", txt);
+ 	if (!objects[obj->otyp].oc_name_known && !objects[obj->otyp].oc_uname)
+ 		docall(obj);
+ 	useup(obj);
+diff --git a/hack/hack.rumors.c b/hack/hack.rumors.c
+index 383bba9..513d395 100644
+--- a/hack/hack.rumors.c
++++ b/hack/hack.rumors.c
+@@ -112,7 +112,7 @@ outline(rumf)
+ 	if ((ep = strchr(line, '\n')) != 0)
+ 		*ep = 0;
+ 	pline("This cookie has a scrap of paper inside! It reads: ");
+-	pline(line);
++	pline("%s", line);
+ }
+ 
+ void
+diff --git a/hack/hack.timeout.c b/hack/hack.timeout.c
+index ef239e4..2a8ee54 100644
+--- a/hack/hack.timeout.c
++++ b/hack/hack.timeout.c
+@@ -126,7 +126,7 @@ stoned_dialogue()
+ 	long            i = (Stoned & TIMEOUT);
+ 
+ 	if (i > 0 && i <= SIZE(stoned_texts))
+-		pline(stoned_texts[SIZE(stoned_texts) - i]);
++		pline("%s", stoned_texts[SIZE(stoned_texts) - i]);
+ 	if (i == 5)
+ 		Fast = 0;
+ 	if (i == 3)
+diff --git a/hunt/hunt/hunt.c b/hunt/hunt/hunt.c
+index 28321bc..58d112d 100644
+--- a/hunt/hunt/hunt.c
++++ b/hunt/hunt/hunt.c
+@@ -910,7 +910,7 @@ leave(eval, mesg)
+ 	int serrno = errno;
+ 	fincurs();
+ 	errno = serrno;
+-	err(eval, mesg ? mesg : "");
++	err(eval, "%s", mesg ? mesg : "");
+ }
+ 
+ /*
+@@ -924,7 +924,7 @@ leavex(eval, mesg)
+ 	const char	*mesg;
+ {
+ 	fincurs();
+-	errx(eval, mesg ? mesg : "");
++	errx(eval, "%s", mesg ? mesg : "");
+ }
+ 
+ #if !defined(USE_CURSES) && defined(SIGTSTP)
+diff --git a/monop/misc.c b/monop/misc.c
+index 1d3a566..c363ca2 100644
+--- a/monop/misc.c
++++ b/monop/misc.c
+@@ -101,7 +101,7 @@ get_int(prompt)
+ 
+ 	for (;;) {
+ inter:
+-		printf(prompt);
++		printf("%s", prompt);
+ 		num = 0;
+ 		for (sp = buf; (c=getchar()) != '\n'; *sp++ = c)
+ 			if (c == -1)	/* check for interrupted system call */
+diff --git a/sail/assorted.c b/sail/assorted.c
+index cfc7d2a..ecb8406 100644
+--- a/sail/assorted.c
++++ b/sail/assorted.c
+@@ -163,7 +163,7 @@ table(struct ship *from, struct ship *on, int rig, int shot, int hittable, int r
+ 		errx(1, "Unknown shot type %d", shot);
+ 
+ 	}
+-	makesignal(from, message, on);
++	makesignal(from, "%s shot on $$", on, message);
+ 	if (roll == 6 && rig) {
+ 		switch(Rhit) {
+ 		case 0:
+@@ -190,7 +190,7 @@ table(struct ship *from, struct ship *on, int rig, int shot, int hittable, int r
+ 		default:
+ 			errx(1, "Bad Rhit = %d", Rhit);
+ 		}
+-		makemsg(on, message);
++		makemsg(on, "%s", message);
+ 	} else if (roll == 6) {
+ 		switch (Hhit) {
+ 		case 0:
+@@ -218,7 +218,7 @@ table(struct ship *from, struct ship *on, int rig, int shot, int hittable, int r
+ 		default:
+ 			errx(1, "Bad Hhit = %d", Hhit);
+ 		}
+-		makemsg(on, message);
++		makemsg(on, "%s", message);
+ 	}
+ 	/*
+ 	if (Chit > 1 && on->file->readyL&R_INITIAL && on->file->readyR&R_INITIAL) {
+-- 

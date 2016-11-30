@@ -1,0 +1,21 @@
+From: Tobias Quathamer <toddy@debian.org>
+Date: Thu, 16 Feb 2012 13:26:25 +0100
+Subject: wtf: Add NMU. Closes: #574036
+
+---
+ wtf/acronyms.comp |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+diff --git a/wtf/acronyms.comp b/wtf/acronyms.comp
+index c5283c4..e365d72 100644
+--- a/wtf/acronyms.comp
++++ b/wtf/acronyms.comp
+@@ -196,6 +196,7 @@ NCP	network control protocol
+ NFS	network file system
+ NIC	network interface card
+ NIS	network information service
++NMU	Non-maintainer upload
+ NRZ	non-return to zero
+ NUMA	non uniform memory access
+ OCL	object constraint language
+-- 

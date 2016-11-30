@@ -1,0 +1,911 @@
+bsdgames (2.17-24) unstable; urgency=medium
+
+  [ Ben Finney ]
+  * adventure:
+    - Declare “Provides: adventure” as this is one possible implementation
+      of the Colossal Cave Adventure.
+    - Use Debian alternatives system to present ‘bsdgames-adventure’ as an
+      implementation of ‘adventure’.
+
+  [ Dr. Tobias Quathamer ]
+  * Rename adventure to bsdgames-adventure. Together with the changes
+    from Ben Finney above, this enables the update-alternatives system.
+    Closes: #802422
+  * Remove obsolete upstream site from d/watch
+  * Update to Standards-Version 3.9.7, no changes needed
+  * Use secure Vcs-* URLs
+
+ -- Dr. Tobias Quathamer <toddy@debian.org>  Tue, 05 Apr 2016 10:42:49 +0200
+
+bsdgames (2.17-23) unstable; urgency=medium
+
+  * Update to Standards-Version 3.9.6, no changes needed
+
+ -- Dr. Tobias Quathamer <toddy@debian.org>  Wed, 13 Jan 2016 17:38:52 +0100
+
+bsdgames (2.17-22) unstable; urgency=medium
+
+  * Update Vcs-URLs
+  * Update Standards-Version to 3.9.5, no changes needed
+
+ -- Tobias Quathamer <toddy@debian.org>  Tue, 08 Jul 2014 21:25:35 +0200
+
+bsdgames (2.17-21) unstable; urgency=low
+
+  * Switch to debhelper v9
+  * Use all hardening features in DEB_BUILD_MAINT_OPTIONS
+
+ -- Tobias Quathamer <toddy@debian.org>  Mon, 26 Mar 2012 11:52:07 +0200
+
+bsdgames (2.17-20) unstable; urgency=low
+
+  * Set maintainer to Debian Games Team, add myself as uploader
+  * Add git repository to debian/control
+  * rain: Update default delay. Closes: #579062
+  * quiz: Add answers to adults/babies. Closes: #659528
+  * primes: Document maximum number in manpage. Closes: #636569
+  * primes: Updated to NetBSD CVS as of 2012-02-16
+  * wtf: Add NMU. Closes: #574036
+  * hangman: Error out on 1000 unsuitable words. Closes: #610270
+  * Rename files in debian/patches, managed now with gbp-pq
+  * Remove Conflicts/Replaces on bsdgames-nonfree (<< 2.14) from
+    debian/control, that version is long gone now
+  * Remove Build-Depends on dpkg-dev (>= 1.9.0)
+  * Use set -e in postinst, postrm, and preinst
+  * Fix some typos spotted by Lintian
+  * Update to Standards-Version 3.9.3
+
+ -- Tobias Quathamer <toddy@debian.org>  Sat, 25 Feb 2012 17:11:48 +0100
+
+bsdgames (2.17-19) unstable; urgency=low
+
+  * debian/patches/define-dead.diff:
+    - Define __dead in include/sys/cdefs.h
+  * debian/patches/wump-update.diff:
+    - Update wump sources to NetBSD CVS as of 2010-01-14. This fixes
+      several bugs, including the over-crowded cave. Thanks to
+      Jörg Neulist for the bug report and patch. Closes: #564891
+
+ -- Tobias Quathamer <toddy@debian.org>  Fri, 15 Jan 2010 23:31:41 +0100
+
+bsdgames (2.17-18) unstable; urgency=low
+
+  * debian/patches/sort-acronyms.comp.diff:
+    - Sort acronyms.comp with LC_ALL=C. Thanks to Jonas Kölker for the
+      patch. Closes: #367689
+    - Add JFGI to acronyms.comp. Thanks to Muthu for the suggestion.
+      Closes: #475044
+  * debian/patches/refresh-robots-screen.diff:
+    - Properly refresh screen of robots game with CTRL-L. Thanks to
+      tdenniston and Jonathan Davies for the patch and bug report.
+      Closes: #562523, LP: #465530
+  * debian/patches/anne-boleyn.diff:
+    - Fix spelling error of Anne Boleyn in murders quizfile. Thanks
+      to Dean Menezes for the bug report. Closes: #562231
+  * debian/patches/capitals.diff:
+    - Update african capitals and countries in quiz game. Thanks to
+      Ulf Schaper for the bug report. Closes: #296027
+    - Update american capitals and countries in quiz game.
+    - Update asian capitals and countries in quiz game.
+    - Update european capitals and countries in quiz game.
+
+ -- Tobias Quathamer <toddy@debian.org>  Sat, 02 Jan 2010 21:59:41 +0100
+
+bsdgames (2.17-17) unstable; urgency=low
+
+  * New maintainer. Closes: #487466
+  * Switch to dpkg source format 3.0 (quilt)
+  * debian/control:
+    - Little changes to the description
+    - Bump Standards-Version to 3.8.3
+    - Remove Git-Vcs line as it isn't up to date
+  * debian/patches/replace-getline.diff:
+    - Fix FTBFS by renaming the function getline() to get_line().
+      Closes: #552840, LP: #439394
+  * debian/patches/quiz-presidents.diff:
+    - Add Barack Obama to the list of US presidents, thanks to
+      Dean Bob and Joseph Smidt. Closes: #522352, LP: #319415
+  * debian/patches/add-acronyms.diff:
+    - Add DD, DDPO, FTBFS, GIYF, LGPL, MOTU, MPL, RFS, RTSL, SRU and UTSL
+      to acronyms.comp. Closes: #271786, #363945, #367688.
+    - Add IANADD, NIMB/NIMBY, NTFS, SIYH, TINASOTODP, TINLA, WIR to
+      acronyms. Closes: #440168, #474629, #523442.
+    - Change all occurencies of "gnu" to uppercase, as it's a name
+      (to match "XML" and "SCSI").
+
+ -- Tobias Quathamer <toddy@debian.org>  Mon, 16 Nov 2009 22:03:56 +0100
+
+bsdgames (2.17-16) unstable; urgency=low
+
+  * trek: Fix spin on powerpc due to char signdness issue.
+    Thanks, Wouter Verhelst. Closes: #234448
+  * Orphan the package, guess I forgot to earlier.
+
+ -- Joey Hess <joeyh@debian.org>  Thu, 13 Nov 2008 13:46:27 -0500
+
+bsdgames (2.17-15) unstable; urgency=low
+
+  * Include rot13 in package description. Closes: #477141
+  * adventure: Fix crc code to not segfault on 64 bit architectures.
+    Closes: #477768
+  * Use debhelper v7, rules file minimisation.
+
+ -- Joey Hess <joeyh@debian.org>  Fri, 25 Apr 2008 16:03:59 -0400
+
+bsdgames (2.17-14) unstable; urgency=low
+
+  * Fix missing bracket in quiz poetry data file. Closes: #474594
+  * Update menu file to current policy.
+  * Fixed some man page markup.
+
+ -- Joey Hess <joeyh@debian.org>  Sun, 06 Apr 2008 13:33:55 -0400
+
+bsdgames (2.17-13) unstable; urgency=low
+
+  * Patch from Aaron Denney, fixing pluralization of singular fractions.
+    Closes: #471762
+
+ -- Joey Hess <joeyh@debian.org>  Thu, 20 Mar 2008 21:47:24 -0400
+
+bsdgames (2.17-12) unstable; urgency=low
+
+  * Fix a bad cast in hunt that caused it to refuse to run on amd64 and likely
+    also other 64 bit architectures. Closes: #342025
+
+ -- Joey Hess <joeyh@debian.org>  Sat, 22 Dec 2007 22:47:26 -0500
+
+bsdgames (2.17-11) unstable; urgency=low
+
+  * gcc 4.3 duplicate function parameter name fixes. Closes: #455662
+
+ -- Joey Hess <joeyh@debian.org>  Tue, 11 Dec 2007 00:26:57 -0500
+
+bsdgames (2.17-10) unstable; urgency=low
+
+  * Fix menu entry for worms.
+
+ -- Joey Hess <joeyh@debian.org>  Thu, 02 Aug 2007 13:03:11 -0400
+
+bsdgames (2.17-9) unstable; urgency=low
+
+  * De-hardcode paths to /usr/games in menu file.
+  * Menu section transition.
+  * Current policy version.
+
+ -- Joey Hess <joeyh@debian.org>  Sun, 08 Jul 2007 16:17:43 -0400
+
+bsdgames (2.17-8) unstable; urgency=low
+
+  * Patch from Alan Curry to backgammon to fix a bug that caused the computer
+    player to skip a turn near the end of the game. Closes: #368771
+  * Also some tutorial grammar fixes.
+  * Patch from Alan Curry to backgammon to make movallow() try again with dice
+    swapped when it finds that there is no possible move with the second die
+    after the first die was used to move a man off the bar. Closes: #185100
+
+ -- Joey Hess <joeyh@debian.org>  Wed, 24 May 2006 20:23:25 -0400
+
+bsdgames (2.17-7) unstable; urgency=medium
+
+  * sail: Fix a scanf buffer overrun in initial broadside prompt code,
+    possibly exploitable. Closes: #360989
+  * dm: Fix some other, non exploitable scanf buffer overruns.
+
+ -- Joey Hess <joeyh@debian.org>  Thu,  6 Apr 2006 19:59:35 -0400
+
+bsdgames (2.17-6) unstable; urgency=medium
+
+  * tetris-bsd: Apply patch from gentoo to fix input validation in score
+    reading code to avoid stack overflow, and . Closes: # (CVE-2006-1539)
+
+ -- Joey Hess <joeyh@debian.org>  Thu,  6 Apr 2006 18:58:10 -0400
+
+bsdgames (2.17-5) unstable; urgency=low
+
+  * Deal with removal of wenglish package. Closes: #345975
+
+ -- Joey Hess <joeyh@debian.org>  Wed,  4 Jan 2006 12:41:16 -0500
+
+bsdgames (2.17-4) unstable; urgency=low
+
+  * Manu file quoting improvmenets.
+  * Current standards version.
+
+ -- Joey Hess <joeyh@debian.org>  Sun, 18 Dec 2005 17:35:38 -0500
+
+bsdgames (2.17-3) unstable; urgency=low
+
+  * Rebuilt for g++ transition.
+
+ -- Joey Hess <joeyh@debian.org>  Wed, 12 Oct 2005 16:09:58 -0400
+
+bsdgames (2.17-2) unstable; urgency=low
+
+  * Rename fish to go-fish, since fish is also the command name of
+    the fish shell. Closes: #314460
+
+ -- Joey Hess <joeyh@debian.org>  Fri, 17 Jun 2005 13:51:14 -0400
+
+bsdgames (2.17-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Joey Hess <joeyh@debian.org>  Fri, 18 Feb 2005 13:12:51 -0500
+
+bsdgames (2.16-5) unstable; urgency=low
+
+  * Apply hack patch from Andreas Jochens to support building under gcc 4.0
+    which does stricter checking for static variables. Closes: #284750
+
+ -- Joey Hess <joeyh@debian.org>  Wed,  8 Dec 2004 14:39:12 -0500
+
+bsdgames (2.16-4) unstable; urgency=low
+
+  * Fixed a null pointer de-reference in hunt if run on a
+    system with an interface with no link level address. Closes: #279903
+
+ -- Joey Hess <joeyh@debian.org>  Thu, 25 Nov 2004 11:23:09 -0500
+
+bsdgames (2.16-3) unstable; urgency=low
+
+  * Add docdir to config.params and don't unstall trek.me manually.
+
+ -- Joey Hess <joeyh@debian.org>  Sun,  7 Mar 2004 15:50:16 -0900
+
+bsdgames (2.16-2) unstable; urgency=low
+
+  * FIx primes(6). Closes: #234515
+
+ -- Joey Hess <joeyh@debian.org>  Tue, 24 Feb 2004 11:26:42 -0500
+
+bsdgames (2.16-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Joey Hess <joeyh@debian.org>  Sat, 14 Feb 2004 16:34:08 -0500
+
+bsdgames (2.15-1) unstable; urgency=low
+
+  * New upstream release.
+    - Fix backgammon scoring bug related to peices on the bar and gammons.
+      Closes: #185101
+    - Fix backgammon tutorial text. Closes: #212478
+    - Advertising clause is gone from most, but not all licenses.
+    - Apparently better fix for boggle man page.
+    - Incorporates nearly all changes in Debian diff.
+
+ -- Joey Hess <joeyh@debian.org>  Fri, 19 Dec 2003 18:04:24 -0500
+
+bsdgames (2.14-8) unstable; urgency=low
+
+  * Update for POSIX chown. Closes: #214043
+  * atc: Note in man page that pressing return will do an immediate update.
+    Closes: #216980
+
+ -- Joey Hess <joeyh@debian.org>  Sat, 25 Oct 2003 18:16:33 -0400
+
+bsdgames (2.14-7) unstable; urgency=low
+
+  * Fix left/right confusion on worm man page. Closes: #209034
+
+ -- Joey Hess <joeyh@debian.org>  Sat,  6 Sep 2003 23:01:13 -0400
+
+bsdgames (2.14-6) unstable; urgency=low
+
+  * Move menu item to new policy-compliant Apps/Education. Closes: #194782
+
+ -- Joey Hess <joeyh@debian.org>  Sun, 13 Jul 2003 22:02:55 +0200
+
+bsdgames (2.14-5) unstable; urgency=low
+
+  * Fix rounding error in caesar due to too small data type. Caused it to
+    sometimes make incorrect guesses. Thanks to Jan Vornberger for analysis
+    and patch. Also forwarded upstream. Closes: #197816
+
+ -- Joey Hess <joeyh@debian.org>  Tue, 17 Jun 2003 19:36:44 -0400
+
+bsdgames (2.14-4) unstable; urgency=low
+
+  * Move atc and sail to Games/Strategy in menu, cf #194782
+  * Move rain and worms to Games/Toys, calling them screen savers is too much
+    of a long shot.
+
+ -- Joey Hess <joeyh@debian.org>  Wed, 28 May 2003 12:46:48 -0400
+
+bsdgames (2.14-3) unstable; urgency=low
+
+  * Corrected Bornes typo in menu entry. It's all the bash shell's fault. :-)
+    Closes: #193126
+
+ -- Joey Hess <joeyh@debian.org>  Tue, 13 May 2003 10:19:41 -0400
+
+bsdgames (2.14-2) unstable; urgency=low
+
+  * My patch to bcd.6 is no longer necessary.
+  * hack: Consistently refer to O as options key, not o. Closes: #191452
+
+ -- Joey Hess <joeyh@debian.org>  Thu,  1 May 2003 11:31:52 -0400
+
+bsdgames (2.14-1) unstable; urgency=low
+
+  * New upstream release, whivh includes hack, back fron bsdgames-nonfree.
+  * Conflict and replace with old versions of bsdgames-nonfree that include
+    hack.
+  * Add hack to package description and menu file.
+  * Add in hack's two READ_ME files to binay package.
+  * Patched hack config.h as it is patched in bsdgames-nonfree.
+  * Unlike bsdgames-nonfree, put the help, hh, rumors, and data files in
+    /usr/share/games/bsdgames/hack, as the patched config.h makes it look
+    there.
+  * postinst moves over hack state files to new directory
+  * Patched phantasia to use strerror and not segfault if it cannot open the
+    var files. Closes: #187251 (patch sent upstream)
+
+ -- Joey Hess <joeyh@debian.org>  Wed,  2 Apr 2003 20:44:19 -0500
+
+bsdgames (2.13-11) unstable; urgency=low
+
+  * Fixed silly typo in wargames man page. Closes: #169307
+
+ -- Joey Hess <joeyh@debian.org>  Sat, 16 Nov 2002 18:58:22 -0500
+
+bsdgames (2.13-10) unstable; urgency=low
+
+  * Updated to debhelper v4.
+
+ -- Joey Hess <joeyh@debian.org>  Sat,  1 Jun 2002 22:26:40 -0400
+
+bsdgames (2.13-9) unstable; urgency=low
+
+  * Moved wtf acronym list into /usr/share/games. Closes: #144804
+
+ -- Joey Hess <joeyh@debian.org>  Wed, 22 May 2002 13:17:37 -0400
+
+bsdgames (2.13-8) unstable; urgency=low
+
+  * COrrected primes (really factor) man page. Closes: #144738
+
+ -- Joey Hess <joeyh@debian.org>  Sat, 27 Apr 2002 11:00:25 -0400
+
+bsdgames (2.13-7) unstable; urgency=low
+
+  * Make sure boggle is always built with the same wordlist, and use the union
+    of wenglish and wbristish for that list. Building with web2 resulted in
+    too many scrabble-words..
+
+ -- Joey Hess <joeyh@debian.org>  Sun,  7 Apr 2002 20:27:57 -0400
+
+bsdgames (2.13-6) unstable; urgency=low
+
+  * Fixed man page warnings, Closes: #139414
+
+ -- Joey Hess <joeyh@debian.org>  Thu, 21 Mar 2002 22:24:53 -0500
+
+bsdgames (2.13-4) unstable; urgency=low
+
+  * Corrected hint => hints, Closes: #134120
+
+ -- Joey Hess <joeyh@debian.org>  Fri, 15 Feb 2002 16:36:20 -0500
+
+bsdgames (2.13-3) unstable; urgency=low
+
+  * Added -m option to hangman to set MINLEN. Closes: #129998
+
+ -- Joey Hess <joeyh@debian.org>  Sat, 19 Jan 2002 18:04:06 -0500
+
+bsdgames (2.13-2) unstable; urgency=low
+
+  * Fixed bad merge (that's why sail was broken).
+
+ -- Joey Hess <joeyh@debian.org>  Sat, 29 Dec 2001 13:37:00 -0500
+
+bsdgames (2.13-1) unstable; urgency=low
+
+  * New upstream release.
+  * Patched sail/sync.c to build (lots of missing includes and other trivial
+    mistakes).
+
+ -- Joey Hess <joeyh@debian.org>  Fri, 28 Dec 2001 18:15:41 -0500
+
+bsdgames (2.12-11) unstable; urgency=low
+
+  * Added menu hints for backgammon and gomoku, Closes: #121012, #121012
+    NB: holding off on changing menu titles until I see evidence it's really
+    necessary.
+
+ -- Joey Hess <joeyh@debian.org>  Sun, 25 Nov 2001 21:48:03 -0500
+
+bsdgames (2.12-10) unstable; urgency=low
+
+  * Fixed tetris on sun systems to not lag 3 keystrokes behind, patch from
+    upstream. Closes: #97033
+
+ -- Joey Hess <joeyh@debian.org>  Sun, 18 Nov 2001 17:19:18 -0500
+
+bsdgames (2.12-9) unstable; urgency=low
+
+  * Corrected cost of slime. Closes: #110782
+  * Added '-' to character class, so wargames can launch moon-buggy.
+    This is clearly a vital fix, but I hesitate to increase the severity of
+    this upload. Closes: #93638
+
+ -- Joey Hess <joeyh@debian.org>  Mon, 17 Sep 2001 00:51:07 -0400
+
+bsdgames (2.12-8) unstable; urgency=low
+
+  * Applied a patch from Igor Khavkine <i_khavki@alcor.concordia.ca> to
+    make the package build on the Hurd. Closes: #98562
+
+ -- Joey Hess <joeyh@debian.org>  Wed, 23 May 2001 22:49:26 -0400
+
+bsdgames (2.12-7) unstable; urgency=low
+
+  * Modified all the rest of the menu items that need a pause after
+    running. Also fixed bashisms in the pause code..
+
+ -- Joey Hess <joeyh@debian.org>  Fri, 11 May 2001 16:19:13 -0400
+
+bsdgames (2.12-6) unstable; urgency=low
+
+  * Pause after tetris-bsd exits when run from the menu, to give a chance
+    for the high scores to be seen. Closes: #96999
+
+ -- Joey Hess <joeyh@debian.org>  Thu, 10 May 2001 21:49:37 -0400
+
+bsdgames (2.12-5) unstable; urgency=low
+
+  * Added AIUI, Closes: #90973
+
+ -- Joey Hess <joeyh@debian.org>  Sat, 24 Mar 2001 14:27:16 -0800
+
+bsdgames (2.12-4) unstable; urgency=low
+
+  * Added real dependancy alternate (lintian).
+  * Debhelper v3.
+
+ -- Joey Hess <joeyh@debian.org>  Sat, 10 Feb 2001 00:24:27 -0800
+
+bsdgames (2.12-3) unstable; urgency=low
+
+  * Corrected snake's usage message, Closes: #84852
+  * Patch from Malcolm Parsons <malcolm@ivywell.screaming.net> to fix
+    snake scoring problem, Closes: #80549
+  * Statoverride transition.
+
+ -- Joey Hess <joeyh@debian.org>  Sun,  4 Feb 2001 14:06:28 -0800
+
+bsdgames (2.12-2) unstable; urgency=low
+
+  * Depends on wordlist, Closes: #76331
+
+ -- Joey Hess <joeyh@debian.org>  Sun,  5 Nov 2000 15:25:06 -0800
+
+bsdgames (2.12-1) unstable; urgency=low
+
+  * New upstream release, fixing problems in battlestar. Closes: #70465
+
+ -- Joey Hess <joeyh@debian.org>  Tue, 26 Sep 2000 09:21:22 -0700
+
+bsdgames (2.11-4) unstable; urgency=low
+
+  * Updated to debhelper v2.
+
+ -- Joey Hess <joeyh@debian.org>  Mon, 25 Sep 2000 14:14:51 -0700
+
+bsdgames (2.11-3) unstable; urgency=low
+
+  * Fixed a typo in bcd's man page.
+
+ -- Joey Hess <joeyh@debian.org>  Thu, 31 Aug 2000 21:33:33 -0700
+
+bsdgames (2.11-2) unstable; urgency=low
+
+  * Patch from pmaydell@chiark.greenend.org.uk to fix a segfault in
+    battlestar if you say "wear knfo" or similar nonsensical things. 
+    (Patch also sent upstream.) Closes: #70465
+
+ -- Joey Hess <joeyh@debian.org>  Mon, 28 Aug 2000 17:16:27 -0700
+
+bsdgames (2.11-1) unstable; urgency=low
+
+  * New upstream.
+
+ -- Joey Hess <joeyh@debian.org>  Wed, 19 Apr 2000 14:30:22 -0700
+
+bsdgames (2.10-3) unstable; urgency=low
+
+  * Modified asian capitals quiz with some corrections. Closes: #62078 
+
+ -- Joey Hess <joeyh@debian.org>  Sun,  9 Apr 2000 15:16:40 -0700
+
+bsdgames (2.10-2) unstable; urgency=low
+
+  * Fixed countmail man page, Closes: #61846 
+
+ -- Joey Hess <joeyh@debian.org>  Wed,  5 Apr 2000 13:42:58 -0700
+
+bsdgames (2.10-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Joey Hess <joeyh@debian.org>  Sat, 12 Feb 2000 16:35:11 -0800
+
+bsdgames (2.9-4) unstable; urgency=low
+
+  * Built with ncurses5, Closes: #55448
+
+ -- Joey Hess <joeyh@debian.org>  Fri, 21 Jan 2000 15:26:56 -0800
+
+bsdgames (2.9-3) unstable; urgency=low
+
+  * Download directory update.
+
+ -- Joey Hess <joeyh@debian.org>  Tue, 11 Jan 2000 15:53:35 -0800
+
+bsdgames (2.9-2) unstable; urgency=low
+
+  * Build deps. Boggle is now forced to always build with wgenlish as it's
+    word list, for consitency. Unfortunatly, it cannot use the currnetly
+    install word list because it hashes it at install time.
+
+ -- Joey Hess <joeyh@debian.org>  Sat,  4 Dec 1999 00:13:01 -0800
+
+bsdgames (2.9-1) unstable; urgency=low
+
+  * New upstream version.
+  * Patch from Malcolm to fix tetris-bsd score formatting if there are more
+    than 10 scores. (Closes: #50031)
+  * Include /var/games/bsdgames/sail, (Closes: #50074)
+  * Fixed robots spelling mistake, (Closes: #50075)
+  * tetris-bsd now uses its name, (Closes: #50077)
+  * Fixed phantasia/characs permissions so it's not world-readable
+    (passwords) (Closes: #50076)
+
+ -- Joey Hess <joeyh@debian.org>  Sat, 13 Nov 1999 14:14:34 -0800
+
+bsdgames (2.8-5) unstable; urgency=low
+
+  * Patch from Malcolm Parsons <malcolm@bits.bris.ac.uk> to fix robots -A
+    score problem. (Closes: #49894)
+  * Patch from Malcolm to fix robots so it asks if you want a new game after
+    each game. (Closes: #49897)
+
+ -- Joey Hess <joeyh@debian.org>  Thu, 11 Nov 1999 11:28:52 -0800
+
+bsdgames (2.8-4) unstable; urgency=low
+
+  * Fixed rot13 test suite to work before the package is installed. 
+    Closes: #48559
+
+ -- Joey Hess <joeyh@debian.org>  Thu, 28 Oct 1999 11:35:49 -0700
+
+bsdgames (2.8-3) unstable; urgency=low
+
+  * Patch from William Brioschi to make random work on alpha. Closes: #47903
+    (forwared upstream)
+
+ -- Joey Hess <joeyh@debian.org>  Sun, 24 Oct 1999 16:27:54 -0700
+
+bsdgames (2.8-2) unstable; urgency=low
+
+  * Corrected the capital of Monaco. (Closes: #46119)
+
+ -- Joey Hess <joeyh@debian.org>  Mon, 27 Sep 1999 12:53:20 -0700
+
+bsdgames (2.8-1) unstable; urgency=low
+
+  * New upstream release.
+  * Updated copyright based on the updated COPYING file
+  * RUn the regression tests at build time.
+
+ -- Joey Hess <joeyh@debian.org>  Sun, 26 Sep 1999 14:30:06 -0700
+
+bsdgames (2.7-3) unstable; urgency=low
+
+  * FHS. This involves moving to /var/games for all game data. Score files
+    are moved to there in the postinst now.
+  * Removed bashisms in debian/rules
+
+ -- Joey Hess <joeyh@debian.org>  Wed,  8 Sep 1999 17:02:12 -0700
+
+bsdgames (2.7-2) unstable; urgency=low
+
+  * Removed 2 patches I made that are no longer necessary.
+
+ -- Joey Hess <joeyh@debian.org>  Wed,  7 Apr 1999 14:53:52 -0700
+
+bsdgames (2.7-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Joey Hess <joeyh@debian.org>  Tue,  6 Apr 1999 23:50:51 -0700
+
+bsdgames (2.6-2) unstable; urgency=low
+
+  * Fixed backgammon to correctly calculate the game value, patch from
+    sjl@debian.lib.monash.edu.au (Stuart Lamble) (#35038)
+
+ -- Joey Hess <joeyh@debian.org>  Thu, 25 Mar 1999 13:33:07 -0800
+
+bsdgames (2.6-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Joey Hess <joeyh@debian.org>  Sun, 20 Dec 1998 00:24:18 -0500
+
+bsdgames (2.5-4) frozen unstable; urgency=low
+
+  * Commented out a bogus sprintf prototype in sail/sync.c, makes sail
+    not segfault on startup. (#30246).
+
+ -- Joey Hess <joeyh@debian.org>  Tue,  1 Dec 1998 12:52:14 -0800
+
+bsdgames (2.5-3) unstable; urgency=low
+
+  * Built with newest debhelper to change how sgid binaries are registered.
+
+ -- Joey Hess <joeyh@debian.org>  Tue, 27 Oct 1998 20:59:48 -0800
+
+bsdgames (2.5-2) unstable; urgency=low
+
+  * Removed bougs wordlist | wenglish dependancy.
+
+ -- Joey Hess <joeyh@debian.org>  Thu,  1 Oct 1998 12:59:53 -0700
+
+bsdgames (2.5-1) unstable; urgency=low
+
+  * New upstream release - boggle is now free.
+
+ -- Joey Hess <joeyh@debian.org>  Thu, 24 Sep 1998 17:17:32 -0700
+
+bsdgames (2.4-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Joey Hess <joeyh@debian.org>  Sat,  5 Sep 1998 15:49:53 -0700
+
+bsdgames (2.3-2) unstable; urgency=low
+
+  * Make NEWS be a symlink to the upstream changelog, so the file name is
+    preserved.
+
+ -- Joey Hess <joeyh@debian.org>  Thu, 20 Aug 1998 15:57:14 -0700
+
+bsdgames (2.3-1) unstable; urgency=low
+
+  * New upstream release, that fixes a file in /tmp security hole in sail
+    and also integrates many security fixes from OpenBSD intended to let the
+    games run sgid games.
+  * Given those fixes, I've re-enabled the sgid games bit on the games
+    that need it, and removed the README.Debian about this.
+  * Reworked how configure script is run, following the author's new docs in
+    PACKAGING.
+  * Applied patch from upstream to fix #25933, segfault in number if given a
+    negative value.
+  * Re-enabled bell in robots, it seems to work ok in an xterm now.
+
+ -- Joey Hess <joeyh@debian.org>  Wed, 19 Aug 1998 14:54:48 -0700
+
+bsdgames (2.1-8) unstable; urgency=low
+
+  * Use single = in postrm (#25512).
+
+ -- Joey Hess <joeyh@debian.org>  Fri,  7 Aug 1998 12:14:35 -0700
+
+bsdgames (2.1-7) unstable; urgency=low
+
+  * Fixed menu file so adventure will show up.
+
+ -- Joey Hess <joeyh@debian.org>  Wed,  5 Aug 1998 14:21:20 -0700
+
+bsdgames (2.1-6) unstable; urgency=low
+
+  * Once more rebuilt with newer ncurses lib to fix worm and mille
+    segfaults. Why is ncusrses doing this to me?  
+
+ -- Joey Hess <joeyh@debian.org>  Wed, 22 Jul 1998 20:22:01 -0700
+
+bsdgames (2.1-5) unstable; urgency=low
+
+  * Rebuilt with fakeroot to fix libtricks breakage.
+
+ -- Joey Hess <joeyh@debian.org>  Thu, 16 Jul 1998 11:03:20 -0700
+
+bsdgames (2.1-4) unstable; urgency=low
+
+  * Fixed minor spelling error in quiz/europe (#24586), reported by Branden
+    Robinson.
+
+ -- Joey Hess <joeyh@debian.org>  Tue, 14 Jul 1998 23:02:23 -0700
+
+bsdgames (2.1-3) frozen unstable; urgency=medium
+
+  * Reluctantly removed all sgid bits from all games in the package.
+    I have found at least 2 easy exploits of a sgid bit that get you sgid
+    games shells, and there are probably many more. See the TODO, which has
+    a security audit as it's first priority, but explains the difficulties
+    of one.
+  * Added a README.Debian exaplaining this in greater detail.
+
+ -- Joey Hess <joeyh@debian.org>  Thu, 18 Jun 1998 10:06:54 -0700
+
+bsdgames (2.1-2) frozen unstable; urgency=low
+
+  * Just rebuilt with newer ncurses lib to fix worm and mille segfaults. 
+
+ -- Joey Hess <joeyh@debian.org>  Sun,  7 Jun 1998 09:17:11 -0400
+
+bsdgames (2.1-1) frozen unstable; urgency=low
+
+  * New upstream bugfix release:
+    - adds man page for wargames to upstream source.
+    - uses .Bstar for battlestar save game file (a change I made long ago to
+      the debian version)
+    - changes to build process that don't affect us.
+    - bugfixes.
+
+ -- Joey Hess <joeyh@debian.org>  Mon, 30 Mar 1998 12:03:30 -0800
+
+bsdgames (2.0-4) unstable; urgency=low
+
+  * No high score files are conffiles now.
+  * For phantasia's "monsters" and "void" files, which cannot be simply
+    touched in the postinst, I now copy them over from
+    /usr/share/games/bsdgames/phantasia in the postinst, if they don't
+    already exist.
+
+ -- Joey Hess <joeyh@debian.org>  Tue, 10 Mar 1998 18:08:51 -0800
+
+bsdgames (2.0-3) unstable; urgency=low
+
+  * Added a man page for wargames. (Wow, never thought my movie guide book
+    would be useful in debian development!)
+
+ -- Joey Hess <joeyh@debian.org>  Sun, 22 Feb 1998 18:42:17 -0800
+
+bsdgames (2.0-2) unstable; urgency=low
+
+  * Updated standards-version.
+
+ -- Joey Hess <joeyh@debian.org>  Mon,  9 Feb 1998 15:09:56 -0800
+
+bsdgames (2.0-1) unstable; urgency=low
+
+  * New upstream release.
+  * Sail works again now, added back to package. Now all games are properly
+    working with libc6, at last.
+  * Removed hunt from the debian menu - for now, you need to manually run 
+    huntd, and then hunt.
+
+ -- Joey Hess <joeyh@debian.org>  Fri, 26 Dec 1997 13:34:34 -0500
+
+bsdgames (1.5-4) unstable; urgency=low
+
+  * Sparc fixes:
+    - Removed strcpy(), strncpy() prototypes.
+    - Modified snake/snake/move.c to not redefine raw().
+    - Modified worms.c to not redefine random.
+
+ -- Joey Hess <joeyh@debian.org>  Thu, 11 Dec 1997 12:10:17 -0500
+
+bsdgames (1.5-3) unstable; urgency=low
+
+  * Fixed adventure to work again, and added it back into the package.
+    Thanks, Culus!
+  * Moved screen savers into Screen/Save/Text menu.
+
+ -- Joey Hess <joeyh@debian.org>  Fri, 21 Nov 1997 16:22:14 -0500
+
+bsdgames (1.5-2) unstable; urgency=low
+
+  * Removed the factor program, which is also in shellutils (#14676).
+  * Modified primes.6 man page, so it only documents the primes program
+    (used to document factor and primes).
+  * Install factor.6 as primes.6, instead of making a symlink.
+  * Use debhelper.
+
+ -- Joey Hess <joeyh@debian.org>  Sun,  9 Nov 1997 14:13:05 -0500
+
+bsdgames (1.5-1) unstable; urgency=low
+
+  * New upstream release.
+    - new games: adventure, phantasia, pig, quiz, random.
+    - updated other games to new versions.
+  * Libc6 at last.
+    - however, adventure and sail are currently broken under libc6, 
+      and not included in the binary package.
+  * Changed how the configure script is run during building, new method
+    is more robust.
+  * Fixed menu file entry for go fish to pause after end of game so the user
+    can see who won.
+  * Make tetris-bsd score file a conffile.
+  * Use pristine upstream source.
+
+ -- Joey Hess <joeyh@debian.org>  Sat, 19 Jul 1997 12:25:03 -0400
+
+bsdgames (1.4-1) unstable; urgency=low
+
+  * New upstream release, incorporates many of the changes I made for
+    debian.
+  * No longer have to delete bog and paranioa out of the upstream source,
+    they have been split out into a bsdgames-nonfree package.
+  * Tetris is now part of the upstream source, no need for tetris.shar.
+  * /usr/games/tetris renamed to /usr/games/tetris-bsd
+  * /usr/share used for arch-independant data.
+  * Reccommends: wordlist | wenglish; closes #8487
+
+ -- Joey Hess <joeyh@debian.org>  Thu, 1 May 1997 23:07:46 -0400
+
+bsdgames (1.3-8) unstable; urgency=low
+
+  * Removed fortune from descrition, as fortune is not included in this
+    package (#9168).
+  * Converted menufile to menu-1 format.
+
+ -- Joey Hess <joeyh@debian.org>  Mon, 28 Apr 1997 13:25:24 -0400
+
+bsdgames (1.3-7) frozen unstable; urgency=low
+
+  * Fixed problem with including tetris in the source package. Tetris is now
+    included as a shar archive.
+
+ -- Joey Hess <joeyh@debian.org>  Wed, 16 Apr 1997 18:39:31 -0400
+
+bsdgames (1.3-6) frozen unstable; urgency=low
+
+  * Fixed segfault in backgammon if any command line options were given.
+  * Use backgammon -pb in the debian menu file.
+
+ -- Joey Hess <joeyh@debian.org>  Tue, 15 Apr 1997 14:27:04 -0400
+
+bsdgames (1.3-5) frozen unstable; urgency=low
+
+  * Hacked around in mille to fix bug #8556.
+
+ -- Joey Hess <joeyh@debian.org>  Tue, 8 Apr 1997 20:03:23 -0400
+
+bsdgames (1.3-4) unstable; urgency=low
+
+  * Fixed sparse files problem (#8488) -- the package should install in much
+    less space now.
+  * Routine update of debian/rules:
+    Run dpkg-gencontrol after debstd, and delete substvars during clean.
+
+ -- Joey Hess <joeyh@debian.org>  Fri, 4 Apr 1997 19:48:12 -0500
+
+bsdgames (1.3-3) unstable; urgency=low
+
+  * Fixed problems in source package:
+    * Removed binaries in hangman directory.
+    * dpkg-source -x would not work with version 1.3-2. Fixed this.
+  * Corrected typo in hangman's man page.
+
+ -- Joey Hess <joeyh@debian.org>  Wed, 26 Mar 1997 14:02:24 -0500
+
+bsdgames (1.3-2) unstable; urgency=low
+
+  * robots: if player cannot move, don't print junk characters in xterm when
+    trying to beep.
+  * Routine update of debian/rules:
+    Run dpkg-gencontrol after debstd, and delete substvars during clean.
+  * Added tetris, thanks to David Frey <david@eos.lugs.ch>.
+
+ -- Joey Hess <joeyh@debian.org>  Sun, 23 Mar 1997 18:05:41 -0500
+
+bsdgames (1.3-1) unstable; urgency=low
+
+  * First release.
+  * Link with -ncurses instead of -termcap.
+  * "rm -r bog paranioa" to remove them from the source package. Their
+    copyright doesn't let them be in debian.
+  * Many changes to get it all to compile.
+  * More changes for debian packaging; moved score files into /var, made
+    some programs sgid games so they could write to score files, etc.
+  * Fixed up man pages.
+  * battlestar: renamed save file to ~/.Bstar
+  * cribbage: display help properly even if PAGER is not set to an absolute
+    pathname of the pager.
+  * snscore: don't segfault if the score file is empty.
+  * snscore: don't give "too many players" error.
+
+ -- Joey Hess <joeyh@debian.org>  Thu, 20 Mar 1997 23:31:16 -0500

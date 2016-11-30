@@ -1,0 +1,170 @@
+#!/bin/sh
+# pom.test - test functionality of pom.
+#
+# Copyright (c) 1999, 2004 Joseph Samuel Myers.
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+# 1. Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+# 3. The name of the author may not be used to endorse or promote products
+#    derived from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+# IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+# OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+# IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+# INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+# BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+# AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+# OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+# OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+# SUCH DAMAGE.
+
+set -e
+
+. tests/common
+
+testexec pom pom/pom
+
+export TZ=UTC0
+
+# Should add dates from years before 1998.
+
+# Test dates from Astronomical Almanac 1998, rounded to nearest hour.
+# We should also test the fraction illuminated given by the program,
+# but the Astronomical Almanac 1998 only gives these figures to 2
+# decimal places (like pom) so I don't know which are border cases and
+# which are good tests.
+
+testno 1
+pom/pom 1998010514 >test.out 2>&1 || failtest
+compare test.out tests/pom.1998fq1
+rm -f test.out
+
+testno 2
+pom/pom 1998011217 >test.out 2>&1 || failtest
+compare test.out tests/pom.1998fm1
+rm -f test.out
+
+testno 3
+pom/pom 1998012020 >test.out 2>&1 || failtest
+compare test.out tests/pom.1998lq1
+rm -f test.out
+
+testno 4
+pom/pom 1998012806 >test.out 2>&1 || failtest
+compare test.out tests/pom.1998nm1
+rm -f test.out
+
+testno 5
+pom/pom 1998102010 >test.out 2>&1 || failtest
+compare test.out tests/pom.1998nm2
+rm -f test.out
+
+testno 6
+pom/pom 1998102812 >test.out 2>&1 || failtest
+compare test.out tests/pom.1998fq2
+rm -f test.out
+
+testno 7
+pom/pom 1998110405 >test.out 2>&1 || failtest
+compare test.out tests/pom.1998fm2
+rm -f test.out
+
+testno 8
+pom/pom 1998111100 >test.out 2>&1 || failtest
+compare test.out tests/pom.1998lq2
+rm -f test.out
+
+# Test dates from Astronomical Almanac 2003, rounded to nearest hour,
+# and fractions of illumination at the start of the day.
+
+testno 9
+pom/pom 2003010220 >test.out 2>&1 || failtest
+compare test.out tests/pom.2003nm1
+rm -f test.out
+
+testno 10
+pom/pom 2003011013 >test.out 2>&1 || failtest
+compare test.out tests/pom.2003fq1
+rm -f test.out
+
+testno 11
+pom/pom 2003011811 >test.out 2>&1 || failtest
+compare test.out tests/pom.2003fm1
+rm -f test.out
+
+testno 12
+pom/pom 2003012509 >test.out 2>&1 || failtest
+compare test.out tests/pom.2003lq1
+rm -f test.out
+
+testno 13
+pom/pom 2003112323 >test.out 2>&1 || failtest
+compare test.out tests/pom.2003nm2
+rm -f test.out
+
+testno 14
+pom/pom 2003113017 >test.out 2>&1 || failtest
+compare test.out tests/pom.2003fq2
+rm -f test.out
+
+testno 15
+pom/pom 2003120821 >test.out 2>&1 || failtest
+compare test.out tests/pom.2003fm2
+rm -f test.out
+
+testno 16
+pom/pom 2003121618 >test.out 2>&1 || failtest
+compare test.out tests/pom.2003lq2
+rm -f test.out
+
+testno 17
+pom/pom 2003010200 >test.out 2>&1 || failtest
+compare test.out tests/pom.2003ph1
+rm -f test.out
+
+testno 18
+pom/pom 2003010600 >test.out 2>&1 || failtest
+compare test.out tests/pom.2003ph2
+rm -f test.out
+
+testno 19
+pom/pom 2003011100 >test.out 2>&1 || failtest
+compare test.out tests/pom.2003ph3
+rm -f test.out
+
+testno 20
+pom/pom 2003012200 >test.out 2>&1 || failtest
+compare test.out tests/pom.2003ph4
+rm -f test.out
+
+testno 21
+pom/pom 2003090100 >test.out 2>&1 || failtest
+compare test.out tests/pom.2003ph5
+rm -f test.out
+
+testno 22
+pom/pom 2003090700 >test.out 2>&1 || failtest
+compare test.out tests/pom.2003ph6
+rm -f test.out
+
+testno 23
+pom/pom 2003091500 >test.out 2>&1 || failtest
+compare test.out tests/pom.2003ph7
+rm -f test.out
+
+testno 24
+pom/pom 2003092200 >test.out 2>&1 || failtest
+compare test.out tests/pom.2003ph8
+rm -f test.out
+
+# Note that the output of pom differs for dates in the past and the
+# future, so future dates are not good tests.

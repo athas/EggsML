@@ -1,0 +1,220 @@
+From: Tobias Quathamer <toddy@debian.org>
+Date: Thu, 16 Feb 2012 11:26:00 +0100
+Subject: Replace getline() with get_line()
+
+---
+ boggle/boggle/bog.c    |    2 +-
+ boggle/boggle/extern.h |    2 +-
+ boggle/boggle/mach.c   |    2 +-
+ cribbage/crib.c        |    4 ++--
+ cribbage/cribbage.h    |    2 +-
+ cribbage/io.c          |    8 ++++----
+ gomoku/bdisp.c         |    2 +-
+ gomoku/gomoku.h        |    2 +-
+ gomoku/main.c          |   14 +++++++-------
+ 9 files changed, 19 insertions(+), 19 deletions(-)
+
+diff --git a/boggle/boggle/bog.c b/boggle/boggle/bog.c
+index 276969b..0aaa086 100644
+--- a/boggle/boggle/bog.c
++++ b/boggle/boggle/bog.c
+@@ -336,7 +336,7 @@ playgame()
+ 	}
+ 
+ 	while (1) {
+-		if (getline(buf) == NULL) {
++		if (get_line(buf) == NULL) {
+ 			if (feof(stdin))
+ 				clearerr(stdin);
+ 			break;
+diff --git a/boggle/boggle/extern.h b/boggle/boggle/extern.h
+index ba36561..734a4b9 100644
+--- a/boggle/boggle/extern.h
++++ b/boggle/boggle/extern.h
+@@ -43,7 +43,7 @@ void	 delay(int);
+ long	 dictseek(FILE *, long, int);
+ void	 findword(void);
+ void	 flushin(FILE *);
+-char	*getline(char *);
++char	*get_line(char *);
+ void	 getword(char *);
+ int	 help(void);
+ int	 inputch(void);
+diff --git a/boggle/boggle/mach.c b/boggle/boggle/mach.c
+index b511296..dd89578 100644
+--- a/boggle/boggle/mach.c
++++ b/boggle/boggle/mach.c
+@@ -168,7 +168,7 @@ prwidth(base, indx)
+  * - doesn't accept words longer than MAXWORDLEN or containing caps
+  */
+ char *
+-getline(q)
++get_line(q)
+ 	char *q;
+ {
+ 	int ch, done;
+diff --git a/cribbage/crib.c b/cribbage/crib.c
+index 5fc53b3..9340126 100644
+--- a/cribbage/crib.c
++++ b/cribbage/crib.c
+@@ -221,7 +221,7 @@ game()
+ 			if (!rflag) {			/* player cuts deck */
+ 				msg(quiet ? "Cut for crib? " :
+ 			    "Cut to see whose crib it is -- low card wins? ");
+-				getline();
++				get_line();
+ 			}
+ 			i = (rand() >> 4) % CARDS;	/* random cut */
+ 			do {	/* comp cuts deck */
+@@ -397,7 +397,7 @@ cut(mycrib, pos)
+ 		if (!rflag) {	/* random cut */
+ 			msg(quiet ? "Cut the deck? " :
+ 		    "How many cards down do you wish to cut the deck? ");
+-			getline();
++			get_line();
+ 		}
+ 		i = (rand() >> 4) % (CARDS - pos);
+ 		turnover = deck[i + pos];
+diff --git a/cribbage/cribbage.h b/cribbage/cribbage.h
+index ce2eecb..3187457 100644
+--- a/cribbage/cribbage.h
++++ b/cribbage/cribbage.h
+@@ -77,7 +77,7 @@ int	 eq(CARD, CARD);
+ int	 fifteens(const CARD [], int);
+ void	 game(void);
+ void	 gamescore(void);
+-char	*getline(void);
++char	*get_line(void);
+ int	 getuchar(void);
+ int	 incard(CARD *);
+ int	 infrom(const CARD [], int, const char *);
+diff --git a/cribbage/io.c b/cribbage/io.c
+index 3d69257..8100ddd 100644
+--- a/cribbage/io.c
++++ b/cribbage/io.c
+@@ -245,7 +245,7 @@ incard(crd)
+ 
+ 	retval = FALSE;
+ 	rnk = sut = EMPTY;
+-	if (!(line = getline()))
++	if (!(line = get_line()))
+ 		goto gotit;
+ 	p = p1 = line;
+ 	while (*p1 != ' ' && *p1 != '\0')
+@@ -346,7 +346,7 @@ number(lo, hi, prompt)
+ 
+ 	for (sum = 0;;) {
+ 		msg(prompt);
+-		if (!(p = getline()) || *p == '\0') {
++		if (!(p = get_line()) || *p == '\0') {
+ 			msg(quiet ? "Not a number" :
+ 			    "That doesn't look like a number");
+ 			continue;
+@@ -528,12 +528,12 @@ over:
+ }
+ 
+ /*
+- * getline:
++ * get_line:
+  *      Reads the next line up to '\n' or EOF.  Multiple spaces are
+  *	compressed to one space; a space is inserted before a ','
+  */
+ char *
+-getline()
++get_line()
+ {
+ 	char *sp;
+ 	int c, oy, ox;
+diff --git a/gomoku/bdisp.c b/gomoku/bdisp.c
+index 522d92f..d2de746 100644
+--- a/gomoku/bdisp.c
++++ b/gomoku/bdisp.c
+@@ -241,7 +241,7 @@ ask(str)
+ }
+ 
+ int
+-getline(buf, size)
++get_line(buf, size)
+ 	char *buf;
+ 	int size;
+ {
+diff --git a/gomoku/gomoku.h b/gomoku/gomoku.h
+index 0d9ff6e..3ebb42e 100644
+--- a/gomoku/gomoku.h
++++ b/gomoku/gomoku.h
+@@ -263,7 +263,7 @@ extern	int	debug;
+ 
+ void	bdinit(struct spotstr *);
+ void	init_overlap(void);
+-int	getline(char *, int);
++int	get_line(char *, int);
+ void	ask(const char *);
+ void	dislog(const char *);
+ void	bdump(FILE *);
+diff --git a/gomoku/main.c b/gomoku/main.c
+index 299dee1..3ff4750 100644
+--- a/gomoku/main.c
++++ b/gomoku/main.c
+@@ -155,7 +155,7 @@ again:
+ 		if (inputfp == NULL && test == 0) {
+ 			for (;;) {
+ 				ask("black or white? ");
+-				getline(buf, sizeof(buf));
++				get_line(buf, sizeof(buf));
+ 				if (buf[0] == 'b' || buf[0] == 'B') {
+ 					color = BLACK;
+ 					break;
+@@ -172,7 +172,7 @@ again:
+ 		}
+ 	} else {
+ 		setbuf(stdout, 0);
+-		getline(buf, sizeof(buf));
++		get_line(buf, sizeof(buf));
+ 		if (strcmp(buf, "black") == 0)
+ 			color = BLACK;
+ 		else if (strcmp(buf, "white") == 0)
+@@ -244,7 +244,7 @@ again:
+ 		getinput:
+ 			if (interactive)
+ 				ask("move? ");
+-			if (!getline(buf, sizeof(buf))) {
++			if (!get_line(buf, sizeof(buf))) {
+ 				curmove = RESIGN;
+ 				break;
+ 			}
+@@ -256,7 +256,7 @@ again:
+ 					FILE *fp;
+ 
+ 					ask("save file name? ");
+-					(void)getline(buf, sizeof(buf));
++					(void)get_line(buf, sizeof(buf));
+ 					if ((fp = fopen(buf, "w")) == NULL) {
+ 						glog("cannot create save file");
+ 						goto getinput;
+@@ -309,14 +309,14 @@ again:
+ 		if (i != RESIGN) {
+ 		replay:
+ 			ask("replay? ");
+-			if (getline(buf, sizeof(buf)) &&
++			if (get_line(buf, sizeof(buf)) &&
+ 			    (buf[0] == 'y' || buf[0] == 'Y'))
+ 				goto again;
+ 			if (strcmp(buf, "save") == 0) {
+ 				FILE *fp;
+ 
+ 				ask("save file name? ");
+-				(void)getline(buf, sizeof(buf));
++				(void)get_line(buf, sizeof(buf));
+ 				if ((fp = fopen(buf, "w")) == NULL) {
+ 					glog("cannot create save file");
+ 					goto replay;
+@@ -367,7 +367,7 @@ whatsup(signum)
+ 		quit();
+ top:
+ 	ask("cmd? ");
+-	if (!getline(fmtbuf, sizeof(fmtbuf)))
++	if (!get_line(fmtbuf, sizeof(fmtbuf)))
+ 		quit();
+ 	switch (*fmtbuf) {
+ 	case '\0':
+-- 

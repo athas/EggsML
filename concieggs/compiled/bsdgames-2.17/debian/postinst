@@ -1,0 +1,106 @@
+#!/bin/sh
+# Post-install script for ‘bsdgames’ package.
+#
+# Man page: ‘dh_installdeb(1)’
+
+set -e
+
+# Summary of ways this script can be called:
+#   * <postinst> ‘configure’ <most-recently-configured-version>
+#   * <old-postinst> ‘abort-upgrade’ <new version>
+#   * <conflictor-postinst> ‘abort-remove’
+#     ‘in-favour’ <package> <new-version>
+#   * <deconfigured-postinst> ‘abort-deconfigure’
+#     ‘in-favour’ <failed-install-package> <version>
+#     ‘removing’ <conflicting-package> <version>
+# For details, see <URL:http://www.debian.org/doc/debian-policy/> or
+# the ‘debian-policy’ package.
+
+action="$1"
+
+SCOREFILES="
+	/var/games/bsdgames/atc_score
+	/var/games/bsdgames/battlestar.log
+	/var/games/bsdgames/cfscores
+	/var/games/bsdgames/criblog
+	/var/games/bsdgames/robots_roll
+	/var/games/bsdgames/saillog
+	/var/games/bsdgames/snake.log
+	/var/games/bsdgames/snakerawscores
+	/var/games/bsdgames/tetris-bsd.scores
+	/var/games/bsdgames/phantasia/characs
+	/var/games/bsdgames/phantasia/gold
+	/var/games/bsdgames/phantasia/lastdead
+	/var/games/bsdgames/phantasia/mess
+	/var/games/bsdgames/phantasia/motd
+	/var/games/bsdgames/phantasia/scoreboard
+	/var/games/bsdgames/phantasia/void
+	/var/games/bsdgames/phantasia/monsters
+	/var/games/bsdgames/hack/perm
+	/var/games/bsdgames/hack/record"
+
+# Hack moved over from bsdgames-nonfree.
+if [ -d /var/games/bsdgames-nonfree ]; then
+	for file in perm record; do
+		if [ -e /var/games/bsdgames-nonfree/hack/$file ]; then
+			mv -f /var/games/bsdgames-nonfree/hack/$file \
+				/var/games/bsdgames/hack/$file
+		fi
+	done
+	cp -a -f /var/games/bsdgames-nonfree/hack/save/* \
+		/var/games/bsdgames/hack/save/ 2>/dev/null || true
+	rm -f /var/games/bsdgames-nonfree/hack/save/* 2>/dev/null || true
+	rmdir -p /var/games/bsdgames-nonfree/hack/save 2>/dev/null || true
+fi
+	
+# These files cannot just be zero-byte files:
+if [ ! -e /var/games/bsdgames/phantasia/void ]; then
+	cp /usr/share/games/bsdgames/phantasia/void \
+		/var/games/bsdgames/phantasia/void
+fi
+if [ ! -e /var/games/bsdgames/phantasia/monsters ] ; then
+	cp /usr/share/games/bsdgames/phantasia/monsters \
+		/var/games/bsdgames/phantasia/monsters
+fi
+
+touch $SCOREFILES
+chown root:games $SCOREFILES
+chmod 664 $SCOREFILES
+
+# These files may not be world-readable as they have passwords
+# in them.
+chmod 660 /var/games/bsdgames/phantasia/characs
+
+ADVENTURE_PRIORITY=50
+
+case "$action" in
+
+    configure)
+        update-alternatives --install \
+                /usr/games/adventure adventure \
+                /usr/games/bsdgames-adventure $ADVENTURE_PRIORITY \
+                --slave \
+                    /usr/share/man/man6/adventure.6.gz adventure.6.gz \
+                    /usr/share/man/man6/bsdgames-adventure.6.gz
+        ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+        ;;
+
+    *)
+        printf "postinst called with unknown action ‘%s’\n" "$action" >&2
+        exit 1
+        ;;
+
+esac
+
+
+# I have to make this directory here, because older version of this package
+# always deleted it in their postrm. Oops.
+mkdir -p /var/games/bsdgames/sail
+chown root:games /var/games/bsdgames/sail
+chmod g+rws /var/games/bsdgames/sail
+
+#DEBHELPER#
+
+exit 0

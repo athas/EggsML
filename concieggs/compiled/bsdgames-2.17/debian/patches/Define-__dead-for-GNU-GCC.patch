@@ -1,0 +1,21 @@
+From: Tobias Quathamer <toddy@debian.org>
+Date: Thu, 16 Feb 2012 11:26:51 +0100
+Subject: Define __dead for GNU GCC
+
+---
+ include/sys/cdefs.h |    4 ++++
+ 1 files changed, 4 insertions(+), 0 deletions(-)
+
+diff --git a/include/sys/cdefs.h b/include/sys/cdefs.h
+index 138eaa8..f6e87c2 100644
+--- a/include/sys/cdefs.h
++++ b/include/sys/cdefs.h
+@@ -40,3 +40,7 @@
+ #ifndef __COPYRIGHT
+ #define __COPYRIGHT(arg)	static const char copyright[] __attribute__((__unused__)) = arg
+ #endif
++
++#ifndef __dead
++#define	__dead	__attribute__((__noreturn__))
++#endif
+-- 

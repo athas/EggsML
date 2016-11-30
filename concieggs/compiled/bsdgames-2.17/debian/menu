@@ -1,0 +1,51 @@
+?package(bsdgames):needs="text" section="Applications/Education" \
+	title="Arithmetic Quiz" command="sh -c 'arithmetic;echo PRESS ENTER;read line'"
+?package(bsdgames):needs="text" section="Games/Strategy" \
+	title="Air Traffic Controller" \
+	command="sh -c 'atc ; echo;echo PRESS ENTER;read line'"
+?package(bsdgames):needs="text" section="Games/Adventure" \
+	title="Battlestar" command="sh -c 'battlestar;echo PRESS ENTER;read line'"
+?package(bsdgames):needs="text" section="Games/Adventure" \
+	title="Hack" command="hack"
+?package(bsdgames):needs="text" section="Games/Card" \
+	title="Canfield" command="canfield"
+?package(bsdgames):needs="text" section="Games/Card" \
+	title="Cribbage" command="cribbage"
+?package(bsdgames):needs="text" section="Games/Card" \
+	title="Go Fish" \
+	command="sh -c 'go-fish;echo;echo PRESS ENTER;read line'"
+?package(bsdgames):needs="text" section="Games/Card" \
+	title="Mille Bornes" command="mille"
+?package(bsdgames):needs="text" section="Games/Board" \
+	title="Monopoly" command="monop"
+?package(bsdgames):needs="text" section="Games/Board" hints="Backgammon" \
+	title="Backgammon" command="backgammon -pb"
+?package(bsdgames):needs="text" section="Games/Toys" \
+	title="Rain" command="rain"
+?package(bsdgames):needs="text" section="Games/Action" \
+	title="Robots" command="robots"
+?package(bsdgames):needs="text" section="Games/Strategy" \
+	title="Sail" command="sail"
+?package(bsdgames):needs="text" section="Games/Action" \
+	title="Snake" command="sh -c 'snake;echo PRESS ENTER;read line'"
+?package(bsdgames):needs="text" section="Games/Action" \
+	title="Star Trek" command="trek"
+?package(bsdgames):needs="text" section="Games/Action" \
+	title="Worm" command="sh -c 'worm;echo PRESS ENTER;read line'"
+?package(bsdgames):needs="text" section="Games/Toys" \
+	title="Worms" command="worms"
+?package(bsdgames):needs="text" section="Games/Adventure" \
+	title="Hunt the Wumpus" command="wump"
+?package(bsdgames):needs="text" section="Games/Blocks" \
+	title="Bsd Tetris" \
+	command="sh -c 'tetris-bsd;echo;echo PRESS ENTER;read line'"
+?package(bsdgames):needs="text" section="Games/Board" hints="Go" \
+	title="Gomoku" command="gomoku"
+?package(bsdgames):needs="text" section="Games/Adventure" \
+	title="Phantasia" command="phantasia"
+?package(bsdgames):needs="text" section="Games/Adventure" \
+	title="BSD-Games Adventure" command="bsdgames-adventure"
+?package(bsdgames):needs="text" section="Games/Puzzles" \
+	title="Hangman" command="hangman"
+?package(bsdgames):needs="text" section="Games/Puzzles" \
+        title="Boggle" command="boggle"

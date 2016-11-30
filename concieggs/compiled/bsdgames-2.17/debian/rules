@@ -1,0 +1,73 @@
+#!/usr/bin/make -f
+
+# Use all hardening features
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	# Set up wordlist
+	cat /usr/share/dict/american-english /usr/share/dict/british-english | \
+		sort | uniq > temp-dictionary
+	dh_auto_build
+
+override_dh_installdocs:
+	dh_installdocs
+	cp atc/BUGS debian/bsdgames/usr/share/doc/bsdgames/BUGS.atc
+	cp hunt/README debian/bsdgames/usr/share/doc/bsdgames/README.hunt
+	cp phantasia/README debian/bsdgames/usr/share/doc/bsdgames/README.phantasia
+	cp boggle/README debian/bsdgames/usr/share/doc/bsdgames/README.boggle
+	cp hack/Original_READ_ME debian/bsdgames/usr/share/doc/bsdgames/Original_READ_ME.hack
+	cp hack/READ_ME debian/bsdgames/usr/share/doc/bsdgames/READ_ME.hack
+	# Move phantasia's binary state files into /usr, they are copied
+	# back to /var in the postinst.
+	mv debian/bsdgames/var/games/bsdgames/phantasia/monsters \
+	   debian/bsdgames/var/games/bsdgames/phantasia/void \
+	   debian/bsdgames/usr/share/games/bsdgames/phantasia/
+	cat COPYING >> debian/bsdgames/usr/share/doc/bsdgames/copyright
+
+override_dh_install:
+	dh_install
+	# Rename adventure to bsdgames-adventure to support the Debian
+	# update-alternatives system. See bug #802422.
+	mv debian/bsdgames/usr/games/adventure debian/bsdgames/usr/games/bsdgames-adventure
+	mv debian/bsdgames/usr/share/man/man6/adventure.6 debian/bsdgames/usr/share/man/man6/bsdgames-adventure.6
+
+override_dh_fixperms:
+	dh_fixperms
+	chmod -R u+rw debian/bsdgames/usr/
+	# Games with score files need to be set up sgid games.
+	chown root:games debian/bsdgames/usr/games/atc \
+		debian/bsdgames/usr/games/battlestar \
+		debian/bsdgames/usr/games/canfield \
+		debian/bsdgames/usr/games/cribbage \
+		debian/bsdgames/usr/games/robots \
+		debian/bsdgames/usr/games/snake \
+		debian/bsdgames/usr/games/tetris-bsd \
+		debian/bsdgames/usr/games/phantasia \
+		debian/bsdgames/usr/games/sail \
+		debian/bsdgames/usr/games/hack
+	chmod g+s debian/bsdgames/usr/games/atc \
+		debian/bsdgames/usr/games/battlestar \
+		debian/bsdgames/usr/games/canfield \
+		debian/bsdgames/usr/games/cribbage \
+		debian/bsdgames/usr/games/robots \
+		debian/bsdgames/usr/games/snake \
+		debian/bsdgames/usr/games/tetris-bsd \
+		debian/bsdgames/usr/games/phantasia \
+		debian/bsdgames/usr/games/sail \
+		debian/bsdgames/usr/games/hack
+	# The game directories need to be sgid too, and let's
+	# remove all the zero byte score files in them.
+	chown root:games debian/bsdgames/var/games/bsdgames/ \
+		debian/bsdgames/var/games/bsdgames/sail \
+		debian/bsdgames/var/games/bsdgames/phantasia \
+		debian/bsdgames/var/games/bsdgames/hack \
+		debian/bsdgames/var/games/bsdgames/hack/save
+	chmod g+rws debian/bsdgames/var/games/bsdgames/ \
+		debian/bsdgames/var/games/bsdgames/sail \
+		debian/bsdgames/var/games/bsdgames/phantasia \
+		debian/bsdgames/var/games/bsdgames/hack \
+		debian/bsdgames/var/games/bsdgames/hack/save
+	find debian/bsdgames/var/games/bsdgames -size 0 -exec rm {} \;

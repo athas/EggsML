@@ -1,0 +1,47 @@
+From: Peter Pentchev <roam@ringlet.net>
+Date: Thu, 16 Feb 2012 22:37:50 +0100
+Subject: hangman: Error out on 1000 unsuitable words. Closes: #610270
+
+---
+ hangman/getword.c |   18 +++++++++++++++++-
+ 1 files changed, 17 insertions(+), 1 deletions(-)
+
+diff --git a/hangman/getword.c b/hangman/getword.c
+index 1b5396a..dc42a53 100644
+--- a/hangman/getword.c
++++ b/hangman/getword.c
+@@ -50,8 +50,10 @@ getword()
+ 	FILE *inf;
+ 	char *wp, *gp;
+ 	long pos;
++	int tries;
+ 
+ 	inf = Dict;
++	tries = 0;
+ 	for (;;) {
+ 		pos = (double) rand() / (RAND_MAX + 1.0) * (double) Dict_size;
+ 		fseek(inf, pos, SEEK_SET);
+@@ -66,7 +68,21 @@ getword()
+ 			if (!islower((unsigned char)*wp))
+ 				goto cont;
+ 		break;
+-cont:		;
++cont:
++		if (++tries >= 1000) {
++			move(MESGY, MESGX);
++			deleteln();
++			deleteln();
++			deleteln();
++			move(MESGY, MESGX);
++			printw("No suitable word found, try using "
++			    "another dictionary!");
++			leaveok(stdscr, FALSE);
++			refresh();
++			readch();
++			leaveok(stdscr, TRUE);
++			die(0);
++		}
+ 	}
+ 	gp = Known;
+ 	wp = Word;
+-- 

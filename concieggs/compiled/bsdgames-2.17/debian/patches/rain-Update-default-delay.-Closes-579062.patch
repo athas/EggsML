@@ -1,0 +1,35 @@
+From: Tobias Quathamer <toddy@debian.org>
+Date: Thu, 16 Feb 2012 11:26:53 +0100
+Subject: rain: Update default delay. Closes: #579062
+
+---
+ rain/rain.6 |    2 +-
+ rain/rain.c |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/rain/rain.6 b/rain/rain.6
+index 9fb0f0e..c6515e9 100644
+--- a/rain/rain.6
++++ b/rain/rain.6
+@@ -49,6 +49,6 @@ baud or the
+ .Fl d
+ option must be used to specify a delay, in milliseconds, between each
+ update.
+-A reasonable delay is 120; the default is 0.
++The default delay is 120.
+ .Sh AUTHOR
+ .An Eric P. Scott
+diff --git a/rain/rain.c b/rain/rain.c
+index e388f46..63e6276 100644
+--- a/rain/rain.c
++++ b/rain/rain.c
+@@ -70,7 +70,7 @@ main(int argc, char **argv)
+ {
+ 	int x, y, j;
+ 	long cols, lines;
+-	unsigned int delay = 0;
++	unsigned int delay = 120;
+ 	unsigned long val = 0;
+ 	int ch;
+ 	char *ep;
+-- 

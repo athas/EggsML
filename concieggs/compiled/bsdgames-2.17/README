@@ -1,0 +1,139 @@
+README for bsd-games
+====================
+
+This is the bsd-games package for Linux (and GNU Hurd), containing
+ports of all the games from NetBSD-current that are free in the usual
+(DFSG/OSD) sense (i.e. modified and unmodified versions can be freely
+distributed, including for profit).  NetBSD-current contains two other
+games, rogue and larn.  Rogue has a standard BSD licence, but with an
+additional contradictory licence that does not allow for-profit
+distribution; larn has no licence at all, only a notice that "Copying
+for Profit is Prohibited".  If you want rogue, get the
+bsd-games-non-free package (which should be on sunsite, but not
+tsx-11), and read the README.non-free that it contains: rogue is being
+distributed separately, and larn not distributed at all in this Linux
+port, in the absence of definite confirmation of what licences really
+apply to rogue and larn.  A game not from NetBSD, paranoia, was in
+earlier versions of bsd-games-non-free (and bsd-games 1.2 and 1.3) but
+has been removed because of the lack of a clear licence.
+
+The games are mostly not enhanced from the NetBSD versions, but many
+bugs are fixed.
+
+For installation instructions and details of prerequisites, see the
+file "INSTALL".
+
+The statement of year 2000 issues associated with bsd-games and
+bsd-games-non-free is in the file "YEAR2000".
+
+The copyrights and licence terms for the games, as best as I can
+determine them, are in "COPYING".
+
+This package contains cryptographic software (caesar and rot13).  In
+some jurisdictions, use or distribution of these utilities may be
+restricted, whether under export control regulations or because these
+cryptosystems have been used as technical protection measures to
+restrict access to and copying of copyright works.
+
+This package contains the following games:
+
+adventure:	the original adventure by Crowther and Woods
+arithmetic:	arithmetic quiz/speed test
+atc:		air traffic control
+backgammon:	backgammon
+banner:		display a message in big letters
+battlestar:	adventure game on a battlestar
+bcd:		outputs text in an antique form
+boggle:		boggle
+caesar:		reads fortunes from the game fortune, also some internet posts
+canfield:	curses-based solitaire
+countmail:	tell you how much new mail you have
+cribbage:	cribbage
+dab:		dots and boxes
+dm:		dungeon master, regulates games playing
+factor:		factor a number
+fish:		go fish
+fortune:	displays a random silly message
+gomoku:		gomoku
+hack:		exploring the Dungeons of Doom
+hangman:	guess the word before it is too late
+hunt:		hunt each other in a maze (multiplayer -- great)
+mille:		mille borne against the computer
+monop:		monopoly
+morse:		output morse code
+number:		output the English text for a number
+phantasia:	interterminal fantasy game
+pig:		output text in Pig Latin
+pom:		display the phase of the moon
+ppt:		outputs text in another antique form
+primes:		generate primes
+quiz:		random knowledge tests
+rain:		attempts to create a rain drop effect (best at 9600 baud)
+random:		random lines from a file or random numbers
+robots:		well... avoid the robots
+sail:		sail your ship into battle
+snake:		grab the cash and avoid the snake and exit
+tetris:		tetris
+trek:		We come in peace, shoot to kill.  It's worse than that, he's
+		dead Jim.  Ye cannot change the laws of physics.  It's life
+		Jim, but not as we know it.  There's Klingons on the starboard
+		bow ...
+wargames:	would you like to play a game?
+worm:		eat the numbers without running into anything
+worms:		random worms scurrying across your screen
+wtf:		translate acronyms, e.g. "wtf is WTF"
+wump:		hunt the wumpus
+
+If you have questions about bsd-games or bsd-games-non-free you can
+contact me at <jsm@polyomino.org.uk>.  Bug reports should state the
+versions of ncurses and libc used, unless clearly not relevant (e.g.,
+bugs in data files, or where you have an analysis and patch).  If you
+want to be informed by email of new releases when they come out,
+please let me know.
+
+Known bugs are listed in the file BUGS; please do not send bug reports
+for bugs listed there, but patches that fix them are welcome.
+
+For patches, I prefer unidiffs (use "diff -u OLD NEW", or "diff -ruN
+OLD-DIRECTORY NEW-DIRECTORY"), but if your diff cannot produce them
+then context diffs are OK.  Please remember to include details of the
+bug and your analysis of the problem if you are sending a patch; I
+have ported the code from NetBSD to Linux, but may not be familiar
+with the workings of any particular program, whereas you will be if
+you have been tracing and fixing a bug.  The GCC info manual contains
+a discussion of how to produce good bug reports.
+
+Notes on specific games:
+
+boggle: by default this game compiles with certain Linux improvements;
+if you want the original BSD behaviour, remove -DNEW_STYLE from the
+boggle_boggle_DEFS in boggle/boggle/Makefrag.  Defining NEW_STYLE will
+provide a more intuitive way of quitting or playing a new game after
+time has run out.
+
+dm: the "dungeon master", a program that allows you to control when
+users can play games.  (Note that this does not control any private
+copies of games they may have.)  I do not claim that this program is
+actually useful, but it is included in bsd-games since it is in
+NetBSD.  Add -DLOG to the DEFS in dm/Makefrag if you want logging of
+games playing (not regularly tested).
+
+fortune: Another enhanced version is available from
+<ftp://ibiblio.org/pub/Linux/games/amusements/fortune/fortune-mod-9708.tar.gz>.
+unstr is not installed by default.  If you want to install it,
+uncomment the relevant lines (installation command and definition of
+fortune_unstr_DIRS) in fortune/unstr/Makefrag before doing the top
+level "make install".
+
+hunt: may well be unreliable or broken in various ways.  There is some
+local configuration possible in hunt/Makeconfig but changing this may
+well break things.
+
+Joseph S. Myers
+jsm@polyomino.org.uk
+
+
+
+Local Variables:
+mode: text
+End:

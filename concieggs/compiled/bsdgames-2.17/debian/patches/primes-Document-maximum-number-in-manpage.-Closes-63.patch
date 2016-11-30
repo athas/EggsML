@@ -1,0 +1,38 @@
+From: Tobias Quathamer <toddy@debian.org>
+Date: Thu, 16 Feb 2012 13:17:13 +0100
+Subject: primes: Document maximum number in manpage. Closes: #636569
+
+---
+ primes/primes.6 |    9 ++++++---
+ 1 files changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/primes/primes.6 b/primes/primes.6
+index 9499398..ac100c6 100644
+--- a/primes/primes.6
++++ b/primes/primes.6
+@@ -61,10 +61,13 @@ value must be at least 0 and not greater than
+ .Ar stop .
+ The
+ .Ar stop
+-value must not be greater than 4294967295.
++value must not be greater than
++the maximum possible value of unsigned integer types on your system
++(4294967295 for 32-bit systems and
++18446744073709551615 for 64-bit systems).
+ The default value of
+ .Ar stop
+-is 4294967295.
++is 4294967295 on 32-bit and 18446744073709551615 on 64-bit.
+ .Pp
+ When the
+ .Nm
+@@ -72,7 +75,7 @@ utility is invoked with no arguments,
+ .Ar start
+ is read from standard input.
+ .Ar stop
+-is taken to be 4294967295.
++is taken to be 4294967295 on 32-bit and 18446744073709551615 on 64-bit.
+ The
+ .Ar start
+ value may be preceded by a single
+-- 

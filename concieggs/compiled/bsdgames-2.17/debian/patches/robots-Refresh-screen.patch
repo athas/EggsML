@@ -1,0 +1,21 @@
+From: Tobias Quathamer <toddy@debian.org>
+Date: Thu, 16 Feb 2012 11:26:49 +0100
+Subject: robots: Refresh screen
+
+---
+ robots/move.c |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+diff --git a/robots/move.c b/robots/move.c
+index 7edaae3..b2703c5 100644
+--- a/robots/move.c
++++ b/robots/move.c
+@@ -185,6 +185,7 @@ teleport:
+ 			flush_in();
+ 			goto ret;
+ 		  case CTRL('L'):
++			redrawwin(curscr);
+ 			refresh();
+ 			break;
+ 		  case EOF:
+-- 

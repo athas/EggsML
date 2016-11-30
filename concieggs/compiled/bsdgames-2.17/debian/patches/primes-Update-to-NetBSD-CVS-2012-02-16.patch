@@ -1,0 +1,228 @@
+From: Tobias Quathamer <toddy@debian.org>
+Date: Thu, 16 Feb 2012 13:05:28 +0100
+Subject: primes: Update to NetBSD CVS, 2012-02-16
+
+---
+ primes/primes.6 |   10 ++++++-
+ primes/primes.c |   67 +++++++++++++++++++++++++++++++++---------------------
+ 2 files changed, 49 insertions(+), 28 deletions(-)
+
+diff --git a/primes/primes.6 b/primes/primes.6
+index 14d5101..9499398 100644
+--- a/primes/primes.6
++++ b/primes/primes.6
+@@ -1,4 +1,4 @@
+-.\"	$NetBSD: primes.6,v 1.2 2004/02/09 23:25:47 wiz Exp $
++.\"	$NetBSD: primes.6,v 1.3 2008/02/03 03:29:17 wiz Exp $
+ .\"
+ .\" Copyright (c) 1989, 1993
+ .\"	The Regents of the University of California.  All rights reserved.
+@@ -37,7 +37,7 @@
+ .\"
+ .\"   chongo <for a good prime call: 391581 * 2^216193 - 1> /\oo/\
+ .\"
+-.Dd February 8, 2004
++.Dd February 3, 2008
+ .Dt PRIMES 6
+ .Os
+ .Sh NAME
+@@ -45,6 +45,7 @@
+ .Nd generate primes
+ .Sh SYNOPSIS
+ .Nm primes
++.Op Fl d
+ .Op Ar start Op Ar stop
+ .Sh DESCRIPTION
+ The
+@@ -80,6 +81,11 @@ The
+ .Ar start
+ value is terminated by a non-digit character (such as a newline).
+ The input line must not be longer than 255 characters.
++When given the
++.Fl d
++argument,
++.Nm
++prints the difference between the current and the previous prime.
+ .Sh DIAGNOSTICS
+ Out of range or invalid input results in
+ an appropriate error message
+diff --git a/primes/primes.c b/primes/primes.c
+index 2d93594..4693968 100644
+--- a/primes/primes.c
++++ b/primes/primes.c
+@@ -1,4 +1,4 @@
+-/*	$NetBSD: primes.c,v 1.12 2004/01/27 20:30:30 jsm Exp $	*/
++/*	$NetBSD: primes.c,v 1.19 2011/08/30 02:58:04 jakllsch Exp $	*/
+ 
+ /*
+  * Copyright (c) 1989, 1993
+@@ -34,15 +34,15 @@
+ 
+ #include <sys/cdefs.h>
+ #ifndef lint
+-__COPYRIGHT("@(#) Copyright (c) 1989, 1993\n\
+-	The Regents of the University of California.  All rights reserved.\n");
++__COPYRIGHT("@(#) Copyright (c) 1989, 1993\
++ The Regents of the University of California.  All rights reserved.");
+ #endif /* not lint */
+ 
+ #ifndef lint
+ #if 0
+ static char sccsid[] = "@(#)primes.c	8.5 (Berkeley) 5/10/95";
+ #else
+-__RCSID("$NetBSD: primes.c,v 1.12 2004/01/27 20:30:30 jsm Exp $");
++__RCSID("$NetBSD: primes.c,v 1.19 2011/08/30 02:58:04 jakllsch Exp $");
+ #endif
+ #endif /* not lint */
+ 
+@@ -84,7 +84,7 @@ __RCSID("$NetBSD: primes.c,v 1.12 2004/01/27 20:30:30 jsm Exp $");
+  *
+  * We make TABSIZE large to reduce the overhead of inner loop setup.
+  */
+-char table[TABSIZE];	 /* Eratosthenes sieve of odd numbers */
++static char table[TABSIZE];	 /* Eratosthenes sieve of odd numbers */
+ 
+ /*
+  * prime[i] is the (i-1)th prime.
+@@ -103,15 +103,14 @@ extern const ubig *pr_limit;		/* largest prime in the prime array */
+ extern const char pattern[];
+ extern const int pattern_size;	/* length of pattern array */
+ 
+-int	main(int, char *[]);
+-void	primes(ubig, ubig);
+-ubig	read_num_buf(void);
+-void	usage(void) __attribute__((__noreturn__));
++static int dflag;
++
++static void primes(ubig, ubig);
++static ubig read_num_buf(void);
++static void usage(void) __dead;
+ 
+ int
+-main(argc, argv)
+-	int argc;
+-	char *argv[];
++main(int argc, char *argv[])
+ {
+ 	ubig start;		/* where to start generating */
+ 	ubig stop;		/* don't generate at or above this value */
+@@ -121,8 +120,11 @@ main(argc, argv)
+ 	/* Revoke setgid privileges */
+ 	setregid(getgid(), getgid());
+ 
+-	while ((ch = getopt(argc, argv, "")) != -1)
++	while ((ch = getopt(argc, argv, "d")) != -1)
+ 		switch (ch) {
++		case 'd':
++			dflag++;
++			break;
+ 		case '?':
+ 		default:
+ 			usage();
+@@ -189,7 +191,7 @@ main(argc, argv)
+  *	This routine returns a number n, where 0 <= n && n <= BIG.
+  */
+ ubig
+-read_num_buf()
++read_num_buf(void)
+ {
+ 	ubig val;
+ 	char *p, buf[100];		/* > max number of digits. */
+@@ -200,7 +202,7 @@ read_num_buf()
+ 				err(1, "stdin");
+ 			exit(0);
+ 		}
+-		for (p = buf; isblank(*p); ++p);
++		for (p = buf; isblank((unsigned char)*p); ++p);
+ 		if (*p == '\n' || *p == '\0')
+ 			continue;
+ 		if (*p == '-')
+@@ -217,11 +219,12 @@ read_num_buf()
+ 
+ /*
+  * primes - sieve and print primes from start up to and but not including stop
++ *
++ *	start	where to start generating
++ *	stop	don't generate at or above this value
+  */
+ void
+-primes(start, stop)
+-	ubig start;	/* where to start generating */
+-	ubig stop;	/* don't generate at or above this value */
++primes(ubig start, ubig stop)
+ {
+ 	char *q;		/* sieve spot */
+ 	ubig factor;		/* index and factor */
+@@ -229,6 +232,7 @@ primes(start, stop)
+ 	const ubig *p;		/* prime table pointer */
+ 	ubig fact_lim;		/* highest prime for current block */
+ 	ubig mod;		/* temp storage for mod */
++	ubig prev = 0;
+ 
+ 	/*
+ 	 * A number of systems can not convert double values into unsigned
+@@ -263,8 +267,14 @@ primes(start, stop)
+ 		for (p = &prime[0], factor = prime[0];
+ 		    factor < stop && p <= pr_limit; factor = *(++p)) {
+ 			if (factor >= start) {
+-				printf("%lu\n", (unsigned long) factor);
++				printf("%lu", (unsigned long) factor);
++				if (dflag) {
++					printf(" (%lu)",
++					    (unsigned long) factor - prev);
++				}
++				putchar('\n');
+ 			}
++			prev = factor;
+ 		}
+ 		/* return early if we are done */
+ 		if (p <= pr_limit) {
+@@ -298,11 +308,10 @@ primes(start, stop)
+ 		/* note highest useful factor and sieve spot */
+ 		if (stop-start > TABSIZE+TABSIZE) {
+ 			tab_lim = &table[TABSIZE]; /* sieve it all */
+-			fact_lim = (int)sqrt(
+-					(double)(start)+TABSIZE+TABSIZE+1.0);
++			fact_lim = sqrt((double)(start)+TABSIZE+TABSIZE+1.0);
+ 		} else {
+ 			tab_lim = &table[(stop-start)/2]; /* partial sieve */
+-			fact_lim = (int)sqrt((double)(stop)+1.0);
++			fact_lim = sqrt((double)(stop)+1.0);
+ 		}
+ 		/* sieve for factors >= 17 */
+ 		factor = 17;	/* 17 is first prime to use */
+@@ -315,7 +324,7 @@ primes(start, stop)
+ 			} else {
+ 				q = &table[mod ? factor-(mod/2) : 0];
+ 			}
+-			/* sive for our current factor */
++			/* sieve for our current factor */
+ 			for ( ; q < tab_lim; q += factor) {
+ 				*q = '\0'; /* sieve out a spot */
+ 			}
+@@ -326,15 +335,21 @@ primes(start, stop)
+ 		 */
+ 		for (q = table; q < tab_lim; ++q, start+=2) {
+ 			if (*q) {
+-				printf("%lu\n", (unsigned long) start);
++				printf("%lu", (unsigned long) start);
++				if (dflag) {
++					printf(" (%lu)",
++					    (unsigned long) start - prev);
++					prev = start;
++				}
++				putchar('\n');
+ 			}
+ 		}
+ 	}
+ }
+ 
+ void
+-usage()
++usage(void)
+ {
+-	(void)fprintf(stderr, "usage: primes [start [stop]]\n");
++	(void)fprintf(stderr, "usage: primes [-d] [start [stop]]\n");
+ 	exit(1);
+ }
+-- 

@@ -1,0 +1,15 @@
+Replace-getline-with-get_line.patch
+wtf-Add-acronyms-and-sort-them-alphabetically.patch
+robots-Refresh-screen.patch
+quiz-Update-presidents-capitals-fix-typos-in-murders.patch
+Define-__dead-for-GNU-GCC.patch
+rain-Update-default-delay.-Closes-579062.patch
+Custom-configuration-of-Debian-package-build.patch
+Unsorted-Debian-patches.patch
+quiz-Add-answers-to-adults-babies.-Closes-659528.patch
+primes-Update-to-NetBSD-CVS-2012-02-16.patch
+primes-Document-maximum-number-in-manpage.-Closes-63.patch
+wtf-Add-NMU.-Closes-574036.patch
+hangman-Error-out-on-1000-unsuitable-words.-Closes-6.patch
+Fix-typos-spotted-by-Lintian.patch
+Fix-format-security-compiling-errors.patch
