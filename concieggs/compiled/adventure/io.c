@@ -585,8 +585,6 @@ speak(msg)			/* read, decrypt, and print a message (not
 		    (*(s + 1) ^ *(tape + 1)) == '$' &&
 		    (*(s + 2) ^ *(tape + 2)) == '<')
 			break;
-		if (blklin && !nonfirst++)
-			putchar('\n');
 		do {
 			if (*tape == 0)
 				tape = iotape;	/* rewind decryp tape */
