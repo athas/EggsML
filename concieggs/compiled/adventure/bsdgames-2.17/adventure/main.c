@@ -102,6 +102,9 @@ main(argc, argv)
 	}
 
 	char* db_dir = getenv("CONCIEGGS_DB_DIR");
+	if (db_dir == NULL) {
+	  errx(1, "cannot read CONCIEGGS_DB_DIR");
+	}
 	char state_file_base[] = "adventure-state";
 	char* state_file = (char*) malloc(sizeof(char)
 									  * (strlen(db_dir)
@@ -131,6 +134,7 @@ main(argc, argv)
 			  /* Remove the state file. */
 			  unlink(state_file);
 			  puts("You dissolve.");
+			  exit(0);
 			}
 
 			/* We don't want a recap in case of a restore, so redirect stdout to
