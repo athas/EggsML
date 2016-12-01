@@ -77,16 +77,18 @@ main(argc, argv)
 	init();		/* Initialize everything */
 	signal(SIGINT, trapdel);
 
-    char* db_dir = getenv("CONCIEGGS_DB_DIR");
-    char state_file_base[] = "adventure-state";
-    char* state_file = (char*) malloc(sizeof(char) * (strlen(db_dir) + sizeof(state_file_base)));
-    if (state_file == NULL) {
-      errx(1, "cannot allocate memory");
-    }
-    *state_file = '\0';
-    strcat(state_file, db_dir);
-    strcat(state_file, "/");
-    strcat(state_file, state_file_base);
+	char* db_dir = getenv("CONCIEGGS_DB_DIR");
+	char state_file_base[] = "adventure-state";
+	char* state_file = (char*) malloc(sizeof(char)
+									  * (strlen(db_dir)
+										 + sizeof(state_file_base)));
+	if (state_file == NULL) {
+	  errx(1, "cannot allocate memory");
+	}
+	*state_file = '\0';
+	strcat(state_file, db_dir);
+	strcat(state_file, "/");
+	strcat(state_file, state_file_base);
 
 	if (argc > 1) {		/* Restore file specified */
 				/* Restart is label 8305 (Fortran) */
@@ -780,5 +782,5 @@ l5190:		if ((verb == find || verb == invent) && *wd2 == 0)
 		goto l2012;
 	}
  after_loop:
-    free(state_file);
+	free(state_file);
 }
