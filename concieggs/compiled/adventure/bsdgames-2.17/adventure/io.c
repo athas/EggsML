@@ -86,6 +86,7 @@ int input_read_check() {
 	  dup2(stdout_old, fileno(stdout));
 	  close(stdout_old);
 	}
+	return 0;
 }
 
 int
