@@ -1,0 +1,4 @@
+This is a modified version of adventure suited for IRC use.
+
+Original game by Will Crowther, Don Woods; C port by Jim Gilloghy.  Refer to the
+bsdgames-2.17 Debian package for the complicated list of credits.
