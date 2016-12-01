@@ -181,11 +181,6 @@ restore(infile)
 	}
 	fclose(in);
 
-	crc_start();		/* See if she cheated */
-	for (p = save_array; p->address != NULL; p++)
-		cksum = crc(p->address, p->width);
-	if (sum != cksum)	/* Tsk tsk */
-		return 2;	/* Altered the file */
 	/* We successfully restored, so this really was a save file */
 	/* Get rid of the file, but don't bother checking that we did */
 	return 0;
