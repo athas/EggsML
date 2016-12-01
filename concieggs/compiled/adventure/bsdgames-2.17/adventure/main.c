@@ -90,14 +90,18 @@ main(argc, argv)
 	strcat(state_file, "/");
 	strcat(state_file, state_file_base);
 
-	if (argc > 1) {		/* Restore file specified */
+	if (access(state_file, F_OK) == -1) {
+	  /* State file does not exist. */
+	  startup();			/* prepare for a user */
+	}
+	else {		/* Restore file specified */
 				/* Restart is label 8305 (Fortran) */
-		i = restore(argv[1]);	/* See what we've got */
+		i = restore(state_file);	/* See what we've got */
 		switch (i) {
 		case 0:	/* The restore worked fine */
 			yea = Start();
 			k = null;
-			unlink(argv[1]);	/* Don't re-use the save */
+			unlink(state_file);	/* Don't re-use the save */
 			goto l8;		/* Get where we're going */
 		case 1:				/* Couldn't open it */
 			errx(1,"can't open file");	/* So give up */
@@ -106,7 +110,6 @@ main(argc, argv)
 			exit(1);	/* File could be non-adventure */
 		}			/* So don't unlink it. */
 	}
-	startup();			/* prepare for a user */
 
 	for (;;) {			/* main command loop (label 2) */
 		if (newloc < 9 && newloc != 0 && closng) {
@@ -782,5 +785,8 @@ l5190:		if ((verb == find || verb == invent) && *wd2 == 0)
 		goto l2012;
 	}
  after_loop:
+	if (save(state_file) != 0) {
+	  fputs("save failed", 2);
+	}
 	free(state_file);
 }
