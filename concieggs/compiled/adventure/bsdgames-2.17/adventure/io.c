@@ -70,20 +70,13 @@ int args_getchar() {
   return (int) ret_char;
 }
 
-int
-getin(wrd1, wrd2)		/* get command from user        */
-	char  **wrd1, **wrd2;	/* no prompt, usually           */
-{
-	char   *s;
-	static char wd1buf[MAXSTR], wd2buf[MAXSTR];
-	int     first, numch;
-
+int input_read_check() {
 	if (!game_was_restored) {
 	  /* If game is new, don't read any input. */
 	  return 1;
 	}
-
 	if (has_read_input) {
+	  /* If input has already been read, don't read any more input. */
 	  return 1;
 	}
 	has_read_input = 1;
@@ -92,6 +85,20 @@ getin(wrd1, wrd2)		/* get command from user        */
 	  fflush(stdout);
 	  dup2(stdout_old, fileno(stdout));
 	  close(stdout_old);
+	}
+}
+
+int
+getin(wrd1, wrd2)		/* get command from user        */
+	char  **wrd1, **wrd2;	/* no prompt, usually           */
+{
+	char   *s;
+	static char wd1buf[MAXSTR], wd2buf[MAXSTR];
+	int     first, numch;
+
+	int should_stop = input_read_check();
+	if (should_stop) {
+	  return 1;
 	}
 
 	*wrd1 = wd1buf;				/* return ptr to internal str */
@@ -139,9 +146,15 @@ yes(x, y, z)			/* confirm with rspeak          */
 {
 	int     result = TRUE;	/* pacify gcc */
 	int    ch;
+
+	int should_stop = input_read_check();
+	if (should_stop) {
+	  exit(0);
+	}
+
 	for (;;) {
 		rspeak(x);	/* tell him what we want */
-		if ((ch = getchar()) == 'y')
+		if ((ch = args_getchar()) == 'y')
 			result = TRUE;
 		else if (ch == 'n')
 			result = FALSE;
@@ -167,9 +180,15 @@ yesm(x, y, z)			/* confirm with mspeak          */
 {
 	int     result = TRUE;	/* pacify gcc */
 	int    ch;
+
+	int should_stop = input_read_check();
+	if (should_stop) {
+	  exit(0);
+	}
+
 	for (;;) {
 		mspeak(x);	/* tell him what we want */
-		if ((ch = getchar()) == 'y')
+		if ((ch = args_getchar()) == 'y')
 			result = TRUE;
 		else if (ch == 'n')
 			result = FALSE;

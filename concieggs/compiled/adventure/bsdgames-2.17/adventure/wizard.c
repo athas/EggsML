@@ -138,7 +138,7 @@ ciao()
 	/* XXX - should use fgetln to avoid arbitrary limit */
 	for (c = fname; c < fname + sizeof fname - 1; c++) {
 		int ch;
-		ch = getchar();
+		ch = args_getchar();
 		if (ch == '\n' || ch == EOF)
 			break;
 		*c = ch;
