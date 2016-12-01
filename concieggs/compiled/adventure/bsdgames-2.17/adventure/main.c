@@ -63,6 +63,8 @@ __RCSID("$NetBSD: main.c,v 1.18 2004/01/27 20:30:28 jsm Exp $");
 int main(int, char **);
 
 char* action_string;
+int game_was_restored = 0;
+int stdout_old;
 
 int
 main(argc, argv)
@@ -119,11 +121,18 @@ main(argc, argv)
 	else {		/* Restore file specified */
 				/* Restart is label 8305 (Fortran) */
 		i = restore(state_file);	/* See what we've got */
+		game_was_restored = 1;
 		switch (i) {
 		case 0:	/* The restore worked fine */
 			yea = Start();
 			k = null;
 			unlink(state_file);	/* Don't re-use the save */
+
+			/* We don't want a recap in case of a restore, so redirect stdout to
+			   /dev/null until the action_string input has been used. */
+			stdout_old = dup(fileno(stdout));
+			freopen("/dev/null", "w", stdout);
+
 			goto l8;		/* Get where we're going */
 		case 1:				/* Couldn't open it */
 			errx(1,"can't open file");	/* So give up */

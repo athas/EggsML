@@ -55,6 +55,8 @@ __RCSID("$NetBSD: io.c,v 1.15 2003/09/19 10:01:53 itojun Exp $");
 int has_read_input = 0;
 extern char* action_string;
 int action_string_pos = 0;
+extern int game_was_restored;
+extern int stdout_old;
 
 int args_getchar() {
   char ret_char;
@@ -76,10 +78,21 @@ getin(wrd1, wrd2)		/* get command from user        */
 	static char wd1buf[MAXSTR], wd2buf[MAXSTR];
 	int     first, numch;
 
+	if (!game_was_restored) {
+	  /* If game is new, don't read any input. */
+	  return 1;
+	}
+
 	if (has_read_input) {
 	  return 1;
 	}
 	has_read_input = 1;
+	/* If running a restored game, allow writing again. */
+	if (game_was_restored) {
+	  fflush(stdout);
+	  dup2(stdout_old, fileno(stdout));
+	  close(stdout_old);
+	}
 
 	*wrd1 = wd1buf;				/* return ptr to internal str */
 	*wrd2 = wd2buf;
