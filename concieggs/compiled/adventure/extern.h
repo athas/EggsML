@@ -31,10 +31,6 @@
 
 #include <string.h>
 
-/* crc.c */
-void crc_start(void);
-unsigned long crc(const char *, int);
-
 /* done.c */
 int score(void);
 void done(int) __attribute__((__noreturn__));

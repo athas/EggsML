@@ -225,7 +225,7 @@ next()
 {				/* next virtual char, bump adr  */
 	int     ch;
 
-	ch = (*inptr ^ random()) & 0xFF;	/* Decrypt input data           */
+	ch = (*inptr) & 0xFF;	/* Decrypt input data           */
 	if (outsw) {		/* putting data in tmp file     */
 		if (*tape == 0)
 			tape = iotape;	/* rewind encryption tape       */
@@ -244,7 +244,6 @@ rdata()
 	char    ch;
 
 	inptr = data_file;	/* Pointer to virtual data file */
-	srandom(SEED);		/* which is lightly encrypted.  */
 
 	clsses = 1;
 	for (;;) {		/* read data sections           */

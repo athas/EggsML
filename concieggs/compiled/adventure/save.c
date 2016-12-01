@@ -131,13 +131,8 @@ save(outfile)			/* Two passes on data: first to get checksum,
 	FILE   *out;
 	struct savestruct *p;
 	char   *s;
-	long    sum;
+	long    sum = 0;
 	int     i;
-
-	crc_start();
-	for (p = save_array; p->address != NULL; p++)
-		sum = crc(p->address, p->width);
-	srandom((int) sum);
 
 	if ((out = fopen(outfile, "wb")) == NULL) {
 		fprintf(stderr,
@@ -148,7 +143,7 @@ save(outfile)			/* Two passes on data: first to get checksum,
 	fwrite(&sum, sizeof(sum), 1, out);	/* Here's the random() key */
 	for (p = save_array; p->address != NULL; p++) {
 		for (s = p->address, i = 0; i < p->width; i++, s++)
-			*s = (*s ^ random()) & 0xFF;	/* Lightly encrypt */
+			*s = (*s) & 0xFF;
 		fwrite(p->address, p->width, 1, out);
 	}
 	if (fclose(out) != 0) {
@@ -175,11 +170,11 @@ restore(infile)
 		return 1;
 	}
 	fread(&sum, sizeof(sum), 1, in);	/* Get the seed */
-	srandom((int) sum);
+	sum = sum;
 	for (p = save_array; p->address != NULL; p++) {
 		fread(p->address, p->width, 1, in);
 		for (s = p->address, i = 0; i < p->width; i++, s++)
-			*s = (*s ^ random()) & 0xFF;	/* Lightly decrypt */
+			*s = (*s) & 0xFF;
 	}
 	fclose(in);
 
