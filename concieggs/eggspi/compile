@@ -61,13 +61,20 @@ else
                 gcc -o "$2" -O3 -lalgol -I/usr/local/include -L/usr/local/lib "$1.c" >&2
             }
             ;;
+        *make)
+            compile() {
+                cd "$1"
+                make
+                cp "$basename" "$2"
+            }
+            ;;
         *)
             echo "Cannot compile file $srcfile - unknown extension."
             exit 2
     esac
 
     compiledir="$(mktemp -d)"
-    cp "$srcfile" "$compiledir"
+    cp -r "$srcfile" "$compiledir"
     srcfile="$compiledir/$(basename "$srcfile")"
 
     mkdir -p "$CONCIEGGS_DB_DIR/compiled-cache"
