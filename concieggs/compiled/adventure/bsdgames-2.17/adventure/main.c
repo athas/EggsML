@@ -126,7 +126,6 @@ main(argc, argv)
 		case 0:	/* The restore worked fine */
 			yea = Start();
 			k = null;
-			unlink(state_file);	/* Don't re-use the save */
 
 			/* We don't want a recap in case of a restore, so redirect stdout to
 			   /dev/null until the action_string input has been used. */
