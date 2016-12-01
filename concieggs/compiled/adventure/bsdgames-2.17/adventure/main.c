@@ -183,7 +183,10 @@ l2600:		checkhints();	/* to 2600-2602 */
 		wzdark = dark();	/* 2605 */
 		if (knfloc > 0 && knfloc != loc)
 			knfloc = 1;
-		getin(&wd1, &wd2);
+		int should_stop = getin(&wd1, &wd2);
+		if (should_stop) {
+		  break;
+		}
 		if (delhit) {	/* user typed a DEL */
 			delhit = 0;	/* reset counter */
 			copystr("quit", wd1);	/* pretend he's quitting */
@@ -561,6 +564,8 @@ l4090:
 			goto l2011;
 		l9120: case 12:/* kill */
 			switch (trkill()) {
+			case -1:
+			  goto after_loop;
 			case 8000:
 				goto l8000;
 			case 8:
@@ -774,6 +779,6 @@ l5190:		if ((verb == find || verb == invent) && *wd2 == 0)
 		printf("I see no %s here\n", wd1);
 		goto l2012;
 	}
-
+ after_loop:
     free(state_file);
 }

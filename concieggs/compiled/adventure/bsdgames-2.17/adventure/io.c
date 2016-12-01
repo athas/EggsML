@@ -52,14 +52,20 @@ __RCSID("$NetBSD: io.c,v 1.15 2003/09/19 10:01:53 itojun Exp $");
 #include "hdr.h"
 #include "extern.h"
 
+int has_read_input = 0;
 
-void
+int
 getin(wrd1, wrd2)		/* get command from user        */
 	char  **wrd1, **wrd2;	/* no prompt, usually           */
 {
 	char   *s;
 	static char wd1buf[MAXSTR], wd2buf[MAXSTR];
 	int     first, numch;
+
+	if (has_read_input) {
+	  return 1;
+	}
+	has_read_input = 1;
 
 	*wrd1 = wd1buf;				/* return ptr to internal str */
 	*wrd2 = wd2buf;
@@ -71,7 +77,7 @@ getin(wrd1, wrd2)		/* get command from user        */
 		switch (*s) {			/* start reading from user */
 		case '\n':
 			*s = 0;
-			return;
+			return 0;
 		case ' ':
 			if (s == wd1buf || s == wd2buf)	/* initial blank */
 				continue;
@@ -83,7 +89,7 @@ getin(wrd1, wrd2)		/* get command from user        */
 			} else {		/* finished 2nd word */
 				FLUSHLINE;
 				*s = 0;
-				return;
+				return 0;
 			}
 		case EOF:
 			printf("user closed input stream, quitting...\n");
@@ -93,7 +99,7 @@ getin(wrd1, wrd2)		/* get command from user        */
 				printf("Give me a break!!\n");
 				wd1buf[0] = wd2buf[0] = 0;
 				FLUSHLINE;
-				return;
+				return 0;
 			}
 			s++;
 		}

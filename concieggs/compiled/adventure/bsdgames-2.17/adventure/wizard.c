@@ -116,7 +116,10 @@ wizard()
 	if (!yesm(16, 0, 7))
 		return (FALSE);
 	mspeak(17);
-	getin(&word, &x);
+	int should_stop = getin(&word, &x);
+	if (should_stop) {
+		return (FALSE);
+	}
 	if (!weq(word, magic)) {
 		mspeak(20);
 		return (FALSE);

@@ -48,7 +48,7 @@ void trapdel(int);
 void startup(void);
 
 /* io.c */
-void getin(char **, char **);
+int getin(char **, char **);
 int yes(int, int, int);
 int yesm(int, int, int);
 int next(void);

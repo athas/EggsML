@@ -292,7 +292,7 @@ startup()
 #if 0
 	srand(371);		/* non-random seed */
 #endif
-	hinted[3] = yes(65, 1, 0);
+	hinted[3] = FALSE;
 	newloc = 1;
 	delhit = 0;
 	limit = 330;

@@ -832,7 +832,10 @@ trkill()
 	rspeak(49);
 	verb = 0;
 	obj = 0;
-	getin(&wd1, &wd2);
+	int should_stop = getin(&wd1, &wd2);
+	if (should_stop) {
+	  return -1;
+	}
 	if (!weq(wd1, "y") && !weq(wd1, "yes"))
 		return (2608);
 	pspeak(dragon, 1);
