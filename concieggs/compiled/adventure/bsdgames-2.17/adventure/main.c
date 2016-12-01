@@ -127,6 +127,12 @@ main(argc, argv)
 			yea = Start();
 			k = null;
 
+			if (argc > 1 && strcmp("quit", argv[1]) == 0) {
+			  /* Remove the state file. */
+			  unlink(state_file);
+			  puts("You dissolve.");
+			}
+
 			/* We don't want a recap in case of a restore, so redirect stdout to
 			   /dev/null until the action_string input has been used. */
 			stdout_old = dup(fileno(stdout));
