@@ -34,6 +34,8 @@
  * SUCH DAMAGE.
  */
 
+#define _DEFAULT_SOURCE
+
 #include <sys/cdefs.h>
 #ifndef lint
 __COPYRIGHT("@(#) Copyright (c) 1991, 1993\n\
@@ -51,6 +53,7 @@ __RCSID("$NetBSD: main.c,v 1.18 2004/01/27 20:30:28 jsm Exp $");
 /*      Re-coding of advent in C: main program */
 
 #include <sys/file.h>
+#include <sys/types.h>
 #include <err.h>
 #include <signal.h>
 #include <stdio.h>
@@ -826,7 +829,7 @@ l5190:		if ((verb == find || verb == invent) && *wd2 == 0)
 	}
  after_loop:
 	if (save(state_file) != 0) {
-	  fputs("save failed", 2);
+	  fputs("save failed", stderr);
 	}
 	free(state_file);
 }

@@ -34,6 +34,8 @@
  * SUCH DAMAGE.
  */
 
+#define _DEFAULT_SOURCE
+
 #include <sys/cdefs.h>
 #ifndef lint
 #if 0
@@ -163,7 +165,7 @@ restore(infile)
 	FILE   *in;
 	struct savestruct *p;
 	char   *s;
-	long    sum, cksum = 0;
+	long    sum;
 	int     i;
 
 	if ((in = fopen(infile, "rb")) == NULL) {

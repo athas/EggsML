@@ -34,6 +34,8 @@
  * SUCH DAMAGE.
  */
 
+#define _DEFAULT_SOURCE
+
 #include <sys/cdefs.h>
 #ifndef lint
 #if 0
@@ -49,6 +51,7 @@ __RCSID("$NetBSD: io.c,v 1.15 2003/09/19 10:01:53 itojun Exp $");
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "hdr.h"
 #include "extern.h"
 
