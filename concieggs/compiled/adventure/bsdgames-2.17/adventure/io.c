@@ -53,6 +53,20 @@ __RCSID("$NetBSD: io.c,v 1.15 2003/09/19 10:01:53 itojun Exp $");
 #include "extern.h"
 
 int has_read_input = 0;
+extern char* action_string;
+int action_string_pos = 0;
+
+int args_getchar() {
+  char ret_char;
+  if (action_string_pos == strlen(action_string)) {
+    ret_char = '\n';
+  }
+  else {
+    ret_char = action_string[action_string_pos];
+    action_string_pos++;
+  }
+  return (int) ret_char;
+}
 
 int
 getin(wrd1, wrd2)		/* get command from user        */
@@ -71,7 +85,7 @@ getin(wrd1, wrd2)		/* get command from user        */
 	*wrd2 = wd2buf;
 	wd2buf[0] = 0;				/* in case it isn't set here */
 	for (s = wd1buf, first = 1, numch = 0;;) {
-		if ((*s = getchar()) >= 'A' && *s <= 'Z')
+		if ((*s = args_getchar()) >= 'A' && *s <= 'Z')
 			*s = *s - ('A' - 'a');
 		/* convert to upper case */
 		switch (*s) {			/* start reading from user */

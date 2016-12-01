@@ -62,6 +62,8 @@ __RCSID("$NetBSD: main.c,v 1.18 2004/01/27 20:30:28 jsm Exp $");
 
 int main(int, char **);
 
+char* action_string;
+
 int
 main(argc, argv)
 	int     argc;
@@ -76,6 +78,26 @@ main(argc, argv)
 
 	init();		/* Initialize everything */
 	signal(SIGINT, trapdel);
+
+	int action_string_length = -1;
+	for (int i = 1; i < argc; i++) {
+	  action_string_length += 1 + strlen(argv[i]);
+	}
+	if (action_string_length == -1) {
+	  action_string = "";
+	}
+	else {
+	  action_string = (char*) malloc(sizeof(char) * action_string_length);
+	  if (action_string == NULL) {
+		errx(1, "cannot allocate memory");
+	  }
+	  *action_string = '\0';
+	  strcat(action_string, argv[1]);
+	  for (int i = 2; i < argc; i++) {
+		strcat(action_string, " ");
+		strcat(action_string, argv[i]);
+	  }
+	}
 
 	char* db_dir = getenv("CONCIEGGS_DB_DIR");
 	char state_file_base[] = "adventure-state";
