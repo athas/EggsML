@@ -11,11 +11,12 @@ sub randpick {
 
 my @categories = (
     [qw(Danmark Sverige Finland)],
+    [qw(Randers Holstebro Herning Hobro Aalborg Viborg Skagen)],
     [qw(Færøerne Island)],
     [qw(England Irland Skotland Storbritannien Commonwealth)],
-    [qw(Hillary Donald Bill George Barack)],
+    [qw(Hillary Donald Bill George Barack Ronald)],
     [qw(Trump Bush Clinton Reagan Obama)],
-    [qw(Søren Jørgen)],
+    [qw(Søren Jørgen George)],
     [qw(Troels Truls Athas trulsa)],
     [qw(højre venstre)],
     [qw(op ned)],
