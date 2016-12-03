@@ -5,8 +5,13 @@
 eval "$(echo "$@"| parse 'er\s(jo\s)?(?<name>[^ !]+)')"
 
 if [ "$name" = "$CONCIEGGS_DEFAULT_NAME" ]; then
-    say "Ja... det er jeg."
-    echoToServer ":nick $CONCIEGGS_DEFAULT_NAME"
+    if [ "$CONCIEGGS_NAME" = "$CONCIEGGS_DEFAULT_NAME" ]; then
+        say "$EGGS_USER: Sandelig, de store detektivers tid er ikke forbi endnu."
+        annoyedBy "$EGGS_USER" 5 "afslørede jeg var concieggs uden jeg var forklædt"
+    else
+        say "Ja... det er jeg."
+        echoToServer ":nick $CONCIEGGS_DEFAULT_NAME"
+    fi
     exit
 fi
 
