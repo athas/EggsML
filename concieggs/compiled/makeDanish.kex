@@ -37,7 +37,7 @@ word := ~/computer/ "datamat"
       | ~/lowercase/ "klejntegn"
       | ~/[cC]amel[ -]?[cC]ase/ "kamuskler"
       | ~/repository/ "grube"
-      | ~/tweet/ "kvidr"
+      | ~/tweet/ "kvidr" /e|ede|er/?
       | ~/printer/ "linjeskriver"
       | ~/bug/ "lus"
       | ~/exception/ "undtagelse"
