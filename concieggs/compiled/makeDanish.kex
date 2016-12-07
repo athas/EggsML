@@ -128,7 +128,6 @@ word := ~/computer/ "datamat"
       | ~/troll/ "trold" (~/ing/ "ning" | ~/s/ "e")?
       | ~/change request/ "ændringsanmodning"
       | ~/F#/ "ikke-standard ML"
-      | ~/(malware|virus|spyware)/ "skadmel"
       | ~/crossfit/ "krydstræning"
       | ~/label/ "mærkat"
       | (~/et / "en ")? ~/issue/ "problemstilling" (~/s/ "er")?
