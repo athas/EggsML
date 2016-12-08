@@ -94,7 +94,7 @@ word := ~/computer/ "datamat"
       | ~/(D|d)amn it/ "Fanden ta'et"
       | ~/[Pp][Ll][SsZz]/ "venligst"
       | ~/(OMG|omg)/ "Du Godeste"
-      | ~/[Hh]eap/ "hob"
+      | /[Hh]/ ~/eap/ "ob"
       | ~/full[- ]?stack/ "helstak" (~/[- ](developer|udvikler)/ "-udvikler")?
       | ~/back[- ]?end/ "bagdel" (~/[- ](developer|udvikler)/ "sudvikler")?
       | ~/front[- ]?end/ "fordel" (~/[- ](developer|udvikler)/ "sudvikler")?
