@@ -1,6 +1,5 @@
 #!/bin/sh
 
 if echo "$EGGS_BODY" | fgrep spelt-segmentet.dk -q; then
-    echo lort
     annoyedBy "$EGGS_USER" 10 "hægtede til spelt-segmentet.dk"
 fi
