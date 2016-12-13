@@ -1,0 +1,9 @@
+#!/usr/bin/env perl
+use 5.022;
+use warnings;
+
+use utf8::all;
+use EggsML::Spellcheck;
+
+my $msg = do { local $/; <> };
+print EggsML::Spellcheck::spellcheck($msg);

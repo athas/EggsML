@@ -3,34 +3,11 @@
 # Lav stavekontrol på din foregående besked.
 
 use 5.012;
-use warnings;
 
-use Encode;
-use Text::Aspell;
 use utf8::all;
+use EggsML::Spellcheck;
 
 use Env qw/EGGS_USER/;
-
-my $checker = Text::Aspell->new;
-$checker->set_option('lang', 'da_DK');
-$checker->set_option('encoding', 'utf-8');
-sub spellcheck {
-    my $word = shift;
-
-    while (! $checker->check($word) ) {
-        my @suggs = map { decode('utf-8', $_) } $checker->suggest($word);
-        if (@suggs) {
-            $word = $suggs[rand @suggs];
-            last;
-        } else {
-            # No matches! Oh no! Let's just remove a letter and try again.
-            my $idx = rand (length $word);
-            $word = substr($word, 0, $idx) . substr($word, $idx+1);
-        }
-    }
-
-    return $word;
-}
 
 my $last = `dbUserRead "$EGGS_USER" lastmsg`;
 $last //= `dbRead "strangers/$EGGS_USER" lastmsg`;
@@ -40,8 +17,7 @@ chomp $last;
 my $quiet = $ARGV[0] && $ARGV[0] eq "-q";
 
 if ($last) {
-    my $result = $last;
-    $result =~ s/([-\w']+)/spellcheck($1)/eg;
+    my $result = EggsML::Spellcheck::spellcheck($last);
 
     if ($result ne $last) {
         printf("Rettet: <%s> %s\n", $EGGS_USER, $result);
