@@ -5,7 +5,7 @@
 
 set -f
 
-eval "$(echo "$@" | parse '(?<rawcmd>.+)( til (?<addr>.+@.+|twitter|internettet|spiltirsdag))')"
+eval "$(echo "$@" | parse '(?<rawcmd>.+)( til (?<addr>.+@.+|(?<twitter>(?:twitter|inter)?(?:nettet|tubes|webben)?)|spiltirsdag))')"
 
 if [ "$rawcmd" ]; then
     if [ "$addr" = "spiltirsdag" ]; then
@@ -15,7 +15,7 @@ if [ "$rawcmd" ]; then
     cmd=$(echo "$rawcmd" | cut -d' ' -f 1)
     args=$(echo "$rawcmd"| sed 's/[^ ]* *//')
     runcmd "$cmd" $args | \
-        if [ "$addr" = "twitter" ] || [ "$addr" = "internettet" ]; then
+        if [ "$twitter" != "" ]; then
             kvidr
         else
             echo "Sender $rawcmd til $addr!"
