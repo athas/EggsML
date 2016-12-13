@@ -1,5 +1,5 @@
 package EggsML::Spellcheck;
-use 5.022;
+use 5.020;
 use warnings;
 
 use Encode;
