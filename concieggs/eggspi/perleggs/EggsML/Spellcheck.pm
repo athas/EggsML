@@ -13,6 +13,9 @@ $checker->set_option('encoding', 'utf-8');
 sub spellcheck_word {
     my $word = shift;
 
+    return $word if $word =~ qr/^\d+$/;
+    return $word if $word =~ qr#^https?://#;
+
     while (! $checker->check($word) ) {
         my @suggs = map { decode('utf-8', $_) } $checker->suggest($word);
         if (@suggs) {
@@ -30,7 +33,7 @@ sub spellcheck_word {
 
 sub spellcheck {
     my $line = shift;
-    $line =~ s/([-\w']+)/spellcheck_word($1)/eg;
+    $line =~ s#(\d+|https?://\S*|[-\w']+)#spellcheck_word($1)#eg;
     return $line;
 }
 
