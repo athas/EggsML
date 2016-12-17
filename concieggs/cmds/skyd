@@ -11,6 +11,7 @@ fi
 
 if [ "$bruger" = "$CONCIEGGS_NAME" ]; then
     echo "$EGGS_USER: DET ER DIN EGEN SKYLD!"
+    annoyedBy "$EGGS_USER" 4 "prøvede at skylde skylden på mig"
     exit
 fi
 
