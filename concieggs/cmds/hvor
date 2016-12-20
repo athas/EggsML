@@ -14,7 +14,7 @@ eval "$(echo "$@" | parse '^ *((?<jul>julet er det)|(?<gammel>(gammelt?|ungt?|la
 
 if [ "$jul" ]; then
     charm="$(checkCharmen)"
-    printf "Det er %.$(($charm + 2))f%% jul!" "$(christmasLevel)"
+    printf "Det er %.$(($charm + 2))f%% jul!\n" "$(christmasLevel)"
     exit
 fi
 if [ "$gammel" ]; then
