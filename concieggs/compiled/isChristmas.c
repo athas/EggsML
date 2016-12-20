@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
     time_t raw_today = time(NULL);
 
     if (strstr(argv[0], "christmasLevel") != NULL) {
-        printf("%.2f", christmasLevel(raw_today));
+        printf("%f", christmasLevel(raw_today));
         return 0;
     } else if (strstr(argv[0], "isChristmas") != NULL) {
         return !isChristmas(raw_today); // 0 is success

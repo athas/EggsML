@@ -13,7 +13,8 @@ EOF`
 eval "$(echo "$@" | parse '^ *((?<jul>julet er det)|(?<gammel>(gammelt?|ungt?|lang tid|længe))|(?<lang>(langt?|kort|højt?|lavt?))|(?<charmerende>charmerende)|(?<tung>(tungt?|let))|(?<klog>(dumt?|klogt?|stupid))|(?<stor>(stort?|lille|meget))|(?<irriterende>(irriterende|udmattende|enerverende|trættende))|(?<grim>(grimt?|ulækkert?|monstrøst?|klamt?))).*')"
 
 if [ "$jul" ]; then
-    echo "Det er $(christmasLevel)% jul!"
+    charm="$(checkCharmen)"
+    printf "Det er %.$(($charm + 2))f%% jul!" "$(christmasLevel)"
     exit
 fi
 if [ "$gammel" ]; then
