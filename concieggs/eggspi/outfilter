@@ -25,4 +25,8 @@ apply_db_filter() {
     fi
 }
 
-echo "$line" | christmasy | apply_db_filter
+if [ isChristmas ]; then
+  echo "$line" | christmasy | apply_db_filter
+else
+  echo "$line" | apply_db_filter
+end
