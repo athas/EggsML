@@ -134,4 +134,6 @@ word := ~/computer/ "datamat"
       | ~/piper/ "kanaliserer"
       | ~/pipe/ "rørledning"
       | ~/voicemail/ "telefonsvarer"
+      | /F|f/ ~/ree as in speech/ "ri som med ytring"
+      | (~/F/ "G" | ~/f/ "g") ~/ree as in beer/ "ratis som med øl"
       | /[a-zA-ZæøåÆØÅ0-9]+/
