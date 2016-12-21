@@ -73,6 +73,18 @@ double christmasLevel(time_t raw_today)
     return 100*level;
 }
 
+char *christmasLevelString(time_t raw_today)
+{
+    double level = christmasLevel(raw_today);
+    if (level >= 90) return "satans";
+    if (level >= 80) return "fandme";
+    if (level >= 70) return "seriøst";
+    if (level >= 60) return "virkelig";
+    if (level >= 50) return "da";
+    if (level >= 40) return "nogenlunde";
+    return "ikke særlig";
+}
+
 bool isChristmas(time_t raw_today)
 {
     return christmasLevel(raw_today) > 0;
@@ -83,7 +95,12 @@ int main(int argc, char *argv[])
     time_t raw_today = time(NULL);
 
     if (strstr(argv[0], "christmasLevel") != NULL) {
-        printf("%f", christmasLevel(raw_today));
+        if (argc == 2 && strstr(argv[1], "-s") != NULL) {
+            printf("%s", christmasLevelString(raw_today));
+        } else {
+            printf("%f", christmasLevel(raw_today));
+        }
+
         return 0;
     } else if (strstr(argv[0], "isChristmas") != NULL) {
         return !isChristmas(raw_today); // 0 is success
