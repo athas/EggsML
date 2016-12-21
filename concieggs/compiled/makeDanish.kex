@@ -133,4 +133,5 @@ word := ~/computer/ "datamat"
       | (~/et / "en ")? ~/issue/ "problemstilling" (~/s/ "er")?
       | ~/piper/ "kanaliserer"
       | ~/pipe/ "rørledning"
+      | ~/voicemail/ "telefonsvarer"
       | /[a-zA-ZæøåÆØÅ0-9]+/
