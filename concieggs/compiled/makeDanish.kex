@@ -47,7 +47,7 @@ word := ~/computer/ "datamat"
       | ~/namespace/ "navnerum"
       | ~/compiler/ "oversætter"
       | ~/[qQ][rR][ -]?[ck]ode/ "prikkode"
-      | ~/plain text/ "råtekst"
+      | ~/plain[ ]?text/ "råtekst"
       | ~/backup/ "sikkerhedskopi"
       | ~/shell/ "skal" (~/ ?script/ "program")?
       | ~/subshell/ "underskal"
