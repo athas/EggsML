@@ -1,0 +1,2 @@
+#!/usr/bin/env perl
+while (<>) { s/(\d+)/`talord $1`/ge; print; }
