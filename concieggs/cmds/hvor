@@ -10,15 +10,11 @@ tusindedele
 hundrededele
 EOF`
 
-eval "$(echo "$@" | parse '^ *((?<jul>julet er det(?<julepct> i procent)?)|(?<gammel>(gammelt?|ungt?|lang tid|længe))|(?<lang>(langt?|kort|højt?|lavt?))|(?<charmerende>charmerende)|(?<tung>(tungt?|let))|(?<klog>(dumt?|klogt?|stupid))|(?<stor>(stort?|lille|meget))|(?<irriterende>(irriterende|udmattende|enerverende|trættende))|(?<grim>(grimt?|ulækkert?|monstrøst?|klamt?))).*')"
+eval "$(echo "$@" | parse '^ *((?<jul>julet er det(?: i procent)?)|(?<gammel>(gammelt?|ungt?|lang tid|længe))|(?<lang>(langt?|kort|højt?|lavt?))|(?<charmerende>charmerende)|(?<tung>(tungt?|let))|(?<klog>(dumt?|klogt?|stupid))|(?<stor>(stort?|lille|meget))|(?<irriterende>(irriterende|udmattende|enerverende|trættende))|(?<grim>(grimt?|ulækkert?|monstrøst?|klamt?))).*')"
 
 if [ "$jul" ]; then
-    if [ "$julepct" ]; then
-        charm="$(checkCharmen)"
-        printf "Det er %.$(($charm + 2))f%% jul!\n" "$(christmasLevel)"
-    else
-        echo "Det er $(christmasLevel -s) julet!"
-    fi
+    charm="$(checkCharmen)"
+    printf "Det er %.$(($charm + 2))f%% jul!  Det er %s julet!\n" "$(christmasLevel)" "$(christmasLevel -s)"
     exit
 fi
 if [ "$gammel" ]; then
