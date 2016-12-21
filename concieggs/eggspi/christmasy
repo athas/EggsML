@@ -6,6 +6,14 @@ use POSIX qw(ceil);
 
 chomp(my $christmasLevel = `christmasLevel`);
 
+sub birdify {
+    my $line = shift;
+    $line =~ s/JULE/FUGLE/g;
+    $line =~ s/Jule/Fugle/g;
+    $line =~ s/jule/fugle/g;
+    return $line;
+}
+
 sub christmasify {
     my $word = shift;
 
@@ -37,6 +45,8 @@ for my $line (<>) {
 
     $line =~ s/\btræ/juletræ/g;
     $line =~ s/\bTræ/Juletræ/g;
+
+    $line = birdify($line) if rand() < 0.05;
 
     print $line;
 }
