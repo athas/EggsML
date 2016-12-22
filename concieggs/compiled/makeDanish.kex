@@ -136,4 +136,7 @@ word := ~/computer/ "datamat"
       | ~/voicemail/ "telefonsvarer"
       | /F|f/ ~/ree as in speech/ "ri som med ytring"
       | (~/F/ "G" | ~/f/ "g") ~/ree as in beer/ "ratis som med øl"
+      | ~/generics/ "socialdemokrater"
+      | ~/generic code/ "socialdemokratisk kode"
+      | ~/upstream/ "opå"
       | /[a-zA-ZæøåÆØÅ0-9]+/
