@@ -134,7 +134,7 @@ word := ~/computer/ "datamat"
       | ~/piper/ "kanaliserer"
       | ~/pipe/ "rørledning"
       | ~/voicemail/ "telefonsvarer"
-      | /F|f/ ~/ree as in / "ri som i " ( suf@((~/free / "sfrihed")?) ~/speech/ "ytring" !suf | (~/free / "fri ")? ~/beer/ "bar")
+      | /F|f/ ~/ree as in / "ri som i " (~/speech/ "ytring" | ~/beer/ "bar")
       | ~/generics/ "socialdemokrater"
       | ~/generic code/ "socialdemokratisk kode"
       | ~/upstream/ "opå"
