@@ -82,6 +82,7 @@ char *christmasLevelString(time_t raw_today)
     if (level >= 60) return "virkelig";
     if (level >= 50) return "da";
     if (level >= 40) return "nogenlunde";
+    if (level >= 30) return "en anelse";
     return "ikke særlig";
 }
 
