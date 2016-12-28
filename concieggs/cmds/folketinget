@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# Lyt til vores folkevalgtes holdninger på Twitter.
+
+bruger="$(randomLine < "$CONCIEGGS_DB_DIR/folketinget-twitter/brugere")"
+
+cokvidr "$bruger"
