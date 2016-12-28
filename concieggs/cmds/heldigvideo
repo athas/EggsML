@@ -27,4 +27,4 @@ entry = random.choice(data['items'])
 videoid = entry['id']['videoId']
 title = entry['snippet']['title']
 
-print 'En heldig video?  Se https://youtu.be/%s (%s)' % (videoid, title)
+print ('En heldig video?  Se https://youtu.be/%s (%s)' % (videoid, title)).encode('utf-8')
