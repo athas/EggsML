@@ -37,7 +37,11 @@ def fix(m):
 
 matches = [fix(m) for m in matches]
 
-if not (len(sys.argv) > 1 and sys.argv[1] == 'alle'):
+if sys.argv[0].find('eggstranyhed'):
+    match1 = re.sub('[:?–].*', '', random.choice(matches))
+    match2 = re.sub('.*[:?–]', '', random.choice(matches))
+    print (match1+': '+match2)
+elif not (len(sys.argv) > 1 and sys.argv[1] == 'alle'):
     match = random.choice(matches)
     print match
 else:
