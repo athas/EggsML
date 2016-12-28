@@ -37,7 +37,7 @@ def fix(m):
 
 matches = [fix(m) for m in matches]
 
-if sys.argv[0].find('eggstranyhed'):
+if sys.argv[0].find('eggstranyhed') >= 0:
     match1 = re.sub('[:?–].*', '', random.choice(matches))
     match2 = re.sub('.*[:?–]', '', random.choice(matches))
     print (match1+': '+match2)
