@@ -3,6 +3,7 @@
 #
 # Bed concieggs om at give dig en brugbar nyhed fra INTERNETTET.
 
+import sys
 import re
 import random
 import urllib
@@ -12,16 +13,33 @@ from eggsthon.decode_html_entities import decode_html_entities
 
 data = urllib.urlopen('http://ekstrabladet.dk').read()
 
+data = data.split('<div class="article-widget-body">', 1)[1]
+data = data.split('<div class="m10px-rl m10px-b">', 1)[0]
+
 boxes = [
-    ('<div class="listtitle line">', '</div>'),
-    ('<span class="lastUnit tickerheadline">', '</span>')
+    ('<h3>', '<div class="df-clearer"></div>'),
 ]
 
 matches = []
-
 for a, b in boxes:
-    matches.extend(re.findall(a + r'\s*(.+?)\s*' + b, data, re.MULTILINE))
+    matches.extend(re.findall(a + r'(.+?)' + b, data,
+                              re.MULTILINE | re.DOTALL))
 
-matches = filter(lambda s: not s.startswith('TV: '), matches)
+def fix(m):
+    m = re.sub(r'</?[^>]*>', ' ', m)
+    m = m.replace('-\n', '').replace('\n', ' ')
+    m = re.sub(r' +', ' ', m)
+    m = m.strip()
+    u = m.decode('utf-8', errors='ignore')
+    t = decode_html_entities(u)
+    s = t.encode('utf-8', errors='ignore')
+    return s
 
-print decode_html_entities(random.choice(matches).decode('utf-8', errors='ignore')).encode('utf-8', errors='ignore')
+matches = [fix(m) for m in matches]
+
+if not (len(sys.argv) > 1 and sys.argv[1] == 'alle'):
+    match = random.choice(matches)
+    print match
+else:
+    for match in matches:
+        print match
