@@ -4,5 +4,5 @@ if echo "$EGGS_BODY" | fgrep spelt-segmentet.dk -q; then
     annoyedBy "$EGGS_USER" 10 "hægtede til spelt-segmentet.dk"
 fi
 if echo "$EGGS_BODY" | fgrep cpan.org -q; then
-    annoyedBy "$EGGS_USER" 10 "hægtede til noget stødende"
+    pleasedBy "$EGGS_USER" 10
 fi
