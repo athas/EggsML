@@ -46,7 +46,20 @@ while (<>) {
     s/sir\b/lady/ig;
     s/Pind/Hul/g;
     s/pind/hul/g;
-    s/Søren/Sørine/ig;
+
+    s/(?<=[Ss])øren/ørine/ig;
+    s/(?<=[Jj])ørgen/ørgine/ig;
+    s/(?<=[Gg])eorge/eorgine/ig;
+    s/(?<=[Dd])onald/aisy/ig;
+    s/(?<=[Tt])r(oe|u)lsa?/r\1lsina/ig;
+    s/(?<=[Bb])ill/ella/ig;
+    s/(?<=[Rr]onald)/ine/ig;
+
+    # Burde nok generaliseres.
+    s/(?<=Athas)/ine/ig;
+    s/(?<=oleks)/ine/ig;
+    s/(?<=EricZ)ou/ine/ig;
+    s/simon|s?shine/simone-tøzzen/ig;
 
     print;
 }
