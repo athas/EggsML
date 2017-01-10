@@ -54,6 +54,9 @@ while (<>) {
     s/(?<=[Tt])r(oe|u)lsa?/r\1lsina/ig;
     s/(?<=[Bb])ill/ella/ig;
     s/(?<=[Rr]onald)/ine/ig;
+    s/(?<=[Ss]ebb)e/ine/ig;
+    s/(?<=[Rr]asm)us/ina/ig;
+    s/(?<=[Nn]ikkel)/ine/ig;
 
     # Burde nok generaliseres.
     s/(?<=Athas)/ine/ig;
