@@ -14,7 +14,11 @@ htmlEntitiesDecode() {
 }
 
 productName() {
-    curl -s "http://www.wupti.com/search?searchText=$(letter)" \
+    query="$1"
+    if ! [ "$query" ]; then
+        query="$(letter)"
+    fi
+    curl -s "http://www.wupti.com/search?searchText=$query" \
         | grep productNameLink | randomLine \
         | cut -d'>' -f2 | cut -d'<' -f1 \
         | htmlEntitiesDecode
@@ -27,7 +31,11 @@ penge() {
 run() {
     case $1 in
         penge)
-            prod="$(productName)"
+            if [ "$2" = 'på' ]; then
+                prod="$(productName "$3")"
+            else
+                prod="$(productName)"
+            fi
             peng="$(penge)"
             wup="$(randomLine <<EOF
 Kreditkortet gløder!
