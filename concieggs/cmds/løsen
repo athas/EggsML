@@ -1,0 +1,29 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# Et stort problem er at skabe gode løsen til forskellige tjenester
+# derfor løser concieggs dette problem en gang for alle!
+
+import random
+import sys
+
+def hent_loesen(sikker=False, sikkerhed=0):
+    hamster = "Hamster" if sikker else "hamster"
+    numbers = random.sample(range(0, sikkerhed), sikkerhed)
+
+    return hamster + "".join(map(str, numbers))
+
+def main(sys_argv_list):
+    if len(sys_argv_list) > 1:
+        if sys_argv_list[1] in ["-h", "-H", "-?"]:
+            print "Tilføj ét argument, som ikke er (-h, -H eller -?), for ekstra sikkerhed."
+            print "Giv et tal som beskriver hvor langt løsen skal være"
+        else:
+            try:
+                print hent_loesen(True, int(sys_argv_list[1]))
+            except ValueError:
+                print "Argumentet skal være et tal"
+    else:
+        print hent_loesen()
+
+if __name__ == '__main__':
+    main(sys.argv)
