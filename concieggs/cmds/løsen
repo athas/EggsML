@@ -8,7 +8,7 @@ import sys
 
 def hent_loesen(sikker=False, sikkerhed=0):
     hamster = "Hamster" if sikker else "hamster"
-    numbers = random.sample(range(0, sikkerhed), sikkerhed)
+    numbers = random.sample(range(0, 10), sikkerhed)
 
     return hamster + "".join(map(str, numbers))
 
