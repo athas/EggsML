@@ -1,0 +1,65 @@
+#!/bin/sh
+#
+# Spild noget.  Jeg kan spilde penge, tid og ikke så meget andet lige nu.
+
+letter() {
+    (runghc | randomLine) <<EOF
+import Control.Monad
+main = forM_ ['a'..'z'] $ putStrLn . (: [])
+EOF
+}
+
+htmlEntitiesDecode() {
+    python -c 'import sys; from eggsthon.decode_html_entities import decode_html_entities; sys.stdout.write(decode_html_entities(sys.stdin.read().decode("utf-8")).encode("utf-8"))'
+}
+
+productName() {
+    curl -s "http://www.wupti.com/search?searchText=$(letter)" \
+        | grep productNameLink | randomLine \
+        | cut -d'>' -f2 | cut -d'<' -f1 \
+        | htmlEntitiesDecode
+}
+
+penge() {
+    echo "$(random 100 10000) kr."
+}
+
+run() {
+    case $1 in
+        penge)
+            prod="$(productName)"
+            peng="$(penge)"
+            wup="$(randomLine <<EOF
+Kreditkortet gløder!
+Sikken rush!
+Dér røg budgettet.
+VÆKST!  VÆKST!
+Nu er jeg endelig en ægte forbruger.
+Guys, se lige på mig.
+Hvad sker der lige for mig!
+EOF
+)"
+            randomLine <<EOF
+$wup  Jeg har nu købt en $prod til $peng!
+EOF
+        ;;
+        tid)
+            randomLine <<EOF
+Jeg spilder hermed tid.
+Okay, du bad om det.
+/me sover lidt.
+SNOOOOORK.
+ZzzzZZZzzzzz
+EOF
+            sleep 5
+            ;;
+        *)
+            randomLine <<EOF
+Den må du selv lige fikse sammen, min ven. :)
+Hmm, dét kan jeg ikke spilde, men måske kan du. ;-)
+Jeg ved snart ikke...
+EOF
+    esac
+}
+
+run "$@"
