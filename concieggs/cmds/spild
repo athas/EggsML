@@ -18,7 +18,7 @@ productName() {
     if ! [ "$query" ]; then
         query="$(letter)"
     fi
-    curl -s "http://www.wupti.com/search?searchText=$query" \
+    curl -s "https://www.wupti.com/search?searchText=$query" \
         | grep productNameLink | randomLine \
         | cut -d'>' -f2 | cut -d'<' -f1 \
         | htmlEntitiesDecode
