@@ -12,26 +12,13 @@ if [ $# = 0 ]; then
      echo "¡Más rápido!";
      echo "Enormi veloce!";
      echo "Arriba!  Arriba!  Andale!  Arriba!") | randomLine
+elif [ $# = 1 -a "$1" = --version ]; then
+    futhark --version
 else
     file=$(mktemp)
-    case "$1" in
-        -*)
-            options="$1"
-            what_to_do() {
-                futhark "$options" "$file" 2>&1
-            }
-            shift;
-            ;;
-        *)
-            what_to_do() {
-                if futhark-c "$file" -o "$file.bin" 2>&1; then
-                    (timeout 10 "$file.bin" 2>&1 && pleasedBy "$EGGS_USER" 10) || echo "$EGGS_USER: Det gik galt."
-                fi
-            }
-    esac
-    rettype=$1
-    shift;
-    echo "fun main(): $rettype = $@" > $file
-    what_to_do
+    echo "fun main() = $@" > $file
+    if futhark-c "$file" -o "$file.bin" 2>&1; then
+        (timeout 10 "$file.bin" 2>&1 && pleasedBy "$EGGS_USER" 10) || echo "$EGGS_USER: Det gik galt."
+    fi
     rm -f "$file" "$file.bin"
 fi
