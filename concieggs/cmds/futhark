@@ -13,7 +13,7 @@ if [ $# = 0 ]; then
      echo "Enormi veloce!";
      echo "Arriba!  Arriba!  Andale!  Arriba!") | randomLine
 elif [ $# = 1 -a "$1" = --version ]; then
-    futhark --version
+    futhark-c --version
 else
     file=$(mktemp)
     echo "fun main() = $@" > $file
