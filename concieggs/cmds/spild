@@ -14,11 +14,11 @@ htmlEntitiesDecode() {
 }
 
 productName() {
-    query="$1"
+    query="$*"
     if ! [ "$query" ]; then
         query="$(letter)"
     fi
-    curl -s "https://www.wupti.com/search?searchText=$query" \
+    curl -s -G --data-urlencode "searchText=$query" 'https://www.wupti.com/search' \
         | grep productNameLink | randomLine \
         | cut -d'>' -f2 | cut -d'<' -f1 \
         | htmlEntitiesDecode
