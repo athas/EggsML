@@ -18,7 +18,6 @@ EOU
     local $| = 1;
 
     for my $link (@links) {
-        next if $link =~ m/(?:jpe?g|png|gif)$/i;
         print STDERR "Henter siden '$link' for at finde titlen...\n";
         next if (timeout_call(5, sub { $mech->get($link); }));
         next unless $mech->title;
