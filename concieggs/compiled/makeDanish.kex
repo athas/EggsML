@@ -1,8 +1,8 @@
 /* Makes a message more Danish */
 start: phase1 >> phase2
 
-phase1 := sep* ((word1 sep+) word1)? sep*
-phase2 := sep* ((word2 sep+) word2)? sep*
+phase1 := sep* ((word1 sep+)* word1)? sep*
+phase2 := sep* ((word2 sep+)* word2)? sep*
 
 sep := /[^A-Za-zÆØÅæøå0-9]/
 
@@ -51,9 +51,6 @@ word1 := ~/computer/ "datamat"
        | ~/caps ?lock/ "skiftelås"
        | ~/num ?lock/ "tallås"
        | ~/cloud/ "sky"
-       | /[a-zA-ZæøåÆØÅ0-9]+/
-
-word2 := ~/screenshot/ "skærmbillede"
        | ~/garbage collector/ "spildopsamler"
        | ~/web ?browser/ "spindellæser"
        | ~/hyper|cyber/ "kyber"
@@ -78,6 +75,9 @@ word2 := ~/screenshot/ "skærmbillede"
        | ~/race condition/ "kapløbsstrid"
        | ~/condition/ "betingelse" (~/s/ "r")?
        | ~/laptop/ "mappedatamat" (~/s/ "er")?
+       | /[a-zA-ZæøåÆØÅ0-9]+/
+
+word2 := ~/screenshot/ "skærmbillede"
        | ~/partitioner/ "opdel"
        | ~/git repo(sitory)?/ "skvatgrube"
        | ~/pivot/ "svingtap"
