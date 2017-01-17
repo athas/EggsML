@@ -16,7 +16,11 @@ elif [ $# = 1 -a "$1" = --version ]; then
     futhark-c --version
 else
     file=$(mktemp)
-    echo "fun main() = $@" > $file
+    if echo "$1" | egrep -q '^fun|entry|module|val|type'; then
+        echo "$@" > $file
+    else
+        echo "fun main() = $@" > $file
+    fi
     if futhark-c "$file" -o "$file.bin" 2>&1; then
         (timeout 10 "$file.bin" 2>&1 && pleasedBy "$EGGS_USER" 10) || echo "$EGGS_USER: Det gik galt."
     fi
