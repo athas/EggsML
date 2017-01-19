@@ -12,19 +12,19 @@ from eggsthon.decode_html_entities import decode_html_entities
 
 if random.randint(0, 1) == 0:
     data = urllib.urlopen('http://ekstrabladet.dk').read()
-    
+
     data = data.split('<div class="article-widget-body">', 1)[1]
     data = data.split('<div class="m10px-rl m10px-b">', 1)[0]
-    
+
     boxes = [
         ('<h3>', '<div class="df-clearer"></div>'),
     ]
-    
+
     matches = []
     for a, b in boxes:
         matches.extend(re.findall(a + r'(.+?)' + b, data,
                                   re.MULTILINE | re.DOTALL))
-    
+
     def fix(m):
         m = re.sub(r'</?[^>]*>', ' ', m)
         m = m.replace('-\n', '').replace('\n', ' ')
@@ -34,13 +34,13 @@ if random.randint(0, 1) == 0:
         t = decode_html_entities(u)
         s = t.encode('utf-8', errors='ignore')
         return s
-    
+
     matches = [fix(m) for m in matches]
 else:
     data = urllib.urlopen('http://bt.dk').read()
     matches = re.findall(r'<span class="bt-link">(.+?)</span>', data)
     matches = [decode_html_entities(m.decode('utf-8')).encode('utf-8') for m in matches]
-    
+
 if sys.argv[0].find('eggstranyhed') >= 0:
     match1 = re.sub('[:?–].*', '', random.choice(matches))
     match2 = re.sub('.*[:?–]', '', random.choice(matches))
