@@ -1,0 +1,3 @@
+[submodule "concieggs/misc/rsg-SML"]
+	path = concieggs/misc/rsg-SML
+	url = https://github.com/Eckankar/rsg-SML.git
