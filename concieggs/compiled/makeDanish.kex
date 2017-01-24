@@ -6,7 +6,8 @@ phase2 := sep* ((word2 sep+)* word2)? sep*
 
 sep := /[^A-Za-zÆØÅæøå0-9]/
 
-word1 := ~/computer/ "datamat"
+word1 := ~/computer science/ "datalogi"
+       | ~/computer/ "datamat"
        | ~/debug/ "aflus" (~/ger/ "er" | ~/ging/ "ning")
        | ~/RAM/ "arbejdslager"
        | ~/whitespace/ "blanktegn"
