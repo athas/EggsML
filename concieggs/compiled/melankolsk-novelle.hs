@@ -127,7 +127,7 @@ instance Generering DumTing where
 instance Formatering DumTing where
   formatér Mobiltelefon = nogetBestemt "mobiltelefon"
   formatér SocialeMedier = pure "de sociale medier"
-  formatér Karrierrepolitikere = pure "karrierrepolitkerne"
+  formatér Karrierrepolitikere = pure "karrierepolitikerne"
 
 
 data GodtSted = BonBonLand
