@@ -19,7 +19,11 @@ EOF
     fi
 elif [ "$(dbRead eggsking)" ]; then
     echo "$EGGS_USER: MAJESTÆTSFORNÆRMELSE!  Kongens vagter har nu smidt DIG i kachotten."
-    arrestUser "$EGGS_USER"
+    if isArrested "$EGGS_USER"; then
+        echo "Vent, du er jo allerede arresteret.  Nå, du er her alligevel på livstid."
+    else
+        arrestUser "$EGGS_USER"
+    fi
     annoyedBy "$EGGS_USER" 100000 "udgav sig for at være kongen"
 else
     echo "$EGGS_USER: Øh, vi lever altså i et anarki."
