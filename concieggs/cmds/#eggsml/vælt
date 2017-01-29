@@ -2,6 +2,11 @@
 #
 # Vælt kongen hvis I er nok!
 
+if isArrested "$EGGS_USER"; then
+    echo "$EGGS_USER: Du prøver at vælte kongen, men indser at du sidder i kachotten."
+    exit
+fi
+
 if [ "$#" = 0 ]; then
     echo "$EGGS_USER: Vælt hvad?  Et glas vand?  Læsset?  På dansegulvet?  Richard Stallman?  ...Kongen?"
     exit

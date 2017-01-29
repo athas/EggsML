@@ -4,6 +4,7 @@
 
 remove() {
     removeFromBadStanding "$who"
+    freeArrestedUser "$who"
     if cmpNames "$who" "$EGGS_USER"; then
         echo "$(ack) Nu De jo er konge, så bør jeg vel hellere behandle Dem med respekt..."
     else
@@ -14,7 +15,7 @@ remove() {
 if isKing $EGGS_USER; then
     if [ "$*" = "alle!" ]; then
         allAliases | while read who; do
-            if isInBadStanding "$who"; then
+            if isInBadStanding "$who" || isArrested "$who"; then
                 remove "$who"
             fi
         done

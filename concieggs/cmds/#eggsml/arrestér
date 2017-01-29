@@ -1,0 +1,26 @@
+#!/bin/sh
+#
+# Brug dine regentkræfter til at arrestere en dum borger.
+
+if isKing "$EGGS_USER"; then
+    user="$1"
+    if ! [ "$user" ]; then
+        echo "$EGGS_USER: Men, Deres ærede Majestæt, *hvem* skal jeg arrestere?"
+    elif ! [ "$(randomName "$user")" ]; then
+        echo "$EGGS_USER: Men, Deres højtærede Majestæt, den person er jo ej en registreret borger!"
+    elif isArrested "$user"; then
+        echo "$EGGS_USER: Men, Deres meget højtærede Majestæt, vi har allerede arresteret dét svin!"
+    else
+        randomLine <<EOF
+$EGGS_USER: Deres ønske er vores lov.  Vi arresterer straks $user!
+$EGGS_USER: Vi smider $user i kachotten med det samme, Deres Majestæt.
+EOF
+        arrestUser "$user"
+    fi
+elif [ "$(dbRead eggsking)" ]; then
+    echo "$EGGS_USER: MAJESTÆTSFORNÆRMELSE!  Kongens vagter har nu smidt DIG i kachotten."
+    arrestUser "$EGGS_USER"
+    annoyedBy "$EGGS_USER" 100000 "udgav sig for at være kongen"
+else
+    echo "$EGGS_USER: Øh, vi lever altså i et anarki."
+fi

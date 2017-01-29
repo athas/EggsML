@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Arrest a user by royal decree.
+
+echo "$1" | dbWriteAppend underArrest

@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# Determine whether a user is under arrest.
+
+u=$1
+dbRead underArrest | {
+    while read user; do
+        if cmpNames $u $user; then
+            exit 0
+        fi
+    done
+    exit 1
+}

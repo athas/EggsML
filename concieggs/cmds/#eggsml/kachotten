@@ -1,0 +1,24 @@
+#!/bin/sh
+#
+# Find ud af hvem der er blevet arresteret.
+
+forbryderiske() {
+    randomLine <<EOF
+forbryderiske
+usle
+svinske
+samfundsnedbrydende
+hårdkogte
+bidske
+farlige
+EOF
+}
+
+if ! [ "$(dbRead underArrest)" ]; then
+    echo "$EGGS_USER: Kachotten er tom!  Det virker altså urealistisk."
+else
+    echo "$EGGS_USER: Følgende $(forbryderiske) svin er buret inde under slottet:"
+    dbRead underArrest | while read user; do
+        echo "Den $(forbryderiske) $(randomName "$user")"
+    done
+fi
