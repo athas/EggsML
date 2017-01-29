@@ -17,8 +17,8 @@ EOF
 if ! [ "$(dbRead underArrest)" ]; then
     echo "$EGGS_USER: Kachotten er tom!  Det virker altså urealistisk."
 else
-    echo "$EGGS_USER: Følgende $(forbryderiske) svin er buret inde under slottet:"
+    echo -e "$EGGS_USER: Følgende $(forbryderiske) svin er buret inde under slottet:"
     dbRead underArrest | while read user; do
-        echo "Den $(forbryderiske) $(randomName "$user")"
-    done
+        echo "den $(forbryderiske) $(randomName "$user")"
+    done | enumerate
 fi
