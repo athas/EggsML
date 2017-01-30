@@ -36,6 +36,8 @@ elif [ "$song" ]; then
     checkRevueSong "$song"
 elif [ "$tome" ]; then
     echo "Har jeg hvad?  Brug 'har du <program> installeret'."
+elif [ "$revy" ]; then
+    echo "Har revyen hvad? Brug 'har revyen skrevet på <sang> endnu'."
 else
-    echo "Har hvem hvad?  Brug 'har du <program> installeret'."
+    echo "Har hvem hvad?  Brug 'har du <program> installeret' eller 'har revyen skrevet på <sang> endnu'."
 fi
