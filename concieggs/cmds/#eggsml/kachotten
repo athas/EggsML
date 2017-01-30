@@ -17,10 +17,14 @@ EOF
 }
 
 if ! [ "$(dbRead underArrest)" ]; then
-    echo "$EGGS_USER: Kachotten er tom!  Det virker altså urealistisk."
+    echo "$EGGS_USER: Kachotten er tom!  Styrets modstandere går frit omkring!"
 else
     echo -n "$EGGS_USER: Følgende $(forbryderiske) svin er buret inde under slottet: "
     dbRead underArrest | while read user; do
-        echo "den $(forbryderiske) $(randomName "$user")"
+        (echo "den $(forbryderiske) $(randomName "$user")"
+         echo "den $(forbryderiske) $(randomName "$user")"
+         echo "den $(forbryderiske) $(randomName "$user")"
+         echo "den såkaldte \"$(randomName "$user")\" (CPR-navn: $(randomName "$user"))" ) \
+            | randomLine
     done | enumerate
 fi
