@@ -16,15 +16,36 @@ landsforræderiske
 EOF
 }
 
+rebelsk_navn() {
+    randomLine <<EOF
+Hævneren
+Kongevælteren
+Republikaneren
+Dronningemyrderen
+Zorro
+EOF
+}
+
+replicate() {
+    n="$1"
+    line="$(cat)"
+    for i in $(seq 1 "$n"); do
+        echo "$line"
+    done
+}
+
+fanger() {
+    dbRead underArrest | while read user; do
+        {
+            echo "den $(forbryderiske) $(randomName "$user")" | replicate 3
+            echo "den såkaldte \"$(randomName "$user")\" (CPR-navn: $(randomName "$user"))"
+            echo "den selvudnævnte »$(rebelsk_navn)«, som faktisk bare hedder $(randomName "$user")"
+        } | randomLine
+    done | enumerate
+}
+
 if ! [ "$(dbRead underArrest)" ]; then
     echo "$EGGS_USER: Kachotten er tom!  Styrets modstandere går frit omkring!"
 else
-    echo -n "$EGGS_USER: Følgende $(forbryderiske) svin er buret inde under slottet: "
-    dbRead underArrest | while read user; do
-        (echo "den $(forbryderiske) $(randomName "$user")"
-         echo "den $(forbryderiske) $(randomName "$user")"
-         echo "den $(forbryderiske) $(randomName "$user")"
-         echo "den såkaldte \"$(randomName "$user")\" (CPR-navn: $(randomName "$user"))" ) \
-            | randomLine
-    done | enumerate
+    echo "$EGGS_USER: Følgende $(forbryderiske) svin er buret inde under slottet: $(fanger)."
 fi
