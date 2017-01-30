@@ -3,4 +3,4 @@
 use 5.020;
 use warnings;
 
-say "/me går rundt i kanten af scenen og kigger distraherer publikum fra plottet.";
+say "/me går rundt i kanten af scenen og kigger, og distraherer derved publikum fra plottet.";
