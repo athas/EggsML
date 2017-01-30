@@ -1,6 +1,7 @@
 #!/bin/sh
 #
-# Spørg om concieggs har et givent program installeret.
+# Spørg om concieggs har et givent program installeret, eller om revyen
+# nogensinde har skrevet en sang på en givet melodi.
 
 if [ "$(ircChannel)" = "#dikurevy" ]; then
     eval "$(echo "$@" | parse '(?<tome>(?:vi|nogen)(?: nogensinde)? skrevet på (?<song>.*?)(?: endnu)?$)')"
@@ -10,10 +11,10 @@ if [ "$(ircChannel)" = "#dikurevy" ]; then
     fi
 fi
 
-eval "$(echo "$@" | parse '(?<tome>du( det)? +(?<prog>[^/]+)( +installeret)?)|revyen (nogensinde )?skrevet på (?<song>.+?)( endnu)?$')"
+eval "$(echo "$@" | parse '(?<tome>du(?: +det(?: +der)?)? +(?<prog>[^/\s]+))|(?<revy>revyen (?:nogensinde )?skrevet på (?<song>.+?)(?: endnu)?)$')"
 
 if [ "$prog" ]; then
-    file=$(which "$(echo "$prog" | tolower)")
+    file=$(which "$(echo "$prog" | tolower)" 2>/dev/null)
     if [ "$file" ]; then
         (
             echo "Jep, det ligger trygt og godt i $file."
