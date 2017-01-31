@@ -2,14 +2,15 @@
 #
 # Free an arrested user by royal decree.
 
-user="$1"
-fire_alarm="$(mktemp)"
-dbRead underArrest > "$fire_alarm"
-dbDelete underArrest
+dbRemoveLines() {
+    name="$1"
+    should_remove_fun="$2"
+    dbRead $name | while read some_user; do
+        if ! $should_remove_fun $some_user; then
+            echo $some_user
+        fi
+    done | dbWrite $name
+}
 
-while read alarmed_user; do
-    if ! cmpNames "$alarmed_user" "$user"; then
-        arrestUser "$alarmed_user"
-    fi
-done < "$fire_alarm"
-rm "$fire_alarm"
+user_to_free="$1"
+dbRemoveLines underArrest "cmpNames $user_to_free"
