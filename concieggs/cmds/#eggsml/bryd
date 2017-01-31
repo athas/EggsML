@@ -22,6 +22,10 @@ EOF
 
 if [ "$prison" ]; then
     if isArrested "$who"; then
+        if ! checkCooldown brydUdKachotten $((60 * 2)); then
+            echo "Ja, kachotten er forfærdelig, men du er alt for udmattet til at bryde ud lige nu.  Vent en stund."
+            exit
+        fi
         if [ $(random 1 4) = 4 ]; then
             echo "Ikke denne gang, kammerat.  Tilbage i brummen med dig!"
         else
