@@ -21,12 +21,16 @@ EOF
 }
 
 if [ "$prison" ]; then
-    if [ $(random 1 4) = 4 ]; then
-        echo "Ikke denne gang, kammerat.  Tilbage i brummen med dig!"
+    if isArrested "$who"; then
+        if [ $(random 1 4) = 4 ]; then
+            echo "Ikke denne gang, kammerat.  Tilbage i brummen med dig!"
+        else
+            freeArrestedUser "$who"
+            echo "Du trækker vejret dybt og nyder den friske luft."
+            echo "Du er fri."
+        fi
     else
-        freeArrestedUser "$who"
-        echo "Du trækker vejret dybt og nyder den friske luft."
-        echo "Du er fri."
+        echo "Hvorfor dog det?  Du er jo slet ikke i kachotten!"
     fi
 elif [ "$closet" ]; then
     echo "Fedt mand, jeg sætter $(fedmusik) på!"
