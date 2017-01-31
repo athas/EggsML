@@ -21,7 +21,7 @@ if [ v = 0 ]; then
     exit
 fi
 
-harVaeltet() {
+vilVaelte() {
     dbRead vilvæltekongen | {
         while read user; do
             if cmpNames $rebel $user; then
@@ -32,9 +32,20 @@ harVaeltet() {
     }
 }
 
+knusOproeret() {
+    dbRead vilvæltekongen | {
+        while read user; do
+            if ! isArrested "$user"; then
+                arrestUser "$user"
+            fi
+        done
+    }
+    dbDelete vilvæltekongen
+}
+
 if ! isKing "$EGGS_USER"; then
     kingname="$(dbRead eggsking)"
-    if harVaeltet; then
+    if vilVaelte; then
         echo "Man var alligevel ikke helt loyal over for oprøret, hva'?"
         echo "Bare rolig, jeg skal nok gøre det så de andre ikke fatter mistanke."
         sleep 3
@@ -47,8 +58,8 @@ else
     if [ $(random 1 4) = 4 ]; then
         echo "De fik mig, Deres Majestæt, oprøret lever videre..."
     else
-        dbDelete vilvæltekongen
-        echo "Oprøret er knust, Deres Majestæt."
+        knusOproeret
+        echo "Oprøret er knust og uromagerne smidt i brummen, Deres Majestæt."
     fi
 fi
 

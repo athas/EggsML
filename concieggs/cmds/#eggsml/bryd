@@ -1,0 +1,36 @@
+#!/bin/sh
+#
+# Vis at ingen bånd binder dig!
+
+eval "$(echo "$@" | parse 'ud af ((?<prison>(kachotten|fængslet|brummen)|(?<closet>skabet))))"
+
+who=$(randomName $EGGS_USER)
+
+if ! [ "$who" ]; then
+    echo "Jeg synes ikke du virker bekendt."
+    exit
+fi
+
+fedmusik() {
+    randomLine <<EOF
+noget Village People
+den med Slayer
+Bee Gees
+noget Lady Gaga
+EOF
+}
+
+if [ "$prison" ]; then
+    if [ $(random 1 4) = 4 ]; then
+        echo "Ikke denne gang, kammerat.  Tilbage i brummen med dig!"
+    else
+        freeArrestedUser "$who"
+        echo "Du trækker vejret dybt og nyder den friske luft."
+        echo "Du er fri."
+    fi
+elif [ "$closet" ]; then
+    echo "Fedt mand, jeg sætter $(fedmusik) på!"
+else
+    echo "Hvad bryder du?  Bryder du ud af noget?!"
+fi
+
