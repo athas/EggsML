@@ -9,7 +9,7 @@ dbDelete underArrest
 
 while read alarmed_user; do
     if ! cmpNames "$alarmed_user" "$user"; then
-        arrestUser "$user"
+        arrestUser "$alarmed_user"
     fi
 done < "$fire_alarm"
 rm "$fire_alarm"
