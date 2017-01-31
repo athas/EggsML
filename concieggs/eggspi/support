@@ -32,13 +32,10 @@ EOF
 
 support_all() {
     randomLine <<EOF
-I har så ret!
-Enig!
-I har alle helt ret.
-Fandeme godt sagt!
-Prædk det!
-Ved I hvad, I er alle vildt intelligente!
-I er sgu klogere end mig.
+Tillad mig at sige, at det er en ære at betjene så vidende herrer.
+Hver dag i d'herrers selskab lærer mig nyt.
+Jeg er enig i det fælles konsensus.
+D'herrer er alle lærde og retfærdige.
 EOF
 }
 
