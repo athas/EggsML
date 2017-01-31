@@ -4,7 +4,7 @@
 
 user="$1"
 fire_alarm="$(mktemp)"
-dbRead underArrest > fire_alarm
+dbRead underArrest > "$fire_alarm"
 dbDelete underArrest
 
 while read alarmed_user; do
