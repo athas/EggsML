@@ -2,7 +2,7 @@
 #
 # Vis at ingen bånd binder dig!
 
-eval "$(echo "$@" | parse 'ud af ((?<prison>(kachotten|fængslet|brummen)|(?<closet>skabet))))"
+eval "$(echo "$@" | parse 'ud af ((?<prison>(kachotten|fængslet|brummen)|(?<closet>skabet)))')"
 
 who=$(randomName $EGGS_USER)
 
