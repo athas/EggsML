@@ -54,6 +54,10 @@ if ! isKing "$EGGS_USER"; then
     fi
     echo "$(randomKingName $kingname)!  Der er nogle rebeller der prøver at fratage Dem Deres retmæssig magt!"
 else
+    if ! checkCooldown knusOproeret $((3600 * 2)); then
+        echo "Jeg kan ikke knuse oprøret hele tiden, Deres Majestæt!"
+        exit
+    fi
     echo "Jeg vil gøre mit bedste, Deres Majestæt!"
     if [ $(random 1 4) = 4 ]; then
         echo "De fik mig, Deres Majestæt, oprøret lever videre..."
