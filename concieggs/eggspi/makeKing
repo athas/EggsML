@@ -6,6 +6,7 @@ echo "$1" | dbWrite eggsking
 
 kongenavn | dbWrite eggskingname
 
-echo "$1" | dbWriteAppend eggskinglist
+now=$(date '+%s')
+echo "$now $1" | dbWriteAppend eggskinglist
 
 dbDelete vilvæltekongen
