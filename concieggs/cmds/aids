@@ -1,5 +1,16 @@
-#!/bin/sh
+#!/usr/bin/env tclsh
 #
-# Påpeg et yderst morsomt ordspil!
+# Oplys folket om AIDS.
 
-echo "Ja, det er ret sjovt at en vis anden kommando lyder lidt som en sygdom, ikke?"
+set facts {
+    "I 2015 levede cirka 36,7 mio. mennesker, herunder 1,8 mio. børn, med HIV."
+    "I 2015 døde 1,1 mio. mennesker af AIDS-relaterede sygdomme."
+    "Siden begyndelsen af AIDS-epidemien er cirka 78 mio. mennesker blevet inficeret med HIV og cirka 35 mio. mennesker døde af AIDS-relaterede sygdomme."
+    "Cirka 25,5 mio. mennesker lever med HIV i Subsafarisk Afrika. De fleste (19 mio.) bor i Øst- og Sydafrika som så en 46% forøgelse af HIV-infektioner i 2015."
+    "Omkring 40% af alle med HIV ved ikke at de er smittet."
+    "I 2015 var der omkring 2,1 mio. nye HIV-infektioner, hvor cirka 150.000 var børn. De fleste af disse børn levede i Subsaharisk Afrika og blev enten smittet via deres HIV-positive mødre under graviditeten, fødslen eller amning."
+    "Indsatsen mod nye HIV-tilfælde er faldet i de seneste år. Siden 2010 er antallet af nye HIV-tilfælde blandt 15+-årige ligget fast på omkring de 1,9 mio."
+    "Der er i dag stor forskel mellem lande på indsatsen imod spredning af HIV. Nogle lande har opnået en nedgang på 50% af nye HIV-tilfælde blandt voksne over de seneste 10 år, mens andre lande ikke har opnået nogen fremgang og endnu andre lande har en egentlig tilbagegang."
+}
+
+puts [lindex $facts [expr {int(rand() * [llength $facts])}]]
