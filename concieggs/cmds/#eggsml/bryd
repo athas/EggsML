@@ -27,11 +27,11 @@ if [ "$prison" ]; then
             exit
         fi
         if [ $(random 1 4) = 4 ]; then
-            echo "Ikke denne gang, kammerat.  Tilbage i brummen med dig!"
-        else
             freeArrestedUser "$who"
             echo "Du trækker vejret dybt og nyder den friske luft."
             echo "Du er fri."
+        else
+            echo "Ikke denne gang, kammerat.  Tilbage i brummen med dig!"
         fi
     else
         echo "Hvorfor dog det?  Du er jo slet ikke i kachotten!"
