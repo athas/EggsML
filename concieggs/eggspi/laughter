@@ -28,7 +28,9 @@ if {$isntChristmas} {
 } else {
     set prefix HO
     set ha HO
-    set suffix ""
+
+    catch {exec christmasLevel} christmasLevel options
+    set suffix "[string repeat O [expr {int($christmasLevel / 10)}]]H"
 }
 
 # Grin!
