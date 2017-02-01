@@ -7,19 +7,30 @@ proc rand {min max} {
     return [expr {$min + int(rand() * ($max-$min))}]
 }
 
+# [randindex {a b c ...}] producerer en tilfældig indgang i listen.
+proc randindex xs {
+    return [lindex $xs [rand 0 [llength $xs]]]
+}
+
 # Er det jul?
 catch {exec isChristmas} {} options
 set isntChristmas [dict get $options -code]
 
 # Hvordan skal der grines?
 if {$isntChristmas} {
-    set has {{MU HA} {ti hi} {tø hø}}
-    foreach {prefix ha} [lindex $has [rand 0 [llength $has]]] {}
+    set has {
+        {MU HA {"" "" RH AAAARGH}}
+        {ti hi {"" "" " fniz"}}
+        {tø hø {""}}
+    }
+    foreach {prefix ha suffixes} [randindex $has] {}
+    set suffix [randindex $suffixes]
 } else {
     set prefix HO
     set ha HO
+    set suffix ""
 }
 
 # Grin!
-set response "$prefix[string repeat $ha [rand 2 10]]"
+set response "$prefix[string repeat $ha [rand 2 10]]$suffix"
 puts $response
