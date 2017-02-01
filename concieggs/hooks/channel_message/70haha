@@ -2,30 +2,13 @@
 #
 # Grin højlydt.
 
-proc execp cmd {
-    catch [list exec {*}$cmd] {} options
-    return [expr {![dict get $options -code]}]
-}
-
 proc run cmd {
     catch [list exec {*}$cmd] output options
-    set errorcode [dict get $options -code]
-    if {$errorcode != 0} {
-        set errmsg "Programmet $::argv0 fik en fejlkode $errorcode på '$cmd'"
-        if {$output eq ""} {
-            append errmsg ", men spyttede stadig noget ud på stdout."
-        }
-        puts stderr $errmsg
-    }
-    return $output
-}
-
-proc rand {min max} {
-    return [expr {$min + int(rand() * ($max-$min))}]
+    return [list [expr {![dict get $options -code]}] $output]
 }
 
 proc randindex xs {
-    return [lindex $xs [rand 0 [llength $xs]]]
+    return [lindex $xs [expr {int(rand() * [llength $xs])}]]
 }
 
 proc sjov {} {
@@ -34,20 +17,14 @@ proc sjov {} {
     return "[randindex $prefix] [randindex $suffix]"
 }
 
-proc haha {} {
-    return [run laughter]
-}
+if {[lindex [run shuttingUp] 0]} {exit 0}
 
-if {[execp shuttingUp]} {exit 0}
-
-set nick $::env(EGGS_USER)
+set active 0
 set text $::env(EGGS_BODY)
+incr active [regsub -all -nocase {sjov[te]?|grinere?n|morsom(?:t|me)|skæg(?:t|ge)?} $text [sjov] text]
+incr active [regsub -all -nocase {[Hh][aeø](?:(?:h[aeø])+h?|h)} $text [lindex [run laughter] 1] text]
 
-set changes 0
-incr changes [regsub -all -nocase {sjov[te]?|grinere?n|morsom(?:t|me)|skæg(?:t|ge)?} $text [sjov] text]
-incr changes [regsub -all -nocase {[Hh][aeø](?:(?:h[aeø])+h?|h)} $text [haha] text]
-
-if {$changes > 0} {
+if {$active > 0} {
     puts stdout $text
-    execp [list pleasedBy $nick 5]
+    run [list pleasedBy $::env(EGGS_USER) 5]
 }
