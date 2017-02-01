@@ -15,7 +15,7 @@ fi
 
 iter=0
 while true; do
-    last="$(echo "$who" | randomLine)"
+    last="$(echo "$last" | randomLine)"
     if [ $(random 0 2) -lt 2 ]; then
         echo "Fluen summer hen over hovedet på $last!"
         iter=$(expr $iter + 1)
