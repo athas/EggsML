@@ -1,34 +1,53 @@
-#!/bin/sh
+#!/usr/bin/env tclsh
 #
 # Grin højlydt.
 
-shuttingUp && exit
+proc execp cmd {
+    catch [list exec {*}$cmd] {} options
+    return [expr {![dict get $options -code]}]
+}
 
-# maybeGood .4 || exit
+proc run cmd {
+    catch [list exec {*}$cmd] output options
+    set errorcode [dict get $options -code]
+    if {$errorcode != 0} {
+        set errmsg "Programmet $::argv0 fik en fejlkode $errorcode på '$cmd'"
+        if {$output eq ""} {
+            append errmsg ", men spyttede stadig noget ud på stdout."
+        }
+        puts stderr $errmsg
+    }
+    return $output
+}
 
-ha=$(laughter)
+proc rand {min max} {
+    return [expr {$min + int(rand() * ($max-$min))}]
+}
 
-foranSjov=$(randomLine <<EOF
-VILDT
-ULTRA
-ROFLENDE
-MEGA
-LOLLENDE
-EOF
-)
+proc randindex xs {
+    return [lindex $xs [rand 0 [llength $xs]]]
+}
 
-sjov="$foranSjov $(randomLine <<EOF
-GRINERN
-SJOV
-MORSOM
-LOLZ
-ROFLCOPTER
-EOF
-)"
+proc sjov {} {
+    set prefix {VILDT ULTRA ROFLENDE MEGA LOLLENDE}
+    set suffix {GRINERN SJOV MORSOM LOLZ ROFLCOPTER}
+    return "[randindex $prefix] [randindex $suffix]"
+}
 
-new=$(say "$EGGS_BODY" | sed -r -e "s/[Hh][aøe]((h[aøe])+h?|h)/$ha/g" -e "s/(sjov[te]?|grinere?n|morsom(t|me)?|skæg(t|ge)?)([ .,:;$])/${sjov}\4/g")
+proc haha {} {
+    return [run laughter]
+}
 
-if [ "$new" != "$EGGS_BODY" ]; then
-    say "$new"
-    pleasedBy "$EGGS_USER" 5
-fi
+if {[execp shuttingUp]} {exit 0}
+
+set nick $::env(EGGS_USER)
+set text $::env(EGGS_BODY)
+
+set changes 0
+incr changes [regsub -all -nocase {sjov[te]?|grinere?n|morsom(?:t|me)|skæg(?:t|ge)?} $text [sjov] text]
+incr changes [regsub -all -nocase {[Hh][aeø](?:(?:h[aeø])+h?|h)} $text [haha] text]
+
+if {$changes > 0} {
+    puts stdout $text
+    execp [list pleasedBy $nick 5]
+}
