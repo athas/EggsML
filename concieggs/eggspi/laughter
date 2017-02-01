@@ -13,7 +13,7 @@ set isntChristmas [dict get $options -code]
 
 # Hvordan skal der grines?
 if {$isntChristmas} {
-    set has {{MU HA} {TI HI} {tø hø}}
+    set has {{MU HA} {ti hi} {tø hø}}
     foreach {prefix ha} [lindex $has [rand 0 [llength $has]]] {}
 } else {
     set prefix HO
