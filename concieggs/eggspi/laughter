@@ -1,6 +1,25 @@
 #!/usr/bin/env tclsh
+#
+# Producerer en ond, fnisende, bøvet eller julet latter.
 
+# [rand i j] producerer et tilfældigt heltal i intervallet [min,max[.
+proc rand {min max} {
+    return [expr {$min + int(rand() * ($max-$min))}]
+}
+
+# Er det jul?
 catch {exec isChristmas} {} options
 set isntChristmas [dict get $options -code]
-set ha [expr {$isntChristmas ? "HA" : "Ho"}]
-puts [string repeat $ha [expr {2 + int(rand() * 10)}]]
+
+# Hvordan skal der grines?
+if {$isntChristmas} {
+    set has {{MU HA} {TI HI} {tø hø}}
+    foreach {prefix ha} [lindex $has [rand 0 [llength $has]]] {}
+} else {
+    set prefix HO
+    set ha HO
+}
+
+# Grin!
+set response "$prefix[string repeat $ha [rand 2 10]]"
+puts $response
