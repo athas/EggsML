@@ -8,7 +8,7 @@ if [ "$ban_person" ]; then
     if isKing $EGGS_USER; then
         who="$(randomName "$ban_person")"
         if [ "$who" ]; then
-            annoyedBy "$who" 10000 "på Royal anmodning"
+            annoyedBy "$who" 10000 "blev bandlyst"
             say "$EGGS_USER: $(ack) Lad det være kendt, at $who er lyst i band i hele EggsMLs land!"
         else
             say "$EGGS_USER: Jeg er bange for, at jeg ikke ved hvem '$ban_person' skulle være."
