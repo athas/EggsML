@@ -23,6 +23,7 @@ if {$isntChristmas} {
         {ti hi {"" "" " fniz"}}
         {tø hø {""}}
         {lol ol {"" "" "!!1" "!!1!one"}}
+        {l o {"l"}}
         {tro lo {""}}
     }
     foreach {prefix ha suffixes} [randindex $has] {}
