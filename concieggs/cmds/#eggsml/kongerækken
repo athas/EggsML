@@ -2,6 +2,8 @@
 #
 # Fortæl om kongerne af EggsML
 
+>&2 dbRead eggskinglist
+
 dbRead eggskinglist | {
     while read line; do
         eval "$(echo "$line" | parse '(?<ascension>[0-9]+) (?<kingname>[^ ]+)|(?<interbellum>[0-9]+)|(?<myth>.+)')"
