@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# Fortæl om kongerne af EggsML
+
+dbRead eggskinglist | {
+    while read line; do
+        eval "$(echo "$line" | parse '(?<ascension>[0-9]+) (?<kingname>[^ ]+)|(?<interbellum>[0-9]+)$|(?<myth>.+)')"
+        if [ "$ascension" ]; then
+            echo "Den $ascension blev Kong $kingname taget i ed."
+        elif [ "$interbellum" ]; then
+            echo "Fra $interbellum var der ingen konge."
+        elif [ "$myth" ]; then
+            echo "I fordomstid herskede Kong $myth!"
+        fi
+    done
+}
+
