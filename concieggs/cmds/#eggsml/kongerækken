@@ -14,6 +14,8 @@ dbRead eggskinglist | {
             echo "I fordomstid herskede Kong $myth!"
         elif [ "$interbellum" ]; then
             echo "Fra $interbellum var der ingen konge."
+        else
+            >&2 echo "Hva' fanden: $line"
         fi
     done
 }
