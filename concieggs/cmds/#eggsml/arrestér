@@ -4,6 +4,27 @@
 
 if isKing "$EGGS_USER"; then
     user="$1"
+    if [ "$user" = "concieggs" ]; then
+        if [ "$(dbRead vilvæltekongen)" ]; then
+            newking=$(randomLine $(dbRead vilvæltekongen))
+            makeKing "$newking"
+            if isArrested "$newking"; then
+                freeArrestedUser "$newking"
+            fi
+            echo "$EGGS_USER: Hvis det er med den på, så kan $newking være konge i stedet!  Og nu er DU i brummen!"
+        elif [ "$(dbRead underArrest)" ]; then
+            newking=$(randomLine $(dbRead underArrest))
+            makeKing "$newking"
+            freeArrestedUser "$newking"
+            echo "$EGGS_USER: Så for satan, det finder jeg mig ikke!  Ind med dig i kachotten, og nu er $newking konge!"
+        else
+            revolution
+            echo "$EGGS_USER: Skal det være på den måde, så bør der slet ikke være en konge!"
+        fi
+        arrestUser "$EGGS_USER"
+        exit
+    fi
+    
     if ! [ "$user" ]; then
         echo "$EGGS_USER: Men, Deres ærede Majestæt, *hvem* skal jeg arrestere?"
     elif ! [ "$(randomName "$user")" ]; then

@@ -56,11 +56,7 @@ if [ "$v" -gt $(random 3 5) ]; then
 
     newKing=$(dbRead vilvæltekongen | randomLine)
 
-    dbDelete eggsking
-    now=$(date '+%s')
-    echo "$now" | dbWriteAppend eggskinglist
-    # Uden felt to (kongenavn), betyder det at kongen var blevet smidt af!
-    # Interregnum
+    revolution
     dbDelete vilvæltekongen
 
     randomLine <<EOF
