@@ -2,15 +2,15 @@
 #
 # Fortæl om kongerne af EggsML
 
->&2 dbRead eggskinglist
+#>&2 dbRead eggskinglist
 
 dbRead eggskinglist | {
     while read line; do
-        eval "$(echo "$line" | parse '(?<ascension>[0-9]+) (?<kingname>[^ ]+)|(?<interbellum>[0-9]+)|(?<myth>.+)')"
+        eval "$(echo "$line" | parse '(?<properking>(?<ascension>[0-9]+) (?<kingname>[^ ]+))|(?<interbellum>[0-9]+)|(?<myth>.+)')"
         if [ "$(randomName $interbellum)" ]; then
             $myth=$interbellum
         fi
-        if [ "$ascension" ]; then
+        if [ "$properking" ]; then
             echo "Den $ascension blev Kong $kingname taget i ed."
         elif [ "$myth" ]; then
             echo "I fordomstid herskede Kong $myth!"
