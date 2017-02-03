@@ -22,7 +22,7 @@ EOF
 
 if [ "$prison" ]; then
     if isArrested "$who"; then
-        if ! checkCooldown brydUdKachotten $((60 * 2)); then
+        if ! checkCooldown "brydUdKachotten$EGGS_USER" $((60 * 2)); then
             echo "Ja, kachotten er forfærdelig, men du er alt for udmattet til at bryde ud lige nu.  Vent en stund."
             exit
         fi
