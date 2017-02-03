@@ -41,9 +41,13 @@ elif [ "$birthday" ]; then
 elif [ "$king" ]; then
     kingname="$(dbRead eggsking)"
     if [ -z "$kingname" ]; then
-        echo "OK."
-        makeKing "$EGGS_USER"
-        echo "Længe leve $(randomKingName $EGGS_USER)!"
+        if isArrested "$EGGS_USER"; then
+            echo "Da ikke mens du er i brummen?"
+        else
+            echo "OK."
+            makeKing "$EGGS_USER"
+            echo "Længe leve $(randomKingName $EGGS_USER)!"
+        fi
     else
         if cmpNames "$kingname" "$EGGS_USER"; then
             echo "Det er korrekt."
