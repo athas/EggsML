@@ -6,11 +6,15 @@
 
 dbRead eggskinglist | {
     while read line; do
-        eval "$(echo "$line" | parse '(?<properking>(?<ascension>[0-9]+) (?<kingname>[^ ]+))|(?<interbellum>[0-9]+)|(?<myth>.+)')"
+        ascension=""
+        kingname=""
+        interbellum=""
+        myth=""
+        eval "$(echo "$line" | parse '(?<ascension>[0-9]+) (?<kingname>.+)|(?<interbellum>[0-9]+)|(?<myth>.+)')"
         if [ "$(randomName $interbellum)" ]; then
             $myth=$interbellum
         fi
-        if [ "$properking" ]; then
+        if [ "$ascension" ]; then
             echo "Den $ascension blev Kong $kingname taget i ed."
         elif [ "$myth" ]; then
             echo "I fordomstid herskede Kong $myth!"
