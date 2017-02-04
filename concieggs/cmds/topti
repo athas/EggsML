@@ -8,10 +8,10 @@ if ! [ "$n" ]; then
 fi
 
 interactions=$(mktemp)
-lines=5000
+lines=2000
 recentInteractions $lines > $interactions
 
-echo "$EGGS_USER: Følgende borgere har snakket mest sammen i den seneste tid:"
+echo "$EGGS_USER: Følgende borgere har snakket mest sammen på de sidste $lines linjer:"
 
 cat $interactions | uniq | while read interaction; do
     echo "$(grep -c "$interaction" $interactions) $interaction"
