@@ -27,7 +27,7 @@ if [ "$birthday" ]; then
     elif [ "$date" = $(dateToday | sed 's/^....-//') ]; then
         echo "$EGGS_USER: $recp HAR FØDSELSDAG I DAG!  HURRRAAAAA!"
     else
-        echo "$EGGS_USER: $recp har fødselsdag d. $(formatDate $date)!"
+        echo "$EGGS_USER: $recp har fødselsdag $(formatDate $date)!"
     fi
 else
     echo "Brug: hvornår har (jeg|<bruger>) fødselsdag?"

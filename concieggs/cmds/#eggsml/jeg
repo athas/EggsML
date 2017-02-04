@@ -37,7 +37,7 @@ elif [ "$pref" ]; then
 elif [ "$birthday" ]; then
     date=$(dateToday | sed 's/^....-//')
     echo $date | dbUserWrite $who birthday
-    echo "$(ack)  Nu ved jeg at du har fødselsdag i dag, d. $(formatDate $date)."
+    echo "$(ack)  Nu ved jeg at du har fødselsdag i dag, $(formatDate $date)."
 elif [ "$king" ]; then
     kingname="$(dbRead eggsking)"
     if [ -z "$kingname" ]; then
