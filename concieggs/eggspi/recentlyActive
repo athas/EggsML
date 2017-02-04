@@ -16,7 +16,7 @@ filterIsOnline() {
     done
 }
 
-tail -n $lines "$CONCIEGGS_IRC_DIR/out" \
+recentChat $lines \
     | egrep -o '^#[a-z]+ +:[0-9 :\-]+<([^ >]+)' \
     | cut -d'<' -f2 \
     | grep -v '^hej_fra_github$' \
