@@ -15,12 +15,12 @@ echo "$EGGS_USER: Følgende borgere har snakket mest sammen i den seneste tid:"
 
 cat $interactions | uniq | while read interaction; do
     echo "$(grep -c "$interaction" $interactions) $interaction"
-done | sort -nr | head $n | while read line; do
+done | sort -nr | head -n $n | while read line; do
     n_ints=$(echo $line | cut -d ' ' -f 1)
     from=$(echo $line | cut -d ' ' -f 2)
     to=$(echo $line | cut -d ' ' -f 3)
     echo "$from har talt til $to $n_ints gange."
 done
-echo "Det var alt!"
+echo "$EGGS_USER: Det var alt!"
 
 rm $interactions
