@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# Find de nyligt interaktive samtaler.
+
+lines="$1"
+
+if ! [ "$lines" ]; then
+    lines=1000
+fi
+
+recentChat $lines \
+    | egrep -o '^#[a-z]+ +:[0-9 :\-]+<[^ >]+> +[^:, ]+[:,]' \
+    | sed 's/[:,]$//' \
+    | sed -r 's/^[^<]+<//' \
+    | sed 's/>//' \
+    | egrep -v '^concieggs' | egrep -v 'concieggs$' \
+    | egrep -v '^'$CONCIEGGS_NAME | egrep -v $CONCIEGGS_NAME'$' \
+    | egrep -v '^infoskaerm' | egrep -v 'infoskaerm$' \
+    | sort
