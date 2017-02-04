@@ -1,0 +1,57 @@
+#!/bin/sh
+#
+# Format a date of format [[YYYY-]MM-]DD in danish.
+
+nthLine() {
+    n="$1"
+    head -n "$n" | tail -n 1
+}
+
+
+raw="$1"
+
+p0=$(echo $raw | cut -d- -f1)
+p1=$(echo $raw | cut -d- -f2)
+p2=$(echo $raw | cut -d- -f3)
+
+if [ "$p2" ]; then
+    year=$p0
+    month=$p1
+    day=$p2
+elif [ "$p1" ]; then
+    year=''
+    month=$p0
+    day=$p1
+else
+    year=''
+    month=''
+    day=$p1
+fi
+    
+day=$(echo $day | sed 's/0//')
+
+if [ "$month" ]; then
+    month_name=$(nthLine $month <<EOF
+januar
+februar
+marts
+april
+maj
+juni
+juli
+august
+september
+oktober
+november
+december
+EOF
+)
+fi
+
+if [ "$year" ]; then
+    echo "den $day. $month_name $year"
+elif [ "$month" ]; then
+    echo "den $day. $month_name"
+else
+    echo "den $day."
+fi
