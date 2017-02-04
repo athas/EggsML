@@ -1,14 +1,14 @@
 #!/bin/sh
 #
-# Hvem snakker mest sammen?  Brug: topti [N]
+# Hvem snakker mest sammen?  Brug: topti [N_BACKLOGLINJER]
 
-n="$1"
-if ! [ "$n" ]; then
-    n=10
+lines="$1"
+if ! [ "$lines" ]; then
+    lines=2000
 fi
+n=10
 
 interactions=$(mktemp)
-lines=2000
 recentInteractions $lines > $interactions
 
 echo "$EGGS_USER: Følgende borgere har snakket mest sammen på de sidste $lines linjer:"
