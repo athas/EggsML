@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# Format a time of format HH[:MM[:SS]] in Danish.
+
+raw="$1"
+
+echo klokken $raw

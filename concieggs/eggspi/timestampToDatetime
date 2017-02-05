@@ -1,0 +1,8 @@
+#!/usr/bin/env python3
+#
+# Convert timestamp to format YYYY-MM-DD HH:MM:SS.
+
+import sys
+import datetime
+
+print(datetime.datetime.fromtimestamp(int(sys.argv[1])))

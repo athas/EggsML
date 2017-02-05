@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Format a date of format [[YYYY-]MM-]DD in danish.
+# Format a date of format [[YYYY-]MM-]DD in Danish.
 
 nthLine() {
     n="$1"

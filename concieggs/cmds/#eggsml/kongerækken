@@ -1,28 +1,28 @@
 #!/bin/sh
 #
-# Fortæl om kongerne af EggsML
+# Fortæl om kongerne af EggsML.
 
-#>&2 dbRead eggskinglist
-
-dbRead eggskinglist | {
-    while read line; do
-        ascension=""
-        kingname=""
-        interbellum=""
-        myth=""
-        eval "$(echo "$line" | parse '(?<ascension>[0-9]+) (?<kingname>.+)|(?<interbellum>[0-9]+)|(?<myth>.+)')"
-        if [ "$(randomName $interbellum)" ]; then
-            $myth=$interbellum
-        fi
-        if [ "$ascension" ]; then
-            echo "Den $ascension blev Kong $kingname taget i ed."
-        elif [ "$myth" ]; then
-            echo "I fordomstid herskede Kong $myth!"
-        elif [ "$interbellum" ]; then
-            echo "Fra $interbellum var der ingen konge."
-        else
-            >&2 echo "Hva' fanden: $line"
-        fi
-    done
+fmt() {
+    timestamp="$1"
+    formatDatetime $(timestampToDatetime "$timestamp")
 }
 
+dbRead eggskinglist | while read line; do
+    ascension=''
+    kingname=''
+    interbellum=''
+    myth=''
+    eval "$(echo "$line" | parse '(?<ascension>[0-9]+) (?<kingname>.+)|(?<interbellum>[0-9]+)|(?<myth>.+)')"
+    if [ "$(randomName "$interbellum")" ]; then
+        $myth="$interbellum"
+    fi
+    if [ "$ascension" ]; then
+        echo "På $(fmt $ascension) blev Kong $(randomName "$kingname") taget i ed."
+    elif [ "$myth" ]; then
+        echo "I fordomstid herskede Kong $myth!"
+    elif [ "$interbellum" ]; then
+        echo "Fra $(fmt $interbellum) var der ingen konge."
+    else
+        >&2 echo "Hva' fanden: $line"
+    fi
+done

@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+# Format a datetime of format [[YYYY-]MM-]DD HH[:MM[:SS]] in Danish.
+
+raw_date="$1"
+raw_time="$2"
+
+echo $(formatDate $raw_date) $(formatTime $raw_time)
