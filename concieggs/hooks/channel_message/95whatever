@@ -1,0 +1,20 @@
+#!/bin/sh
+
+if ! (echo "$EGGS_BODY" | grep -qi whatev); then
+    exit
+fi
+
+randomLine <<EOF
+Whatever.
+Jeg er også pænt ligeglad.
+Okay så.
+Det kan vel godt passe.
+Det siger vi bare.
+Den er god, du.
+Nå, jaja.
+Whatevs.
+Jeg går ind på mit værelse.
+Hvorfor snakker I hele tiden?
+Iih.
+Jeg er træt af det her.
+EOF
