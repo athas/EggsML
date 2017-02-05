@@ -13,6 +13,7 @@ func main() {
 		"Genau",
 		"Mais oui",
 		"Exactly",
+		"Jeg kunne ikke sige det bedre selv",
 	}
 	fmt.Printf("%s.", remarks[rand.Intn(len(remarks))])
 }
