@@ -101,7 +101,7 @@ word2 := ~/screenshot/ "skærmbillede"
        | ~/int(eger)?/ "heltal"
        | ~/overflow/ "overløb"
        | ~/string/ "tegnfølge"
-       | (~/n / "t ")? ~/char/ "tegn"
+       | ~/char/ "tegn"
        | (~/en / "et ")? ~/float/ (~/s/ "brudne" | "brudent") " tal"
        | ~/array/ "geled" (~/et/ "det" | ~/s/ "der")?
        | ~/dollar/ "daler" (~/s/ "e")?
