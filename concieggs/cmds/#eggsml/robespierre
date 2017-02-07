@@ -30,6 +30,8 @@ else
             echo "Al magt kommer fra folket, ikke Gud!"
         ) | randomLine
     fi
+    dbDelete underArrest
+    dbDelete vilvæltekongen
     revolution
     echo | dbWrite robespierre
 fi
