@@ -1,0 +1,35 @@
+#!/bin/sh
+#
+# Gør op med al dette fjollede monarki.
+
+if [ "$1" = af ] && dbRead robespierre; then
+    if [ $(dbRead dawkins) ]; then
+        (
+            echo "$EGGS_USER: Uden guddommelighed, hvordan kan kongen så få magten?"
+            echo "$EGGS_USER: Måske du skal tale med Hr. Dawkins om hvordan man bliver konge?"
+            echo "$EGGS_USER: Hvis magten ikke kommer fra folket?  Hvorfra så?!"
+        ) | randomLine
+        exit
+    fi
+    (echo "$EGGS_USER: Længe leve kongen!"
+     echo "$EGGS_USER: Monarkiet er tilbage!"
+     echo "$EGGS_USER: De gamle værdier vender tilbage!"
+     echo "$EGGS_USER: Wienerkongressen havde ret!"
+     echo "$EGGS_USER: Bourbon-restoration er klar!"
+    ) | randomLine
+    dbDelete robespierre
+else
+    echo "$(ack)  Robespierre-tilstand aktiveret!"
+    sleep 1
+    if [ $(dbRead eggsking) ]; then
+        king=$(dbRead eggsking)
+        (
+            echo "Kong ${king}s hoved røg i revolution."
+            echo "Terroren fik ramt på $king."
+            echo "Ingen Gud kan give nogen magten!  Kong $king er afsat, og det er tronen også!"
+            echo "Al magt kommer fra folket, ikke Gud!"
+        ) | randomLine
+    fi
+    revolution
+    echo | dbWrite robespierre
+fi

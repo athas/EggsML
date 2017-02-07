@@ -30,5 +30,11 @@ while true; do
     sleep 5
 done
 
-echo "Fluen har fundet lorten, og lander på $last! $last er den nye konge af #eggsml!"
-makeKing "$last"
+if dbRead robespierre; then
+    echo "Fluen har fundet lorten, og lander på $last!  Men republikken er forevigt, så alt $last er er en lort!"
+elif isKing "$last"; then
+    echo "Fluen har fundet lorten, og lander på $last!  Men $last er allerede konge, så velsagtens ingen ny konge."
+else
+    echo "Fluen har fundet lorten, og lander på $last!  $last er den nye konge af #eggsml!"
+    makeKing "$last"
+fi
