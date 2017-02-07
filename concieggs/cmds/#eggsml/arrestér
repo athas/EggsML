@@ -31,11 +31,9 @@ if isKing "$EGGS_USER"; then
         echo "$EGGS_USER: Men, Deres højtærede Majestæt, den person er jo ej en registreret borger!"
     elif isArrested "$user"; then
         echo "$EGGS_USER: Men, Deres meget højtærede Majestæt, vi har allerede arresteret dét svin!"
+    elif wantToOverthrowTheKing "$user"; then
+        echo "$EGGS_USER: Argh, Deres Majestæt, $user er en del af oprøret, som beskytter ham!  Jeg kunne ikke få has på ham!"
     else
-        if wantToOverthrowTheKing "$user"; then
-            echo "$EGGS_USER: Argh, Deres Majestæt, $user er en del af oprøret, som beskytter ham!  Jeg kunne ikke få has på ham!"
-            exit
-        fi
         randomLine <<EOF
 $EGGS_USER: Deres ønske er vores lov.  Vi arresterer straks $user!
 $EGGS_USER: Vi smider $user i kachotten med det samme, Deres Majestæt.
