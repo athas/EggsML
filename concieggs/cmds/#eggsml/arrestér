@@ -32,6 +32,12 @@ if isKing "$EGGS_USER"; then
     elif isArrested "$user"; then
         echo "$EGGS_USER: Men, Deres meget højtærede Majestæt, vi har allerede arresteret dét svin!"
     else
+        if wantToOverthrowTheKing "$user"; then
+            if [ $(random 1 4) > 2 ]; then
+                echo "$EGGS_USER: Argh, Deres Majestæt, $user er en del af oprøret, som beskytter ham!  Jeg kunne ikke få has på ham!"
+                exit
+            fi
+        fi
         randomLine <<EOF
 $EGGS_USER: Deres ønske er vores lov.  Vi arresterer straks $user!
 $EGGS_USER: Vi smider $user i kachotten med det samme, Deres Majestæt.

@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# Determine whether a user wants to overthrow the king.
+
+u=$1
+dbRead vilvæltekongen | {
+    while read user; do
+        if cmpNames $u $user; then
+            exit 0
+        fi
+    done
+    exit 1
+}
