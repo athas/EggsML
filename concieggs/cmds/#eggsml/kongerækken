@@ -10,18 +10,18 @@ fmt() {
 dbRead eggskinglist | while read line; do
     ascension=''
     kingname=''
-    interbellum=''
+    interregnum=''
     myth=''
-    eval "$(echo "$line" | parse '(?<ascension>[0-9]+) (?<kingname>.+)|(?<interbellum>[0-9]+)|(?<myth>.+)')"
-    if [ "$(randomName "$interbellum")" ]; then
-        $myth="$interbellum"
+    eval "$(echo "$line" | parse '(?<ascension>[0-9]+) (?<kingname>.+)|(?<interregnum>[0-9]+)|(?<myth>.+)')"
+    if [ "$(randomName "$interregnum")" ]; then
+        $myth="$interregnum"
     fi
     if [ "$ascension" ]; then
         echo "På $(fmt $ascension) blev Kong $(randomName "$kingname") taget i ed."
     elif [ "$myth" ]; then
         echo "I fordomstid herskede Kong $(randomName "$myth")!"
-    elif [ "$interbellum" ]; then
-        echo "Fra $(fmt $interbellum) var der ingen konge."
+    elif [ "$interregnum" ]; then
+        echo "Fra $(fmt $interregnum) var der ingen konge."
     else
         >&2 echo "Hva' fanden: $line"
     fi
