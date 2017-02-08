@@ -19,7 +19,7 @@ dbRead eggskinglist | while read line; do
     if [ "$ascension" ]; then
         echo "På $(fmt $ascension) blev Kong $(randomName "$kingname") taget i ed."
     elif [ "$myth" ]; then
-        echo "I fordomstid herskede Kong $myth!"
+        echo "I fordomstid herskede Kong $(randomName "$myth")!"
     elif [ "$interbellum" ]; then
         echo "Fra $(fmt $interbellum) var der ingen konge."
     else
