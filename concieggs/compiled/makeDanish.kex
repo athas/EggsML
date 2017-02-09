@@ -129,6 +129,8 @@ word2 := ~/screenshot/ "skærmbillede"
        | ~/F#/ "ikke-standard ML"
        | ~/crossfit/ "krydstræning"
        | (~/C/ "K" | ~/c/ "k") ~/openhagen/ "øbenhavn"
+       | ~/Zealand/ "Sjælland"
+       | /N|n/ ~/ew/ "y"
        | ~/label/ "mærkat"
        | (~/et / "en ")? ~/issue/ "problemstilling" (~/s/ "er")?
        | ~/piper/ "kanaliserer"
