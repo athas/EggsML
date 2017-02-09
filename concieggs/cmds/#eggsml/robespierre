@@ -2,16 +2,11 @@
 #
 # Gør op med al dette fjollede monarki.
 
-if checkCooldown "robespierre" $((3600 * 24)); then
-    if dbRead robespierre; then
-        echo "$EGGS_USER: Giv lige republikken en chance!"
-    else
-        echo "$EGGS_USER: Giv lige Robespierre en chance, manden bliver jo træt af al den revolution!"
-    fi
-    exit
-fi
-
 if [ "$1" = af ] && dbRead robespierre; then
+    if ! checkCooldown "robespierre" $((3600 * 24)); then
+        echo "$EGGS_USER: Giv lige republikken en chance!"
+        exit
+    fi
     if [ ! $(dbRead dawkins) ]; then
         (
             echo "$EGGS_USER: Uden guddommelighed, hvordan kan kongen så få magten?"
@@ -28,6 +23,10 @@ if [ "$1" = af ] && dbRead robespierre; then
     ) | randomLine
     dbDelete robespierre
 else
+    if ! checkCooldown "robespierre" $((3600 * 24)); then
+        echo "$EGGS_USER: Giv lige Robespierre en chance, manden bliver jo træt af al den revolution!"
+        exit
+    fi
     echo "$(ack)  Robespierre-tilstand aktiveret!"
     sleep 1
     if [ $(dbRead eggsking) ]; then
