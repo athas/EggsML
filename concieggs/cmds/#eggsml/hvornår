@@ -2,6 +2,10 @@
 #
 # Spørg om essentielle datoer.
 
+removeYear() {
+    sed 's/^....-//'
+}
+
 eval "$(echo "$@" | parse '(?<birthday>har (?<birthday_kid>[^ ]+) fødselsdag)')"
 
 who=$(randomName $EGGS_USER)
@@ -24,7 +28,7 @@ if [ "$birthday" ]; then
     date=$(dbUserRead $who birthday)
     if ! [ "$date" ]; then
         echo "$EGGS_USER: $recp har aldrig fødselsdag!"
-    elif [ "$date" = $(dateToday | sed 's/^....-//') ]; then
+    elif [ $(echo "$date" | removeYear) = $(dateToday | removeYear) ]; then
         echo "$EGGS_USER: $recp HAR FØDSELSDAG I DAG!  HURRRAAAAA!"
     else
         echo "$EGGS_USER: $recp har fødselsdag $(formatDate $date)!"

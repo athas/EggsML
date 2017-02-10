@@ -28,7 +28,7 @@ else
     day=$p1
 fi
     
-day=$(echo $day | sed 's/0//')
+day=$(echo $day | sed 's/^0//')
 
 if [ "$month" ]; then
     month_name=$(nthLine $month <<EOF
