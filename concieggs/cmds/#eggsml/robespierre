@@ -9,6 +9,8 @@ if [ "$1" = af ] && dbRead robespierre; then
             echo "$EGGS_USER: Måske du skal tale med Hr. Dawkins om hvordan man bliver konge?"
             echo "$EGGS_USER: Hvis magten ikke kommer fra folket?  Hvorfra så?!"
         ) | randomLine
+        dbRead dawkins
+        echo $?
         exit
     fi
     if ! checkCooldown "robespierre" $((3600 * 24)); then
