@@ -2,7 +2,7 @@
 #
 # Nedfæld essentielle personlige fakta og præferencer i logeprotokollen.
 
-eval "$(echo "$@" | parse 'er ((?<beneggter>beneggter)|(?<eggsalteret>eggsalteret))|foretrækker ((?<nothing>intet)|(?<pref>.+))|(?<birthday>har fødselsdag i dag)|er (?<king>konge)|er (?<god>gud)|er (?<alsogod>også gud)|er (?<truegod>den eneste (sande|rigtige) gud)|er (?<notgod>ikke (længere|mere) gud)|er (?<root>root)|hedder (?<githubname>.+?) på GitHub')"
+eval "$(echo "$@" | parse 'er ((?<beneggter>beneggter)|(?<eggsalteret>eggsalteret))|foretrækker ((?<nothing>intet)|(?<pref>.+))|(har fødselsdag (?<birthday>.+))|er (?<king>konge)|er (?<god>gud)|er (?<alsogod>også gud)|er (?<truegod>den eneste (sande|rigtige) gud)|er (?<notgod>ikke (længere|mere) gud)|er (?<root>root)|hedder (?<githubname>.+?) på GitHub')"
 
 who=$(randomName $EGGS_USER)
 if ! [ "$who" ]; then
@@ -35,9 +35,21 @@ elif [ "$pref" ]; then
     echo "$pref" | dbUserWrite $who pref
     echo "$(ack)  For fremtiden vil jeg minde logebrødrene om, at $(du $who) foretrækker $(preference1 $who)."
 elif [ "$birthday" ]; then
-    date=$(dateToday | sed 's/^....-//')
-    echo $date | dbUserWrite $who birthday
-    echo "$(ack)  Nu ved jeg at du har fødselsdag i dag, $(formatDate $date)."
+    if [ "$birthday" = 'i dag' ]; then
+        date=$(dateToday | sed 's/^....-//')
+    else
+        date=$(parseDate "$birthday")
+        if ! [ "$date" ]; then
+            echo "$EGGS_USER: Jeg forstår ikke den dato."
+            exit
+        fi
+    fi
+    if [ "$(dbUserRead $who birthday)" = "$date" ]; then
+        echo "$EGGS_USER: Det ved jeg allerede godt!"
+    else
+        echo $date | dbUserWrite $who birthday
+        echo "$(ack)  Nu ved jeg at du har fødselsdag $(formatDate $date)."
+    fi
 elif [ "$king" ]; then
     kingname="$(dbRead eggsking)"
     if dbRead robespierre; then

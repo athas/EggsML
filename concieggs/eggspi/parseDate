@@ -1,0 +1,42 @@
+#!/bin/sh
+#
+# Parse a date in Danish.
+
+eval "$(echo "$@" | parse '(den|d\.) (?<day>[0-9]+)\.( (?<month_name>[^ ]+)( (?<year>[0-9]+))?)?')"
+
+if [ "$month_name" ]; then
+    month=$({ grep " $month_name"'$' | cut -d' ' -f1; } <<EOF
+01 januar
+02 februar
+03 marts
+04 april
+05 maj
+06 juni
+07 juli
+08 august
+09 september
+10 oktober
+11 november
+12 december
+EOF
+)
+    if ! [ "$month" ]; then
+        exit 1
+    fi
+fi
+
+if [ "$day" ]; then
+    day="$(printf '%02d' "$day")"
+fi
+
+if [ "$year" ] && [ "$month" ] && [ "$day" ]; then
+    date="$year-$month-$day"
+elif [ "$month" ] && [ "$day" ]; then
+    date="$month-$day"
+elif [ "$day" ]; then
+    date="$day"
+else
+    exit 1
+fi
+
+echo $date
