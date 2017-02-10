@@ -3,7 +3,7 @@
 # Gør op med al dette fjollede monarki.
 
 if [ "$1" = af ] && dbRead robespierre; then
-    if [ ! $(dbRead dawkins) ]; then
+    if ! [ $(dbRead dawkins) ]; then
         (
             echo "$EGGS_USER: Uden guddommelighed, hvordan kan kongen så få magten?"
             echo "$EGGS_USER: Måske du skal tale med Hr. Dawkins om hvordan man bliver konge?"
