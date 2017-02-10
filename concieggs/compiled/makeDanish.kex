@@ -34,7 +34,7 @@ word1 := ~/computer science/ "datalogi"
        | ~/source ?code/ "kildetekst"
        | ~/lowercase/ "klejntegn"
        | ~/[cC]amel[ -]?[cC]ase/ "kamuskler"
-       | ~/repository/ "grube"
+       | ~/repo(sitory)?/ "grube"
        | ~/tweet/ "kvidr" /e|ede|er/?
        | ~/printer/ "linjeskriver"
        | ~/bug/ "lus"
