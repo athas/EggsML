@@ -26,7 +26,6 @@ if [ "$birthday" ]; then
         recp="Du"
     fi
     date=$(dbUserRead $who birthday)
-    echo $date
     if ! [ "$date" ]; then
         echo "$EGGS_USER: $recp har aldrig fødselsdag!"
     elif [ $(echo "$date" | removeYear) = $(dateToday | removeYear) ]; then
