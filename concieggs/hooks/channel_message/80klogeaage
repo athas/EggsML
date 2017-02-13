@@ -4,6 +4,9 @@
 
 eval "$(echo "$EGGS_BODY" | parse '(?<dest_user>[^ ]+)[:,] hvornår .+?(du|din) .+? fødselsdag')"
 
+echo a $EGGS_BODY
+echo b $dest_user
+
 if ! [ "$dest_user" ]; then
     exit
 fi
