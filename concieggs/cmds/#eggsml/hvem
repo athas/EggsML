@@ -13,7 +13,9 @@ eval "$(echo "$@" | parse 'er (?<hveranden>hveranden)|^(?<swear>(fuck |helvede |
 
 if [ "$king" ] && ! [ "$god" ] && ! [ "$user" ]; then
     kingname="$(dbRead eggsking)"
-    if [ -z "$kingname" ]; then
+    if dbRead robespierre; then
+        echo "Republikken er sand!  Kongens hovedet er på Mars-pladsen!"
+    elif [ -z "$kingname" ]; then
         echo "Der er ingen siddende konge af EggsML."
     else
         echo "$(randomName $kingname) sidder på tronen!  Hil $(randomName $kingname)!  Han længe leve!"
