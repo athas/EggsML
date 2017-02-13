@@ -4,6 +4,7 @@ use 5.012;
 use warnings;
 use utf8::all;
 use IPC::System::Simple qw/capturex/;
+use EggsML::EggsPI text => [qw/ runcmd /];
 use Env qw/EGGS_USER/;
 use Encode qw/decode/;
 
@@ -21,7 +22,7 @@ my ($v, $fbody) = $f =~ qr/^\s* \\(\w+) \s* -> \s* (.+) \s*$/x;
 
 quit("$EGGS_USER: Syntaks: kommando :>>=: \\\\var -> kommando2 var\n") unless $fbody;
 
-my $a = capturex('runcmd', split(/ /, $ma));
+my $a = runcmd(split(/ /, $ma));
 $a = decode('utf-8', $a);
 chomp $a;
 
@@ -29,7 +30,7 @@ quit("$EGGS_USER: Du skal give bind outputtet af en kommando.\n") unless $a;
 
 $fbody =~ s/\b$v\b/$a/g;
 
-my $res = capturex('runcmd', split(/ /, $fbody));
+my $res = runcmd(split(/ /, $fbody));
 $res = decode('utf-8', $res);
 chomp $res;
 
