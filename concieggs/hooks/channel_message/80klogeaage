@@ -2,10 +2,11 @@
 #
 # Helt ærligt, concieggs.  Lær noget om hvordan samtaler fungerer.
 
-eval "$(echo "$EGGS_BODY" | parse '(?<dest_user>[^ ]+)[:,] hvornår .+?(du|din) .+? fødselsdag')"
+removeYear() {
+    sed 's/^....-//'
+}
 
-echo a $EGGS_BODY
-echo b $dest_user
+eval "$(echo "$EGGS_BODY" | parse '(?<dest_user>[^ ]+)[:,] hvornår .+?(du|din) .*?fødselsdag')"
 
 if ! [ "$dest_user" ]; then
     exit
