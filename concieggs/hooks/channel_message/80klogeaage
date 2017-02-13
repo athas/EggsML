@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# Helt ærligt, concieggs.  Lær noget om hvordan samtaler fungerer.
+
+eval "$(echo "$EGGS_BODY" | parse '(?<dest_user>[^ ]+)[:,] hvornår .+?(du|din) .+? fødselsdag')"
+
+if ! [ "$dest_user" ]; then
+    exit
+fi
+
+date=$(dbUserRead $dest_user birthday)
+if ! [ "$date" ]; then
+    exit
+fi
+
+randomLine <<EOF
+$EGGS_USER: Jeg ved det her!
+$EGGS_USER: Ja, nu skal du bare høre!
+$EGGS_USER: Endelig noget jeg kan være med til!
+$EGGS_USER: Samtale, heeer kommer jeeeg!
+EOF
+
+if [ $(echo "$date" | removeYear) = $(dateToday | removeYear) ]; then
+    echo "$dest_user har FAKTISK FØDSELSDAG I DAG!  HURRRAAAAA!"
+else
+    echo "$dest_user har nemlig fødselsdag $(formatDate $date)!"
+fi
