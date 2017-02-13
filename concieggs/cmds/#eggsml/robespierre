@@ -23,7 +23,7 @@ if [ "$1" = af ] && dbRead robespierre; then
     ) | randomLine
     dbDelete robespierre
 else
-    if ! dbRead robespierre; then
+    if dbRead robespierre; then
         echo "$EGGS_USER: Robespierre har altså taget sig af det tidligere kongerige.  Så han er nok også røget i Terroren."
         exit
     fi
