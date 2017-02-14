@@ -15,11 +15,11 @@ if ($0 =~ m/eggstranyhed/) {
     my ($headline1, $headline2);
     my $i = 0;
     do {
-        $headline1 = $headlines[rand() * @headlines] =~ s/[:?–].*//r;
+        $headline1 = $headlines[rand() * @headlines] =~ s/\s*[:?–].*//r;
         die("Couldn't find headline1") if $i++ > 100;
     } until ($headline1);
     do {
-        $headline2 = $headlines[rand() * @headlines] =~ s/.*[:?–]//r;
+        $headline2 = $headlines[rand() * @headlines] =~ s/.*[:?–]\s*//r;
         die("Couldn't find headline2") if $i++ > 100;
     } until ($headline2);
     say "$headline1: $headline2";
