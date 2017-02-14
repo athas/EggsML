@@ -18,6 +18,12 @@ my %news_sites = (
         my @articles = $dom->find('.bt-link')->map('all_text')->each;
         return @articles;
     },
+    dr => sub {
+        my $dom = Mojo::DOM->new( get('https://www.dr.dk/nyheder/allenyheder/') );
+        my @articles = $dom->find('article h3 a')->map('all_text')->each;
+        @articles = map { s/(\p{Uppercase}{3,})\b/$1:/r } @articles;
+        return @articles;
+    }
 );
 
 sub normalize {
