@@ -1,0 +1,45 @@
+#!/usr/bin/env perl
+use 5.020;
+use warnings;
+use utf8::all;
+
+use LWP::Simple;
+use Mojo::DOM;
+use Mojo::Util qw/trim/;
+
+my %news_sites = (
+    ekstrabladet => sub {
+        my $dom = Mojo::DOM->new( get('http://www.ekstrabladet.dk') );
+        my @articles = $dom->find('.df-article')->map('all_text')->each;
+        return @articles;
+    },
+    bt => sub {
+        my $dom = Mojo::DOM->new( get('http://bt.dk') );
+        my @articles = $dom->find('.bt-link')->map('all_text')->each;
+        return @articles;
+    },
+);
+
+sub normalize {
+    my $text = shift;
+    $text =~ s/\s+/ /g;
+
+    return trim($text);
+}
+
+sub get_results {
+    my $name = shift;
+
+    my @results = grep { $_ } map { normalize($_) } $news_sites{$name}->();
+    unless (@results) {
+        die("Kunne ikke finde nyheder hos $name");
+    }
+    say $_ for @results;
+}
+
+sub random_site {
+    my @names = keys %news_sites;
+    return $names[rand()*@names];
+}
+
+get_results($ARGV[0] // random_site);

@@ -1,53 +1,30 @@
-#!/usr/bin/env python
+#!/usr/bin/env perl
 # -*- coding: utf-8 -*-
 #
 # Bed concieggs om at give dig en brugbar nyhed fra INTERNETTET.
 
-import sys
-import re
-import random
-import urllib
+use 5.020;
+use warnings;
 
-from eggsthon.decode_html_entities import decode_html_entities
+use EggsML::EggsPI
+    list => [ qw( headlines ) ];
 
-if random.randint(0, 1) == 0:
-    data = urllib.urlopen('http://ekstrabladet.dk').read()
+my @headlines = headlines();
 
-    data = data.split('<div class="article-widget-body">', 1)[1]
-    data = data.split('<div class="m10px-rl m10px-b">', 1)[0]
-
-    boxes = [
-        ('<h3>', '<div class="df-clearer"></div>'),
-    ]
-
-    matches = []
-    for a, b in boxes:
-        matches.extend(re.findall(a + r'(.+?)' + b, data,
-                                  re.MULTILINE | re.DOTALL))
-
-    def fix(m):
-        m = re.sub(r'</?[^>]*>', ' ', m)
-        m = m.replace('-\n', '').replace('\n', ' ')
-        m = re.sub(r' +', ' ', m)
-        m = m.strip()
-        u = m.decode('utf-8', errors='ignore')
-        t = decode_html_entities(u)
-        s = t.encode('utf-8', errors='ignore')
-        return s
-
-    matches = [fix(m) for m in matches]
-else:
-    data = urllib.urlopen('http://bt.dk').read()
-    matches = re.findall(r'<span class="bt-link">(.+?)</span>', data)
-    matches = [decode_html_entities(m.decode('utf-8')).encode('utf-8') for m in matches]
-
-if sys.argv[0].find('eggstranyhed') >= 0:
-    match1 = re.sub('[:?–].*', '', random.choice(matches))
-    match2 = re.sub('.*[:?–]', '', random.choice(matches))
-    print (match1+': '+match2)
-elif not (len(sys.argv) > 1 and sys.argv[1] == 'alle'):
-    match = random.choice(matches)
-    print match
-else:
-    for match in matches:
-        print match
+if ($0 =~ m/eggstranyhed/) {
+    my ($headline1, $headline2);
+    my $i = 0;
+    do {
+        $headline1 = $headlines[rand() * @headlines] =~ s/[:?–].*//r;
+        die("Couldn't find headline1") if $i++ > 100;
+    } until ($headline1);
+    do {
+        $headline2 = $headlines[rand() * @headlines] =~ s/.*[:?–]//r;
+        die("Couldn't find headline2") if $i++ > 100;
+    } until ($headline2);
+    say "$headline1: $headline2";
+} elsif ($ARGV[0] eq 'alle') {
+    say $_ for @headlines;
+} else {
+    say $headlines[rand() * @headlines];
+}
