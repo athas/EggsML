@@ -7,7 +7,7 @@ fmt() {
     formatDatetime $(timestampToDatetime "$timestamp")
 }
 
-dbRead eggskinglist | while read line; do
+dbRead eggskinglist | tail | while read line; do
     ascension=''
     kingname=''
     interregnum=''
