@@ -3,17 +3,21 @@
 # Wooooow!!!
 
 Imponerende=$(randomLine <<EOF
+Nå nå, da
 Imponerende
 Det må jeg nok sige
 Wauw
 Du er jo helt vild
 Syyyygt nice
 Hold da fest
+Hold da op
 Ser man det
 Nu har jeg aldrig
 Ih dog
+Jamen dog
+Sikke en rumhelt
 Hillemænd
-NOVRA
+Novra
 EOF
 )
 

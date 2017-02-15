@@ -22,3 +22,4 @@ while true; do
     fi
 done
 echo "Flasken stopper!  Flaskehalsen peger på $last!"
+pleasedBy "$last" 5

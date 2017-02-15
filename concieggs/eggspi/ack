@@ -30,6 +30,8 @@ else
     echo "Tip top"
     echo "Godtaget"
     echo "Den er jeg med på"
+    echo "Top dollar"
+    echo "Fjong-fililong-gong-gong"
 
 fi | randomLine | xargs echo -n
 (echo "!"; echo ".") | randomLine

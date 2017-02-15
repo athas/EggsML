@@ -8,6 +8,9 @@ if [ $# = 0 ]; then
     (echo "Gotta go fast!";
      echo "Den ska' vær' travl!";
      echo "Det' kram!";
+     echo "Asti-afsted!";
+     echo "Fuld fart fremad!";
+     echo "¡Vamos!";
      echo "Macht schell!";
      echo "¡Más rápido!";
      echo "Enormi veloce!";

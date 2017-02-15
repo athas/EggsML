@@ -21,6 +21,7 @@ fi
     printf "%s på 7-trins-skalaen\n" "$(echo "-3\n00\n02\n4\n7\n10\n12" | randomLine)"
     printf "%s på ECTS-skalaen\n" "$(echo "A\nB\nC\nD\nE\nFx\nF" | randomLine)"
     printf "%s på den amerikanske skala\n" "$(echo "A+\nA\nA-\nB+\nB\nB-\nC+\nC\nC-\nD+\nD\nD-\nF" | randomLine)"
+    printf "%s på Bristols afføringsskala\n" "$(echo "1\n2\n3\n4\n5\n6\n7" | randomLine)"
     printf "%s GPA\n" "$(awk 'BEGIN { printf("%.1f\n", rand() * 4.0) }')"
     printf "%d%%\n" $(($RANDOM % 101))
     printf "%s på den numeriske skala\n" "$(echo "8\n6\n4\n2\n0" | randomLine)"
