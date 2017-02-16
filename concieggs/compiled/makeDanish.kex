@@ -109,7 +109,7 @@ word2 := ~/screenshot/ "skærmbillede"
        | ~/output/ "uddata"
        | ~/date/ "stævnemøde" (~/s/ "r")?
        | ~/etc/ "osv"
-       | ~/performance/ "ydelse"
+       | ~/performance/ (~/[- ](critical|kritisk)/ "kritisk omkring " ) "optræden"
        | ~/bandwidth/ "båndbredde"
        | ~/bracket/ "kantet parentes" (~/s/ "er")?
        | ~/(curly ?)?brace/ "tuborgklamme" (~/s/ "r")?
