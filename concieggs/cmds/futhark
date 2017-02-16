@@ -5,15 +5,17 @@
 pleasedBy "$EGGS_USER"
 
 if [ $# = 0 ]; then
-    (echo "Gotta go fast!";
-     echo "Den ska' vær' travl!";
-     echo "Det' kram!";
-     echo "Asti-afsted!";
-     echo "Fuld fart fremad!";
-     echo "¡Vamos!";
-     echo "Macht schell!";
-     echo "¡Más rápido!";
-     echo "Enormi veloce!";
+    (echo "Gotta go fast!"
+     echo "Den ska' vær' travl!"
+     echo "Det' kram!"
+     echo "Asti-afsted!"
+     echo "Fuld fart fremad!"
+     echo "Sømmet i bund!"
+     echo "Fuld gas!"
+     echo "¡Vamos!"
+     echo "Macht schell!"
+     echo "¡Más rápido!"
+     echo "Enormi veloce!"
      echo "Arriba!  Arriba!  Andale!  Arriba!") | randomLine
 elif [ $# = 1 -a "$1" = --version ]; then
     futhark-c --version
