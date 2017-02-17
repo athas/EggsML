@@ -13,6 +13,7 @@ else
     echo "ACK-ACK"
     echo "Javel"
     echo "OK"
+    echo "A-OK"
     echo "Forstået"
     echo "Accepteret"
     echo "Det er i orden"
@@ -32,6 +33,6 @@ else
     echo "Den er jeg med på"
     echo "Top dollar"
     echo "Fjong-fililong-gong-gong"
-
+    echo "Det' bår' dæjlig"
 fi | randomLine | xargs echo -n
 (echo "!"; echo ".") | randomLine
