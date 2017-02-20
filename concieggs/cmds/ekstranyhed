@@ -22,7 +22,7 @@ if ($0 =~ m/eggstranyhed/) {
         $headline2 = $headlines[rand() * @headlines] =~ s/.*(?:[:?–]\s*|\s+-\s+)//r;
         die("Couldn't find headline2") if $i++ > 100;
     } until ($headline2);
-    say "$headline1: $headline2";
+    say "\u$headline1: \u$headline2";
 } elsif ($ARGV[0] eq 'alle') {
     say $_ for @headlines;
 } else {
