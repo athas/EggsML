@@ -9,6 +9,8 @@ case "$alias" in
         exit 1;;
     mig)
         exit 1;;
+    jeg)
+        exit 1;;
     konge)
         exit 1;;
     gud)
