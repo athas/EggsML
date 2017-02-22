@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+# Det går da helt galt for den stakkels bot!
+
+# Det her kan aldrig gå galt.
+"$(dirname "$0")/$(ls -1 $(dirname "$0") | grep -v ubeslutsom | grep -v README.md | randomLine)"
