@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# Varulv!  Måske.
+
+if ! isFullMoon; then
+    # JEG ER BARE ET MENNESKE OKAY
+    cat
+    exit
+fi
+
+randomLine <<EOF
+Awuuuuuu!
+/me føler mine negle blive til kløer
+EOF

@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+# Determine whether a full moon looms over the city of Copenhagen.
+
+grep -q '^'"$(dateToday)"'$' \
+     "$CONCIEGGS_DB_DIR/månefaser/full_moons_copenhagen.txt"
