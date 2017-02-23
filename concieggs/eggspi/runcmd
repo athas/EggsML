@@ -34,7 +34,7 @@ cmd="$(echo "$cmd" | sed 's/,$//')"
 cmddir=$CONCIEGGS_DIR/cmds
 shift
 
-if isInBadStanding "$EGGS_USER" && [ "$cmd" != "undskyld" ] && [ "$cmd" != "Undskyld" ]; then
+if isInBadStanding "$EGGS_USER" && [ "$cmd" != "undskyld" ] && [ "$cmd" != "Undskyld" ] && [ "$cmd" != "tak" ]; then
     ex=$(fakebroke | randomLine)
     if [ "$ex" ]; then
         echo "$ex"
