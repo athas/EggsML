@@ -19,7 +19,7 @@ def run_main():
         if m is not None:
             user = m.group(1)
         else:
-            print 'Hvad?  Læs dokumentationen, din dovenlars.'
+            print 'Hvad?  Læs venligst dokumentationen.'
             return
     userp = sh.randomName(user)
     if sh.isTrusted(user) and userp > '':

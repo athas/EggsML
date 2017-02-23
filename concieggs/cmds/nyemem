@@ -52,7 +52,7 @@ for my $elm (@$group_feed) {
 }
 
 if ($cnt == 0) {
-    print "Der er ingen nye mem i Facebook-gruppen. Slackers.\n";
+    print "Der er desværre ingen nye mem i Facebook-gruppen.\n";
 }
 
 $yaml->write($configuration_file);
