@@ -13,7 +13,7 @@ if [ "$budskab" ]; then
     eggs="$(echo "$eggses" | randomLine)"
 
     if [ $(random 1 3) = 1 ]; then
-        echo "Internetbruger: Kan du lokkes med til $(titleEggs "$eggs")?" | kvidr
+        rsg "../../recruit" | sed "s/<EGGS>/$(titleEggs "$eggs")/" | kvidr
     else
         recentlyActive | head -n 2 | while read user; do
             echo "$user: Kan du lokkes med til $(titleEggs "$eggs")?"
