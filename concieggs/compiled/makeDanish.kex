@@ -140,4 +140,5 @@ word2 := ~/screenshot/ "skærmbillede"
        | ~/generics/ "socialdemokrater"
        | ~/generic code/ "socialdemokratisk kode"
        | ~/upstream/ "opå"
+       | ~/swap/ "svup"
        | /[a-zA-ZæøåÆØÅ0-9]+/
