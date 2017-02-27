@@ -19,14 +19,14 @@ word1 := ~/computer science/ "datalogi"
        | ~/web/ "spindel"
        | ~/e-?mail/ "elektropost"
        | ~/harddisk/ "fastpladelager"
-       | ~/merge/ "flet" (~/[ -]?sort/ "sortering")
+       | ~/merge/ "flet" (~/r/ "ter" | ~/[ -]?sort/ "tesortering")
        | ~/quick/ "kvik"
        | ~/escape/ "flygt"
        | ~/free food/ "gratis mad"
        | ~/free software/ "fri software"
        | ~/force/ "gennemtving"
        | ~/uppercase/ "greltegn"
-       | ~/hashtag/ "gullashetiket"
+       | ~/hashtag/ "havelåge" (~/s/ "r")?
        | ~/push/ "skub"
        | ~/pull/ "hal" (~/[ -]?request/ "eanmodning" (~/s/ "er" | ~/et/ "en")?)?
        | ~/pc|PC/ "hjemmedatamat"
@@ -52,7 +52,7 @@ word1 := ~/computer science/ "datalogi"
        | ~/caps ?lock/ "skiftelås"
        | ~/num ?lock/ "tallås"
        | ~/cloud/ "sky"
-       | ~/garbage collector/ "spildopsamler"
+       | ~/garbage/ "spild" (~/[ -]collector/ "opsamler" | ~/[ -]collection/ "opsamling")?
        | ~/web ?browser/ "spindellæser"
        | ~/hyper|cyber/ "kyber"
        | ~/link/ "hægte"
