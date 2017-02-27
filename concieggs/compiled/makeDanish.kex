@@ -76,6 +76,7 @@ word1 := ~/computer science/ "datalogi"
        | ~/race condition/ "kapløbsstrid"
        | ~/condition/ "betingelse" (~/s/ "r")?
        | ~/laptop/ "mappedatamat" (~/s/ "er")?
+       | ~/I'm [fF]eeling [lL]ucky/ "Jeg er i sandelighed lykkens pamfilius"
        | /[a-zA-ZæøåÆØÅ0-9]+/
 
 word2 := ~/screenshot/ "skærmbillede"
