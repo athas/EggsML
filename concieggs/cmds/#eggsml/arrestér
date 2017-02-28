@@ -6,14 +6,14 @@ if isKing "$EGGS_USER"; then
     user="$1"
     if [ "$user" = "concieggs" ]; then
         if [ "$(dbRead vilvæltekongen)" ]; then
-            newking=$(randomLine $(dbRead vilvæltekongen))
+            newking=$(dbRead vilvæltekongen | randomLine)
             makeKing "$newking"
             if isArrested "$newking"; then
                 freeArrestedUser "$newking"
             fi
             echo "$EGGS_USER: Hvis det er med den på, så kan $newking være konge i stedet!  Og nu er DU i brummen!"
         elif [ "$(dbRead underArrest)" ]; then
-            newking=$(randomLine $(dbRead underArrest))
+            newking=$(dbRead underArrest | randomLine)
             makeKing "$newking"
             freeArrestedUser "$newking"
             echo "$EGGS_USER: Så for satan, det finder jeg mig ikke!  Ind med dig i kachotten, og nu er $newking konge!"
