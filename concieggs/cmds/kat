@@ -1,3 +1,10 @@
-#!/bin/sh	
+#!/bin/sh
+#
+# Lad charmekatten vise noget skind.
 
-makeCat $(checkCharmen)
+length="$1"
+if ! [ "$length" ]; then
+    length=$(expr $(checkCharmen) '*' 3)
+fi
+
+makeCat $length

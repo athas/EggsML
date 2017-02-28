@@ -1,4 +1,6 @@
 #!/bin/sh
+#
+# Build a cat of a certain length.
 
 length="$1"
 if ! [ "$length" ] || [ "$length" -lt 0 ]; then
@@ -60,7 +62,7 @@ cat > $end <<"EOF"
 !     ((_/
 EOF
 
-n_lines=$(wc -l $start | grep -oE '^[0-9]+')
+n_lines="$(wc -l $start | egrep -o '^ *[0-9]+')"
 
 for i in $(seq 1 $n_lines); do
     part0="$(cat $start | lineAt "$i")"
