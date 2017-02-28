@@ -7,4 +7,4 @@ if ! [ "$length" ]; then
     length=$(expr $(checkCharmen) '*' 3)
 fi
 
-makeCat $length
+makeCat $length || echo "$EGGS_USER: Så vild er jeg ikke."
