@@ -10,6 +10,7 @@ fi
 start=$(mktemp)
 middle=$(mktemp)
 end=$(mktemp)
+wiggle=$(mktemp)
 
 cat > $start <<"EOF"
 !            !
@@ -62,13 +63,16 @@ cat > $end <<"EOF"
 !     ((_/
 EOF
 
+wiggle $length -5 2 0.2 > $wiggle
+
 n_lines="$(wc -l $start | egrep -o '^ *[0-9]+')"
 
 for i in $(seq 1 $n_lines); do
     part0="$(cat $start | lineAt "$i")"
-    part1_t="$(cat $middle | lineAt "$i")"
     part1=''
     for j in $(seq 1 $length); do
+        offset=$(( $i + $(cat $wiggle | lineAt "$j") ))
+        part1_t="$(cat $middle | lineAt "$offset")"
         part1="$part1$part1_t"
     done
     part2="$(cat $end | lineAt "$i")"

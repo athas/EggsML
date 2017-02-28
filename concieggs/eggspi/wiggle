@@ -1,0 +1,32 @@
+#!/usr/bin/env perl
+
+use 5.020;
+use warnings;
+use utf8;
+
+my ($n, $min, $max, $wiggleFactor) = @ARGV;
+
+my $lastChange = 0;
+my $offset = 0;
+my $wiggleBackSpace = 4;
+
+my @res;
+
+for my $i (1 .. $n) {
+    if ( ($i - $lastChange) > $wiggleBackSpace ) {
+        if ( $n - $i <= abs($offset) * $wiggleBackSpace) {
+            $offset -= 1 if $offset > 0;
+            $offset += 1 if $offset < 0;
+            $lastChange = $i;
+        } elsif ( rand() < $wiggleFactor) {
+            $offset += rand() > 0.5 ? 1 : -1;
+            $offset = $max if $offset > $max;
+            $offset = $min if $offset < $min;
+            $lastChange = $i;
+        }
+    }
+
+    push(@res, $offset);
+}
+
+say $_ for @res;
