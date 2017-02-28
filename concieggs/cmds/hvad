@@ -128,10 +128,9 @@ elif [ "$kingname" ]; then
 elif [ "$forkortelse" ]; then
     ordene="$(falskForkortelse $forkortelse)"
     randomLine <<EOF
-$EGGS_USER: Det står da vist for $ordene.
+$EGGS_USER: $forkortelse står da vist for $ordene.
 $forkortelse, $EGGS_USER?  Det er helt sikkert $ordene!
-Den er nem, $EGGS_USER: $ordene.
-$ordene, naturligvis!
+Den er nem, $EGGS_USER, for $forkortelse er bare kort for $ordene.
 EOF
 elif [ "$kodeprojekt" ]; then
     latestGitNews "$kodeprojekt"
