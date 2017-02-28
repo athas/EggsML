@@ -1,0 +1,76 @@
+#!/bin/sh
+
+length="$1"
+if ! [ "$length" ] || [ "$length" -lt 0 ]; then
+    exit 1
+fi
+
+start=$(mktemp)
+middle=$(mktemp)
+end=$(mktemp)
+
+cat > $start <<"EOF"
+!            !
+!            !
+!            !
+!            !
+!  |\        !
+! /, ~\      !
+!X     `-....!
+! ~-. ~  ~   !
+!    \       !
+!     \  /_  !
+!     | /\ ~~!
+!     | | \  !
+!     | |\ \ !
+!    (_/ (_/ !
+EOF
+
+cat > $middle <<"EOF"
+! !
+! !
+! !
+! !
+! !
+! !
+!.!
+! !
+! !
+! !
+!~!
+! !
+! !
+! !
+EOF
+
+cat > $end <<"EOF"
+!            _
+!           | \
+!           | |
+!           | |
+!           | |
+!          / /
+!.-------./ /
+!           |
+!      /    |
+!   ___\   /
+!~~~   \ |
+!      || |
+!      || )
+!     ((_/
+EOF
+
+n_lines=$(wc -l $start | grep -oE '^[0-9]+')
+
+for i in $(seq 1 $n_lines); do
+    part0="$(cat $start | lineAt "$i")"
+    part1_t="$(cat $middle | lineAt "$i")"
+    part1=''
+    for j in $(seq 1 $length); do
+        part1="$part1$part1_t"
+    done
+    part2="$(cat $end | lineAt "$i")"
+    echo "$part0$part1$part2" | sed 's/!//g'
+done
+
+rm $start $middle $end
