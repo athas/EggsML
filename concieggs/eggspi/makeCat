@@ -63,7 +63,7 @@ cat > $end <<"EOF"
 !     ((_/
 EOF
 
-wiggle $length -5 2 0.2 > $wiggle
+wiggle "$length" -5 2 0.2 > $wiggle
 
 n_lines="$(wc -l $start | egrep -o '^ *[0-9]+')"
 
@@ -71,7 +71,7 @@ for i in $(seq 1 $n_lines); do
     part0="$(cat $start | lineAt "$i")"
     part1=''
     for j in $(seq 1 $length); do
-        offset=$(( $i + $(cat $wiggle | lineAt "$j") ))
+        offset=$(( ($i + $(cat $wiggle | lineAt "$j") + $n_lines - 1) % $n_lines + 1 ))
         part1_t="$(cat $middle | lineAt "$offset")"
         part1="$part1$part1_t"
     done
