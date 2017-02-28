@@ -3,6 +3,6 @@
 # concieggs spøger.. eller gør den?
 # Athas' yndlingskrog
 
-maybeGood .009 || exit
+maybeGood .0005 || exit
 
 echo $(randomName "$EGGS_USER")
