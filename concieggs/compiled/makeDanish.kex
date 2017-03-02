@@ -109,7 +109,7 @@ word2 := ~/screenshot/ "skærmbillede"
        | ~/dollar/ "daler" (~/s/ "e")?
        | ~/[Ii]stanbul|[Kk]onstantinopel/ "Miklagård"
        | ~/output/ "uddata"
-       | ~/outlook "udkig"
+       | ~/outlook/ "udkig"
        | ~/access/ "adgang"
        | ~/date/ "stævnemøde" (~/s/ "r")?
        | ~/etc/ "osv"
