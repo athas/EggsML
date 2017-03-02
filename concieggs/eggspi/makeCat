@@ -3,7 +3,7 @@
 # Build a cat of a certain length.
 
 length="$1"
-if ! [ "$length" ] || [ "$length" -lt 0 ]; then
+if ! [ "$length" ] || [ "$length" -lt 0 ] || [ "$length" -gt 1000 ]; then
     exit 1
 fi
 
