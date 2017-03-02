@@ -21,7 +21,7 @@ elif [ $# = 1 -a "$1" = --version ]; then
     futhark-c --version
 else
     file=$(mktemp).fut
-    if echo "$1" | egrep -q '^fun|entry|module|val|type'; then
+    if echo "$1" | egrep -q '^fun|entry|module|val|type|import'; then
         echo "$@" > $file
     else
         echo "fun main() = $@" > $file
