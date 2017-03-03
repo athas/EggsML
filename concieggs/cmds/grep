@@ -6,5 +6,5 @@ tool=$(basename $0)
 
 count=$(egrep "$tool" -l -R "$CONCIEGGS_DIR/eggspi" "$CONCIEGGS_DIR/hooks" "$CONCIEGGS_DIR/cmds" | wc -l)
 
-echo "$tool's herlighed kan findes i $count af mine programfiler!"
+echo "$tool's herlighed kan findes i "$count" af mine programfiler!"
 echo "Du kan hjælpe ved at gå ind i cmds/, eggspi/ eller hooks/ og sprede det gode budskab."
