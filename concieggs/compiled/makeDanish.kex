@@ -92,7 +92,7 @@ word2 := ~/screenshot/ "skærmbillede"
        | ~/n/ es@((~/i/"e")*) ~/ce/ "d" !es "jligt"
        | ~/request/ "anmodning"
        | ~/fail/ "fiasko"
-       | ~/memes/ "memer"
+       | ~/meme/ "mem" (~/s/ "er")?
        | ~/(D|d)amn it/ "Fanden ta'et"
        | ~/[Pp][Ll][SsZz]/ "venligst"
        | ~/(OMG|omg)/ "Du Godeste"
