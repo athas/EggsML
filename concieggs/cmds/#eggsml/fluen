@@ -31,7 +31,7 @@ while true; do
 done
 
 if dbRead robespierre; then
-    echo "Fluen har fundet lorten, og lander på $last!  Men republikken er forevigt, så alt $last er er en lort!"
+    echo "Fluen har fundet lorten, og lander på $last!  Men republikken er for bestandigt, så $last er bare en lort!"
 elif isKing "$last"; then
     echo "Fluen har fundet lorten, og lander på $last!  Men $last er allerede konge, så velsagtens ingen ny konge."
 else
