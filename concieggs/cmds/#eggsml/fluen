@@ -33,7 +33,7 @@ done
 if dbRead robespierre; then
     echo "Fluen har fundet lorten, og lander på $last!  Men republikken er for bestandigt, så $last er bare en lort!"
 elif isKing "$last"; then
-    echo "Fluen har fundet lorten, og lander på $last!  Men $last er allerede konge, så velsagtens ingen ny konge."
+    echo "Fluen har fundet lorten, og lander på $last!  Men $last er allerede konge, så i praksis ingen ny konge."
 else
     echo "Fluen har fundet lorten, og lander på $last!  $last er den nye konge af #eggsml!"
     makeKing "$last"
