@@ -8,7 +8,7 @@ sep := /[^A-Za-zÆØÅæøå0-9]/
 
 word1 := ~/computer science/ "datalogi"
        | ~/computer/ "datamat"
-       | ~/debug/ "aflus" (~/ger/ "er" | ~/ging/ "ning")
+       | ~/debug/ "aflus" (~/ge/ "e" /r?/ | ~/ging/ "ning")
        | ~/RAM/ "arbejdslager"
        | ~/whitespace/ "blanktegn"
        | ~/firewall/ "brandmur"
