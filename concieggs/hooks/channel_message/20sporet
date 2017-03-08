@@ -5,6 +5,7 @@ Ikke her i hvert fald!
 /me snurrer nervøst med fødderne
 /me kigger ned i gulvet
 Skal vi ikke snakke om noget andet bots?
+Du mener ligesom i Westworld?
 EOF`
 
 if echo "$EGGS_BODY" | grep -qiE "er der (mon )?en bot til ?stede\??"; then
