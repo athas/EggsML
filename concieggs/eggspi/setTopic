@@ -1,3 +1,3 @@
 #!/bin/sh
 
-echoToServer ":TOPIC $(ircChannel) :$(dbRead topic)  -- EggsML 2016 -- Største skyldnere: $(debtors)."
+echoToServer ":TOPIC $(ircChannel) :$(dbRead topic)  -- EggsML 2017 -- Største skyldnere: $(debtors)."
