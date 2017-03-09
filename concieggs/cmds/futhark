@@ -20,6 +20,10 @@ if [ $# = 0 ]; then
 elif [ $# = 1 -a "$1" = --version ]; then
     ssh napoleon.hiperfit.dk "futhark-opencl --version"
 else
+    if [ "$1" = -t ]; then
+        flags="-t /dev/stdout"
+        shift
+    fi
     if echo "\$@" | egrep -q '^fun|entry|module|val|type|import'; then
         code="$@"
     else
@@ -27,14 +31,14 @@ else
     fi
 
     allthatjazz=$(cat <<EOF
-    code="$code"
+    code=\$(cat)
     file=\$(mktemp).fut
-    echo \$code > \$file
+    echo "\$code" > \$file
     if futhark-opencl "\$file" -o "\$file.bin" 2>&1; then
-        \$file.bin
+        \$file.bin $flags
     fi
     rm -f "\$file" "\$file.bin"
 EOF
                )
-    (timeout 10 ssh napoleon.hiperfit.dk "$allthatjazz" && pleasedBy "$EGGS_USER" 10) || echo "$EGGS_USER: Det gik galt."
+    (echo "$code" | timeout 10 ssh napoleon.hiperfit.dk "$allthatjazz" && pleasedBy "$EGGS_USER" 10) || echo "$EGGS_USER: Det gik galt."
 fi
