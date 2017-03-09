@@ -24,7 +24,7 @@ else
         flags="-t /dev/stdout"
         shift
     fi
-    if echo "\$@" | egrep -q '^fun|entry|module|val|type|import'; then
+    if echo "$@" | egrep -q '^fun|entry|module|val|type|import'; then
         code="$@"
     else
         code="fun main() = $@"
