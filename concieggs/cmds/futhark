@@ -18,16 +18,23 @@ if [ $# = 0 ]; then
      echo "Enormi veloce!"
      echo "Arriba!  Arriba!  Andale!  Arriba!") | randomLine
 elif [ $# = 1 -a "$1" = --version ]; then
-    futhark-c --version
+    ssh napoleon.hiperfit.dk "futhark-opencl --version"
 else
-    file=$(mktemp).fut
-    if echo "$1" | egrep -q '^fun|entry|module|val|type|import'; then
-        echo "$@" > $file
+    if echo "\$@" | egrep -q '^fun|entry|module|val|type|import'; then
+        code="$@"
     else
-        echo "fun main() = $@" > $file
+        code="fun main() = $@"
     fi
-    if futhark-c "$file" -o "$file.bin" 2>&1; then
-        (timeout 10 "$file.bin" 2>&1 && pleasedBy "$EGGS_USER" 10) || echo "$EGGS_USER: Det gik galt."
+
+    allthatjazz=$(cat <<EOF
+    code="$code"
+    file=\$(mktemp).fut
+    echo \$code > \$file
+    if futhark-opencl "\$file" -o "\$file.bin" 2>&1; then
+        \$file.bin
     fi
-    rm -f "$file" "$file.bin"
+    rm -f "\$file" "\$file.bin"
+EOF
+               )
+    (timeout 10 ssh napoleon.hiperfit.dk "$allthatjazz" && pleasedBy "$EGGS_USER" 10) || echo "$EGGS_USER: Det gik galt."
 fi
