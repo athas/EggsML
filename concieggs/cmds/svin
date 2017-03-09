@@ -1,6 +1,12 @@
 #!/bin/sh
 #
 # Brug concieggs' tid på at svine folk til.
+#
+# Opfylder EggsML-standard #3331.  Standarden, defineret her, siger følgende:
+#
+#   Kommandoer ved navn 'svin' skal svine deres modtager(e).
+#
+# Prut!
 
 . $CONCIEGGS_DIR/concieggs.conf
 
