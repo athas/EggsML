@@ -13,7 +13,7 @@ if [ $# = 0 ]; then
      echo "Sømmet i bund!"
      echo "Fuld gas!"
      echo "¡Vamos!"
-     echo "Macht schell!"
+     echo "Macht schnell!"
      echo "¡Más rápido!"
      echo "Enormi veloce!"
      echo "Arriba!  Arriba!  Andale!  Arriba!") | randomLine
