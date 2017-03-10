@@ -6,7 +6,7 @@ removeYear() {
     sed 's/^....-//'
 }
 
-eval "$(echo "$EGGS_BODY" | parse '(?<dest_user>[^ ]+)[:,] hvornår .+?(du|din) .*?fødselsdag')"
+eval "$(echo "$EGGS_BODY" | parse '(?<dest_user>[^ ]+)[:,] [Hh]vornår .+?(du|din) .*?fødselsdag')"
 
 if ! [ "$dest_user" ]; then
     exit
