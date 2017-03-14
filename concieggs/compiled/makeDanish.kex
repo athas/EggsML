@@ -145,4 +145,5 @@ word2 := ~/screenshot/ "skærmbillede"
        | ~/generic code/ "socialdemokratisk kode"
        | ~/upstream/ "opå"
        | ~/swap/ "svup"
+       | ~/porno?/ "naturfilm"
        | /[a-zA-ZæøåÆØÅ0-9]+/
