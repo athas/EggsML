@@ -29,7 +29,7 @@ def run_main(args):
     if not pages:
         return 1
     paragraphs = itertools.chain(*map(get_paragraphs, pages))
-    jp = r'\*([^ *].*?)\*.*? er (.+)'
+    jp = r'\*([^ *][^*]*?)\*.*? er (.+)'
     sentences = filter(lambda s: term.lower() in s.lower() and re.match(jp, s),
                        (itertools.chain(*map(partial(get_sentences,
                                                      pre_rules=pre_rules,
