@@ -20,7 +20,7 @@ beskrivelse=<${linjer}>tail -n1
 read gæt
 EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
 
-<"${gæt}">grep -qiE '.+'
+<${gæt}>grep -qiE '.+'
 jz indhold
 >echo "${EGGS_USER}: Hov, du glemte at gætte på noget!"
 j læsgæt
