@@ -22,7 +22,7 @@ EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
 
 <${gæt}>grep -qiE '.+'
 jz indhold
->echo "${EGGS_USER}: Hov, du glemte at gætte på noget!"
+>echo "${EGGS_USER}: Hov, du glemte at gætte på noget!  Du skal gætte på det her: ${beskrivelse}."
 j læsgæt
 
 :indhold
