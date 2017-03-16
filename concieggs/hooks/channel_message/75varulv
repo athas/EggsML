@@ -4,11 +4,14 @@
 
 if ! isFullMoon; then
     # JEG ER BARE ET MENNESKE OKAY
-    cat
     exit
 fi
 
+maybeGood .1 || exit
+
 randomLine <<EOF
 Awuuuuuu!
-/me føler mine negle blive til kløer
+/me føler sine negle blive til kløer
+Blodet strømmer stærkere igennem mig.
+/me river tøjet af sig
 EOF
