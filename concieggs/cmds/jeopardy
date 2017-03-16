@@ -15,9 +15,16 @@ beskrivelse=<${linjer}>tail -n1
 
 >echo "${EGGS_USER}: Okay, gæt det her: ${beskrivelse}."
 
+:læsgæt
 read gæt
 EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
 
+<"${gæt}">grep -qiE '.+'
+jz indhold
+>echo "${EGGS_USER}: Hov, du glemte at gætte på noget!"
+j læsget
+
+:indhold
 <"${gæt}">grep -qiE "${emne}"
 jz korrektgæt
 
