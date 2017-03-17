@@ -50,7 +50,7 @@ if ! isCommand "$cmd" ; then
     if [ "$cmd" = "$CONCIEGGS_NAME" ]; then
         echo "$EGGS_USER: Jeg er ikke en kommando! Jeg er et tænkende, følende væsen!"
     else
-        echo "$EGGS_USER: Men hvad betyder $cmd? Jeg forstår $(du $EGGS_USER) ikke!"
+        echo "$EGGS_USER: Men hvad betyder $cmd? Jeg forstå $(du $EGGS_USER) ikke!"
     fi
     exit 0
 fi
