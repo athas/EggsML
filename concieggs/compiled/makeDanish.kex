@@ -146,4 +146,5 @@ word2 := ~/screenshot/ "skærmbillede"
        | ~/upstream/ "opå"
        | ~/swap/ "svup"
        | ~/porno?/ "naturfilm"
+       | ~/malware/ "progra-lø-mmel"
        | /[a-zA-ZæøåÆØÅ0-9]+/
