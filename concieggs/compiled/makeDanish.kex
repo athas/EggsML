@@ -130,7 +130,6 @@ word2 := ~/screenshot/ "skærmbillede"
        | ~/feature/ "funktionalitet" (~/[- ]?request/ "sanmodning")?
        | ~/troll/ "trold" (~/ing/ "ning" | ~/s/ "e")?
        | ~/change request/ "ændringsanmodning"
-       | ~/F#/ "ikke-standard ML"
        | ~/crossfit/ "krydstræning"
        | (~/C/ "K" | ~/c/ "k") ~/openhagen/ "øbenhavn"
        | ~/Zealand/ "Sjælland"
