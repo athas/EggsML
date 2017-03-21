@@ -55,6 +55,13 @@ if ! isCommand "$cmd" ; then
     exit 0
 fi
 
+if $( echo "$cmd" | grep -qi "jeopardy (hvem|hvad) er" ); then
+    echo "$EGGS_USER: Hovsa sa sa. Man må altså ikke snyde i Jeopardy."
+    annoyedBy "$EGGS_USER" 5 "prøvede at sætte et gætte-alias til Jeopardy"
+    exit
+fi
+
+
 allAliases="$(dbUserRead "$name" "cmd_aliases")"
 oldCommand="$(echo "$allAliases" | grep -i "^$lcalias=" | cut -d'=' -f 2 )"
 

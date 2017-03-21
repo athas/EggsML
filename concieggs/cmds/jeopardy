@@ -21,9 +21,21 @@ read gæt
 EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
 
 <${gæt}>grep -qiE '.+'
-jz indhold
+jz hvemcheck
 >echo "${EGGS_USER}: Hov, du glemte at gætte på noget!  Du skal gætte på det her: ${beskrivelse}."
 j læsgæt
+
+
+:hvemcheck
+<"${gæt}">grep -vqiE "(hvem|hvad) er ${emne}"
+jz hvemfejl
+j indhold
+
+:hvemfejl
+>echo "${EGGS_USER}: Åhr! Du glemte at sige hvem eller hvad er."
+j læsgæt
+
+
 
 :indhold
 <"${gæt}">grep -qiE "${emne}"
