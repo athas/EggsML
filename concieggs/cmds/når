@@ -55,7 +55,7 @@ if ! isCommand "$cmd" ; then
     exit 0
 fi
 
-if $( echo "$cmd" | grep -qi "jeopardy (hvem|hvad) er" ); then
+if $( echo "$cmd" | grep -qiE "jeopardy (hvem|hvad) er" ); then
     echo "$EGGS_USER: Hovsa sa sa. Man må altså ikke snyde i Jeopardy."
     annoyedBy "$EGGS_USER" 5 "prøvede at sætte et gætte-alias til Jeopardy"
     exit
