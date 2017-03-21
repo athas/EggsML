@@ -27,8 +27,9 @@ j læsgæt
 
 
 :hvemcheck
-<"${gæt}">grep -vqiE "(hvem|hvad) er"$
+<"${gæt}">grep -vqiE "(hvem|hvad) er"
 jz hvemfejl
+
 j indhold
 
 :hvemfejl
