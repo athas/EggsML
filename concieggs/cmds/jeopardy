@@ -31,6 +31,7 @@ j læsgæt
 jz hvemfejl
 j indhold
 
+
 :hvemfejl
 >echo "${EGGS_USER}: Åhr! Du glemte at sige hvem eller hvad er."
 j læsgæt
