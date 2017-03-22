@@ -29,7 +29,7 @@ j læsgæt
 :hvemcheck
 test=<${gæt}>grep -iE "(hvem|hvad) er"
 jz indhold
->echo "${EGGS_USER}: Åhr! Du glemte at sige hvem eller hvad er. Det er ikke nok med ${gæt} eller ${test}"
+>echo "${EGGS_USER}: Åhr! Du glemte at sige hvem eller hvad er."
 j læsgæt
 
 
