@@ -1,11 +1,28 @@
 #!/bin/sh
 
+SEGMENTS=0
+if [ "$#" -gt 0 ]
+then
+    SEGMENTS="$(($1 + 0))"
+fi
+
+if [ "$SEGMENTS" -gt 20 ] || [ "$SEGMENTS" -lt 0 ]
+then
+    say "$EGGS_USER: Vi er desværre løbet tør for hunde."
+    annoyedBy "$EGGS_USER" 1 "havde urealistiske forventninger til sin hunds udseende"
+    exit
+fi
+
 echo ' ▄▀▄▀▀▀▀▄▀▄         '
 echo ' █░░░░░░░░▀▄      ▄ '
 echo '█░░▀░░▀░░░░░▀▄▄  █░█'
 echo '█░▄░█▀░▄░░░░░░░▀▀░░█'
 echo '█░░▀▀▀▀░░░░░░░░░░░░█'
 echo '█░░░░░░░░░░░░░░░░░░█'
+for i in $(seq 1 $SEGMENTS)
+do
+    echo '█░░░░░░░░░░░░░░░░░░█'
+done
 echo '█░░░░░░░░░░░░░░░░░░█'
 echo ' █░░▄▄░░▄▄▄▄░░▄▄░░█ '
 echo ' █░▄▀█░▄▀  █░▄▀█░▄▀ '
