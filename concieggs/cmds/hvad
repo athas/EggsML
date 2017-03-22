@@ -5,8 +5,7 @@
 
 eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|'\
 'har (?<debtor>[^ ]+) til gode$|'\
-'(?<time>er klokken)$|'\
-'(?<balance>er betalingsbalancen)$|'\
+'(?<whatis>er (?<subject>[^ ]+))$|'\
 '(?<missing>mangler jeg)$|'\
 '(?<wtf>hulen)$|'\
 '(?<status>så)$|'\
@@ -17,15 +16,26 @@ eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|'\
 '(?<kingname>hedder kongen)|'\
 '(står (?<forkortelse>[^ ]+) for)')"
 
-if [ "$balance" ]; then
-  balance="$(lookupBalance)"
-  if [ "$(echo "$balance" | grep "-")" ]; then
-      echo "Uha, samlet set er der en gæld på $balance kroner."
+if [ "$whatis" ]; then
+  if [ "$subject" = "betalingsbalancen" ]; then
+    balance="$(lookupBalance)"
+    if [ "$(echo "$balance" | grep "-")" ]; then
+        echo "Uha, samlet set er der en gæld på $balance kroner."
+    else
+        echo "Spiser I slet ingen ting? EggsML har et samlet overskud på $balance kroner."
+    fi
+    exit
+
+  elif [ "$subject" = "klokken" ]; then
+    echo "Den lille viser peger på $(($(date +%l) % 12)), den store på $(($(date +%M))), og den helt lille på $(($(date +%S)))."
+    exit
   else
-      echo "Spiser I slet ingen ting? EggsML har et samlet overskud på $balance kroner."
+    runcmd jeopardy "hvad er $subject"
+    exit
   fi
-  exit
 fi
+
+
 
 if [ "$debtor" ]; then
     if [ "$debtor" = "jeg" ]; then
@@ -37,6 +47,7 @@ if [ "$debtor" ]; then
         echo "Jeg kender ikke $debtor."
         exit
     fi
+
 
     debt="$(lookupDebt "$alias")"
 
