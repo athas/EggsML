@@ -55,7 +55,7 @@ if ! isCommand "$cmd" ; then
     exit 0
 fi
 
-if [ "$cmd" = "jeopardy" ];
+if [ "$cmd" = "jeopardy" ]; then
     echo "$EGGS_USER: Hovsa sa sa. Man må altså ikke snyde i Jeopardy."
     annoyedBy "$EGGS_USER" 5 "prøvede at sætte et gætte-alias til Jeopardy"
     exit
