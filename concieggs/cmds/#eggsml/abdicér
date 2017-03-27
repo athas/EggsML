@@ -4,7 +4,7 @@
 
 if isKing "$EGGS_USER"; then
   echo "Hvis Deres Majestæt er sikker..."
-  dbDelete eggsking
+  revolution
   echo "Så skrid fra mit årsyn, dit almindelig svin."
 else
   echo "Jeg tror allerede du ikke er konge."
