@@ -12,6 +12,7 @@ eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|'\
 '(?<meaning>mener (?<who>[^ ]+) med (?<what>[^ ]+)$)|'\
 'hedder (?<githubname>[^ ]+) på GitHub|'\
 'sker der i (?<kodeprojekt>[^ ]+)[ -]land|'\
+'(?<version2>sker der på ([Vv]ersion2|v2)(\.dk)?)|'\
 '(?<happening>(sker der( lige)?|mener du))|'\
 '(?<kingname>hedder kongen)|'\
 '(står (?<forkortelse>[^ ]+) for)')"
@@ -157,6 +158,32 @@ Den er nem, $EGGS_USER, for $forkortelse er bare kort for $ordene.
 EOF
 elif [ "$kodeprojekt" ]; then
     latestGitNews "$kodeprojekt"
+elif [ "$version2" ]; then
+    version2Debat | {
+        read author
+        read title
+        read summary_line
+        read url
+        HvadSoeren=$(randomLine <<EOF
+Hvad søren
+Vilde milde
+Jeg ved ikke hvad jeg skal sige
+Så for den da
+Uha og lala
+Ajajaij
+EOF
+                  )
+        etDebatindlaeg=$(randomLine <<EOF
+et debatindlæg
+en rant
+noget prut
+noget tankevækkende
+en kommentar
+EOF
+)
+        echo "$EGGS_USER: $HvadSoeren, $author har skrevet $etDebatindlaeg med titlen \"$title\" på $url hvor der blandt andet står:"
+        echo '"'"$summary_line"'"'
+    }
 else
     randomLine <<EOF
 $EGGS_USER: Hmm, det er e$(tPattedyr).

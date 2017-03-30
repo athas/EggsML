@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+#
+# Find den nyeste debat fra Version2.dk.
+
+import sys
+import re
+import random
+import html
+import feedparser
+
+feed_url = 'https://www.version2.dk/debat/rss'
+feed = feedparser.parse(feed_url)
+comment = random.choice(feed['items'])
+
+summary_lines = list(
+    filter(bool, (s.strip() for s in re.findall(r'>([^<]+)<', comment['summary']))))
+summary_line = html.unescape(random.choice(summary_lines))
+
+print(comment['author'])
+print(comment['title'])
+print(summary_line)
+print(comment['link'])
