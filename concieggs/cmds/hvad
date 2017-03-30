@@ -12,7 +12,7 @@ eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|'\
 '(?<meaning>mener (?<who>[^ ]+) med (?<what>[^ ]+)$)|'\
 'hedder (?<githubname>[^ ]+) på GitHub|'\
 'sker der i (?<kodeprojekt>[^ ]+)[ -]land|'\
-'(?<version2>sker der på ([Vv]ersion2|v2)(\.dk)?)|'\
+'(?<version2>(hulen )?sker der (lige (nu )?)?(på|for) ([Vv]ersion2|v2)(\.dk)?)|'\
 '(?<happening>(sker der( lige)?|mener du))|'\
 '(?<kingname>hedder kongen)|'\
 '(står (?<forkortelse>[^ ]+) for)')"
