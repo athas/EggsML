@@ -4,53 +4,51 @@ use warnings;
 use strict;
 use utf8::all;
 
+my @start = qw(
+    trå
+    sjå
+    lå
+);
 
-my @startstavelser = ("trå",
-                      "sjå",
-                      "lå");
+my @middle = qw(
+    lå
+    lååh
+    -lå-
+    å
+);
 
-my @stavelser = ("lå",
-                 "lååh",
-                 "-lå-",
-                 "å");
+my @end = qw(
+    dååååh
+    då
+    lå
+    lå
+    låh
+);
 
-my @endestavelser = ("dååååh.",
-                     "då",
-                     "lå",
-                     "lå",
-                     "låh");
+sub sing {
+    my $syllables = shift;
 
-my $string       = <STDIN>;
-my @array     = split ' ', $string;
+    my $out = $start[rand @start];
+    $out   .= $middle[rand @middle] for (2 .. $syllables-1);
+    $out   .= $end[rand @end] if $syllables > 1;
+
+    $out =~ s/-{2,}/-/g;
+
+    return $out;
+}
+
+my $string = <>;
+my @words  = split(' ', $string);
 
 my @outarray = ();
 
-foreach my $word (@array){
-    ($word =~ /[.?!]/);
-    my $syllables = 0;
-    $syllables++ while ($word =~ /[aeiouyæåø]{1,2}/gi);
-    push (@outarray, &sing($syllables) . $1);
-    }
+for my $word (@words) {
+    my ($punctuation) = $word =~ /([.?!])/;
+    my $syllables = () = $word =~ /[aeiouyæåø]{1,2}/gi;
+    push (@outarray, sing($syllables) . ($punctuation // ''));
+}
 
 
 my $song = join(" ", @outarray);
-$song =~ s/^(.)/\U$1\E/;
-$song =~ s/([^\w]) (.)/$1 \U$2\E/g;
-say $song . "!";
+say uc($song) . "!";
 
-
-sub sing
-{
-    my $sylls = $_[0];
-    my $out   = $startstavelser[rand @startstavelser];
-    if ($sylls > 1){
-      while ($sylls > 1){
-        $out = $out . $stavelser[rand @stavelser];
-        $sylls--;
-        }
-      $out . $endestavelser[rand @endestavelser];
-      }
-    else {
-       $out;
-       }
-}
