@@ -179,6 +179,9 @@ en rant
 noget prut
 noget tankevækkende
 en kommentar
+efterfølgeren til Magna Carta
+sit livsværk
+et sandt svendestykke
 EOF
 )
         echo "$EGGS_USER: $HvadSoeren, $author har skrevet $etDebatindlaeg med titlen \"$title\" på $url hvor der blandt andet står:"
