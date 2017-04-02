@@ -51,14 +51,14 @@ else
 fi
 
 if [ $check_all_places ]; then
-    acmd="$(find -L "$CONCIEGGS_DIR/cmds" -iname "$cmd" -type f | head -n 1)"
+    acmd="$(find -L "$cmddir" -iname "$cmd" -type f | head -n 1)"
 else
     if [ -d "$cmddir/$(ircChannel)" ]; then
         extradir="$cmddir/$(ircChannel)/"
     else
         extradir="/dev/null"
     fi
-    acmd="$(find -L "$cmddir" "$extradir" -maxdepth 1 -iname "$cmd" -type f | head -n 1)"
+    acmd="$(find -L "$extradir" "$cmddir" -maxdepth 1 -iname "$cmd" -type f | head -n 1)"
 fi
 
 if [ "$cmd" ] && [ "$EGGS_USER" != "$CONCIEGGS_NAME" ]; then
