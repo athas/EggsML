@@ -1,0 +1,11 @@
+#!/usr/bin/env perl
+my $min = 1;
+my $max = 10;
+my $rating = $min + int(rand()*($max-$min)+$min);
+my $type = "";
+
+if (scalar @ARGV > 2 $ARGV[-2] eq "med") {
+    $type = " ".$ARGV[-1];
+}
+
+print "På en skala fra $min til $max, vil jeg sige $rating.";
