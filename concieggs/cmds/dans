@@ -95,12 +95,25 @@ pingvin
 EOF
 }
 
+danseart() {
+    randomLine <<EOF
+tango
+salsa
+zumba
+EOF
+}
+
 danser() {
+    offer=$(recentlyActive | randomLine)
     randomLine <<EOF
 flytter$(tillaeg) $(benet) $(frem)
 laver en $(pirouette)
 hopper som en $(abe)
 gÃ¥r frem, og tilbage, fra side, til side
+giver ${offer} en lapdance i en stol
+har den bedste tid i sit liv med ${offer}
+laver en Swayze og råber "Ingen sætter ${offer} i hjørnet!"
+improviserer et par $(danseart)-trin
 EOF
 }
 
