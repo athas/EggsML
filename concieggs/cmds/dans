@@ -113,7 +113,7 @@ Juhuuu!
 EOF
 }
 
-say "$(DM) i $(dans)!"
+say "$(DM) i $(dans)!  Jeg danser til $(whatsonalfa)!"
 say "Nu kommer der $(smukke) $(trin)!"
 for i in $(seq 1 $(random 5 10)); do
     say "/me $(danser)"
