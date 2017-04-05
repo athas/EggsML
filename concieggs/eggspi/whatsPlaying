@@ -30,6 +30,11 @@ channelDict = {
 }
 
 defaultChannel = channelDict["Radio Alfa (Østjylland)"]
+
+def flattenString(string):
+  _string = "".join(string.split())
+  return _string
+
 def getResponse(url):
     _header = {"Icy-MetaData":"1"}
     responseObject = req.get(url, headers=_header, stream=True)
@@ -39,7 +44,7 @@ def getTitle(r):
     numBytes = r.headers["icy-metaint"]
     r.raw.read(int(numBytes))
     for _ in range(1,10):
-        line = r.raw.read(int(1000)).decode("iso-8859-1", errors="ignore")
+        line = r.raw.read(int(256)).decode("iso-8859-1", errors="ignore")
         if ("Stream" in line):
             break
     title = re.search(r"StreamTitle='(.*)';", line).group(1)
@@ -48,7 +53,7 @@ def getTitle(r):
 def tryGetTitle(channelName):
     chosenChannel = defaultChannel
     for key in channelDict.keys():
-        flatKey = "".join(key.split()).lower()
+        flatKey = flattenString(key)
         if channelName in flatKey:
             chosenChannel = channelDict[key]
     response = getResponse(chosenChannel)
@@ -58,5 +63,6 @@ def tryGetTitle(channelName):
 
 if __name__ == "__main__":
     if len(sys.argv) == 2:
-        title = tryGetTitle(sys.argv[1])
+        channelName = flattenString(sys.argv[1])
+        title = tryGetTitle(channelName)
         print(title)
