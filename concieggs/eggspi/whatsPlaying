@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+import requests as req
+import re
+import sys
+
+alfaSub = (r"(.*) - (.*)", r'\1 med "\2"')
+
+channelDict = {
+    "DR P1":"http://live-icy.gss.dr.dk:8000/A/A03H.mp3",
+    "DR P2":"http://live-icy.gss.dr.dk:8000/A/A04H.mp3",
+    "DR P3":"http://live-icy.gss.dr.dk:8000/A/A05H.mp3" ,
+    "DR P4 Midt & Vest":"http://live-icy.gss.dr.dk:8000/A/A09H.mp3",
+    "DR P5":"http://live-icy.gss.dr.dk:8000/A/A25H.mp3",
+    "DR P6 Beat":"http://live-icy.gss.dr.dk:8000/A/A29H.mp3",
+    "DR P7 Mix":"http://live-icy.gss.dr.dk:8000/A/A21H.mp3",
+    "DR P8 Jazz":"http://live-icy.gss.dr.dk:8000/A/A22H.mp3",
+    "Globus Guld (Kolding)":"http://stream2.wlmm.dk/guldkoldingmp3",
+    "HeartBeats":"http://airtime.heartbeats.dk:8000/stream",
+    "Pop FM":"http://stream.popfm.dk/pop128",
+    "Radio 24syv": "http://rrr.sz.xlcdn.com/?account=Radio24syv&file=ENC1_Web128&type=live&service=icecast&port=8000&output=pls",
+    "Radio Alfa (Østjylland)":"http://netradio.radioalfa.dk/",
+    "Radio Monte Carlo FM":"http://icecast.105.net/RMC.mp3",
+    "Radio Monte Carlo 2":"http://icecast.unitedradio.it/MC2.mp3",
+    "Radio Riviera":"http://rivieraradio.ice.infomaniak.ch:80/rivieraradio-high",
+    "STROM:KRAFT":"http://stream.stromkraftradio.fm:8012/;stream.mp3",
+    "The Lake":"http://efterklang-sc.djj.dk:8000/;stream.mp3",
+    "Universitetsradioen":"http://netradio.universitetsradioen.dk:8000/live64.ogg",
+    "VRT Radio 2 Antwerpen" :"http://mp3.streampower.be/ra2ant-high"
+}
+
+defaultChannel = channelDict["Radio Alfa (Østjylland)"]
+def getResponse(url):
+    _header = {"Icy-MetaData":"1"}
+    responseObject = req.get(url, headers=_header, stream=True)
+    return responseObject
+
+def getTitle(r):
+    numBytes = r.headers["icy-metaint"]
+    r.raw.read(int(numBytes))
+    for _ in range(1,10):
+        line = r.raw.read(int(1000)).decode("iso-8859-1", errors="ignore")
+        if ("Stream" in line):
+            break
+    title = re.search(r"StreamTitle='(.*)';", line).group(1)
+    return title
+
+def tryGetTitle(channelName):
+    chosenChannel = defaultChannel
+    for key in channelDict.keys():
+        flatKey = "".join(key.split()).lower()
+        if channelName in flatKey:
+            chosenChannel = channelDict[key]
+    response = getResponse(chosenChannel)
+    title = getTitle(response)
+    title = re.sub(alfaSub[0], alfaSub[1],title)
+    return title
+
+if __name__ == "__main__":
+    if len(sys.argv) == 2:
+        title = tryGetTitle(sys.argv[1])
+        print(title)

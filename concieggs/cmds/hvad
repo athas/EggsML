@@ -2,9 +2,9 @@
 #
 # Spørg om din gæld til frokostkassen, eller få hjælp til diverse
 # personlighedsfremmende gøremål.  Brug naturligt sprog.
-
 eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|'\
 'har (?<debtor>[^ ]+) til gode$|'\
+'spiller de( inde)? (på|hos) (?<channel>.*)|'\
 '(?<whatis>er (?<subject>.+))$|'\
 '(?<missing>mangler jeg)$|'\
 '(?<wtf>hulen)$|'\
@@ -36,7 +36,10 @@ if [ "$whatis" ]; then
   fi
 fi
 
-
+if [ "$channel" ]; then
+    whatsPlaying "$channel"
+    exit
+fi
 
 if [ "$debtor" ]; then
     if [ "$debtor" = "jeg" ]; then
