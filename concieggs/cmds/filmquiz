@@ -15,6 +15,7 @@ beskrivelse=<${linjer}>tail -n1
 
 >echo "${EGGS_USER}: ${beskrivelse}"
 
+:læsgæt
 read gæt
 EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
 
