@@ -8,4 +8,4 @@ if (scalar @ARGV > 2 $ARGV[-2] eq "med") {
     $type = " ".$ARGV[-1];
 }
 
-print "På en skala fra $min til $max, vil jeg sige $rating.";
+print "På en skala fra $min til $max, vil jeg sige $rating$type.";
