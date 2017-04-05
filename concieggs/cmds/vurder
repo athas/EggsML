@@ -4,7 +4,7 @@ my $max = 10;
 my $rating = $min + int(rand()*($max-$min)+$min);
 my $type = "";
 
-if (scalar @ARGV > 2 $ARGV[-2] eq "med") {
+if (scalar @ARGV > 2 && $ARGV[-2] eq "med") {
     $type = " ".$ARGV[-1];
 }
 
