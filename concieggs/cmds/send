@@ -5,7 +5,7 @@
 
 set -f
 
-eval "$(echo "$@" | parse '(?<rawcmd>.+)(?: til (?<addr>.+@.+|spiltirsdag)|(?<twitter>twitter|inter(?:nettet|tubes|webben)?))')"
+eval "$(echo "$@" | parse '(?<rawcmd>.+)(?: til (?<addr>.+@.+|spiltirsdag)|(?<twitter>twitter|inter(?:nettet|tubes|webben)?)|(?<kantinen>kantinen))')"
 
 if [ "$rawcmd" ]; then
     if [ "$addr" = "spiltirsdag" ]; then
@@ -17,6 +17,9 @@ if [ "$rawcmd" ]; then
     runcmd "$cmd" $args | \
         if [ "$twitter" != "" ]; then
             kvidr
+        elif [ "$kantinen" != "" ]; then
+            echo -n "infoskaerm: breaking: "
+            echo $(cat)
         else
             echo "Sender $rawcmd til $addr!"
             sed s/\n/\r\n/g | mailx -r concieggs@eggsml.dk \
