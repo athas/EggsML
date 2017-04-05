@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 URL="http://netradio.radioalfa.dk"
 SJOV="$(curl -s -H "Icy-MetaData: 1" ${URL} | dd bs=1 count=200 skip=16001 2> /dev/null | grep -aho "StreamTitle='.*';" | cut -d "'" -f2)"
 echo "Radio Alfa spiller '${SJOV}' lige nu"
