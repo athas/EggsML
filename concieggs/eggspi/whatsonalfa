@@ -1,3 +1,11 @@
 #!/bin/sh
-URL="http://netradio.radioalfa.dk"
-curl -s -H "Icy-MetaData: 1" "$URL" | dd bs=1 count=200 skip=16001 2> /dev/null | grep -aho "StreamTitle='.*';" | cut -d "'" -f2 | iconv -f iso-8859-1 -t utf-8
+#
+# What is playing on Radio Alfa?  Less featureful than 'whatsPlaying', but also
+# shorter.
+
+URL='http://netradio.radioalfa.dk/'
+curl -s -H 'Icy-MetaData: 1' "$URL" \
+    | dd bs=1 count=200 skip=16001 2> /dev/null \
+    | grep -aho "StreamTitle='.*';" \
+    | cut -d "'" -f2 \
+    | iconv -f iso-8859-1 -t utf-8
