@@ -1,4 +1,7 @@
 #!/usr/bin/env perl
+use 5.020;
+use warnings;
+
 my @mins = (-1, 0, 1, "cirka 0");
 my @maxes = (5, 6, 10, 100, 100_000_000, "π", "albue", "banan");
 my $min = $mins[rand @mins];
