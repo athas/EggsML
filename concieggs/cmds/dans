@@ -2,7 +2,7 @@
 #
 # Byd concieggs op til dans!  Brug: dans
 
-eval "$(echo "$@" | tolower | parse 'på (?<ting>.+)')"
+eval "$(echo "$@" | tolower | parse 'pÃ¥ (?<ting>.+)')"
 
 if [ "$ting" = roser ]; then
     say "$EGGS_USER: Hrmpf!"
@@ -37,7 +37,7 @@ smukke() {
     randomLine <<EOF
 smukke
 elegante
-uforståelige
+uforstÃ¥elige
 fantastiske
 dirtey
 rytmiske
@@ -48,7 +48,7 @@ trin() {
     randomLine <<EOF
 trin
 moves
-bevægelser
+bevÃ¦gelser
 EOF
 }
 
@@ -56,7 +56,7 @@ benet() {
     randomLine <<EOF
 benet
 armen
-næsen
+nÃ¦sen
 foden
 EOF
 }
@@ -73,14 +73,14 @@ pirouette() {
     randomLine <<EOF
 pirouette
 salto
-pældans
+pÃ¦ldans
 EOF
 }
 
 tillaeg() {
     randomLine <<EOF
 
- så
+ sÃ¥
  fint
  drastisk
 EOF
@@ -109,10 +109,10 @@ danser() {
 flytter$(tillaeg) $(benet) $(frem)
 laver en $(pirouette)
 hopper som en $(abe)
-gÃ¥r frem, og tilbage, fra side, til side
+gÃƒÂ¥r frem, og tilbage, fra side, til side
 giver ${offer} en lapdance i en stol
 har den bedste tid i sit liv med ${offer}
-laver en Swayze og råber "Ingen sætter ${offer} i hjørnet!"
+laver en Swayze og rÃ¥ber "Ingen sÃ¦tter ${offer} i hjÃ¸rnet!"
 improviserer et par $(danseart)-trin
 EOF
 }
@@ -128,7 +128,7 @@ EOF
 }
 
 say "$(DM) i $(dans)!"
-say "/me sætter et bånd med $(whatsonalfa) i afspilleren."
+say "/me sÃ¦tter et bÃ¥nd med $(whatsonalfa) i afspilleren."
 say "Nu kommer der $(smukke) $(trin)!"
 for i in $(seq 1 $(random 5 10)); do
     say "/me $(danser)"
