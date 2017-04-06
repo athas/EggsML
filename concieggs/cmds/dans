@@ -2,7 +2,7 @@
 #
 # Byd concieggs op til dans!  Brug: dans
 
-eval "$(echo "$@" | tolower | parse 'pÃ¥ (?<ting>.+)')"
+eval "$(echo "$@" | tolower | parse 'på (?<ting>.+)')"
 
 if [ "$ting" = roser ]; then
     say "$EGGS_USER: Hrmpf!"
@@ -37,7 +37,7 @@ smukke() {
     randomLine <<EOF
 smukke
 elegante
-uforstÃ¥elige
+uforståelige
 fantastiske
 dirtey
 rytmiske
@@ -48,7 +48,7 @@ trin() {
     randomLine <<EOF
 trin
 moves
-bevÃ¦gelser
+bevægelser
 EOF
 }
 
@@ -56,7 +56,7 @@ benet() {
     randomLine <<EOF
 benet
 armen
-nÃ¦sen
+næsen
 foden
 EOF
 }
@@ -73,14 +73,14 @@ pirouette() {
     randomLine <<EOF
 pirouette
 salto
-pÃ¦ldans
+pældans
 EOF
 }
 
 tillaeg() {
     randomLine <<EOF
 
- sÃ¥
+ så
  fint
  drastisk
 EOF
