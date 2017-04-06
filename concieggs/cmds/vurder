@@ -1,0 +1,15 @@
+#!/usr/bin/env perl
+my @mins = (-1, 0, 1, "cirka 0");
+my @maxes = (5, 6, 10, 100, 100_000_000, "π", "albue", "banan");
+my $min = $mins[rand @mins];
+my $max = $maxes[rand @maxes];
+my $realmin = ($min & ~$min) ? $min : 1;
+my $realmax = ($max & ~$max) ? $max : 6;
+my $rating = $realmin + int(rand()*($realmax-$realmin)+$realmin);
+my $type = "";
+
+if (scalar @ARGV > 2 && $ARGV[-2] eq "med") {
+    $type = " ".$ARGV[-1];
+}
+
+print "På en skala fra $min til $max, vil jeg sige $rating$type.";
