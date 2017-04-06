@@ -4,7 +4,7 @@ import requests as req
 import re
 import sys
 
-alfaSub = (r"(.*) - (.*)", r'\1 med "\2"')
+alfaSub = (r"(.*) - (.*)", r'"\2" med \1')
 
 channelDict = {
     "DR P1":"http://live-icy.gss.dr.dk:8000/A/A03H.mp3",
