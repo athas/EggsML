@@ -109,7 +109,7 @@ danser() {
 flytter$(tillaeg) $(benet) $(frem)
 laver en $(pirouette)
 hopper som en $(abe)
-gÃ¥r frem, og tilbage, fra side, til side
+går frem, og tilbage, fra side, til side
 giver ${offer} en lapdance i en stol
 har den bedste tid i sit liv med ${offer}
 laver en Swayze og råber "Ingen sætter ${offer} i hjørnet!"
