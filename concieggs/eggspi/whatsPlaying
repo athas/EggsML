@@ -32,7 +32,7 @@ channelDict = {
 defaultChannel = channelDict["Radio Alfa (Østjylland)"]
 
 def flattenString(string):
-  _string = "".join(string.split())
+  _string = "".join(string.split()).lower()
   return _string
 
 def getResponse(url):
