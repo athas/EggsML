@@ -1,3 +1,11 @@
 #!/bin/sh
 SANG=$(whatsPlaying "alfa")
-echo "Ih, inde på Radio Alfa spiller de $SANG"
+sang() {
+    randomLine <<EOF
+Ih, inde på Radio Alfa spiller de $SANG.
+Radio Alfa spiller $SANG lige nu.
+Hvis du skulle få lyst, kan du høre $SANG på Radio Alfa.
+EOF
+}
+
+echo "$(sang)"
