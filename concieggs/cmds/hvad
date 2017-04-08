@@ -4,7 +4,7 @@
 # personlighedsfremmende gøremål.  Brug naturligt sprog.
 eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|'\
 'har (?<debtor>[^ ]+) til gode$|'\
-'spiller de( inde)? (på|hos) (?<channel>.*)|'\
+'spiller de( [^ ]+)? (på|hos|ved|i) (?<channel>.+)$|'\
 '(?<whatis>er (?<subject>.+))$|'\
 '(?<missing>mangler jeg)$|'\
 '(?<wtf>hulen)$|'\
