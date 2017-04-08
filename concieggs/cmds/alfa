@@ -1,6 +1,6 @@
 #!/bin/sh
-KANAL=$1
-SANG=$(whatsPlaying "$1")
+KANAL="$*"
+SANG=$(whatsPlaying "$KANAL")
 sang() {
     randomLine <<EOF
 Ih, inde på $KANAL spiller de $SANG.
