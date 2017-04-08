@@ -4,42 +4,43 @@ import requests as req
 import re
 import sys
 
-alfaSub = (r"(.*) - (.*)", r'"\2" med \1')
-drSub = (r"Senest Spillet: ([^|]+) \| (.+)", r'"\1" med \2')
-carloSub = (r"([^~]+)~([^~]+).+", r'"\2" med \1')
+SUB = "sub"
+ADDR = "addr"
+AlfaSub = (r"(.*) - (.*)", r'"\2" med \1')
+DrSub = (r"Senest Spillet: ([^|]+) \| (.+)", r'"\1" med \2')
+CarloSub = (r"([^~]+)~([^~]+).+", r'"\2" med \1')
 
 channelDict = {
-    "DR P1": {"addr": "http://live-icy.gss.dr.dk:8000/A/A03H.mp3",
-              "sub": drSub},
-    "DR P2": {"addr": "http://live-icy.gss.dr.dk:8000/A/A04H.mp3",
-              "sub": drSub},
-    "DR P3": {"addr": "http://live-icy.gss.dr.dk:8000/A/A05H.mp3",
-              "sub": drSub},
-    "DR P4 Midt & Vest": {"addr": "http://live-icy.gss.dr.dk:8000/A/A09H.mp3",
-                          "sub": drSub},
-    "DR P5": {"addr": "http://live-icy.gss.dr.dk:8000/A/A25H.mp3",
-              "sub": drSub},
-    "DR P6 Beat": {"addr": "http://live-icy.gss.dr.dk:8000/A/A29H.mp3",
-                   "sub": drSub},
-    "DR P7 Mix": {"addr": "http://live-icy.gss.dr.dk:8000/A/A21H.mp3",
-                  "sub": drSub},
-    "DR P8 Jazz": {"addr": "http://live-icy.gss.dr.dk:8000/A/A22H.mp3", 
-                   "sub": drSub},
-    "Globus Guld (Kolding)": {"addr": "http://stream2.wlmm.dk/guldkoldingmp3"},
-    "HeartBeats": {"addr": "http://airtime.heartbeats.dk:8000/stream"},
-    "Pop FM": {"addr": "http://stream.popfm.dk/pop128"},
-    "Radio 24syv": {
-        "addr": "http://rrr.sz.xlcdn.com/?account=Radio24syv&file=ENC1_Web128&type=live&service=icecast&port=8000&output=pls"},
-    "Radio Alfa (Østjylland)": {"addr": "http://netradio.radioalfa.dk/",
-                                "sub": alfaSub},
-    "Radio Monte Carlo FM": {"addr": "http://icecast.unitedradio.it/RMC.mp3", "sub": carloSub},
-    "Radio Monte Carlo 2": {"addr": "http://icecast.unitedradio.it/MC2.mp3", "sub": carloSub},
-    "Radio Riviera": {"addr": "http://rivieraradio.ice.infomaniak.ch:80/rivieraradio-high"},
-    "Radio Viborg" : {"addr": "http://netradio.radioviborg.dk/viborg", "sub":alfaSub },
-    "STROM:KRAFT": {"addr": "http://stream.stromkraftradio.fm:8012/;stream.mp3"},
-    "The Lake": {"addr": "http://efterklang-sc.djj.dk:8000/;stream.mp3"},
-    "Universitetsradioen": {"addr": "http://netradio.universitetsradioen.dk:8000/live64.ogg"},
-    "VRT Radio 2 Antwerpen": {"addr": "http://mp3.streampower.be/ra2ant-high"}
+    "DR P1": {ADDR: "http://live-icy.gss.dr.dk:8000/A/A03H.mp3",
+              SUB: DrSub},
+    "DR P2": {ADDR: "http://live-icy.gss.dr.dk:8000/A/A04H.mp3",
+              SUB: DrSub},
+    "DR P3": {ADDR: "http://live-icy.gss.dr.dk:8000/A/A05H.mp3",
+              SUB: DrSub},
+    "DR P4 Midt & Vest": {ADDR: "http://live-icy.gss.dr.dk:8000/A/A09H.mp3",
+                          SUB: DrSub},
+    "DR P5": {ADDR: "http://live-icy.gss.dr.dk:8000/A/A25H.mp3",
+              SUB: DrSub},
+    "DR P6 Beat": {ADDR: "http://live-icy.gss.dr.dk:8000/A/A29H.mp3",
+                   SUB: DrSub},
+    "DR P7 Mix": {ADDR: "http://live-icy.gss.dr.dk:8000/A/A21H.mp3",
+                  SUB: DrSub},
+    "DR P8 Jazz": {ADDR: "http://live-icy.gss.dr.dk:8000/A/A22H.mp3",
+                   SUB: DrSub},
+    "Globus Guld (Kolding)": {ADDR: "http://stream2.wlmm.dk/guldkoldingmp3", SUB: AlfaSub},
+    "HeartBeats": {ADDR: "http://airtime.heartbeats.dk:8000/stream"},
+    "Pop FM": {ADDR: "http://stream.popfm.dk/pop128"},
+    "Radio 24syv": {ADDR: "http://rrr.sz.xlcdn.com/?account=Radio24syv&file=ENC1_Web128&type=live&service=icecast&port=8000&output=pls"},
+    "Radio Alfa (Østjylland)": {ADDR: "http://netradio.radioalfa.dk/",
+                                SUB: AlfaSub},
+    "Radio Monte Carlo FM": {ADDR: "http://icecast.unitedradio.it/RMC.mp3", SUB: CarloSub},
+    "Radio Monte Carlo 2": {ADDR: "http://icecast.unitedradio.it/MC2.mp3", SUB: CarloSub},
+    "Radio Riviera": {ADDR: "http://rivieraradio.ice.infomaniak.ch:80/rivieraradio-high"},
+    "Radio Viborg" : {ADDR: "http://netradio.radioviborg.dk/viborg", SUB:AlfaSub },
+    "STROM:KRAFT": {ADDR: "http://stream.stromkraftradio.fm:8012/;stream.mp3"},
+    "The Lake": {ADDR: "http://efterklang-sc.djj.dk:8000/;stream.mp3"},
+    "Universitetsradioen": {ADDR: "http://netradio.universitetsradioen.dk:8000/live64.ogg"},
+    "VRT Radio 2 Antwerpen": {ADDR: "http://mp3.streampower.be/ra2ant-high"}
 }
 
 defaultChannel = channelDict["Radio Alfa (Østjylland)"]
