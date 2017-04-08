@@ -73,11 +73,15 @@ def tryGetTitle(channelName):
             chosenChannel = channelDict[key]
             break
     channelAddr = chosenChannel["addr"]
-    response = getResponse(channelAddr)
-    title = getTitle(response)
-    if "sub" in chosenChannel.keys():
-        sub = chosenChannel["sub"]
-        title = re.sub(sub[0], sub[1], title)
+    try:
+        response = getResponse(channelAddr)
+        title = getTitle(response)
+        if "sub" in chosenChannel.keys():
+            sub = chosenChannel["sub"]
+            title = re.sub(sub[0], sub[1], title)
+        assert title != ""
+    except:
+        title = "Slayer"
     return title
 
 
