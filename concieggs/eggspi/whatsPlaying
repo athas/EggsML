@@ -76,7 +76,6 @@ def tryGetTitle(channelName):
     channelAddr = chosenChannel["addr"]
     response = getResponse(channelAddr)
     title = getTitle(response)
-    print(title)
     if "sub" in chosenChannel.keys():
         sub = chosenChannel["sub"]
         title = re.sub(sub[0], sub[1], title)
