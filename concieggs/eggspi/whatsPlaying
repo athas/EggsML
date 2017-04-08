@@ -6,6 +6,7 @@ import sys
 
 alfaSub = (r"(.*) - (.*)", r'"\2" med \1')
 drSub = (r"Senest spillet: ([^|]+) \| (.+)", r'"\1" med \2')
+carloSub = (r"([^~]+)~([^~]+).+", r'"\2" med \1')
 
 channelDict = {
     "DR P1": {"addr": "http://live-icy.gss.dr.dk:8000/A/A03H.mp3",
@@ -31,8 +32,8 @@ channelDict = {
         "addr": "http://rrr.sz.xlcdn.com/?account=Radio24syv&file=ENC1_Web128&type=live&service=icecast&port=8000&output=pls"},
     "Radio Alfa (Østjylland)": {"addr": "http://netradio.radioalfa.dk/",
                                 "sub": alfaSub},
-    "Radio Monte Carlo FM": {"addr": "http://icecast.105.net/RMC.mp3"},
-    "Radio Monte Carlo 2": {"addr": "http://icecast.unitedradio.it/MC2.mp3"},
+    "Radio Monte Carlo FM": {"addr": "http://icecast.unitedradio.it/RMC.mp3", "sub": carloSub},
+    "Radio Monte Carlo 2": {"addr": "http://icecast.unitedradio.it/MC2.mp3", "sub": carloSub},
     "Radio Riviera": {"addr": "http://rivieraradio.ice.infomaniak.ch:80/rivieraradio-high"},
     "STROM:KRAFT": {"addr": "http://stream.stromkraftradio.fm:8012/;stream.mp3"},
     "The Lake": {"addr": "http://efterklang-sc.djj.dk:8000/;stream.mp3"},
@@ -78,7 +79,7 @@ def tryGetTitle(channelName):
         title = getTitle(response)
         if "sub" in chosenChannel.keys():
             sub = chosenChannel["sub"]
-            title = re.sub(sub[0], sub[1], title)
+            title = re.sub(sub[0], sub[1], title.title())
         assert title != ""
     except:
         title = "Slayer"
