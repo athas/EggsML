@@ -1,5 +1,9 @@
 #!/bin/sh
 KANAL="$*"
+if ! [ "$KANAL" ]; then
+    KANAL="Radio Alfa"
+fi
+
 SANG=$(whatsPlaying "$KANAL")
 sang() {
     randomLine <<EOF
