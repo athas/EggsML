@@ -2,12 +2,19 @@
 #
 # Byd concieggs op til dans!  Brug: dans
 
-eval "$(echo "$@" | tolower | parse 'på (?<ting>.+)')"
+eval "$(echo "$@" | tolower | parse 'på (?<ting>.+)$|til (?<kanal>.+)$')"
 
 if [ "$ting" = roser ]; then
     say "$EGGS_USER: Hrmpf!"
     exit
 fi
+
+if [ "$kanal" ]; then
+    SANG=$(whatsPlaying "$kanal")
+else
+    SANG=$(whatsPlaying "alfa")
+fi
+
 
 DM() {
     randomLine <<EOF
@@ -153,7 +160,7 @@ EOF
 }
 
 say "$(DM) i $(dans)!"
-say "/me sætter et bånd med $(whatsonalfa) i afspilleren."
+say "/me sætter et bånd med $SANG i afspilleren."
 say "Nu kommer der $(smukke) $(trin)!"
 for i in $(seq 1 $(random 5 10)); do
     say "/me $(danser)"
