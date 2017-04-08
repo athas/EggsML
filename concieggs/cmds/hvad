@@ -37,7 +37,7 @@ if [ "$whatis" ]; then
 fi
 
 if [ "$channel" ]; then
-    whatsPlaying "$channel"
+    runcmd alfa "$channel"
     exit
 fi
 

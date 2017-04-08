@@ -6,7 +6,7 @@ sang() {
 Ih, inde på $KANAL spiller de $SANG.
 $KANAL spiller $SANG, lige nu!
 Hvis du skulle få lyst, kan du høre $SANG på $KANAL.
-Skal vi ikke nok høre $KANAL? De spiller min yndlingssang; $SANG.
+Hov! $KANAL spiller jo min yndlingssang; $SANG.
 EOF
 }
 
