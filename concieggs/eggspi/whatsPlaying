@@ -67,7 +67,6 @@ def getTitle(r):
 
 def tryGetTitle(channelName):
     chosenChannel = defaultChannel
-    dictEntry = None
     for key in channelDict.keys():
         flatKey = flattenString(key)
         if channelName in flatKey:
