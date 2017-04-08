@@ -5,7 +5,7 @@ import re
 import sys
 
 alfaSub = (r"(.*) - (.*)", r'"\2" med \1')
-drSub = (r"Senest spillet: ([^|]+) \| (.+)", r'"\1" med \2')
+drSub = (r"Senest Spillet: ([^|]+) \| (.+)", r'"\1" med \2')
 carloSub = (r"([^~]+)~([^~]+).+", r'"\2" med \1')
 
 channelDict = {
@@ -79,11 +79,11 @@ def tryGetTitle(channelName):
         title = getTitle(response)
         if "sub" in chosenChannel.keys():
             sub = chosenChannel["sub"]
-            title = re.sub(sub[0], sub[1], title.title())
+            title = re.sub(sub[0], sub[1], title, flags=re.IGNORECASE)
         assert title != ""
     except:
         title = "Slayer"
-    return title
+    return title.title()
 
 
 if __name__ == "__main__":
