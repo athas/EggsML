@@ -1,4 +1,7 @@
 #!/bin/sh
+#
+# Få at vide hvad der er i radioen, men uden attituden
+
 KANAL="$*"
 if ! [ "$KANAL" ]; then
     KANAL="Radio Alfa"
