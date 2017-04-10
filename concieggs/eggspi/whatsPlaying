@@ -81,11 +81,11 @@ def tryGetTitle(channelName):
         title = getTitle(response)
         if "sub" in chosenChannel.keys():
             sub = chosenChannel["sub"]
-            title = re.sub(sub[0], sub[1], title, flags=re.IGNORECASE)
+            title = re.sub(sub[0], sub[1], title.title(), flags=re.IGNORECASE)
         assert title != ""
     except:
         title = "Slayer"
-    return title.title()
+    return title
 
 
 if __name__ == "__main__":
