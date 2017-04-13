@@ -31,7 +31,7 @@ if [ "$whatis" ]; then
     echo "Den lille viser peger på $(($(date +%l) % 12)), den store på $(($(date +%M))), og den helt lille på $(($(date +%S)))."
     exit
   else
-    runcmd jeopardy "hvad er $subject"
+    runcmd jeopardy "hvad er $subject?"
     exit
   fi
 fi
