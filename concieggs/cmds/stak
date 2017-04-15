@@ -4,21 +4,21 @@
 
 nemklods() {
     randomLine <<EOF
-\u000304rød klods
-\u000312blå klods
-\u000309grøn klods
+\cC04rød klods
+\cC12blå klods
+\cC09grøn klods
 EOF
 }
 
 middelklods() {
     randomLine <<EOF
-\u000308gul klods
+\cC08gul klods
 EOF
 }
 
 svarklods() {
     randomLine <<EOF
-\u000301sort klods
+\cC01sort klods
 EOF
 }
 
@@ -43,7 +43,7 @@ $(middelklods)
 $(middelklods)
 $(svarklods)
 $(svarklods)
-\u000300$(point)
+\cC00$(point)
 EOF
 }
 
@@ -62,6 +62,7 @@ generateSomeBlocks() {
 arg=$1
 if [ "$arg" = "forfra" ]; then
     dbDelete stakken
+    echo "Aye aye, $EGGS_USER! Jeg har ryddet stakken."
     exit
 fi
 
