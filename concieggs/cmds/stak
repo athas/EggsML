@@ -4,21 +4,21 @@
 
 nemklods() {
     randomLine <<EOF
-\cC04rød klods
-\cC12blå klods
-\cC09grøn klods
+"\cC04\cB\cBrød klods"
+"\cC12\cB\cBblå klods"
+"\cC09\cB\cBgrøn klods"
 EOF
 }
 
 middelklods() {
     randomLine <<EOF
-\cC08gul klods
+"\cC08\cB\cBgul klods"
 EOF
 }
 
 svarklods() {
     randomLine <<EOF
-\cC01sort klods
+"\cC01\cB\cBsort klods"
 EOF
 }
 
@@ -43,7 +43,7 @@ $(middelklods)
 $(middelklods)
 $(svarklods)
 $(svarklods)
-\cC00$(point)
+"\cC\cB\cB00$(point)"
 EOF
 }
 
@@ -66,12 +66,10 @@ if [ "$arg" = "forfra" ]; then
     exit
 fi
 
-stak=$(dbRead stakken)
-if [ "$stak" ]; then
-    echo "$stak"
-else
-    nyStak=$(generateSomeBlocks 20)
-    echo "$nyStak" | dbWrite stakken
-    echo "$nyStak"
+stak="$(dbRead stakken)"
+if ! [ "$stak" ]; then
+    stak=$(generateSomeBlocks 20)
+    echo "$stak" | dbWrite stakken
 fi
+echo "$stak\c0"
 
