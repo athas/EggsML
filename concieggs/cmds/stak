@@ -59,14 +59,16 @@ generateSomeBlocks() {
     echo $output
 }
 
-
+arg=$1
+if [ "$arg" = "forfra" ]; then
+    dbDelete stakken
+    exit
+fi
 
 stak=$(dbRead stakken)
 if [ "$stak" ]; then
-    echo "foo"
     echo "$stak"
 else
-    echo "bar"
     nyStak=$(generateSomeBlocks 20)
     echo "$nyStak" | dbWrite stakken
     echo "$nyStak"
