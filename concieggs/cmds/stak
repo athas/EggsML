@@ -1,0 +1,71 @@
+#!/bin/sh
+#
+# Den sjove stak!
+
+nemklods() {
+    randomLine <<EOF
+\033[1;31mrød klods
+\033[1;34mblå klods
+\033[1;32mgrøn klods
+EOF
+}
+
+middelklods() {
+    randomLine <<EOF
+\033[1;33mgul klods
+EOF
+}
+
+svarklods() {
+    randomLine <<EOF
+\033[0;30msort klods
+EOF
+}
+
+point() {
+    randomLine<<EOF
+dejlig pære
+rødt kirsebær
+diskette
+Mars-bar
+EOF
+}
+
+generator() {
+    randomLine <<EOF
+$(nemklods)
+$(nemklods)
+$(nemklods)
+$(nemklods)
+$(nemklods)
+$(middelklods)
+$(middelklods)
+$(middelklods)
+$(svarklods)
+$(svarklods)
+\033[1;37m$(point)
+EOF
+}
+
+
+generateSomeBlocks() {
+    numBlocks=$1
+    output=""
+    for i in $(seq 1 $numBlocks)
+    do
+        klods=$(generator)
+        output="$output$klods\n"
+    done
+    echo $output
+}
+
+stak=$(dbRead stakken)
+
+if [ "$stak" ]; then
+    echo "$stak"
+else
+    nyStak=$(generateSomeBlocks 20)
+    echo "$nyStak" | dbWrite stakken
+    echo "$nyStak"
+fi
+
