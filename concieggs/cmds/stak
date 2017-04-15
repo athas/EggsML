@@ -2,11 +2,14 @@
 #
 # Den sjove stak!
 
+
+
+
 nemklods() {
     randomLine <<EOF
-"\cC04\cB\cBrød klods"
-"\cC12\cB\cBblå klods"
-"\cC09\cB\cBgrøn klods"
+\\cC04\\cB\\cBrød klods
+\\cC12\\cB\\cBblå klods
+\\cC09\\cB\\cBgrøn klods
 EOF
 }
 
