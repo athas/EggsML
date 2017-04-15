@@ -4,21 +4,21 @@
 
 nemklods() {
     randomLine <<EOF
-\000304rød klods
-\000312blå klods
-\000309grøn klods
+\u000304rød klods
+\u000312blå klods
+\u000309grøn klods
 EOF
 }
 
 middelklods() {
     randomLine <<EOF
-\000308gul klods
+\u000308gul klods
 EOF
 }
 
 svarklods() {
     randomLine <<EOF
-\000301sort klods
+\u000301sort klods
 EOF
 }
 
