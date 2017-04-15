@@ -17,4 +17,4 @@ Hov! $KANAL spiller jo min yndlingssang; $SANG.
 EOF
 }
 
-echo '\cC10$(sang)'
+echo "$(sang)"
