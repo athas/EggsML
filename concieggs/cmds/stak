@@ -4,21 +4,21 @@
 
 nemklods() {
     randomLine <<EOF
-\033[1;31mrød klods
-\033[1;34mblå klods
-\033[1;32mgrøn klods
+\000304rød klods
+\000312blå klods
+\000309grøn klods
 EOF
 }
 
 middelklods() {
     randomLine <<EOF
-\033[1;33mgul klods
+\000308gul klods
 EOF
 }
 
 svarklods() {
     randomLine <<EOF
-\033[0;30msort klods
+\000301sort klods
 EOF
 }
 
@@ -43,7 +43,7 @@ $(middelklods)
 $(middelklods)
 $(svarklods)
 $(svarklods)
-\033[1;37m$(point)
+\u000300$(point)
 EOF
 }
 
@@ -59,11 +59,14 @@ generateSomeBlocks() {
     echo $output
 }
 
-stak=$(dbRead stakken)
 
+
+stak=$(dbRead stakken)
 if [ "$stak" ]; then
+    echo "foo"
     echo "$stak"
 else
+    echo "bar"
     nyStak=$(generateSomeBlocks 20)
     echo "$nyStak" | dbWrite stakken
     echo "$nyStak"
