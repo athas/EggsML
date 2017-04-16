@@ -8,13 +8,15 @@ if ! [ "$KANAL" ]; then
 fi
 
 SANG=$(whatsPlaying "$KANAL")
+CC=$(echo -n "\003")
+
 sang() {
     randomLine <<EOF
-Ih, inde på $KANAL spiller de $SANG.
-$KANAL spiller $SANG, lige nu!
-Hvis du skulle få lyst, kan du høre $SANG på $KANAL.
-Hov! $KANAL spiller jo min yndlingssang; $SANG.
+${CC}09Ih, inde på $KANAL spiller de $SANG.
+${CC}10$KANAL spiller $SANG, lige nu!
+${CC}11Hvis du skulle få lyst, kan du høre $SANG på $KANAL.
+${CC}13Hov! $KANAL spiller jo min yndlingssang; $SANG.
 EOF
 }
 
-echo "\cC10$(sang)"
+echo "$(sang)"
