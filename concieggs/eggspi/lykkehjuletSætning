@@ -1,0 +1,9 @@
+#!/bin/sh
+#
+# Generer en sætning til at blive gættet i lykkehjulet-programmet.
+
+# Vi vil have ord på mindst længde to, for ellers bliver nogle af
+# lykkehjul-kommandoerne tvetydige.
+cat $CONCIEGGS_DB_DIR/ordbog-dansk-navneord-gode \
+    | grep '..' \
+    | randomLine

@@ -1,0 +1,67 @@
+#!/usr/bin/env rash
+#
+# Spil Lykkehjulet!
+
+# Er meget barebones lige nu.  Mangler flair.
+
+sætning=>lykkehjuletSætning
+#>echo "[DEBUG] ${sætning}"
+tilstand=<${sætning}>sed -r 's/[^ ]/_/g'
+må_ej_gætte=_
+
+>echo /me drejer hjulet
+>echo Så er der LYKKEHJULET!
+
+######################################################################
+:ny_runde
+>echo I skal gætte dette ord: ${tilstand}
+
+read kommando
+EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
+>test "${EGGS_USER}" = "${må_ej_gætte}"
+jz snydetamp
+j okay_så
+
+:snydetamp
+>echo "${EGGS_USER}: Du gættede på noget forkert og må derfor først gætte igen når en anden har lavet en fejl."
+j ny_runde
+######################################################################
+
+######################################################################
+:okay_så
+tilstand_ny=>lykkehjuletKørKommando "${kommando}" "${sætning}" "${tilstand}"
+jz fino_delfino
+j forkert_gert
+
+:fino_delfino
+>test "${tilstand}" = "${tilstand_ny}"
+jz intet_nyt_under_solen
+j heldige_asen
+
+:intet_nyt_under_solen
+>echo "${EGGS_USER}: Det var der ikke meget held ved!  Nu må en anden gætte."
+må_ej_gætte=${EGGS_USER}
+j runden_er_ovre
+
+:heldige_asen
+tilstand=${tilstand_ny}
+>echo "${EGGS_USER}: Det var et godt gæt!"
+j runden_er_ovre
+
+:forkert_gert
+>echo "${EGGS_USER}: Hov, du gjorde det forkert.  Brug mig sådan her:"
+>echo "  gæt på BOGSTAV"
+>echo "  gæt på ORD"
+>echo "Den første der gætter ordet vinder!"
+j runden_er_ovre
+######################################################################
+
+######################################################################
+:runden_er_ovre
+>test "${tilstand}" = "${sætning}"
+jz hurra_i_skuret
+j ny_runde
+
+:hurra_i_skuret
+>echo "Hurra, ${EGGS_USER} gættede det rigtige ord '${sætning}' og vandt!"
+######################################################################

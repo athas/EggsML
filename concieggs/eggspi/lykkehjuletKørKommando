@@ -1,0 +1,35 @@
+#!/bin/sh
+#
+# Læs en brugerkommando fra lykkehjulet-programmet.
+
+set -e # Exit on first error.
+
+kommando="$1"
+saetning="$2"
+tilstand="$3"
+
+gaet="$(echo "$kommando" | cut -d' ' -f3-)"
+if echo "$kommando" | grep -q '^gæt på .$'; then
+    tilstand_temp="$(echo "$saetning" | sed -r "s/[^ $gaet]/_/g")"
+    n_tegn=$(echo -n "$tilstand" | wc -c)
+    for i in $(seq 1 $n_tegn); do
+        t="$(echo "$tilstand" | cut -b $i)"
+        u="$(echo "$tilstand_temp" | cut -b $i)"
+        if [ "$t" = '_' ]; then
+            echo -n "$u"
+        elif [ "$u" = '_' ]; then
+            echo -n "$t"
+        else
+            echo -n "$t"
+        fi
+    done
+    echo
+elif echo "$kommando" | egrep -q '^gæt på .+$'; then
+    if [ "$gaet" = "$saetning" ]; then
+        echo "$saetning"
+    else
+        echo "$tilstand"
+    fi
+else
+    exit 1
+fi
