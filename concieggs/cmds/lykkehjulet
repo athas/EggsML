@@ -39,7 +39,7 @@ jz intet_nyt_under_solen
 j heldige_asen
 
 :intet_nyt_under_solen
->echo "${EGGS_USER}: Det var der ikke meget held ved!  Nu må en anden gætte."
+>lykkehjuletFejl
 må_ej_gætte=${EGGS_USER}
 j runden_er_ovre
 

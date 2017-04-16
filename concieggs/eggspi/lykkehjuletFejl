@@ -1,0 +1,31 @@
+#!/bin/sh
+#
+# Invitér en person til at spille med
+
+tabernar="$EGGS_USER"
+nyt_haab="$(recentlyActive | randomLine)"
+
+
+surt=`randomLine <<EOF
+$tabernar: Det var ikke lige dét bogstav jeg ledte efter.
+$tabernar: Dét var der ikke meget held ved.
+Av min arm, det var sgu forkert!
+Forkert, $tabernar. Helt, helt, helt forkert.
+$tabernar: Gør dig nu god!
+EOF`
+
+hvad_med_dig=`randomLine <<EOF
+$nyt_haab: Man skal smede mens jernet er varmt; har du ikke lyst til at gætte?
+Vil du ikke prøve at gætte, $nyt_haab?
+Er der ikke en anden end $tabernar som lige kunne give det et skud?
+Jeg kan se at $nyt_haab har det rigtige svar lige på tungen, ikke sandt?
+$nyt_haab, vil du prøve?
+$nyt_haab, lad os se om du har mere held i sprøjten.
+Hvad så $nyt_haab, du må da kunne give $tabernar kamp til stregen?
+På med vanten, $nyt_haab!
+EOF`
+echo "$surt"
+maybeGood .2 || exit
+echo "$hvad_med_dig"
+
+
