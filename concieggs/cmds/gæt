@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Gæt på ting.
+
+runcmd lykkehjulet gæt "$@" # Jaja.
