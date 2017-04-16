@@ -5,5 +5,5 @@
 # Vi vil have ord på mindst længde to, for ellers bliver nogle af
 # lykkehjul-kommandoerne tvetydige.
 cat $CONCIEGGS_DB_DIR/ordbog-dansk-navneord-gode \
-    | egrep '^[abcdefghijklmnopqrstuvwxyz]{2-}$' \
+    | egrep '^[abcdefghijklmnopqrstuvwxyz]{2,}$' \
     | randomLine
