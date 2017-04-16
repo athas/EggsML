@@ -41,6 +41,10 @@ j heldige_asen
 :intet_nyt_under_solen
 >echo "${EGGS_USER}: Det var der ikke meget held ved!  Nu må en anden gætte."
 må_ej_gætte=${EGGS_USER}
+>test $(maybeGood 0.9)
+jz runden_er_ovre
+nyt_offer="$(recentlyActive | randomLine)"
+echo "Hvad med dig, $nyt_offer, kunne du ikke tænke dig at gætte?"
 j runden_er_ovre
 
 :heldige_asen
