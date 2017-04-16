@@ -11,7 +11,7 @@ $tabernar: Det var ikke lige dét bogstav jeg ledte efter.
 $tabernar: Dét var der ikke meget held ved.
 Av min arm, det var sgu forkert!
 Forkert, $tabernar. Helt, helt, helt forkert.
-$tabernar: Gør dig nu god!
+Det bogstav er ikke med, $tabernar. Gør dig nu god!
 EOF`
 
 hvad_med_dig=`randomLine <<EOF
