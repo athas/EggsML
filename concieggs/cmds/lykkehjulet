@@ -14,7 +14,8 @@ må_ej_gætte=_
 
 ######################################################################
 :ny_runde
->echo I skal gætte dette ord: ${tilstand}
+tilstand_formatteret=<${tilstand}>sed 's/_/▯/g'
+>echo I skal gætte dette ord: ${tilstand_formatteret}
 
 read kommando
 EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
