@@ -3,7 +3,7 @@
 # Invitér en person til at spille med
 
 tabernar="$EGGS_USER"
-nyt_haab="$(recentlyActive | randomLine)"
+nyt_haab="$(recentlyActive | egrep -v '^'"$tabernar"'$' | randomLine)"
 
 
 surt=`randomLine <<EOF
