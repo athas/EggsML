@@ -6,8 +6,8 @@
 
 sætning=>lykkehjuletSætning
 #>echo "[DEBUG] ${sætning}"
-tilstand=<${sætning}>sed -r 's/[^ ]/▯/g'
-må_ej_gætte=▯
+tilstand=<${sætning}>sed -r 's/[^ ]/#/g'
+må_ej_gætte=#
 
 >echo /me drejer hjulet
 >echo Så er der LYKKEHJULET!
