@@ -9,10 +9,6 @@ main = forM_ ['a'..'z'] $ putStrLn . (: [])
 EOF
 }
 
-htmlEntitiesDecode() {
-    python -c 'import sys; from eggsthon.decode_html_entities import decode_html_entities; sys.stdout.write(decode_html_entities(sys.stdin.read().decode("utf-8")).encode("utf-8"))'
-}
-
 productName() {
     query="$*"
     if ! [ "$query" ]; then

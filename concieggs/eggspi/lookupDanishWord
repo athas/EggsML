@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# Try to find the meaning of a Danish word.  Returns zero or more lines, each
+# with its own definition.
+
+set -e # Exit on first error.
+
+word="$1"
+html_file="$(mktemp)"
+curl -s "http://ordnet.dk/ddo/ordbog?query=$word" > "$html_file"
+
+start_line="$(grep -n '<h2 id="betydninger">Betydninger</h2>' "$html_file" | cut -d ':' -f 1)"
+n_lines="$(echo $(wc -l "$html_file") | cut -d ' ' -f 1)"
+last_lines="$(expr $n_lines - $(expr $start_line + 1))"
+end_line_rel="$(tail -n $last_lines "$html_file" | grep -n '<h2' | cut -d ':' -f 1 | head -n 1)"
+
+tail -n $last_lines "$html_file" 2>/dev/null \ |
+    {
+        if [ "$end_line_rel" ]; then
+            head -n "$end_line_rel"
+        else
+            cat
+        fi
+    } \
+        | grep '<span class="definition">' \
+        | cut -d '>' -f 2- | cut -d '<' -f 1 \
+        | egrep -v '^= $' \
+        | htmlEntitiesDecode
