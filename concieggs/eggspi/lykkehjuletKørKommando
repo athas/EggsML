@@ -10,7 +10,7 @@ tilstand="$3"
 
 gaet="$(echo "$kommando" | cut -d' ' -f3-)"
 if echo "$kommando" | grep -q '^gæt på .$'; then
-    tilstand_temp="$(echo "$saetning" | sed -r "s/[^ $gaet]/_/g")"
+    tilstand_temp="$(echo "$saetning" | sed -r "s/[^ $gaet]/_/gi")"
     n_tegn=$(echo -n "$tilstand" | wc -c)
     for i in $(seq 1 $n_tegn); do
         t="$(echo "$tilstand" | cut -b $i)"
