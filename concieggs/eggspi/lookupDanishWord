@@ -25,4 +25,5 @@ tail -n $last_lines "$html_file" 2>/dev/null \ |
         | grep '<span class="definition">' \
         | cut -d '>' -f 2- | cut -d '<' -f 1 \
         | egrep -v '^= $' \
+        | egrep -v '^ *$' \
         | htmlEntitiesDecode
