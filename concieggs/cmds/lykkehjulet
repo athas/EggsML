@@ -4,7 +4,7 @@
 
 # Er meget barebones lige nu.  Mangler flair.
 
-sætning=>lykkehjuletSætning
+sætning=>lykkehjuletSætning "${1}"
 #>echo "[DEBUG] ${sætning}"
 tilstand=<${sætning}>sed -r 's/[^ ]/_/g'
 må_ej_gætte=_
