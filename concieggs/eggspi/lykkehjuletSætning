@@ -2,12 +2,14 @@
 #
 # Generer en sætning til at blive gættet i lykkehjulet-programmet.
 
-if echo "$EGGS_BODY" | grep -iqv apl; then
+if echo "$EGGS_BODY" | grep -iqv apl | grep -iqv revy; then
     # Vi vil have ord på mindst længde to, for ellers bliver nogle af
     # lykkehjul-kommandoerne tvetydige.
     cat $CONCIEGGS_DB_DIR/ordbog-dansk-navneord-gode \
         | egrep '^[abcdefghijklmnopqrstuvwxyz]{2,}$' \
         | randomLine
+elif echo "$EGGS_BODY" | grep -iqv apl; then
+    cat $CONCIEGGS_DB_DIR/revue_titles | randomLine
 else
     # Ignorér ovenstående!  Nu er der fest!
     cat $CONCIEGGS_DB_DIR/apl_idioms | randomLine
