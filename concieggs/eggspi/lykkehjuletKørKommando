@@ -10,8 +10,6 @@ use List::MoreUtils qw/zip natatime/;
 
 my ($command, $sentence, $state) = @ARGV;
 
-$command =~ s/^\S+\s+\S+\s+//g;
-
 if (my ($guess) = $command =~ m/^gæt på (.*)$/i) {
     if (fc($guess) eq fc($sentence)) {
         say $sentence;
