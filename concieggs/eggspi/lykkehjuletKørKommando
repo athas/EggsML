@@ -23,7 +23,7 @@ if (my ($guess) = $command =~ m/^gæt på (.*)$/i) {
         my $it = natatime 2, zip @stateLetters, @sentenceLetters;
 
         while (my ($st, $se) = $it->()) {
-            $new_state .= $se eq $guess ? $guess : $st;
+            $new_state .= fc($se) eq fc($guess) ? $guess : $st;
         }
 
         say $new_state;
