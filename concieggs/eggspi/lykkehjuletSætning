@@ -2,7 +2,7 @@
 #
 # Generer en sætning til at blive gættet i lykkehjulet-programmet.
 
-if echo "$EGGS_BODY" | grep -iqv apl | grep -iqv revy; then
+if echo "$EGGS_BODY" | egrep -iqv 'apl|revy'; then
     # Vi vil have ord på mindst længde to, for ellers bliver nogle af
     # lykkehjul-kommandoerne tvetydige.
     cat $CONCIEGGS_DB_DIR/ordbog-dansk-navneord-gode \
