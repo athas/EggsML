@@ -6,7 +6,7 @@
 
 sætning=>lykkehjuletSætning "${1}"
 #>echo "[DEBUG] ${sætning}"
-tilstand=<${sætning}>sed -r 's/[^ ]/_/g'
+tilstand=<${sætning}>perl -pnE 'use utf8::all; s/[^ ]/_/g'
 må_ej_gætte=_
 
 >echo /me drejer hjulet
