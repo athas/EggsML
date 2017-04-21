@@ -11,7 +11,7 @@ if echo "$EGGS_BODY" | egrep -iqv 'apl|revy|filsystem'; then
 elif echo "$EGGS_BODY" | grep -iqv 'apl|filsystem'; then
     cat $CONCIEGGS_DB_DIR/revue_titles | randomLine
 elif echo "$EGGS_BODY" | grep -iqv apl; then
-    find / 2>/dev/null | randomLine
+    locate '.' | randomLine
 else
     # Ignorér ovenstående!  Nu er der fest!
     cat $CONCIEGGS_DB_DIR/apl_idioms | randomLine
