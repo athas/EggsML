@@ -2,8 +2,9 @@
 
 the_wheels=$(randomLine <<EOF
 bitsne
-datane
+dataene
 koderne
+brugerene
 EOF
 )
 
@@ -12,6 +13,7 @@ bussen
 chippen
 maskinen
 datamaten
+systemet
 EOF
 )
 
@@ -21,6 +23,7 @@ løber
 snurrer
 hopper
 springer
+hacker
 EOF
 )
 
@@ -40,6 +43,7 @@ Hjemme hos Pawel
 Hele natten lang
 Indtil de får fri
 Henne på Caféen?
+Ude hos PET
 EOF
 )
 
