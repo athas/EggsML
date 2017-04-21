@@ -8,7 +8,7 @@ if echo "$EGGS_BODY" | egrep -iqv 'apl|revy|filsystem'; then
     cat $CONCIEGGS_DB_DIR/ordbog-dansk-navneord-gode \
         | egrep '^[abcdefghijklmnopqrstuvwxyz]{2,}$' \
         | randomLine
-elif echo "$EGGS_BODY" | grep -iqv 'apl|filsystem'; then
+elif echo "$EGGS_BODY" | egrep -iqv 'apl|filsystem'; then
     cat $CONCIEGGS_DB_DIR/revue_titles | randomLine
 elif echo "$EGGS_BODY" | grep -iqv apl; then
     locate '.' | randomLine
