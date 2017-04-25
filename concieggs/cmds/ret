@@ -24,6 +24,7 @@ subtraktion
 multiplikation
 division
 eksponentiation
+konkatenering
 EOF
 }
 
@@ -62,6 +63,7 @@ foldr
 concatMap
 mapM
 liftM2
+malloc
 EOF
 }
 
@@ -74,6 +76,25 @@ monadisk parsing
 implicitte semikoloner
 partiel evaluering
 let-bindinger
+anonyme funktioner
+EOF
+}
+
+beviseligEgenskab() {
+    randomLine <<EOF
+soundness
+completeness
+terminering
+køretiden
+EOF
+}
+
+egenskab() {
+    randomLine <<EOF
+terminerer
+har orden $(n)
+er induktivt defineret
+er defineret ud fra $(funktion)
 EOF
 }
 
@@ -92,6 +113,7 @@ Du korrumperer di$ting i $(navn).
 Din $(navn) kan forenkles ved brug af $(funktion).
 Når du laver e$ting skal den altid efterfølges af e$(ting)!
 Du kan med fordel gøre mere brug af $(snedigtTrick) når du skriver di$ting.
+Du mangler at bevise $(beviseligEgenskab) af '$(navn)'. Hint: Udnyt at e$ting $(egenskab)!
 EOF
 }
 
