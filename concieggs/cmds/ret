@@ -92,7 +92,7 @@ EOF
 egenskab() {
     randomLine <<EOF
 terminerer
-har orden $(n)
+har orden $(random 1 10)
 er induktivt defineret
 er defineret ud fra $(funktion)
 EOF
