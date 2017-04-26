@@ -1,0 +1,95 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+import requests as req
+import re
+import sys
+
+SUB = "sub"
+ADDR = "addr"
+AlfaSub = (r"(.*) - (.*)", r'"\2" med \1')
+DrSub = (r"Senest Spillet: ([^|]+) \| (.+)", r'"\1" med \2')
+CarloSub = (r"([^~]+)~([^~]+).+", r'"\2" med \1')
+
+channelDict = {
+    "DR P1": {ADDR: "http://live-icy.gss.dr.dk:8000/A/A03H.mp3",
+              SUB: DrSub},
+    "DR P2": {ADDR: "http://live-icy.gss.dr.dk:8000/A/A04H.mp3",
+              SUB: DrSub},
+    "DR P3": {ADDR: "http://live-icy.gss.dr.dk:8000/A/A05H.mp3",
+              SUB: DrSub},
+    "DR P4 Midt & Vest": {ADDR: "http://live-icy.gss.dr.dk:8000/A/A09H.mp3",
+                          SUB: DrSub},
+    "DR P5": {ADDR: "http://live-icy.gss.dr.dk:8000/A/A25H.mp3",
+              SUB: DrSub},
+    "DR P6 Beat": {ADDR: "http://live-icy.gss.dr.dk:8000/A/A29H.mp3",
+                   SUB: DrSub},
+    "DR P7 Mix": {ADDR: "http://live-icy.gss.dr.dk:8000/A/A21H.mp3",
+                  SUB: DrSub},
+    "DR P8 Jazz": {ADDR: "http://live-icy.gss.dr.dk:8000/A/A22H.mp3",
+                   SUB: DrSub},
+    "Globus Guld (Kolding)": {ADDR: "http://stream2.wlmm.dk/guldkoldingmp3", SUB: AlfaSub},
+    "HeartBeats": {ADDR: "http://airtime.heartbeats.dk:8000/stream"},
+    "Pop FM": {ADDR: "http://stream.popfm.dk/pop128"},
+    "Radio 24syv": {ADDR: "http://rrr.sz.xlcdn.com/?account=Radio24syv&file=ENC1_Web128&type=live&service=icecast&port=8000&output=pls"},
+    "Radio Alfa (Østjylland)": {ADDR: "http://netradio.radioalfa.dk/",
+                                SUB: AlfaSub},
+    "Radio Monte Carlo FM": {ADDR: "http://icecast.unitedradio.it/RMC.mp3", SUB: CarloSub},
+    "Radio Monte Carlo 2": {ADDR: "http://icecast.unitedradio.it/MC2.mp3", SUB: CarloSub},
+    "Radio Riviera": {ADDR: "http://rivieraradio.ice.infomaniak.ch:80/rivieraradio-high"},
+    "Radio Viborg" : {ADDR: "http://netradio.radioviborg.dk/viborg", SUB:AlfaSub },
+    "STROM:KRAFT": {ADDR: "http://stream.stromkraftradio.fm:8012/;stream.mp3"},
+    "The Lake": {ADDR: "http://efterklang-sc.djj.dk:8000/;stream.mp3"},
+    "Universitetsradioen": {ADDR: "http://netradio.universitetsradioen.dk:8000/live64.ogg"},
+    "VRT Radio 2 Antwerpen": {ADDR: "http://mp3.streampower.be/ra2ant-high"}
+}
+
+defaultChannel = channelDict["Radio Alfa (Østjylland)"]
+
+
+def flattenString(string):
+    _string = "".join(string.split()).lower()
+    return _string
+
+
+def getResponse(url):
+    _header = {"Icy-MetaData": "1"}
+    responseObject = req.get(url, headers=_header, stream=True)
+    return responseObject
+
+
+def getTitle(r):
+    numBytes = r.headers["icy-metaint"]
+    r.raw.read(int(numBytes))
+    for _ in range(1, 10):
+        line = r.raw.read(int(256)).decode("iso-8859-1", errors="ignore")
+        if ("Stream" in line):
+            break
+    title = re.search(r"StreamTitle='(.*)';", line).group(1)
+    return title
+
+
+def tryGetTitle(channelName):
+    chosenChannel = defaultChannel
+    for key in channelDict.keys():
+        flatKey = flattenString(key)
+        if channelName in flatKey:
+            chosenChannel = channelDict[key]
+            break
+    channelAddr = chosenChannel["addr"]
+    try:
+        response = getResponse(channelAddr)
+        title = getTitle(response)
+        if "sub" in chosenChannel.keys():
+            sub = chosenChannel["sub"]
+            title = re.sub(sub[0], sub[1], title.title(), flags=re.IGNORECASE)
+        assert title != ""
+    except:
+        title = "Slayer"
+    return title
+
+
+if __name__ == "__main__":
+    if len(sys.argv) == 2:
+        channelName = flattenString(sys.argv[1])
+        title = tryGetTitle(channelName)
+        print(title)

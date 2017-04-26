@@ -2,12 +2,19 @@
 #
 # Byd concieggs op til dans!  Brug: dans
 
-eval "$(echo "$@" | tolower | parse 'på (?<ting>.+)')"
+eval "$(echo "$@" | tolower | parse 'på (?<ting>.+)$|til (?<kanal>.+)$')"
 
 if [ "$ting" = roser ]; then
     say "$EGGS_USER: Hrmpf!"
     exit
 fi
+
+if [ "$kanal" ]; then
+    SANG=$(whatsPlaying "$kanal")
+else
+    SANG=$(whatsPlaying "alfa")
+fi
+
 
 DM() {
     randomLine <<EOF
@@ -28,8 +35,10 @@ dans() {
 dans
 danseri
 dansning
-danse-dusse-da
 dancing
+tanz-tanz-tanz
+danse-dusse-da
+disko-gymnastik
 EOF
 }
 
@@ -58,6 +67,7 @@ benet
 armen
 næsen
 foden
+fingrene
 EOF
 }
 
@@ -74,6 +84,7 @@ pirouette() {
 pirouette
 salto
 pældans
+baglænder
 EOF
 }
 
@@ -91,7 +102,32 @@ abe() {
 abe
 guerilla
 giraf
+zebra
 pingvin
+EOF
+}
+
+danseart() {
+    randomLine <<EOF
+tango
+salsa
+zumba
+vals
+diskodasko
+EOF
+}
+
+offer() {
+    recentlyActive | randomLine
+}
+
+svanen() {
+    randomLine <<EOF
+svanen
+hejren
+hjejlen
+dodoen
+pingvinen
 EOF
 }
 
@@ -100,6 +136,14 @@ danser() {
 flytter$(tillaeg) $(benet) $(frem)
 laver en $(pirouette)
 hopper som en $(abe)
+går frem, og tilbage, fra side, til side
+giver $(offer) en lapdance i en stol
+har den bedste tid i sit liv med $(offer)
+laver en Swayze og råber "Ingen sætter $(offer) i hjørnet!"
+improviserer et par $(danseart)-trin
+viser sin $(danseart)-$(danseart)-fusionsdans frem
+tager en maske på og laver $(svanen)
+følger reglerne i $(danseart) til punkt og prikke
 EOF
 }
 
@@ -110,10 +154,13 @@ Var det ikke bare flot?
 Giv mig nu penge!
 Fuld point!
 Juhuuu!
+Douze points.
+Jeg elsker mine fans!
 EOF
 }
 
 say "$(DM) i $(dans)!"
+say "/me sætter et bånd med $SANG i afspilleren."
 say "Nu kommer der $(smukke) $(trin)!"
 for i in $(seq 1 $(random 5 10)); do
     say "/me $(danser)"

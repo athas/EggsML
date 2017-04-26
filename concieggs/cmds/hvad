@@ -2,17 +2,44 @@
 #
 # Spørg om din gæld til frokostkassen, eller få hjælp til diverse
 # personlighedsfremmende gøremål.  Brug naturligt sprog.
+eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|'\
+'har (?<debtor>[^ ]+) til gode$|'\
+'spiller de( [^ ]+)? (på|hos|ved|i) (?<channel>.+)$|'\
+'(?<whatis>er (?<subject>.+))$|'\
+'(?<missing>mangler jeg)$|'\
+'(?<wtf>hulen)$|'\
+'(?<status>så)$|'\
+'(?<definition>betyder (?<word>[^ ]+))$|'\
+'(?<meaning>mener (?<who>[^ ]+) med (?<what>[^ ]+)$)|'\
+'hedder (?<githubname>[^ ]+) på GitHub|'\
+'sker der i (?<kodeprojekt>[^ ]+)[ -]land|'\
+'(?<version2>((?:hulen|satan) )?sker der (lige (nu )?)?(på|for) (det dersens )?([Vv]ersion2|v2)(\.dk)?)|'\
+'(?<happening>(sker der( lige)?|mener du))|'\
+'(?<kingname>hedder kongen)|'\
+'(står (?<forkortelse>[^ ]+) for)')"
 
-eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|har (?<debtor>[^ ]+) til gode$|(?<time>er klokken)$|(?<balance>er betalingsbalancen)$|(?<missing>mangler jeg)$|(?<wtf>hulen)$|(?<status>så)$|(?<meaning>mener (?<who>[^ ]+) med (?<what>[^ ]+)$)|hedder (?<githubname>[^ ]+) på GitHub|sker der i (?<kodeprojekt>[^ ]+)[ -]land|(?<happening>(sker der( lige)?|mener du))|(?<kingname>hedder kongen)|(står (?<forkortelse>[^ ]+) for)')"
+if [ "$whatis" ]; then
+  if [ "$subject" = "betalingsbalancen" ]; then
+    balance="$(lookupBalance)"
+    if [ "$(echo "$balance" | grep "-")" ]; then
+        echo "Uha, samlet set er der en gæld på $balance kroner."
+    else
+        echo "Spiser I slet ingen ting? EggsML har et samlet overskud på $balance kroner."
+    fi
+    exit
 
-if [ "$balance" ]; then
-  balance="$(lookupBalance)"
-  if [ "$(echo "$balance" | grep "-")" ]; then
-      echo "Uha, samlet set er der en gæld på $balance kroner."
+  elif [ "$subject" = "klokken" ]; then
+    echo "Den lille viser peger på $(($(date +%l) % 12)), den store på $(($(date +%M))), og den helt lille på $(($(date +%S)))."
+    exit
   else
-      echo "Spiser I slet ingen ting? EggsML har et samlet overskud på $balance kroner."
+    runcmd jeopardy "hvad er $subject?"
+    exit
   fi
-  exit
+fi
+
+if [ "$channel" ]; then
+    runcmd alfa "$channel"
+    exit
 fi
 
 if [ "$debtor" ]; then
@@ -25,6 +52,7 @@ if [ "$debtor" ]; then
         echo "Jeg kender ikke $debtor."
         exit
     fi
+
 
     debt="$(lookupDebt "$alias")"
 
@@ -50,6 +78,19 @@ elif [ "$happening" ]; then
      ) | randomLine
 elif [ "$status" ]; then
         reaktion
+elif [ "$definition" ]; then
+    description="$(lookupDanishWord "$word")"
+    if [ "$description" ]; then
+        echo "$EGGS_USER: Det betyder blandt andet det her:"
+        echo "$description" | randomLine
+    else
+        randomLine <<EOF
+$EGGS_USER: Ingen ved hvad dét betyder.
+Er det overhovedet et ord, $EGGS_USER?
+Hmm, $EGGS_USER, det ved jeg desværre ikke.
+$EGGS_USER, jeg har ikke lige nogen definition på det ord.
+EOF
+    fi
 elif [ "$missing" ]; then
     echo "Du mangler $(randomLine < "$CONCIEGGS_DB_DIR/ordbog-dansk-navneord")!"
 elif [ "$wtf" ]; then
@@ -134,6 +175,35 @@ Den er nem, $EGGS_USER, for $forkortelse er bare kort for $ordene.
 EOF
 elif [ "$kodeprojekt" ]; then
     latestGitNews "$kodeprojekt"
+elif [ "$version2" ]; then
+    version2Debat | {
+        read author
+        read title
+        read summary_line
+        read url
+        HvadSoeren=$(randomLine <<EOF
+Hvad søren
+Vilde milde
+Jeg ved ikke hvad jeg skal sige
+Så for den da
+Uha og lala
+Ajajaij
+EOF
+                  )
+        etDebatindlaeg=$(randomLine <<EOF
+et debatindlæg
+en rant
+noget prut
+noget tankevækkende
+en kommentar
+efterfølgeren til Magna Carta
+sit livsværk
+et sandt svendestykke
+EOF
+)
+        echo "$EGGS_USER: $HvadSoeren, $author har skrevet $etDebatindlaeg med titlen \"$title\" på $url hvor der blandt andet står:"
+        echo '"'"$summary_line"'"'
+    }
 else
     randomLine <<EOF
 $EGGS_USER: Hmm, det er e$(tPattedyr).

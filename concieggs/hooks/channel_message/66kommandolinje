@@ -37,4 +37,5 @@ git add
 git push
 emacs
 nano
+clear
 EOF

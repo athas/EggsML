@@ -1,0 +1,77 @@
+#!/bin/sh
+#
+# Den sjove stak!
+
+CC=$(echo -n "\003")
+
+nemklods() {
+    randomLine <<EOF
+${CC}04rød klods
+${CC}12blå klods
+${CC}09grøn klods
+EOF
+}
+
+middelklods() {
+    randomLine <<EOF
+${CC}08gul klods
+EOF
+}
+
+svarklods() {
+    randomLine <<EOF
+${CC}01sort klods
+EOF
+}
+
+point() {
+    randomLine<<EOF
+dejlig pære
+rødt kirsebær
+diskette
+Mars-bar
+EOF
+}
+
+generator() {
+    randomLine <<EOF
+$(nemklods)
+$(nemklods)
+$(nemklods)
+$(nemklods)
+$(nemklods)
+$(middelklods)
+$(middelklods)
+$(middelklods)
+$(svarklods)
+$(svarklods)
+${CC}00$(point)
+EOF
+}
+
+
+generateSomeBlocks() {
+    numBlocks=$1
+    output=""
+    for i in $(seq 1 $numBlocks)
+    do
+        klods=$(generator)
+        output="$output$klods\n"
+    done
+    echo $output
+}
+
+arg=$1
+if [ "$arg" = "forfra" ]; then
+    dbDelete stakken
+    echo "Aye aye, $EGGS_USER! Jeg har ryddet stakken."
+    exit
+fi
+
+stak="$(dbRead stakken)"
+if ! [ "$stak" ]; then
+    stak=$(generateSomeBlocks 20)
+    echo "$stak" | dbWrite stakken
+fi
+echo "$stak\c0"
+

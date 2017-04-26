@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Hør en hurtig saga!  Direkte fra diverse nedskrivninger i Norden.
+
+randomLine < "$CONCIEGGS_DB_DIR/samnordisk-runtextdatabas/gode-sætninger"

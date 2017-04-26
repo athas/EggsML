@@ -2,4 +2,4 @@
 #
 # Injicér resultat i concieggs-monaden.
 
-echo "$@"
+echo -e "$@"

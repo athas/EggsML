@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# Få at vide hvad der er i radioen, men uden attituden
+
+KANAL="$*"
+if ! [ "$KANAL" ]; then
+    KANAL="Radio Alfa"
+fi
+
+SANG=$(whatsPlaying "$KANAL")
+CC=$(echo -n "\003")
+
+sang() {
+    randomLine <<EOF
+${CC}09Ih, inde på $KANAL spiller de $SANG.
+${CC}10$KANAL spiller $SANG, lige nu!
+${CC}11Hvis du skulle få lyst, kan du høre $SANG på $KANAL.
+${CC}13Hov! $KANAL spiller jo min yndlingssang; $SANG.
+EOF
+}
+
+echo "$(sang)"

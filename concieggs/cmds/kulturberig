@@ -1,0 +1,24 @@
+#!/bin/sh
+#
+# Giv en kedelig dansk sætning lidt eksotisk fremmed flair.
+
+eval "$(echo "$@" | parse '(?<langs>([^ ]+ )*[^ ]+): (?<text>.+)')"
+
+if ! [ "$langs" ]; then
+    echo "$EGGS_USER: Det er ikke sådan.  Det er f.eks. sådan: 'finsk svensk japansk: hejsa'"
+else
+    danish=$(langcode dansk)
+    curlang=$danish
+
+    for lang in $langs; do
+        nextlang=$(langcode $lang)
+        if [ $? != 0 ]; then
+            echo "$EGGS_USER: Jeg er ikke bekendt med sproget '$lang'."
+            exit
+        fi
+        text=$(echo "$text" | translate "$curlang" "$nextlang")
+        curlang=$nextlang
+    done
+
+    echo "$text" | translate "$curlang" "$danish"
+fi

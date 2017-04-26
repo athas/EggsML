@@ -36,7 +36,7 @@ lcalias="$(echo "$alias" | perl -ne 'print (lc $_)')"
 
 cmd=$(echo "$command" | cut -d' ' -f 1)
 
-if [ "$alias" = "når" ] && [ "$who" != "jeg" ] && [ "$command" != "når" ]; then
+if [ "$alias" = "når" ] && [ "$who" != "jeg" ] && [ "$cmd" != "når" ]; then
     echo "$who: $EGGS_USER har på umanérligt komisk vis bedt mig om at sabotere din brug af 'når'-kommandoen.  Hvilket vid og humoristisk nytænkning.  Sjældent ser scenen mage."
     sleep 2
     echo "Suk."
@@ -55,7 +55,7 @@ if ! isCommand "$cmd" ; then
     exit 0
 fi
 
-if $( echo "$cmd" | grep -qiE "jeopardy (hvem|hvad) er" ); then
+if [ "$cmd" = "jeopardy" ]; then
     echo "$EGGS_USER: Hovsa sa sa. Man må altså ikke snyde i Jeopardy."
     annoyedBy "$EGGS_USER" 5 "prøvede at sætte et gætte-alias til Jeopardy"
     exit

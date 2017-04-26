@@ -1,0 +1,42 @@
+#!/bin/sh
+#
+# Invitér en person til at spille med
+
+tabernar="$EGGS_USER"
+nyt_haab="$(recentlyActive | egrep -v '^'"$tabernar"'$' | randomLine)"
+
+
+surt=`randomLine <<EOF
+$tabernar: Det var ikke lige dét bogstav jeg ledte efter.
+$tabernar: Dét var der ikke meget held ved.
+Av min arm, det var sgu forkert!
+Forkert, $tabernar. Helt, helt, helt forkert.
+Det bogstav er ikke med, $tabernar. Gør dig nu god!
+Bedre held næste gang, $tabernar!
+Godt at man lærer af sine fejltagelser. $tabernar, mist ikke modet!
+Hillemænd, $tabernar, den ramte sørme galt.
+Surt show, $tabernar, men de andre skal nok også kvaje sig.
+Helt i den gale ende, $tabernar.
+$tabernar: Tampen brænder ikke rigtigt.
+EOF`
+
+hvad_med_dig=`randomLine <<EOF
+$nyt_haab: Man skal smede mens jernet er varmt; har du ikke lyst til at gætte?
+Vil du ikke prøve at gætte, $nyt_haab?
+Er der ikke en anden end $tabernar som lige kunne give det et skud?
+Jeg kan se at $nyt_haab har det rigtige svar lige på tungen, ikke sandt?
+$nyt_haab, vil du prøve?
+$nyt_haab, lad os se om du har mere held i sprøjten.
+Hvad så $nyt_haab, du må da kunne give $tabernar kamp til stregen?
+På med vanten, $nyt_haab!
+/me kigger rundt blandt publikum og ser at $nyt_haab vist har et godt bud!
+/me kalder $nyt_haab ind i ringen.
+$nyt_haab! Du vil vist gerne vinde nogle pesos!
+$nyt_haab, kom lige herop! Der skal fire til en firkamp, som man siger.
+$nyt_haab, glem ikke at også du kan være med i dette årtiernes spil!
+Kom så, $nyt_haab, ind i den metaforiske manege med dig.
+/me trækker venligt $nyt_haab hen foran mikrofonen og beder vedkommende gætte et bogstav.
+EOF`
+echo "$surt"
+maybeGood .2 || exit
+echo "$hvad_med_dig"

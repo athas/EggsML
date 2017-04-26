@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+# Få at vide hvad der er i radioen, men uden alt muligt sprogligt ragelse.
+
+KANAL="$*"
+if ! [ "$KANAL" ]; then
+    KANAL="Radio Alfa"
+fi
+
+SANG=$(whatsPlaying "$KANAL")
+
+echo "Lige nu på $KANAL: $SANG"
