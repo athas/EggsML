@@ -2,16 +2,18 @@
 #
 # Generer en sætning til at blive gættet i lykkehjulet-programmet.
 
-if echo "$EGGS_BODY" | egrep -iqv 'apl|revy|filsystem'; then
+if echo "$EGGS_BODY" | egrep -iqv 'apl|revy|filsystem|udtryk'; then
     # Vi vil have ord på mindst længde to, for ellers bliver nogle af
     # lykkehjul-kommandoerne tvetydige.
     cat $CONCIEGGS_DB_DIR/ordbog-dansk-navneord-gode \
         | egrep '^.{2,}$' \
         | randomLine
-elif echo "$EGGS_BODY" | egrep -iqv 'apl|filsystem'; then
+elif echo "$EGGS_BODY" | egrep -iqv 'apl|filsystem|udtryk'; then
     cat $CONCIEGGS_DB_DIR/revue_titles | randomLine
-elif echo "$EGGS_BODY" | grep -iqv apl; then
+elif echo "$EGGS_BODY" | grep -iqv 'apl|udtryk'; then
     locate '.' | randomLine
+elif echo "$EGGS_BODY" | grep -iqv 'apl'; then
+    cat $CONCIEGGS_DB_DIR/fede_udtryk | randomLine
 else
     # Ignorér ovenstående!  Nu er der fest!
     cat $CONCIEGGS_DB_DIR/apl_idioms | randomLine
