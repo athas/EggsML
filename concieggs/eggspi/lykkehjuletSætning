@@ -10,7 +10,7 @@ if echo "$EGGS_BODY" | egrep -iqv 'apl|revy|filsystem|udtryk'; then
         | randomLine
 elif echo "$EGGS_BODY" | egrep -iqv 'apl|filsystem|udtryk'; then
     cat $CONCIEGGS_DB_DIR/revue_titles | randomLine
-elif echo "$EGGS_BODY" | grep -iqv 'apl|udtryk'; then
+elif echo "$EGGS_BODY" | egrep -iqv 'apl|udtryk'; then
     locate '.' | randomLine
 elif echo "$EGGS_BODY" | grep -iqv 'apl'; then
     cat $CONCIEGGS_DB_DIR/fede_udtryk | randomLine
