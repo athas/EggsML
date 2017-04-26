@@ -6,7 +6,7 @@ if echo "$EGGS_BODY" | egrep -iqv 'apl|revy|filsystem'; then
     # Vi vil have ord på mindst længde to, for ellers bliver nogle af
     # lykkehjul-kommandoerne tvetydige.
     cat $CONCIEGGS_DB_DIR/ordbog-dansk-navneord-gode \
-        | egrep '^[abcdefghijklmnopqrstuvwxyz]{2,}$' \
+        | egrep '^.{2,}$' \
         | randomLine
 elif echo "$EGGS_BODY" | egrep -iqv 'apl|filsystem'; then
     cat $CONCIEGGS_DB_DIR/revue_titles | randomLine
