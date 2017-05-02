@@ -1,0 +1,23 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# Giver truntealarm!
+
+import sys
+import twitter
+
+query = ' '.join(sys.argv[1:]).strip()
+
+codes = file('.trunte', 'r')
+api = twitter.Api(consumer_key = codes.readline().strip(), \
+                  consumer_secret = codes.readline().strip(), \
+                  access_token_key = codes.readline().strip(), \
+                  access_token_secret = codes.readline().strip())
+codes.close()
+
+text = 'Trunte i Kantinen!'
+if query != '':
+    text += ' ' + query
+
+api.PostUpdate(text)
+
+print 'Truntealarmen er lydt!'
