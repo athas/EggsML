@@ -39,6 +39,8 @@ dancing
 tanz-tanz-tanz
 danse-dusse-da
 disko-gymnastik
+livets dans
+halbal
 EOF
 }
 
@@ -50,6 +52,7 @@ uforståelige
 fantastiske
 dirtey
 rytmiske
+frække
 EOF
 }
 
@@ -58,6 +61,8 @@ trin() {
 trin
 moves
 bevægelser
+dansetrin
+hop
 EOF
 }
 
@@ -68,6 +73,7 @@ armen
 næsen
 foden
 fingrene
+numsen
 EOF
 }
 
@@ -83,8 +89,10 @@ pirouette() {
     randomLine <<EOF
 pirouette
 salto
-pældans
 baglænder
+dobbelt salto
+dobbelt baglænder
+360
 EOF
 }
 
@@ -94,6 +102,8 @@ tillaeg() {
  så
  fint
  drastisk
+ overraskende
+ stille
 EOF
 }
 
@@ -104,6 +114,8 @@ guerilla
 giraf
 zebra
 pingvin
+anakonda
+okapi
 EOF
 }
 
@@ -114,6 +126,14 @@ salsa
 zumba
 vals
 diskodasko
+ballet
+cha-cha
+samba
+foxtrot
+quickstep
+crowdsurfing
+moshing
+hiphop
 EOF
 }
 
@@ -131,10 +151,18 @@ pingvinen
 EOF
 }
 
+robotten() {
+    randomLine <<EOF
+robotten
+en moon walk
+klovnen
+EOF
+}
+
 danser() {
     randomLine <<EOF
 flytter$(tillaeg) $(benet) $(frem)
-laver en $(pirouette)
+udfolder kroppen i en $(pirouette)
 hopper som en $(abe)
 går frem, og tilbage, fra side, til side
 giver $(offer) en lapdance i en stol
@@ -144,6 +172,8 @@ improviserer et par $(danseart)-trin
 viser sin $(danseart)-$(danseart)-fusionsdans frem
 tager en maske på og laver $(svanen)
 følger reglerne i $(danseart) til punkt og prikke
+starter på $(danseart), men ender med $(robotten)
+laver $(robotten)
 EOF
 }
 
