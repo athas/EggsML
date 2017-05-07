@@ -35,4 +35,5 @@ fi
 shift
 export EGGS_WHERE='#local_eggsml'
 exec 3>&1
+export EGGS_BODY="$*"
 $cmd "$@"

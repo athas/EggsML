@@ -9,7 +9,16 @@ if [ "$*" = "er din kæreste" -o "$*" = "er du kærester med" ]; then
     exit
 fi
 
-eval "$(echo "$@" | parse 'er (?<hveranden>hveranden)|^(?<swear>(fuck |helvede |satan ))?er (?<swear2>(fucking |fandens ))?(?<king>kongen?( (af|på) #?[Ee]ggs[Mm][Ll])?|(?<god>gud)|(?<user>[^ ]+))$|(?<buy>(køber ind|skal købe ind|handler|skal handle ind))|(?<prikkede>(prikkede sidst))|har (?<thing>[^ ]+)|(?<neggst>eggser)|(koder (?<language>.*))|vil ikke (?<livet>livet)')"
+eval "$(echo "$@" | parse 'er (?<hveranden>hveranden)|'\
+'^(?<swear>(fuck |helvede |satan ))?er (?<swear2>(fucking |fandens ))?(?<king>kongen?( (af|på) #?[Ee]ggs[Mm][Ll])?|'\
+'(?<god>gud)|'\
+'(?<user>[^ ]+))$|'\
+'(?<buy>(køber ind|skal købe ind|handler|skal handle ind))|'\
+'(?<prikkede>(prikkede sidst))|'\
+'har (?<thing>[^ ]+)|'\
+(?<neggst>eggser)|'\
+(koder (?<language>.*))|'\
+'vil ikke (?<livet>livet)')"
 
 if [ "$king" ] && ! [ "$god" ] && ! [ "$user" ]; then
     kingname="$(dbRead eggsking)"

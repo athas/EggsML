@@ -27,7 +27,8 @@ j læsgæt
 
 
 :hvemcheck
-test=<${gæt}>grep -iE "^(hvem|hvad) er.*\?"
+EGGS_BODY=>python -c "import os; print(os.getenv('EGGS_BODY'))"
+test=<${EGGS_BODY}>grep '\?'
 jz indhold
 >echo "${EGGS_USER}: Jeg skal anmode om at svaret formuleres som et spørgsmål."
 j læsgæt

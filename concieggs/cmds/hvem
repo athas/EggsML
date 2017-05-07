@@ -1,4 +1,3 @@
 #!/bin/sh
 
 runcmd jeopardy "$0" "$@"
-
