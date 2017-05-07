@@ -2,8 +2,6 @@
 #
 # Spil Lykkehjulet!
 
-# Er meget barebones lige nu.  Mangler flair.
-
 sætning=>lykkehjuletSætning "${1}"
 #>echo "[DEBUG] ${sætning}"
 tilstand=<${sætning}>perl -pnE 'use utf8::all; s/\p{Letter}/_/g'
