@@ -20,11 +20,16 @@ tilstand_formatteret=<${tilstand}>sed 's/_/▯/g'
 read kommando
 EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
 >test "${EGGS_USER}" = "${må_ej_gætte}"
+jz måske_snydetamp
+j okay_så
+
+:måske_snydetamp
+<${kommando}>egrep -v 'gæt på [^ ]{2,}'
 jz snydetamp
 j okay_så
 
 :snydetamp
->echo "${EGGS_USER}: Du gættede på noget forkert og må derfor først gætte igen når en anden har lavet en fejl."
+>echo "${EGGS_USER}: Du gættede på noget forkert og må derfor først gætte på et bogstav igen når en anden har lavet en fejl.  Du må dog godt prøve at gætte hele ordet."
 j ny_runde
 ######################################################################
 
