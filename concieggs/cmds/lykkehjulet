@@ -22,7 +22,7 @@ jz måske_snydetamp
 j okay_så
 
 :måske_snydetamp
-<${kommando}>egrep -v 'gæt på [^ ]{2,}'
+<${kommando}>egrep -qv 'gæt på [^ ]{2,}'
 jz snydetamp
 j okay_så
 
