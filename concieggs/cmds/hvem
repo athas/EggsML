@@ -1,3 +1,18 @@
 #!/bin/sh
+#
+# Hvem, hvad, hvor -- ingen ved det!
 
-runcmd jeopardy "$0" "$@"
+eval "$(echo "$@" | parse '(?<jeopardy>er .+)|'\
+'(?<folkevalg>stemte|stemmer du på)')"
+
+if [ "$jeopardy" ]; then
+    runcmd jeopardy "$0" "$@"
+elif [ "$folkevalg" ]; then
+    randomLine <<EOF
+$EGGS_USER: På $(electee)!
+$EGGS_USER: Jeg stemmer da på $(electee).
+$(electee) er den eneste der kan lede nationen fremad, $EGGS_USER!
+EOF
+else
+    echo "Øhbøh."
+fi

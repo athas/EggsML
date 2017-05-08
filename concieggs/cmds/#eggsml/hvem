@@ -16,8 +16,8 @@ eval "$(echo "$@" | parse 'er (?<hveranden>hveranden)|'\
 '(?<buy>(køber ind|skal købe ind|handler|skal handle ind))|'\
 '(?<prikkede>(prikkede sidst))|'\
 'har (?<thing>[^ ]+)|'\
-(?<neggst>eggser)|'\
-(koder (?<language>.*))|'\
+'(?<neggst>eggser)|'\
+'(koder (?<language>.*))|'\
 'vil ikke (?<livet>livet)')"
 
 if [ "$king" ] && ! [ "$god" ] && ! [ "$user" ]; then
