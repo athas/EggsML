@@ -2,18 +2,17 @@
 #
 # Someone who can be elected.
 
-randomLine <<EOF
-Emmanuel Macron
-Marine Le Pen
-Poul Schlüter
-Thorvald Stauning
-Helle Thorning-Schmidt
-Hillary Rodham Clinton
-Angela Merkel
-Theresa May
-Jeremy Corbyn
-Adolf Hitler
-Lars Løkke Rasmussen
-Poul Nyrup Rasmussen
-Anders Fogh Rasmussen
-EOF
+first_name() {
+    cat "$CONCIEGGS_DB_DIR/electees" \
+        | randomLine \
+        | cut -d' ' -f1
+
+}
+
+last_name() {
+    cat "$CONCIEGGS_DB_DIR/electees" \
+        | randomLine \
+        | cut -d' ' -f2-
+}
+
+echo "$(first_name) $(last_name)"
