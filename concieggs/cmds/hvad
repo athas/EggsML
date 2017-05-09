@@ -61,7 +61,11 @@ if [ "$debtor" ]; then
             echo "$alias har $(echo $debt | sed 's/-//') kr. til gode i frokostkassen!"
         else
             wish=$(eggstool wishes | randomLine)
-            echo "$(Du $alias) skylder $debt kr. til frokostkassen!  $(Du $alias Vedkommende) kunne overveje at købe $wish."
+            wish_str=""
+            if [ "$wish" ]; then
+                wish_str=" $(Du $alias Vedkommende) kunne overveje at købe $wish."
+            fi
+            echo "$(Du $alias) skylder $debt kr. til frokostkassen! $wish_str"
         fi
     else
         echo "Fejl ved beregning af gæld for $alias"
