@@ -2,8 +2,17 @@
 #
 # Invitér en person til at spille med
 
+someOtherAlias() {
+    alias="$(randomName "$1")"
+    if ! [ "$alias" ]; then
+        echo "$1"
+    else
+        echo "$alias"
+    fi
+}
+
 tabernar="$EGGS_USER"
-nyt_haab="$(randomName $(recentlyActive | egrep -v '^'"$tabernar"'$' | randomLine))"
+nyt_haab="$(someOtherAlias $(recentlyActive | egrep -v '^'"$tabernar"'$' | randomLine))"
 
 
 surt=`randomLine <<EOF
