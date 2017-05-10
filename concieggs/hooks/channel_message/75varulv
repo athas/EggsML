@@ -7,6 +7,7 @@ if ! isFullMoon; then
     exit
 fi
 
+shuttingUp && exit
 maybeGood .1 || exit
 
 randomLine <<EOF
