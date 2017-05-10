@@ -43,7 +43,7 @@ jz intet_nyt_under_solen
 j heldige_asen
 
 :intet_nyt_under_solen
->lykkehjuletFejl
+#>lykkehjuletFejl
 må_ej_gætte=${EGGS_USER}
 j runden_er_ovre
 
