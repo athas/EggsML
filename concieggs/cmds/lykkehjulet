@@ -38,6 +38,9 @@ jz fino_delfino
 j forkert_gert
 
 :fino_delfino
+>test "${tilstand}" = "${sætning}"
+jz hurra_i_skuret
+
 >test "${tilstand}" = "${tilstand_ny}"
 jz intet_nyt_under_solen
 j heldige_asen
@@ -45,27 +48,22 @@ j heldige_asen
 :intet_nyt_under_solen
 >lykkehjuletFejl
 må_ej_gætte=${EGGS_USER}
-j runden_er_ovre
+j ny_runde
 
 :heldige_asen
 tilstand=${tilstand_ny}
 >echo "${EGGS_USER}: Det var et godt gæt!"
-j runden_er_ovre
+j ny_runde
 
 :forkert_gert
 >echo "${EGGS_USER}: Hov, du gjorde det forkert.  Brug mig sådan her:"
 >echo "  gæt på BOGSTAV"
 >echo "  gæt på ORD"
 >echo "Den første der gætter ordet vinder!"
-j runden_er_ovre
-######################################################################
-
-######################################################################
-:runden_er_ovre
->test "${tilstand}" = "${sætning}"
-jz hurra_i_skuret
 j ny_runde
+######################################################################
 
+######################################################################
 :hurra_i_skuret
 >echo "Hurra, ${EGGS_USER} gættede det rigtige ord '${sætning}' og vandt!"
 ######################################################################
