@@ -53,6 +53,8 @@ j ny_runde
 :heldige_asen
 tilstand=${tilstand_ny}
 >echo "${EGGS_USER}: Det var et godt gæt!"
+>test "${tilstand}" = "${sætning}"
+jz hurra_i_skuret
 j ny_runde
 
 :forkert_gert
