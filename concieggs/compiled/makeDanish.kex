@@ -1,8 +1,9 @@
 /* Makes a message more Danish */
-start: phase1 >> phase2
+start: phase1 >> phase2 >> phase3
 
 phase1 := sep* ((word1 sep+)* word1)? sep*
 phase2 := sep* ((word2 sep+)* word2)? sep*
+phase3 := sep* ((word3 sep+)* word3)? sep*
 
 sep := /[^A-Za-zÆØÅæøå0-9]/
 
@@ -42,7 +43,9 @@ word1 := ~/computer science/ "datalogi"
        | ~/password/ "løsen"
        | ~/hardware/ "maskinel"
        | ~/software/ "programmel"
-       | ~/namespace/ "navnerum"
+       | /[a-zA-ZæøåÆØÅ0-9]+/
+
+word2 := ~/namespace/ "navnerum"
        | ~/compiler/ "oversætter"
        | ~/[qQ][rR][ -]?[ck]ode/ "prikkode"
        | ~/plain[ ]?text/ "råtekst"
@@ -79,9 +82,7 @@ word1 := ~/computer science/ "datalogi"
        | ~/I'm [fF]eeling [lL]ucky/ "Jeg er i sandelighed lykkens pamfilius"
        | ~/timestamp/ "tidsstempel"
        | ~/[Mm]obile ?[Pp]ay/ "PayMobil"
-       | /[a-zA-ZæøåÆØÅ0-9]+/
-
-word2 := ~/screenshot/ "skærmbillede"
+       | ~/screenshot/ "skærmbillede"
        | ~/partitioner/ "opdel"
        | ~/git repo(sitory)?/ "skvatgrube"
        | ~/pivot/ "svingtap"
@@ -97,7 +98,9 @@ word2 := ~/screenshot/ "skærmbillede"
        | ~/(D|d)amn it/ "Fanden ta'et"
        | ~/[Pp][Ll][SsZz]/ "venligst"
        | ~/(OMG|omg)/ "Du Godeste"
-       | /[Hh]/ ~/eap/ "ob"
+       | /[a-zA-ZæøåÆØÅ0-9]+/
+
+word3 := /[Hh]/ ~/eap/ "ob"
        | ~/full[- ]?stack/ "helstak" (~/[- ](developer|udvikler)/ "-udvikler")?
        | ~/back[- ]?end/ "bagdel" (~/[- ](developer|udvikler)/ "sudvikler")?
        | ~/front[- ]?end/ "fordel" (~/[- ](developer|udvikler)/ "sudvikler")?
