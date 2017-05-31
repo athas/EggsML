@@ -34,7 +34,8 @@ def trumpify_sentences(sentences):
         'TAK SKAL I HAVE!',
         'Kom med til mine rallyer!',
         'Nu er jeg jo ikke fan af Obama!',
-        'Nødt til at være hård!'
+        'Nødt til at være hård!',
+        'covfefe'
     ]
     
     comments_used = comments[:]
