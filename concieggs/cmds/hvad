@@ -9,6 +9,7 @@ eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|'\
 '(?<missing>mangler jeg)$|'\
 '(?<wtf>hulen)$|'\
 '(?<status>så)$|'\
+'(?<definition>betyder (?<word>[^ ]+))$|'\
 '(?<meaning>mener (?<who>[^ ]+) med (?<what>[^ ]+)$)|'\
 'hedder (?<githubname>[^ ]+) på GitHub|'\
 'sker der i (?<kodeprojekt>[^ ]+)[ -]land|'\
@@ -31,7 +32,7 @@ if [ "$whatis" ]; then
     echo "Den lille viser peger på $(($(date +%l) % 12)), den store på $(($(date +%M))), og den helt lille på $(($(date +%S)))."
     exit
   else
-    runcmd jeopardy "hvad er $subject?"
+    runcmd jeopardy "hvad er $subject"
     exit
   fi
 fi
@@ -60,7 +61,11 @@ if [ "$debtor" ]; then
             echo "$alias har $(echo $debt | sed 's/-//') kr. til gode i frokostkassen!"
         else
             wish=$(eggstool wishes | randomLine)
-            echo "$(Du $alias) skylder $debt kr. til frokostkassen!  $(Du $alias Vedkommende) kunne overveje at købe $wish."
+            wish_str=""
+            if [ "$wish" ]; then
+                wish_str=" $(Du $alias Vedkommende) kunne overveje at købe $wish."
+            fi
+            echo "$(Du $alias) skylder $debt kr. til frokostkassen! $wish_str"
         fi
     else
         echo "Fejl ved beregning af gæld for $alias"
@@ -77,6 +82,19 @@ elif [ "$happening" ]; then
      ) | randomLine
 elif [ "$status" ]; then
         reaktion
+elif [ "$definition" ]; then
+    description="$(lookupDanishWord "$word")"
+    if [ "$description" ]; then
+        echo "$EGGS_USER: Det betyder blandt andet det her:"
+        echo "$description" | randomLine
+    else
+        randomLine <<EOF
+$EGGS_USER: Ingen ved hvad dét betyder.
+Er det overhovedet et ord, $EGGS_USER?
+Hmm, $EGGS_USER, det ved jeg desværre ikke.
+$EGGS_USER, jeg har ikke lige nogen definition på det ord.
+EOF
+    fi
 elif [ "$missing" ]; then
     echo "Du mangler $(randomLine < "$CONCIEGGS_DB_DIR/ordbog-dansk-navneord")!"
 elif [ "$wtf" ]; then

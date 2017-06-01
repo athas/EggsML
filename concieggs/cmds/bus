@@ -1,0 +1,56 @@
+#!/bin/sh
+
+the_wheels=$(randomLine <<EOF
+bitsne
+dataene
+koderne
+brugerene
+EOF
+)
+
+the_bus=$(randomLine <<EOF
+bussen
+chippen
+maskinen
+datamaten
+systemet
+EOF
+)
+
+go=$(randomLine <<EOF
+flyver
+løber
+snurrer
+hopper
+springer
+hacker
+EOF
+)
+
+round=$(randomLine <<EOF
+rundt
+stærkt
+frem
+op
+ned
+af
+på
+EOF
+)
+
+all_through_the_town=$(randomLine <<EOF
+Hjemme hos Pawel
+Hele natten lang
+Indtil de får fri
+Henne på Caféen?
+Ude hos PET
+EOF
+)
+
+perl -nE 'print ucfirst' <<EOF
+$the_wheels på $the_bus $go $round, $round, $round
+$round, $round, $round
+$round, $round, $round
+$the_wheels på $the_bus $go $round, $round, $round
+$all_through_the_town
+EOF

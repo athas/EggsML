@@ -56,4 +56,4 @@ for my $file ( @{ $res->{items} } ) {
     print qq{I $year skrev $author sangen "$title" på sangen "$melody": $link\n};
 }
 
-print qq{Nej, den tror jeg aldrig vi har skrevet på.} unless $count;
+print qq{Nej, den tror jeg aldrig vi har skrevet på.\n} unless $count;

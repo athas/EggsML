@@ -2,26 +2,25 @@
 #
 # Den sjove stak!
 
-
-
+CC=$(echo -n "\003")
 
 nemklods() {
     randomLine <<EOF
-\\cC04\\cB\\cBrød klods
-\\cC12\\cB\\cBblå klods
-\\cC09\\cB\\cBgrøn klods
+${CC}04rød klods
+${CC}12blå klods
+${CC}09grøn klods
 EOF
 }
 
 middelklods() {
     randomLine <<EOF
-"\cC08\cB\cBgul klods"
+${CC}08gul klods
 EOF
 }
 
 svarklods() {
     randomLine <<EOF
-"\cC01\cB\cBsort klods"
+${CC}01sort klods
 EOF
 }
 
@@ -46,7 +45,7 @@ $(middelklods)
 $(middelklods)
 $(svarklods)
 $(svarklods)
-"\cC\cB\cB00$(point)"
+${CC}00$(point)
 EOF
 }
 

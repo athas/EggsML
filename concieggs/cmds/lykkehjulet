@@ -1,0 +1,71 @@
+#!/usr/bin/env rash
+#
+# Spil Lykkehjulet!
+
+sætning=>lykkehjuletSætning "${1}"
+#>echo "[DEBUG] ${sætning}"
+tilstand=<${sætning}>perl -pnE 'use utf8::all; s/\p{Letter}/_/g'
+må_ej_gætte=_
+
+>echo /me drejer hjulet
+>echo Så er der LYKKEHJULET!
+
+######################################################################
+:ny_runde
+tilstand_formatteret=<${tilstand}>sed 's/_/▯/g'
+>echo I skal gætte dette ord: ${tilstand_formatteret}
+
+read kommando
+EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
+>test "${EGGS_USER}" = "${må_ej_gætte}"
+jz måske_snydetamp
+j okay_så
+
+:måske_snydetamp
+<${kommando}>egrep -qv 'gæt på [^ ]{2,}'
+jz snydetamp
+j okay_så
+
+:snydetamp
+>echo "${EGGS_USER}: Du gættede på noget forkert og må derfor først gætte på et bogstav igen når en anden har lavet en fejl.  Du må dog godt prøve at gætte hele ordet."
+j ny_runde
+######################################################################
+
+######################################################################
+:okay_så
+tilstand_ny=>lykkehjuletKørKommando "${kommando}" "${sætning}" "${tilstand}"
+jz fino_delfino
+j forkert_gert
+
+:fino_delfino
+>test "${tilstand}" = "${sætning}"
+jz hurra_i_skuret
+
+>test "${tilstand}" = "${tilstand_ny}"
+jz intet_nyt_under_solen
+j heldige_asen
+
+:intet_nyt_under_solen
+>lykkehjuletFejl
+må_ej_gætte=${EGGS_USER}
+j ny_runde
+
+:heldige_asen
+tilstand=${tilstand_ny}
+>echo "${EGGS_USER}: Det var et godt gæt!"
+>test "${tilstand}" = "${sætning}"
+jz hurra_i_skuret
+j ny_runde
+
+:forkert_gert
+>echo "${EGGS_USER}: Hov, du gjorde det forkert.  Brug mig sådan her:"
+>echo "  gæt på BOGSTAV"
+>echo "  gæt på ORD"
+>echo "Den første der gætter ordet vinder!"
+j ny_runde
+######################################################################
+
+######################################################################
+:hurra_i_skuret
+>echo "Hurra, ${EGGS_USER} gættede det rigtige ord '${sætning}' og vandt!"
+######################################################################

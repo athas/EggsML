@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# Someone who can be elected.
+
+first_name() {
+    cat "$CONCIEGGS_DB_DIR/electees" \
+        | randomLine \
+        | cut -d' ' -f1
+
+}
+
+last_name() {
+    cat "$CONCIEGGS_DB_DIR/electees" \
+        | randomLine \
+        | cut -d' ' -f2-
+}
+
+echo "$(first_name) $(last_name)"

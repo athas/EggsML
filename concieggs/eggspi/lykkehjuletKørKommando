@@ -1,0 +1,37 @@
+#!/usr/bin/env perl
+#
+# Læs en brugerkommando fra lykkehjulet-programmet.
+use utf8;
+use 5.020;
+use warnings;
+use utf8::all;
+
+use List::MoreUtils qw/zip natatime/;
+
+my ($command, $sentence, $state) = @ARGV;
+
+if (my ($guess) = $command =~ m/^gæt på (.*)$/i) {
+    if (fc($guess) eq fc($sentence)) {
+        say $sentence;
+        exit(0);
+    }
+
+    if (length($guess) == 1) {
+        my $new_state = '';
+        my @stateLetters = split(//, $state);
+        my @sentenceLetters = split(//, $sentence);
+        my $it = natatime 2, zip @stateLetters, @sentenceLetters;
+
+        while (my ($st, $se) = $it->()) {
+            $new_state .= fc($se) eq fc($guess) ? $se : $st;
+        }
+
+        say $new_state;
+        exit(0);
+    }
+
+    say $state;
+    exit(0);
+}
+
+exit(1);
