@@ -2,8 +2,6 @@
 #
 # Lav en statusbesked på Twitter.  https://twitter.com/concieggs
 
-. $CONCIEGGS_DIR/concieggs.conf
-
 if [ $# -lt 1 ]; then
     echo 'Brug: kvidr <besked>'
     exit 0
