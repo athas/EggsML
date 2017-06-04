@@ -14,9 +14,10 @@ downloadPollen = Network.HTTP.simpleHTTP (getRequest url) >>= getResponseBody
 findPollen :: Maybe Element -> Maybe T.Text
 findPollen e = e >>= findElement (unqual "item")
                  >>= findElement (unqual "description")
-                 >>= return . (T.intercalate " ")
+                 >>= return . (T.intercalate "\n")
+                            . (filter (T.all ((/=) '-')))
                             . (filter (\x -> x /= ""))
-                            . (map T.strip)
+                            . (map ((T.dropEnd 1) . T.strip))
                             . T.lines . TEN.decodeUtf8 . BS.pack . strContent
 
 printResult :: Maybe T.Text -> IO ()
