@@ -20,7 +20,7 @@ findPollen e = e >>= findElement (unqual "item")
                             . T.lines . TEN.decodeUtf8 . BS.pack . strContent
 
 printResult :: Maybe T.Text -> IO ()
-printResult (Just s) = TIO.putStrLn "Atjuu!" >> TIO.putStrLn s
+printResult (Just s) = TIO.putStrLn "Atjuu! Her kommer dagens pollental:" >> TIO.putStrLn s
 printResult Nothing = TIO.putStrLn "Ingen pollental!"
 
 main :: IO ()
