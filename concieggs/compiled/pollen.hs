@@ -11,12 +11,22 @@ url = "http://www.dmi.dk/vejr/services/pollen-rss/"
 downloadPollen :: IO String
 downloadPollen = Network.HTTP.simpleHTTP (getRequest url) >>= getResponseBody
 
+layout :: [[T.Text]] -> T.Text
+layout lls = let len1 = maximum $ map (T.length . head) lls
+                 len2 = maximum $ map (T.length . head . tail) lls
+                 totlen = len1 + len2 + 1
+                 divider = T.append (T.append "\n+" (T.append (T.replicate len1 "-") (T.cons '+' (T.replicate len2 "-")))) "+\n"
+                 body = T.intercalate divider  [T.append (T.cons '|' (T.justifyLeft len1 ' ' s1))
+                                                         (T.snoc (T.cons '|' (T.justifyRight len2 ' ' s2)) '|')
+                                            | [s1, s2] <- lls]
+                                          in T.strip $ T.append (T.append divider body) divider
+
 findPollen :: Maybe Element -> Maybe T.Text
 findPollen e = e >>= findElement (unqual "item")
                  >>= findElement (unqual "description")
-                 >>= return . (T.intercalate "\n")
+                 >>= return . layout . (map $ T.splitOn ": ")
                             . (filter (\x -> x /= ""))
-                            . (map ((T.replace " " "\n\t") . (T.replace "-" "umåleligt") . (T.dropEnd 1) . T.strip))
+                            . (map ((T.dropEnd 1) . T.strip))
                             . T.lines . TEN.decodeUtf8 . BS.pack . strContent
 
 printResult :: Maybe T.Text -> IO ()
