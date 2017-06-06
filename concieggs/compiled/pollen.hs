@@ -1,6 +1,8 @@
 {-# LANGUAGE OverloadedStrings #-}
+
 import Network.HTTP
 import Text.XML.Light
+import Data.Monoid
 import qualified Data.Text as T
 import qualified Data.Text.IO as TIO
 import qualified Data.ByteString.Char8 as BS
@@ -30,8 +32,18 @@ findPollen e = e >>= findElement (unqual "item")
                             . T.lines . TEN.decodeUtf8 . BS.pack . strContent
 
 printResult :: Maybe T.Text -> IO ()
-printResult (Just s) = TIO.putStrLn "Atjuu! Her kommer dagens pollental:" >> TIO.putStrLn s
+printResult (Just s) = do
+  TIO.putStrLn "Atjuu! Her kommer dagens pollental:"
+  let s_lines = T.lines s
+      blank_lines = repeat $ T.replicate (maximum $ map T.length s_lines) " "
+      comb x y
+        | " " `T.isPrefixOf` y = x <> T.tail y
+        | otherwise = T.init x <> y
+  mapM_ TIO.putStrLn $ zipWith comb (s_lines ++ blank_lines) babe
 printResult Nothing = TIO.putStrLn "Ingen pollental!"
+
+babe :: [T.Text]
+babe = T.lines "            _\n   .&&&&&& / )\n   .&&&/ \\ |/\n   .&& <,( |\\\n    &&  _/ | )\n   _ ) &._/ /\n  /  )__| .'\n /./| _)_)\n( | \\.--|\n \\|  ) !|\n /| /.__|\n(_// _\\_/______\n  (            )\n   '..____.-'/ |\n    \\  |    (  |\n     \\ /     \\ |\n     / |      )|\n    (  |     / |\n     \\ |      \\|\n      )|\n     / |\n      \\|"
 
 main :: IO ()
 main = downloadPollen >>= (printResult . findPollen . parseXMLDoc)
