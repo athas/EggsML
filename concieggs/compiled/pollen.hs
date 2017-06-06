@@ -16,7 +16,7 @@ findPollen e = e >>= findElement (unqual "item")
                  >>= findElement (unqual "description")
                  >>= return . (T.intercalate "\n")
                             . (filter (\x -> x /= ""))
-                            . (map ((T.replace "-" "umåleligt") . (T.dropEnd 1) . T.strip))
+                            . (map ((T.replace " " "\n\t") . (T.replace "-" "umåleligt") . (T.dropEnd 1) . T.strip))
                             . T.lines . TEN.decodeUtf8 . BS.pack . strContent
 
 printResult :: Maybe T.Text -> IO ()
