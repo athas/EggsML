@@ -56,9 +56,9 @@ pad1 = max(len(time.find('temperature').attrib['value']) for time in tabular)
     
     
 for time, superman_line in zip(tabular, superman_lines):
-    print('{} - {} | {} | {}° {}'.format(
+    print('{} | {} | {}° {}'.format(
         date_format(time.attrib['from']),
-        date_format(time.attrib['to']),
+#        date_format(time.attrib['to']),
         pad(pad0, time.find('symbol').attrib['name']),
         pad(pad1, time.find('temperature').attrib['value']),
         superman_line))
