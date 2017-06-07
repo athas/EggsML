@@ -1,3 +1,64 @@
-#!/usr/bin/env compile
-#
-# Få concieggs til at give en vejrudsigt for i morgen eller i overmorgen.
+#!/usr/bin/env python3
+
+import urllib.request as ur
+import xml.etree.ElementTree as ET
+
+superman_lines = r'''
+          .=.,
+         ;c =\
+       __|  _/
+     .'-'-._/-'-._
+    /..   ____    \
+   /' _  [<_->] )  \
+  (  / \--\_>/-/'._ )
+   \-;_/\__;__/ _/ _/
+    '._}|==o==\{_\/
+     /  /-._.--\  \_
+    // /   /|   \ \ \
+   / | |   | \;  |  \ \
+  / /  | :/   \: \   \_\
+ /  |  /.'|   /: |    \ \
+ |  |  |--| . |--|     \_\
+ / _/   \ | : | /___--._) \
+|_(---'-| >-'-| |       '-'
+       /_/     \_\
+'''.split('\n')[1:-1]
+
+def date_format(s):
+    date, time = s.split('T')
+
+    date = date.split('-')[2].lstrip('0')
+    if len(date) == 1:
+        date = ' ' + date
+    date = 'd. {}.'.format(date)
+    
+    time = time.split(':')[0].lstrip('0')
+    if not time:
+        time = 'midnat'
+    else:
+        if len(time) == 1:
+            time = ' ' + str(time)
+        time = 'kl. {}'.format(time)
+
+    return date + ' ' + time
+
+def pad(n, s):
+    return (n - len(s)) * ' ' + s
+
+with ur.urlopen('https://www.yr.no/place/Denmark/Capital/Copenhagen/forecast.xml') as f:
+    tree = ET.parse(f)
+root = tree.getroot()
+forecast = root.find('forecast')
+tabular = forecast.find('tabular')
+
+pad0 = max(len(time.find('symbol').attrib['name']) for time in tabular)
+pad1 = max(len(time.find('temperature').attrib['value']) for time in tabular)
+    
+    
+for time, superman_line in zip(tabular, superman_lines):
+    print('{} - {} | {} | {}° {}'.format(
+        date_format(time.attrib['from']),
+        date_format(time.attrib['to']),
+        pad(pad0, time.find('symbol').attrib['name']),
+        pad(pad1, time.find('temperature').attrib['value']),
+        superman_line))
