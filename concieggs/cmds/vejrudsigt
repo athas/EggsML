@@ -56,7 +56,7 @@ def weather_to_symbol(s):
     elif 'sun' in s or 'clear' in s:
         return '☀'
     else:
-        return '?'
+        return '☘'
 
 with ur.urlopen('https://www.yr.no/place/Denmark/Capital/Copenhagen/forecast.xml') as f:
     tree = ET.parse(f)
