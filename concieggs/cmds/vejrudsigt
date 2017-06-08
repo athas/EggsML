@@ -50,7 +50,7 @@ def weather_to_symbol(s):
 
     s = s.lower()
     if 'rain' in s:
-        return '☂'
+        return '☔'
     elif 'cloud' in s:
         return '☁'
     elif 'sun' in s or 'clear' in s:
