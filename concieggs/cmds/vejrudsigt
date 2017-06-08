@@ -30,8 +30,8 @@ def date_format(s):
     date = date.split('-')[2].lstrip('0')
     if len(date) == 1:
         date = ' ' + date
-    date = 'd. {}.'.format(date)
-    
+    date = 'D. {}.'.format(date)
+
     time = time.split(':')[0].lstrip('0')
     if not time:
         time = 'midnat'
@@ -46,6 +46,8 @@ def pad(n, s):
     return (n - len(s)) * ' ' + s
 
 def weather_to_symbol(s):
+    # https://en.wikipedia.org/wiki/Miscellaneous_Symbols
+
     s = s.lower()
     if 'rain' in s:
         return '☂'
@@ -63,8 +65,8 @@ forecast = root.find('forecast')
 tabular = forecast.find('tabular')
 
 pad_temp = max(len(time.find('temperature').attrib['value']) for time in tabular)
-    
-    
+
+
 for time, superman_line in zip(tabular, superman_lines):
     print('{}:  {}° {} {}'.format(
         date_format(time.attrib['from']),
