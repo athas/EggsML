@@ -19,11 +19,11 @@ if [ "$rawcmd" ]; then
             kvidr
         elif [ "$kantinen" != "" ]; then
             echo -n "infoskaerm: breaking: "
-            echo $(cat)
+            cat
         else
             echo "Sender $rawcmd til $addr!"
-            sed s/\n/\r\n/g | mailx -r concieggs@eggsml.dk \
-                                    -s "Afvikling af $rawcmd, anmodet af $EGGS_USER" "$addr"
+            mailx -r concieggs@eggsml.dk \
+                  -s "Afvikling af $rawcmd, anmodet af $EGGS_USER" "$addr"
         fi
 else
     echo 'Brug: send <kommando> til <hvem@hvor>|hvad'
