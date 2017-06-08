@@ -45,20 +45,29 @@ def date_format(s):
 def pad(n, s):
     return (n - len(s)) * ' ' + s
 
+def weather_to_symbol(s):
+    s = s.lower()
+    if 'rain' in s:
+        return '☂'
+    elif 'cloud' in s:
+        return '☁'
+    elif 'sun' in s or 'clear' in s:
+        return '☀'
+    else:
+        return '?'
+
 with ur.urlopen('https://www.yr.no/place/Denmark/Capital/Copenhagen/forecast.xml') as f:
     tree = ET.parse(f)
 root = tree.getroot()
 forecast = root.find('forecast')
 tabular = forecast.find('tabular')
 
-pad0 = max(len(time.find('symbol').attrib['name']) for time in tabular)
-pad1 = max(len(time.find('temperature').attrib['value']) for time in tabular)
+pad_temp = max(len(time.find('temperature').attrib['value']) for time in tabular)
     
     
 for time, superman_line in zip(tabular, superman_lines):
-    print('{} | {} | {}° {}'.format(
+    print('{}:  {}° {} {}'.format(
         date_format(time.attrib['from']),
-#        date_format(time.attrib['to']),
-        pad(pad0, time.find('symbol').attrib['name']),
-        pad(pad1, time.find('temperature').attrib['value']),
+        pad(pad_temp, time.find('temperature').attrib['value']),
+        weather_to_symbol(time.find('symbol').attrib['name']),
         superman_line))
