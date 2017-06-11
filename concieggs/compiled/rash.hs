@@ -110,6 +110,7 @@ import Control.Exception
 
 import qualified Text.Parsec as P
 import qualified Text.Parsec.String as P
+import qualified Text.ShellEscape as TSE
 
 import qualified System.Environment as Env
 import qualified System.Directory as Dir
@@ -122,6 +123,7 @@ import qualified Data.Array.IArray as IA
 import qualified Data.Array.MArray as MA
 import qualified Data.Array.IO as IOA
 import qualified Data.Text as T
+import qualified Data.Text.Encoding as TE
 import qualified Data.List as L
 import qualified Data.Map as M
 import qualified Data.Maybe as May
@@ -177,7 +179,7 @@ sequenceLength = (+ 1) . snd . IA.bounds
 type ID = Int
 
 data Part = TextPart T.Text
-          | IDPart ID
+          | IDPart Bool ID
           deriving (Read, Show)
 
 data Instruction = Read { assignID :: ID
@@ -243,7 +245,7 @@ type TempID = String
 type TempLabel = String
 
 data TempPart = TempTextPart String
-              | TempIDPart TempID
+              | TempIDPart Bool TempID
               deriving (Show)
 
 data TempInstruction = TempRead { tempAssignID :: TempID
@@ -292,7 +294,7 @@ formatStringParts = concatMap formatStringPart
 formatStringPart :: TempPart -> String
 formatStringPart p = case p of
   TempTextPart s -> s
-  TempIDPart v -> "${" ++ v ++ "}"
+  TempIDPart b v -> (if b then '¤' else '$') : "{" ++ v ++ "}"
 
 
 -- INTERPRETER
@@ -407,7 +409,9 @@ extractParts = IA.amap extractPart
 extractPart :: Part -> InterpM T.Text
 extractPart p = case p of
   TextPart t -> return t
-  IDPart v -> getVar v
+  IDPart b v -> do r <- getVar v
+                   return $ if b then shEsc r else r
+          where shEsc = TE.decodeUtf8 . TSE.bytes . TSE.sh . TE.encodeUtf8
 
 interpretInstruction :: Instruction -> InterpM ()
 interpretInstruction inst = case inst of
@@ -504,12 +508,13 @@ stringPartsP :: P.Parser [TempPart]
 stringPartsP = P.many stringPartP
 
 stringPartP :: P.Parser TempPart
-stringPartP = (TempIDPart <$> idPartP)
+stringPartP = (TempIDPart False <$> idPartP "$")
+              P.<|> (TempIDPart True <$> idPartP "$'")
               P.<|> (TempTextPart <$> textPartP)
 
-idPartP :: P.Parser TempID
-idPartP = do
-  symbol "${"
+idPartP :: String -> P.Parser TempID
+idPartP p = do
+  symbol (p ++ "{")
   var <- P.many1 (P.satisfy (/= '}'))
   symbol "}"
   return var
@@ -655,7 +660,7 @@ asmTempToAsm (TempAssembly insts) = (Assembly $ listToSequence insts'', nVars)
         partConv :: TempPart -> Part
         partConv p = case p of
           TempTextPart s -> TextPart $ T.pack s
-          TempIDPart v -> IDPart (varMap M.! v)
+          TempIDPart b v -> IDPart b (varMap M.! v)
 
         labelPoss :: M.Map TempLabel Int
         labelPoss = M.fromList $ ps insts 0
@@ -688,7 +693,7 @@ asmTempToAsm (TempAssembly insts) = (Assembly $ listToSequence insts'', nVars)
         partVar :: TempPart -> Maybe TempID
         partVar p = case p of
           TempTextPart _ -> Nothing
-          TempIDPart v -> Just v
+          TempIDPart _ v -> Just v
 
 rashPaths :: FilePath -> IO RashPaths
 rashPaths fname = do

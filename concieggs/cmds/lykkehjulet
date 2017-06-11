@@ -13,7 +13,7 @@ må_ej_gætte=_
 ######################################################################
 :ny_runde
 tilstand_formatteret=<${tilstand}>sed 's/_/▯/g'
->echo I skal gætte dette ord: ${tilstand_formatteret}
+>echo I skal gætte dette ord: $'{tilstand_formatteret}
 
 read kommando
 EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
@@ -67,5 +67,5 @@ j ny_runde
 
 ######################################################################
 :hurra_i_skuret
->echo "Hurra, ${EGGS_USER} gættede det rigtige ord '${sætning}' og vandt!"
+>echo "Hurra, ${EGGS_USER} gættede det rigtige ord '$'{sætning}' og vandt!"
 ######################################################################
