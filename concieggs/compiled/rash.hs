@@ -294,7 +294,7 @@ formatStringParts = concatMap formatStringPart
 formatStringPart :: TempPart -> String
 formatStringPart p = case p of
   TempTextPart s -> s
-  TempIDPart b v -> (if b then '¤' else '$') : "{" ++ v ++ "}"
+  TempIDPart b v -> (if b then "$'" else "$") ++ "{" ++ v ++ "}"
 
 
 -- INTERPRETER
