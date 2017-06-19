@@ -1,0 +1,9 @@
+#!/bin/sh
+#
+# Vits!
+
+randomLine <<EOF
+$EGGS_USER: Der er nok masser af trafik.  Det er jo en storby!
+$EGGS_USER: Lad være med at cykle som en stiv!
+Vrooom!
+EOF
