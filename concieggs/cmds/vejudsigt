@@ -6,4 +6,8 @@ randomLine <<EOF
 $EGGS_USER: Der er nok masser af trafik.  Det er jo en storby!
 $EGGS_USER: Lad være med at cykle som en stiv!
 Vrooom!
+$EGGS_USER: Generelt udmærket, men vær opmærksom på den blinde vinkel!
+$EGGS_USER: Få dig dog et lastbilskørekort med hænger!
+Vores buschauffør kan ikke køre bus, bus, bus, $EGGS_USER!
+$EGGS_USER!  Jeg melder kaos over det hele!
 EOF
