@@ -13,6 +13,7 @@ val grammar = Grammar [
   >> ("name", [[S "name prefix", S "name suffix"]]),
   >> ("name prefix", [[T "Internet"],
                       [T "Spindel"],
+                      [T "Verdens"],
                       [T "Web"]]),
   >> ("name suffix", [[T "bruger"],
                       [T "borger"],
@@ -29,6 +30,8 @@ val grammar = Grammar [
 
   >> ("lækker", [[T "lækker"],
                  [T "skøn"],
+                 [T "uovertruffen"],
+                 [T "middelmådig"],
                  [T "gennemsnitlig"],
                  [T "fin"]])
 ];
