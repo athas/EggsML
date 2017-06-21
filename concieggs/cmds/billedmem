@@ -75,7 +75,8 @@ def smiley():
                 "D:" ,
                 ":O" ,
                 ";)" ,
-                ";*"]
+                ";*" ,
+                "xD" ]
     sm = smileyer[random.randint(0, (len(smileyer) - 1))]
     return sm
 
