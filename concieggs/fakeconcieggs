@@ -5,7 +5,6 @@
 cmd=$1
 
 dir=$(readlink -f $(dirname $0))
-cmddir=$dir/cmds/
 
 . $dir/concieggs.conf
 
