@@ -18,7 +18,7 @@ if [ $# = 0 ]; then
      echo "Enormi veloce!"
      echo "Arriba!  Arriba!  Andale!  Arriba!") | randomLine
 elif [ $# = 1 -a "$1" = --version ]; then
-    ssh napoleon.hiperfit.dk "futhark-opencl --version"
+    ssh napoleon.hiperfit.dk "futhark-c --version"
 else
     if [ "$1" = -t ]; then
         flags="-t /dev/stdout"
@@ -34,7 +34,7 @@ else
     code=\$(cat)
     file=\$(mktemp).fut
     echo "\$code" > \$file
-    if futhark-opencl "\$file" -o "\$file.bin" 2>&1; then
+    if futhark-c "\$file" -o "\$file.bin" 2>&1; then
         \$file.bin $flags
     fi
     rm -f "\$file" "\$file.bin"
