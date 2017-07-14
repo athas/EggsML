@@ -27,7 +27,7 @@ else
     if echo "$@" | egrep -q '^fun|entry|module|val|type|import|let'; then
         code="$@"
     else
-        code="import \"/futlib/math\" import \"/futlib/array\" let main() = $@"
+        code="import \"/futlib/math\" import \"/futlib/array\" let main() =\n$@"
     fi
 
     allthatjazz=$(cat <<EOF
