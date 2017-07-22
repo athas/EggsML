@@ -1,0 +1,18 @@
+#!/bin/sh
+
+if ! (echo "$EGGS_BODY" | grep -qi "\!"); then
+    exit
+fi
+
+randomLine <<EOF
+/me stirrer indgående på $EGGS_USER
+$EGGS_USER: Vil du være sød at dæmpe dig lidt?
+$EGGS_USER: Ssh!
+/me kigger på $EGGS_USER og tysser.
+$EGGS_USER: Vær sød ikke at råbe.
+$EGGS_USER: Her holder vi altså et civilt toneleje.
+$EGGS_USER: Skal du hjælpes over på en mere larmende kanal?
+$EGGS_USER: Dæmp dig.
+/me kigger på $EGGS_USER og rømmer sig højlydt.
+/me rømmer sig.
+EOF
