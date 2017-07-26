@@ -19,7 +19,9 @@ eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|'\
 '(står (?<forkortelse>[^ ]+) for)')"
 
 if [ "$whatis" ]; then
-  if [ "$subject" = "betalingsbalancen" ]; then
+  eval "$(echo "$subject" | parse '(?<betalingsbalancen>betalingsbalancen)|(?<klokken>klokken)|(?<yourproblem>dit problem(?: med (?<problem>.+))?$)')"
+
+  if [ "$betalingsbalancen" ]; then
     balance="$(lookupBalance)"
     if [ "$(echo "$balance" | grep "-")" ]; then
         echo "Uha, samlet set er der en gæld på $balance kroner."
@@ -28,8 +30,11 @@ if [ "$whatis" ]; then
     fi
     exit
 
-  elif [ "$subject" = "klokken" ]; then
+  elif [ "$klokken" ]; then
     echo "Den lille viser peger på $(($(date +%l) % 12)), den store på $(($(date +%M))), og den helt lille på $(($(date +%S)))."
+    exit
+  elif [ "$yourproblem" ]; then
+    githubIssue "$problem"
     exit
   else
     runcmd jeopardy "hvad er $subject"
