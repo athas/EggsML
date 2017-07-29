@@ -1,0 +1,3 @@
+#!/bin/sh
+
+correctScoreInc $1 $2 "wrong"

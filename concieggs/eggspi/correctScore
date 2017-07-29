@@ -1,0 +1,11 @@
+#!/bin/sh
+
+game=$1
+person=$2
+type="correct"
+
+if [ $# -eq 3 ]; then
+  type=$3
+fi
+
+dbUserRead $person "${type}_$game"
