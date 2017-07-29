@@ -29,7 +29,9 @@ j læsgæt
 jz korrektgæt
 
 >echo "${EGGS_USER}: Forkert! Filmen var: ${emne}!"
+>wrongScoreInc ${EGGS_USER} "filmquiz"
 exit
 
 :korrektgæt
 >echo "${EGGS_USER}: Helt rigtigt! Flot klaret!"
+>correctScoreInc ${EGGS_USER} "filmquiz"

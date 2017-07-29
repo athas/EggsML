@@ -39,7 +39,9 @@ j læsgæt
 jz korrektgæt
 
 >echo "${EGGS_USER}: Forkert!  Hvad er: ${emne}!"
+>wrongScoreInc ${EGGS_USER} "jeopardy"
 exit
 
 :korrektgæt
 >echo "${EGGS_USER}: Helt rigtigt!  Flot klaret!"
+>correctScoreInc ${EGGS_USER} "jeopardy"
