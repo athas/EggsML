@@ -150,4 +150,5 @@ word3 := /[Hh]/ ~/eap/ "ob"
        | ~/swap/ "svup"
        | ~/porno?/ "naturfilm"
        | ~/malware/ "progra-lø-mmel"
+       | ~/[Bb]itcoin/ "eTulipan"
        | /[a-zA-ZæøåÆØÅ0-9]+/
