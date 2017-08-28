@@ -31,7 +31,7 @@ if [ "$whatis" ]; then
     exit
 
   elif [ "$klokken" ]; then
-    echo "Den lille viser peger på $(($(date +%l) % 12)), den store på $(($(date +%M))), og den helt lille på $(($(date +%S)))."
+    echo "Den lille viser peger på $(($(date +%l) % 12)), den store på $(($(date +%M | tr 0 ' '))), og den helt lille på $(($(date +%S | tr 0 ' ')))."
     exit
   elif [ "$yourproblem" ]; then
     githubIssue "$problem"
