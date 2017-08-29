@@ -176,7 +176,7 @@ elif [ "$kingname" ]; then
         echo "$EGGS_USER: Gisp, det ser ikke ud til at HKH har noget royalt navn!"
     fi
 elif [ "$forkortelse" ]; then
-    ordene="$(falskForkortelse $forkortelse)"
+    ordene="$(falskForkortelse "$forkortelse")"
     randomLine <<EOF
 $EGGS_USER: $forkortelse står da vist for $ordene.
 $forkortelse, $EGGS_USER?  Det er helt sikkert $ordene!

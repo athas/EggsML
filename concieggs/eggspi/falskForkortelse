@@ -3,7 +3,7 @@
 # Generér en falsk forkortelse der passer på bogstaverne i argumenterne.
 
 ord() {
-    bogstav="$1"
+    export bogstav="$1"
     klasse="$2"
     shift
     shift
@@ -11,7 +11,7 @@ ord() {
     for type in $typer; do
         sti="$CONCIEGGS_DB_DIR/$klasse/$type"
         cat "$sti"
-    done | grep -E "^$bogstav" | randomLine
+    done | perl -n -e 'print if /^\Q$ENV{bogstav}\E/' | randomLine
 }
 
 navneord() {
