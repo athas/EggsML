@@ -1,0 +1,10 @@
+#!/bin/sh
+
+shuttingUp && exit
+
+case "$EGGS_BODY" in
+  *trommevirvel*)
+      echo '/me brrrrrrrrrrrrrrrrrrr'
+      sleep 5
+      echo '/me Badum-tschh!'
+esac
