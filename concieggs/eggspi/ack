@@ -9,6 +9,7 @@ if isKing "$EGGS_USER"; then
     echo "Jeg skal kundgøre Deres royale vilje for almuen, Deres majestæt"
     echo "$EGGS_USER længe leve"
     echo "Med ære"
+    echo "Jeg takker Deres Højhed for at give mig dette job"
 else
     echo "ACK-ACK"
     echo "Javel"
@@ -34,5 +35,7 @@ else
     echo "Top dollar"
     echo "Fjong-fililong-gong-gong"
     echo "Det' bår' dæjlig"
+    echo "Superduper"
+    echo "Dupersuper"
 fi | randomLine | xargs echo -n
 (echo "!"; echo ".") | randomLine
