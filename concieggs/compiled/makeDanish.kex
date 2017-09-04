@@ -98,6 +98,7 @@ word2 := ~/namespace/ "navnerum"
        | ~/(D|d)amn it/ "Fanden ta'et"
        | ~/[Pp][Ll][SsZz]/ "venligst"
        | ~/(OMG|omg)/ "Du Godeste"
+       | ~/fidget[ -]?spinner/ "dimse-drejer"
        | /[a-zA-ZæøåÆØÅ0-9]+/
 
 word3 := /[Hh]/ ~/eap/ "ob"
