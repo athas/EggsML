@@ -1,0 +1,31 @@
+#!/bin/sh
+#
+# Årets sjove dims 2017, nu på IRC!
+
+randomLine <<EOF
+/me spinner så det skinner.
+/me drejer dimsen med al sin kraft.
+B-B-Beyblade!
+/me snurrer snurretoppen uden bund!
+Wow, nu går det løs!
+EOF
+
+for _ in $(seq 1 $(random 1 20)); do
+    randomLine <<EOF
+Kanalens fidget spinner spinner videre som en drøm.
+Drej, drej, drej, stopper aldrig, nej.
+Den fortsætter med at dreje på min finger.
+Mere drejeri, uha.
+Whooooosh!
+Det er jo det rene spin city!
+/me er den vildeste spindoktor.
+Fidget spinneren drejer videre.
+Vroooom!
+EOF
+    sleep 0.5
+done
+
+randomLine <<EOF
+Så kunne den ikke dreje længere.
+Slut prut finale, I er godt nok gale.
+EOF
