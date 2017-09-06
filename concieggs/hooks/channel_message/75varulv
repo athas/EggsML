@@ -34,7 +34,7 @@ EOF
 )
 
 if [ "$(ircChannel)" = "#diku" ]; then
-    echo "infoskaerm: breaking: $line"
+    echo "infoskaerm: breaking: $(echo $line | sed -r 's/\/me/Jeg/')"
 else
     echo "$line"
 fi
