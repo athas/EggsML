@@ -8,7 +8,7 @@ if ! isFullMoon; then
 fi
 
 shuttingUp && exit
-maybeGood .2 || exit
+maybeGood .1 || exit
 
 line=$(randomLine <<EOF
 Awuuuuuu!
