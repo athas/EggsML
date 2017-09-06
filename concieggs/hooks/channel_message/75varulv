@@ -31,12 +31,12 @@ Så for søren, jeg er sgisme en VARulv!
 /me går helt agurk under fuldmånens skær.
 Fuldmåne!  Åh nej!
 IIIIIH, HVORFOR NU FULDMÅNE IGEN???
-/me stirrer ud i natten mens mine tænder bliver skarpere.
+/me stirrer ud i natten mens sine tænder bliver skarpere.
 EOF
 )
 
 if [ "$(ircChannel)" = "#diku" ]; then
-    echo "infoskaerm: breaking: $(echo $line | sed -r 's/\/me/Jeg/')"
+    echo "infoskaerm: breaking: $(echo $line | sed -r 's/\/me/Varulven/')"
 else
     echo "$line"
 fi
