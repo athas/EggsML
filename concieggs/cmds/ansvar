@@ -7,6 +7,12 @@ if [ $# != 1 ]; then
     exit
 fi
 
+if [ "$1" = "$CONCIEGGS_NAME" ]; then
+    echo "$EGGS_USER: Nøjj, hvor er du sjov!  Hihihi, åååååh..."
+    annoyedBy "$EGGS_USER" 1 "spurgte hvem der har ansvar for mig"
+    exit
+fi
+
 eval "$(echo "$@" | parse '^((?<cmd>[^/]+)|eggspi/(?<eggspi>[^/]+)|hooks/(?<hook>[^/]+/[^/]+)|compiled/(?<compiled>[^/]+))$')"
 
 if [ "$cmd" ]; then
