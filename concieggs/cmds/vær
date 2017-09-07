@@ -36,6 +36,8 @@ case "$what" in
         save 'filter leet';;
     "min")
         echo "Måske senere...";;
+    "dig selv")
+        echo "Bare rolig, jeg ignorerer gruppepres.";;
 
     # Sprog el.lign.
     *)
