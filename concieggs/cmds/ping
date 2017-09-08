@@ -1,2 +1,4 @@
 #!/bin/sh
-echo -e "\001PONG"
+echo -ne "\001PING "
+echo -n "$@"
+echo -e "\001"
