@@ -132,6 +132,8 @@ case "$1" in
         echo cy;;
     yi|jiddisch)
         echo yi;;
+    so|somalisk)
+        echo so;;
     *)
         filter="$CONCIEGGS_DIR/filters/$1"
         if test -x "$filter"; then
