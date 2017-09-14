@@ -73,7 +73,7 @@ else
             exit 2
     esac
 
-    compiledir="$(mktemp -d)"
+    compiledir="$(mktemp -d /tmp/compileXXXXXX)"
     cp -r "$srcfile" "$compiledir"
     srcfile="$compiledir/$(basename "$srcfile")"
 
