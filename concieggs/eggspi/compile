@@ -68,6 +68,12 @@ else
                 cp "$basename" "$2"
             }
             ;;
+        *myr)
+            compile() {
+                mkdir -p $(dirname $2)
+                mbld -b $2 $1 >&2
+            }
+            ;;
         *)
             echo "Cannot compile file $srcfile - unknown extension."
             exit 2
