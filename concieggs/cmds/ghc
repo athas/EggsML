@@ -1,1 +1,3 @@
-haskell
+#!/usr/bin/env ghc
+#
+# Kør ghc på din haskell-fil
