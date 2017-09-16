@@ -1,9 +1,10 @@
+module Main(main) where
+
 import Test.QuickCheck.Gen
 import Text.Printf
 import Data.List
 import Control.Monad
 
-module Main (main) where
 goodModules :: [String]
 goodModules = [ "funkyGen"
               , "Curves"
