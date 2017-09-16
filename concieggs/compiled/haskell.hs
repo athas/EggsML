@@ -4,6 +4,7 @@ import Test.QuickCheck.Gen
 import Text.Printf
 import Data.List
 import Control.Monad
+import System.Environment
 
 goodModules :: [String]
 goodModules = [ "funkyGen"
@@ -64,9 +65,9 @@ list :: Int -> IO String
 list 0 = do tp <- generate someType; return $ printf "[%s]" tp
 list n = do lst <- list (n-1); return $ printf "[%s]" lst
 
-main :: IO ()
-main = do
-  lol_module <- generate $ elements goodModules
+
+funnyFunk :: String -> IO ()
+funnyFunk filename = do
   [linje, start] <- generate $ vectorOf 2 $ choose (1, 100) :: IO [Int]
   slut <- generate $ choose (start, 100)
   expected <- function 2
@@ -74,8 +75,17 @@ main = do
   fun_type <- funkyType 1
   more_fun_type <- funkyType 2
 
-  putStrLn $ printf "%s.hs:%d:%d-%d: error ..." lol_module linje start slut
+  putStrLn $ printf "%s:%d:%d-%d: error ..." filename linje start slut
   putStrLn $ printf "    * Couldn't match type '%s' with '%s'" expected actual
   putStrLn $ printf "      Expected type: %s" fun_type
   putStrLn $ printf "        Actual type: %s" more_fun_type
   putStrLn "..."
+
+main :: IO ()
+main = do
+  args <- getArgs
+  case args of
+    [filename] -> funnyFunk filename
+    _ -> do lol_module <- generate $ elements goodModules
+            let filename = printf "%s.hs" lol_module
+            funnyFunk filename
