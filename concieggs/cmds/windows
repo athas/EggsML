@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# lol
+
+o=o
+O=O
+for i in $(seq 1 $(random 0 4)); do
+    o=$o$o
+    O=$O$O
+done
+randomLine <<EOF
+l${o}l
+L${O}L
+lollern
+rofl
+ROFLMAO
+EOF
+
