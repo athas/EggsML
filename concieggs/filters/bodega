@@ -1,5 +1,5 @@
 #!/bin/sh
 
-maybeGood .9 && kortvise
+kortvise
 
 cat
