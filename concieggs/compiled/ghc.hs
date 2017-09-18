@@ -3,7 +3,6 @@ module Main(main) where
 import Test.QuickCheck.Gen
 import Text.Printf
 import Data.List
-import Control.Monad
 import System.Environment
 
 data FunctionIsh a = Atom a | Arrow (FunctionIsh a) (FunctionIsh a)
@@ -25,47 +24,74 @@ typeList1 = [ "String"
             , "()"
             , "Char"
             , "Double"
+            , "a"
            ]
+
+typeClasses :: [String]
+typeClasses = [ "Arbitrary"
+              , "Traversable"
+              , "Eq"
+              , "Ord"
+              , "Show"
+              ]
 
 twoTypedData :: [String]
 twoTypedData = [ "Data.Map"
                , "Either"
                ]
+
+oneTypedData :: [String]
+oneTypedData = [ "Maybe"
+               , "Gen"
+               , ""
+               ]
+
+simpleType :: Gen String
+simpleType = elements typeList1
+
 someType :: Gen String
-someType = elements typeList1
+someType = frequency [(3, simpleType), (1,twoTyped), (1,twoTyped)]
 
-someTypes :: Int -> Gen [String]
-someTypes n = vectorOf n someType
-
-dataTypes :: [String]
-dataTypes = []
-
+typeDefinition :: Int -> Gen String
+typeDefinition n = do
+    types <- vectorOf n someType
+    return $ intercalate (" " :: String) $ intersperse ("->" :: String) types
 
 function :: Int -> Gen String
 function n = do
-  n <- choose (1,n)
-  typeclass <- choose (True, False)
-  types <- someTypes n
-  let types' = concat $ intersperse (" " :: String) $ intersperse ("->" :: String) types
-  return types'
+  n' <- choose (1,n)
+  typeClassed <- choose (True, False)
+  if typeClassed
+    then do
+      typeclass <- elements typeClasses
+      let typeclassPrefix = typeclass ++ " a => "
+      types <- suchThat (typeDefinition n') (isInfixOf " a ")
+      return $ typeclassPrefix ++ types
+    else typeDefinition n'
 
-twoTyped :: Int -> Gen String
-twoTyped n = do
+twoTyped :: Gen String
+twoTyped = do
   twotyped <- elements twoTypedData
-  [a, b] <- someTypes 2
+  [a, b] <- vectorOf 2 simpleType
   return $ printf "%s %s %s" twotyped a b
+
+oneTyped :: Gen String
+oneTyped = do
+  onetyped <- elements oneTypedData
+  a <- someType
+  return $ printf "%s %s" onetyped a
 
 funkyType :: Int -> Gen String
 funkyType 0 = someType
 funkyType n = do
   nesting <- choose (0,n)
-  twotpd <- twoTyped nesting
+  twotpd <- twoTyped
+  onetpd <- oneTyped
   lst <- list nesting
-  frequency [(1, pure twotpd), (2, pure lst)]
+  frequency [(1, pure twotpd), (2, pure lst), (1, pure onetpd)]
 
 funkyKind :: Gen String
-funkyKind = do
-  frequency [(1, return "*"), (2, ("* -> "++) <$> funkyKind)]
+funkyKind = frequency [(1, return "*"), (2, ("* -> "++) <$> funkyKind)]
 
 list :: Int -> Gen String
 list 0 = do tp <- someType; return $ printf "[%s]" tp
@@ -103,8 +129,7 @@ errorMessage filename =
              (1, kindSignatureError filename)]
 
 funnyFunk :: String -> IO ()
-funnyFunk filename = do
-  putStr =<< generate (errorMessage filename)
+funnyFunk filename = putStr =<< generate (errorMessage filename)
 
 main :: IO ()
 main = do
