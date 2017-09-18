@@ -1,0 +1,60 @@
+#!/bin/sh
+#
+# En kort vise!
+
+nogle_stykker() {
+    s=''
+    for i in seq 1 $(random 1 5); do
+        s="$s$1"
+    done
+    echo "$s"
+}
+
+viSejledeOpadAaen() {
+    Vi=$(randomLine <<EOF
+Vi
+De
+Jeg
+Du
+EOF
+)
+
+    sejlede=$(randomLine <<EOF
+sejled'
+rejste
+flø-ød
+trilled'
+vælted'
+EOF
+)
+
+    opad=$(randomLine <<EOF
+opad
+nedad
+henad
+over
+EOF
+)
+
+    aaen=$(randomLine <<EOF
+åen
+søen
+floden
+EOF
+)
+
+    i=$(nogle_stykker i)
+    oe=$(nogle_stykker ø)
+
+    hik=$(randomLine <<EOF
+h${i}k
+b${oe}vs
+EOF
+)
+
+    echo "$Vi $sejlede $opad $aaen... *$hik*"
+}
+
+randomLine <<EOF
+$(viSejledeOpadAaen)
+EOF

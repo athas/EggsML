@@ -34,6 +34,8 @@ case "$what" in
         save 'filter grinern';;
     1337)
         save 'filter leet';;
+    "på bodega")
+        save 'filter bodega';;
     "min")
         echo "Måske senere...";;
     "dig selv")
