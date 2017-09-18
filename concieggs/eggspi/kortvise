@@ -20,11 +20,11 @@ EOF
 )
 
     sejlede=$(randomLine <<EOF
-sejled'
+sejled
 rejste
 flø-ød
-trilled'
-vælted'
+trilled
+vælted
 EOF
 )
 
