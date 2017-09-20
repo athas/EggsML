@@ -11,7 +11,7 @@ EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
 svensk=<${dansk}>translate da sv
 >test "${svenskgæt}" = "${svensk}"
 jz jättebra
->echo ${EGGS_USER}: Jeg synes nu at '${svensk}' lyder bedre.
->exit
+>echo ${EGGS_USER}: Jeg synes nu at \'${svensk}\' lyder bedre.
+exit
 :jättebra
 >echo ${EGGS_USER}: Ja, præcis!
