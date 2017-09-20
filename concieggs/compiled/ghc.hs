@@ -15,12 +15,15 @@ goodModules = [ "funkyGen"
               , "Arithmetic"
               , "LinAlg"
               , "euler3"
+              , "PrimExp"
+              , "Syntax"
               ]
 typeList1 :: [String]
 typeList1 = [ "String"
             , "Integer"
             , "Person"
             , "Expr"
+            , "Value"
             , "()"
             , "Char"
             , "Double"
@@ -33,6 +36,7 @@ typeClasses = [ "Arbitrary"
               , "Eq"
               , "Ord"
               , "Show"
+              , "Read"
               ]
 
 twoTypedData :: [String]
