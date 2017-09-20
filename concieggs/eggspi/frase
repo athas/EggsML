@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # Generér en tilfældig frase i korrekt rigsdansk med rimelig stor variation.
-# Brug 'frase bestemt' eller 'frase ubestemt'.
+# Brug 'frase bestemt' eller 'frase ubestemt' for at indskærpe.
 
 ord() {
     klasse="$1"
@@ -91,9 +91,7 @@ er() {
 er
 var
 kan være
-vil blive
 skal være
-må blive
 EOF
 }
 
@@ -139,6 +137,10 @@ if [ "$arg" = bestemt ]; then
 elif [ "$arg" = ubestemt ]; then
     cmdline="$(_ubestemt_frase)"
 else
-    exit 1
+    cmdline="$(randomLine <<EOF
+$(_bestemt_frase)
+$(_ubestemt_frase)
+EOF
+)"
 fi
 eval "echo $cmdline"
