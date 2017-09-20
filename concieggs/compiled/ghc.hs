@@ -44,6 +44,7 @@ oneTypedData :: [String]
 oneTypedData = [ "Maybe"
                , "Gen"
                , "IO"
+               , "ST s"
                , ""
                ]
 
