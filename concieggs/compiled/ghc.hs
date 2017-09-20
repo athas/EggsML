@@ -43,6 +43,7 @@ twoTypedData = [ "Data.Map"
 oneTypedData :: [String]
 oneTypedData = [ "Maybe"
                , "Gen"
+               , "IO"
                , ""
                ]
 
