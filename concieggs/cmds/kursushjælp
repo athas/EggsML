@@ -1,0 +1,29 @@
+#!/bin/sh
+#
+# Hjælp en person med et kursus.  Brug: kursushjælp til BRUGER
+
+if [ $# -lt 2 ]; then
+    bruger="$EGGS_USER"
+else
+    bruger="$2"
+fi
+
+detalje() {
+    randomLine <<EOF
+nederst i
+øverst i
+i midten af
+EOF
+}
+
+linje() {
+    random 14 312
+}
+
+randomLine <<EOF
+$bruger: Det står $(detalje) opgaveteksten.
+$bruger: Tjek diskussionsforummet.
+$bruger: Det blev forklaret til forelæsningen.
+Var du ikke til øvelsestimen, $bruger?
+$bruger: Tjek linje $(linje) i den udleverede kode.
+EOF
