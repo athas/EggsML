@@ -97,7 +97,7 @@ word2 := ~/namespace/ "navnerum"
        | ~/meme/ "mem" (~/s/ "er")?
        | ~/(D|d)amn it/ "Fanden ta'et"
        | ~/[Pp][Ll][SsZz]/ "venligst"
-       | ~/(OMG|omg)/ "Du Godeste"
+       | ~/ (OMG|omg) / "Du godeste"
        | ~/fidget[ -]?spinner/ "dimse-drejer"
        | /[a-zA-ZæøåÆØÅ0-9]+/
 
