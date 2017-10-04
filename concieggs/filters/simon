@@ -1,0 +1,7 @@
+#!/bin/sh
+
+while read -r line; do
+    echo -n "$line   "
+    echo -n "HILSEN "
+    echo "$CONCIEGGS_NAME" | toupper
+done
