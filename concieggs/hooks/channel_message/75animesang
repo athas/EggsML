@@ -6,7 +6,7 @@ shuttingUp && exit
 maybeGood .3 || exit
 
 selvsang() {
-    jpopSong | sed -r 's/(.)$/\1\1\1\1\1\1~~~/'
+    jpopSong | sed -r 's/([aeiouy])$/\1\1\1\1\1\1~~~/'
 }
 
 kostume() {
@@ -24,4 +24,3 @@ $(selvsang)
 /me går ud på scenen: $(selvsang)
 /me kommer med sin originale komposition: $(selvsang)
 EOF
-
