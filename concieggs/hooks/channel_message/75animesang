@@ -1,0 +1,27 @@
+#!/bin/sh
+
+dbRead "outfilter_command" | grep -q jpop || exit
+
+shuttingUp && exit
+maybeGood .3 || exit
+
+selvsang() {
+    jpopSong | sed -r 's/(.)$/\1\1\1\1\1\1~~~/'
+}
+
+kostume() {
+    randomLine <<EOF
+t magical-girl-kostume
+ne katteører
+n lilla paryk
+EOF
+}
+
+randomLine <<EOF
+$(selvsang)
+/me tager si$(kostume) på og stemmer stemmen: $(selvsang)
+/me synger med på tv'et: $(selvsang)
+/me går ud på scenen: $(selvsang)
+/me kommer med sin originale komposition: $(selvsang)
+EOF
+

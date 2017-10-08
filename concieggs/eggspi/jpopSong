@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cat $CONCIEGGS_DB_DIR/animesange/jpopsanglinjer.txt \
+    | randomLine

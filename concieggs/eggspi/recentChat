@@ -3,9 +3,12 @@
 # Get the previous $1 lines from the full chat.
 
 n="$1"
+f="$CONCIEGGS_IRC_DIR/out"
 
-if [ "$n" ]; then
-    tail -n $n "$CONCIEGGS_IRC_DIR/out"
-else
-    cat "$CONCIEGGS_IRC_DIR/out"
+if [ -f "$f" ]; then
+    if [ "$n" ]; then
+        tail -n $n "$CONCIEGGS_IRC_DIR/out"
+    else
+        cat "$CONCIEGGS_IRC_DIR/out"
+    fi
 fi

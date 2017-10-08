@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# Vær j-poppet, desu.
+# Vær jpoppet, desu~
 
 import random
 import re
@@ -8,61 +8,59 @@ import subprocess
 import sys
 
 
+initial_exclamations = [
+    'Ureshii',
+    'Yaru',
+    'Yasashii',
+    'Sugoi',
+    'Kawaii',
+    'Zuttou',
+    'Dattebayo',
+]
+
+extra_words = [
+    'darou',
+    'desu',
+    'ne',
+    'deshou',
+]
+
+silly_exclamations = [
+    'uguu',
+    'gyaa',
+    'nyaa',
+    'kyaa'
+]
+
+dramatic_exclamations = [
+    'Anata mou',
+    'Kimi ga',
+    'Kono setzubou',
+    'Demou'
+]
+
+honorifics = [
+    'sama',
+    'chan',
+    'kun',
+    'san',
+]
+
 def jpopify(s):
-    initial_exclamations = [
-        'Ureshii',
-        'Yaru',
-        'Yasashii',
-        'Sugoi',
-        'Kawaii',
-        'Zuttou',
-        'Dattebayo',
-    ]
-
-    extra_words = [
-        'darou',
-        'desu',
-        'ne',
-        'deshou',
-    ]
-
-    silly_exclamations = [
-        'uguu',
-        'gyaa',
-        'nyaa',
-        'kyaa'
-    ]
-
-    dramatic_exclamations = [
-        'Anata mou',
-        'Kimi ga',
-        'Kono setzubou',
-        'Demou'
-    ]
-
-    honorifics = [
-        'sama',
-        'chan',
-        'kun',
-        'san',
-    ]
-
-    recently_active = subprocess.check_output(['recentlyActive'])
-    recently_active = recently_active.decode('utf-8').strip()
-    recently_active = recently_active.split('\n')
+    recently_active = subprocess.check_output(
+        ['recentlyActive']).decode('utf-8').rstrip().split('\n')
 
     def jpopify_word(word):
         if word in recently_active:
             return word + '-' + random.choice(honorifics)
         else:
-            a = '~' if random.randint(0, 1) == 0 else ''
-            b = '~' if random.randint(0, 1) == 0 else ''
-            return a + word + b
+            return word
 
     s = re.sub(r'\w+', lambda m: jpopify_word(m.group(0)), s)
 
     start = (random.choice(initial_exclamations) + ' ' +
-             random.choice(extra_words) + '!  ')
+             random.choice(extra_words) + '!  ') \
+             if not s.startswith('/me') else ''
 
     if random.randint(0, 1) == 0:
         s = s.rstrip('?!.,')
@@ -76,12 +74,10 @@ def jpopify(s):
     s = start + s + end + '\n'
     return s
 
-
 def interact(fun):
     inp = sys.stdin.read().rstrip()
     out = fun(inp)
     sys.stdout.write(out)
-
 
 def main():
     interact(jpopify)
