@@ -114,8 +114,6 @@ word3 := /[Hh]/ ~/eap/ "ob"
        | ~/dollar/ "daler" (~/s/ "e")?
        | ~/[Ii]stanbul|[Kk]onstantinopel/ "Miklagård"
        | ~/output/ "uddata"
-       | (~/o/ "u" | ~/O/ "U") ~/utlook/ "dkig"
-       | /[aA]/ ~/ccess/ "dgang"
        | ~/date/ "stævnemøde" (~/s/ "r")?
        | ~/etc/ "osv"
        | ~/performance/ (~/[- ](critical|kritisk)/ "kritisk omkring " ) "optræden"
