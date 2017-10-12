@@ -90,7 +90,6 @@ word2 := ~/namespace/ "navnerum"
        | ~/Pawel/ "Poul"
        | ~/Winter/ "Vinter"
        | ~/donut/ "munkering"
-       | /[Ff]u/ ~/th/ "þ" /ark/
        | ~/admin(istrator)?/ "bestyrer"
        | ~/n/ es@((~/i/"e")*) ~/ce/ "d" !es "jligt"
        | ~/request/ "anmodning"
