@@ -77,7 +77,7 @@ class eggsml:
     def get_fates(self):
         return self.fates
 
-    def get_fakefate(self):
+    def get_fakefate(self, withhtml=True):
         fakefates = [
             "Blev bidt af en bi",
             "Så en hund",
@@ -123,13 +123,16 @@ class eggsml:
             "Bruger hele dagen i Hacker News' kommentarsektion",
             "Kommenterer på Poul-Henning Kamps blogindlæg"
         ]
-        return "<i>Formodet</i>: %s" % random.choice(fakefates)
+        if withhtml:
+            return "<i>Formodet</i>: %s" % random.choice(fakefates)
+        else:
+            return "Formodet: %s" % random.choice(fakefates)
 
-    def get_fate(self, alias):
+    def get_fate(self, alias, withhtml=True):
         try:
             fate = self.fates[alias]
         except KeyError:
-            return self.get_fakefate()
+            return self.get_fakefate(withhtml)
         return fate
 
     def get_masters(self):
