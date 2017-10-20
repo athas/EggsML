@@ -16,7 +16,8 @@ eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|'\
 '(?<version2>((?:hulen|satan) )?sker der (lige (nu )?)?(på|for) (det dersens )?([Vv]ersion2|v2)(\.dk)?)|'\
 '(?<happening>(sker der( lige)?|mener du))|'\
 '(?<kingname>hedder kongen)|'\
-'(står (?<forkortelse>[^ ]+) for)')"
+'(står (?<forkortelse>[^ ]+) for)|'\
+'(blev der af (?<fate>[^ ]+))')"
 
 if [ "$whatis" ]; then
   eval "$(echo "$subject" | parse '(?<betalingsbalancen>betalingsbalancen)|(?<klokken>klokken)|(?<yourproblem>dit problem(?: med (?<problem>.+))?$)')"
@@ -184,6 +185,8 @@ Den er nem, $EGGS_USER, for $forkortelse er bare kort for $ordene.
 EOF
 elif [ "$kodeprojekt" ]; then
     latestGitNews "$kodeprojekt"
+elif [ "$fate" ]; then
+    eggstool fate "$fate"
 elif [ "$version2" ]; then
     version2Debat | {
         read author
