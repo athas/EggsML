@@ -16,6 +16,6 @@ else
   then
     echo "Top $N hægtere for den dybe ende af Internettet er endnu ikke afgjort."
   else
-    echo "Top $(wc -l <<< $TOP_N) hægtere =~ m/$regex/:"
+    echo "Top $(echo $TOP_N | wc -l) hægtere =~ m/$regex/:"
   fi
 fi
