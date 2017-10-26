@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# Hvem er hægtekongen? Tilføjes parametre til kommandoen, filtreres for hægter som genkendes af det angivne regex.
+
+if [ $# -eq 0 ]
+then
+  echo "Top 5 hægtere:"
+  cat db/links|cut -d' ' -f3|sort -r|grep -v hej_fra_github|uniq -c|sort|head -n 5
+else
+  regex="$@"
+  echo "Top 5 hægtere =~ m/$regex/:"
+  egrep "$regex" db/links|cut -d' ' -f3|sort -r|grep -v hej_fra_github|uniq -c|sort|head -n 5
+fi
