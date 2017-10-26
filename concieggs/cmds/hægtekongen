@@ -2,12 +2,20 @@
 #
 # Hvem er hægtekongen? Tilføjes parametre til kommandoen, filtreres for hægter som genkendes af det angivne regex.
 
+N=5
+
 if [ $# -eq 0 ]
 then
-  echo "Top 5 hægtere:"
-  cat db/links|cut -d' ' -f3|sort|grep -v hej_fra_github|uniq -c|sort -r|head -n 5
+  TOP_N=$(cat db/links|cut -d' ' -f3|sort|grep -v hej_fra_github|uniq -c|sort -r|head -n $N)
+  echo "Top $N hægtere:"
 else
   regex="$@"
-  echo "Top 5 hægtere =~ m/$regex/:"
-  egrep "$regex" db/links|cut -d' ' -f3|sort|grep -v hej_fra_github|uniq -c|sort -r|head -n 5
+  TOP_N=$(egrep "$regex" db/links|cut -d' ' -f3|sort|grep -v hej_fra_github|uniq -c|sort -r|head -n $N)
+
+  if [ -z $TOP_N ]
+  then
+    echo "Top $N hægtere for den dybe ende af Internettet er endnu ikke afgjort."
+  else
+    echo "Top $(wc -l <<< $TOP_N) hægtere =~ m/$regex/:"
+  fi
 fi
