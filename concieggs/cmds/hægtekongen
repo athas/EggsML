@@ -18,4 +18,5 @@ else
   else
     echo "Top $(echo $TOP_N | wc -l) hægtere =~ m/$regex/:"
   fi
+  echo $TOP_N
 fi
