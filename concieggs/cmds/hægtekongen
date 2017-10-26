@@ -5,9 +5,9 @@
 if [ $# -eq 0 ]
 then
   echo "Top 5 hægtere:"
-  cat db/links|cut -d' ' -f3|sort|grep -v hej_fra_github|uniq -c|sort|tail -n 5
+  cat db/links|cut -d' ' -f3|sort|grep -v hej_fra_github|uniq -c|sort -r|tail -n 5
 else
   regex="$@"
   echo "Top 5 hægtere =~ m/$regex/:"
-  egrep "$regex" db/links|cut -d' ' -f3|sort|grep -v hej_fra_github|uniq -c|sort|tail -n 5
+  egrep "$regex" db/links|cut -d' ' -f3|sort|grep -v hej_fra_github|uniq -c|sort -r|tail -n 5
 fi
