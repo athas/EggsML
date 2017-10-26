@@ -8,6 +8,7 @@ if [ $# -eq 0 ]
 then
   TOP_N=$(cat db/links|cut -d' ' -f3|sort|grep -v hej_fra_github|uniq -c|sort -r|head -n $N)
   echo "Top $N hægtere:"
+  echo -e "$TOP_N"
 else
   TOP_N=$(grep -F "$@" db/links|cut -d' ' -f3|sort|grep -v hej_fra_github|uniq -c|sort -r|head -n $N)
 
@@ -16,6 +17,14 @@ else
     echo "Top $N hægtere for den dybe ende af Internettet er endnu ikke afgjort."
   else
     echo "Top $N hægtere for $@:"
+    echo -e "$TOP_N"
+
+    # Det fortjener en pris.
+    if [ $(echo "$TOP_5" | wc -l) -gt 2 ] && checkCooldown hægtekongen $((3600 * 24))
+    then
+      NEW_KING="$(echo "$TOP_5"|head -n 1|awk '{print $2}')"
+      echo "Hil den nye hægtekonge, $NEW_KING!"
+      makeKing "$NEW_KING"
+    fi
   fi
-  echo -e "$TOP_N"
 fi
