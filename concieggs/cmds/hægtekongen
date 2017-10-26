@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Hvem er hægtekongen? Tilføjes parametre til kommandoen, filtreres for hægter som genkendes af det angivne regex.
+# Hvem er hægtekongen? Brug: hægtekongen [del af hægte].
 
 N=5
 
@@ -9,8 +9,7 @@ then
   TOP_N=$(cat db/links|cut -d' ' -f3|sort|grep -v hej_fra_github|uniq -c|sort -r|head -n $N)
   echo "Top $N hægtere:"
 else
-  regex="$@"
-  TOP_N=$(egrep "$regex" db/links|cut -d' ' -f3|sort|grep -v hej_fra_github|uniq -c|sort -r|head -n $N)
+  TOP_N=$(grep -F "$@" db/links|cut -d' ' -f3|sort|grep -v hej_fra_github|uniq -c|sort -r|head -n $N)
 
   if [ -z $TOP_N ]
   then
