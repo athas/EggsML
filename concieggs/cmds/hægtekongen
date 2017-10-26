@@ -11,7 +11,7 @@ then
 else
   TOP_N=$(grep -F "$@" db/links|cut -d' ' -f3|sort|grep -v hej_fra_github|uniq -c|sort -r|head -n $N)
 
-  if [ -z $TOP_N ]
+  if [ -z "$TOP_N" ]
   then
     echo "Top $N hægtere for den dybe ende af Internettet er endnu ikke afgjort."
   else
