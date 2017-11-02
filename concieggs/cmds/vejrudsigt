@@ -53,7 +53,7 @@ def weather_to_symbol(s):
         return '☔'
     elif 'cloud' in s:
         return '☁'
-    elif 'sun' in s or 'clear' in s:
+    elif 'sun' in s or 'clear' in s or 'fair' in s:
         return '☀'
     else:
         return '☘'
