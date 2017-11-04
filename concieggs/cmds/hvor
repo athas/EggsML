@@ -10,7 +10,7 @@ tusindedele
 hundrededele
 EOF`
 
-eval "$(echo "$@" | parse '^ *((?<jul>julet er det(?: i procent)?)|(?<gammel>(gammelt?|ungt?|lang tid|længe))|(?<lang>(langt?|kort|højt?|lavt?))|(?<charmerende>charmerende)|(?<tung>(tungt?|let))|(?<klog>(dumt?|klogt?|stupid))|(?<stor>(stort?|lille|meget))|(?<irriterende>(irriterende|udmattende|enerverende|trættende))|(?<grim>(grimt?|ulækkert?|monstrøst?|klamt?))).*')"
+eval "$(echo "$@" | parse '^ *((?<jul>julet er det(?: i procent)?)|(?<gammel>(gammelt?|ungt?|lang tid|længe))|(?<lang>(langt?|kort|højt?|lavt?))|(?<charmerende>charmerende)|(?<tung>(tungt?|let))|(?<klog>(dumt?|klogt?|stupid))|(?<mange>(mange))|(?<stor>(stort?|lille|meget))|(?<irriterende>(irriterende|udmattende|enerverende|trættende))|(?<grim>(grimt?|ulækkert?|monstrøst?|klamt?))).*')"
 
 if [ "$jul" ]; then
     charm="$(checkCharmen)"
@@ -54,6 +54,13 @@ elif [ "$klog" ]; then
 gange så klog som Brainfuck
 gange så dum som John Strand
 gange så klogdum som Troels
+EOF
+)
+elif [ "$mange" ]; then
+       unit=$(randomLine <<EOF
+enheder
+ting
+dimsedutter
 EOF
 )
 elif [ "$stor" ]; then
