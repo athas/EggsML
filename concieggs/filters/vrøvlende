@@ -23,12 +23,17 @@ def member_of(w, f):
 def random_word(f):
     with open(f) as s:
         with open(os.devnull) as d:
-            return subprocess.check_output(['randomLine'], stdin=s, stderr=d).rstrip()
+            return subprocess.check_output(['randomLine'], stdin=s, stderr=d).rstrip().decode('utf-8')
 
 def babble(w):
     for f in files:
         if member_of(w, f):
-            return random_word(f).decode('utf-8')
+            w1 = random_word(f)
+            if w.isupper():
+                w1 = w1.upper()
+            elif w[0].isupper():
+                w1 = w1[0].upper() + w1[1:]
+            return w1
     return w
 
 
