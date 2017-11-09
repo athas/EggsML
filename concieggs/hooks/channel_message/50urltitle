@@ -15,6 +15,7 @@ if (@links) {
 EOU
 
     my $mech = WWW::Mechanize->new( agent => 'ircbot:concieggs:1.0 (by reddit.com/u/Sebbe)', timeout => 5 );
+    $mech->add_header('Accept-Language', 'da, en;q=0.8');
     local $| = 1;
 
     for my $link (@links) {
