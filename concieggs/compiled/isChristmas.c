@@ -19,15 +19,18 @@
 
 double christmasLevel(time_t raw_today)
 {
-    struct tm *today, begin, end, eve_begin, eve_end;
-    time_t raw_begin, raw_end, raw_eve_begin, raw_eve_end;
+    struct tm *today, begin, advent_begin, end, eve_begin, eve_end;
+    time_t raw_begin, raw_advent_begin, raw_end, raw_eve_begin, raw_eve_end;
     double days, max_days, level;
 
     today = localtime(&raw_today);
     begin = (struct tm) { 0, 0, 0, 24, NOVEMBER, today->tm_year, 0, 0, 0 };
+    // First Advent Sunday can at its earliest be on 27 November.
+    advent_begin = (struct tm) { 0, 0, 0, 27, NOVEMBER, today->tm_year, 0, 0, 0 };
     end = (struct tm) { 0, 0, 0, 26, DECEMBER, today->tm_year, 0, 0, 0 };
 
     raw_begin = mktime(&begin);
+    raw_advent_begin = mktime(&advent_begin);
     raw_end = mktime(&end);
 
     if (!WITHIN_TIME_INTERVAL(raw_begin, raw_today, raw_end)) {
@@ -53,7 +56,8 @@ double christmasLevel(time_t raw_today)
     level = pow(1.1, days) / pow(1.1, max_days);
 
     // Boost christmas level on Advent Sundays!
-    if (today->tm_wday == 0) {
+    if (today->tm_wday == 0 
+        && WITHIN_TIME_INTERVAL(raw_advent_begin, raw_today, raw_end)) {
         struct tm in_four_weeks, end_of_advent;
         time_t raw_in_four_weeks, raw_end_of_advent;
 
