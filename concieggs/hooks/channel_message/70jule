@@ -5,5 +5,5 @@
 (shuttingUp || ! isChristmas) && exit
 
 if [ "$(random 0 30)" = 0 ]; then
-    runcmd jul
+    julereplik
 fi
