@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+#
+# Brug: juletræ N
 
 import sys
 
