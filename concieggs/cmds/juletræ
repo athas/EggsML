@@ -41,6 +41,9 @@ try:
     if højde < 1:
         print('Juletræets højde skal være mindst 1.')
         sys.exit()
+    elif højde > 20:
+        print('Det var godt nok en træg højde.')
+        sys.exit()
 except IndexError:
     højde = 5
 except Exception:
