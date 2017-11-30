@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+# Hvor langt er der fra et ord til et andet?
+
+word=$1
+shift
+words="$@"
+
+dist=$(echo "$words" | levenshtein "$word" | head -n 1 | cut -d' ' -f 1)
+
+echo "Levenshtein-afstanden fra '$word' til '$words' er $dist."
