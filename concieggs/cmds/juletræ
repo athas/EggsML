@@ -1,0 +1,47 @@
+#!/usr/bin/env python3
+
+import sys
+
+
+top = r'''
+  \ /
+-->*<--
+  /_\
+'''[1:-1]
+
+bottom = r'''
+[___]
+'''[1:-1]
+
+row = r'''
+ /_\_\
+/_/_/_\
+'''[1:-1]
+
+def make_row(length, length_max):
+    row_local = row
+    for i in range(length):
+        row_local = row_local.replace(' /_\\', ' /_\\_\\')
+        row_local = row_local.replace('_/_\\', '_/_/_\\')
+    row_local = '\n'.join(' ' * (length_max - length - 2) + l
+                          for l in row_local.split('\n'))
+    return row_local
+
+def print_tree(height):
+    height = height * 2
+    print('\n'.join(' ' * (height - 2) + l for l in top.split('\n')))
+    for i in range(0, height, 2):
+        print(make_row(i, height))
+    print('\n'.join(' ' * (height - 1) + l for l in bottom.split('\n')))
+
+try:
+    højde = int(sys.argv[1])
+    if højde < 1:
+        print('Juletræets højde skal være mindst 1.')
+except IndexError:
+    højde = 5
+except Exception:
+    print('Du gør det forkert.')
+    sys.exit()
+
+print_tree(højde)
