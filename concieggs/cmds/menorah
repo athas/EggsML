@@ -1,0 +1,79 @@
+#!/usr/bin/env python3
+#
+# http://www.angelfire.com/home/avital/ascii/hanukkah.html
+#
+#         (
+# (       |
+# | | | | | | | | |
+# |_|_|_|_|_|_|_|_| 
+#        _|_
+# Small Menorah (Hanukkiyah)
+
+import sys
+
+def create_lys(n, first_half):
+    lys = list()
+    if first_half:
+        top = "( "
+        midt = "| "
+        bund = "|_"
+    else:
+        top = " ("
+        midt = " |"
+        bund = "_|"
+
+    lys.append(top*n)
+    lys.append(midt*n)
+    lys.append(bund*n)
+    return lys
+
+def make_middle_lys():
+    lys = list()
+    lys.append("(")
+    lys.append("|")
+    lys.append("|")
+    lys.append("|")
+    return lys
+
+def make_fod(n):
+    fod = ((n+n-1)*" ") + "_|_"
+    return fod
+
+def menorah(n):
+    det_hele = list()
+    det_hele.append(((n+n)*" ") + "(")
+    for lys in create_lys(n, True):
+        det_hele.append(lys)
+
+    det_hele[1] += "|"
+    det_hele[2] += "|"
+    det_hele[3] += "|"
+
+    det_hele[1] += create_lys(n, False)[0]
+    det_hele[2] += create_lys(n, False)[1]
+    det_hele[3] += create_lys(n, False)[2]
+    det_hele.append(make_fod(n))
+
+    blop = list()
+    for lys in det_hele:
+        blop.append("" + lys)
+
+    for ting in blop:
+        print(ting)
+        pass
+
+try:
+    width = int(sys.argv[1])
+    if width < 1:
+        print("hmmm for lille.")
+        sys.exit()
+    elif width > 30:
+        print("hmm for stor.")
+        sys.exit()
+except IndexError:
+    width = 4
+except Exception:
+    print("hmmmmmm.")
+    sys.exit()
+
+menorah(width)
