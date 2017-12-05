@@ -1,13 +1,8 @@
 #!/usr/bin/env python3
 #
-# http://www.angelfire.com/home/avital/ascii/hanukkah.html
-#
-#         (
-# (       |
-# | | | | | | | | |
-# |_|_|_|_|_|_|_|_| 
-#        _|_
-# Small Menorah (Hanukkiyah)
+# ascii kunst fra http://www.angelfire.com/home/avital/ascii/hanukkah.html
+# 
+# Brug: menorah N
 
 import sys
 
@@ -25,14 +20,6 @@ def create_lys(n, first_half):
     lys.append(top*n)
     lys.append(midt*n)
     lys.append(bund*n)
-    return lys
-
-def make_middle_lys():
-    lys = list()
-    lys.append("(")
-    lys.append("|")
-    lys.append("|")
-    lys.append("|")
     return lys
 
 def make_fod(n):
