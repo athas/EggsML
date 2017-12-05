@@ -1,0 +1,23 @@
+#!/bin/sh
+#
+# Har du glemt hvor hurtigt en takt er?
+# Sæt lyd på din IRC og angiv antal taktslag i minuttet,
+# så klarer concieggs resten
+
+BPM=$1
+MS_BETWEEN_BEATS=$(echo "60.0/${BPM}" | bc)
+
+for beat in $(seq 0 7); do
+    MODULO=$(($beat%4))
+    if [ "$MODULO" -eq "0" ];
+    then say "${EGGS_USER}: klak";
+    else say "${EGGS_USER}: klik";
+    fi
+    sleep $MS_BETWEEN_BEATS
+done
+
+
+
+
+
+
