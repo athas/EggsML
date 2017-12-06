@@ -14,14 +14,18 @@ trailer = [ '          '
 
 def jyde(trailere):
     result = bil
-    for i in range(trailere):
+    for i in range(int(trailere)):
         result = map(lambda x: x[0] + x[1], zip(result, trailer))
+
+    fractional = int( (trailere % 1) * len(trailer[0]) )
+    if fractional:
+        result = map(lambda x: x[0] + x[1][:fractional-1], zip(result, trailer))
 
     for s in result:
         print s
 
 try:
-    trailere = int(sys.argv[1])
+    trailere = float(sys.argv[1])
     if trailere < 0:
         print("For lidt jyde")
         sys.exit()
