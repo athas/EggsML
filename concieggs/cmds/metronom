@@ -11,11 +11,20 @@ then say "${EGGS_USER}: Har du mudder i nallerne? Så langsomt spiller jeg ikke!
 exit 0
 fi
 
+if isChristmas
+then
+    klik=jingle
+    klak=bells
+else
+    klik=klik
+    klak=klak
+fi
+
 for beat in $(seq 0 7); do
     MODULO=$(($beat%4))
     if [ "$MODULO" -eq "0" ];
-    then say "${EGGS_USER}: klak";
-    else say "${EGGS_USER}: klik";
+    then say "${EGGS_USER}: $klak";
+    else say "${EGGS_USER}: $klik";
     fi
     sleep $MS_BETWEEN_BEATS
 done
