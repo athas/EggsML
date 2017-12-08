@@ -57,7 +57,7 @@ def weather_to_symbol(s):
         return '☀'
     elif 'sleet' in s:
         return '🌧+🌨' # Hvorfor er der ikke et tegn for slud!?
-    elif 'fog': in s:
+    elif 'fog' in s:
         return '🌫'
     else:
         return '☘'
