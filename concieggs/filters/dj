@@ -15,5 +15,6 @@ while (<>) {
 
 if (!int rand 10) {
   my $alfa = `whatsPlaying alfa`;
+  chomp $alfa;
   say "/me sætter pladen med $alfa på!"
 }
