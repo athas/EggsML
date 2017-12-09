@@ -1,0 +1,19 @@
+#!/usr/bin/env perl
+use 5.020;
+use utf8::all;
+
+sub scratch {
+  my $s = 's-' x rand 10;
+  my $a = 'a' x rand 10;
+  return "*${s}scr${a}tch!*";
+}
+
+while (<>) {
+  chomp;
+  say $_ . '  ' . scratch;
+}
+
+if (!int rand 10) {
+  my $alfa = `whatsPlaying alfa`;
+  say "/me sætter pladen med $alfa på!"
+}
