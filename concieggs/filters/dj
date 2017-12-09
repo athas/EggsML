@@ -5,7 +5,7 @@ use utf8::all;
 sub scratch {
   my $s = 's-' x rand 10;
   my $a = 'a' x rand 10;
-  return "*${s}scr${a}tch!*";
+  return "*${s}scr${a}atch!*";
 }
 
 while (<>) {
