@@ -7,13 +7,13 @@ use EggsML::EggsPI text => [qw(annoyedBy)];
 
 unless (@ARGV <= 1) {
     say "Ingen jader til dig.";
-    exit(1);
+    exit(0);
 }
 
 my $n = shift @ARGV // 2;
 unless ($n =~ m/^-?\d+$/) {
     say "Du må selv forestille dig hvordan de jader ser ud.";
-    exit(1);
+    exit(0);
 }
 
 if ($n < 1) {
