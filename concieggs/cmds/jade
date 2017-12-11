@@ -18,7 +18,6 @@ unless ($n =~ m/^-?\d+$/) {
 
 if ($n < 1) {
     say "Siger du, at jeg er flad som et vaskebræt? Hrmf.";
-    my $annoyance = log( int( 1 + (-$n) / 10 ) );
     annoyedBy($EGGS_USER, 1 + log(1-$n), "fornærmede mine jader");
     exit(0);
 }
