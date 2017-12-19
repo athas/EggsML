@@ -51,7 +51,8 @@ const
     // 5
     (Line: 'Det var sjovt.'; Stars: 5; Author: 'Spectrum'),
     (Line: 'Hvis pik er Gud er det her Jesus.'; Stars: 5; Author: 'Carl-Mar Møller'),
-    (Line: 'You had me at ''Wes Andersson'''; Stars: 5; Author: 'The New York Times')
+    (Line: 'You had me at ''Wes Andersson'''; Stars: 5; Author: 'The New York Times'),
+    (Line: 'Slipset var ret sjovt.'; Stars: 2; Author: 'Politiken')
   );
 var
   prei, ri: Integer;
