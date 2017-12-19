@@ -40,6 +40,7 @@ const
     (Line: 'Jeg mener, at det er moderat sjovt.'; Stars: 2; Author: 'Sword_Smith'),
     (Line: 'Better than my first ex-wife.'; Stars: 2; Author: 'King Henry VIII'),
     (Line: '2 skinker for 1 skinkes pris!'; Stars: 2; Author: 'Ekstrabladet'),
+    (Line: 'Slipset var ret sjovt.'; Stars: 2; Author: 'Politiken'),
     // 3
     (Line: 'Alle er Hitler.'; Stars: 3; Author: 'Stalin'),
     (Line: 'Lige lidt mere forberedelsestid'; Stars: 3; Author: 'Bjarne Goldbæk'),
@@ -51,8 +52,7 @@ const
     // 5
     (Line: 'Det var sjovt.'; Stars: 5; Author: 'Spectrum'),
     (Line: 'Hvis pik er Gud er det her Jesus.'; Stars: 5; Author: 'Carl-Mar Møller'),
-    (Line: 'You had me at ''Wes Andersson'''; Stars: 5; Author: 'The New York Times'),
-    (Line: 'Slipset var ret sjovt.'; Stars: 2; Author: 'Politiken')
+    (Line: 'You had me at ''Wes Andersson'''; Stars: 5; Author: 'The New York Times')
   );
 var
   prei, ri: Integer;
