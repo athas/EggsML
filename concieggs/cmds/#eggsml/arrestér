@@ -34,11 +34,29 @@ if isKing "$EGGS_USER"; then
     elif wantToOverthrowTheKing "$user"; then
         echo "$EGGS_USER: Argh, Deres Majestæt, $user er en del af oprøret, som beskytter forbryderen!  Jeg kunne ikke få has på svinet!"
     else
-        randomLine <<EOF
+        num_under_arrest="$(dbRead underArrest | wc -l)"
+        if [ $(perl -E 'say int(rand()*100)') -lt $(( 5 + $num_under_arrest*10 )) ]; then
+            echo "$EGGS_USER: Idet De forsøger at putte $user i brummen, samler fængselsbestanden sig og overvælder Dem!"
+            if [ "$(dbRead underArrest)" ]; then
+                newking="$(dbRead underArrest | randomLine)"
+                makeKing "$newking"
+                suffix=" $newking træder ind og overtager magten."
+                dbRead underArrest | while read who; do
+                    freeArrestedUser "$who"
+                done
+            else
+                revolution
+                suffix=""
+            fi
+            arrestUser "$EGGS_USER"
+            echo "Fængslerne er nu tomme på nær for Dem, $EGGS_USER!$suffix ¡Viva la revolución!"
+        else
+            randomLine <<EOF
 $EGGS_USER: Deres ønske er vores lov.  Vi arresterer straks $user!
 $EGGS_USER: Vi smider $user i kachotten med det samme, Deres Majestæt.
 EOF
-        arrestUser "$user"
+            arrestUser "$user"
+        fi
     fi
 elif [ "$(dbRead eggsking)" ]; then
     echo "$EGGS_USER: MAJESTÆTSFORNÆRMELSE!  Kongens vagter har nu smidt DIG i kachotten."
