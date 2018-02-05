@@ -3,7 +3,7 @@
 # What is playing on Radio Alfa?  Less featureful than 'whatsPlaying', but also
 # shorter.
 
-URL='http://netradio.radioalfa.dk/'
+URL='http://netradio.radioalfa.dk/alfa'
 curl -s -H 'Icy-MetaData: 1' "$URL" \
     | dd bs=1 count=200 skip=16001 2> /dev/null \
     | grep -aho "StreamTitle='.*';" \
