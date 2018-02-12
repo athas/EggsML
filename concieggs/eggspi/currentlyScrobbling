@@ -1,0 +1,34 @@
+#!/usr/bin/env perl
+use 5.024;
+use utf8;
+use warnings;
+
+use EggsML::EggsPI text => [qw(dbUserRead)];
+
+use Encode;
+use Mojo::UserAgent;
+use Mojo::Util qw(trim);
+
+=pod
+
+What's currently being scrobbled by a username on last.fm
+
+=cut
+
+exit(1) unless @ARGV == 1;
+
+my ($username) = @ARGV;
+exit(0) unless $username;
+
+my $ua = Mojo::UserAgent->new;
+$ua->max_redirects(5);
+
+my $dom = $ua->get("https://last.fm/user/$username")->result->dom;
+
+my $latest_scrobble = $dom->at('#recent-tracks-section .chartlist tbody tr');
+exit(0) unless $latest_scrobble && $latest_scrobble->at('.chartlist-now-scrobbling');
+
+my $title = trim($latest_scrobble->at('.chartlist-name')->all_text);
+$title =~ s/\s+/ /g;
+
+print Encode::encode('utf-8', $title);
