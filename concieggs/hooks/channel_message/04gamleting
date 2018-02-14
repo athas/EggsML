@@ -5,6 +5,7 @@ nostalgisk() {
     randomLine <<EOF
 Åhrja, jeg kan godt huske tiderne med $ting!
 $ting, sikke nostalgisk :)
+Ah ja, $ting, det var kram!
 EOF
 }
 
@@ -12,7 +13,7 @@ nejnejnej() {
     ting="$1"
     randomLine <<EOF
 Helt ærligt, ingen bruger altså $ting længere.
-Come on, $ting?  Totalt outdated.
+Seriøst?  $ting?  Totalt outdated.
 $ting er bare noget gammel ragelse, siger jeg dig.
 EOF
 }
