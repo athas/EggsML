@@ -5,7 +5,7 @@
 if isKing "$EGGS_USER"; then
   echo "Hvis Deres Majestæt er sikker..."
   revolution
-  echo "Så skrid fra mit årsyn, dit almindelig svin."
+  echo "Så skrid fra mit årsyn, dit almindelige svin."
 else
   echo "Jeg tror allerede du ikke er konge."
 fi
