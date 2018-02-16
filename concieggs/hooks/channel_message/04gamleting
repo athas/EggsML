@@ -12,11 +12,12 @@ EOF
 
 nejnejnej() {
     ting="$1"
+    TING=$(tr '[:lower:]' '[:upper:]' <<<$ting)
     randomLine <<EOF
 Helt ærligt, ingen bruger altså $ting længere.
 Seriøst?  $ting?  Totalt outdated.
-$ting er bare noget gammel ragelse, siger jeg dig.
-FOR SYV SYTTEN, DU BRUGER DA VEL IKKE STADIG $ting?!
+$ting er bare noget gammelt ragelse, siger jeg dig.
+FOR SYV SYTTEN, DU BRUGER DA VEL IKKE STADIG $TING?!
 EOF
 }
 
