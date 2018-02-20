@@ -1,0 +1,39 @@
+#!/usr/bin/env rash
+#
+# Gæt emnet for en beskrivelse!
+
+EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
+
+linje=>headlines | randomLine
+jz harlinje
+>echo "${EGGS_USER}: Jeg har ikke lyst lige nu."
+exit
+
+:harlinje
+ord=>python -c 'print(max("${linje}".split()))'
+quiz=>python -c 'print("${linje}".replace("${ord}", "<blank>"))'
+
+>echo "${EGGS_USER}: Okay, hvad mangler der her: ${quiz}."
+
+:læsgæt
+
+read gæt
+EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
+
+<${gæt}>grep -qiE '.+'
+jz indhold
+>echo "${EGGS_USER}: Hov, du glemte at gætte på noget!  Du skal sige hvilket ord der mangler her: ${quiz}."
+j læsgæt
+
+
+:indhold
+<"${gæt}">grep -qiE "${ord}"
+jz korrektgæt
+
+>echo "${EGGS_USER}: Forkert!  Hvad er: ${ord}!"
+>wrongScoreInc ${EGGS_USER} "overskriften"
+exit
+
+:korrektgæt
+>echo "${EGGS_USER}: Helt rigtigt!  Flot klaret!"
+>correctScoreInc ${EGGS_USER} "jeopardy"
