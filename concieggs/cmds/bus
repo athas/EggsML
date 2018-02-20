@@ -45,7 +45,14 @@ Indtil de får fri
 Henne på Caféen?
 Ude hos PET
 EOF
-)
+                    )
+
+if [ $# = 5 ]; then
+    the_wheels=$1
+    the_bus=$3
+    go=$4
+    round=$5
+fi
 
 perl -nE 'print ucfirst' <<EOF
 $the_wheels på $the_bus $go $round, $round, $round
