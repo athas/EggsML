@@ -14,7 +14,7 @@ ord=>python -c 'print(max("${linje}".split()).replace(":",""))'
 quiz=>python -c 'print("${linje}".replace("${ord}", "<blank>"))'
 
 >echo '${EGGS_USER}: Okay, hvad mangler der her: "${quiz}".'
-ngaet=>echo "0"
+ngaet=>python -c "print(0)"
 
 :læsgæt
 
@@ -31,8 +31,9 @@ j læsgæt
 <"${gæt}">grep -qiE "${ord}"
 jz korrektgæt
 
+>echo "${EGGS_USER}: Ikke helt."
 >wrongScoreInc ${EGGS_USER} "overskriften"
-ngaet=>python -c "print(${gaet}+1)"
+ngaet=>python -c "print(${ngaet}+1)"
 <"${ngaet}">grep -qiEv "5"
 jz læsgæt
 
