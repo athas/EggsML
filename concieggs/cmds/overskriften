@@ -52,5 +52,5 @@ exit
 exit
 
 :timepassed
->echo ${EGGS_USER}: Tiden er gået!
+>echo "${EGGS_USER}: Tik tok! Timerne er lange, men tiden er kort."
 j endwithshame
