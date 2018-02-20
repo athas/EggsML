@@ -49,12 +49,13 @@ Ude hos PET
 EOF
                     )
 
-if [ $# = 5 ]; then
+if [ $# -ge 5 ]; then
     the_wheels=$1
     on=$2
     the_bus=$3
     go=$4
-    round=$5
+    shift; shift; shift; shift
+    round=$@
 fi
 
 perl -nE 'print ucfirst' <<EOF
