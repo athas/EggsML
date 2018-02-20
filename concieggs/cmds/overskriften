@@ -35,7 +35,7 @@ j læsgæt
 :indhold
 <"${gæt}">grep -qiE "${ord}"
 jz korrektgæt
-<"${TIME_PASSED}">grep TRUE
+<"${TIME_PASSED}">grep -qiE "TRUE"
 jz timepassed
 
 >echo "${EGGS_USER}: Ikke helt."
