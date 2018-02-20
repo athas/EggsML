@@ -3,6 +3,8 @@
 # Gæt emnet for en beskrivelse!
 
 EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
+TIME_START=>python -v "import time; print(time.time())"
+DEADLINE=30 # The deadline is 30 seconds for guessing a correct answer. Feel free to change this.
 
 linje=>headlines | randomLine
 jz harlinje
@@ -20,6 +22,7 @@ ngaet=>python -c "print(0)"
 
 read gæt
 EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
+TIME_PASSED=>python -c "import time; print(time.time() - int('TIME_START') > int('DEADLINE'))"
 
 <${gæt}>grep -qiE '.+'
 jz indhold
@@ -30,6 +33,8 @@ j læsgæt
 :indhold
 <"${gæt}">grep -qiE "${ord}"
 jz korrektgæt
+<"${TIME_PASSED}">grep TRUE
+jz timepassed
 
 >echo "${EGGS_USER}: Ikke helt."
 >wrongScoreInc ${EGGS_USER} "overskriften"
@@ -37,9 +42,15 @@ ngaet=>python -c "print(${ngaet}+1)"
 <"${ngaet}">grep -qiEv "5"
 jz læsgæt
 
+endwithshame:
 >echo 'I burde altså åbne en avis fra tid til anden! Den rigtige overskrift er "${linje}"!'
 exit
 
 :korrektgæt
 >echo "${EGGS_USER}: Helt rigtigt!  Super duper!"
 >correctScoreInc ${EGGS_USER} "overskriften"
+exit
+
+:timepassed
+>echo ${EGGS_USER}: Tiden er gået!
+j endwithshame
