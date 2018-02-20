@@ -8,7 +8,8 @@ doc () {
     if [ "$s" ]; then
         echo "$s"
     else
-        echo "Kig her: $1"
+        w=$(echo $1 | sed 's|.*/cmds/||')
+        echo "Kig her: https://github.com/Athas/EggsML/blob/master/concieggs/cmds/$w"
     fi
 }
 
