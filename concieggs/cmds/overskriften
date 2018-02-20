@@ -4,7 +4,9 @@
 
 EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
 TIME_START=>python -c "import time; print(time.time())"
-DEADLINE=>echo 30 # The deadline is 30 seconds for guessing a correct answer. Feel free to change this.
+
+# The deadline is 30 seconds for guessing a correct answer. Feel free to change this.
+DEADLINE=>echo 30
 
 linje=>headlines | randomLine
 jz harlinje
@@ -22,7 +24,7 @@ ngaet=>python -c "print(0)"
 
 read gæt
 EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
-TIME_PASSED=>python -c "import time; print(time.time() - int('TIME_START') > int('DEADLINE'))"
+TIME_PASSED=>python -c 'import time; print(time.time() - int("${TIME_START}") > int("${DEADLINE}"))'
 
 <${gæt}>grep -qiE '.+'
 jz indhold
