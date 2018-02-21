@@ -24,7 +24,7 @@ ngaet=>python -c "print(0)"
 
 read gæt
 EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
-TIME_PASSED=>python -c 'import time; print(time.time() - int("${TIME_START}") > int("${DEADLINE}"))'
+TIME_PASSED=>python -c 'import time; print( time.time() - int("${TIME_START}") > int("${DEADLINE}") )'
 
 <${gæt}>grep -qiE '.+'
 jz indhold
@@ -44,7 +44,7 @@ ngaet=>python -c "print(${ngaet}+1)"
 <"${ngaet}">grep -qiEv "5"
 jz læsgæt
 
-endwithshame:
+:endwithshame
 >echo 'I burde altså åbne en avis fra tid til anden! Den rigtige overskrift er "${linje}"!'
 exit
 
@@ -56,3 +56,4 @@ exit
 :timepassed
 >echo "${EGGS_USER}: Tik tok! Timerne er lange, men tiden er kort."
 j endwithshame
+
