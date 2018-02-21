@@ -22,7 +22,7 @@ Der er intet der er så skidt, at det ikke er godt for noget.
 EOF
 )
 
-punkt="\([.!?] \)"
+punkt="\([.!?]\)"
 
 sed "s/$/ $sprogligheder/g" \
 | sed "s/${punkt}/, $jovialtiltale\1/"
