@@ -47,17 +47,28 @@ Ude hos PET
 EOF
                     )
 
+on=på
 if [ $# = 5 ]; then
     the_wheels=$1
+    on=$2
     the_bus=$3
     go=$4
     round=$5
 fi
 
+if [ $# = 8 ]; then
+    the_wheels=$1
+    on=$2
+    the_bus=$3
+    go=$4
+    round=$5
+    all_through_the_town="$6 $7 $8"
+fi
+
 perl -nE 'print ucfirst' <<EOF
-$the_wheels på $the_bus $go $round, $round, $round
+$the_wheels $on $the_bus $go $round, $round, $round
 $round, $round, $round
 $round, $round, $round
-$the_wheels på $the_bus $go $round, $round, $round
+$the_wheels $on $the_bus $go $round, $round, $round
 $all_through_the_town
 EOF
