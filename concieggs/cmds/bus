@@ -8,6 +8,8 @@ brugerene
 EOF
 )
 
+on=på
+
 the_bus=$(randomLine <<EOF
 bussen
 chippen

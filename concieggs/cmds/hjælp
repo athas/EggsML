@@ -3,6 +3,15 @@
 # Få dokumentation til en given kommando (såfremt den dovne slubbert
 # der har skrevet kommandoen har husket at dokumentere den).
 
+doc () {
+    s=$(cat $1 | docstring)
+    if [ "$s" ]; then
+        echo "$s"
+    else
+        w=$(echo $1 | sed 's|.*/cmds/||')
+        echo "Kig her: https://github.com/Athas/EggsML/blob/master/concieggs/cmds/$w"
+    fi
+}
 
 if [ $# -lt 1 ]; then
     if onEggsChannel; then
@@ -13,10 +22,10 @@ if [ $# -lt 1 ]; then
     echo "Vil du have hjælp til en specific kommando, brug da: hjælp <kommando>"
 elif [ -f "$CONCIEGGS_DIR/cmds/$1" ]; then
     echo "$1: "
-    cat $CONCIEGGS_DIR/cmds/$1 | docstring
+    doc $CONCIEGGS_DIR/cmds/$1
 elif [ -f "$CONCIEGGS_DIR/cmds/$(ircChannel)/$1" ]; then
     echo "$1: "
-    cat "$CONCIEGGS_DIR/cmds/$(ircChannel)/$1" | docstring
+    doc "$CONCIEGGS_DIR/cmds/$(ircChannel)/$1"
 else
     echo "Der er ingen kommando ved navn $1.  Prøv eventuelt at skrive 'hjælp' uden nogen argumenter."
 fi

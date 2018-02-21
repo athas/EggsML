@@ -1,0 +1,59 @@
+#!/usr/bin/env rash
+#
+# Gæt emnet for en beskrivelse!
+
+EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
+TIME_START=>python -c "import time; print(time.time())"
+
+# The deadline is 30 seconds for guessing a correct answer. Feel free to change this.
+DEADLINE=>echo 30
+
+linje=>headlines | randomLine
+jz harlinje
+>echo "${EGGS_USER}: Jeg har ikke lyst lige nu."
+exit
+
+:harlinje
+ord=>python -c 'print(max("${linje}".split(), key=len).replace(":",""))'
+quiz=>python -c 'print("${linje}".replace("${ord}", "<blank>"))'
+
+>echo '${EGGS_USER}: Okay, hvad mangler der her: "${quiz}".'
+ngaet=>python -c "print(0)"
+
+:læsgæt
+
+read gæt
+EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
+TIME_PASSED=>python -c 'import time; print( time.time() - int(${TIME_START}) > int(${DEADLINE}) )'
+
+<${gæt}>grep -qiE '.+'
+jz indhold
+>echo '${EGGS_USER}: Hov, du glemte at gætte på noget!  Du skal sige hvilket ord der mangler her: "${quiz}".'
+j læsgæt
+
+
+:indhold
+<"${gæt}">grep -qiE "${ord}"
+jz korrektgæt
+<"${TIME_PASSED}">grep -qiE "TRUE"
+jz timepassed
+
+>echo "${EGGS_USER}: Ikke helt."
+>wrongScoreInc ${EGGS_USER} "overskriften"
+ngaet=>python -c "print(${ngaet}+1)"
+<"${ngaet}">grep -qiEv "5"
+jz læsgæt
+
+:endwithshame
+>echo 'I burde altså åbne en avis fra tid til anden! Den rigtige overskrift er "${linje}"!'
+exit
+
+:korrektgæt
+>echo "${EGGS_USER}: Helt rigtigt!  Super duper!"
+>correctScoreInc ${EGGS_USER} "overskriften"
+exit
+
+:timepassed
+>echo "${EGGS_USER}: Tik tok! Timerne er lange, men tiden er kort."
+j endwithshame
+
