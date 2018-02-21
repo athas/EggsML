@@ -14,7 +14,7 @@ jz harlinje
 exit
 
 :harlinje
-ord=>python -c 'print(max("${linje}".split(), key=len).replace(":",""))'
+ord=>python -c 'print(max("${linje}".split(), key=len).replace(":","")).replace(",", "").replace("!", "").replace("?", "")'
 quiz=>python -c 'print("${linje}".replace("${ord}", "<blank>"))'
 
 >echo '${EGGS_USER}: Okay, hvad mangler der her: "${quiz}".'
