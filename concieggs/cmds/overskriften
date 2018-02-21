@@ -14,7 +14,7 @@ jz harlinje
 exit
 
 :harlinje
-ord=>python -c 'print(max("${linje}".split()).replace(":",""))'
+ord=>python -c 'print(max("${linje}".split(), key=len).replace(":",""))'
 quiz=>python -c 'print("${linje}".replace("${ord}", "<blank>"))'
 
 >echo '${EGGS_USER}: Okay, hvad mangler der her: "${quiz}".'
@@ -24,7 +24,7 @@ ngaet=>python -c "print(0)"
 
 read gæt
 EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
-TIME_PASSED=>python -c 'import time; print( time.time() - int("${TIME_START}") > int("${DEADLINE}") )'
+TIME_PASSED=>python -c 'import time; print( time.time() - int(${TIME_START}) > int(${DEADLINE}) )'
 
 <${gæt}>grep -qiE '.+'
 jz indhold
