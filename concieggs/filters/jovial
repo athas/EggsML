@@ -25,4 +25,4 @@ EOF
 punkt="\([.!?] \)"
 
 sed "s/$/ $sprogligheder/g" \
-| sed "s/${punkt}/, $jovialtiltale/"
+| sed "s/${punkt}/, $jovialtiltale\1/"
