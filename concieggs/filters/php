@@ -10,23 +10,23 @@ use EggsML::EggsPI list => [qw(dbRead)];
 sub pick { $_[rand(@_)] }
 
 sub udsagnsord {
-    state @udsagnsord = dbRead('php/udsagnsord');
-    return pick(@udsagnsord);
+    state $udsagnsord = [ dbRead('php/udsagnsord') ];
+    return pick(@$udsagnsord);
 }
 
 sub funktion {
-    state @funktioner = dbRead('php/funktioner');
-    return pick(@funktioner);
+    state $funktioner = [ dbRead('php/funktioner') ];
+    return pick(@$funktioner);
 }
 
 sub sti {
-    state @stier = dbRead('php/stier');
-    return pick(@stier);
+    state $stier = [ dbRead('php/stier') ];
+    return pick(@$stier);
 }
 
 sub klasse {
-    state @klasser = dbRead('php/klasser');
-    return pick(@klasser);
+    state $klasser = [ dbRead('php/klasser') ];
+    return pick(@$klasser);
 }
 
 sub klasser { klasse . klasse . klasse }
@@ -61,7 +61,7 @@ sub fejl {
 
 while (my $line = <>) {
     # Tilfældig PHP-fejl
-    say fejl if rand() < 0.5;
+    say fejl() if rand() < 0.5;
 
     # Magic quotes
     $line =~ s/(?=['"\\])/\\/g;
