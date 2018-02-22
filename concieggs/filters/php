@@ -5,30 +5,34 @@ use warnings;
 use utf8::all;
 
 use Digest::MD5 qw(md5_hex);
-use EggsML::EggsPI list => ['cat'];
 
 our $db = $ENV{CONCIEGGS_DB_DIR};
 
-sub pick { $_[rand(@_)] }
+sub hund {
+    my $fil = shift;
+    return [ `cat $db/$fil` ];
+}
+
+sub vælg { $_[rand(@_)] }
 
 sub udsagnsord {
-    state $udsagnsord = [ cat($db . '/php/udsagnsord') ];
-    return pick(@$udsagnsord);
+    state $udsagnsord = hund('php/udsagnsord');
+    return vælg(@$udsagnsord);
 }
 
 sub funktion {
-    state $funktioner = [ cat($db . '/php/funktioner') ];
-    return pick(@$funktioner);
+    state $funktioner = hund('php/funktioner');
+    return vælg(@$funktioner);
 }
 
 sub sti {
-    state $stier = [ cat($db . '/php/stier') ];
-    return pick(@$stier);
+    state $stier = hund('php/stier');
+    return vælg(@$stier);
 }
 
 sub klasse {
-    state $klasser = [ cat($db . '/php/klasser') ];
-    return pick(@$klasser);
+    state $klasser = [ hund('php/klasser') ];
+    return vælg(@$klasser);
 }
 
 sub klasser { klasse . klasse . klasse }
@@ -43,13 +47,13 @@ sub variabel { lc funktion . '_' . lc klasse . '_' . heltal }
 
 sub metode { udsagnsord . klasse . klasse }
 
-sub ejerskab { pick(qw(public private protected)) }
+sub ejerskab { vælg(qw(public private protected)) }
 
-sub alvorlighed { pick('Fatal error', 'Parse error', 'Warning', 'Notice') }
+sub alvorlighed { vælg('Fatal error', 'Parse error', 'Warning', 'Notice') }
 
 sub fejl {
-    state $fejlskabeloner = [ cat($db . '/php/fejl') ];
-    my $fejl = pick(@$fejlskabeloner);
+    state $fejlskabeloner = [ hund('php/fejl') ];
+    my $fejl = vælg(@$fejlskabeloner);
 
     $fejl =~ s/%C/klasser/eg;
     $fejl =~ s/%F/funktion/eg;
