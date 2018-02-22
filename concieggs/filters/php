@@ -1,0 +1,69 @@
+#!/usr/bin/env perl
+use 5.026;
+use strict;
+use warnings;
+use utf8::all;
+
+use Digest::MD5 qw(md5_hex);
+use EggsML::EggsPI list => [qw(dbRead)];
+
+sub pick { $_[rand(@_)] }
+
+sub udsagnsord {
+    state @udsagnsord = dbRead('php/udsagnsord');
+    return pick(@udsagnsord);
+}
+
+sub funktion {
+    state @funktioner = dbRead('php/funktioner');
+    return pick(@funktioner);
+}
+
+sub sti {
+    state @stier = dbRead('php/stier');
+    return pick(@stier);
+}
+
+sub klasse {
+    state @klasser = dbRead('php/klasser');
+    return pick(@klasser);
+}
+
+sub klasser { klasse . klasse . klasse }
+
+sub kontekst { klasse . '_' . klasse }
+
+sub konstant { uc udsagnsord . '_' . uc klasse }
+
+sub variabel { lc funktion . '_'
+
+sub metode { udsagnsord . klasse . klasse }
+
+sub ejerskab { pick(qw(public private protected)) }
+
+sub fejl {
+    state @fejl = dbRead('php/fejl');
+    my $fejl = pick(@fejl);
+
+    $fejl =~ s/%C/klasser/eg;
+    $fejl =~ s/%F/funktion/eg;
+    $fejl =~ s/%M/metode/eg;
+    $fejl =~ s/%O/kontekst/eg;
+    $fejl =~ s/%K/konstant/eg;
+    $fejl =~ s/%V/variabel/eg;
+    $fejl =~ s/%A/ejerskab/eg;
+    $fejl =~ s/%P/sti/eg;
+    $fejl =~ s/%d/int(rand 10)/eg;
+    $fejl =~ s/%H/md5_hex(rand)/eg;
+
+    return $fejl;
+}
+
+while (my $line = <>) {
+    # Tilfældig PHP-fejl
+    say fejl if rand < 0.5;
+
+    # Magic quotes
+    $line =~ s/(?=['"\\])/\\/g;
+    say $line;
+}
