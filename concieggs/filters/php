@@ -5,12 +5,17 @@ use warnings;
 use utf8::all;
 
 use Digest::MD5 qw(md5_hex);
+use IO::All -utf8;
+use Mojo::Util qw(trim);
+
 
 our $db = $ENV{CONCIEGGS_DB_DIR};
 
 sub hund {
     my $fil = shift;
-    return [ `cat $db/$fil` ];
+
+    chomp(my @lines = io("$db/$fil")->slurp);
+    return \@lines;
 }
 
 sub vælg { $_[rand(@_)] }
@@ -31,7 +36,7 @@ sub sti {
 }
 
 sub klasse {
-    state $klasser = [ hund('php/klasser') ];
+    state $klasser = hund('php/klasser');
     return vælg(@$klasser);
 }
 
@@ -52,7 +57,7 @@ sub ejerskab { vælg(qw(public private protected)) }
 sub alvorlighed { vælg('Fatal error', 'Parse error', 'Warning', 'Notice') }
 
 sub fejl {
-    state $fejlskabeloner = [ hund('php/fejl') ];
+    state $fejlskabeloner = hund('php/fejl');
     my $fejl = vælg(@$fejlskabeloner);
 
     $fejl =~ s/%C/klasser/eg;
@@ -76,5 +81,5 @@ say fejl() if rand() < 0.1;
 while (my $line = <>) {
     # Magic quotes
     $line =~ s/(?=['"\\])/\\/g;
-    say $line;
+    print $line;
 }
