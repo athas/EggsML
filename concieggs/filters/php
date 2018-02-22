@@ -43,6 +43,8 @@ sub metode { udsagnsord . klasse . klasse }
 
 sub ejerskab { pick(qw(public private protected)) }
 
+sub alvorlighed { pick('Fatal error', 'Parse error', 'Warning', 'Notice') }
+
 sub fejl {
     state $fejlskabeloner = [ dbReadNonStore('php/fejl') ];
     my $fejl = pick(@$fejlskabeloner);
@@ -57,14 +59,15 @@ sub fejl {
     $fejl =~ s/%P/sti/eg;
     $fejl =~ s/%d/heltal/eg;
     $fejl =~ s/%H/md5_hex(rand)/eg;
+    $fejl = alvorlighed . ': ' . $fejl;
 
     return $fejl;
 }
 
-while (my $line = <>) {
-    # Tilfældig PHP-fejl
-    say fejl() if rand() < 0.5;
+# Tilfældig PHP-fejl
+say fejl() if rand() < 0.5;
 
+while (my $line = <>) {
     # Magic quotes
     $line =~ s/(?=['"\\])/\\/g;
     say $line;
