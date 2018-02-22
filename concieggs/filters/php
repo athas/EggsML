@@ -61,7 +61,7 @@ sub fejl {
 
 while (my $line = <>) {
     # Tilfældig PHP-fejl
-    say fejl if rand < 0.5;
+    say fejl if rand() < 0.5;
 
     # Magic quotes
     $line =~ s/(?=['"\\])/\\/g;
