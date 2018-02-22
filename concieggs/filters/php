@@ -35,7 +35,9 @@ sub kontekst { klasse . '_' . klasse }
 
 sub konstant { uc udsagnsord . '_' . uc klasse }
 
-sub variabel { lc funktion . '_'
+sub heltal { int(rand 10) }
+
+sub variabel { lc funktion . '_' . lc klasse . '_' . heltal }
 
 sub metode { udsagnsord . klasse . klasse }
 
@@ -53,7 +55,7 @@ sub fejl {
     $fejl =~ s/%V/variabel/eg;
     $fejl =~ s/%A/ejerskab/eg;
     $fejl =~ s/%P/sti/eg;
-    $fejl =~ s/%d/int(rand 10)/eg;
+    $fejl =~ s/%d/heltal/eg;
     $fejl =~ s/%H/md5_hex(rand)/eg;
 
     return $fejl;
