@@ -44,8 +44,8 @@ sub metode { udsagnsord . klasse . klasse }
 sub ejerskab { pick(qw(public private protected)) }
 
 sub fejl {
-    state @fejl = dbRead('php/fejl');
-    my $fejl = pick(@fejl);
+    state $fejlskabeloner = [ dbRead('php/fejl') ];
+    my $fejl = pick(@$fejlskabeloner);
 
     $fejl =~ s/%C/klasser/eg;
     $fejl =~ s/%F/funktion/eg;
