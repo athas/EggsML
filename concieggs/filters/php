@@ -5,27 +5,27 @@ use warnings;
 use utf8::all;
 
 use Digest::MD5 qw(md5_hex);
-use EggsML::EggsPI list => [qw(dbReadNonStore)];
+use EggsML::EggsPI list => ['cat'];
 
 sub pick { $_[rand(@_)] }
 
 sub udsagnsord {
-    state $udsagnsord = [ dbReadNonStore('php/udsagnsord') ];
+    state $udsagnsord = [ cat('db/php/udsagnsord') ];
     return pick(@$udsagnsord);
 }
 
 sub funktion {
-    state $funktioner = [ dbReadNonStore('php/funktioner') ];
+    state $funktioner = [ cat('db/php/funktioner') ];
     return pick(@$funktioner);
 }
 
 sub sti {
-    state $stier = [ dbReadNonStore('php/stier') ];
+    state $stier = [ cat('db/php/stier') ];
     return pick(@$stier);
 }
 
 sub klasse {
-    state $klasser = [ dbReadNonStore('php/klasser') ];
+    state $klasser = [ cat('db/php/klasser') ];
     return pick(@$klasser);
 }
 
@@ -46,7 +46,7 @@ sub ejerskab { pick(qw(public private protected)) }
 sub alvorlighed { pick('Fatal error', 'Parse error', 'Warning', 'Notice') }
 
 sub fejl {
-    state $fejlskabeloner = [ dbReadNonStore('php/fejl') ];
+    state $fejlskabeloner = [ cat('db/php/fejl') ];
     my $fejl = pick(@$fejlskabeloner);
 
     $fejl =~ s/%C/klasser/eg;

@@ -1,3 +1,0 @@
-#!/bin/sh
-# Fordi dbRead læser fra "$CONCIEGGS_DB_DIR/store/$1"
-cat "$CONCIEGGS_DB_DIR/$1" 2>/dev/null
