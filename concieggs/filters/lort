@@ -4,4 +4,4 @@ use strict;
 use warnings;
 use utf8::all;
 
-say "l" . ("o" x rand 80) x "ort!" while (<>);
+say "l" . ("o" x rand 80) . "ort!" while (<>);
