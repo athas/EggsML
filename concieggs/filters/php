@@ -7,25 +7,27 @@ use utf8::all;
 use Digest::MD5 qw(md5_hex);
 use EggsML::EggsPI list => ['cat'];
 
+our $db = $ENV{CONCIEGGS_DB_DIR};
+
 sub pick { $_[rand(@_)] }
 
 sub udsagnsord {
-    state $udsagnsord = [ cat('db/php/udsagnsord') ];
+    state $udsagnsord = [ cat($db . '/php/udsagnsord') ];
     return pick(@$udsagnsord);
 }
 
 sub funktion {
-    state $funktioner = [ cat('db/php/funktioner') ];
+    state $funktioner = [ cat($db . '/php/funktioner') ];
     return pick(@$funktioner);
 }
 
 sub sti {
-    state $stier = [ cat('db/php/stier') ];
+    state $stier = [ cat($db . '/php/stier') ];
     return pick(@$stier);
 }
 
 sub klasse {
-    state $klasser = [ cat('db/php/klasser') ];
+    state $klasser = [ cat($db . '/php/klasser') ];
     return pick(@$klasser);
 }
 
@@ -46,7 +48,7 @@ sub ejerskab { pick(qw(public private protected)) }
 sub alvorlighed { pick('Fatal error', 'Parse error', 'Warning', 'Notice') }
 
 sub fejl {
-    state $fejlskabeloner = [ cat('db/php/fejl') ];
+    state $fejlskabeloner = [ cat($db . '/php/fejl') ];
     my $fejl = pick(@$fejlskabeloner);
 
     $fejl =~ s/%C/klasser/eg;
