@@ -65,7 +65,7 @@ sub fejl {
 }
 
 # Tilfældig PHP-fejl
-say fejl() if rand() < 0.5;
+say fejl() if rand() < 0.1;
 
 while (my $line = <>) {
     # Magic quotes
