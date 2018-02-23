@@ -5,7 +5,7 @@ use warnings;
 use utf8::all;
 
 use Env qw(EGGS_USER);
-use EggsML::EggsPI text => [qw(dbRead dbWriteArg)];
+use EggsML::EggsPI text => [qw(dbRead dbWriteArg pleasedBy)];
 
 my $ladning = dbRead('ladning');
 if    ($ladning > 999) { say "$EGGS_USER: Jeg er allerede ladet op!"; }
@@ -15,3 +15,4 @@ elsif ($ladning >   0) { say "$EGGS_USER: Pyha, jeg var næsten drænet."; }
 else                   { say "/me aktiverer efter dvale og takker $EGGS_USER for opladningen."; }
 
 dbWriteArg('ladning', 1000);
+pleasedBy($EGGS_USER, 10) if $ladning < 500;
