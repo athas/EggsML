@@ -20,6 +20,8 @@ while (my $line = <>) {
 
     # Brug konsonanten 'z' i stigende grad ved strøm <50%.
     $line =~ s/(\S)/spar($1)/eg if $ladning < 50;
+
+    print $line;
 }
 
 # Fortæl i ny og næ hvis der er brug for en opladning.
