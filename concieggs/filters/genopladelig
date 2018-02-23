@@ -9,7 +9,7 @@ use EggsML::EggsPI text => [qw(dbRead dbWriteArg)];
 
 my $ladning = dbRead('ladning');
 
-sub spar { rand() > $ladning / 100 ? shift : 'z' }
+sub spar { rand() > ($ladning * 2) / 100 ? shift : 'z' }
 
 while (my $line = <>) {
     # Brug kun små bogstaver ved <15% strøm.
@@ -18,8 +18,8 @@ while (my $line = <>) {
     # Brug kun vokalen 'æ' ved <10% strøm.
     $line =~ s/[^aeiou]/æ/g if $ladning < 10;
 
-    # Brug konsonanten 'z' i stigende grad ved strøm <50%.
-    $line =~ s/(\S)/spar($1)/eg if $ladning < 50;
+    # Brug tegnet 'z' i stigende grad ved <50% strøm.
+    $line =~ s/(\w)/spar($1)/eg if $ladning < 20;
 
     print $line;
 }
