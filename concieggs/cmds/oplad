@@ -7,12 +7,6 @@ use utf8::all;
 use Env qw(EGGS_USER);
 use EggsML::EggsPI text => [qw(dbRead dbWriteArg)];
 
-
-unless ($ARGV[0] eq 'op') {
-    say "Brug: tank op.  Den slags sløs dræner mig!";
-    exit 0;
-}
-
 my $ladning = dbRead('ladning');
 given ($ladning) {
   when(100) { say "$EGGS_USER: Jeg er allerede ladet op!"; }
