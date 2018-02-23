@@ -1,0 +1,33 @@
+#!/usr/bin/env perl
+use 5.020;
+use strict;
+use warnings;
+use utf8::all;
+
+use Lingua::EN::Syllable qw(syllable);
+
+while (my $stanza = <>) {
+    if (syllable($stanza) != 5 + 7 + 5) {
+        print $stanza;
+        continue;
+    }
+
+    chomp($stanza);
+    my @stanza = split /\s+/, $stanza;
+    my @syllables = map { syllable($_) } @stanza;
+
+    my @line;
+    my $linecount;
+    for my $length (5, 7, 5) {
+        @line = ();
+        $linecount = 0;
+        while (scalar @stanza && $linecount < $length) {
+            push @line, shift @stanza;
+            $linecount += shift @syllables;
+        }
+        say join ' ', @line;
+    }
+
+    # Lad poesien synke ind.
+    sleep(3);
+}
