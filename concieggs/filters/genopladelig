@@ -1,0 +1,29 @@
+#!/usr/bin/env perl
+use 5.026;
+use strict;
+use warnings;
+use utf8::all;
+
+use Env qw(EGGS_USER);
+use EggsML::EggsPI text => [qw(dbRead dbWriteArg)];
+
+my $ladning = dbRead('ladning');
+
+sub spar { rand() > $ladning / 100 ? shift : 'z' }
+
+while (my $line = <>) {
+    # Brug kun små bogstaver ved <15% strøm.
+    $line = lc $line if $ladning < 15;
+
+    # Brug kun vokalen 'æ' ved <10% strøm.
+    $line =~ s/[^aeiou]/æ/g if $ladning < 10;
+
+    # Brug konsonanten 'z' i stigende grad ved strøm <50%.
+    $line =~ s/(\S)/spar($1)/eg if $ladning < 50;
+}
+
+# Fortæl i ny og næ hvis der er brug for en opladning.
+say "Jeg trænger vist til at få skiftet batterierne"
+    if $ladning < 20 && rand() < 0.1;
+
+dbWriteArg('ladning', $ladning - 1) if $ladning > 0;
