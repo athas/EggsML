@@ -9,7 +9,7 @@ use Lingua::EN::Syllable qw(syllable);
 while (my $stanza = <>) {
     if (syllable($stanza) != 5 + 7 + 5) {
         print $stanza;
-        continue;
+        next;
     }
 
     chomp($stanza);
