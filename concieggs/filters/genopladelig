@@ -14,22 +14,22 @@ my $ladning = dbRead('ladning');
 
 while (my $linje = <>) {
     # Brug kun små bogstaver ved <15% strøm.
-    if ($ladning < 15) {
-        $linje = lc $linje if $ladning < 15;
+    if ($ladning < 150) {
+        $linje = lc $linje if $ladning < 150;
         $linje =~ tr/ÆØÅ/æøå/;
     }
 
     # Brug kun vokalen 'æ' ved <10% strøm.
-    $linje =~ s/[^aeiouøå]/æ/g if $ladning < 10;
+    $linje =~ s/[^aeiouøå]/æ/g if $ladning < 100;
 
     # Brug tegnet 'z' i stigende grad ved <20% strøm.
-    $linje =~ s/(\w+)/spar($1)/eg if $ladning < 20;
+    $linje =~ s/(\w+)/spar($1)/eg if $ladning < 200;
 
     print $linje;
 }
 
 # Fortæl i ny og næ hvis der er brug for en opladning.
 say "Jeg trænger vist til at få skiftet batterierne."
-    if $ladning < 20 && rand() < 0.1;
+    if $ladning < 200 && rand() < 0.1;
 
 dbWriteArg('ladning', $ladning - 1) if $ladning > 0;

@@ -8,10 +8,10 @@ use Env qw(EGGS_USER);
 use EggsML::EggsPI text => [qw(dbRead dbWriteArg)];
 
 my $ladning = dbRead('ladning');
-if    ($ladning > 99) { say "$EGGS_USER: Jeg er allerede ladet op!"; }
-elsif ($ladning > 50) { say "$EGGS_USER: Mange tak for opladningen."; }
-elsif ($ladning > 15) { say "$EGGS_USER: Pyha, det var tiltrængt."; }
-elsif ($ladning >  0) { say "$EGGS_USER: Pyha, jeg var næsten drænet."; }
-else                  { say "/me aktiverer efter dvale og takker $EGGS_USER for opladningen."; }
+if    ($ladning > 999) { say "$EGGS_USER: Jeg er allerede ladet op!"; }
+elsif ($ladning > 500) { say "$EGGS_USER: Mange tak for opladningen."; }
+elsif ($ladning > 150) { say "$EGGS_USER: Pyha, det var tiltrængt."; }
+elsif ($ladning >   0) { say "$EGGS_USER: Pyha, jeg var næsten drænet."; }
+else                   { say "/me aktiverer efter dvale og takker $EGGS_USER for opladningen."; }
 
-dbWriteArg('ladning', 100);
+dbWriteArg('ladning', 1000);
