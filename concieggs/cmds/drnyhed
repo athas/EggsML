@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+getArticle () {
+    if [ ! -f "/tmp/overskrifter" ]; then
+        curl -s https://www.dr.dk/nyheder/ > /tmp/overskrifter
+    fi
+    # Check how old /tmp/overskrifter is, and update it
+    cat /tmp/overskrifter                |
+        grep heading                     |  # Only show headings
+        grep "dr.dk"                     |  # Only show headings
+        sed -E -e 's/^\s*//'             |  # Remove all whitespace at start of line
+        sed -E -e 's/(class)="[^"]*"//'  |  # Remove all occurences of class|target|rel=""
+        sed -E -e 's/(target)="[^"]*"//' |  # Remove all occurences of class|target|rel=""
+        sed -E -e 's/(rel)="[^"]*"//'    |  # Remove all occurences of class|target|rel=""
+        sed -E -e '/(href)="\/[^"]*"/d'  |  # Remove all occurences of class|target|rel=""
+        sed -E -e '/\<div\>/d'           |  # Remove all occurences of class|target|rel=""
+        sed -E -e 's/  */ /'             |  # No double spaces
+        sed -E -e 's/ >/>/'              |  # No space before closing tag
+        sed -e 's/\(<\/a>\).*/\1/'       |  # Remove relative links
+        uniq                             |  # Remove duplicates
+        sort -R                          |  # Randomize
+        tail -1                             # Pick one
+}
+
+getHeadline () {
+    echo $artikel |
+	sed -e  's/<a href=\"[^\"]*\">\(.*\)<\/a>/\1/' |
+    perl -n -mHTML::Entities -e ' ; print HTML::Entities::decode_entities($_) ;'
+}
+
+getLink () {
+	echo $artikel | sed -e 's/.*"\(http[^"]*\)".*/\1/'
+}
+	
+
+main () {
+    artikel=$(getArticle)
+	headline=$(getHeadline)
+	thislink=$(getLink)
+    echo $headline \($thislink\)
+}
+
+main
