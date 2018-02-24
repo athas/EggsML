@@ -11,6 +11,7 @@ sub randpick {
 
 my @categories = (
     [qw(Danmark Sverige Finland)],
+    [qw(København Roskilde Køge Farum Helsingør Dragør Ringsted Næstved Holdbøk Sorø)],
     [qw(Randers Holstebro Herning Hobro Aalborg Viborg Skagen)],
     [qw(Færøerne Island)],
     [qw(England Irland Skotland Storbritannien Commonwealth)],
