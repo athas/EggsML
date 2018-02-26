@@ -23,8 +23,7 @@ my @categories = (
     [qw(op ned)],
     [qw(nord syd øst vest)],
     [qw(DIKU ITU SDU DTU AAU AU)],
-    [qw(datalogi softwareudviking datamatiker)],
-    [qw(.com .net .org .dk .co.uk .biz .aero .nu .xxx)],
+    [qw(datalogi softwareudviking datamatik)],
 );
 
 # Numbers
