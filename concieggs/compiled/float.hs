@@ -1,15 +1,16 @@
 module Main (main) where
 
 import Numeric.IEEE (succIEEE, predIEEE)
+import Data.Char (isSpace)
 
 main :: IO ()
 main = interact transform
   where transform [] = []
-        transform s =
-          case reads s of
-            (x, s') : _ ->
+        transform s@(c:cs)
+          | not $ isSpace c,
+            (x, s') : _ <- reads s =
               show (frob x) ++ transform s'
-            _ -> take 1 s ++ transform (drop 1 s)
+          | otherwise = c : transform cs
 
         frob :: Float -> Float
         frob x
