@@ -1,0 +1,119 @@
+Access to undeclared static property: %C::$%V
+Address buffer overflow
+An iterator cannot be used with foreach by reference
+An object of class %C cannot be cloned
+Array callback has to contain indices 0 and 1
+Attempt to unset static property %C::$%V
+Call to a member function %M() on %C
+Call to private %C::__clone() from context '%O'
+Call to private %C::%M() from context '%O'
+Call to private %C::%M() from invalid context '%O'
+Call to protected %C::__clone() from context '%O'
+Call to protected %C::%M() from context '%O'
+Call to protected %C::%M() from invalid context '%O'
+Call to %A method %C::%M() from context '%O'
+Call to undefined function %F()
+Call to undefined method %C::%M()
+Cannot access parent:: when current class scope has no parent
+Cannot access parent:: when no class scope is active
+Cannot access property started with '\\0'
+Cannot access %A const %C::%K
+Cannot access self:: when no class scope is active
+Cannot access %A property %C::$%V
+Cannot access static:: when no class scope is active
+Cannot access undefined property for object with overloaded property access
+Cannot append properties to objects, use %C::offsetSet() instead
+Cannot assign by reference to overloaded object
+Cannot call abstract method %C::%M()
+Cannot call constructor
+Cannot call forward_static_call() when no class scope is active
+Cannot call overloaded function for non-object
+Cannot call private %C::__construct()
+Cannot create duplicate attribute
+Cannot create unnamed attribute
+Cannot declare self-referencing constant '%C::%K'
+Cannot instantiate abstract class %C
+Cannot instantiate interface %C
+Cannot instantiate trait %C
+Cannot pass parameter %d by reference
+Cannot read property
+Cannot re-assign $this
+Cannot resume an already running generator
+Cannot throw objects that do not implement Throwable
+Cannot unpack array with string keys
+Cannot unset string offsets
+Cannot unset $this
+Cannot use [] for reading
+Cannot use object as array
+Cannot use object of type %C as array
+Cannot use "%F" when no class scope is active
+Cannot use temporary expression in write context '%O'
+Cannot use "yield from" in a force-closed generator
+Cannot write property
+Cannot yield from finally in a force-closed generator
+Can only throw objects
+Can use "yield from" only with arrays and Traversables
+Class name must be a valid object or a string
+Class '%C' cannot be instantiated
+Class %C is not derived from %C.
+__clone method called on non-object
+Closure object cannot have properties
+Could not copy from temporary stream - ini file truncated
+DatePeriod has not been initialized correctly
+Failed evaluating code: %C.%F
+Failed to create new session ID: %H (path: %P)
+Failed to create(read) session ID: %H (path: %P)
+Failed to create session ID by collision: %H (path: %P)
+Failed to create session ID: %H (path: %P)
+Failed to open session: %H (path: %P)
+Failure evaluating code: %C.%F
+First array member is not a valid class name or object
+Function name must be a string
+Generator passed to yield from was aborted without proper return and is unable to continue
+Glob support is not available
+Illegal offset type
+Impossible to yield from the Generator being currently run
+Instantiation of 'Closure' is not allowed
+Internal error: Could not find the property %C::%V
+Internal error: Failed to retrieve the argument's reflection object
+Internal error: Failed to retrieve the reflection object
+Invalid RelaxNG Validation Context
+Invalid Schema Validation Context
+Invalid serialization data for DatePeriod object
+Invalid serialization data for DateTimeImmutable object
+Invalid serialization data for DateTime object
+Key does not have exactly two elements: (key, name)
+Max memory must be >= 0
+Method name must be a string
+Non-static method %C::%M() must be called statically
+No session id returned by function
+No URL resource specified
+Object does not support method calls
+Object not initialized
+Object of type %C did not create an Iterator
+[] operator not supported for strings
+Retrieval of DatePeriod properties for modification is unsupported
+Second array member is not a valid method
+Session id must be a string
+String size overflow
+The "Generator" class is reserved for internal use and cannot be manually instantiated
+The inner constructor wasn't initialized with an iterator instance
+Timezone initialization failed
+Too few arguments to function %F(), %d passed and %d expected
+Too few arguments to function %F(), %d passed on line %d and %d expected
+Trying to clone an uncloneable object of class %C
+Unable to call %C::%M()
+Undefined class constant '%K'
+Undefined class constant '%C::%K'
+Undefined constant '%K'
+Undefined offset for object of type %C used as array
+Unknown and uncaught modification type.
+Unsupported constant expression
+Unsupported operand types
+Using $this when not in object context '%O'
+WDDX doesn't support circular references
+Writing to DatePeriod properties is unsupported
+Wrong parameters for %F([string $message [, long $code, [ long $severity, [ string $filename, [ long $lineno  [, Throwable $previous = NULL]]]]]])
+Wrong parameters for %F([string $message [, long $code [, Throwable $previous = NULL]]])
+XML-RPC doesn't support circular references
+You should not create a tidyNode manually

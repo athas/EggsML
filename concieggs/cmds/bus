@@ -8,6 +8,8 @@ brugerene
 EOF
 )
 
+on=på
+
 the_bus=$(randomLine <<EOF
 bussen
 chippen
@@ -45,12 +47,32 @@ Indtil de får fri
 Henne på Caféen?
 Ude hos PET
 EOF
-)
+                    )
+
+on=på
+
+if [ $# -ge 8 ]; then
+    the_wheels=$1
+    on=$2
+    the_bus=$3
+    go=$4
+    round=$5
+    shift; shift; shift; shift; shift;
+    all_through_the_town=$@
+elif [ $# -ge 5 ]; then
+    the_wheels=$1
+    on=$2
+    the_bus=$3
+    go=$4
+    shift; shift; shift; shift;
+    round=$@
+fi
+
 
 perl -nE 'print ucfirst' <<EOF
-$the_wheels på $the_bus $go $round, $round, $round
+$the_wheels $on $the_bus $go $round, $round, $round
 $round, $round, $round
 $round, $round, $round
-$the_wheels på $the_bus $go $round, $round, $round
+$the_wheels $on $the_bus $go $round, $round, $round
 $all_through_the_town
 EOF

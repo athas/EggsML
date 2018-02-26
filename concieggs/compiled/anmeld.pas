@@ -28,7 +28,7 @@ end;
 
 procedure Reviews();
 const
-  rs: array[0..15] of TReview =
+  rs: array[0..16] of TReview =
   (
     // Brainfuck
     (Line: 'Alle prutter jo bare på hinanden.'; Stars: 0; Author: 'Brainfuck'),
@@ -40,6 +40,7 @@ const
     (Line: 'Jeg mener, at det er moderat sjovt.'; Stars: 2; Author: 'Sword_Smith'),
     (Line: 'Better than my first ex-wife.'; Stars: 2; Author: 'King Henry VIII'),
     (Line: '2 skinker for 1 skinkes pris!'; Stars: 2; Author: 'Ekstrabladet'),
+    (Line: 'Slipset var ret sjovt.'; Stars: 2; Author: 'Politiken'),
     // 3
     (Line: 'Alle er Hitler.'; Stars: 3; Author: 'Stalin'),
     (Line: 'Lige lidt mere forberedelsestid'; Stars: 3; Author: 'Bjarne Goldbæk'),

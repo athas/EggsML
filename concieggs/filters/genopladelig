@@ -1,0 +1,35 @@
+#!/usr/bin/env perl
+use 5.026;
+use strict;
+use warnings;
+use utf8::all;
+
+use Env qw(EGGS_USER);
+use EggsML::EggsPI text => [qw(dbRead dbWriteArg)];
+
+sub max { $_[$_[0] < $_[1]] }
+sub spar { rand() < 0.2 ? 'z' x length shift : shift }
+
+my $ladning = dbRead('ladning');
+
+while (my $linje = <>) {
+    # Brug kun små bogstaver ved <15% strøm.
+    if ($ladning < 150) {
+        $linje = lc $linje if $ladning < 150;
+        $linje =~ tr/ÆØÅ/æøå/;
+    }
+
+    # Brug kun vokalen 'æ' ved <10% strøm.
+    $linje =~ s/[^aeiouøå]/æ/g if $ladning < 100;
+
+    # Brug tegnet 'z' i stigende grad ved <20% strøm.
+    $linje =~ s/(\w+)/spar($1)/eg if $ladning < 200;
+
+    print $linje;
+}
+
+# Fortæl i ny og næ hvis der er brug for en opladning.
+say "Jeg trænger vist til at få skiftet batterierne."
+    if $ladning < 200 && rand() < 0.1;
+
+dbWriteArg('ladning', $ladning - 1) if $ladning > 0;

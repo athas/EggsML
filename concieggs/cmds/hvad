@@ -17,6 +17,7 @@ eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|'\
 '(?<happening>(sker der( lige)?|mener du))|'\
 '(?<kingname>hedder kongen)|'\
 '(står (?<forkortelse>[^ ]+) for)|'\
+'(?:lytter (?<listener>[^ ]+) til(?: lige nu)?)|'\
 '(blev der af (?<fate>[^ ]+))')"
 
 if [ "$whatis" ]; then
@@ -187,6 +188,30 @@ elif [ "$kodeprojekt" ]; then
     latestGitNews "$kodeprojekt"
 elif [ "$fate" ]; then
     eggstool fate "$fate"
+elif [ "$listener" ]; then
+    if [ "$listener" = "jeg" ]; then
+        listener="$EGGS_USER"
+    fi
+    alias="$(randomName "$listener")"
+    if [ ! "$alias" ]; then
+        echo "Jeg kender ikke $listener."
+        exit
+    fi
+
+    lastfm_username="$(dbUserRead "$listener" "lastfmname")"
+    if [ ! "$lastfm_username" ]; then
+        echo "$EGGS_USER: Jeg ved ikke hvad $listener hedder på last.fm."
+        exit
+    fi
+
+    listening_to="$(currentlyScrobbling "$lastfm_username")"
+    if [ ! "$listening_to" ]; then
+        echo "$EGGS_USER: $alias lytter ikke til noget lige nu."
+        exit
+    fi
+
+    echo "$EGGS_USER: $alias lytter til $listening_to lige nu."
+    exit
 elif [ "$version2" ]; then
     version2Debat | {
         read author

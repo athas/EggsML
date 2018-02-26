@@ -1,0 +1,16 @@
+#!/bin/sh
+
+if [ "$1" ]
+then
+  LAST_USER="$1"
+else
+  LAST_USER="$EGGS_USER"
+fi
+
+LAST_MSG=$(dbUserRead "$LAST_USER" lastmsg)
+if ! [ "$LAST_MSG" ]
+then
+  LAST_MSG=$(dbRead "strangers/$LAST_USER" lastmsg)
+fi
+
+echo -- "$LAST_MSG"

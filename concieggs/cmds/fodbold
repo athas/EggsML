@@ -2,17 +2,4 @@
 #
 # Sig som en fodboldfan.
 
-if [ "$1" ]; then
-  last=$(dbUserRead "$1" lastmsg)
-  if ! [ "$last" ]; then
-    last=$(dbRead "strangers/$EGGS_USER" lastmsg)
-  fi
-
-else
-  last=$(dbUserRead "$EGGS_USER" lastmsg)
-  if ! [ "$last" ]; then
-    last=$(dbRead "strangers/$EGGS_USER" lastmsg)
-  fi
-fi
-
-echo "$last" | $CONCIEGGS_DIR/filters/fodbold
+lastmsg "$1" | $CONCIEGGS_DIR/filters/fodbold

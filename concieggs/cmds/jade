@@ -1,0 +1,30 @@
+#!/usr/bin/env perl
+use 5.026;
+use warnings;
+use utf8::all;
+use Env qw(EGGS_USER);
+use EggsML::EggsPI text => [qw(annoyedBy)];
+
+unless (@ARGV <= 1) {
+    say "Ingen jader til dig.";
+    exit(0);
+}
+
+my $n = shift @ARGV // 2;
+unless ($n =~ m/^-?\d+$/) {
+    say "Du må selv forestille dig hvordan de jader ser ud.";
+    exit(0);
+}
+
+if ($n < 1) {
+    say "Siger du, at jeg er flad som et vaskebræt? Hrmf.";
+    annoyedBy($EGGS_USER, 1 + log(1-$n), "fornærmede mine jader");
+    exit(0);
+}
+
+if ($n > 100) {
+    say "Du godeste! Så mange jader har jeg altså ikke.";
+    exit(0);
+}
+
+say "(" . join('Y', (" @ ")x$n) . ")";

@@ -2,20 +2,22 @@
 #
 # Generer en sætning til at blive gættet i lykkehjulet-programmet.
 
-if echo "$EGGS_BODY" | egrep -iqv 'apl|revy|filsystem|udtryk|avis'; then
+if echo "$EGGS_BODY" | egrep -iqv 'apl|revy|filsystem|udtryk|avis|md5'; then
     # Vi vil have ord på mindst længde to, for ellers bliver nogle af
     # lykkehjul-kommandoerne tvetydige.
     cat $CONCIEGGS_DB_DIR/ordbog-dansk-navneord-gode \
         | egrep '^.{2,}$' \
         | randomLine
-elif echo "$EGGS_BODY" | egrep -iqv 'apl|filsystem|udtryk|avis'; then
+elif echo "$EGGS_BODY" | egrep -iqv 'apl|filsystem|udtryk|avis|md5'; then
     cat $CONCIEGGS_DB_DIR/revue_titles | randomLine
-elif echo "$EGGS_BODY" | egrep -iqv 'apl|udtryk|avis'; then
+elif echo "$EGGS_BODY" | egrep -iqv 'apl|udtryk|avis|md5'; then
     locate '.' | randomLine
-elif echo "$EGGS_BODY" | egrep -iqv 'apl|avis'; then
+elif echo "$EGGS_BODY" | egrep -iqv 'apl|avis|md5'; then
     cat $CONCIEGGS_DB_DIR/fede_udtryk | randomLine
-elif echo "$EGGS_BODY" | grep -iqv 'apl'; then
+elif echo "$EGGS_BODY" | egrep -iqv 'apl|md5'; then
     headlines | randomLine
+elif echo "$EGGS_BODY" | grep -iqv 'apl'; then
+    head -n 1 /dev/random | md5
 else
     # Ignorér ovenstående!  Nu er der fest!
     cat $CONCIEGGS_DB_DIR/apl_idioms | randomLine

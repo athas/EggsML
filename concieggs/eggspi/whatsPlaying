@@ -31,7 +31,7 @@ channelDict = {
     "HeartBeats": {ADDR: "http://airtime.heartbeats.dk:8000/stream"},
     "Pop FM": {ADDR: "http://stream.popfm.dk/pop128"},
     "Radio 24syv": {ADDR: "http://rrr.sz.xlcdn.com/?account=Radio24syv&file=ENC1_Web128&type=live&service=icecast&port=8000&output=pls"},
-    "Radio Alfa (Østjylland)": {ADDR: "http://netradio.radioalfa.dk/",
+    "Radio Alfa (Østjylland)": {ADDR: "http://netradio.radioalfa.dk/alfa",
                                 SUB: AlfaSub},
     "Radio Monte Carlo FM": {ADDR: "http://icecast.unitedradio.it/RMC.mp3", SUB: CarloSub},
     "Radio Monte Carlo 2": {ADDR: "http://icecast.unitedradio.it/MC2.mp3", SUB: CarloSub},

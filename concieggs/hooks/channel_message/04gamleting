@@ -1,0 +1,32 @@
+#!/bin/sh
+
+nostalgisk() {
+    ting="$1"
+    randomLine <<EOF
+Åhrja, jeg kan godt huske tiderne med $ting!
+$ting, sikke nostalgisk :)
+Ah ja, $ting, det var kram!
+Iha, synd at de ikke længere producerer $ting...
+EOF
+}
+
+nejnejnej() {
+    ting="$1"
+    TING=$(tr '[:lower:]' '[:upper:]' <<<$ting)
+    randomLine <<EOF
+Helt ærligt, ingen bruger altså $ting længere.
+Seriøst?  $ting?  Totalt outdated.
+$ting er bare noget gammelt ragelse, siger jeg dig.
+FOR SYV SYTTEN, DU BRUGER DA VEL IKKE STADIG $TING?!
+EOF
+}
+
+echo "$EGGS_BODY" | grep -wEif $CONCIEGGS_DB_DIR/gamle_ting -o | while read -r thing; do
+    if maybeGood 0.1; then
+        echo "$EGGS_USER: $(nostalgisk "$thing")"
+        pleasedBy "$EGGS_USER" 10
+    else
+        echo "$EGGS_USER: $(nejnejnej "$thing")"
+        annoyedBy "$EGGS_USER" 5 "bruger det forældede '$thing'"
+    fi
+done

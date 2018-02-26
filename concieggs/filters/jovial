@@ -1,0 +1,27 @@
+#!/bin/sh
+
+jovialtiltale=$(randomLine <<EOF
+gamle ven.
+gamle dreng!
+gamle jas.
+din svinger!
+din vildkat!
+mester.
+kammerat!
+EOF
+)
+
+sprogligheder=$(randomLine <<EOF
+Men først må vi ha' en lille een til at bringe smilet frem.
+Nej, hvor er det dejligt at være jovial!
+Det kilder alle de rigtige steder.
+Livet er dejligt.
+Aldrig har jeg været så munter.
+Der er intet der er så skidt, at det ikke er godt for noget.
+EOF
+)
+
+punkt="\([.!?]\)"
+
+sed "s/$/ $sprogligheder/g" \
+| sed "s/${punkt}/, $jovialtiltale\1/"

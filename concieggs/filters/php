@@ -1,0 +1,85 @@
+#!/usr/bin/env perl
+use 5.026;
+use strict;
+use warnings;
+use utf8::all;
+
+use Digest::MD5 qw(md5_hex);
+use IO::All -utf8;
+use Mojo::Util qw(trim);
+
+
+our $db = $ENV{CONCIEGGS_DB_DIR};
+
+sub hund {
+    my $fil = shift;
+
+    chomp(my @lines = io("$db/$fil")->slurp);
+    return \@lines;
+}
+
+sub vælg { $_[rand(@_)] }
+
+sub udsagnsord {
+    state $udsagnsord = hund('php/udsagnsord');
+    return vælg(@$udsagnsord);
+}
+
+sub funktion {
+    state $funktioner = hund('php/funktioner');
+    return vælg(@$funktioner);
+}
+
+sub sti {
+    state $stier = hund('php/stier');
+    return vælg(@$stier);
+}
+
+sub klasse {
+    state $klasser = hund('php/klasser');
+    return vælg(@$klasser);
+}
+
+sub klasser { klasse . klasse . klasse }
+
+sub kontekst { klasse . '_' . klasse }
+
+sub konstant { uc udsagnsord . '_' . uc klasse }
+
+sub heltal { int(rand 10) }
+
+sub variabel { lc funktion . '_' . lc klasse . '_' . heltal }
+
+sub metode { udsagnsord . klasse . klasse }
+
+sub ejerskab { vælg(qw(public private protected)) }
+
+sub alvorlighed { vælg('Fatal error', 'Parse error', 'Warning', 'Notice') }
+
+sub fejl {
+    state $fejlskabeloner = hund('php/fejl');
+    my $fejl = vælg(@$fejlskabeloner);
+
+    $fejl =~ s/%C/klasser/eg;
+    $fejl =~ s/%F/funktion/eg;
+    $fejl =~ s/%M/metode/eg;
+    $fejl =~ s/%O/kontekst/eg;
+    $fejl =~ s/%K/konstant/eg;
+    $fejl =~ s/%V/variabel/eg;
+    $fejl =~ s/%A/ejerskab/eg;
+    $fejl =~ s/%P/sti/eg;
+    $fejl =~ s/%d/heltal/eg;
+    $fejl =~ s/%H/md5_hex(rand)/eg;
+    $fejl = alvorlighed . ': ' . $fejl;
+
+    return $fejl;
+}
+
+# Tilfældig PHP-fejl
+say fejl() if rand() < 0.1;
+
+while (my $line = <>) {
+    # Magic quotes
+    $line =~ s/(?=['"\\])/\\/g;
+    print $line;
+}

@@ -1,0 +1,22 @@
+#!/usr/bin/env compile
+#
+# TAK TIL MATEMATIKREVYEN
+
+sed -e s/en/to/\ q \
+    -e s/to/tre/\ q \
+    -e s/tre/fire/\ q \
+    -e s/fire/fem/\ q \
+    -e s/fem/seks/\ q \
+    -e s/seks/syv/\ q \
+    -e s/syv/otte/\ q \
+    -e s/otte/ni/\ q \
+    -e s/ni/ti/\ q \
+    -e s/ti/elleve/\ q \
+    -e s/elleve/tolv/\ q \
+    -e s/tolv/tretten/\ q \
+    -e s/tretten/fjorten/\ q \
+    -e s/fjorten/femten/\ q \
+    -e s/femten/seksten/\ q \
+    -e s/seksten/sytten/\ q \
+    -e s/sytten/atten/\ q \
+    -e s/atten/nitten/

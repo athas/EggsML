@@ -1,0 +1,10 @@
+%C  klasse
+%F  funktionsnavn
+%M  metode
+%O  kontekst
+%K  konstant
+%V  variabelnavn
+%A  ejerskab (public, private, protected)
+%P  sti
+%d  positivt heltal
+%H  hashværdi

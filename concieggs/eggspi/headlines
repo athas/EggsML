@@ -3,23 +3,26 @@ use 5.020;
 use warnings;
 use utf8::all;
 
-use LWP::Simple;
-use Mojo::DOM;
+use Mojo::UserAgent;
 use Mojo::Util qw/trim/;
+
+my $ua = Mojo::UserAgent->new;
+$ua->transactor->name('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36');
+$ua->max_redirects(5);
 
 my %news_sites = (
     ekstrabladet => sub {
-        my $dom = Mojo::DOM->new( get('http://www.ekstrabladet.dk') );
+        my $dom = $ua->get('https://www.ekstrabladet.dk')->result->dom;
         my @articles = $dom->find('.df-article')->map('all_text')->each;
         return @articles;
     },
     bt => sub {
-        my $dom = Mojo::DOM->new( get('http://bt.dk') );
+        my $dom = $ua->get('http://bt.dk')->result->dom;
         my @articles = $dom->find('.bt-link')->map('all_text')->each;
         return @articles;
     },
     dr => sub {
-        my $dom = Mojo::DOM->new( get('https://www.dr.dk/nyheder/allenyheder/') );
+        my $dom = $ua->get('https://www.dr.dk/nyheder/allenyheder/')->result->dom;
         my @articles = $dom->find('article h3 a')->map('all_text')->each;
         @articles = map { s/(\p{Uppercase}{3,})\b/$1:/r } @articles;
         return @articles;

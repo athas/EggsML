@@ -2,7 +2,7 @@
 #
 # Nedfæld essentielle personlige fakta og præferencer i logeprotokollen.
 
-eval "$(echo "$@" | parse 'er ((?<beneggter>beneggter)|(?<eggsalteret>eggsalteret))|foretrækker ((?<nothing>intet)|(?<pref>.+))|(har fødselsdag (?<birthday>.+))|er (?<king>konge)|er (?<god>gud)|er (?<alsogod>også gud)|er (?<truegod>den eneste (sande|rigtige) gud)|er (?<notgod>ikke (længere|mere) gud)|er (?<root>root)|hedder (?<githubname>.+?) på GitHub')"
+eval "$(echo "$@" | parse 'er ((?<beneggter>beneggter)|(?<eggsalteret>eggsalteret))|foretrækker ((?<nothing>intet)|(?<pref>.+))|(har fødselsdag (?<birthday>.+))|er (?<king>konge)|er (?<god>gud)|er (?<alsogod>også gud)|er (?<truegod>den eneste (sande|rigtige) gud)|er (?<notgod>ikke (længere|mere) gud)|er (?<root>root)|hedder (?<username>.+?) på (?<service>GitHub|last\.fm)')"
 
 who=$(randomName $EGGS_USER)
 if ! [ "$who" ]; then
@@ -139,9 +139,10 @@ elif [ "$root" ]; then
         echo "$EGGS_USER: Nej."
         annoyedBy "$EGGS_USER" 10 "påstod at være root"
     fi
-elif [ "$githubname" ]; then
-    echo "$githubname" | dbUserWrite "$EGGS_USER" githubname
-    echo "$EGGS_USER: OK, det er noteret at du hedder $githubname på GitHub!"
+elif [ "$username" ]; then
+    servicefile="$(echo "$service" | perl -E 'say lc( <> =~ s/\W//r)')name"
+    echo "$username" | dbUserWrite "$EGGS_USER" $servicefile
+    echo "$EGGS_USER: OK, det er noteret at du hedder $username på $service!"
 else
     echo "$EGGS_USER: Vær venlig at læse dokumentationen."
 fi

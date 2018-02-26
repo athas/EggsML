@@ -1,0 +1,7 @@
+#!/usr/bin/env perl
+use 5.026;
+use strict;
+use warnings;
+use utf8::all;
+
+say "l" . ("o" x rand 80) . "ort!" while (<>);
