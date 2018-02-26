@@ -2,4 +2,4 @@
 #
 # Sig som en fodboldfan.
 
-lastmsg | $CONCIEGGS_DIR/filters/fodbold
+lastmsg "$1" | $CONCIEGGS_DIR/filters/fodbold
