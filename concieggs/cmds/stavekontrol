@@ -8,13 +8,11 @@ use utf8::all;
 use EggsML::Spellcheck;
 
 use Env qw/EGGS_USER/;
-
-my $last = `dbUserRead "$EGGS_USER" lastmsg`;
-$last //= `dbRead "strangers/$EGGS_USER" lastmsg`;
-
-chomp $last;
+use EggsML::EggsPI text => ['lastmsg'];
 
 my $quiet = $ARGV[0] && $ARGV[0] eq "-q";
+
+chomp(my $last = lastmsg());
 
 if ($last) {
     my $result = EggsML::Spellcheck::spellcheck($last);
