@@ -13,4 +13,4 @@ then
   LAST_MSG=$(dbRead "strangers/$LAST_USER" lastmsg)
 fi
 
-echo -- "$LAST_MSG"
+say "$LAST_MSG"
