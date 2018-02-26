@@ -7,10 +7,4 @@ else
   LAST_USER="$EGGS_USER"
 fi
 
-LAST_MSG=$(dbUserRead "$LAST_USER" lastmsg)
-if ! [ "$LAST_MSG" ]
-then
-  LAST_MSG=$(dbRead "strangers/$LAST_USER" lastmsg)
-fi
-
-say "$LAST_MSG"
+dbUserRead "$LAST_USER" lastmsg
