@@ -4,6 +4,7 @@ use 5.020;
 use warnings;
 
 use Exporter;
+use IPC::Open2 qw/open2/;
 use IPC::System::Simple qw/systemx capturex EXIT_ANY/;
 use Sub::Install;
 
