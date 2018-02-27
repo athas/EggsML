@@ -1,4 +1,4 @@
 #!/bin/sh
 
-lastmsgs "$EGGS_USER" | sed -n '1!p' | dbUserWrite "$EGGS_USER" lastmsg
+lastmsgs "$EGGS_USER" | tail -n 5 | dbUserWrite "$EGGS_USER" lastmsg
 echo "$EGGS_BODY" | dbUserWriteAppend "$EGGS_USER" lastmsg
