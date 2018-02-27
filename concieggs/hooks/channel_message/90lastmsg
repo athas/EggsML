@@ -1,5 +1,16 @@
-#!/bin/sh
+#!/usr/bin/env perl
+use 5.026;
+use strict;
+use warnings;
+use utf8::all;
 
-LAST=$(lastmsgs "$EGGS_USER" | tail -n 5)
-echo "$LAST" | dbUserWrite "$EGGS_USER" lastmsg
-echo "$EGGS_BODY" | dbUserWriteAppend "$EGGS_USER" lastmsg
+use Env qw(EGGS_USER EGGS_BODY);
+use EggsML::EggsPI
+        list    => [qw(lastmsgs)],
+        boolean => [qw(dbUserWrite)];
+
+my $keep_at_least = 5;
+my @last = (lastmsgs($EGGS_USER), $EGGS_BODY);
+shift @last if @last > $keep_at_least;
+
+dbUserWrite({ stdin => \@last }, $EGGS_USER, 'lastmsg');
