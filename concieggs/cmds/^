@@ -10,7 +10,7 @@ if ! [ "$last" ]; then
 elif [ "$1" == "^" ]; then
     echo "$EGGS_USER: A-ha! Den falder jeg ikke for... længere. :("
 else
-    dbUserDelete "$EGGS_USER" lastmsg
+    lastmsgs | sed \$d | dbUserWrite "$EGGS_USER" lastmsg
     echo "Udfører $last!"
     runcmd $last
 fi
