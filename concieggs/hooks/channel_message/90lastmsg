@@ -1,4 +1,5 @@
 #!/bin/sh
 
-lastmsgs "$EGGS_USER" | tail -n 5 | dbUserWrite "$EGGS_USER" lastmsg
+LAST=$(lastmsgs "$EGGS_USER" | tail -n 5)
+echo "$LAST" | dbUserWrite "$EGGS_USER" lastmsg
 echo "$EGGS_BODY" | dbUserWriteAppend "$EGGS_USER" lastmsg
