@@ -36,11 +36,11 @@ sub import {
     } );
 
     _install_sub_handler($args{list_stdin}, $caller, sub {
-        my $stdin = ref $_[0] eq 'HASH' ? shift->{stdin} : '';
+        my $stdin = ref $_[0] eq 'HASH' ? shift->{stdin} : [];
         my $method = shift;
         my $pid = open2(my $out, my $in, $method, @_);
 
-        print $in $_ for (ref $stdin eq 'ARRAY' ? @$stdin : $stdin);
+        print $in $_ for (@$stdin);
         waitpid($pid, 0);
 
         chomp(my @lines = <$out>);
