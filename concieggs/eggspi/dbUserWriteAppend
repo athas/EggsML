@@ -1,0 +1,16 @@
+#!/bin/sh
+
+user="$1"
+node="$2"
+realnode="$(dbUserGet "$1" "$2")"
+
+if [ "$realnode" ]; then
+    dbWriteAppend "$realnode"
+else
+    alias="$(mainAlias "$1")"
+    if [ "$alias" ]; then
+        dbWriteAppend "users/$alias/$node"
+    else
+        dbWriteAppend "users/$1/$node"
+    fi
+fi
