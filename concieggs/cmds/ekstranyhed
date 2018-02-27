@@ -23,7 +23,7 @@ if ($0 =~ m/eggstranyhed/) {
         die("Couldn't find headline2") if $i++ > 100;
     } until ($headline2);
     say "\u$headline1: \u$headline2";
-} elsif ($ARGV[0] eq 'alle') {
+} elsif (($ARGV[0] // '') eq 'alle') {
     say $_ for @headlines;
 } else {
     say $headlines[rand() * @headlines];
