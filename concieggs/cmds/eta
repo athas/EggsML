@@ -1,2 +1,2 @@
-#!/usr/bin/perl -pl
-s/^\s*/\\x -> /;s/\s*$/ x/;
+#!/usr/bin/env perl
+while(<>){s/^\s*/\\x -> /;s/\s*$/ x/;print}
