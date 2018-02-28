@@ -1,0 +1,2 @@
+#!/usr/bin/perl -pl
+s/^\s*/\\x -> /;s/\s*$/ x/;
