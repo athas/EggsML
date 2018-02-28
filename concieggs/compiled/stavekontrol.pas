@@ -11,7 +11,9 @@ var
   RS, Suggestions: string;
   SL: TStrings;
 begin
-  Result := RunCommand('/bin/bash', ['-c', 'echo "' + Wd + '" | aspell -a -d da -l da'], R);
+  Result := RunCommand('/bin/sh', ['-c', 'echo "' + Wd + '" | aspell -a -d da -l da'], R);
+  if not Result then
+    exit(true); // Give up! :(
   RS := string(R);
   Result := Pos(#10 + '*', RS) > 0; 
   // If found, then we don't need a suggestion
