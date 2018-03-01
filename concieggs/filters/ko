@@ -4,7 +4,8 @@ use strict;
 use warnings;
 use utf8::all;
 
-use EggsML::EggsPI text => ['cowsay'];
+use EggsML::EggsPI list => ['cowsay'];
 
-my $input = join '', <STDIN>;
-say cowsay({ stdin => $input }, "-n");
+chomp (my @lines = <STDIN>);
+@lines = cowsay({ stdin => \@lines }, "-n");
+say $_ for @lines;
