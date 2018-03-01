@@ -1,2 +1,4 @@
 #!/usr/bin/env perl
-while(<>){s!/!\\!g;print}
+sub pick { $_[rand @_] }
+sub drev { pick(qw(A C)).':\\' }
+while(<>){s/(?<!\S)\//drev/eg;s!/!\\!g;s!-!/!g;s/$/^M/;print}
