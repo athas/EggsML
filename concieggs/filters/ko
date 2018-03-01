@@ -6,6 +6,6 @@ use utf8::all;
 
 use EggsML::EggsPI list => ['cowsay'];
 
-my @lines = <STDIN>;
+chomp (my @lines = <STDIN>);
 @lines = cowsay({ stdin => \@lines }, "-n");
-print $_ for @lines;
+say $_ for @lines;
