@@ -8,6 +8,4 @@ use EggsML::EggsPI list => ['cowsay'];
 
 my @lines = <STDIN>;
 @lines = cowsay({ stdin => \@lines }, "-n");
-chomp(@lines);
-
-say $_ for @lines;
+print $_ for @lines;
