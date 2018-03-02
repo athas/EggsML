@@ -13,7 +13,7 @@ my $uppercase = () = $EGGS_BODY =~ /\p{Uppercase}/g;
 my $non_whitespace = () = $EGGS_BODY =~ /\S/g;
 
 print STDERR "bibliotekar-debug: $yelling, $uppercase, " . length $EGGS_BODY . ", $non_whitespace\n";
-print STDERR "bibliotekar-debug: " . $uppercase*2 > length $EGGS_BODY - $non_whitespace . "\n";
+print STDERR "bibliotekar-debug: " . ($uppercase*2 > length $EGGS_BODY - $non_whitespace) . "\n";
 
 exit unless $yelling || $uppercase*2 > length $EGGS_BODY - $non_whitespace;
 
