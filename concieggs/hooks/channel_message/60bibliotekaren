@@ -6,7 +6,11 @@ use utf8::all;
 use Env qw(EGGS_BODY EGGS_USER);
 use EggsML::EggsPI boolean => [qw(shuttingUp checkCooldown)];
 
-exit if shuttingUp || !checkCooldown('bibliotekaren', 300);
+my $cooldown = checkCooldown('bibliotekaren', 300);
+
+print STDERR "bibliotekar cooldown: $cooldown\n";
+
+exit if shuttingUp || !$cooldown;
 
 my $yelling = $EGGS_BODY =~ /!|\?{3}/;
 my $uppercase = 0; $uppercase++ while ($EGGS_BODY =~ /\p{Uppercase}/g);
