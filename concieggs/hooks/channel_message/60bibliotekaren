@@ -9,13 +9,11 @@ use EggsML::EggsPI boolean => [qw(shuttingUp checkCooldown)];
 exit if shuttingUp || !checkCooldown('bibliotekaren', 300);
 
 my $yelling = $EGGS_BODY =~ /!/;
-my $uppercase = () = $EGGS_BODY =~ /\p{Uppercase}/g;
-my $non_whitespace = () = $EGGS_BODY =~ /\S/g;
+my $uppercase = 0; $uppercase++ while ($EGGS_BODY =~ /\p{Uppercase}/g);
 
-print STDERR "bibliotekar-debug: $yelling, $uppercase, " . length $EGGS_BODY . ", $non_whitespace\n";
-print STDERR "bibliotekar-debug: " . ($uppercase*2 > length $EGGS_BODY - $non_whitespace) . "\n";
+print STDERR ("bibliotekar-debug: " . $uppercase . " " . (2*$uppercase) . " " . $EGGS_BODY . "\n");
 
-exit unless $yelling || $uppercase*2 > length $EGGS_BODY - $non_whitespace;
+exit unless $yelling || $uppercase*2 > length $EGGS_BODY;
 
 my @comment = split "\n", <<"END_OF_BIBLIOTEKAR";
 /me stirrer indgående på $EGGS_USER.
