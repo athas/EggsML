@@ -1,11 +1,20 @@
-#!/bin/sh
+#!/usr/bin/env perl
+use 5.026;
+use strict;
+use warnings;
+use utf8::all;
+use Env qw(EGGS_BODY EGGS_USER);
+use EggsML::EggsPI boolean => [qw(shuttingUp checkCooldown)];
 
-if ! (echo "$EGGS_BODY" | grep -qi "\!"); then
-    exit
-fi
+exit if shuttingUp || checkCooldown('bibliotekaren', 300);
 
-randomLine <<EOF
-/me stirrer indgående på $EGGS_USER
+my $yelling = $EGGS_BODY =~ /!/;
+my $uppercase = () = $EGGS_BODY =~ /\p{Uppercase}/g;
+
+exit unless $yelling || $uppercase*2 > length $EGGS_BODY;
+
+my @comment = split "\n", <<"END_OF_BIBLIOTEKAR";
+/me stirrer indgående på $EGGS_USER.
 $EGGS_USER: Vil du være sød at dæmpe dig lidt?
 $EGGS_USER: Ssh!
 /me kigger på $EGGS_USER og tysser.
@@ -15,4 +24,6 @@ $EGGS_USER: Skal du hjælpes over på en mere larmende kanal?
 $EGGS_USER: Dæmp dig.
 /me kigger på $EGGS_USER og rømmer sig højlydt.
 /me rømmer sig.
-EOF
+END_OF_BIBLIOTEKAR
+
+print $comment[rand @comment];
