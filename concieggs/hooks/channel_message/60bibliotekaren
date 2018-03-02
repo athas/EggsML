@@ -10,8 +10,12 @@ exit if shuttingUp || !checkCooldown('bibliotekaren', 300);
 
 my $yelling = $EGGS_BODY =~ /!/;
 my $uppercase = () = $EGGS_BODY =~ /\p{Uppercase}/g;
+my $non_whitespace = () = $EGGS_BODY =~ /\S/g;
 
-exit unless $yelling || $uppercase*2 > length $EGGS_BODY;
+print STDERR "bibliotekar-debug: $yelling, $uppercase, " . length $EGGS_BODY . ", $non_whitespace\n";
+print STDERR "bibliotekar-debug: " . $uppercase*2 > length $EGGS_BODY - $non_whitespace . "\n";
+
+exit unless $yelling || $uppercase*2 > length $EGGS_BODY - $non_whitespace;
 
 my @comment = split "\n", <<"END_OF_BIBLIOTEKAR";
 /me stirrer indgående på $EGGS_USER.
