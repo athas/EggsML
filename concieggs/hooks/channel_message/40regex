@@ -19,7 +19,6 @@ if (!@lastmsgs) {
     exit;
 }
 
-use re::engine:RE2 -strict => 1;
 while (my $lastmsg = pop @lastmsgs) {
     if ($lastmsg =~ s/$pattern/$replacement/$flags) {
         say "Rettet: <$who> $lastmsg";
