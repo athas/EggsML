@@ -10,7 +10,7 @@ my ($who, $pattern, $replacement, $flags) =
   $EGGS_BODY =~ m!^(?:([^ ,:]): +)?s/([^/])*/([^/]*)(?:/([ig]+))?!
   or exit;
 
-my $who ||= $EGGS_USER;
+$who ||= $EGGS_USER;
 my @lastmsgs = lastmsgs($who);
 
 if (!@lastmsgs) {
