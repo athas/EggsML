@@ -1,0 +1,53 @@
+#!/bin/sh
+#
+# Hvornår var det nu det var?
+
+# Klippeklister fra 'ansvar'!
+
+if [ $# != 1 ]; then
+    echo "Brug: årgang <kommando>"
+    exit
+fi
+
+if [ "$1" = "$CONCIEGGS_NAME" ]; then
+    echo "$EGGS_USER: Jeg er tidsløs."
+    annoyedBy "$EGGS_USER" 1 "spurgte omm in alader"
+    exit
+fi
+
+eval "$(echo "$@" | parse '^((?<cmd>[^/]+)|eggspi/(?<eggspi>[^/]+)|hooks/(?<hook>[^/]+/[^/]+)|compiled/(?<compiled>[^/]+))$')"
+
+if [ "$cmd" ]; then
+    file=$(findCommand $1)
+elif [ "$eggspi" ] && [ -f "eggspi/$eggspi" ]; then
+    file="eggspi/$eggspi"
+elif [ "$hook" ] && [ -f "hooks/$hook" ]; then
+    file="hooks/$hook"
+elif [ "$compiled" ] && [ -f "compiled/$compiled" ]; then
+    file="compiled/$compiled"
+else
+    echo "$EGGS_USER: Jeg synes ikke at kunne finde '$@' i kælderen."
+    annoyedBy "$EGGS_USER" 1 "spurgte til alderen på noget der ikke findes"
+    exit
+fi
+
+if ! [ "$file" ]; then
+    echo "$EGGS_USER: Jeg er ikke bekendt med nogen '$1'-kommando."
+    exit
+fi
+
+dates=$(cd $CONCIEGGS_DIR; git log --pretty=format:"%ct" "$file"|cut -f1 -d' ')
+first=$(echo "$dates"|tail -n 1)
+last=$(echo "$dates"|head -n 1)
+
+echo "/me snuser til $@."
+
+if ! [ "$dates" ]; then
+    echo "$EGGS_USER: Den... er vist uden for mit kompetenceområde."
+else
+    if [ "$first" = "$last" ]; then
+        echo "$EGGS_USER: Dette er en originalaftapning fra $(timeToRelDay $first)."
+    else
+        echo "$EGGS_USER: Første gæring skete $(timeToRelDay $first), men sidste ingrediens blev tilføjet $(timeToRelDay $last)."
+    fi
+fi
