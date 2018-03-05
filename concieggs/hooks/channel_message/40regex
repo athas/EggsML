@@ -1,0 +1,50 @@
+#!/usr/bin/env tclsh
+#
+# Reagér på 's/foo/bar/' og 'person: s/foo/bar/'.
+
+set user $::env(EGGS_USER)
+set body $::env(EGGS_BODY)
+set db $::env(CONCIEGGS_DB_DIR)
+
+proc success args {
+    catch [list exec {*}$args] output options
+    return [expr {![dict get $options -code]}]
+}
+
+proc run args {
+    catch [list exec {*}$args] output options
+    return [split $output "\n"]
+}
+
+if {[success shuttingUp]} {exit 0}
+
+set s// {^(?:([^ ,:]+): *)?s/([^/]*)/([^/]*)(?:/([ig]+))?}
+if {![regexp ${s//} $body {} who pattern replacement modifiers]} {exit 0}
+if {![string length $who]} {set who $user}
+
+set lastmsgs [run lastmsgs $who]
+if {![llength $lastmsgs]} {
+    set thou [expr {$user == $who ? "du" : $who}]
+    puts "$user: Men $thou har jo ikke sagt noget!"
+    exit
+}
+
+set flags {}
+if {[string first i $modifiers] != -1} {lappend flags -nocase}
+if {[string first g $modifiers] != -1} {lappend flags -all}
+
+for {set i [expr {[llength $lastmsgs] - 1}]} {$i >= 0} {incr i -1} {
+    set lastmsg [lindex $lastmsgs $i]
+    if {[regsub {*}$flags -- $pattern $lastmsg $replacement lastmsg]} {
+        puts "Rettet: <$who> $lastmsg"
+
+        if {$user == $who} {
+            lset lastmsgs $i $lastmsg
+            set fp [open "$db/store/users/$who/lastmsg" w]
+            puts $fp [join $lastmsgs "\n"]
+            close $fp
+        }
+
+        break
+    }
+}
