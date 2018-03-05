@@ -2,9 +2,17 @@
 #
 # Simulate a concieggs environment.
 
+set -e
+
 cmd=$1
 
-dir=$(readlink -f $(dirname $0))
+if [ $(uname) = Darwin ]; then
+    # Steve's sublimely elegant alternative to readlink.
+    dir=$(dirname $0)
+    dir=$( ( echo "$dir" | egrep -q 'ˆ/' ) && echo "$dir" || echo "$PWD/${dir#./}")
+else
+    dir=$(readlink -f $(dirname $0))
+fi
 
 . $dir/concieggs.conf
 
