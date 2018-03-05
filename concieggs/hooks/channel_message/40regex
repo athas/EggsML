@@ -15,7 +15,7 @@ my @lastmsgs = lastmsgs($who);
 
 if (!@lastmsgs) {
     my $thou = $EGGS_USER eq $who ? 'du' : $EGGS_USER;
-    say "$EGGS_UER: Men $thou har jo ikke sagt noget!"
+    say "$EGGS_USER: Men $thou har jo ikke sagt noget!"
     exit;
 }
 
