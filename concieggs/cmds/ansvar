@@ -13,7 +13,7 @@ if [ "$1" = "$CONCIEGGS_NAME" ]; then
     exit
 fi
 
-eval "$(echo "$@" | parse '^((?<cmd>[^/]+)|eggspi/(?<eggspi>[^/]+)|filters/(?<filter>[^/]+/[^/]+)|hooks/(?<hook>[^/]+/[^/]+)|compiled/(?<compiled>[^/]+))$')"
+eval "$(echo "$@" | parse '^((?<cmd>[^/]+)|eggspi/(?<eggspi>[^/]+)|filters/(?<filter>[^/]+)|hooks/(?<hook>[^/]+/[^/]+)|compiled/(?<compiled>[^/]+))$')"
 
 if [ "$cmd" ]; then
     file=$(findCommand $1)
