@@ -13,12 +13,14 @@ if [ "$1" = "$CONCIEGGS_NAME" ]; then
     exit
 fi
 
-eval "$(echo "$@" | parse '^((?<cmd>[^/]+)|eggspi/(?<eggspi>[^/]+)|hooks/(?<hook>[^/]+/[^/]+)|compiled/(?<compiled>[^/]+))$')"
+eval "$(echo "$@" | parse '^((?<cmd>[^/]+)|eggspi/(?<eggspi>[^/]+)|filters/(?<filter>[^/]+/[^/]+)|hooks/(?<hook>[^/]+/[^/]+)|compiled/(?<compiled>[^/]+))$')"
 
 if [ "$cmd" ]; then
     file=$(findCommand $1)
 elif [ "$eggspi" ] && [ -f "eggspi/$eggspi" ]; then
     file="eggspi/$eggspi"
+elif [ "$filter" ] && [ -f "filters/$filter" ]; then
+    file="filters/$filter"
 elif [ "$hook" ] && [ -f "hooks/$hook" ]; then
     file="hooks/$hook"
 elif [ "$compiled" ] && [ -f "compiled/$compiled" ]; then
@@ -30,7 +32,7 @@ else
 fi
 
 if ! [ "$file" ]; then
-    echo "$EGGS_USER: Jeg er ikke bekendt med nogen '$1'-kommando."
+    echo "$EGGS_USER: Jeg er ikke bekendt med noget '$1'-programmel."
     exit
 fi
 
