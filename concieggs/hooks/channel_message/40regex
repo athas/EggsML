@@ -1,0 +1,28 @@
+#!/usr/bin/env perl
+use 5.026;
+use strict;
+use warnings;
+
+use Env qw(EGGS_USER EGGS_BODY);
+use EggsML::EggsPI list => [qw(lastmsgs)];
+
+my ($who, $pattern, $replacement, $flags) =
+  $EGGS_BODY =~ m!^(?:([^ ,:]): +)?s/([^/])*/([^/]*(?:/([ig]+))?!
+  or exit;
+
+my $who ||= $EGGS_USER;
+my @lastmsgs = lastmsgs($who);
+
+if (!@lastmsgs) {
+    my $thou = $EGGS_USER eq $who ? 'du' : $EGGS_USER;
+    say "$EGGS_UER: Men $thou har jo ikke sagt noget!"
+    exit;
+}
+
+use re::engine:RE2 -strict => 1;
+while (my $lastmsg = pop @lastmsgs) {
+    if ($lastmsg =~ s/$pattern/$replacement/$flags) {
+        say "Rettet: <$who> $lastmsg";
+        last;
+    }
+}
