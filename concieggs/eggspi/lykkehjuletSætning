@@ -14,7 +14,7 @@ elif echo "$EGGS_BODY" | egrep -iqv 'apl|udtryk|avis|md5'; then
     locate '.' | randomLine
 elif echo "$EGGS_BODY" | egrep -iqv 'apl|avis|md5'; then
     cat $CONCIEGGS_DB_DIR/fede_udtryk | randomLine
-elif echo "$EGGS_BODY" | grep -iqv 'apl|md5'; then
+elif echo "$EGGS_BODY" | egrep -iqv 'apl|md5'; then
     headlines | randomLine
 elif echo "$EGGS_BODY" | grep -iqv 'apl'; then
     head -n 1 /dev/random | md5

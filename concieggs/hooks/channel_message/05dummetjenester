@@ -1,0 +1,9 @@
+#!/bin/sh
+
+shame() {
+    annoyedBy "$EGGS_USER" 5 "hægtede til $1 (jeg har ikke en konto)"
+}
+
+if echo "$EGGS_BODY" | grep spotify.com -q; then
+    shame Spotify
+fi

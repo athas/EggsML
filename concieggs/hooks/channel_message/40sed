@@ -10,15 +10,14 @@ else
 fi
 
 if echo "$EGGS_BODY" | egrep -x '^ *s/[^/]*/[^/]*(/g?)? *' > /dev/null; then
-    last=$(dbUserRead "$who" lastmsg)
-    if ! [ "$last" ]; then
-        last=$(dbRead "strangers/$who" lastmsg)
-    fi
+    last=$(lastmsg "$who")
+
     if echo "$EGGS_BODY" | egrep '/g?$' > /dev/null; then
         exp="$EGGS_BODY"
     else
         exp="$EGGS_BODY/"
     fi
+
     if [ "$last" ]; then
         echo "Rettet: <$who> $(echo "$last" |  sed -r "$exp")"
     elif [ "$EGGS_USER" = "$who" ]; then

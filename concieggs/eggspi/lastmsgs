@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ "$1" ]
+then
+  LAST_USER="$1"
+else
+  LAST_USER="$EGGS_USER"
+fi
+
+dbUserRead "$LAST_USER" lastmsg

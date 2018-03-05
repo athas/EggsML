@@ -23,7 +23,8 @@ my @categories = (
     [qw(op ned)],
     [qw(nord syd øst vest)],
     [qw(DIKU ITU SDU DTU AAU AU)],
-    [qw(datalogi softwareudviking datamatik)],
+    [qw(datalogi softwareudviking datamatiker)],
+    [qw(.com .net .org .dk .co.uk .biz .aero .nu .xxx)],
 );
 
 # Numbers
@@ -58,7 +59,7 @@ while (my $line = <>) {
 
     foreach my $values (@categories) {
         my $pattern = join '|', map(quotemeta, @$values);
-        $line =~ s/$pattern/randpick(@$values)/egi;
+        $line =~ s/\b(?:$pattern)\b/randpick(@$values)/egi;
     }
 
     $line =~ s/kr(?:\b|\.|oner)/randpick('kr.', 'dollars', 'bobs')/egi;

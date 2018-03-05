@@ -1,0 +1,29 @@
+#!/usr/bin/env perl
+use 5.024;
+use warnings;
+use utf8;
+use Env qw(CONCIEGGS_DIR);
+
+my @chars = ('A'..'Z', 'a'..'z', '0'..'9');
+my $code = "";
+$code .= $chars[rand @chars] for (1..6);
+
+my $dirname = "$CONCIEGGS_DIR/cmds";
+opendir(my $dir, $dirname);
+my @files = grep { $_ !~ /^\.+$/ && -f "$dirname/$_" } readdir($dir);
+closedir($dir);
+
+my $programname = $files[rand @files];
+
+print STDERR <<EOM;
+Free Pascal Compiler version 3.0.2 [2017/10/02] for x86_64
+Copyright (c) 1993-2017 by Florian Klaempfl and others
+Target OS: OpenBSD for x86-64
+Compiling /tmp/compile$code/$programname.pas
+Fatal: Can't find unit system used by $programname
+Fatal: Compilation aborted
+Error: /usr/local/bin/ppcx64 returned an error exitcode
+cp: /tmp/compile$code/$programname: No such file or directory
+EOM
+
+say "Kommandoen fejlede!  Du kan prøve at spørge mig om 'udu', men det hjælper næsten helt sikkert ikke.";

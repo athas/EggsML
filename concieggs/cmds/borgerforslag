@@ -1,0 +1,23 @@
+#!/usr/bin/env node
+
+var request = require('request');
+
+request.post({
+    url: 'https://www.borgerforslag.dk/api/proposals/search',
+    json: { filter: 'all',
+        sortOrder: 'latest',
+        searchQuery: '',
+        pageNumber: 1,
+        pageSize: 30}},
+    function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var items = body.data
+            var item = items[Math.floor(Math.random()*items.length)];
+            var s = 'Du kunne støtte "' + item.title + '". Det har kun ' + item.votes + ' stemmer. Find det på https://www.borgerforslag.dk' + item.url
+            console.log(s)
+        }
+        else {
+            console.log("Noget gik galt")
+        }
+    }
+);

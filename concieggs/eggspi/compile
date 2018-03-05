@@ -41,7 +41,9 @@ else
             ;;
         *pas)
             compile() {
-                fpc $1 -o"$2" 2> /dev/null > /dev/null
+                cd $(dirname $1)
+                fpc $(basename $1) >&2
+                cp ${1%.pas} $2
             }
             ;;
         *hs)

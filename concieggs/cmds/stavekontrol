@@ -1,29 +1,4 @@
-#!/usr/bin/env perl
+#!/usr/bin/env compile
 #
-# Lav stavekontrol på din foregående besked.
-
-use 5.012;
-
-use utf8::all;
-use EggsML::Spellcheck;
-
-use Env qw/EGGS_USER/;
-
-my $last = `dbUserRead "$EGGS_USER" lastmsg`;
-$last //= `dbRead "strangers/$EGGS_USER" lastmsg`;
-
-chomp $last;
-
-my $quiet = $ARGV[0] && $ARGV[0] eq "-q";
-
-if ($last) {
-    my $result = EggsML::Spellcheck::spellcheck($last);
-
-    if ($result ne $last) {
-        printf("Rettet: <%s> %s\n", $EGGS_USER, $result);
-    } else {
-        print "$EGGS_USER: Det ser da fint ud.\n" unless $quiet;
-    }
-} else {
-    print "$EGGS_USER: Men du har jo ikke sagt noget!\n" unless $quiet;
-}
+# Ret dine slåfejl fra forrige linje du skrev, hvis du altså nogensinde
+# har skrevet noget jeg har set.

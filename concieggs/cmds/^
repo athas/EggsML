@@ -2,12 +2,15 @@
 #
 # Udfør dit sidste udsagn som kommando.
 
-last=$(dbUserRead "$EGGS_USER" lastmsg)
+last=$(lastmsg)
+set -- $last
 
 if ! [ "$last" ]; then
     echo "$EGGS_USER: Du har ikke sagt noget, som jeg er villig til at afvikle."
+elif [ "$1" == "^" ]; then
+    echo "$EGGS_USER: A-ha! Den falder jeg ikke for... længere. :("
 else
-    dbUserDelete "$EGGS_USER" lastmsg
+    lastmsgs | sed \$d | dbUserWrite "$EGGS_USER" lastmsg
     echo "Udfører $last!"
     runcmd $last
 fi

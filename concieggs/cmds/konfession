@@ -8,4 +8,4 @@ if [ $# -eq 0 ]; then
     exit
 fi
 
-echo "Denne anonyme konfession af brøde og svigt er netop blevet bragt til mig: $@" | sayTo "$CONCIEGGS_DEFAULT_CHANNEL"
+echo "Denne anonyme konfession af brøde og svigt er netop blevet bragt til mig: $@" | sayTo "#diku"
