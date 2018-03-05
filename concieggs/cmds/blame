@@ -1,0 +1,92 @@
+#!/usr/bin/env perl
+use 5.020;
+use strict;
+use warnings;
+
+use IO::All;
+use File::Spec;
+use Git::Repository qw(Blame Log);
+use Time::Piece;
+
+use Env qw(EGGS_USER);
+
+if (!@ARGV) {
+    say "Brug: blame <fil>";
+    exit;
+}
+
+my $cwd_filename = shift @ARGV;
+my $git_filename = File::Spec->catfile('concieggs', $cwd_filename);
+
+my @lines = io($cwd_filename)->slurp;
+my $lang = $1 if $lines[0] =~ /^#!.*?([^\s\/]+)$/;
+
+my $repo = Git::Repository->new;
+my $log = [ $repo->log($git_filename) ];
+my $blame = $repo->blame($git_filename, ignore_whitespace => 0);
+
+my $n_commits = @$log;
+my $creator = $log->[-1]->{author_name};
+my $created = $log->[-1]->{author_gmtime};
+my $created_commit_id = $log->[-1]->{commit};
+
+my %authors;
+my %commits;
+my $total_lines = 0;
+
+my $oldest_commit = $blame->[0]->{commit_attributes};
+my $newest_commit = $oldest_commit;
+
+my $i = 0;
+for my $line (@$blame) {
+    # Pretend whitespace lines don't exist.
+    next if $lines[$i++] =~ /^\s*$/;
+
+    my $commit_id = $line->{commit_id};
+    $commits{$commit_id}++;
+
+    my $commit = $line->{commit_attributes};
+    my $author = $commit->{author};
+    $authors{$author}++;
+    $total_lines++;
+
+    $oldest_commit = $commit if $commit->{'author-time'} < $oldest_commit->{'author-time'};
+    $newest_commit = $commit if $commit->{'author-time'} > $newest_commit->{'author-time'};
+}
+
+sub og {
+    my $last = pop;
+    my $first = join ", ", @_;
+    return "$first og $last";
+}
+
+my $authors =
+    og(map { sprintf("%s (%.2f%%, %d linje%s)",
+                     $_,
+                     ($authors{$_} / $total_lines * 100),
+                     $authors{$_},
+                     $authors{$_} == 1 ? '' : 'r');
+           } keys %authors);
+
+my $created_commit_time = localtime($created)->strftime('%Y-%m-%d %H:%M');
+my $oldest_commit_time = localtime($oldest_commit->{'author-time'})->strftime('%Y-%m-%d %H:%M');
+my $newest_commit_time = localtime($newest_commit->{'author-time'})->strftime('%Y-%m-%d %H:%M');
+my $newest_commit_summary = (split /\n/, $newest_commit->{summary})[0];
+
+my $output = "Filen blev skabt af $creator $created_commit_time";
+if ($commits{$created_commit_id}) {
+    $output .= sprintf(" og indeholder stadig %d linje%s original kode.",
+                       $commits{$created_commit_id},
+                       $commits{$created_commit_id} == 1 ? '' : 'r');
+} elsif ($lang) {
+    $output .= ", men er sidenhen blevet omskrevet i $lang.";
+} else {
+    $output .= ", men indeholder ikke længere original kode.";
+}
+
+$output .= "  Den indeholder ændringer af $authors vha. $n_commits commits.";
+$output .= sprintf("  Den seneste ændring blev indført af %s %s med beskeden: %s",
+                   $newest_commit->{author},
+                   $newest_commit_time,
+                   $newest_commit_summary);
+say $output;
