@@ -8,7 +8,8 @@ use File::Spec;
 use Git::Repository qw(Blame Log);
 use Time::Piece;
 
-use Env qw(EGGS_USER);
+use Env qw(EGGS_USER CONCIEGGS_DIR CONCIEGGS_NAME);
+use EggsML::EggsPI boolean => ['annoyedBy'];
 
 if (!@ARGV) {
     say "Brug: blame <fil>";
@@ -16,7 +17,18 @@ if (!@ARGV) {
 }
 
 my $cwd_filename = shift @ARGV;
-my $git_filename = File::Spec->catfile('concieggs', $cwd_filename);
+my $git_filename = File::Spec->catfile($CONCIEGGS_DIR, $cwd_filename);
+
+if ($cwd_filename eq $CONCIEGGS_NAME) {
+    say "$EGGS_USER: Nøj, hvor er du sjov!";
+    annoyedBy($EGGS_USER, 1, "spurgte hvem der har ansvar for mig");
+    exit;
+}
+
+if (! -f $cwd_filename) {
+    say "$EGGS_USER: Jeg er ikke bekendt med noget $cwd_filename-programmel.";
+    exit;
+}
 
 my @lines = io($cwd_filename)->slurp;
 my $lang = $1 if $lines[0] =~ /^#!.*?([^\s\/]+)$/;
@@ -74,19 +86,32 @@ my $newest_commit_time = localtime($newest_commit->{'author-time'})->strftime('%
 my $newest_commit_summary = (split /\n/, $newest_commit->{summary})[0];
 
 my $output = "Filen blev skabt af $creator $created_commit_time";
-if ($commits{$created_commit_id}) {
-    $output .= sprintf(" og indeholder stadig %d linje%s original kode.",
-                       $commits{$created_commit_id},
-                       $commits{$created_commit_id} == 1 ? '' : 'r');
-} elsif ($lang) {
-    $output .= ", men er sidenhen blevet omskrevet i $lang.";
+if (keys %authors == 1) {
+    $output .= sprintf(" og de%s %d linje%s kode er lavet over en serie af %d commits.",
+                       $total_lines == 1 ? 'n' : '',
+                       $total_lines,
+                       $total_lines == 1 ? '' : 'r',
+                       $n_commits);
+    if ($n_commits > 1) {
+        $output .= sprintf("  Den seneste ændring blev indført %s med beskeden: %s",
+                           $newest_commit_time,
+                           $newest_commit_summary);
+    }
 } else {
-    $output .= ", men indeholder ikke længere original kode.";
-}
+    if ($commits{$created_commit_id}) {
+        $output .= sprintf(" og indeholder stadig %d linje%s original kode.",
+                           $commits{$created_commit_id},
+                           $commits{$created_commit_id} == 1 ? '' : 'r');
+    } elsif ($lang) {
+        $output .= ", men er sidenhen blevet omskrevet i $lang.";
+    } else {
+        $output .= ", men indeholder ikke længere original kode.";
+    }
 
-$output .= "  Den indeholder ændringer af $authors vha. $n_commits commits.";
-$output .= sprintf("  Den seneste ændring blev indført af %s %s med beskeden: %s",
-                   $newest_commit->{author},
-                   $newest_commit_time,
-                   $newest_commit_summary);
+    $output .= "  Den indeholder ændringer af $authors via $n_commits commits.";
+    $output .= sprintf("  Den seneste ændring blev indført af %s %s med beskeden: %s",
+                       $newest_commit->{author},
+                       $newest_commit_time,
+                       $newest_commit_summary);
+}
 say $output;
