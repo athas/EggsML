@@ -10,9 +10,10 @@ use Time::Piece;
 
 use Env qw(EGGS_USER CONCIEGGS_DIR CONCIEGGS_NAME);
 use EggsML::EggsPI boolean => ['annoyedBy'];
+use EggsML::EggsPI list => ['recentlyActive'];
 
 if (!@ARGV) {
-    say "Brug: blame <fil>";
+    say "Brug: ansvar <fil>";
     exit;
 }
 
@@ -26,7 +27,10 @@ if ($cwd_filename eq $CONCIEGGS_NAME) {
 }
 
 if (! -f $cwd_filename) {
-    say "$EGGS_USER: Jeg er ikke bekendt med noget $cwd_filename-programmel.";
+    my @victims = recentlyActive;
+    my $victim = $victims[rand @victims];
+    say "$EGGS_USER: Jeg er ikke bekendt med noget $cwd_filename-programmel." .
+        "  Måske du skulle bede $victim om at lave det?";
     exit;
 }
 
