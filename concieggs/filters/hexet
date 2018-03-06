@@ -1,0 +1,11 @@
+#!/usr/bin/env perl
+use 5.020;
+use strict;
+use warnings;
+use utf8::all;
+use bigint;
+
+while (my $line = <STDIN>) {
+    $line =~ s/(?<!\d\.)\b(\d+)\b(?!\.\d)/'0x'.hex($1)/eg;
+    print $line;
+}
