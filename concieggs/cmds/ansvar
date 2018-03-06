@@ -77,14 +77,6 @@ sub og {
     return "$first og $last";
 }
 
-my $authors =
-    og(map { sprintf("%s (%.2f%%, %d linje%s)",
-                     $_,
-                     ($authors{$_} / $total_lines * 100),
-                     $authors{$_},
-                     $authors{$_} == 1 ? '' : 'r');
-           } keys %authors);
-
 my $created_commit_time = localtime($created)->strftime('%Y-%m-%d %H:%M');
 my $oldest_commit_time = localtime($oldest_commit->{'author-time'})->strftime('%Y-%m-%d %H:%M');
 my $newest_commit_time = localtime($newest_commit->{'author-time'})->strftime('%Y-%m-%d %H:%M');
@@ -93,12 +85,18 @@ my $newest_commit_summary = (split /\n/, $newest_commit->{summary})[0];
 my $output = "Filen blev skabt af $creator $created_commit_time";
 
 # Solo-projekt
-if (keys %authors == 1 && $creator eq (keys %authors)[0]) {
+if (keys %authors == 1) {
+    my $author = (keys %authors)[0];
+    if ($creator ne $author) {
+        $output .= ", sidenhen omskrevet af $author,";
+    }
+
     $output .= sprintf(" og de%s %d linje%s kode er lavet over en serie af %d commits.",
                        $total_lines == 1 ? 'n' : '',
                        $total_lines,
                        $total_lines == 1 ? '' : 'r',
                        $n_commits);
+
     if ($n_commits > 1) {
         $output .= sprintf("  Den seneste ændring blev indført %s med beskeden: %s",
                            $newest_commit_time,
@@ -107,6 +105,14 @@ if (keys %authors == 1 && $creator eq (keys %authors)[0]) {
 
 # Samarbejde
 } else {
+    my $authors =
+        og(map { sprintf("%s (%.2f%%, %d linje%s)",
+                         $_,
+                         ($authors{$_} / $total_lines * 100),
+                         $authors{$_},
+                         $authors{$_} == 1 ? '' : 'r');
+               } keys %authors);
+
     if ($commits{$created_commit_id}) {
         $output .= sprintf(" og indeholder stadig %d linje%s original kode.",
                            $commits{$created_commit_id},
