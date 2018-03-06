@@ -2,5 +2,10 @@
 #
 # Determine whether a full moon looms over the city of Copenhagen.
 
-grep -q '^'"$(dateToday)"'$' \
+date="$1"
+if ! [ "$date" ]; then
+    date="$(dateToday)"
+fi
+
+grep -q '^'"$date"'$' \
      "$CONCIEGGS_DB_DIR/månefaser/full_moons_copenhagen.txt"

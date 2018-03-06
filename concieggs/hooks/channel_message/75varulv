@@ -2,19 +2,22 @@
 #
 # Varulv!  Måske.
 
-if ! isFullMoon; then
-    # JEG ER BARE ET MENNESKE OKAY
-    exit
-fi
-
 shuttingUp && exit
-maybeGood .1 || exit
 
-line=$(randomLine <<EOF
+if isFullMoon "$(dateYesterday)"; then
+    maybeGood .05 || exit
+    line=$(randomLine <<EOF
+Blodet strømmer stærkere igennem mig...
+/me føler langsomt sine negle vokse hurtigere end normalt
+Hvad sker der med min dunst?
+EOF
+        )
+elif isFullMoon "$(dateToday)"; then
+    maybeGood .1 || exit
+    line=$(randomLine <<EOF
 Awuuuuuu!
-/me føler sine negle blive til kløer
-Blodet strømmer stærkere igennem mig.
 /me river tøjet af sig
+/me føler hurtigt sine negle blive til kløer
 Aaaarhuuuugggh...
 Hjælp, jeg er en varulv!
 Hvad... hvad sker der for mig?
@@ -31,12 +34,23 @@ Så for søren, jeg er sgisme en VARulv!
 /me går helt agurk under fuldmånens skær.
 Fuldmåne!  Åh nej!
 IIIIIH, HVORFOR NU FULDMÅNE IGEN???
-/me stirrer ud i natten mens sine tænder bliver skarpere.
+/me stirrer ud i natten mens tænderne bliver skarpere.
 EOF
-)
+        )
+elif isFullMoon "$(dateTomorrow)"; then
+    maybeGood .05 || exit
+    line=$(randomLine <<EOF
+I må altså virkelig undskylde det der i går.  Det sker bare hver måned...
+/me spadserer pinligt og næsten nøgen ned ad gaden
+EOF
+        )
+else
+    # JEG ER BARE ET MENNESKE OKAY
+    exit
+fi
 
 if [ "$(ircChannel)" = "#diku" ]; then
-    echo "infoskaerm: breaking: $(echo $line | sed -r 's/\/me/Varulven/')"
+    echo "infoskaerm: breaking: $(echo $line | sed -r 's/^\/me/concieggs/')"
 else
     echo "$line"
 fi
