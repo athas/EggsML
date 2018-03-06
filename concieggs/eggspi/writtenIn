@@ -1,0 +1,69 @@
+#!/usr/bin/env perl
+use 5.020;
+use strict;
+use warnings;
+
+use IO::All;
+use File::Basename;
+
+sub ukendt {
+    print "Ukendt";
+    exit(1);
+}
+
+my $filename = shift @ARGV or ukendt;
+my $shebang = io($filename)->getline or ukendt;
+my ($interp) = $shebang =~ /^#!.*?([^\/\s]+)$/ or ukendt;
+
+my %interps = (
+    'sh'      => 'Bourne Shell',
+    'bash'    => 'BASH',
+    'bf'      => 'Brainfuck',
+    'dash'    => 'DASH',
+    'fast'    => 'Gotta Go Fast!',
+    'node'    => 'JavaScript',
+    'perl'    => 'Perl 5',
+    'perl6'   => 'Perl 6',
+    'php-7.0' => 'PHP 7',
+    'python'  => 'Python 2',
+    'python3' => 'Python 3',
+    'rash'    => 'RASH',
+    'ruby'    => 'Ruby',
+    'runghc'  => 'Haskell',
+    'tclsh'   => 'TCL',
+);
+
+my %exts = (
+    'c'    => 'C',
+    'go'   => 'Go',
+    'hs'   => 'Haskell',
+    'kex'  => 'Kleenex',
+    'myr'  => 'Myrddin',
+    'pas'  => 'Pascal',
+    'sml'  => 'Standard ML',
+);
+
+if (my $guess = $interps{$interp}) {
+    print $guess;
+    exit(0);
+}
+
+my $filename_noext = basename($filename);
+if (-d "compiled/$filename_noext.make") {
+    print "Flertydig (Makefile)";
+    exit(0);
+}
+
+my @file_compiled = grep { $_ ne '.' && $_ ne '..' } glob("compiled/$filename_noext.*");
+my @exts = map { (split /\./, $_)[-1] } @file_compiled;
+if (@file_compiled > 1) {
+    print "Flertydig (" . (join ', ', @exts) . ")";
+    exit(1);
+}
+
+if (my $guess = $exts{$exts[0]}) {
+    print $guess;
+    exit(0);
+}
+
+ukendt;

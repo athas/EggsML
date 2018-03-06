@@ -11,6 +11,7 @@ use Time::Piece;
 use Env qw(EGGS_USER CONCIEGGS_DIR CONCIEGGS_NAME);
 use EggsML::EggsPI boolean => ['annoyedBy'];
 use EggsML::EggsPI list => ['recentlyActive'];
+use EggsML::EggsPI text => ['writtenIn'];
 
 if (!@ARGV) {
     say "Brug: ansvar <fil>";
@@ -35,7 +36,7 @@ if (! -f $cwd_filename) {
 }
 
 my @lines = io($cwd_filename)->slurp;
-my $lang = $1 if $lines[0] =~ /^#!.*?([^\s\/]+)$/;
+my $lang = writtenIn($cwd_filename);
 
 my $repo = Git::Repository->new;
 my $log = [ $repo->log($git_filename) ];
