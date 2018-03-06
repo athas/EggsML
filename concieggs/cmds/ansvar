@@ -90,7 +90,9 @@ my $newest_commit_time = localtime($newest_commit->{'author-time'})->strftime('%
 my $newest_commit_summary = (split /\n/, $newest_commit->{summary})[0];
 
 my $output = "Filen blev skabt af $creator $created_commit_time";
-if (keys %authors == 1) {
+
+# Solo-projekt
+if (keys %authors == 1 && $creator eq (keys %authors)[0]) {
     $output .= sprintf(" og de%s %d linje%s kode er lavet over en serie af %d commits.",
                        $total_lines == 1 ? 'n' : '',
                        $total_lines,
@@ -101,6 +103,8 @@ if (keys %authors == 1) {
                            $newest_commit_time,
                            $newest_commit_summary);
     }
+
+# Samarbejde
 } else {
     if ($commits{$created_commit_id}) {
         $output .= sprintf(" og indeholder stadig %d linje%s original kode.",
