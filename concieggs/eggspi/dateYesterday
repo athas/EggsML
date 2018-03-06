@@ -2,4 +2,4 @@
 #
 # Previous date in YYYY-MM-DD format.
 
-date -r $(expr $(date +%s) - 60 '*' 60 '*' 24) +%F # OpenBSD
+date -d yesterday +%F
