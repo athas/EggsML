@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# Lad duen baske rundt.
+
+"$(dirname "$0")"/fluen | while read line; do
+    echo "$line" | sed -e 's/fluen/duen/g' -e 's/FLUEN/DUEN/g' -e 's/summer/basker/g'
+done
