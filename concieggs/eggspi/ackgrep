@@ -1,0 +1,3 @@
+#!/bin/sh
+eval $(perlbrew env)
+ack $@
