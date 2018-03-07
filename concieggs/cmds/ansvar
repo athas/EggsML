@@ -59,21 +59,21 @@ if (my ($regex, $i) = $arg =~ qr{^/(.*?)/(i?)$}) {
 
 my $cwd_filename = $arg =~ qr{/} ? $arg : findCommand($arg);
 
-if (! -f $cwd_filename) {
-    my $victim = victim;
-    say "$EGGS_USER: Jeg er ikke bekendt med noget $cwd_filename-programmel." .
-        "  Måske du skulle bede $victim om at lave det?";
-    exit;
-}
-
 my $git_filename =
     $cwd_filename =~ qr{^/}
         ? $cwd_filename
         : File::Spec->catfile($CONCIEGGS_DIR, $cwd_filename);
 
-unless ($git_filename =~ /^\Q$CONCIEGGS_DIR\E/) {
+unless (($git_filename // '') =~ /^\Q$CONCIEGGS_DIR\E/) {
     say "$EGGS_USER: Glem det.";
     annoyedBy($EGGS_USER, 10, "bad mig om at finde ansvar udenfor concieggs-mappen");
+    exit;
+}
+
+if (! -f $cwd_filename) {
+    my $victim = victim;
+    say "$EGGS_USER: Jeg er ikke bekendt med noget $cwd_filename-programmel." .
+        "  Måske du skulle bede $victim om at lave det?";
     exit;
 }
 
