@@ -29,7 +29,7 @@ sub victim {
 my $repo = Git::Repository->new;
 
 if (my ($regex, $i) = $arg =~ qr{^/(.*?)/(i?)$}) {
-    my @matches = grep { $_ !~ qr{^db/} } capturex('grep', "-rn$i", '--', $regex);
+    my @matches = capturex('ack', '--ignore-dir=db', ($i ? '-i' : ()), '--', $regex);
     if (!@matches) {
         my $victim = victim;
         say "$EGGS_USER: Den stump kode har jeg aldrig set før, men det var sikkert $victim som gjorde det!";
@@ -38,7 +38,7 @@ if (my ($regex, $i) = $arg =~ qr{^/(.*?)/(i?)$}) {
 
     my $n = @matches;
     if ($n > 5) {
-        say "$EGGS_USER: Den stump kode forekommer godt nok mange ($n) gange.  " .
+        say "$EGGS_USER: Den stump kode forekommer godt nok mange gange ($n).  " .
             "  Det er næppe originalt nok til at give nogen ansvar for.";
         exit;
     }
