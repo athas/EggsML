@@ -8,25 +8,70 @@ use IO::All;
 use File::Spec;
 use Git::Repository qw(Blame Log);
 use Time::Piece;
+use IPC::System::Simple qw(capturex);
 
 use Env qw(EGGS_USER CONCIEGGS_DIR CONCIEGGS_NAME);
 use EggsML::EggsPI boolean => [qw(annoyedBy)],
                    list => [qw(recentlyActive)],
                    text => [qw(writtenIn findCommand)];
 
-if (!@ARGV) {
-    say "Brug: ansvar <fil>";
+my $arg = shift @ARGV;
+if (!$arg) {
+    say "Brug: ansvar <fil | /regex/i>";
     exit;
 }
 
-my ($cwd_filename) = @ARGV;
+sub victim {
+    my @victims = recentlyActive;
+    return $victims[rand @victims];
+}
 
-$cwd_filename = findCommand($cwd_filename) if $cwd_filename !~ m#/#;
+my $repo = Git::Repository->new;
 
-my $git_filename = $cwd_filename =~ m#^/# ? $cwd_filename : File::Spec->catfile($CONCIEGGS_DIR, $cwd_filename);
+if (my ($regex, $i) = $arg =~ qr{^/(.*?)/(i?)$}) {
+    my @matches = grep { $_ !~ qr{^db/} } capturex('grep', "-rn$i", '--', $regex);
+    if (!@matches) {
+        my $victim = victim;
+        say "$EGGS_USER: Den stump kode har jeg aldrig set før, men det var sikkert $victim som gjorde det!";
+        exit;
+    }
 
-$git_filename = Cwd::abs_path($git_filename);
-unless ($git_filename =~ m#^\Q$CONCIEGGS_DIR\E#) {
+    my $n = @matches;
+    if ($n > 5) {
+        say "$EGGS_USER: Den stump kode forekommer godt nok mange ($n) gange.  " .
+            "  Det er næppe originalt nok til at give nogen ansvar for.";
+        exit;
+    }
+
+    for my $match (@matches) {
+        my ($match_filename, $match_line, $match_text) = split /:/, $match, 3;
+        my $git_match_filename = File::Spec->catfile($CONCIEGGS_DIR, $match_filename);
+        my $blame = $repo->blame($git_match_filename, ignore_whitespace => 0);
+        my $author = $blame->[$match_line]->{commit_attributes}->{author};
+
+        $match_text =~ s/^\s*//;
+        $match_text =~ s/\s*$//;
+        say "Linje $match_line i $match_filename er skrevet af $author: $match_text";
+    }
+
+    exit;
+}
+
+my $cwd_filename = $arg =~ qr{/} ? $arg : findCommand($arg);
+
+if (! -f $cwd_filename) {
+    my $victim = victim;
+    say "$EGGS_USER: Jeg er ikke bekendt med noget $cwd_filename-programmel." .
+        "  Måske du skulle bede $victim om at lave det?";
+    exit;
+}
+
+my $git_filename =
+    $cwd_filename =~ qr{^/}
+        ? $cwd_filename
+        : File::Spec->catfile($CONCIEGGS_DIR, $cwd_filename);
+
+unless ($git_filename =~ /^\Q$CONCIEGGS_DIR\E/) {
     say "$EGGS_USER: Glem det.";
     annoyedBy($EGGS_USER, 10, "bad mig om at finde ansvar udenfor concieggs-mappen");
     exit;
@@ -38,20 +83,9 @@ if ($cwd_filename eq $CONCIEGGS_NAME) {
     exit;
 }
 
-
-
-if (! -f $cwd_filename) {
-    my @victims = recentlyActive;
-    my $victim = $victims[rand @victims];
-    say "$EGGS_USER: Jeg er ikke bekendt med noget $cwd_filename-programmel." .
-        "  Måske du skulle bede $victim om at lave det?";
-    exit;
-}
-
 my @lines = io($cwd_filename)->slurp;
 my $lang = writtenIn($cwd_filename);
 
-my $repo = Git::Repository->new;
 my $log = [ $repo->log(qw(--follow), $git_filename) ];
 my $blame = $repo->blame($git_filename, ignore_whitespace => 0);
 
