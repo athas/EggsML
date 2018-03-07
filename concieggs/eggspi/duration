@@ -1,0 +1,73 @@
+#!/usr/bin/env perl
+use 5.020;
+use strict;
+use warnings;
+use utf8::all;
+
+my $unixtime1 = shift @ARGV;
+my $unixtime2 = shift @ARGV || time;
+my $delta = abs($unixtime2 - $unixtime1);
+
+my $minute = 60;
+my $hour = 60 * $minute;
+my $day = 24 * $hour;
+my $week = 7 * $day;
+my $month = 30 * $day;
+my $year = 365 * $day;
+
+my @duration;
+
+my $big = 0;
+if ($delta > $year) {
+    $big++;
+    my $n_years = int($delta / $year);
+    $delta -= $year * $n_years;
+    push @duration, sprintf("%d år", $n_years);
+}
+
+if ($delta > $month) {
+    $big++;
+    my $n_months = int($delta / $month);
+    $delta -= $month * $n_months;
+    push @duration, sprintf("%d måned%s", $n_months, $n_months == 1 ? '' : 'er');
+}
+
+if (!$big && $delta > $week) {
+    $big++;
+    my $n_weeks = int($delta / $week);
+    $delta -= $week * $n_weeks;
+    push @duration, sprintf("%d uge%s", $n_weeks, $n_weeks == 1 ? '' : 'r');
+}
+
+if ($delta > $day) {
+    $big++;
+    my $n_days = int($delta / $day);
+    $delta -= $day * $n_days;
+    push @duration, sprintf("%d dag%s", $n_days, $n_days == 1 ? '' : 'e');
+}
+
+if (!$big && $delta > $hour) {
+    my $n_hours = int($delta / $hour);
+    $big++ if $n_hours > 1;
+    $delta -= $hour * $n_hours;
+    push @duration, sprintf("%d time%s", $n_hours, $n_hours == 1 ? '' : 'r');
+}
+
+if (!$big && $delta > $minute) {
+    my $n_minutes = int($delta / $minute);
+    $big++ if $n_minutes > 5;
+    $delta -= $minute * $n_minutes;
+    push @duration, sprintf("%d minut%s", $n_minutes, $n_minutes == 1 ? '' : 'ter');
+}
+
+if (!$big) {
+    push @duration, sprintf("%d sekund%s", $delta, $delta == 1 ? '' : 'er');
+}
+
+sub og {
+    my $last = pop @_;
+    my $rest = join ', ', @_;
+    return ($rest ? $rest . ' og ' : '') . $last;
+}
+
+say og(@duration) . ' siden';
