@@ -19,5 +19,6 @@ while (my $line = <>) {
     $line =~ s/ae/æ/g;
     $line =~ s/u/v/g;
     $line =~ s/U/V/g;
+    $line =~ s/([lgrsntd]i)e/$1um/g;
     say $line;
 }
