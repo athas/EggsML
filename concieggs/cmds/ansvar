@@ -52,7 +52,7 @@ my @lines = io($cwd_filename)->slurp;
 my $lang = writtenIn($cwd_filename);
 
 my $repo = Git::Repository->new;
-my $log = [ $repo->log($git_filename) ];
+my $log = [ $repo->log(qw(--follow), $git_filename) ];
 my $blame = $repo->blame($git_filename, ignore_whitespace => 0);
 
 my $n_commits = @$log;
