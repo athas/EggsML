@@ -88,7 +88,9 @@ my $output = "Filen blev skabt af $creator $created_commit_time";
 if (keys %authors == 1) {
     my $author = (keys %authors)[0];
     if ($creator ne $author) {
-        $output .= ", sidenhen omskrevet af $author,";
+        $output .= ", sidenhen omskrevet af $author i $lang,";
+    } else {
+        $output .= " og er kodet i $lang";
     }
 
     $output .= sprintf(" og de%s %d linje%s kode er lavet over en serie af %d commits.",
@@ -114,7 +116,7 @@ if (keys %authors == 1) {
                } keys %authors);
 
     if ($commits{$created_commit_id}) {
-        $output .= sprintf(" og indeholder stadig %d linje%s original kode.",
+        $output .= sprintf(" og indeholder stadig %d linje%s original $lang-kode.",
                            $commits{$created_commit_id},
                            $commits{$created_commit_id} == 1 ? '' : 'r');
     } elsif ($lang) {
