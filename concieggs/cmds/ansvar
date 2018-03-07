@@ -90,7 +90,7 @@ if (keys %authors == 1) {
     if ($creator ne $author) {
         $output .= ", sidenhen omskrevet af $author i $lang,";
     } else {
-        $output .= " og er kodet i $lang";
+        $output .= ", er kodet i $lang,";
     }
 
     $output .= sprintf(" og de%s %d linje%s kode er lavet over en serie af %d commits.",
