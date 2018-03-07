@@ -29,7 +29,7 @@ sub victim {
 my $repo = Git::Repository->new;
 
 if (my ($regex, $i) = $arg =~ qr{^/(.*?)/(i?)$}) {
-    my @matches = capturex('ackgrep', '--ignore-dir=db', ($i ? '-i' : ()), '--', $regex);
+    my @matches = capturex('/usr/local/bin/ack', '--ignore-dir=db', ($i ? '-i' : ()), '--', $regex);
     if (!@matches) {
         my $victim = victim;
         say "$EGGS_USER: Den stump kode har jeg aldrig set før, men det var sikkert $victim som gjorde det!";
@@ -72,7 +72,7 @@ unless (($git_filename // '') =~ /^\Q$CONCIEGGS_DIR\E/) {
 
 if (! -f $cwd_filename) {
     my $victim = victim;
-    say "$EGGS_USER: Jeg er ikke bekendt med noget $cwd_filename-programmel." .
+    say "$EGGS_USER: Jeg er ikke bekendt med noget $arg-programmel." .
         "  Måske du skulle bede $victim om at lave det?";
     exit;
 }
