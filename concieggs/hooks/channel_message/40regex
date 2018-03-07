@@ -16,6 +16,10 @@ proc run args {
     return [split $output "\n"]
 }
 
+proc mainAlias {alias} {
+    lindex [run mainAlias $alias] 0
+}
+
 if {[success shuttingUp]} {exit 0}
 
 set s// {^(?:([^ ,:]+): *)?s/([^/]*)/([^/]*)(?:/([ig]*))?}
@@ -44,7 +48,7 @@ for {set i [expr {[llength $lastmsgs] - 1}]} {$i >= 0} {incr i -1} {
 
         if {$user == $who} {
             lset lastmsgs $i $lastmsg
-            set fp [open "$db/store/users/$who/lastmsg" w]
+            set fp [open "$db/store/users/[mainAlias $who]/lastmsg" w]
             puts $fp [join $lastmsgs "\n"]
             close $fp
         }
