@@ -1,3 +1,2 @@
 #!/bin/sh
-eval $(perlbrew env)
-ack $@
+$PERLBREW_PATH/ack $@
