@@ -29,7 +29,7 @@ sub victim {
 my $repo = Git::Repository->new;
 
 if (my ($regex, $i) = $arg =~ qr{^/(.*?)/(i?)$}) {
-    my @matches = capturex(qw(perlbrew exec ack --ignore-dir=db), ($i ? '-i' : ()), '--', $regex);
+    my @matches = capturex(qw(perlbrew exec --with perl-5.26 ack --ignore-dir=db), ($i ? '-i' : ()), '--', $regex);
     if (!@matches) {
         my $victim = victim;
         say "$EGGS_USER: Den stump kode har jeg aldrig set før, men det var sikkert $victim som gjorde det!";
