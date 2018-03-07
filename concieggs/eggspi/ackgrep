@@ -1,2 +1,4 @@
 #!/bin/sh
-PATH="$PERLBREW_PATH:$PATH" ack $@
+export PATH="$PERLBREW_PATH:$PATH"
+ack "$@" | cat
+true

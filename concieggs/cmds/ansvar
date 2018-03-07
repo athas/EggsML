@@ -29,7 +29,7 @@ sub victim {
 my $repo = Git::Repository->new;
 
 if (my ($regex, $i) = $arg =~ qr{^/(.*?)/(i?)$}) {
-    my @matches = capturex(qw(ackgrep --ignore-dir=db --no-color), ($i ? '-i' : ()), '--', $regex);
+    my @matches = capturex(qw(ackgrep --ignore-dir=db --no-color), ($i ? '-i' : ()), '--', $regex, $CONCIEGGS_DIR);
     chomp(@matches);
     if (!@matches) {
         my $victim = victim;
