@@ -1,2 +1,2 @@
 #!/bin/sh
-$PERLBREW_PATH/ack $@
+PATH="$PERLBREW_PATH:$PATH" ack $@
