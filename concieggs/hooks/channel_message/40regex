@@ -1,6 +1,6 @@
 #!/usr/bin/env tclsh
 #
-# Reagér på 's/foo/bar/' og 'person: s/foo/bar/'.
+# Reagér på 's/foo/bar/[ig]' og 'person: s/foo/bar/[ig]'.
 
 set user $::env(EGGS_USER)
 set body $::env(EGGS_BODY)
@@ -40,12 +40,12 @@ if {[string first g $modifiers] != -1} {lappend flags -all}
 for {set i [expr {[llength $lastmsgs] - 1}]} {$i >= 0} {incr i -1} {
     set lastmsg [lindex $lastmsgs $i]
     if {[regsub {*}$flags -- $pattern $lastmsg $replacement lastmsg]} {
-        set lines [split $lastmsg "\r\n"]
-        if {[llength $lines] > 3} {
-            set lastmsg [join [list {*}[lrange $lines 0 2] ...] "\n"]
+        if {[regexp {\r|\n} $lastmsg]} {
+            puts "$user: Hov, hov.  Hold dine rettelser på én linje, tak!"
+            exit
         }
-        puts "Rettet: <$who> $lastmsg"
 
+        puts "Rettet: <$who> $lastmsg"
         if {$user == $who} {
             lset lastmsgs $i $lastmsg
             set fp [open "$db/store/users/[mainAlias $who]/lastmsg" w]
