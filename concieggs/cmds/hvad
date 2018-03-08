@@ -219,7 +219,7 @@ elif [ "$listener" ]; then
     if [[ $btc =~ $path ]]; then
         pat_valid_res = "\d+"
         res = $(curl "https://blockchain.info/q/addressbalance/$btc")
-        if [ $pat_valid_res =~ $pat_valid_res ]; then
+        if [[ $pat_valid_res =~ $pat_valid_res ]]; then
             echo "Balancen på $btc er vist $res satoshi."
             exit
         else
