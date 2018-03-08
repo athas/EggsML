@@ -62,8 +62,7 @@ sub ansvar_enkelt_linje {
     # Eftersom OpenBSD's egrep ikke understøtter --exclude-dir=...
     # og der er så meget besvær med at benytte ack, søger vi i de
     # mest interessante mapper:
-    my @subdirs = map { File::Spec->catfile($CONCIEGGS_DIR, $_) }
-        qw(cmds compiled eggspi filters hooks misc ops virker-egge);
+    my @subdirs = qw(cmds compiled eggspi filters hooks misc ops virker-egge);
     chomp (my @matches = capturex('egrep', "-Rn$i", '--', $regex, @subdirs));
     if (!@matches) {
         my $victim = pick(@victims);
