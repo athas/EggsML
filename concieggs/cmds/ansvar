@@ -47,6 +47,7 @@ if (grep { $arg eq $_ } @victims) {
     say pick(
         "$EGGS_USER: Det må du spørge ${arg}s mor om!",
         "$EGGS_USER: Så gerne.  Du har hermed fået ansvaret for $arg!",
+        "$EGGS_USER: Jeg tror desværre at $arg er uden for pædagogisk rækkevidde.",
     );
     exit;
 }
