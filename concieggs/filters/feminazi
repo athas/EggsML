@@ -48,7 +48,7 @@ while (<>) {
     s/pind/hul/g;
     s/\bhr\./fru/g;
     s/\bHr\./Fru/g;
-    s/\bSir\b/Lady/g;
+    s/(?<=\bs)ir/øster/ig;
     s/\bLord\b/Lady/g;
 
     s/(?<=[Ss])øren/ørine/ig;
