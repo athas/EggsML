@@ -18,7 +18,8 @@ eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|'\
 '(?<kingname>hedder kongen)|'\
 '(står (?<forkortelse>[^ ]+) for)|'\
 '(?:lytter (?<listener>[^ ]+) til(?: lige nu)?)|'\
-'(blev der af (?<fate>[^ ]+))')"
+'(blev der af (?<fate>[^ ]+))'\
+'(er balancen på Bitcoinadressen (?<btc>[^ ]+))')" 
 
 if [ "$whatis" ]; then
   eval "$(echo "$subject" | parse '(?<betalingsbalancen>betalingsbalancen)|(?<klokken>klokken)|(?<yourproblem>dit problem(?: med (?<problem>.+))?$)')"
@@ -212,6 +213,24 @@ elif [ "$listener" ]; then
 
     echo "$EGGS_USER: $alias lytter til $listening_to lige nu."
     exit
+    
+    elif [ "$btc" ]; then
+    pat_addr = "[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+"
+    if [[ $btc =~ $path ]]; then
+        pat_valid_res = "\d+"
+        res = $(curl "https://blockchain.info/q/addressbalance/$btc")
+        if [ $pat_valid_res =~ $pat_valid_res ]; then
+            echo "Balancen på $btc er vist $res satoshi."
+            exit
+        else
+            echo "Ja ... Øhh ... det kan jeg ikke svare på."
+            exit
+        fi
+    else
+        echo "Det kan jeg ikke arbejde med."
+        exit
+    fi
+    
 elif [ "$version2" ]; then
     version2Debat | {
         read author
