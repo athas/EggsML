@@ -82,7 +82,7 @@ sub ansvar_enkelt_linje {
         my ($match_filename, $match_line, $match_text) = split /:/, $match, 3;
         my $git_match_filename = File::Spec->catfile($CONCIEGGS_DIR, $match_filename);
         my $blame = $repo->blame($git_match_filename, ignore_whitespace => 0);
-        my $author = $blame->[$match_line]->{commit_attributes}->{author};
+        my $author = $blame->[$match_line - 1]->{commit_attributes}->{author};
 
         $match_text =~ s/^\s*//;
         $match_text =~ s/\s*$//;
