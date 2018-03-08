@@ -12,35 +12,69 @@ use IPC::System::Simple qw(capturex);
 
 use Env qw(EGGS_USER CONCIEGGS_DIR CONCIEGGS_NAME);
 use EggsML::EggsPI boolean => [qw(annoyedBy)],
-                   list => [qw(recentlyActive)],
-                   text => [qw(writtenIn findCommand)];
+                   list    => [qw(recentlyActive)],
+                   text    => [qw(writtenIn findCommand)];
+
+sub pick { $_[rand @_] }
+
+sub og {
+    my $last = pop;
+    my $first = join ", ", @_;
+    return "$first og $last";
+}
 
 my $arg = shift @ARGV;
 if (!$arg) {
-    say "Brug: ansvar <fil | /regex/i>";
+    say "Brug: ansvar <fil | /regex/i | person>";
     exit;
 }
 
-sub victim {
-    my @victims = recentlyActive;
-    return $victims[rand @victims];
-}
-
+my @victims = recentlyActive;
 my $repo = Git::Repository->new;
 
 if (my ($regex, $i) = $arg =~ qr{^/(.*?)/(i?)$}) {
-    my @matches = capturex(qw(ackgrep --ignore-dir=db --no-color), ($i ? '-i' : ()), '--', $regex, $CONCIEGGS_DIR);
-    chomp(@matches);
+    ansvar_enkelt_linje($regex, $i);
+    exit;
+}
+
+if ($arg eq $CONCIEGGS_NAME) {
+    say "$EGGS_USER: Nøj, hvor er du sjov!";
+    annoyedBy($EGGS_USER, 1, "spurgte hvem der har ansvar for mig");
+    exit;
+}
+
+if (grep { $arg eq $_ } @victims) {
+    say pick(
+        "$EGGS_USER: Det må du spørge ${arg}s mor om!",
+        "$EGGS_USER: Så gerne.  Du har hermed fået ansvaret for $arg!",
+    );
+    exit;
+}
+
+ansvar_kommando();
+exit;
+
+sub ansvar_enkelt_linje {
+    my $regex = shift;
+    my $i = shift;
+
+    # Eftersom OpenBSD's egrep ikke understøtter --exclude-dir=...
+    # og der er så meget besvær med at benytte ack, søger vi i de
+    # mest interessante mapper:
+    my @subdirs = map { File::Spec->catfile($CONCIEGGS_DIR, $_) }
+        qw(cmds compiled eggspi filters hooks misc ops virker-egge);
+    chomp (my @matches = capturex('egrep', "-Rn$i", '--', $regex, @subdirs));
     if (!@matches) {
-        my $victim = victim;
-        say "$EGGS_USER: Den stump kode har jeg aldrig set før, men det var sikkert $victim som gjorde det!";
+        my $victim = pick(@victims);
+        say "$EGGS_USER: Den stump kode har jeg svært ved at finde, " .
+            "men det er nok ${victim}s skyld hvis det ikke virker!";
         exit;
     }
 
     my $n = @matches;
     if ($n > 5) {
-        say "$EGGS_USER: Den stump kode forekommer godt nok mange gange ($n).  " .
-            "  Det er næppe originalt nok til at give nogen ansvar for.";
+        say "$EGGS_USER: Den stump kode forekommer godt nok mange gange ($n)."
+            . "  Det er næppe originalt nok til at give nogen ansvar for.";
         exit;
     }
 
@@ -58,125 +92,116 @@ if (my ($regex, $i) = $arg =~ qr{^/(.*?)/(i?)$}) {
     exit;
 }
 
-my $cwd_filename = $arg =~ qr{/} ? $arg : findCommand($arg);
+sub ansvar_kommando {
+    my $cwd_filename = $arg =~ qr{/} ? $arg : findCommand($arg);
 
-my $git_filename =
-    $cwd_filename =~ qr{^/}
-        ? $cwd_filename
-        : File::Spec->catfile($CONCIEGGS_DIR, $cwd_filename);
+    my $git_filename =
+        $cwd_filename =~ qr{^/}
+            ? $cwd_filename
+            : File::Spec->catfile($CONCIEGGS_DIR, $cwd_filename);
 
-unless (($git_filename // '') =~ /^\Q$CONCIEGGS_DIR\E/) {
-    say "$EGGS_USER: Glem det.";
-    annoyedBy($EGGS_USER, 10, "bad mig om at finde ansvar udenfor concieggs-mappen");
-    exit;
-}
-
-if (! -f $cwd_filename) {
-    my $victim = victim;
-    say "$EGGS_USER: Jeg er ikke bekendt med noget $arg-programmel." .
-        "  Måske du skulle bede $victim om at lave det?";
-    exit;
-}
-
-if ($cwd_filename eq $CONCIEGGS_NAME) {
-    say "$EGGS_USER: Nøj, hvor er du sjov!";
-    annoyedBy($EGGS_USER, 1, "spurgte hvem der har ansvar for mig");
-    exit;
-}
-
-my @lines = io($cwd_filename)->slurp;
-my $lang = writtenIn($cwd_filename);
-
-my $log = [ $repo->log(qw(--follow), $git_filename) ];
-my $blame = $repo->blame($git_filename, ignore_whitespace => 0);
-
-my $n_commits = @$log;
-my $creator = $log->[-1]->{author_name};
-my $created = $log->[-1]->{author_gmtime};
-my $created_commit_id = $log->[-1]->{commit};
-
-my %authors;
-my %commits;
-my $total_lines = 0;
-
-my $oldest_commit = $blame->[0]->{commit_attributes};
-my $newest_commit = $oldest_commit;
-
-my $i = 0;
-for my $line (@$blame) {
-    # Pretend whitespace lines don't exist.
-    next if $lines[$i++] =~ /^\s*$/;
-
-    my $commit_id = $line->{commit_id};
-    $commits{$commit_id}++;
-
-    my $commit = $line->{commit_attributes};
-    my $author = $commit->{author};
-    $authors{$author}++;
-    $total_lines++;
-
-    $oldest_commit = $commit if $commit->{'author-time'} < $oldest_commit->{'author-time'};
-    $newest_commit = $commit if $commit->{'author-time'} > $newest_commit->{'author-time'};
-}
-
-sub og {
-    my $last = pop;
-    my $first = join ", ", @_;
-    return "$first og $last";
-}
-
-my $created_commit_time = localtime($created)->strftime('%Y-%m-%d %H:%M');
-my $oldest_commit_time = localtime($oldest_commit->{'author-time'})->strftime('%Y-%m-%d %H:%M');
-my $newest_commit_time = localtime($newest_commit->{'author-time'})->strftime('%Y-%m-%d %H:%M');
-my $newest_commit_summary = (split /\n/, $newest_commit->{summary})[0];
-
-my $output = "Filen blev skabt af $creator $created_commit_time";
-
-# Solo-projekt
-if (keys %authors == 1) {
-    my $author = (keys %authors)[0];
-    if ($creator ne $author) {
-        $output .= ", sidenhen omskrevet af $author i $lang,";
-    } else {
-        $output .= ", er kodet i $lang,";
+    unless (($git_filename // '') =~ /^\Q$CONCIEGGS_DIR\E/) {
+        say "$EGGS_USER: Glem det.";
+        annoyedBy($EGGS_USER, 10, "bad mig om at finde ansvar udenfor concieggs-mappen");
+        exit;
     }
 
-    $output .= sprintf(" og de%s %d linje%s kode er lavet over en serie af %d commits.",
-                       $total_lines == 1 ? 'n' : '',
-                       $total_lines,
-                       $total_lines == 1 ? '' : 'r',
-                       $n_commits);
+    if (! -f $cwd_filename) {
+        my $victim = pick(@victims);
+        say "$EGGS_USER: Jeg er ikke bekendt med noget $arg-programmel." .
+            "  Måske du skulle bede $victim om at lave det?";
+        exit;
+    }
 
-    if ($n_commits > 1) {
-        $output .= sprintf("  Den seneste ændring blev indført %s med beskeden: %s",
+    my @lines = io($cwd_filename)->slurp;
+    my $lang = writtenIn($cwd_filename);
+
+    my $log = [ $repo->log(qw(--follow), $git_filename) ];
+    my $blame = $repo->blame($git_filename, ignore_whitespace => 0);
+
+    my $n_commits = @$log;
+    my $creator = $log->[-1]->{author_name};
+    my $created = $log->[-1]->{author_gmtime};
+    my $created_commit_id = $log->[-1]->{commit};
+
+    my %authors;
+    my %commits;
+    my $total_lines = 0;
+
+    my $oldest_commit = $blame->[0]->{commit_attributes};
+    my $newest_commit = $oldest_commit;
+
+    my $i = 0;
+    for my $line (@$blame) {
+        # Pretend whitespace lines don't exist.
+        next if $lines[$i++] =~ /^\s*$/;
+
+        my $commit_id = $line->{commit_id};
+        $commits{$commit_id}++;
+
+        my $commit = $line->{commit_attributes};
+        my $author = $commit->{author};
+        $authors{$author}++;
+        $total_lines++;
+
+        $oldest_commit = $commit if $commit->{'author-time'} < $oldest_commit->{'author-time'};
+        $newest_commit = $commit if $commit->{'author-time'} > $newest_commit->{'author-time'};
+    }
+
+    my $created_commit_time = localtime($created)->strftime('%Y-%m-%d %H:%M');
+    my $oldest_commit_time = localtime($oldest_commit->{'author-time'})->strftime('%Y-%m-%d %H:%M');
+    my $newest_commit_time = localtime($newest_commit->{'author-time'})->strftime('%Y-%m-%d %H:%M');
+    my $newest_commit_summary = (split /\n/, $newest_commit->{summary})[0];
+
+    my $output = "Filen blev skabt af $creator $created_commit_time";
+
+    # Solo-projekt
+    if (keys %authors == 1) {
+        my $author = (keys %authors)[0];
+        if ($creator ne $author) {
+            $output .= ", sidenhen omskrevet af $author i $lang,";
+        } else {
+            $output .= ", er kodet i $lang,";
+        }
+
+        $output .= sprintf(" og de%s %d linje%s kode er lavet over en serie af %d commits.",
+                           $total_lines == 1 ? 'n' : '',
+                           $total_lines,
+                           $total_lines == 1 ? '' : 'r',
+                           $n_commits);
+
+        if ($n_commits > 1) {
+            $output .= sprintf("  Den seneste ændring blev indført %s med beskeden: %s",
+                               $newest_commit_time,
+                               $newest_commit_summary);
+        }
+
+    # Samarbejde
+    } else {
+        my $authors =
+            og(map { sprintf("%s (%.2f%%, %d linje%s)",
+                             $_,
+                             ($authors{$_} / $total_lines * 100),
+                             $authors{$_},
+                             $authors{$_} == 1 ? '' : 'r');
+                   } keys %authors);
+
+        if ($commits{$created_commit_id}) {
+            $output .= sprintf(" og indeholder stadig %d linje%s original $lang-kode.",
+                               $commits{$created_commit_id},
+                               $commits{$created_commit_id} == 1 ? '' : 'r');
+        } elsif ($lang) {
+            $output .= ", men er sidenhen blevet omskrevet i $lang.";
+        } else {
+            $output .= ", men indeholder ikke længere original kode.";
+        }
+
+        $output .= "  Den indeholder ændringer af $authors via $n_commits commits.";
+        $output .= sprintf("  Den seneste ændring blev indført af %s %s med beskeden: %s",
+                           $newest_commit->{author},
                            $newest_commit_time,
                            $newest_commit_summary);
     }
 
-# Samarbejde
-} else {
-    my $authors =
-        og(map { sprintf("%s (%.2f%%, %d linje%s)",
-                         $_,
-                         ($authors{$_} / $total_lines * 100),
-                         $authors{$_},
-                         $authors{$_} == 1 ? '' : 'r');
-               } keys %authors);
-
-    if ($commits{$created_commit_id}) {
-        $output .= sprintf(" og indeholder stadig %d linje%s original $lang-kode.",
-                           $commits{$created_commit_id},
-                           $commits{$created_commit_id} == 1 ? '' : 'r');
-    } elsif ($lang) {
-        $output .= ", men er sidenhen blevet omskrevet i $lang.";
-    } else {
-        $output .= ", men indeholder ikke længere original kode.";
-    }
-
-    $output .= "  Den indeholder ændringer af $authors via $n_commits commits.";
-    $output .= sprintf("  Den seneste ændring blev indført af %s %s med beskeden: %s",
-                       $newest_commit->{author},
-                       $newest_commit_time,
-                       $newest_commit_summary);
+    say $output;
 }
-say $output;
