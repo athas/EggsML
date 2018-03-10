@@ -35,7 +35,7 @@ else
     file=\$(mktemp).fut
     echo "\$code" > \$file
     if futhark-c "\$file" -o "\$file.bin" 2>&1; then
-        \$file.bin $flags
+        \$file.bin $flags 2>&1
     fi
     rm -f "\$file" "\$file.bin"
 EOF
