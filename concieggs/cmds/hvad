@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
 # Spørg om din gæld til frokostkassen, eller få hjælp til diverse
 # personlighedsfremmende gøremål.  Brug naturligt sprog.
