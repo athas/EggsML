@@ -13,7 +13,7 @@ proc randindex xs {
 
 proc sjov {} {
     set prefix {VILDT ULTRA ROFLENDE MEGA LOLLENDE}
-    set suffix {GRINERN SJOV MORSOM LOLZ ROFLCOPTER}
+    set suffix {GRINERN SJOV MORSOM LOLZ ROFLCOPTER HYL}
     return "[randindex $prefix] [randindex $suffix]"
 }
 
