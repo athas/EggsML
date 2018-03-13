@@ -12,7 +12,7 @@ EOF
 
 nejnejnej() {
     ting="$1"
-    TING=$(tr '[:lower:]' '[:upper:]' <<<$ting)
+    TING=$(echo "$ting" | tr '[:lower:]' '[:upper:]')
     randomLine <<EOF
 Helt ærligt, ingen bruger altså $ting længere.
 Seriøst?  $ting?  Totalt outdated.

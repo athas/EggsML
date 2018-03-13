@@ -20,6 +20,7 @@ EOU
     for my $link (@links) {
         my $uri = URI->new($link);
         $uri->path($uri->path() . ".json");
+        $uri->query_form(raw_json => 1);
         my $json = $ua->get($uri)->decoded_content;
         my $data = from_json($json);
 

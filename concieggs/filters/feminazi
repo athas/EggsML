@@ -7,6 +7,8 @@ use utf8::all;
 #
 # [0]: Ifølge /r/mensrights
 
+my @ine = qw(ine ina); sub ine { $ine[rand @ine]; }
+
 while (<>) {
     s/hans/hendes/ig;
     s/han/hun/ig;
@@ -46,24 +48,28 @@ while (<>) {
     s/sir\b/lady/ig;
     s/Pind/Hul/g;
     s/pind/hul/g;
-    s/hr./fru./g;
-    s/Sir/Lady/g;
+    s/\bhr\./fru/g;
+    s/\bHr\./Fru/g;
+    s/(?<=\bs)ir/øster/ig;
+    s/\bLord\b/Lady/g;
 
-    s/(?<=[Ss])øren/ørine/ig;
-    s/(?<=[Jj])ørgen/ørgine/ig;
-    s/(?<=[Gg])eorge/eorgine/ig;
+    s/(?<=[Ss]ør)en/ine/eig;
+    s/(?<=[Jj]ørg)en/ine/eig;
+    s/(?<=[Gg]eorg)e?/ine/eig;
     s/(?<=[Dd])onald/aisy/ig;
-    s/(?<=[Tt])r(oe|u)lsa?/r\1lsina/ig;
+    s/(?<=[Tt])r(oe|u)lsa?/r$1lsina/ig;
     s/(?<=[Bb])ill/ella/ig;
-    s/(?<=[Rr]onald)/ine/ig;
-    s/(?<=[Ss]ebb)e/ine/ig;
-    s/(?<=[Rr]asm)us/ina/ig;
-    s/(?<=[Nn]ikkel)/ine/ig;
+    s/(?<=[Rr]onald)/ine/eig;
+    s/(?<=[Ss]ebb)e/ine/eig;
+    s/(?<=[Rr]asm)us/ine/eig;
+    s/(?<=[Nn]ikkel)/ine/eig;
+    s/(?<=[Nn]iels)/ine/eig;
+    s/(?<=svip)/ine/eig;
 
     # Burde nok generaliseres.
-    s/(?<=Athas)/ine/ig;
-    s/(?<=oleks)/ine/ig;
-    s/(?<=EricZ)ou/ine/ig;
+    s/(?<=Athas)/ine/eig;
+    s/(?<=oleks)/ine/eig;
+    s/(?<=EricZ)ou/ine/eig;
     s/simon|s?shine/simone-tøzzen/ig;
 
     print;

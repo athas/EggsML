@@ -1,0 +1,41 @@
+#!/usr/bin/env perl
+use 5.020;
+use strict;
+use warnings;
+use utf8::all;
+
+use Env qw(CONCIEGGS_DEFAULT_NAME);
+use EggsML::EggsPI list => ['recentlyActive'];
+use EggsML::EggsPI boolean => ['echoToServer'];
+
+sub pick { $_[rand @_] }
+
+sub setNick { echoToServer(":nick " . shift) }
+
+my %active = map { $_ => 1 } recentlyActive;
+
+sub kim_wall {
+    my $name = shift;
+    return rand() < 0.05 && $active{$name}
+        ? 'Kim Wall...' . pick('mmm, blod', 'dræææb') . '...'
+        : $name;
+}    
+
+sub upassende {
+    pick(
+        '/me polerer lugen til sin ubåd, hvis der nu skulle ske noget med den.',
+        '/me tager sin sav ned i ubåden, hvis der nu er noget som skulle saves.',
+        '/me skriver breve fra fængslet til ' . pick('sine elskere', 'pensionister') . ' om at være uskyldigt dømt.',
+        'Der er lidt Kim Wall i os alle.  Og i Køge bugt.',
+        'Hvis en kvinde forsvinder i en ubåd, og ubåden aldrig bliver fundet, er kvinden så egentlig væk?',
+    )
+}
+
+setNick(pick('Raket-Madsen', 'Ubaads-Madsen', $CONCIEGGS_DEFAULT_NAME)) if rand() < 0.02;
+
+while (my $line = <>) {
+    $line =~ s/(\w+)/kim_wall($1)/eg;
+    print $line;
+}
+
+say upassende if rand() < 0.02;

@@ -27,15 +27,14 @@ else
     if echo "$@" | egrep -q '^(fun|entry|module|val|type|import|let)'; then
         code="$@"
     else
-        code="import \"/futlib/math\" import \"/futlib/array\" let main() =\n$@"
+        code=$(printf 'import "/futlib/math" import "/futlib/array" let main() =\n%s' "$*")
     fi
 
     allthatjazz=$(cat <<EOF
-    code=\$(cat)
     file=\$(mktemp).fut
-    echo "\$code" > \$file
+    cat > \$file
     if futhark-c "\$file" -o "\$file.bin" 2>&1; then
-        \$file.bin $flags
+        \$file.bin $flags 2>&1
     fi
     rm -f "\$file" "\$file.bin"
 EOF

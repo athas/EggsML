@@ -10,7 +10,7 @@ use Git::Repository qw(Blame Log);
 use Time::Piece;
 use IPC::System::Simple qw(capturex);
 
-use Env qw(EGGS_USER CONCIEGGS_DIR CONCIEGGS_NAME);
+use Env qw(EGGS_USER EGGS_BODY CONCIEGGS_DIR CONCIEGGS_NAME);
 use EggsML::EggsPI boolean => [qw(annoyedBy)],
                    list    => [qw(recentlyActive)],
                    text    => [qw(writtenIn findCommand)];
@@ -32,7 +32,7 @@ if (!$arg) {
 my @victims = recentlyActive;
 my $repo = Git::Repository->new;
 
-if (my ($regex, $i) = $arg =~ qr{^/(.*?)/(i?)$}) {
+if (my ($regex, $i) = $EGGS_BODY =~ qr{/(.*)/(i?)$}) {
     ansvar_enkelt_linje($regex, $i);
     exit;
 }
@@ -62,8 +62,7 @@ sub ansvar_enkelt_linje {
     # Eftersom OpenBSD's egrep ikke understøtter --exclude-dir=...
     # og der er så meget besvær med at benytte ack, søger vi i de
     # mest interessante mapper:
-    my @subdirs = map { File::Spec->catfile($CONCIEGGS_DIR, $_) }
-        qw(cmds compiled eggspi filters hooks misc ops virker-egge);
+    my @subdirs = qw(cmds compiled eggspi filters hooks ops virker-egge);
     chomp (my @matches = capturex('egrep', "-Rn$i", '--', $regex, @subdirs));
     if (!@matches) {
         my $victim = pick(@victims);
@@ -83,7 +82,7 @@ sub ansvar_enkelt_linje {
         my ($match_filename, $match_line, $match_text) = split /:/, $match, 3;
         my $git_match_filename = File::Spec->catfile($CONCIEGGS_DIR, $match_filename);
         my $blame = $repo->blame($git_match_filename, ignore_whitespace => 0);
-        my $author = $blame->[$match_line]->{commit_attributes}->{author};
+        my $author = $blame->[$match_line - 1]->{commit_attributes}->{author};
 
         $match_text =~ s/^\s*//;
         $match_text =~ s/\s*$//;

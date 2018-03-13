@@ -1,10 +1,11 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
 # Spørg om din gæld til frokostkassen, eller få hjælp til diverse
 # personlighedsfremmende gøremål.  Brug naturligt sprog.
 eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|'\
 'har (?<debtor>[^ ]+) til gode$|'\
 'spiller de( [^ ]+)? (på|hos|ved|i) (?<channel>.+)$|'\
+'(er balancen på (B|b)itcoinadressen (?<btc>[^ ]+))'\
 '(?<whatis>er (?<subject>.+))$|'\
 '(?<missing>mangler jeg)$|'\
 '(?<wtf>hulen)$|'\
@@ -212,6 +213,24 @@ elif [ "$listener" ]; then
 
     echo "$EGGS_USER: $alias lytter til $listening_to lige nu."
     exit
+    
+    elif [ "$btc" ]; then
+    pat_addr = "[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+"
+    if [[ $btc =~ $pat_addr ]]; then
+        pat_valid_res = "\d+"
+        res = $(curl "https://blockchain.info/q/addressbalance/$btc")
+        if [[ $pat_valid_res =~ $pat_valid_res ]]; then
+            echo "Balancen på $btc er vist $res satoshi."
+            exit
+        else
+            echo "Ja ... Øhh ... det kan jeg ikke svare på."
+            exit
+        fi
+    else
+        echo "Det kan jeg ikke arbejde med."
+        exit
+    fi
+    
 elif [ "$version2" ]; then
     version2Debat | {
         read author
