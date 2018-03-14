@@ -216,9 +216,9 @@ elif [ "$listener" ]; then
     exit
 
 elif [ "$btc" ]; then
-    if echo "$btc" | grep -Pq '^[0-9A-Za-z]+$'; then
+    if echo "$btc" | egrep -q '^[0-9A-Za-z]+$'; then
         btc_balance=$(curl -s "https://blockchain.info/q/addressbalance/$btc")
-        if echo $btc_balance | grep -Pq '^\d+$'; then
+        if echo $btc_balance | egrep -q '^[0-9]+$'; then
             echo "$EGGS_USER: Balancen på den adresse er $btc_balance satoshi."
             exit
         fi
