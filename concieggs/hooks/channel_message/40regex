@@ -22,9 +22,13 @@ proc mainAlias {alias} {
 
 if {[success shuttingUp]} {exit 0}
 
-set s// {^(?:([^ ,:]+)[,:] *)?s/([^/]*)/([^/]*)(?:/([ig]*))?}
+set s// {^(?:([^ ,:]+)[,:] *)?s/((?:[^/]|\\/)*)/((?:[^/]|\\/)*)(?:/([ig]*))?}
 if {![regexp ${s//} $body {} who pattern replacement modifiers]} {exit 0}
 if {![string length $who]} {set who $user}
+
+# Eftersom \/ ikke er en gyldig escape-sekvens i TCL, men det er nødvendigt
+# for at skelne bogstavelige /'er fra s//'er, håndteres de specifikt her.
+foreach var {pattern replacement} {regsub -all {\\/} [set $var] "/" $var}
 
 set lastmsgs [run lastmsgs $who]
 if {![llength $lastmsgs]} {
