@@ -6,6 +6,9 @@ use utf8::all;
 # baseret på http://www.classy.dk/download/styrelizer.asp
 
 while (my $text = <>) {
+    $text =~ s/ ven / bro /g;
+    $text =~ s/ venner / bros /g;
+    $text =~ s/ venlig / OG /g;
     $text =~ s/ kræver / vil ha' sygt meget /g;
     $text =~ s/ jeg / denne dogg her /g;
     $text =~ s/Jeg /Denne dogg her /g;
