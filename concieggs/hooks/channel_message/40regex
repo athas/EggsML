@@ -39,13 +39,22 @@ if {[string first g $modifiers] != -1} {lappend flags -all}
 
 for {set i [expr {[llength $lastmsgs] - 1}]} {$i >= 0} {incr i -1} {
     set lastmsg [lindex $lastmsgs $i]
-    if {[regsub {*}$flags -- $pattern $lastmsg $replacement lastmsg]} {
+    try {
+        set did_replace [regsub {*}$flags -- $pattern $lastmsg $replacement lastmsg]
+    } on error {errmsg options} {
+        puts "$user: Det udtryk har jeg svært ved at greje.  Jeg hører følgende i min øresnegl: $errmsg."
+        run annoyedBy $user 1 "brugte et regulært udtryk som ikke kunne oversættes."
+        exit
+    }
+
+    if {$did_replace} {
         if {[regexp {\r|\n} $lastmsg]} {
             puts "$user: Hov, hov.  Hold dine rettelser på én linje, tak!"
             exit
         }
 
         puts "Rettet: <$who> $lastmsg"
+
         if {$user == $who} {
             lset lastmsgs $i $lastmsg
             set fp [open "$db/store/users/[mainAlias $who]/lastmsg" w]
@@ -53,6 +62,6 @@ for {set i [expr {[llength $lastmsgs] - 1}]} {$i >= 0} {incr i -1} {
             close $fp
         }
 
-        break
+        exit
     }
 }
