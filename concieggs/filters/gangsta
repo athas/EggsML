@@ -289,6 +289,13 @@ while (my $text = <>) {
     $text =~ s/ sne / coke /g;
     $text =~ s/ er / er sgu /g;
 
+    $text =~ s/ kan ikke lide / hater på /g;
+    $text =~ s/ ikke kan lide / hater på /g;
+    $text =~ s/ kan godt lide / har opperen på over /g;
+    $text =~ s/ godt kan lide / har opperen på over /g;
+    $text =~ s/ virkelig / fucking sindssygt /g;
+
+
     # fixups på tidligere regler
     $text =~ s/ hjalp / hjalp en homie og /g;
     $text =~ s/Det dersens skal /Det skal /g;
