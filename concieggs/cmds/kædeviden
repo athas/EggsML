@@ -34,5 +34,5 @@ while ($antal-- > 0) {
     slut_prut if $viden eq $mere_viden;
 
     $hvad = $hvad_mere;
-    $viden = $mere_viden;
+    $viden = "Apropos $hvad... " . $mere_viden;
 }
