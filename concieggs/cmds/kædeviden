@@ -14,18 +14,24 @@ sub bound { max(shift, min(shift, shift)) }
 
 my $antal = $ARGV[0] =~ /^\d+$/ ? bound(1, 5, shift @ARGV) : 2;
 
+sub slut_prut {
+    say "Og så er jeg vist løbet tør for spændende ting at sige om dét.";
+    exit(0);
+}
+
 my $hvad = join ' ', @ARGV;
 my $viden = autoviden($hvad);
 while ($antal-- > 0) {
     say $viden;
 
     my @interessant = grep { length $_ > 6 } split /[\s\.,!?]+/, $viden;
+    slut_prut unless @interessant;
+
     my $hvad_mere = $interessant[rand @interessant];
+    slut_prut if $hvad eq $hvad_mere;
+
     my $mere_viden = autoviden($hvad_mere);
-    if ($viden eq $mere_viden) {
-        say "Og så er jeg vist løbet tør for spændende ting at sige om dét.";
-        last;
-    }
+    slut_prut if $viden eq $mere_viden;
 
     $hvad = $hvad_mere;
     $viden = $mere_viden;
