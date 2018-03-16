@@ -1,0 +1,32 @@
+#!/usr/bin/env perl
+#
+# Brug: kædeviden [n] [emne], hvor n er 1-5. Begge argumenter er valgfri.
+use 5.020;
+use strict;
+use warnings;
+use utf8::all;
+
+use EggsML::EggsPI text => ['autoviden'];
+
+sub max { $_[$_[0] < $_[1]] }
+sub min { $_[$_[0] > $_[1]] }
+sub bound { max(shift, min(shift, shift)) }
+
+my $antal = $ARGV[0] =~ /^\d+$/ ? bound(1, 5, shift @ARGV) : 2;
+
+my $hvad = join ' ', @ARGV;
+my $viden = autoviden($hvad);
+while ($antal-- > 0) {
+    say $viden;
+
+    my @interessant = grep { length $_ > 6 } split /[\s\.,!?]+/, $viden;
+    my $hvad_mere = $interessant[rand @interessant];
+    my $mere_viden = autoviden($hvad_mere);
+    if ($viden eq $mere_viden) {
+        say "Og så er jeg vist løbet tør for spændende ting at sige om dét.";
+        last;
+    }
+
+    $hvad = $hvad_mere;
+    $viden = $mere_viden;
+}
