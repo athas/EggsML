@@ -80,6 +80,7 @@ else
             compile() {
                 javac $1
                 CRAP=$(echo $2 | awk -F. '{print $1}')
+                mv $CRAP _$CRAP
                 echo '#!/bin/sh\n java '$CRAP > $CRAP
                 chmod +x $CRAP
             }
