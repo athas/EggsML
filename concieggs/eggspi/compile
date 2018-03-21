@@ -76,6 +76,13 @@ else
                 mbld -b $2 $1 >&2
             }
             ;;
+        *java)
+            compile() {
+                java $1
+                CRAP=$(echo $1 | awk -F. '{print $1}')
+                echo '#!/bin/sh\n java '$CRAP > $CRAP
+            }
+            ;;
         *)
             echo "Cannot compile file $srcfile - unknown extension."
             exit 2
