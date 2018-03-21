@@ -52,7 +52,7 @@ export EGGS_DAEMON_SOCKET=$CONCIEGGS_DIR/eggsmld.socket
 # Import the concieggs library.
 export PATH=$CONCIEGGS_LIB_DIR:$PATH
 
-# Java is also something
+# Java is also something good
 export PATH=/usr/local/jdk-1.8.0/bin:$PATH
 
 # We also use Python!
