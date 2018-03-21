@@ -78,9 +78,11 @@ else
             ;;
         *java)
             compile() {
-                javac $1
+                javac $1 -d $(dirname $2)
+                echo $1 >&2
+                echo $2 >&2
                 CRAP=$(echo $2 | awk -F. '{print $1}')
-                mv $CRAP _$CRAP
+                echo $CRAP >&2
                 echo '#!/bin/sh\n java '$CRAP > $CRAP
                 chmod +x $CRAP
             }
