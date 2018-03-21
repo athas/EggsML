@@ -1,0 +1,34 @@
+#!/usr/bin/env perl
+#
+# Konverterer en $(eggspi/langcode) til sprognavn.
+use 5.020;
+use strict;
+use warnings;
+use utf8::all;
+
+my %langs = qw( af afrikaans    sq albansk      ar arabisk      az aserbajdsjansk
+                eu baskisk      bn bengalsk     be hviderussisk bg bulgarsk
+                ca katalansk    zh-CN kinesisk  zh-TW kinesisk  hr kroatisk
+                cs tjekkisk     da dansk        nl hollandsk    en engelsk
+                eo esperanto    et estisk       tl filipinsk    fi finsk
+                fr fransk       gl galisisk     ka georgisk     de tysk
+                el græsk        gu gurajati     ht haitisk      iw hebraisk
+                hi hindi        hu hungarsk     is islandsk     id indonesisk
+                ga irsk         it italiensk    ja japansk      kn kannada
+                ko koreansk     la latinsk      lv lettisk      lt litausk
+                mk makedonisk   ms malajsisk    mt maltesisk    no norsk
+                fa persisk      pl polsk        pt portugesisk  ro romænsk
+                ru russisk      sr serbisk      sk slovakisk    sl slovensk
+                es spansk       sw swahili      sv svensk       ta tamilsk
+                te telugu       th thai         tr tyrkisk      uk ukrainsk
+                ur urdu         vi vietnamesisk cy walisisk     yi jiddisch
+                so somalisk
+            );
+
+my $langcode = $ARGV[0];
+my $langname = $langs{$langcode};
+if ($langname) {
+    print $langname;
+} else {
+    exit 1;
+}
