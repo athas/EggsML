@@ -21,6 +21,7 @@ class Google {
 
             if(output.contains("\"link\": \"")){                
                 String link=output.substring(output.indexOf("\"link\": \"")+("\"link\": \"").length(), output.indexOf("\","));
+                System.out.println("Debug: " + qry);
                 System.out.println("Klik bare på " + link);
                 break;
             }     
