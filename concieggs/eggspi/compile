@@ -20,7 +20,6 @@ shift
 compiledfile=$CONCIEGGS_DB_DIR/compiled-cache/$basename
 
 if [ "$compiledfile" -nt "$srcfile" ]; then
-    echo "$@"
     "$compiledfile" "$@"
 else
     case $srcfile in
