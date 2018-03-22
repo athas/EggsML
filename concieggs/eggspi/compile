@@ -80,7 +80,9 @@ else
             compile() {
                 javac $1 -d "$CONCIEGGS_DB_DIR/compiled-cache"
                 CRAP=$(echo $2 | awk -F. '{print $1}')
-                echo '#!/bin/sh\n java '$CRAP > $CRAP
+                TIS=$(basename $CRAP)
+                KLASSE=$(echo $TIS | cut -c1-1 | tr '[a-z]' '[A-Z]')$(echo $TIS | cut -c 2-)
+                echo '#!/bin/sh\n java '$KLASSE > $CRAP
                 chmod +x $CRAP
             }
             ;;
