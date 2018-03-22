@@ -7,6 +7,7 @@ class Google {
 
         String key="AIzaSyAv3LmGV0U4uN6XWGJUI6GlUDi5BSxUXsM";
         String qry = "concieggs";
+        System.out.println("Debug: " + Integer.toString(args.length));
         if (args.length > 0) qry = URLEncoder.encode(String.join("  ", args));
         URL url = new URL(
                 "https://www.googleapis.com/customsearch/v1?key="+key+ "&cx=012472299030023714099:r_r3vfplqiu&q="+ qry + "&alt=json");
