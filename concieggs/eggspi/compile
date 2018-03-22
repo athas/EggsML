@@ -78,9 +78,8 @@ else
             ;;
         *java)
             compile() {
-                export CLASSPATH=$CONCIEGGS_DB_DIR/compiled-cache:$CLASSPATH
-                javac $1 -d $CLASSPATH
-                CRAP=$(echo $basename | awk -F. '{print $1}')
+                javac $1 -d "$CONCIEGGS_DB_DIR/compiled-cache"
+                CRAP=$(echo $1 | awk -F. '{print $1}')
                 echo '#!/bin/sh\n java '$CRAP > $CRAP
                 chmod +x $CRAP
             }
