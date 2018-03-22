@@ -79,7 +79,7 @@ else
         *java)
             compile() {
                 javac $1 -d "$CONCIEGGS_DB_DIR/compiled-cache"
-                CRAP=$(echo $1 | awk -F. '{print $1}')
+                CRAP=$(echo $2 | awk -F. '{print $1}')
                 echo '#!/bin/sh\n java '$CRAP > $CRAP
                 chmod +x $CRAP
             }
