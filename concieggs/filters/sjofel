@@ -1,0 +1,20 @@
+#!/usr/bin/env perl
+use 5.020;
+use strict;
+use warnings;
+use utf8::all;
+
+use EggsML::EggsPI list => ['curl'];
+
+sub sjofel { 
+    my @headers = curl('-sI', 'https://www.pornhub.com/gay/random');
+    my ($location) = grep { $_ =~ /^Location:/ } @headers;
+    my ($dest) = $location =~ /^Location: (\S+)/;
+
+    return "https://www.pornhub.com" . $dest . " ... på pikken!";
+}
+
+while (<>) {
+    s!https?://\S+!sjofel!ge;
+    print;
+}
