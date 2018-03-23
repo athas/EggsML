@@ -82,7 +82,7 @@ else
                 CRAP=$(echo $2 | awk -F. '{print $1}')
                 TIS=$(basename $CRAP)
                 KLASSE=$(echo $TIS | cut -c1-1 | tr '[a-z]' '[A-Z]')$(echo $TIS | cut -c 2-)
-                echo '#!/bin/sh\njava '$KLASSE' $1' > $CRAP
+                echo '#!/bin/sh\njava '$KLASSE' $@' > $CRAP
                 chmod +x $CRAP
             }
             ;;
