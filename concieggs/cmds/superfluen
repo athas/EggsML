@@ -3,4 +3,5 @@
 # Giv fluen noget amfetamin og find ud af noget!
 
 resetCooldown fluen
+echo "$(ack) $(ack) $(ack) $(ack) $(ack)"
 delay=0 cmds/fluen | tr a-zæøå A-ZÆØÅ
