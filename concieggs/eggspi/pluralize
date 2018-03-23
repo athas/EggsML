@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# pluralize [n] [ental] [flertal]
+
+[ $1 -eq 1 ] && echo $2 || echo $3
