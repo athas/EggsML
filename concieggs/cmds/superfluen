@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+# Giv fluen noget amfetamin og find ud af noget!
+
+resetCooldown fluen
+delay=0 cmds/fluen | tr a-zæøå A-ZÆØÅ
