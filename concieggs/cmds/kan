@@ -18,10 +18,12 @@ if [ "$user" ]; then
     else
         alias=$user
     fi
+
     if cmpNames "$alias" reenberg; then
         echo "Nej, $user er nederen."
         exit
     fi
+
     s="$(annoyanceAt "$alias") > 0"
     reasons=$(annoyances "$alias")
     if isInBadStanding "$alias" || [ $(echo "$s" | bc) = 1 ]; then
@@ -38,19 +40,28 @@ if [ "$user" ]; then
         fi
         exit
     fi
+
+    n=$(likers "$alias" | sort -u | wc -l)
+    if [ $n -gt 0 ]; then
+        godnok="vellidt af $n $(pluralize $n person personer)"
+    else
+        godnok="god nok"
+    fi
+
     s="$(annoyanceAt "$alias") < 0"
     if [ $(echo "$s" | bc) = 1 ]; then
         if isKing "$alias"; then
             echo "Selvfølgelig, det er jo vores alles konge."
         else
             if [ -n "$reasons" ]; then
-                echo "Ja, $user er god nok, omend $user $reasons."
+                echo "Ja, $user er $godnok, omend $user $reasons."
             else
-                echo "Ja, $user er god nok."
+                echo "Ja, $user er $godnok."
             fi
         fi
         exit
     fi
+
     if [ $(annoyanceAt "$alias") = 0 ]; then
         if [ "$user" = "du" ]; then
             echo "Jeg kender dig ikke godt nok."

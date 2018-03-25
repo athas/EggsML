@@ -1,0 +1,18 @@
+#!/usr/bin/env perl
+use 5.020;
+use strict;
+use warnings;
+use utf8::all;
+
+use EggsML::EggsPI list => ['curl'];
+
+sub sjofel { 
+    my ($dest) = map { /^Location: (\S+)/ }
+        curl('-sI', 'https://www.pornhub.com/gay/random');
+    "https://www.pornhub.com" . $dest;
+}
+
+while (<>) {
+    s!https?://\S+!sjofel!ge;
+    print;
+}
