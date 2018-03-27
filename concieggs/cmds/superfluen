@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# Giv fluen noget amfetamin og find ud af noget!
+
+resetCooldown fluen
+echo "$(ack) $(ack) $(ack) $(ack) $(ack) $(ack) $(ack)" | tr a-zæøå A-ZÆØÅ
+delay=0 $(dirname "$0")/fluen | tr a-zæøå A-ZÆØÅ

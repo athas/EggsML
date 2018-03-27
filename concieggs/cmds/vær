@@ -1,7 +1,7 @@
 #!/bin/sh
 #
-# Bed concieggs om at være på en bestemt led.  Brug: 'vær MÅDE' eller 'vær MÅDE
-# mod BRUGER' eller 'vær MÅDE på KANAL'.  Der er mange MÅDER.
+# Bed concieggs om at være på en bestemt led.  Brug: 'vær MÅDE' eller
+# 'vær MÅDE mod BRUGER' eller 'vær MÅDE på KANAL'.  Der er mange MÅDER.
 
 eval "$(echo "$@" | parse '^(?<additive>også )?(?<what>.+?)(?: (?:mod|på) (?<specific>#?[^\s/]+))?$')"
 
