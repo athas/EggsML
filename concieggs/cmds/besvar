@@ -7,7 +7,7 @@ if [ $# -ne 1 ]; then
     exit
 fi
 
-msg=$(lastmsg $1 | sed 's/^[^ ]+: //')
+msg=$(lastmsg $1 | sed -E 's/^[^ ]+: //')
 
 if ! [ "$msg" ]; then
     echo "$EGGS_USER: Beklager, jeg bemærkede ikke at '$1' sagde noget."
