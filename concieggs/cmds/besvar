@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# Lyd en logebroders ord.
+
+if [ $# -ne 1 ]; then
+    echo "$EGGS_USER: Jeg forstår ikke hvad du mener."
+    exit
+fi
+
+msg=$(lastmsg $1 | sed 's/^[^ ]+: //')
+
+if ! [ "$msg" ]; then
+    echo "$EGGS_USER: Beklager, jeg bemærkede ikke at '$1' sagde noget."
+    exit
+fi
+
+EGGS_USER=$1
+runcmd $msg
