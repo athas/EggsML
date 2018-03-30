@@ -41,7 +41,7 @@ if [ "$user" ]; then
         exit
     fi
 
-    n=$(likers "$alias" | sort -u | wc -l)
+    n=$(likers "$alias" | sort -u | wc -l | sed 's/ //g')
     if [ $n -gt 0 ]; then
         godnok="vellidt af $n $(pluralize $n person personer)"
     else
