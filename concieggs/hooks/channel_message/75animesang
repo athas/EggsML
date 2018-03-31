@@ -3,17 +3,28 @@
 dbRead "outfilter_command" | grep -q jpop || exit
 
 shuttingUp && exit
-maybeGood .3 || exit
+maybeGood .2 || exit
 
 selvsang() {
     jpopSong | sed -r 's/([aeiouy])$/\1\1\1\1\1\1~~~/'
+}
+
+vild_farve() {
+    randomLine <<EOF
+lilla
+pang-rød
+pink
+vold-orange
+EOF
 }
 
 kostume() {
     randomLine <<EOF
 t magical-girl-kostume
 ne katteører
-n lilla paryk
+n $(vild_farve) paryk
+t maid-kostume
+n selvlysende neglelak
 EOF
 }
 
@@ -23,4 +34,5 @@ $(selvsang)
 /me synger med på tv'et: $(selvsang)
 /me går ud på scenen: $(selvsang)
 /me kommer med sin originale komposition: $(selvsang)
+/me krammer sin kropspude og nynner til sig selv: $(selvsang)
 EOF
