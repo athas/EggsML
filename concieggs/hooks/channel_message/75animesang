@@ -1,7 +1,6 @@
 #!/bin/sh
 
-dbRead "outfilter_command" | grep -q jpop || exit
-
+usesFilter jpop || exit
 shuttingUp && exit
 maybeGood .2 || exit
 

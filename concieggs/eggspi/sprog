@@ -9,7 +9,7 @@ use utf8::all;
 use Env qw(EGGS_WHERE);
 use EggsML::EggsPI text => [qw(dbRead langname)];
 
-my $b = dbRead('outfilter_command_' . $EGGS_WHERE) || dbRead('outfilter_command');
+my $b = dbRead('filterchain_' . $EGGS_WHERE) || dbRead('filterchain');
 $b =~ s/^translate da *//;
 
 print join('-', map { langname($_) } (split / /, $b)) || 'dansk';

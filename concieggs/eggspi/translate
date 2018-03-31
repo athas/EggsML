@@ -1,19 +1,14 @@
 #!/bin/sh
 #
 # Translate from any Google Translate-supported language to another through a
-# chain.
+# chain.  Also handle built-in filters.
 
 t() {
     filter="$CONCIEGGS_DIR/filters/$2"
     if test -x "$filter"; then
         "$filter"
     else
-        from="$1"
-        langcodes="$CONCIEGGS_DB_DIR/langcodes"
-        if ! grep -q "$from" "$langcodes"; then
-            from='' # Let Google guess.
-        fi
-        $CONCIEGGS_HOME/bin/translate-shell/translate -brief "$from:$2" -
+        $CONCIEGGS_HOME/bin/translate-shell/translate -brief "$(langcode $1):$(langcode $2)" -
     fi
 }
 

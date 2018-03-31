@@ -3,8 +3,7 @@
 
 support_user() {
     user="$1"
-    isFeminazi=$(echo "$(dbRead outfilter_command)" | grep -ci "feminazi")
-    if [ $isFeminazi = 1 ]; then
+    if usesFilter feminazi; then
         support_feminazi "$user"
     else
         support "$user"
