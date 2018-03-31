@@ -4,7 +4,7 @@
 
 shuttingUp && exit
 
-if isFullMoon "$(dateYesterday)"; then
+if isFullMoon "$(dateTomorrow)"; then
     maybeGood .05 || exit
     line=$(randomLine <<EOF
 Blodet strømmer stærkere igennem mig...
@@ -37,7 +37,7 @@ IIIIIH, HVORFOR NU FULDMÅNE IGEN???
 /me stirrer ud i natten mens tænderne bliver skarpere.
 EOF
         )
-elif isFullMoon "$(dateTomorrow)"; then
+elif isFullMoon "$(dateYesterday)"; then
     maybeGood .05 || exit
     line=$(randomLine <<EOF
 I må altså virkelig undskylde det der i går.  Det sker bare hver måned...
