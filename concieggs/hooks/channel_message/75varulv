@@ -10,6 +10,7 @@ if isFullMoon "$(dateTomorrow)"; then
 Blodet strømmer stærkere igennem mig...
 /me føler langsomt sine negle vokse hurtigere end normalt
 Hvad sker der med min dunst?
+Noget rører sig dybt indeni.  Det kommer frem...
 EOF
         )
 elif isFullMoon "$(dateToday)"; then
@@ -34,7 +35,7 @@ Så for søren, jeg er sgisme en VARulv!
 /me går helt agurk under fuldmånens skær.
 Fuldmåne!  Åh nej!
 IIIIIH, HVORFOR NU FULDMÅNE IGEN???
-/me stirrer ud i natten mens tænderne bliver skarpere.
+/me stirrer ud i natten mens tænderne bliver helt skarpe.
 EOF
         )
 elif isFullMoon "$(dateYesterday)"; then
@@ -42,6 +43,9 @@ elif isFullMoon "$(dateYesterday)"; then
     line=$(randomLine <<EOF
 I må altså virkelig undskylde det der i går.  Det sker bare hver måned...
 /me spadserer pinligt og næsten nøgen ned ad gaden
+/me tager et tæppe på for at dække over de mærkelige mærker fra i går
+Undskyld for min sjove varulveopførsel i går.
+/me tørrer op efter blodet
 EOF
         )
 else
