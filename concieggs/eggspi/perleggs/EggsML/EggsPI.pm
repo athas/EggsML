@@ -6,6 +6,7 @@ use warnings;
 use Exporter;
 use IPC::Run;
 use Sub::Install;
+use JSON;
 
 sub _install_sub_handler {
     my ($type, $caller, $code) = @_;
@@ -60,6 +61,12 @@ sub import {
         my $res = _run(@_);
         my $text = $res->{stdout};
         return $text;
+    } );
+
+    _install_sub_handler($args{json}, $caller, sub {
+        my $res = _run(@_);
+        my $json = decode_json($res->{stdout});
+        return $json;
     } );
 }
 
