@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import re
 import sys
 import math
+import string
+import random
 
 bil = [ ' ___/_|_____ '
       , '[_,_______,_]'
@@ -14,13 +17,27 @@ trailer = [ '          '
           , '     O    '
           ]
 
+def fyld_trailer():
+    fyldt_trailer = [ '   _xxx_  '
+                    , '-|xxxxxxx|'
+                    , '     O    '
+                    ]
+
+    skrammel = string.printable[:-6]
+    return [ re.sub('x', lambda x: random.choice(skrammel), s) for s in fyldt_trailer ]
+
 def jyde(trailere, invaderer_sjaelland=False):
     if trailere < 0:
         invaderer_sjaelland = True
         trailere *= -1
 
+    fyldte_trailere = random.randint(0, int(trailere))
+
     result = bil
-    for i in range(int(trailere)):
+    for i in range(fyldte_trailere):
+        result = map(lambda x: x[0] + x[1], zip(result, fyld_trailer()))
+
+    for i in range(fyldte_trailere, int(trailere)):
         result = map(lambda x: x[0] + x[1], zip(result, trailer))
 
     fractional = int( (trailere % 1) * len(trailer[0]) )
