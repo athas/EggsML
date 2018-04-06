@@ -12,7 +12,11 @@ trailer = [ '          '
           , '     O    '
           ]
 
-def jyde(trailere):
+def jyde(trailere, invaderer_sjaelland=False):
+    if trailere < 0:
+        invaderer_sjaelland = True
+        trailere *= -1
+
     result = bil
     for i in range(int(trailere)):
         result = map(lambda x: x[0] + x[1], zip(result, trailer))
@@ -21,15 +25,15 @@ def jyde(trailere):
     if fractional:
         result = map(lambda x: x[0] + x[1][:fractional-1], zip(result, trailer))
 
+    if invaderer_sjaelland:
+        result = [ s[::-1] for s in result ]
+
     for s in result:
         print s
 
 try:
     trailere = float(sys.argv[1])
-    if trailere < 0:
-        print("For lidt jyde")
-        sys.exit()
-    elif trailere > 8:
+    if abs(trailere) > 8:
         print("For meget jyde")
         sys.exit()
 except IndexError:
