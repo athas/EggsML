@@ -1,6 +1,8 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import sys
+import math
 
 bil = [ ' ___/_|_____ '
       , '[_,_______,_]'
@@ -31,15 +33,20 @@ def jyde(trailere, invaderer_sjaelland=False):
     for s in result:
         print s
 
-try:
-    trailere = float(sys.argv[1])
-    if abs(trailere) > 8:
-        print("For meget jyde")
+if sys.argv[1] == 'π':
+    trailere = math.pi
+elif sys.argv[1] == '-π':
+    trailere = -math.pi
+else:
+    try:
+        trailere = float(sys.argv[1])
+        if abs(trailere) > 8:
+            print("For meget jyde")
+            sys.exit()
+    except IndexError:
+        trailere = 1
+    except Exception:
+        print("Den mængde jyde har jeg svært ved at kvantificere.")
         sys.exit()
-except IndexError:
-    trailere = 1
-except Exception:
-    print("hmmmmmm.")
-    sys.exit()
 
 jyde(trailere)
