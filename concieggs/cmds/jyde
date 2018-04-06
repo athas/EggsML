@@ -18,6 +18,20 @@ trailer = [ '          '
           ]
 
 def fyld_trailer():
+    if random.random() < 0.1:
+        return random.choice([
+            # Hundetrailer
+            [ ' ~oO< -' + random.choice(['vuf', 'vov', 'møf'])
+            , '-|_Mm~~__|'
+            , '     O    '
+            ],
+            # Hitler-trailer
+            [ '   卍卍卍卍  '
+            , '-|卍卍卍卍卍|'
+            , '   O     O  '
+            ],
+        ])
+
     fyldt_trailer = [ '   _xxx_  '
                     , '-|xxxxxxx|'
                     , '     O    '
