@@ -1,12 +1,42 @@
-#!/bin/sh
+#!/usr/bin/env perl
 
-echo ' ▄▀▄▀▀▀▀▄▀▄'
-echo ' █░░░░░░░░▀▄      ▄   ▄   ▄'
-echo '█░░▀░░▀░░░░░▀▄▄  █░█ █░█ █░█'
-echo '█░▄░█▀░▄░░░░░░░▀▀▀░▀▀▀░▀▀▀░▀▀█'
-echo '█░░▀▀▀▀░░░░░░░░░░░░░░░░░░░░░░█'
-echo '█░░░░░░░░░░░░░░░░░░░░░░░░░░░░█'
-echo '█░░░░░░░░░░░░░░░░░░█▀▀▀▀▀▀▀▀▀'
-echo ' █░░▄▄░░▄▄▄▄░░▄▄░░█'
-echo ' █░▄▀█░▄▀  █░▄▀█░▄▀'
-echo '  ▀   ▀     ▀   ▀'
+use Env qw(EGGS_USER);
+use List::Util qw(min max);
+use utf8::all;
+
+my @hund = (
+    ' ▄▀▄▀▀▀▀▄▀▄',
+    ' █░░░░░░░░▀▄      ▄  x ▄',
+    '█░░▀░░▀░░░░░▀▄▄  █░█ x█░█',
+    '█░▄░█▀░▄░░░░░░░▀▀▀░▀▀x▀░▀▀█',
+    '█░░▀▀▀▀░░░░░░░░░░░░░░x░░░░█',
+    '█░░░░░░░░░░░░░░░░░░░░x░░░░█',
+    '█░░░░░░░░░░░░░░░░░░█▀x▀▀▀▀ ',
+    ' █░░▄▄░░▄▄▄▄░░▄▄░░█',
+    ' █░▄▀█░▄▀  █░▄▀█░▄▀',
+    '  ▀   ▀     ▀   ▀',
+);
+
+my @tak = (
+    ' ▄  ',
+    '█░█ ',
+    '▀░▀▀',
+    '░░░░',
+    '░░░░',
+    '▀▀▀▀',
+);
+
+my $takker = @ARGV[0] // 5;
+
+if ($takker < 0 || $takker > 20) {
+  print "$EGGS_USER: Vi er desværre løbet tør for fisk.";
+  exit;
+}
+
+print shift(@hund) . "\n";
+while ((my $hund = shift @hund) =~ /x/) {
+  my $hale = shift(@tak) x $takker;
+  $hund =~ s/x/$hale/;
+  print "$hund\n";
+}
+print shift(@hund) . "\n" while @hund;
