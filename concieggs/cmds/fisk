@@ -5,7 +5,6 @@ use warnings;
 use utf8::all;
 
 use Env qw(EGGS_USER);
-use EggsML::EggsPI list => ['db
 
 sub pick { $_[rand @_] }
 sub pick_unique {
