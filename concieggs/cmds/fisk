@@ -1,20 +1,34 @@
 #!/usr/bin/env perl
-
-use Env qw(EGGS_USER);
-use List::Util qw(min max);
+use 5.020;
+use strict;
+use warnings;
 use utf8::all;
 
-my @hund = (
+use Env qw(EGGS_USER);
+use EggsML::EggsPI list => ['db
+
+sub pick { $_[rand @_] }
+sub pick_unique {
+    my $bag = shift;
+    my $not = shift;
+    my $chosen = $not;
+    while ($chosen eq $not) {
+        $chosen = pick(@$bag);
+    }
+    return $chosen;
+}
+
+my @fisk = (
     ' ▄▀▄▀▀▀▀▄▀▄',
     ' █░░░░░░░░▀▄      ▄  x ▄',
     '█░░▀░░▀░░░░░▀▄▄  █░█ x█░█',
     '█░▄░█▀░▄░░░░░░░▀▀▀░▀▀x▀░▀▀█',
     '█░░▀▀▀▀░░░░░░░░░░░░░░x░░░░█',
     '█░░░░░░░░░░░░░░░░░░░░x░░░░█',
-    '█░░░░░░░░░░░░░░░░░░█▀x▀▀▀▀ ',
-    ' █░░▄▄░░▄▄▄▄░░▄▄░░█',
-    ' █░▄▀█░▄▀  █░▄▀█░▄▀',
-    '  ▀   ▀     ▀   ▀',
+    '█░░░░░░░░y█▀z▀▀▀▀▀▀ ',
+    ' █░░▄▄░░▄y',
+    ' █░▄▀█░▄▀y',
+    '  ▀   ▀  y',
 );
 
 my @tak = (
@@ -23,20 +37,53 @@ my @tak = (
     '▀░▀▀',
     '░░░░',
     '░░░░',
-    '▀▀▀▀',
 );
 
-my $takker = @ARGV[0] // 5;
+my @ben = (
+    '░░░░░░░░░░',
+    '▄▄▄░░▄▄░░█',
+    '  █░▄▀█░▄▀',
+    '   ▀   ▀  ',
+);
 
-if ($takker < 0 || $takker > 20) {
-  print "$EGGS_USER: Vi er desværre løbet tør for fisk.";
-  exit;
+my $mellemkød = '░'; # tihi
+my $halekød = '▀';
+
+my $antal_takker = int(rand 25);
+my $antal_ben = int(rand($antal_takker / 2));
+
+print pick(
+    "/me snører fiskestangen og sætter sig til rette.",
+    "/me skubber robåden i vandet og sætter sig til rette.",
+    "/me kommer madding på krogen og sætter sig til rette.",
+) . "\n";
+
+my @fiskelyde = (
+    '/me hiver lidt i snøren...',
+    '/me tror der er bid...',
+    '/me kommer ny madding på krogen.',
+    '/me vugger lidt i robåden.',
+    '/me laver fiskelyde.',
+    '/me falder lidt i søvn.',
+);
+
+my $fiskelyd = '';
+while (rand() < 0.85) {
+    $fiskelyd = pick_unique(\@fiskelyde, $fiskelyd);
+    print $fiskelyd . "\n";
+    sleep(1 + rand(3));
 }
 
-print shift(@hund) . "\n";
-while ((my $hund = shift @hund) =~ /x/) {
-  my $hale = shift(@tak) x $takker;
-  $hund =~ s/x/$hale/;
-  print "$hund\n";
+print pick(
+    "$EGGS_USER: DER ER BID!",
+    "/me har fanget en fisk!",
+) . "\n";
+
+my $prev = '';
+while (my $fisk = shift @fisk) {
+    $fisk =~ s/x/shift(@tak) x $antal_takker/e if $fisk =~ /x/;
+    $fisk =~ s/y/shift(@ben) x $antal_ben/e    if $fisk =~ /y/;
+    $fisk =~ s/z/$halekød x (length($prev) - length($fisk))/e if $fisk =~ /z/;
+    print "$fisk\n";
+    $prev = $fisk;
 }
-print shift(@hund) . "\n" while @hund;
