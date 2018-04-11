@@ -28,7 +28,7 @@ sub phoneNumbers {
     return join ', ', map { $_->{phoneNumber} } @$phoneNumbers;
 }
 
-sub address { 
+sub address {
     my $address = shift;
     return sprintf("%s, %s %s",
         $address->{streetName},
