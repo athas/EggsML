@@ -5,12 +5,13 @@
 body="$(say "$EGGS_BODY" | makeDanish)"
 
 if [ "$body" != "$EGGS_BODY" ]; then
+    sprog=$(sprog)
     prefix=`randomLine <<EOF
 $EGGS_USER mener nok
 /me foretrækker nu
-$EGGS_USER, her på dansk
-Nejnej, på dansk
-/me oversætter
+$EGGS_USER, her på $sprog
+Nejnej, på $sprog
+/me oversætter til $sprog
 EOF`
 
     say "$prefix: $body"

@@ -1,0 +1,13 @@
+#!/usr/bin/env perl
+use 5.020;
+use strict;
+use warnings;
+use utf8::all;
+
+use Env qw(EGGS_USER EGGS_BODY);
+use EggsML::EggsPI list => ['pleasedBy', 'dbUserWriteAppend'];
+
+for ($EGGS_BODY =~ /\b(\S+)\+\+/g) {
+    pleasedBy($_);
+    dbUserWriteAppend({ stdin => "$EGGS_USER\n" }, $_, "++");
+}

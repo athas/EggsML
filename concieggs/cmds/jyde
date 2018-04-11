@@ -1,6 +1,11 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
+import re
 import sys
+import math
+import string
+import random
 
 bil = [ ' ___/_|_____ '
       , '[_,_______,_]'
@@ -12,30 +17,67 @@ trailer = [ '          '
           , '     O    '
           ]
 
-def jyde(trailere):
+def fyld_trailer():
+    if random.random() < 0.1:
+        return random.choice([
+            # Hundetrailer
+            [ ' ~oO< -' + random.choice(['vuf', 'vov', 'møf'])
+            , '-|_Mm~~__|'
+            , '     O    '
+            ],
+            # Hitler-trailer
+            [ '   卍卍卍卍  '
+            , '-|卍卍卍卍卍|'
+            , '   O     O  '
+            ],
+        ])
+
+    fyldt_trailer = [ '   _xxx_  '
+                    , '-|xxxxxxx|'
+                    , '     O    '
+                    ]
+
+    skrammel = string.printable[:-6]
+    return [ re.sub('x', lambda x: random.choice(skrammel), s) for s in fyldt_trailer ]
+
+def jyde(trailere, invaderer_sjaelland=False):
+    if trailere < 0:
+        invaderer_sjaelland = True
+        trailere *= -1
+
+    fyldte_trailere = random.randint(0, int(trailere))
+
     result = bil
-    for i in range(int(trailere)):
+    for i in range(fyldte_trailere):
+        result = map(lambda x: x[0] + x[1], zip(result, fyld_trailer()))
+
+    for i in range(fyldte_trailere, int(trailere)):
         result = map(lambda x: x[0] + x[1], zip(result, trailer))
 
     fractional = int( (trailere % 1) * len(trailer[0]) )
     if fractional:
         result = map(lambda x: x[0] + x[1][:fractional-1], zip(result, trailer))
 
+    if invaderer_sjaelland:
+        result = [ s[::-1] for s in result ]
+
     for s in result:
         print s
 
-try:
-    trailere = float(sys.argv[1])
-    if trailere < 0:
-        print("For lidt jyde")
+if sys.argv[1] == 'π':
+    trailere = math.pi
+elif sys.argv[1] == '-π':
+    trailere = -math.pi
+else:
+    try:
+        trailere = float(sys.argv[1])
+        if abs(trailere) > 8:
+            print("For meget jyde")
+            sys.exit()
+    except IndexError:
+        trailere = 1
+    except Exception:
+        print("Den mængde jyde har jeg svært ved at kvantificere.")
         sys.exit()
-    elif trailere > 8:
-        print("For meget jyde")
-        sys.exit()
-except IndexError:
-    trailere = 1
-except Exception:
-    print("hmmmmmm.")
-    sys.exit()
 
 jyde(trailere)

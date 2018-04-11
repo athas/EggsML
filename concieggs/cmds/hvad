@@ -1,11 +1,12 @@
-#!/usr/bin/env bash
+#!/bin/sh
 #
 # Spørg om din gæld til frokostkassen, eller få hjælp til diverse
 # personlighedsfremmende gøremål.  Brug naturligt sprog.
-eval "$(echo "$@" | parse 'skylder (?<debtor>[^ ]+)$|'\
+eval "$(echo "$@" | parse \
+'skylder (?<debtor>[^ ]+)$|'\
 'har (?<debtor>[^ ]+) til gode$|'\
 'spiller de( [^ ]+)? (på|hos|ved|i) (?<channel>.+)$|'\
-'(er balancen på (B|b)itcoinadressen (?<btc>[^ ]+))'\
+'er balancen på ([Bb]itcoinadressen )?(?<btc>[^ ]+)|'\
 '(?<whatis>er (?<subject>.+))$|'\
 '(?<missing>mangler jeg)$|'\
 '(?<wtf>hulen)$|'\
@@ -106,14 +107,14 @@ EOF
 elif [ "$missing" ]; then
     echo "Du mangler $(randomLine < "$CONCIEGGS_DB_DIR/ordbog-dansk-navneord")!"
 elif [ "$wtf" ]; then
-    behaviour=$(dbRead outfilter_command)
-    user_behaviour=$(dbRead "outfilter_command_$EGGS_USER")
-    channel_behaviour=$(dbRead "outfilter_command_$(ircChannel)")
+    behaviour=$(dbRead filterchain)
+    user_behaviour=$(dbRead "filterchain_$EGGS_USER")
+    channel_behaviour=$(dbRead "filterchain_$(ircChannel)")
     if [ "$user_behaviour" = "$channel_behaviour" ]; then
         unset $channel_behaviour
     fi
     if [ "$behaviour" ]; then
-        echo -n "Mit kulturelle islæt er $behaviour.  "
+        echo -n "Mit kulturelle islæt er $behaviour."
         if [ "$user_behaviour" ]; then
             echo "Men for din skyld er jeg også $user_behaviour."
         elif [ "$channel_behaviour" ]; then
@@ -213,24 +214,21 @@ elif [ "$listener" ]; then
 
     echo "$EGGS_USER: $alias lytter til $listening_to lige nu."
     exit
-    
-    elif [ "$btc" ]; then
-    pat_addr = "[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+"
-    if [[ $btc =~ $pat_addr ]]; then
-        pat_valid_res = "\d+"
-        res = $(curl "https://blockchain.info/q/addressbalance/$btc")
-        if [[ $pat_valid_res =~ $pat_valid_res ]]; then
-            echo "Balancen på $btc er vist $res satoshi."
-            exit
-        else
-            echo "Ja ... Øhh ... det kan jeg ikke svare på."
+
+elif [ "$btc" ]; then
+    if echo "$btc" | egrep -q '^[0-9A-Za-z]+$'; then
+        btc_balance=$(curl -s "https://blockchain.info/q/addressbalance/$btc")
+        if echo $btc_balance | egrep -q '^[0-9]+$'; then
+            echo "$EGGS_USER: Balancen på den adresse er $btc_balance satoshi."
             exit
         fi
-    else
-        echo "Det kan jeg ikke arbejde med."
-        exit
     fi
-    
+
+    (echo "$EGGS_USER: Det kan jeg ikke svare dig på."
+     echo "$EGGS_USER: Det må Bitcoin-vejrguderne vide."
+     echo "$EGGS_USER: Den er vist steget 10.000% siden i morges!"
+    ) | randomLine
+
 elif [ "$version2" ]; then
     version2Debat | {
         read author
