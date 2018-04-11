@@ -1,0 +1,16 @@
+#!/bin/sh
+
+randomLine <<EOF
+Det må du bede nødberedskabet om at gøre.
+Ikke så længe jeg er lockoutet.
+Det har jeg desværre ikke lov til.
+Den må du tage med min chef.
+Den må du tage med Michael Ziegler.
+Beklager, Sophie Løhde siger at jeg ikke må.
+Det må jeg desværre ikke, men der er måske en privatansat bot der kan hjælpe dig i stedet.
+Beklager $EGGS_USER, jeg er desværre lockoutet.
+Desværre, »$0« er ikke en del af den kritiske infrastruktur.
+$EGGS_USER: Innovationsministeren mener ikke at $0-kommandoen er undtaget lockouten.
+$EGGS_USER: Din »$0«-kørsel må vente til efter lockouten.
+$EGGS_USER: Jeg er lockoutet, så jeg håber altså ikke at dit $0-kald var vigtigt..
+EOF
