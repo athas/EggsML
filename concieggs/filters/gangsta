@@ -54,6 +54,8 @@ while (my $text = <>) {
     $text =~ s/statsminister /overchief /g;
     $text =~ s/hus\b/crib/g;
     $text =~ s/huset\b/cribbet/g;
+    $text =~ s/Hus\b/Crib/g;
+    $text =~ s/Huset\b/Cribbet/g;
 
     $text =~ s/\bmanden\b/hjemmedrengen/g;
     $text =~ s/\bmand\b/hjemmedreng/g;
