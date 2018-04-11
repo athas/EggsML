@@ -92,6 +92,7 @@ while (my $text = <>) {
     $text =~ s/ bedst/ *ALLERMEST* styrernde/g;
     $text =~ s/ spiller/ gamer den for vildt/g;
     $text =~ s/\bbørn/kidz/g;
+    $text =~ s/\bBørn/Kidz/g;
     $text =~ s/\bunge /homies /g;
     $text =~ s/\bunges /homiers /g;
     $text =~ s/ at miste / at miste en Puch Maxi og /g;
