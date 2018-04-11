@@ -1,0 +1,52 @@
+#!/usr/bin/env perl
+#
+# Slå noget op i Krak.
+
+use 5.020;
+use strict;
+use warnings;
+use utf8::all;
+
+use Env qw(EGGS_USER);
+use EggsML::EggsPI json => [qw(krak)];
+
+my $search_words = join(' ', @ARGV);
+unless ($search_words) {
+    print "$EGGS_USER: Brug: krak [søgning]";
+    exit;
+}
+
+my $results = krak($search_words);
+my $totalCount = $results->{totalCount};
+unless ($results->{totalCount}) {
+    print "Der var ikke nogen resultater på den søgning.\n";
+    exit;
+}
+
+sub phoneNumbers {
+    my $phoneNumbers = shift;
+    return join ', ', map { $_->{phoneNumber} } @$phoneNumbers;
+}
+
+sub address { 
+    my $address = shift;
+    return sprintf("%s, %s %s",
+        $address->{streetName},
+        $address->{postCode},
+        $address->{postArea});
+}
+
+my $max_results = $totalCount < 3 ? $totalCount : 3;
+printf("Viser %d af %d resultater:\n", $max_results, $totalCount);
+
+my $adverts = $results->{adverts};
+my $cur_results = 0;
+while ($cur_results++ < $max_results && @$adverts) {
+    my $advert = pop @$adverts;
+
+    my $companyName = $advert->{companyInfo}->{companyName};
+    my $phone = phoneNumbers($advert->{phoneNumbers}) || 'Ukendt';
+    my $address = address($advert->{address});
+
+    printf(" - %s. Tlf: %s. Adresse: %s\n", $companyName, $phone, $address);
+}
