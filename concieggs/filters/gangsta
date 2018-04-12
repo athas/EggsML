@@ -341,7 +341,7 @@ while (my $text = <>) {
 
     $text =~ s/\byndlings/total ynglings/g;
     $text =~ s/total/tjotjal/g;
-    $text =~ s/(?=\bi [[:upper:]])/oppe /ig;
+    $text =~ s/(?=\bi [[:upper:]])/oppe /g;
 
     print $text;
 }
