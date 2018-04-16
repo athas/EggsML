@@ -64,20 +64,20 @@ def jyde(trailere, invaderer_sjaelland=False):
     for s in result:
         print s
 
-if sys.argv[1] == 'π':
-    trailere = math.pi
-elif sys.argv[1] == '-π':
-    trailere = -math.pi
-else:
-    try:
+try:
+    if sys.argv[1] == 'π':
+        trailere = math.pi
+    elif sys.argv[1] == '-π':
+        trailere = -math.pi
+    else:
         trailere = float(sys.argv[1])
         if abs(trailere) > 8:
             print("For meget jyde")
             sys.exit()
-    except IndexError:
-        trailere = 1
-    except Exception:
-        print("Den mængde jyde har jeg svært ved at kvantificere.")
-        sys.exit()
+except IndexError:
+    trailere = 1
+except Exception:
+    print("Den mængde jyde har jeg svært ved at kvantificere.")
+    sys.exit()
 
 jyde(trailere)
