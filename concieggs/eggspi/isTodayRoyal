@@ -1,0 +1,11 @@
+#!/bin/sh
+
+if [ -z $1 ]; then
+  today=$(date +%d-%M)
+else
+  today=$1
+fi
+
+file="$CONCIEGGS_DB_DIR/royale-fødselsdage/royale_fødselsdage"
+
+grep -q "$today" "$file"

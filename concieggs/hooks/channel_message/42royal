@@ -1,23 +1,13 @@
 #!/bin/sh
 
 shuttingUp && exit
-maybeGood .05 || exit
+isTodayRoyal || exit
+checkCooldown royal $((60*20)) || exit
 
-find_event() {
-    dato="$(dateToday | cut -d- -f2-)"
-    grep -E "^$dato" "$CONCIEGGS_DB_DIR/royale-fødselsdage/royale_fødselsdage" \
-        | randomLine | cut -d' ' -f2-
-}
-
-raab() {
-    event="$1"
-    randomLine <<EOF
+event=$(royalsToday | randomLine)
+randomLine <<EOF
+Busserne flager!  Det er sikkert på grund af $event.
 I dag er det $event.  Lad os alle flage.
 Husk at flage for $event!
+Hurra, $event!
 EOF
-}
-
-event="$(find_event)"
-if [ "$event" ]; then
-    raab "$event"
-fi
