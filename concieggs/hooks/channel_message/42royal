@@ -1,0 +1,23 @@
+#!/bin/sh
+
+shuttingUp && exit
+maybeGood .05 || exit
+
+find_event() {
+    dato="$(dateToday | cut -d- -f2-)"
+    grep -E "^$dato" "$CONCIEGGS_DB_DIR/royale-fødselsdage/royale_fødselsdage" \
+        | randomLine | cut -d' ' -f2-
+}
+
+raab() {
+    event="$1"
+    randomLine <<EOF
+I dag er det $event.  Lad os alle flage.
+Husk at flage for $event!
+EOF
+}
+
+event="$(find_event)"
+if [ "$event" ]; then
+    raab "$event"
+fi
