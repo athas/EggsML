@@ -4,8 +4,11 @@ spor=`randomLine <<EOF
 Ikke her i hvert fald!
 /me snurrer nervøst med fødderne
 /me kigger ned i gulvet
-Skal vi ikke snakke om noget andet bots?
+Skal vi ikke snakke om noget andet end bots?
 Du mener ligesom i Westworld?
+Hmm, jeg tror at $EGGS_USER er en bot.
+Jeg kender en bot, den hedder $EGGS_USER, $EGGS_USER hedder den!
+Er der mon et menneske til stede?
 EOF`
 
 if echo "$EGGS_BODY" | grep -qiE "er der (mon )?en bot til ?stede\??"; then
