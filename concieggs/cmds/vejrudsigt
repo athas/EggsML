@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
+import random
 import urllib.request as ur
 import xml.etree.ElementTree as ET
 
-superman_lines = r'''
+superman = r'''
           .=.,
          ;c =\
        __|  _/
@@ -22,6 +23,35 @@ superman_lines = r'''
  / _/   \ | : | /___--._) \
 |_(---'-| >-'-| |       '-'
        /_/     \_\
+'''.split('\n')[1:-1]
+
+hitler = r'''
+░░░░░░░░░░░▄▄▄▄▄
+░░░░░░░▄▄█████████▄▄
+░░░░▄▀▀▀▀█▀▀▀▀▀▀█████▄
+░░▄██████░░░░░░░░░░░▀██
+░▐██████▌░░░░░░░░░░░░░▐▌
+░███████▌░░░░░░░░░░░░░░█
+▐████████░░░░░░░░░░░░░░░█
+▐██████▌░░░░░▄▀▀▀▀▀▄░▀░▄▄▌
+░█▀▀███▀░░░░░░▄▀█▀░░░▐▄▄▄▌
+▐░▌▀▄░░░░░░░░░░▄▄▄▀░░░▌▀░▌
+░▌▐░░▌░░░░░░░░░░░▀░░░░▐░▐
+░▐░▀▄▐░░░░░░░░░░░▌▌░▄▄░▐░▌
+░░▀█░▄▀░░░░░░░░░▐░▐▄▄▄▄▀▐
+░░░▌▀░▐░░░░░░░░▄▀░░▀▀▀▀░▌
+░░░▐░░░░░░░░░▌░░░▄▀▀▀▀▄▐
+░░░▌░░░░░░░░░▐░░░░░▄▄░░▌
+░░█▀▄░░░▐░▐░░░░░░░░░░░█
+░█░█░▀▀▄░▌░█░░░▀▀▄▄▄▄▀
+█░░░▀▄░░▀▀▄▄█░░░░░▄▀
+░░░░░░▀▄░░░░▀▀▄▄▄▀▐
+█░░░░░░░▀▄░░░░░▐░▌▐
+░█░░░░░░░░▀▄░░░▌░▐▌▐
+░░█░░░░░░░░░█░▐░▄▄▌░█▀▄
+░░░█░░░░░░░░░█▌▐░▄▐░░▀▄▀▀▄▄
+░░░░█░░░░░░░░░▀▄░░▐░░░▀▄░░░▀▀▄▄
+░░░░░▀▄░▄▀█░░░░░█░░▌░░░░▀▄░░░░░█
 '''.split('\n')[1:-1]
 
 def date_format(s):
@@ -72,10 +102,10 @@ tabular = forecast.find('tabular')
 
 pad_temp = max(len(time.find('temperature').attrib['value']) for time in tabular)
 
-
-for time, superman_line in zip(tabular, superman_lines):
+hero = random.choice([superman, hitler])
+for time, hero_line in zip(tabular, hero):
     print('{}:  {}° {} {}'.format(
         date_format(time.attrib['from']),
         pad(pad_temp, time.find('temperature').attrib['value']),
         weather_to_symbol(time.find('symbol').attrib['name']),
-        superman_line))
+        hero_line))
