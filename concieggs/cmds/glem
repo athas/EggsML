@@ -1,0 +1,9 @@
+#!/bin/sh
+#
+# Retten til at blive glemt.
+
+if [ "$1" = "mig" ]; then
+  echo "Undskyld, hvem er du?"
+else
+  echo "Jeg har glemt alt om $*"
+fi
