@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# Hendes Majestæt Dronning Markov taler om året der er gået.
+#
+# Brug: nytårstale [ANTAL ORD]
+
+antal_ord="$1"
+
+if ! [ "$antal_ord" ]; then
+    antal_ord=43;
+fi
+
+markov "$antal_ord" nytårstale "$CONCIEGGS_DB_DIR/dronningens-nytårstaler/taler-markov-ready" | withSpaces | sed -r 's/ ([.!,;:])/\1/g'
