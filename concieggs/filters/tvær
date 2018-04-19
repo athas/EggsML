@@ -21,8 +21,16 @@ while (<>) {
 
     s/\ber\s+(jeg|du|vi)\b/er $1 ikke/g;
     s/\bsiger\s+(jeg|du|vi)\b/siger $1 ikke/g;
+
     s/\ber\b/er ikke/g;
     s/\bskal\b/skal ikke/g;
+    s/\bhar\b/har ikke/g;
+
+    s/\bgår\b/går ikke/g;
+    s/\bfinder\b/finder ikke/g;
+    s/\bslipper\b/slipper ikke/g;
+    s/\bsummer\b/summer ikke/g;
+
     s/\bOK\b/ikke OK/ig;
     s/(forstået|accepteret|godtaget)/ej($1)/ige;
     print;
