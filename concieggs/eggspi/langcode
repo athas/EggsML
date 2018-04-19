@@ -78,7 +78,7 @@ case "$1" in
         echo kn;;
     ko|koreansk)
         echo ko;;
-    la|latinsk)
+    la|latinsk|latin)
         echo la;;
     lv|lettisk)
         echo lv;;
@@ -135,10 +135,5 @@ case "$1" in
     so|somalisk)
         echo so;;
     *)
-        filter="$CONCIEGGS_DIR/filters/$1"
-        if test -x "$filter"; then
-            echo "$1"
-        else
-            exit 1
-        fi
+        exit 1
 esac

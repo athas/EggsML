@@ -1,9 +1,9 @@
 #!/bin/sh
 #
-# Bed concieggs om at være på en bestemt led.  Brug: 'vær MÅDE' eller 'vær MÅDE
-# mod BRUGER' eller 'vær MÅDE på KANAL'.  Der er mange MÅDER.
+# Bed concieggs om at være på en bestemt led.  Brug: 'vær MÅDE' eller
+# 'vær MÅDE mod BRUGER' eller 'vær MÅDE på KANAL'.  Der er mange MÅDER.
 
-eval "$(echo "$@" | parse '^(?<additive>også )?(?<what>.+?)(?: (?:mod|på) (?<specific>#?[^\s/]+))?$')"
+eval "$(echo "$@" | parse '^(?:(?<additive>også)|(?<prepend>først) )?(?<what>.+?)(?: (?:mod|på) (?<specific>#?[^\s/]+))?$')"
 
 if [ ! "$what" ]; then
     echo "Du mangler en væremåde."
@@ -14,13 +14,13 @@ if [ "$specific" ]; then
     if [ "$specific" = "mig" ]; then
       specific=$EGGS_USER
     fi
-    file=outfilter_command_$specific
+    file=filterchain_$specific
 else
-    file=outfilter_command
+    file=filterchain
 fi
 
 save() {
-    echo "$1" | dbWrite $file
+    echo "$*" | dbWrite $file
     echo "$(ack)  Væremåden er sat!"
 }
 
@@ -30,12 +30,6 @@ case "$what" in
         save '';;
 
     # Specielle ord.
-    "ultra grinern")
-        save 'filter grinern';;
-    1337)
-        save 'filter leet';;
-    "på bodega")
-        save 'filter bodega';;
     "min")
         echo "Måske senere...";;
     "dig selv")
@@ -43,22 +37,39 @@ case "$what" in
 
     # Sprog el.lign.
     *)
-        if [ "$additive" ]
-            then s="$(dbRead $file)"
-                 s="${s:-translate da}"
-            else s='translate da'
+        if [ "$additive" ]; then
+            s="$(dbRead $file)"
+        else
+            s=''
         fi
-
 
         for lang in $what
         do
-            lc=$(langcode "$lang")
-            if [ "$lc" != '' ]; then
-                s="$s $lc"
+            if isFilter $lang; then
+                s="$s $lang"
             else
-                echo "$lang er ikke et sprog!"
+                echo "$lang er bare overhovedet ikke et sprog!"
+                tilbyde=$(randomLine <<EOF
+tilbyde
+foreslå
+EOF
+                       )
+                adjektiv=$(randomLine <<EOF
+gode
+dejlige
+pæne
+flotte
+velbrugte
+EOF
+                        )
+                echo "Jeg kan i stedet $tilbyde det $adjektiv sprog '$(randomFilter)'."
                 exit
             fi
         done
-        save "$s"
+
+        if [ "$prepend" ]; then
+            s="$s $(dbRead $file)"
+        fi
+
+        save $s
 esac

@@ -116,7 +116,7 @@ Du vender hjem fra et studieophold i en fjern republik.
 Du spytter dristigt på skiltet af en hofleverandør af hvidtøl.
 Ved Hendes Majestæts dronningens officielle helligdag prutter du højlydt på et offentligt toilet.
 Du spiser en af prinsessens kælekaniner til aftensmad.
-På dit arbejde hos den lokale smed imprægnerer du en tissemand på prinsens nye sværd.
+På dit arbejde hos den lokale smed imprægnerer du en slap tissemand på prinsens nye sværd.
 Ved pudsning af en royals lædersko smører du med friskt snot i stedet for skosværte.
 Du lytter til din farfars gamle historier om kong ${navn} den ${god_attribut}.
 Du står med oprejst pande og ser en særligt satirisk dukketeaterforestilling.
@@ -145,6 +145,10 @@ Du laver en tegneserie hvori Kongen dør af at have spist for meget god mad.
 Du kigger dig selv i dit stjålne messingspejl og øver hårde grimasser.
 Du introducerer en fatal bygningsfejl i Kongens nybestilte voldgravsbroløftesystem.
 Du flytter i eksil og får nogen andre til at vælte Kongen.  Det her gider du sgu ikke at ofre dit liv på.
+For saaaaatan den konge altså.  Helt ærligt, come on.  IIIIIIIIH.
+Du trænger ind i kongens gemakker og fylder hans badekar med rådne æbler.
+Du skriver på væggen med blod at »KONGEN GJORDE DET« og dolker så dig selv bagi.
+Du sender en brevdue til din onkel på det frie hav.
 EOF
     echo "Kun $v har meldt sig under den revolutionære fane!  I skal være flere!"
 fi

@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Is a filter part of the general filter chain?
+
+dbRead 'filterchain' | grep -wq "$1"

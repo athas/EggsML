@@ -1,0 +1,4 @@
+#!/bin/sh
+#
+# Pollen-kommando på polsk.
+cmds/pollen | translate da pl

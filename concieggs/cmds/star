@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# Løs den evige debat.
+
+if [ "$1" = "trek" ]; then
+  echo "Nej, Star Wars!"
+elif [ "$1" = "wars" ]; then
+  echo "Nej, Star Trek!"
+elif [ "$1" ]; then
+  echo "Star hvad?"
+else
+  echo "Jeg vil også hellere ha' en Star."
+fi
+

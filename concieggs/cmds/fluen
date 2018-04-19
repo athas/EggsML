@@ -3,10 +3,15 @@
 # Lad fluen summe rundt.
 
 who="$(recentlyActive)"
+
+if [ -z $delay ]; then
+    delay=3
+fi
+
 echo "$(ack) Jeg slipper fluen løs!"
-sleep 3
+sleep $delay
 echo "/me går hen til hylden, finder bøtten og slipper FLUEN løs."
-sleep 3
+sleep $delay
 
 if ! checkCooldown fluen $((3600 * 24)); then
     echo "/me ryster krukken, men fluen er bare for træt til at flyve mere."
@@ -27,7 +32,7 @@ while true; do
             break;
         fi
     fi
-    sleep 5
+    sleep $(($delay * 2))
 done
 
 if dbRead robespierre; then

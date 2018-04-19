@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Hvem har ++'et $1? Brug: likers [person]
+
+[ $1 ] && dbUserRead $1 "++"

@@ -23,5 +23,5 @@ Uha, det tør jeg ikke sige.  Men det var jo nok $(electee)...
 EOF
     fi
 else
-    echo "Øhbøh."
+    echo "$EGGS_USER: $(electee)!"
 fi

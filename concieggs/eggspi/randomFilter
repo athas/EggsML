@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# Print the name of a random filter, either a language filter or a filter
+# filter.
+
+{
+    ls -1 "$CONCIEGGS_DIR/filters/" | while read name; do
+        if [ -x "$CONCIEGGS_DIR/filters/$name" ]; then
+            echo $name
+        fi
+    done
+
+    cat $(which langcode) | grep -Eo '\|\w+' | sed -r 's/\|//'
+} | randomLine

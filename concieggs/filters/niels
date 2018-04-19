@@ -1,0 +1,26 @@
+#!/usr/bin/env perl
+#
+# Being Niels Malkovich
+use 5.012;
+use warnings;
+use utf8::all;
+
+use EggsML::EggsPI list => [qw(allAliases)];
+
+my %aliases = map { lc $_ => 1 } allAliases;
+
+sub niels {
+    my $name = shift;
+
+    return $name unless $aliases{lc($name)};
+
+    my @names = qw/Niels/;
+    return $names[rand @names];
+}
+
+while (my $line = <>) {
+    $line =~ s/\b(\S*)\b/niels($1)/ge;
+
+    print $line;
+}
+

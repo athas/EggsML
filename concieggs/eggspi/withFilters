@@ -10,16 +10,16 @@ line="$3"
 
 apply_db_filter() {
     if [ "$destuser" != '' ]; then
-        cmd=$(echo -n $(dbRead "outfilter_command_$destuser"))
+        filterchain=$(echo -n $(dbRead "filterchain_$destuser"))
     fi
     if ! [ "$cmd" ] && [ "$channel" != '' ]; then
-        cmd=$(echo -n $(dbRead "outfilter_command_$channel"))
+        filterchain=$(echo -n $(dbRead "filterchain_$channel"))
     fi
     if ! [ "$cmd" ]; then
-        cmd=$(echo -n $(dbRead outfilter_command))
+        filterchain=$(echo -n $(dbRead filterchain))
     fi
-    if [ "$cmd" ]; then
-        $cmd
+    if [ "$filterchain" ]; then
+        translate da $filterchain
     else
         cat
     fi

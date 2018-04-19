@@ -2,4 +2,8 @@
 #
 # Ping en station med fire pakker. Angiv station som argument.
 
-ping -c 4 $1
+if [ ! "$1" ]; then
+  echo "$EGGS_USER: Pong."
+else
+  ping -c 4 $1
+fi
