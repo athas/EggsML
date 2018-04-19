@@ -1,0 +1,27 @@
+#!/usr/bin/env perl
+#
+# Lad en vindheks flyve forbi.
+
+use EggsML::EggsPI boolean => ['checkCooldown'];
+exit if checkCooldown('tumbleweed', 300);
+
+my @burn = (
+    'Spændingen stiger...',
+    'Det var rigtig godt sagt.',
+    'Burn!',
+    'Imens, et andet sted i verden...',
+);
+
+printf(q{
+      ,`""',
+ ,,,  ;`,',;
+;,` ; ;' ` ;   ,',
+;`,'; ;`,',;  ;,' ;
+;',`; ;` ' ; ;`'`';
+;` '',''` `,',`',;
+ `''`'; ', ;`'`'
+      ;` ' ;
+      ; ',';      ~~~~,;`,     
+      ;,' ';     ~~~~`,:;:. %s
+     \|/\|/;\|/    ~~~.;`,'
+}, $burn[rand @burn]);
