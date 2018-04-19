@@ -30,6 +30,8 @@ while (<>) {
     s/\bfinder\b/finder ikke/g;
     s/\bslipper\b/slipper ikke/g;
     s/\bsummer\b/summer ikke/g;
+    s/\bbasker\b/basker ikke/g;
+    s/\blægger\b/lægger ikke/g;
 
     s/\bOK\b/ikke OK/ig;
     s/(forstået|accepteret|godtaget)/ej($1)/ige;
