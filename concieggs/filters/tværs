@@ -1,0 +1,11 @@
+#!/usr/bin/env perl
+use 5.020;
+use strict;
+use warnings;
+use utf8::all;
+
+while (<>) {
+    s/Ja/Nej/g;
+    s/ja/nej/g;
+    print;
+}
