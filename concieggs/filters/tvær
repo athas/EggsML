@@ -35,5 +35,7 @@ while (<>) {
 
     s/\bOK\b/ikke OK/ig;
     s/(forstået|accepteret|godtaget)/ej($1)/ige;
+
+    s/\bikke\s+ikke\b//g;
     print;
 }
