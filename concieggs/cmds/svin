@@ -37,6 +37,7 @@ fi
 
 if isKing "$swine"; then
     echo "$EGGS_USER: Under ingen omstændigheder!  Det ville være majestætsfornærmelse."
+    annoyedBy "$EGGS_USER" 10 "bad mig om at svine vores majestæt"
 else
     if ircChannel | grep -q '^#'; then
         sviner
