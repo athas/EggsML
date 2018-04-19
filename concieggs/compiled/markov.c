@@ -29,8 +29,8 @@ size_t gen_markov(size_t** out_buffer, FILE* read_fd) {
   size_t word_i;
   size_t prev_word_i;
 
-  size_t n_start_words;
-  size_t* start_words = NULL;
+  size_t n_start_words = 0;
+  size_t* start_words = (size_t*) malloc(0);
   bool is_start_word;
 
   char* line = NULL;
@@ -86,14 +86,11 @@ size_t gen_markov(size_t** out_buffer, FILE* read_fd) {
           break;
         }
       }
-      if (is_start_word) {
-        n_start_words++;
-        start_words = realloc(start_words, n_start_words * sizeof(size_t));
-        start_words[n_start_words - 1] = word_i;
-        is_start_word = false;
-      }
+      n_start_words++;
+      start_words = realloc(start_words, n_start_words * sizeof(size_t));
+      start_words[n_start_words - 1] = word_i;
+      is_start_word = false;
     }
-
     prev_word_i = word_i;
   }
   free(line);
