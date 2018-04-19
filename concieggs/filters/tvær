@@ -17,6 +17,8 @@ while (<>) {
     s/f(edt|jong)/uf$1/g;
     s/F(edt|jong)/Uf$1/g;
 
+    s/SUCCESS/FAILURE/g;
+
     s/\ber\s+(jeg|du|vi)\b/er $1 ikke/g;
     s/\bsiger\s+(jeg|du|vi)\b/siger $1 ikke/g;
     s/\ber\b/er ikke/g;
