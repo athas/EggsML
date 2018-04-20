@@ -4,16 +4,17 @@
 
 set -f # No globbing
 
-broke() {
-    annoyedBy "$EGGS_USER" 5 "kørte en fejlende kommando"
-    echo "Kommandoen fejlede!  Du kan prøve at spørge mig om 'udu', men det hjælper næsten helt sikkert ikke."
-    exit 1
-}
-
 cmd="$1"
 acmd="$2"
 shift
 shift
+
+broke() {
+    pleasedBy "$EGGS_USER" 1 "hjalp med at finde en fejl i '$cmd'"
+    echo "Kommandoen fejlede!  Du kan prøve at spørge mig om 'udu', men det hjælper næsten helt sikkert ikke."
+    exit 1
+}
+
 dbRead cur_cmd | dbWrite last_cmd
 echo "$cmd $@" | dbWrite cur_cmd
 case "$cmd" in
