@@ -1,14 +1,10 @@
 #!/usr/bin/env perl
-# (<$>) :: (a -> b) -> m a -> m b
+#
+# Før: tærte :>>=: \indhold -> ko indhold -- Nu: margrethe :<$>: nytårstale
 use IPC::System::Simple qw/capturex/;
 
 exit(1) unless @ARGV == 2;
 
-# Før: tærte >>= \lort -> ko lort
-# Nu: ko <$> tærte
+# (<$>) :: (a -> b) -> m a -> m b
 my ($f, $ma) = @ARGV;
-my @bind = (">>=", $ma, "\\lalalalala -> $f lalalalala");
-my $res = capturex('runoperator', @bind);
-chomp $res;
-
-printf("%s\n", $res);
+print capturex('runoperator', ">>=", $ma, "\\lalalalala -> $f lalalalala");
