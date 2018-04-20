@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# Lav et mem.  Brug: makeMeme TOPLINJE BUNDLINJE
+# Lav et mem.  Brug: makeMeme TOPLINJE BUNDLINJE [TEMPLATE-ID]
 
 import sys
 import os
@@ -13,16 +13,26 @@ def urlread(url):
     req = Request(url, headers={'User-Agent': 'Mozilla/5.0 (X11; U; Linux i686) Gecko/20071127 Firefox/2.0.0.11'})
     return urlopen(req).read()
 
+def err(msg):
+    print("makeMeme: " + msg, file=sys.stderr)
+
+def random_template_id():
+    text = urlread('https://api.imgflip.com/get_memes')
+    memes = json.loads(text.decode('utf-8'))
+    if not memes['success']:
+        return
+    meme = random.choice(memes['data']['memes'])
+    return meme['id']
 
 def main(args):
     try:
-        top = sys.argv[1]
+        top = args[1].upper()
     except IndexError:
-        print('Mangler argumenter.', file=sys.stderr)
+        err('Mangler argumenter.')
         return 1
-    top = top.upper()
+
     try:
-        bottom = sys.argv[2]
+        bottom = args[2].upper()
     except IndexError:
         try:
             top, bottom = top.split('. ', 1)
@@ -35,17 +45,19 @@ def main(args):
         try:
             user, password = f.read().rstrip().split(':')
         except ValueError:
-            print('Løsenfil er væk.', file=sys.stderr)
+            err('Løsenfil er væk.')
             return 1
 
-    text = urlread('https://api.imgflip.com/get_memes')
-    memes = json.loads(text.decode('utf-8'))
-    if not memes['success']:
-        print('Kunne ikke finde en memskabelon.', file=sys.stderr)
-        return 1
-    meme = random.choice(memes['data']['memes'])
+    try:
+        template_id = args[2]
+    except IndexError:
+        template_id = random_template_id()
+        if not template_id:
+            err('Kunne ikke finde en memskabelon.')
+            return 1
+
     params = {
-        'template_id': meme['id'],
+        'template_id': template_id,
         'username': user,
         'password': password,
         'text0': top,
@@ -54,7 +66,7 @@ def main(args):
     text = urlread('https://api.imgflip.com/caption_image?' + urlencode(params))
     result = json.loads(text.decode('utf-8'))
     if not result['success']:
-        print('Kunne ikke lave et mem.', file=sys.stderr)
+        err('Kunne ikke lave et mem.')
         return 1
 
     print(result['data']['url'])

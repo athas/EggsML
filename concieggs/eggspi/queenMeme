@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Lav et mem med dronningen.
+
+makeMeme "$1" "$2" 135623313
