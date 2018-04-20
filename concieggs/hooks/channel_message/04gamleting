@@ -26,6 +26,5 @@ echo "$EGGS_BODY" | grep -wEif $CONCIEGGS_DB_DIR/gamle_ting -o | while read -r t
         pleasedBy "$EGGS_USER" 10
     else
         echo "$EGGS_USER: $(nejnejnej "$thing")"
-        annoyedBy "$EGGS_USER" 5 "bruger det forældede '$thing'"
     fi
 done
