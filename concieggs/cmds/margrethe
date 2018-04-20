@@ -2,4 +2,4 @@
 #
 # Hvad siger Margrethe?
 
-queenMeme "$*"
+echo "Live fra DR: $(queenMeme "$*")"
