@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# Lav et mem.  Brug: makeMeme TOPLINJE BUNDLINJE [TEMPLATE-ID]
+# Lav et mem.  Brug: makeMeme [-t <TEMPLATE-ID>] <TOPLINJE> [<BUNDLINJE>]
 
 import sys
 import os
@@ -24,22 +24,30 @@ def random_template_id():
     meme = random.choice(memes['data']['memes'])
     return meme['id']
 
-def main(args):
+def split_meme(full):
     try:
-        top = args[1].upper()
-    except IndexError:
+        top, bottom = full.split('. ', 1)
+    except ValueError:
+        words = full.split(' ')
+        i = len(words) // 2
+        top, bottom = ' '.join(words[:i]), ' '.join(words[i:])
+    return top, bottom
+
+def main(args):
+    template_id = None
+    if len(args) > 2 and args[0] == '-t':
+        args.pop(0)
+        template_id = args.pop(0)
+
+    if len(args) == 1:
+        top, bottom = split_meme(args[0])
+
+    elif len(args) == 2:
+        top, bottom = args
+
+    else:
         err('Mangler argumenter.')
         return 1
-
-    try:
-        bottom = args[2].upper()
-    except IndexError:
-        try:
-            top, bottom = top.split('. ', 1)
-        except ValueError:
-            words = top.split(' ')
-            i = len(words) // 2
-            top, bottom = ' '.join(words[:i]), ' '.join(words[i:])
 
     with open(os.path.join(os.getenv('CONCIEGGS_HOME'), 'credentials', 'imgflip.com')) as f:
         try:
@@ -48,9 +56,7 @@ def main(args):
             err('Løsenfil er væk.')
             return 1
 
-    try:
-        template_id = args[2]
-    except IndexError:
+    if not template_id:
         template_id = random_template_id()
         if not template_id:
             err('Kunne ikke finde en memskabelon.')
@@ -63,6 +69,7 @@ def main(args):
         'text0': top,
         'text1': bottom,
     }
+
     text = urlread('https://api.imgflip.com/caption_image?' + urlencode(params))
     result = json.loads(text.decode('utf-8'))
     if not result['success']:

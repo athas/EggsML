@@ -2,4 +2,5 @@
 #
 # Lav et mem med dronningen.
 
-makeMeme "$1" "$2" 135623313
+queen_template_id=135623313
+makeMeme -t $queen_template_id "$1"
