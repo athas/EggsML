@@ -21,7 +21,7 @@ if {[lindex [run shuttingUp] 0]} {exit 0}
 
 set active 0
 set text $::env(EGGS_BODY)
-incr active [regsub -all -nocase {([A-Z])OL} $text "LOL" text]
+incr active [regsub -all -nocase {\y[A-Z]OL} $text "LOL" text]
 incr active [regsub -all -nocase {sjov[te]?|grinere?n|morsom(?:t|me)|skæg(?:t|ge)?} $text [sjov] text]
 incr active [regsub -all -nocase {[Hh][aeioø](?:(?:h[aeioø])+h?|h)} $text [lindex [run laughter] 1] text]
 
