@@ -108,7 +108,11 @@ fancy_unicode = 'svip' in recently_active
 
 pad_temp = max(len(time.find('temperature').attrib['value']) for time in tabular)
 
-hero = random.choice([superman, hitler])
+safe_choices = [superman]
+edgy_choices = [hitler]
+is_edgy = not eggspi.onDIKUChannel()
+choices = safe_choices + (edgy_choices if is_edgy else [])
+hero = random.choice(choices)
 for time, hero_line in zip(tabular, hero):
     date = date_convert(time.attrib['from'])
     temperature = time.find('temperature').attrib['value']
