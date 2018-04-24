@@ -77,6 +77,7 @@ def pad(n, s):
 
 def weather_to_symbol(s):
     # https://en.wikipedia.org/wiki/Miscellaneous_Symbols
+    # Tegn for slud og tåge er ikke særligt velunderstøttede endnu.
 
     s = s.lower()
     if 'rain' in s:
@@ -86,9 +87,9 @@ def weather_to_symbol(s):
     elif 'sun' in s or 'clear' in s or 'fair' in s:
         return '☀'
     elif 'sleet' in s:
-        return '🌧+🌨' # Hvorfor er der ikke et tegn for slud!?
+        return '☔' # 🌧+🌨
     elif 'fog' in s:
-        return '🌫'
+        return '☁' # 🌫
     elif 'snow' in s:
         return '☃'
     else:
