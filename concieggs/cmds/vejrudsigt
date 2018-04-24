@@ -110,7 +110,7 @@ pad_temp = max(len(time.find('temperature').attrib['value']) for time in tabular
 
 safe_choices = [superman]
 edgy_choices = [hitler]
-is_edgy = not eggspi.onDIKUChannel()
+is_edgy = eggspi.ircChannel().decode('utf-8').strip() != '#diku'
 choices = safe_choices + (edgy_choices if is_edgy else [])
 hero = random.choice(choices)
 for time, hero_line in zip(tabular, hero):
