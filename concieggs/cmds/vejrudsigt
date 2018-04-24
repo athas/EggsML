@@ -72,7 +72,7 @@ def date_format(date):
     if is_midnight(date):
         hour = "midnat"
     else:
-        hour = "kl. " + date.strftime("%-H").rjust(2)
+        hour = "kl. " + str(int(date.strftime("%H"))).rjust(2)
 
     return date.strftime("D. %e. ") + hour
 
