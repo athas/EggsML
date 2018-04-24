@@ -3,6 +3,7 @@
 import random
 import urllib.request as ur
 import xml.etree.ElementTree as ET
+from datetime import datetime
 
 superman = r'''
           .=.,
@@ -54,43 +55,42 @@ hitler = r'''
 ░░░░░▀▄░▄▀█░░░░░█░░▌░░░░▀▄░░░░░█
 '''.split('\n')[1:-1]
 
-def date_format(s):
-    date, time = s.split('T')
+def date_convert(s):
+    """Convert a datetime string from yr.no to datetime object."""
+    return datetime.strptime(s, "%Y-%m-%dT%H:%M:%S")
 
-    date = date.split('-')[2].lstrip('0')
-    if len(date) == 1:
-        date = ' ' + date
-    date = 'D. {}.'.format(date)
+def is_daytime(date, sunrise, sunset):
+    """Determine if the time part of a date is within some daytime."""
+    return sunrise.time() <= date.time() <= sunset.time()
 
-    time = time.split(':')[0].lstrip('0')
-    if not time:
-        time = 'midnat'
+def is_midnight(date):
+    """Determine if a given datetime is exactly midnight."""
+    return date.hour == 0 and date.minute == 0 and date.second == 0
+
+def date_format(date):
+    """Format a date with the proper whitespace padding."""
+    if is_midnight(date):
+        hour = "midnat"
     else:
-        if len(time) == 1:
-            time = ' ' + str(time)
-        time = 'kl. {}'.format(time)
+        hour = "kl. " + date.strftime("%-H").rjust(2)
 
-    return date + ' ' + time
+    return date.strftime("D. %e. ") + hour
 
-def pad(n, s):
-    return (n - len(s)) * ' ' + s
-
-def weather_to_symbol(s):
+def weather_to_symbol(weather, is_daytime):
     # https://en.wikipedia.org/wiki/Miscellaneous_Symbols
     # Tegn for slud og tåge er ikke særligt velunderstøttede endnu.
 
-    s = s.lower()
-    if 'rain' in s:
+    if 'rain' in weather:
         return '☔'
-    elif 'cloud' in s:
+    elif 'cloud' in weather:
         return '☁'
-    elif 'sun' in s or 'clear' in s or 'fair' in s:
-        return '☀'
-    elif 'sleet' in s:
+    elif 'sun' in weather or 'clear' in weather or 'fair' in weather:
+        return '☀' if is_daytime else '☾'
+    elif 'sleet' in weather:
         return '☔' # 🌧+🌨
-    elif 'fog' in s:
+    elif 'fog' in weather:
         return '☁' # 🌫
-    elif 'snow' in s:
+    elif 'snow' in weather:
         return '☃'
     else:
         return '☘'
@@ -100,13 +100,24 @@ with ur.urlopen('https://www.yr.no/place/Denmark/Capital/Copenhagen/forecast.xml
 root = tree.getroot()
 forecast = root.find('forecast')
 tabular = forecast.find('tabular')
+sun = root.find('sun')
 
 pad_temp = max(len(time.find('temperature').attrib['value']) for time in tabular)
 
 hero = random.choice([superman, hitler])
 for time, hero_line in zip(tabular, hero):
+    date = date_convert(time.attrib['from'])
+    temperature = time.find('temperature').attrib['value']
+    weather_description = time.find('symbol').attrib['name'].lower()
+
+    sunrise = date_convert(sun.attrib['rise'])
+    sunset = date_convert(sun.attrib['set'])
+    is_approx_daytime = is_daytime(date, sunrise, sunset)
+
+    weather_symbol = weather_to_symbol(weather_description, is_approx_daytime)
+
     print('{}:  {}° {} {}'.format(
-        date_format(time.attrib['from']),
-        pad(pad_temp, time.find('temperature').attrib['value']),
-        weather_to_symbol(time.find('symbol').attrib['name']),
+        date_format(date),
+        temperature.rjust(pad_temp),
+        weather_symbol,
         hero_line))
