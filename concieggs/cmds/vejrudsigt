@@ -25,7 +25,49 @@ superman = r'''
  / _/   \ | : | /___--._) \
 |_(---'-| >-'-| |       '-'
        /_/     \_\
-'''.split('\n')[1:-1]
+'''
+
+kingkong = r'''
+    /\  ____
+    <> ( oo )
+    <>_| ^^ |_
+    <>   @    \
+   /~~\ . . _ |
+  /~~~~\    | |
+ /~~~~~~\/ _| |
+ |[][][]/ / [m]
+ |[][][[m]
+ |[][][]|
+ |[][][]|
+ |[][][]|
+ |[|--|]|
+ |[|  |]|
+ ========
+==========
+|[[    ]]|
+==========
+'''
+
+someguy = r'''
+  \\\\\\,
+ _/''  \\\
+ \      D
+  \_   /
+  <\  />,_
+ / \Y/ /` \
+ || #  |  |
+ || #  |  |
+ || #  |  |
+ ||=[]=|  |
+ ||    |__|
+//| |  /||\
+  | |   |
+  | |   |
+  ( (   |
+  | |   |
+  [_[___]
+ (_(____|
+'''
 
 hitler = r'''
 ░░░░░░░░░░░▄▄▄▄▄
@@ -54,7 +96,7 @@ hitler = r'''
 ░░░█░░░░░░░░░█▌▐░▄▐░░▀▄▀▀▄▄
 ░░░░█░░░░░░░░░▀▄░░▐░░░▀▄░░░▀▀▄▄
 ░░░░░▀▄░▄▀█░░░░░█░░▌░░░░▀▄░░░░░█
-'''.split('\n')[1:-1]
+'''
 
 def date_convert(s):
     """Convert a datetime string from yr.no to datetime object."""
@@ -108,8 +150,10 @@ fancy_unicode = 'svip' in recently_active
 
 pad_temp = max(len(time.find('temperature').attrib['value']) for time in tabular)
 
-safe_choices = [superman]
-edgy_choices = [hitler]
+safe_choices = [s.split('\n')[1:-1] for s in
+                [superman, kingkong, someguy]]
+edgy_choices = [s.split('\n')[1:-1] for s in
+                [hitler]]
 is_edgy = eggspi.ircChannel().decode('utf-8').strip() != '#diku'
 choices = safe_choices + (edgy_choices if is_edgy else [])
 hero = random.choice(choices)
