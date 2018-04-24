@@ -77,7 +77,7 @@ def date_format(date):
 
     return date.strftime("D. %e. ") + hour
 
-def weather_to_symbol(weather, is_daytime):
+def weather_to_symbol(weather, is_daytime, fancy_unicode):
     # https://en.wikipedia.org/wiki/Miscellaneous_Symbols
     # Tegn for slud og tåge er ikke særligt velunderstøttede endnu.
 
@@ -88,9 +88,9 @@ def weather_to_symbol(weather, is_daytime):
     elif 'sun' in weather or 'clear' in weather or 'fair' in weather:
         return '☀' if is_daytime else '☾'
     elif 'sleet' in weather:
-        return '☔' # 🌧+🌨
+        return '🌧+🌨' if fancy_unicode else '☔'
     elif 'fog' in weather:
-        return '☁' # 🌫
+        return '🌫' if fancy_unicode else '☁'
     elif 'snow' in weather:
         return '☃'
     else:
@@ -102,6 +102,9 @@ root = tree.getroot()
 forecast = root.find('forecast')
 tabular = forecast.find('tabular')
 sun = root.find('sun')
+
+recently_active = eggspi.recentlyActive().decode('utf-8').rstrip().split('\n')
+fancy_unicode = 'svip' in recently_active
 
 pad_temp = max(len(time.find('temperature').attrib['value']) for time in tabular)
 
@@ -115,7 +118,7 @@ for time, hero_line in zip(tabular, hero):
     sunset = date_convert(sun.attrib['set'])
     is_approx_daytime = is_daytime(date, sunrise, sunset)
 
-    weather_symbol = weather_to_symbol(weather_description, is_approx_daytime)
+    weather_symbol = weather_to_symbol(weather_description, is_approx_daytime, fancy_unicode)
 
     print('{}:  {}° {} {}'.format(
         date_format(date),
