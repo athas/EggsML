@@ -48,7 +48,7 @@ case "$what" in
             if isFilter $lang; then
                 s="$s $lang"
             else
-                echo "$lang er bare overhovedet ikke et sprog!"
+                echo "$lang er bare overhovedet ikke en væremåde eller et sprog!"
                 tilbyde=$(randomLine <<EOF
 tilbyde
 foreslå
@@ -62,7 +62,7 @@ flotte
 velbrugte
 EOF
                         )
-                echo "Jeg kan i stedet $tilbyde det $adjektiv sprog '$(randomFilter)'."
+                echo "Jeg kan i stedet $tilbyde den $adjektiv væremåde '$(randomFilter)'."
                 exit
             fi
         done
