@@ -16,10 +16,10 @@ trist=$(randomLine <<EOF
 EOF
 )
 
-if echo "$EGGS_BODY" | grep -qE ':\)\)+'; then
+if echo "$EGGS_BODY" | grep -qE ':\)\)+$'; then
   echo "$glad"
 fi
 
-if echo "$EGGS_BODY" | grep -qE ':\(\(+'; then
+if echo "$EGGS_BODY" | grep -qE ':\(\(+$'; then
   echo "$trist"
 fi
