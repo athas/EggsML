@@ -17,9 +17,9 @@ EOF
 )
 
 if echo "$EGGS_BODY" | grep -q ':))\+'; then
-  glad
+  echo "$glad"
 fi
 
 if echo "$EGGS_BODY" | grep -q ':((\+'; then
-  trist
+  echo "$trist"
 fi
