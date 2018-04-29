@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+# Få lydeffekter af concieggs.
+
+glad=$(randomLine <<EOF
+/me laver en munter lyd på trækfløjten!
+/me laver en hurtig lyd på trækfløjten! *fuuuiiit!*
+/me laver en lyd på trækfløjten! *fuuuiiit!*
+EOF
+)
+
+trist=$(randomLine <<EOF
+/me laver en trist lyd på trækfløjten..
+/me laver en meget trist trækfløjte-lyd. *fiiiiut*
+/me spiller en fiasko-lyd på sin tuba. *DYT - Bååååååååååååååt*
+EOF
+)
+
+if echo "$EGGS_BODY" | grep -q ':))\+'; then
+  glad
+fi
+
+if echo "$EGGS_BODY" | grep -q ':((\+'; then
+  trist
+fi
