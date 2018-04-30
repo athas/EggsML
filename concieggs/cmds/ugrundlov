@@ -8,5 +8,10 @@ if ! [ "$antal_ord" ]; then
     antal_ord=40;
 fi
 
+if [ "$antal_ord" -gt 979 ]; then
+    echo "$EGGS_USER: Jamen, det er jo et højt tal!"
+    exit
+fi
+
 echo -n "§$(random 1 89), stk. $(random 1 5). "
 markov "$antal_ord" grundlov "$CONCIEGGS_DB_DIR/grundloven/grundlov-markov-ready" | withSpaces

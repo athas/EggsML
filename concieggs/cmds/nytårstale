@@ -10,4 +10,9 @@ if ! [ "$antal_ord" ]; then
     antal_ord=43;
 fi
 
+if [ "$antal_ord" -gt 983 ]; then
+    echo "$EGGS_USER: Det er desværre ikke muligt."
+    exit
+fi
+
 markov "$antal_ord" nytårstale "$CONCIEGGS_DB_DIR/dronningens-nytårstaler/taler-markov-ready" | withSpaces | sed -r 's/ ([.!,;:])/\1/g'

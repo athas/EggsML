@@ -8,6 +8,11 @@ if ! [ "$antal_ord" ]; then
     antal_ord=30;
 fi
 
+if [ "$antal_ord" -gt 1001 ]; then
+    echo "$EGGS_USER: Du må have spinatblade i øret!  Så mange ord findes slet iiiiiikkkeeeeeeee!"
+    exit
+fi
+
 tmpfile=$(mktemp)
 
 case $(random 0 2) in
