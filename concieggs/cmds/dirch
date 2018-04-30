@@ -11,6 +11,9 @@ fi
 if [ "$antal_ord" -gt 1001 ]; then
     echo "$EGGS_USER: Du må have spinatblade i øret!  Så mange ord findes slet iiiiiikkkeeeeeeee!"
     exit
+elif [ "$antal_ord" -lt 1 ]; then
+    echo "$EGGS_USER: $antal_ord ord?  Det er jo ikke engang nok til at danse om træet med!"
+    exit
 fi
 
 tmpfile=$(mktemp)

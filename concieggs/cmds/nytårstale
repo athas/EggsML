@@ -13,6 +13,9 @@ fi
 if [ "$antal_ord" -gt 983 ]; then
     echo "$EGGS_USER: Det er desværre ikke muligt."
     exit
+elif [ "$antal_ord" -lt 1 ]; then
+    echo "$EGGS_USER: $antal_ord ord?  Det kan vi ikke have."
+    exit
 fi
 
 markov "$antal_ord" nytårstale "$CONCIEGGS_DB_DIR/dronningens-nytårstaler/taler-markov-ready" | withSpaces | sed -r 's/ ([.!,;:])/\1/g'

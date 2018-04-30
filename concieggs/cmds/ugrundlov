@@ -11,6 +11,9 @@ fi
 if [ "$antal_ord" -gt 979 ]; then
     echo "$EGGS_USER: Jamen, det er jo et højt tal!"
     exit
+elif [ "$antal_ord" -lt 1 ]; then
+    echo "$EGGS_USER: $antal_ord ord?  Det er jo retsstridigt!"
+    exit
 fi
 
 echo -n "§$(random 1 89), stk. $(random 1 5). "
