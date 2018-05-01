@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Gem at en person er kommet ind.
+
+(dbRead "on_channel/$EGGS_WHERE"; echo $EGGS_USER) | sort -u | dbWrite "on_channel/$EGGS_WHERE"
