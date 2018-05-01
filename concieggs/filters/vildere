@@ -358,7 +358,7 @@ combs = [
     0x1D244,
 ]
 
-fun_char = lambda char: char != '\n'
+fun_char = lambda char: char not in '\n\r\t '
 
 sys.stdout.buffer.write(''.join(char + chr(random.choice(combs)) if fun_char(char) else char for char in
                          sys.stdin.buffer.read().decode('utf-8')).encode('utf-8'))
