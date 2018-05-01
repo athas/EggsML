@@ -27,6 +27,7 @@ Søren Pind er en ven af skoven, da han i perioden 2002-2006 var bestyrelsesmedl
 Søren Pinds valgplakat fra 2011 viste ham træde ud af et fly som en verdensmand.
 Søren Pind er en hyppig gæst i P4s "Mads og Monopolet".
 Søren Pind tabte slaget om den slappe vandstråle.
+Søren Pind blev mæt og træt af at være politiker.
 END_OF_PIND
 
 while (my $line = <>) {
