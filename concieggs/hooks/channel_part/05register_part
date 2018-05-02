@@ -1,5 +1,10 @@
 #!/bin/sh
 #
-# gem at en person er gået ud.
+# Gem at en person er gået ud.
 
-dbRead "on_channel/$EGGS_WHERE" | egrep -v "^$(echo $EGGS_USER | regexEscape)$" | dbWrite "on_channel/$EGGS_WHERE"
+ON_CHANNEL=$(dbRead "on_channel/$EGGS_WHERE")
+for name in $ON_CHANNEL; do
+  if [ "$name" != "$EGGS_USER" ]; then
+    echo $name
+  fi
+done | dbWrite "on_channel/$EGGS_WHERE"
