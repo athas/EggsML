@@ -121,7 +121,15 @@ class eggsml:
             "Beskæftiger sig med tabubelagte emner i avisernes debatsektioner",
             "Spiller læge i populær sæbeopera",
             "Bruger hele dagen i Hacker News' kommentarsektion",
-            "Kommenterer på Poul-Henning Kamps blogindlæg"
+            "Kommenterer på Poul-Henning Kamps blogindlæg",
+            "Søren Pinds efterfølger",
+            "I gang med at se alle afsnit af en særligt forvirrende sæbeopera",
+            "Bruger hele dagen på at skrive privatbeskeder til Elon Musk på Twitter",
+            "Griner højlydt over usjove ting på internettet, til stor irritation",
+            "Laver practical jokes i de københavnske retssale",
+            "Har fået en kronisk pruttesygdom",
+            "Er blevet TV 2's ekspert i AI",
+            "Brokker sig til lokalblade over Mark Zuckerberg",
         ]
         if withhtml:
             return "<i>Formodet</i>: %s" % random.choice(fakefates)
