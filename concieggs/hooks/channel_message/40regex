@@ -22,7 +22,7 @@ proc mainAlias {alias} {
 
 if {[success shuttingUp]} {exit 0}
 
-set s// {^(?:([^ ,:]+)[,:] *)?s/((?:[^/]|\\/)*)/((?:[^/]|\\/)*)(?:/([ig]*))?}
+set s// {^(?:([^ ,:]+)[,:] *)?s/((?:[^\\/]|\\[\\/])*)/((?:[^\\/]|\\[\\/])*)(?:/([ig]*))?}
 if {![regexp ${s//} $body {} who pattern replacement modifiers]} {exit 0}
 if {![string length $who]} {set who $user}
 
