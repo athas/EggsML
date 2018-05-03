@@ -1,0 +1,24 @@
+#!/usr/bin/env perl
+use 5.020;
+use strict;
+use warnings;
+use utf8::all;
+
+my %morse = qw(
+    a ·-    b -···  c -·-·  d -··   e ·     f ··-·
+    g --·   h ····  i ··    j ·---  k -·-   l ·-··
+    m --    n -·    o ---   p ·--·  q --·-  r ·-·
+    s ···   t -     u ··-   v ···-  w ·--   x -··-
+    y -·--  z --··  æ ·-·-  ø ---·  å ·-
+
+    0 ----- 1 ·---- 2 ··--- 3 ···-- 4 ····- 5 ·····
+    6 -···· 7 --··· 8 ---·· 9 ----·
+);
+
+while (my $line = <STDIN>) {
+    $line =~ tr/A-ZÆØÅ/a-zæøå/;
+    $line =~ s/(?<!^)\s*(?!$)/\//g;
+    $line =~ s/([a-zæøå0-9])/$morse{$1}/eg;
+
+    print $line;
+}
