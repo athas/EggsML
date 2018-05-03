@@ -1,7 +1,14 @@
 #!/bin/sh
 #
 # Print the name of a random filter, either a language filter or a filter
-# filter.
+# filter. When given an integer argument, print that many random filters
+# separated by spaces.
+
+if [ $# -gt 0 ]; then
+  N=$1
+else
+  N=1
+fi
 
 {
     ls -1 "$CONCIEGGS_DIR/filters/" | while read name; do
@@ -11,4 +18,4 @@
     done
 
     cat $(which langcode) | grep -Eo '\|\w+' | sed -r 's/\|//'
-} | randomLine
+} | randomise | head -n $N | perl -pe 'BEGIN{undef $/;} s/\n/ /sg; s/\s*$//'

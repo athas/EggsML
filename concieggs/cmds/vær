@@ -37,6 +37,10 @@ case "$what" in
 
     # Sprog el.lign.
     *)
+        if [ "$what" = "???" ]; then
+            what="$(randomFilter 3)"
+        fi
+
         if [ "$additive" ]; then
             s="$(dbRead $file)"
         else
