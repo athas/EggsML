@@ -1,0 +1,17 @@
+#!/usr/bin/env perl
+#
+# Giv alle et street navn.
+use 5.012;
+use warnings;
+use utf8::all;
+
+use EggsML::EggsPI list => [qw(allAliases)];
+use EggsML::EggsPI text => [qw(street)];
+
+my %aliases = map { lc $_ => 1 } allAliases;
+
+while (<>) {
+    s/\b(\S*)\b/$aliases{lc($1)} ? street : $1/ge;
+    print;
+}
+
