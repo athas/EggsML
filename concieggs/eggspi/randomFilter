@@ -18,4 +18,4 @@ fi
     done
 
     cat $(which langcode) | grep -Eo '\|\w+' | sed -r 's/\|//'
-} | randomise | head -n $N | perl -pe 'BEGIN{undef $/;} s/\n/ /sg; s/\s*$//'
+} | randomise | head -n $N | tr '\n' ' ' | xargs
