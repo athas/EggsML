@@ -164,11 +164,16 @@ sub ansvar_kommando {
             $output .= ", er kodet i $lang,";
         }
 
-        $output .= sprintf(" og de%s %d linje%s kode er lavet over en serie af %d commits.",
+        $output .= sprintf(" og de%s %d linje%s kode er ",
                            $total_lines == 1 ? 'n' : '',
                            $total_lines,
-                           $total_lines == 1 ? '' : 'r',
-                           $n_commits);
+                           $total_lines == 1 ? '' : 'r');
+
+        if ($n_commits == 1) {
+            $output .= sprintf("en originaludgivelse.");
+        } else {
+            $output .= sprintf("udført over en serie af %d commits.", $n_commits);
+        }
 
         if ($n_commits > 1) {
             $output .= sprintf("  Den seneste ændring blev indført %s med beskeden: %s",
