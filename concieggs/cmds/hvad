@@ -116,9 +116,9 @@ elif [ "$wtf" ]; then
     if [ "$behaviour" ]; then
         echo -n "Mit kulturelle islæt er $behaviour."
         if [ "$user_behaviour" ]; then
-            echo "Men for din skyld er jeg også $user_behaviour."
+            echo " Men for din skyld er jeg også $user_behaviour."
         elif [ "$channel_behaviour" ]; then
-            echo "Men i disse kamre forsøger jeg passe ind ved $channel_behaviour."
+            echo " Men i disse kamre forsøger jeg passe ind ved $channel_behaviour."
         else
             echo
         fi
