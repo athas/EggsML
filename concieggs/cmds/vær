@@ -37,8 +37,8 @@ case "$what" in
 
     # Sprog el.lign.
     *)
-        if [ "$what" = "???" ]; then
-            what="$(randomFilter 3)"
+        if echo "$what" | grep -q '?'; then
+          what=$(echo "$what" | perl -pe 'use EggsML::EggsPI text => [qw(randomFilter)]; s/(^| )\?(?= |$)/"$1".randomFilter/eg')
         fi
 
         if [ "$additive" ]; then
