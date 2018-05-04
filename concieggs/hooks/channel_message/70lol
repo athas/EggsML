@@ -2,6 +2,8 @@
 #
 # Lol derudaf.
 
+shuttingUp && exit
+
 lol() {
     o=o
     O=O
