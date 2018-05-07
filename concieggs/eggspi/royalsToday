@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ -z $1 ]; then
-  today=$(date +%d-%M)
+  today=$(date +%m-%d)
 else
   today=$1
 fi
