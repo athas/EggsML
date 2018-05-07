@@ -35,7 +35,11 @@ if [ "$whatis" ]; then
     exit
 
   elif [ "$klokken" ]; then
-    echo "Den lille viser peger på $(($(date +%l) % 12)), den store på $(($(date +%M | tr 0 ' '))), og den helt lille på $(($(date +%S | tr 0 ' ')))."
+      if [ $(date +%H%M) = 1337 ]; then
+          echo 'KLOKKEN ER LEET!!!'
+      else
+          echo "Den lille viser peger på $(($(date +%l) % 12)), den store på $(($(date +%M | tr 0 ' '))), og den helt lille på $(($(date +%S | tr 0 ' ')))."
+      fi
     exit
   elif [ "$yourproblem" ]; then
     githubIssue "$problem"
