@@ -8,10 +8,10 @@ use EggsML::EggsPI boolean => [qw(shuttingUp checkCooldown)];
 
 exit if shuttingUp || checkCooldown('bibliotekaren', 300);
 
-my $yelling = $EGGS_BODY =~ /!|\?{3}/;
+# Nogen råber hvis de benytter !!, ?? eller mere end 50% store bogstaver.
+my $yelling = $EGGS_BODY =~ /!!|\?\?/;
 my $uppercase = 0; $uppercase++ while ($EGGS_BODY =~ /\p{Uppercase}/g);
 
-# Nogen råber hvis de benytter !, ??? eller mere end 50% store bogstaver.
 exit unless $yelling || $uppercase*2 > length $EGGS_BODY;
 
 my @comment = split "\n", <<"END_OF_BIBLIOTEKAR";
