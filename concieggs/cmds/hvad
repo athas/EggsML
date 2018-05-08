@@ -38,7 +38,7 @@ if [ "$whatis" ]; then
       if [ $(date +%H%M) = 1337 ]; then
           echo 'KLOKKEN ER LEET!!!'
       else
-          echo "Den lille viser peger på $(($(date +%l) % 12)), den store på $(($(date +%M | tr 0 ' '))), og den helt lille på $(($(date +%S | tr 0 ' ')))."
+          echo "Den lille viser peger på $(talord $(($(date +%l) % 12))), den store på $(talord $(($(date +%M | tr 0 ' ')))), og den helt lille på $(talord $(($(date +%S | tr 0 ' '))))."
       fi
     exit
   elif [ "$yourproblem" ]; then
