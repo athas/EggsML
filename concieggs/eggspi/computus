@@ -1,0 +1,85 @@
+#!/usr/bin/env perl
+#
+# Er det påske? Brug: computus [yyyy-mm-dd]
+
+use strict;
+use warnings;
+use utf8::all;
+use Data::Dumper;
+
+use Time::Piece; # strptime, localtime
+use Time::Moment;
+use Time::Moment::Adjusters qw(WesternEasterSunday);
+
+my $hvornår = @ARGV ? Time::Piece->strptime($ARGV[0], "%Y-%m-%d") : localtime;
+my $øjeblik = Time::Moment->from_object($hvornår);
+
+# Påskedag.
+my $påskedag = $øjeblik->with(WesternEasterSunday);
+if ($øjeblik->compare($påskedag) == 0) {
+    print "Påskedag";
+    exit;
+}
+
+# Anden påskedag.
+my $anden_påskedag = $påskedag->plus_days(1);
+if ($øjeblik->compare($anden_påskedag) == 0) {
+    print "Anden påskedag";
+    exit;
+}
+
+# Langfredag: Fredag før påskedag.
+my $langfredag = $påskedag->minus_days(2);
+if ($øjeblik->compare($langfredag) == 0) {
+    print "Langfredag";
+    exit;
+}
+
+# Skærtorsdag: Torsdag før påskedag.
+my $skærtorsdag = $påskedag->minus_days(3);
+if ($øjeblik->compare($skærtorsdag) == 0) {
+    print "Skærtorsdag";
+    exit;
+}
+
+# Sankt Skadeaften: Onsdag før påskedag.
+my $sankt_skadeaften = $påskedag->minus_days(4);
+if ($øjeblik->compare($sankt_skadeaften) == 0) {
+    print "Sankt skadeaften";
+    exit;
+}
+
+# Palmesøndag: Søndag før påskedag.
+my $palmesøndag = $påskedag->minus_days(7);
+if ($øjeblik->compare($palmesøndag) == 0) {
+    print "Palmesøndag";
+    exit;
+}
+
+# Store bededag: Fjerde fredag efter påskedag.
+my $store_bededag = $påskedag->plus_days(5)->plus_weeks(3);
+if ($øjeblik->compare($store_bededag) == 0) {
+    print "Store bededag";
+    exit;
+}
+
+# Kristi himmelfartsdag: 40 dage efter påskedag.
+my $kristi_himmelfartsdag = $påskedag->plus_days(40);
+if ($øjeblik->compare($kristi_himmelfartsdag) == 0) {
+    print "Kristi himmelfartsdag";
+    exit;
+}
+
+# Pinsedag: Syvende søndag efter påske.
+my $pinsedag = $påskedag->plus_weeks(7);
+if ($øjeblik->compare($pinsedag)) {
+    print "Pinsedag";
+    exit;
+}
+
+# Anden pinsedag.
+my $anden_pinsedag = $pinsedag->plus_days(1);
+if ($øjeblik->compare($anden_pinsedag)) {
+    print "Anden pinsedag";
+    exit;
+}
