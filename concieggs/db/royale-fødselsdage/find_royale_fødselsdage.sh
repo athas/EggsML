@@ -6,7 +6,7 @@ find_for_dato() {
     maaned="$1"
     dag="$2"
 
-    curl -s http://kongehuset.dk/calendar-day/ajax/2017-$maaned-$dag/all \
+    curl -s http://kongehuset.dk/calendar-day/ajax/2018-$maaned-$dag/all \
         | python3 -c 'import sys, json; print(list(json.load(sys.stdin)[1].values())[3])' \
         | grep fødselsdag | sed -r 's/\s*<[^>]+>\s*//g'
 }
