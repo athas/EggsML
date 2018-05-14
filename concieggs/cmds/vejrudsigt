@@ -138,6 +138,34 @@ def weather_to_symbol(weather, is_daytime, fancy_unicode):
     else:
         return '☘'
 
+def wind_code_to_symbols(code):
+    if (len(code) == 1):
+        return (2*" ") + cardinalDirection(code)
+    elif (len(code) == 2):
+        return (" " + diagonalDirection(code))
+    else:
+        return cardinalDirection(code[0]) + diagonalDirection(code[1:3])
+
+def cardinalDirection(direction):
+    if (direction == "N"):
+        return "⬇️"
+    elif (direction == "S"):
+        return "⬆"
+    elif (direction == "E"):
+        return "⬅"
+    else:
+        return "➡"
+
+def diagonalDirection(direction):
+    if (direction == "NE"):
+        return "↙"
+    elif (direction == "SE"):
+        return "↖"
+    elif (direction == "NW"):
+        return "↘"
+    else:
+        return "↗"
+
 with ur.urlopen('https://www.yr.no/place/Denmark/Capital/Copenhagen/forecast.xml') as f:
     tree = ET.parse(f)
 root = tree.getroot()
@@ -159,6 +187,9 @@ choices = safe_choices + (edgy_choices if is_edgy else [])
 hero = random.choice(choices)
 for time, hero_line in zip(tabular, hero):
     date = date_convert(time.attrib['from'])
+
+    wind = time.find('windDirection').attrib['code']
+
     temperature = time.find('temperature').attrib['value']
     weather_description = time.find('symbol').attrib['name'].lower()
 
@@ -167,9 +198,11 @@ for time, hero_line in zip(tabular, hero):
     is_approx_daytime = is_daytime(date, sunrise, sunset)
 
     weather_symbol = weather_to_symbol(weather_description, is_approx_daytime, fancy_unicode)
+    wind_symbol = wind_code_to_symbols(wind.upper())
 
-    print('{}:  {}° {} {}'.format(
+    print('{}:  {}° {} {} {}'.format(
         date_format(date),
         temperature.rjust(pad_temp),
+        wind_symbol,
         weather_symbol,
         hero_line))
