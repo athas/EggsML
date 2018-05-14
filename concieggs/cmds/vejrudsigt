@@ -148,13 +148,13 @@ def wind_code_to_symbols(code):
 
 def cardinalDirection(direction):
     if (direction == "N"):
-        return "⬇"
+        return "↓"
     elif (direction == "S"):
-        return "⬆"
+        return "↑"
     elif (direction == "E"):
-        return "⬅"
+        return "←"
     else:
-        return "➡"
+        return "→"
 
 def diagonalDirection(direction):
     if (direction == "NE"):
