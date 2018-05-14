@@ -140,7 +140,7 @@ def weather_to_symbol(weather, is_daytime, fancy_unicode):
 
 def wind_code_to_symbols(code):
     if (len(code) == 1):
-        return (2*" ") + cardinalDirection(code)
+        return (" " + cardinalDirection(code)
     elif (len(code) == 2):
         return (" " + diagonalDirection(code))
     else:
