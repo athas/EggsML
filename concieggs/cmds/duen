@@ -9,5 +9,6 @@
                        -e 's/summer/basker/g' \
                        -e 's/bøtten/fugleburet/g' \
                        -e 's/krukken/fugleburet/g' \
+                       -e 's/ryster/rører/g' \
                        -e 's/har fundet lorten, og/lægger en lort som/'
 done
