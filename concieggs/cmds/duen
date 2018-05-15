@@ -7,6 +7,7 @@
                        -e 's/Fluen/Duen/g' \
                        -e 's/FLUEN/DUEN/g' \
                        -e 's/summer/basker/g' \
-                       -e 's/bøtten|krukken/fugleburet/g' \
+                       -e 's/bøtten/fugleburet/g' \
+                       -e 's/krukken/fugleburet/g' \
                        -e 's/har fundet lorten, og/lægger en lort som/'
 done
