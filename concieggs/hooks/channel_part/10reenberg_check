@@ -1,6 +1,7 @@
 #!/bin/sh
 
-onEggsChannel || exit
+(notOnEggsChannel || shuttingUp) && exit
+[ "$EGGS_USER" = "$CONCIEGGS_NAME" ] && exit
 
 time=$(dbUserRead "$EGGS_USER" eggsactly)
 if [ "$time" ]; then

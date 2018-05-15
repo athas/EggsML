@@ -1,6 +1,7 @@
 #!/bin/sh
 
 (notOnEggsChannel || shuttingUp) && exit
+[ "$EGGS_USER" = "$CONCIEGGS_NAME" ] && exit
 
 aliases "$EGGS_USER" | while read -r alias; do
     when=$(dbUserRead "$EGGS_USER" reenberg/when)

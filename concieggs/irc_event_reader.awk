@@ -53,9 +53,6 @@ match(payload, /^>< NICK \(\): ([^ ]+)/, matches) && context == name {
 match(payload, /^>< (PART|JOIN) \(([^)]+)\): (.*)$/, matches) {
   action=matches[1]
   partedUser=context # yes
-  if (partedUser == name) {
-    next
-  }
   parted_channel=matches[2]
   partedReason=matches[3]
   if (action == "PART") {

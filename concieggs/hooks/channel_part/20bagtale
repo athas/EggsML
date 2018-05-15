@@ -4,7 +4,10 @@ set -e
 
 onEggsChannel || exit
 
+[ "$EGGS_USER" = "$CONCIEGGS_NAME" ] && exit
+
 maybeGood .9 || exit
+
 
 user=$EGGS_USER
 lookupDebt $user | grep -vq '\-' || exit

@@ -1,6 +1,8 @@
 #!/bin/sh
 
 shuttingUp && exit
+[ "$EGGS_USER" = "$CONCIEGGS_NAME" ] && exit
+
 
 if isChristmas && maybeGood .7; then
     if isKing "$EGGS_USER"; then
