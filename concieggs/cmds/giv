@@ -18,7 +18,6 @@ elif [ "$user" ]; then
     echo "$user har nu $thing!"
 
 elif [ "$ensom" ]; then
-    EGGS_WHERE='#eggsml-maskinrum'
     if [ "$ensom" = "mig" ]; then
         ensom="$EGGS_USER"
     fi
