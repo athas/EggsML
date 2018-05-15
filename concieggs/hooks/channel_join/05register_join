@@ -3,4 +3,14 @@
 # Gem at en person er kommet ind.
 
 ON_CHANNEL=$(dbRead "on_channel/$EGGS_WHERE")
-(echo $ON_CHANNEL; echo $EGGS_USER) | sort -u | dbWrite "on_channel/$EGGS_WHERE"
+( if [ ! -z "$ON_CHANNEL" ]; then
+    echo $ON_CHANNEL
+  fi
+
+  if [ "$EGGS_USER" = "$CONCIEGGS_NAME" ]; then
+    sleep 1
+    getNamesOnChannel "$EGGS_WHERE"
+  else
+    echo $EGGS_USER
+  fi
+) | sort -u | dbWrite "on_channel/$EGGS_WHERE"

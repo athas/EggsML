@@ -1,0 +1,48 @@
+#!/usr/bin/env perl
+#
+# getNamesOnChannel [#channel]
+
+use 5.026;
+use strict;
+use warnings;
+use Time::Piece;
+use File::ReadBackwards;
+use Env qw(CONCIEGGS_NAME CONCIEGGS_IRC_DIR);
+
+# Send /NAMES to server and wait one second.
+#use EggsML::EggsPI boolean => [qw(echoToServer)];
+my $channel = @ARGV ? $ARGV[0] : exit(1);
+#echoToServer(":NAMES $channel");
+#sleep(1);
+
+# irc.freenode.net: 2018-05-14 17:30 >< 353 (concieggs @ #concieggs-maskinrum): concieggs @simon
+# irc.freenode.net: 2018-05-14 17:30 >< 366 (noncieggs #concieggs-maskinrum): End of /NAMES list.
+
+# Read IRC log backwards and skip until "End of /NAMES".
+my $maxlines = 1000;
+my $out = File::ReadBackwards->new("$CONCIEGGS_IRC_DIR/out");
+while (--$maxlines and (my $line = $out->readline) !~ m!>< 366 \(.*?\Q$channel\E\): End of /NAMES list!) {}
+
+my @names;
+my $most_recent_names;
+while (--$maxlines and my $line = $out->readline) {
+    # Skip lines without timestamps.
+    next unless $line =~ m/^\S+: (\d\d\d\d-\d\d-\d\d \d\d:\d\d) ></;
+    my $timestamp = Time::Piece->strptime($1, "%Y-%m-%d %H:%M");
+
+    # Stop looking if this line dates before a 353 reply.
+    last if $most_recent_names && $timestamp < $most_recent_names;
+
+    # Skip non-353 replies until we get a 353 reply.
+    next unless $line =~ m/>< 353 \(.*? @ \Q$channel\E\): (.*)$/;
+
+    # If this was the first 353 reply, mark it as the most recent.
+    $most_recent_names //= $timestamp;
+
+    chomp(my $names = $1);
+    push @names, split(/[ @+]+/, $names);
+}
+
+for my $name (@names) {
+    print "$name\n" unless $name eq $CONCIEGGS_NAME;
+}
