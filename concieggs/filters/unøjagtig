@@ -29,7 +29,7 @@ my @categories = (
     [qw(datalogi softwareudviking datamatiker)],
     [qw(.com .net .org .dk .co.uk .biz .aero .nu .xxx)],
     [qw(↓ ↑ ← → ↙ ↖ ↘ ↗)],
-
+    [qw(☁ ☀ ☾ ☔ ☁ ☃)],
 );
 
 # Numbers
