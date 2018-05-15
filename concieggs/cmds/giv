@@ -2,7 +2,7 @@
 #
 # Giv noget til nogen.  Brug: giv TING til BRUGER
 
-eval "$(echo "$@" | parse '(?<thing>[^ ]+) til (?<user>[^ ]+)|(?<person>[^ ]+) et billede')"
+eval "$(echo "$@" | parse '(?<thing>[^ ]+) til (?<user>[^ ]+)|(?<person>[^ ]+) et billede|(?<ven>mig en ven)')"
 
 if [ "$person" ]; then
     if [ "$person" = "mig" ]; then
@@ -12,9 +12,18 @@ if [ "$person" ]; then
     img="$(randomImage || echo "Næh. Det vil jeg ikke, nå.")"
 
     echo "$person: $img"
+
 elif [ "$user" ]; then
     echo "$user" | dbWrite "has_$thing"
     echo "$user har nu $thing!"
+
+elif [ "$ven" ]; then
+    VEN=$(dbRead "on_channel/$EGGS_WHERE" | randomLine)
+    if [ "$EGGS_USER" = "$VEN" ]; then
+        echo "$EGGS_USER: Du kan gå hen i hjørnet og lege med dig selv."
+    else
+        echo "$EGGS_USER: $VEN er din nye ven!"
+    fi
 else
     echo "Brug: giv TING til BRUGER"
 fi
