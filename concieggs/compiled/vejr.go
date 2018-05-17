@@ -62,9 +62,9 @@ type JsonAPI struct {
 
 func main() {
 	city := "København"
-	country := "Danmark"
+	country := "DK"
 	if len(os.Args) > 1 {
-		/* Hvad er vejret i Kantinen? */
+		// Hvad er vejret i Kantinen?
 		if os.Args[1] == "Kantinen" {
 			fmt.Println(kantinevejrBeskrivelse)
 			return
@@ -117,6 +117,8 @@ func main() {
 	ageStr := vejrLib.ErMaalingenGammel(timeForUpdate)
 
 	windDirectionstr := vejrLib.WindDirectionString(windDirection)
+	
+	realCountry := vejrLib.CountryFromCode(data.Sys.Country)
 
 	t, _ := template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}: {{.Beskrivelse}} med en temperatur på {{.Degrees}}°C. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}. {{.Afstand}} {{.Age}}`)
 	// t, _ := template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}: {{.Beskrivelse}} med en temperatur på {{.Degrees}}°C. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}. {{.Afstand}} ({{.Position}}) {{.Age}}`)
@@ -135,7 +137,7 @@ func main() {
 		Age string
 	}{
 		city,
-		country,
+		realCountry,
 		beskrivelse,
 		fmt.Sprintf("%.1f", degrees),
 		fmt.Sprint(windBeaufortName),
