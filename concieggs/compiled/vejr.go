@@ -117,12 +117,10 @@ func main() {
 	ageStr := vejrLib.ErMaalingenGammel(timeForUpdate)
 
 	windDirectionstr := vejrLib.WindDirectionString(windDirection)
-	
+
 	realCountry := vejrLib.CountryFromCode(dat.Sys.Country)
 
 	t, _ := template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}: {{.Beskrivelse}} med en temperatur på {{.Degrees}}°C. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}. {{.Afstand}} {{.Age}}`)
-	// t, _ := template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}: {{.Beskrivelse}} med en temperatur på {{.Degrees}}°C. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}. {{.Afstand}} ({{.Position}}) {{.Age}}`)
-
 	out := bytes.NewBufferString("")
 	t.Execute(out, struct {
 		City             string
@@ -150,4 +148,3 @@ func main() {
 
 	fmt.Println(out.String())
 }
-
