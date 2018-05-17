@@ -118,7 +118,7 @@ func main() {
 
 	windDirectionstr := vejrLib.WindDirectionString(windDirection)
 	
-	realCountry := vejrLib.CountryFromCode(data.Sys.Country)
+	realCountry := vejrLib.CountryFromCode(dat.Sys.Country)
 
 	t, _ := template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}: {{.Beskrivelse}} med en temperatur på {{.Degrees}}°C. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}. {{.Afstand}} {{.Age}}`)
 	// t, _ := template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}: {{.Beskrivelse}} med en temperatur på {{.Degrees}}°C. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}. {{.Afstand}} ({{.Position}}) {{.Age}}`)
