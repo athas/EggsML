@@ -250,7 +250,7 @@ for time, hero_line in zip(tabular, hero):
     weather_symbol = weather_to_symbol(weather_description, is_approx_daytime, fancy_unicode)
     wind_symbol = wind_code_to_symbols(wind.upper())
     wrapped_wind_symbol = color_wind_symbol(windspeed, wind_symbol)
-    wind_speed = format(windspeed, '02d') + " m/s"
+    wind_speed = "{:4.1f} m/s".format(windspeed)
 
     print('{}:  {}° {} {} {} {}'.format(
         date_format(date),
