@@ -31,7 +31,7 @@ kram = r'''
       ,;;;;;,
      ;;;;;;;;;
     ;;;;'''''';
-    ;;C  /))))\
+    ;;C  /))))\\
   /'`;| (((((((|
  (  (_|( |))))))
 ,(   \  \(((((((|
@@ -252,10 +252,11 @@ for time, hero_line in zip(tabular, hero):
     wrapped_wind_symbol = color_wind_symbol(windspeed, wind_symbol)
     wind_speed = "{:4.1f} m/s".format(windspeed)
 
-    print('{}:  {}° {} {} {} {}'.format(
+    front = '{}:  {}° {}'.format(
         date_format(date),
         temperature.rjust(pad_temp),
-        wrapped_wind_symbol.rjust(3),
-        wind_speed,
-        weather_symbol,
-        hero_line))
+        wrapped_wind_symbol.rjust(3)).ljust(23)
+    middle = "{}".format(wind_speed).rjust(8)
+    back = "{} {}".format(weather_symbol, hero_line)
+
+    print("{}{}{}".format(front, middle, back))
