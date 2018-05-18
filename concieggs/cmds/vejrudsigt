@@ -31,7 +31,7 @@ kram = r'''
       ,;;;;;,
      ;;;;;;;;;
     ;;;;'''''';
-    ;;C  /))))\ 
+    ;;C  /))))\
   /'`;| (((((((|
  (  (_|( |))))))
 ,(   \  \(((((((|
@@ -47,7 +47,7 @@ kram = r'''
  | ,' ,'  `""''   `.
  |    ;            )
  `,   (            )
-  |   (           ,' 
+  |   (           ,'
   |   |           (
   |   |           |
   |   |           |
@@ -194,6 +194,27 @@ def diagonalDirection(direction):
     else:
         return "↗"
 
+def color_wind_symbol(windspeed, wind_symbol):
+    color = 0x00
+    if windspeed < 0.3:
+        color = 0x00
+    elif windspeed < 1.5:
+        color = 0x11
+    elif windspeed < 5.5:
+        color = 0x9
+    elif windspeed < 10.7:
+        color = 0x3
+    elif windspeed < 17.1:
+        color = 0x3
+    elif windspeed < 24.4:
+        color = 0x7
+    elif windspeed < 32.6:
+        color = 0x4
+    else:
+        color = 0x5
+
+    return "\x03{},99{}\x03".format(color, wind_symbol)
+
 with ur.urlopen('https://www.yr.no/place/Denmark/Capital/Copenhagen/forecast.xml') as f:
     tree = ET.parse(f)
 root = tree.getroot()
@@ -217,6 +238,7 @@ for time, hero_line in zip(tabular, hero):
     date = date_convert(time.attrib['from'])
 
     wind = time.find('windDirection').attrib['code']
+    windspeed = float(time.find('windSpeed').attrib['mps'])
 
     temperature = time.find('temperature').attrib['value']
     weather_description = time.find('symbol').attrib['name'].lower()
@@ -227,10 +249,11 @@ for time, hero_line in zip(tabular, hero):
 
     weather_symbol = weather_to_symbol(weather_description, is_approx_daytime, fancy_unicode)
     wind_symbol = wind_code_to_symbols(wind.upper())
+    wrapped_wind_symbol = color_wind_symbol(windspeed, wind_symbol)
 
     print('{}:  {}° {} {} {}'.format(
         date_format(date),
         temperature.rjust(pad_temp),
-        wind_symbol.rjust(3),
+        wrapped_wind_symbol.rjust(3),
         weather_symbol,
         hero_line))
