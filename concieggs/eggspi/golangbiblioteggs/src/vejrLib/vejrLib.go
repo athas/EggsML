@@ -21,8 +21,10 @@ var COUNTRIES = map[string]string{
 	"DE": "Tyskland",
 	"DK": "Danmark",
 	"FR": "Frankrig",
+	"IE": "Irland",
 	"NO": "Norge",
 	"SE": "Sverige",
+	"GB": "Det Forenede Kongerige af Storbritannien og Nordirland",
 	"US": "Amerikas Forenede Stater",
 }
 
