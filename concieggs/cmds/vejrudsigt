@@ -5,6 +5,7 @@ import urllib.request as ur
 import xml.etree.ElementTree as ET
 from datetime import datetime
 import eggsthon.shell as eggspi
+import os
 
 superman = r'''
           .=.,
@@ -250,7 +251,8 @@ for time, hero_line in zip(tabular, hero):
     weather_symbol = weather_to_symbol(weather_description, is_approx_daytime, fancy_unicode)
     wind_symbol = wind_code_to_symbols(wind.upper())
     wrapped_wind_symbol = color_wind_symbol(windspeed, wind_symbol)
-    wind_speed = "{:4.1f} m/s".format(windspeed)
+    wind_format_string = "{:4.0f} m/s" if (os.getenv('EGGS_USER') == "sword_smith") else "{:4.1f} m/s"
+    wind_speed = wind_format_string.format(windspeed)
 
     front = '{}:  {}° {}'.format(
         date_format(date),
