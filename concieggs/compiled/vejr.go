@@ -84,8 +84,12 @@ func main() {
 
 	resp, err := http.Get(fmt.Sprintf("http://api.openweathermap.org/data/2.5/weather?q=%s,%s&lang=da&units=metric&APPID=%s", url.QueryEscape(city), url.QueryEscape(country), APIKEY))
 	if err != nil {
-		fmt.Println("Den by findes ikke eller også er der noget andet, der er gået galt!")
-		return
+		// prøv lige uden land
+		resp, err = http.Get(fmt.Sprintf("http://api.openweathermap.org/data/2.5/weather?q=%s&lang=da&units=metric&APPID=%s", url.QueryEscape(city), APIKEY))
+		if err != nil {
+			fmt.Println("Den by findes ikke eller også er der noget andet, der er gået galt!")
+			return
+		}
 	}
 	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
