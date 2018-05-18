@@ -255,8 +255,8 @@ for time, hero_line in zip(tabular, hero):
     front = '{}:  {}° {}'.format(
         date_format(date),
         temperature.rjust(pad_temp),
-        wrapped_wind_symbol.ljust(3)).ljust(23)
-    middle = "{}".format(wind_speed).ljust(8)
+        wrapped_wind_symbol.rjust(6)).ljust(23)
+    middle = "{}".format(wind_speed).rjust(9)
     back = "{} {}".format(weather_symbol, hero_line)
 
-    print("{}{}{}".format(front, middle, back))
+    print("{}{} {}".format(front, middle, back))
