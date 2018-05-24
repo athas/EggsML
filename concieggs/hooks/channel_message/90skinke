@@ -1,8 +1,8 @@
 #!/bin/sh
 
-(notOnEggsChannel || shuttingUp) && exit
+shuttingUp && exit
 
-maybeGood .02 || exit
+maybeGood .1 || exit
 
 echo "$EGGS_BODY" | grep -q '^$CONCIEGGS_NAME''[:,] ' && exit
 
