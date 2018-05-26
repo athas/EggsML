@@ -5,6 +5,7 @@ import urllib.request as ur
 import xml.etree.ElementTree as ET
 from datetime import datetime
 import eggsthon.shell as eggspi
+import os
 
 superman = r'''
           .=.,
@@ -31,7 +32,7 @@ kram = r'''
       ,;;;;;,
      ;;;;;;;;;
     ;;;;'''''';
-    ;;C  /))))\ 
+    ;;C  /))))\\
   /'`;| (((((((|
  (  (_|( |))))))
 ,(   \  \(((((((|
@@ -47,7 +48,7 @@ kram = r'''
  | ,' ,'  `""''   `.
  |    ;            )
  `,   (            )
-  |   (           ,' 
+  |   (           ,'
   |   |           (
   |   |           |
   |   |           |
@@ -194,6 +195,27 @@ def diagonalDirection(direction):
     else:
         return "↗"
 
+def color_wind_symbol(windspeed, wind_symbol):
+    color = 0x00
+    if windspeed < 0.3:
+        color = "00"
+    elif windspeed < 1.5:
+        color = "11"
+    elif windspeed < 5.5:
+        color = "09"
+    elif windspeed < 10.7:
+        color = "03"
+    elif windspeed < 17.1:
+        color = "08"
+    elif windspeed < 24.4:
+        color = "07"
+    elif windspeed < 32.6:
+        color = "04"
+    else:
+        color = "05"
+
+    return "\x03{}{}\x03".format(color, wind_symbol)
+
 with ur.urlopen('https://www.yr.no/place/Denmark/Capital/Copenhagen/forecast.xml') as f:
     tree = ET.parse(f)
 root = tree.getroot()
@@ -217,6 +239,7 @@ for time, hero_line in zip(tabular, hero):
     date = date_convert(time.attrib['from'])
 
     wind = time.find('windDirection').attrib['code']
+    windspeed = float(time.find('windSpeed').attrib['mps'])
 
     temperature = time.find('temperature').attrib['value']
     weather_description = time.find('symbol').attrib['name'].lower()
@@ -227,10 +250,15 @@ for time, hero_line in zip(tabular, hero):
 
     weather_symbol = weather_to_symbol(weather_description, is_approx_daytime, fancy_unicode)
     wind_symbol = wind_code_to_symbols(wind.upper())
+    wrapped_wind_symbol = color_wind_symbol(windspeed, wind_symbol)
+    wind_format_string = "{:4.0f} m/s" if (os.getenv('EGGS_USER') == "sword_smith") else "{:4.1f} m/s"
+    wind_speed = wind_format_string.format(windspeed)
 
-    print('{}:  {}° {} {} {}'.format(
+    front = '{}:  {}° {}'.format(
         date_format(date),
         temperature.rjust(pad_temp),
-        wind_symbol.rjust(3),
-        weather_symbol,
-        hero_line))
+        wrapped_wind_symbol.rjust(6)).ljust(23)
+    middle = "{}".format(wind_speed).rjust(9)
+    back = "{}  {}".format(weather_symbol, hero_line)
+
+    print("{}{} {}".format(front, middle, back))
