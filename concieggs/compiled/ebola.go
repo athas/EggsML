@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	ebolaUrl = "http://en.wikipedia.org/w/index.php?title=Ebola_virus_epidemic_in_West_Africa&action=raw"
+	ebolaUrl = "http://en.wikipedia.org/w/index.php?title=West_African_Ebola_virus_epidemic&action=raw"
 )
 
 func main() {
