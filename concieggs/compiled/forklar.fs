@@ -25,7 +25,7 @@ let main argv =
 
 
     let startTag = """<span class="definition">"""
-    let endTag = """</span>"""    
+    let endTag = """<"""    
     
     let startIndex = (doc.IndexOf(startTag)) + startTag.Length
     let lastIndex = doc.Length-1
