@@ -88,7 +88,7 @@ else
             ;;
         *fs)
             compile() {
-                fsharpc --out "$2" "$1"
+                fsharpc --out:"$2" "$1"
             }
             ;;
         *)
