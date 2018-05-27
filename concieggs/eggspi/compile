@@ -88,7 +88,8 @@ else
             ;;
         *fs)
             compile() {
-                fsharpc --out:"$2" "$1"
+                fsharpc --out:"$2.exe" "$1"
+                mv "$2.exe" "$2"
             }
             ;;
         *)
