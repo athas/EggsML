@@ -4,26 +4,26 @@ open System.IO
 
 type clCall = {command:string; argument:string}
 
-let HiddenExec {command=c; argument=arg} =
-    let startInfo = new System.Diagnostics.ProcessStartInfo(c)
-    startInfo.Arguments <- arg
-    startInfo.UseShellExecute <- false
-
-    startInfo.RedirectStandardError <- true
-    startInfo.RedirectStandardOutput <- true
-
-    use proc = System.Diagnostics.Process.Start(startInfo)
-    proc.BeginErrorReadLine()
-    let stdout = proc.StandardOutput.ReadToEnd();
-    proc.WaitForExit()
-    (proc.ExitCode,stdout,stdout) // TODO: 3. værdi burde være stderr
-
-let fetchUrl url =
-    let (ec, resp, err) = HiddenExec {command="curl"; argument=url}
-    resp      // return all the html
-
 [<EntryPoint>]
 let main (argv : string[]) =
+    let HiddenExec {command=c; argument=arg} =
+        let startInfo = new System.Diagnostics.ProcessStartInfo(c)
+        startInfo.Arguments <- arg
+        startInfo.UseShellExecute <- false
+
+        startInfo.RedirectStandardError <- true
+        startInfo.RedirectStandardOutput <- true
+
+        use proc = System.Diagnostics.Process.Start(startInfo)
+        proc.BeginErrorReadLine()
+        let stdout = proc.StandardOutput.ReadToEnd();
+        proc.WaitForExit()
+        (proc.ExitCode,stdout,stdout) // TODO: 3. værdi burde være stderr
+
+    let fetchUrl url =
+        let (ec, resp, err) = HiddenExec {command="curl"; argument=url}
+        resp      // return all the html
+
     let baseUrl = "https://ordnet.dk/ddo/ordbog?query="
     let query : string = argv.[0]
 
