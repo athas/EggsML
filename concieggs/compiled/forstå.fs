@@ -38,8 +38,3 @@ let endIndex = startIndex + cutDoc.IndexOf(endTag)
 
 printfn "%s" (query + " betyder: " + doc.[startIndex..endIndex-1] + ".")
 0
-
-    
-    
-    
-    
