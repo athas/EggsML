@@ -17,7 +17,7 @@ let main argv =
     //resten er OC, jeg lover det
         
         
-    let baseUrl = "http://ordnet.dk/ddo/ordbog?query="
+    let baseUrl = "http://localhost:PRUT/?url=https://ordnet.dk/ddo/ordbog?query="
     let query = argv.[0]
     
     let url = baseUrl + query
