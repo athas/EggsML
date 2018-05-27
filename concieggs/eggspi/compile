@@ -86,6 +86,11 @@ else
                 chmod +x $CRAP
             }
             ;;
+        *fs)
+            compile() {
+                fsharpc --out "$2" "$1"
+            }
+            ;;
         *)
             echo "Cannot compile file $srcfile - unknown extension."
             exit 2
