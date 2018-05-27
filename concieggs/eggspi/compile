@@ -88,8 +88,9 @@ else
             ;;
         *fs)
             compile() {
-                fsharpc --out:"$2.exe" "$1"
+                fsharpc --out:"$2.exe" "$1" > /dev/null
                 mv "$2.exe" "$2"
+                chmod +x "$2"
             }
             ;;
         *)
