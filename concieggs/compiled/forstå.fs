@@ -21,20 +21,22 @@ let HiddenExec {command=c; argument=arg} =
 let fetchUrl url =
     let (ec, resp, err) = HiddenExec {command="curl"; argument=url}
     resp      // return all the html
-        
-let baseUrl = "https://ordnet.dk/ddo/ordbog?query="
-let query = argv.[0]
 
-let url = baseUrl + query
-let doc = fetchUrl url
+[<EntryPoint>]
+let main (argv : string[]) =
+    let baseUrl = "https://ordnet.dk/ddo/ordbog?query="
+    let query : string = argv.[0]
 
-let startTag = """<span class="definition">"""
-let endTag = """<"""
+    let url = baseUrl + query
+    let doc = fetchUrl url
+
+    let startTag = """<span class="definition">"""
+    let endTag = """<"""
     
-let startIndex = (doc.IndexOf(startTag)) + startTag.Length
-let lastIndex = doc.Length-1
-let cutDoc = doc.[startIndex..lastIndex]
-let endIndex = startIndex + cutDoc.IndexOf(endTag)
+    let startIndex = (doc.IndexOf(startTag)) + startTag.Length
+    let lastIndex = doc.Length-1
+    let cutDoc = doc.[startIndex..lastIndex]
+    let endIndex = startIndex + cutDoc.IndexOf(endTag)
 
-printfn "%s" (query + " betyder: " + doc.[startIndex..endIndex-1] + ".")
-0
+    printfn "%s" (query + " betyder: " + doc.[startIndex..endIndex-1] + ".")
+    0
