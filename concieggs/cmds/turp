@@ -4,7 +4,7 @@ if [ $# = 1 ]; then
     n=$(commands | grep -n "$1" | cut -d: -f1)
 
     if [ "$n" ]; then
-        echo -n "$EGGS_USER: Prøv med 'p"
+        echo -n "$EGGS_USER: Prøv med 'pr"
         for i in $(seq $n); do
             echo -n "u"
         done
