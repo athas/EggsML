@@ -1,9 +1,13 @@
 #!/bin/sh
 
-case "$2" in
-    \*) echo "${2##\\}"
-        ;;
-    *)
-        lcalias="$(echo "$2" | perl -ne 'print (lc $_)')"
-        dbUserRead "$1" "cmd_aliases" | awk 'index($0,STR)==1' "STR=$lcalias=" | cut -d'=' -f 2
-esac
+if echo "$2" | egrep -iq 'pru+t'; then
+    which_prut "$2"
+else
+    case "$2" in
+        \*) echo "${2##\\}"
+            ;;
+        *)
+            lcalias="$(echo "$2" | perl -ne 'print (lc $_)')"
+            dbUserRead "$1" "cmd_aliases" | awk 'index($0,STR)==1' "STR=$lcalias=" | cut -d'=' -f 2
+    esac
+fi
