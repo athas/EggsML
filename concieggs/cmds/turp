@@ -1,0 +1,17 @@
+#!/bin/sh
+
+if [ $# = 1 ]; then
+    n=$(commands | grep -n "$1" | cut -d: -f1)
+
+    if [ "$n" ]; then
+        echo -n "$EGGS_USER: Prøv med 'p"
+        for i in $(seq $n); do
+            echo -n "u"
+        done
+        echo "t'."
+    else
+        echo "$EGGS_USER: Jeg er ikke bekendt med nogen '$1'-kommando."
+    fi
+else
+    echo "$EGGS_USER: Brug 'turp <navn på kommando>'."
+fi
