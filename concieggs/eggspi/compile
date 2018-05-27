@@ -89,7 +89,11 @@ else
         *fs)
             compile() {
                 fsharpc --out:"$2.exe" "$1" > /dev/null
-                mv "$2.exe" "$2"
+                cat > "$2" <<EOF
+#!/bin/sh
+
+exec mono "$2.exe" "$@"
+EOF
                 chmod +x "$2"
             }
             ;;
