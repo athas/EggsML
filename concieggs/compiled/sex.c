@@ -1,5 +1,3 @@
-/*sex_da.c*/
-
 /* Original author unknown.  Presumably this is public domain by now.
  * If you are the original author or know the original author, please
  * contact <freebsd@spatula.net>
@@ -7,7 +5,8 @@
  * Orphan code cleaned up a bit by Nick Johnson <freebsd@spatula.net>
  * Completely rewrote how word wrapping works and added -w flag.
  *
- * Translated to danish by Troels Henriksen <athas@sigkill.dk>
+ * Translated to Danish by Troels Henriksen <athas@sigkill.dk> and
+ * modified by Svip at https://github.com/svip/sex before committed here.
  *
  */
 
@@ -17,30 +16,32 @@
 #include <time.h>
 #include <ctype.h>
 
-static char     *faster[] = {
-  "\"Lad spillet begynde\"",             "\"Åh gud!\"",
-  "\"Nej, ikke det!\"",                        "\"Endelig!\"",
-  "\"Det er det forkerte hul!\"",                  "\"Er det det hele?\"",
-  "\"Fandens, strømerne!\"",             "\"Jeg havde aldrig drømt om at det kunne være\"",
-  "\"Hvis jeg gør det vil du ikke respektere mig!\"",   "\"Nu!\"",
-  "\"Sesam, luk dig op!\"",                     "\"EMR!\"",
-  "\"Igen!\"",                           "\"Hurtigere!\"",
-  "\"Hårdere!\"",                          "\"Hjælp!\"",
-  "\"Tag mig hårdere!\"",                  "\"Er den inde endnu?\"",
-  "\"Du er ikke min far!\"",            "\"Hr. læge, er det nu propert?\"",
-  "\"Nej, nej, gør det ved guldfisken!\"",         "\"Hellige batmobil, Batman!\"",
-  "\"Han er død, han er død!\"",            "\"Tag mig, Robert!\"",
-  "\"Jeg er liberal!\"",                "\"Stik fire fingre ind!\"",
-  "\"Sikke en elsker!\"",                    "\"Sig noget beskidt til mig, svin!\"",
-  "\"Loftet trænger til maling,\"",      "\"Sug hårdere!\"",
-  "\"Dyrene vil høre os!\"",           "\"Ikke offentligt!\"",
-  "\"Hvad hvis Spectrum hører os?\"",   "\"Tag nu det flag, for pokker!\"",
-  "\"Mit /dev/input har plads til det hele!\"",  "\"Ohøj, hund!\"",
-  "\"Splitte mine bramsejl!\"", "\"Hov stop, jeg tror jeg flækker,\"",
-  "\"Skinke!\"",
+static char *faster[] = {
+  "\"Lad spillet begynde\"",        "\"Åh gud!\"",
+  "\"Nej, ikke det!\"",             "\"Endelig!\"",
+  "\"Det er det forkerte hul!\"",   "\"Er det det hele?\"",
+  "\"Fandens, strømerne!\"",        "\"Nu!\"",
+  "\"Jeg havde aldrig drømt om at det kunne være\"",
+  "\"Hvis jeg gør det vil du ikke respektere mig!\"",
+  "\"Nej, nej, gør det ved guldfisken!\"",
+  "\"Sesam, luk dig op!\"",         "\"EMR!\"",
+  "\"Igen!\"",                      "\"Hurtigere!\"",
+  "\"Hårdere!\"",                   "\"Hjælp!\"",
+  "\"Tag mig hårdere!\"",           "\"Er den inde endnu?\"",
+  "\"Du er ikke min far!\"",        "\"Hr. læge, er det nu propert?\"",
+  "\"Hellige batmobil, Batman!\"",  "\"Tag nu det flag, for pokker!\"",
+  "\"Han er død, han er død!\"",    "\"Tag mig, Robert!\"",
+  "\"Jeg er liberal!\"",            "\"Stik fire fingre ind!\"",
+  "\"Sikke en elsker!\"",           "\"Sig noget beskidt til mig, svin!\"",
+  "\"Loftet trænger til maling,\"", "\"Sug hårdere!\"",
+  "\"Dyrene vil høre os!\"",        "\"Ikke offentligt!\"",
+  "\"Mit /dev/input har plads til det hele!\"",
+  "\"Hvad hvis Spectrum hører os?\"",
+  "\"Splitte mine bramsejl!\"",     "\"Hov stop, jeg tror jeg flækker,\"",
+  "\"Skinke!\"",                    "\"Ohøj, hund!\"",
 };
 
-static char     *said[] = {
+static char *said[] = {
   "brølte",              "gøede",           "kvækkede",
   "snerrede",            "stønnede",        "udklemte",
   "brummede",            "grinte",          "udspyede",
@@ -51,11 +52,11 @@ static char     *said[] = {
   "skinkede",
 };
 
-static char     *the[] = {
+static char *the[] = {
   "den",
 };
 
-static char     *fadj[] = {
+static char *fadj[] = {
   "sovsede",              "eftersøgte",           "uheldige",
   "lystige",              "niårige",              "tyrenakkede",
   "bisexuelle",           "fantastiske",          "søde",
@@ -69,7 +70,7 @@ static char     *fadj[] = {
 };
 
 
-static char     *female[] = {
+static char *female[] = {
   "sæk",                  "dagplejemor",          "kvinde",
   "grevinde",             "transvestit",          "nymfoman",
   "jomfru",               "læderfreak",           "drag queen",
@@ -87,11 +88,11 @@ static char     *female[] = {
   "skolepige",            "sjuft til Lindbo",     "skinke",
 };
 
-static char     *asthe[] = {
+static char *asthe[] = {
   "da den", "idet den", "mens den", "kort før den"
 };
 
-static char     *madjec[] = {
+static char *madjec[] = {
   "aggressive",           "savlende",             "umættelige",
   "gale",                 "sataniske",            "korpulente",
   "næsepillende",         "hundebelurerende",     "dryppende",
@@ -104,7 +105,7 @@ static char     *madjec[] = {
   "svenske",              "sortsmuskede",         "skinkende",
 };
 
-static char     *male[] = {
+static char *male[] = {
   "redneck",              "kamel",                "spytslikker",
   "ærkegreve",            "dværg",                "medarbejder",
   "store dansker",        "hingst",               "slambert",
@@ -120,7 +121,7 @@ static char     *male[] = {
   "skinke",               "landsforræder",        "svin",
 };
 
-static char     *diddled[] = {
+static char *diddled[] = {
   "snød",                 "fortærrede",           "græmsede",
   "mundede",              "tungede",              "tævede",
   "indstilte",            "misbrugte",            "forurenede",
@@ -137,7 +138,7 @@ char *her[] = {
   "hendes",
 };
 
-static char     *titadj[] = {
+static char *titadj[] = {
   "alabaste",             "lyserøde",             "cremede",
   "rødmossede",           "fugtige",              "dunkende",
   "saftige",              "hivende",              "spændte",
@@ -147,9 +148,10 @@ static char     *titadj[] = {
   "dryppende",            "osende",               "faste",
   "hængende",             "muskuløse",            "kødfyldte",
   "faste",                "spidse",               "skinkede",
+  "patformede",
 };
 
-static char     *knockers[] = {
+static char *knockers[] = {
   "glober",               "meloner",              "højdedrag",
   "skud",                 "gajoler",              "lunger",
   "forhøjninger",         "skatte",               "brød",
@@ -159,14 +161,14 @@ static char     *knockers[] = {
   "udposninger",          "forlys",               "fastpladelagre",
   "støddæmpere",          "knæ",                  "spejlæg",
   "baller",               "stødpuder",            "øreflipper",
-  "skinker",              "intuitive brugerflade", 
+  "skinker",              "intuitive brugerflade",
 };
 
 char *and[] = {
   "og", "hvorefter han"
 };
 
-static char     *thrust[] = {
+static char *thrust[] = {
   "kastede",              "stødte",               "klemte",
   "hamrede",              "førte",                "listede",
   "gled",                 "knaldede",             "maste",
@@ -178,11 +180,11 @@ static char     *thrust[] = {
   "skinkede",
 };
 
-static char     *his[] = {
+static char *his[] = {
   "sin",
 };
 
-static char     *dongadj[] = {
+static char *dongadj[] = {
   "bristende",            "lagte",                "glitrende",
   "svulmende",            "velsignede",           "lilla",
   "sviende",              "ophævede",             "rigide",
@@ -198,7 +200,7 @@ static char     *dongadj[] = {
   "skinkende",
 };
 
-static char     *dong[] = {
+static char *dong[] = {
   "indtrænger",           "gren",                 "stub",
   "lem",                  "kødpølse",             "majestæt",
   "bovspryd",             "gummiged" ,            "damphammer",
@@ -220,11 +222,11 @@ static char     *dong[] = {
   "lynafleder",           "hobbyobjekt",          "træningsapparat",
 };
 
-static char     *intoher[] = {
+static char *intoher[] = {
   "ind i hendes", "efter hendes"
 };
 
-static char     *twatadj[] = {
+static char *twatadj[] = {
   "pulserende",           "sultende",             "glubrende",
   "bankende",             "vidtåbne",             "savlende",
   "indbydende",           "mættede",              "smaskende",
@@ -239,7 +241,7 @@ static char     *twatadj[] = {
   "skinkende",            "fantastiske",
 };
 
-static char     *twat[] = {
+static char *twat[] = {
   "sump.",                "honningkrukke.",       "syltetøjsglas.",
   "smørkasse.",           "pelsburger.",          "kirsebærstærte.",
   "sprække.",             "revne.",               "hul.",
@@ -318,7 +320,7 @@ int main(int argc, char **argv)
       }
       if (isspace(*cp)) {
         lastword = pos;
-      } 
+      }
       pos++;
     }
     buffer[pos] = ' ';
