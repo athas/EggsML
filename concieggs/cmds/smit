@@ -7,13 +7,16 @@ if ! [ "$bruger" ]; then
     bruger="$(recentlyActive | randomLine)"
 fi
 
-smitter=$(randomLine <<EOF
+hoster=$(randomLine <<EOF
 hoster og harsker
 harsker og hoster
 nyser ad helvede til
 prikker hul i sine bylder
 kan ikke tænke klart
-deler sin hovedpine
+føler sin hovedpine sprede sig
+har det ikke så godt
+snotter over hele kanalen
+bliver svimmel
 EOF
        )
 
@@ -25,6 +28,11 @@ voldsom
 arktisk
 unavngivet
 utilpasset
+nyopdaget
+nyopfundet
+tempereret
+alternativ
+hjemmegroet
 EOF
           )
 
@@ -37,8 +45,22 @@ fantomsyge
 forstoppethed
 skørbug
 brækket ben
+tandpine
+fantomsmerte
+feber
+grimhed
 EOF
       )
 
-echo "/me $smitter"
-echo "/me smitter $bruger med $detaljeret $sygdom"
+ting=$(randomLine <<EOF
+ting
+halløjsa
+bakterie
+virus
+lort
+EOF
+    )
+
+echo "/me $hoster..."
+sleep 2
+echo "/me smitter $bruger med noget $detaljeret $sygdom-$ting"
