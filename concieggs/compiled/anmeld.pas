@@ -48,7 +48,7 @@ const
     (Line: 'Lige lidt mere forberedelsestid'; Stars: 3; Author: 'Bjarne Goldbæk'),
     (Line: 'Jeg følte ikke noget specielt.'; Stars: 3; Author: 'Nikkel'),
     (Line: 'Vi bliver alle gladere når vi accepterer det.'; Stars: 3; Author: 'George Orwell'),
-    (Line: 'You can't play God without being acquainted with the devil.'; Stars: 3; Author: 'Robert Ford'),
+    (Line: 'You can''t play God without being acquainted with the devil.'; Stars: 3; Author: 'Robert Ford'),
     // 4
     (Line: 'Udmærket.'; Stars: 4; Author: 'Niels'),
     (Line: 'Minder mig om dengang med Mona.'; Stars: 4; Author: 'Leonardo da Vinci'),
