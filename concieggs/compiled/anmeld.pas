@@ -36,7 +36,6 @@ const
     (Line: 'Det værste lort nogensinde.'; Stars: 1; Author: 'Arkimedes fra Syrakus'),
     (Line: 'The worst thing since the bagpipes.'; Stars: 1; Author: 'Mr. Plinkett'),
     (Line: 'Det er et los i bollerne og en kniv i hjertet.'; Stars: 1; Author: 'Oscar Davidsen'),
-    (Line: 'Den bedste måde at vinde på; undgå det som pesten!'; Stars: 1; Author: 'Sun Tzu'),
     // 2
     (Line: 'Jeg mener, at det er moderat sjovt.'; Stars: 2; Author: 'Sword_Smith'),
     (Line: 'Better than my first ex-wife.'; Stars: 2; Author: 'King Henry VIII'),
@@ -46,17 +45,14 @@ const
     (Line: 'Alle er Hitler.'; Stars: 3; Author: 'Stalin'),
     (Line: 'Lige lidt mere forberedelsestid'; Stars: 3; Author: 'Bjarne Goldbæk'),
     (Line: 'Jeg følte ikke noget specielt.'; Stars: 3; Author: 'Nikkel'),
-    (Line: 'Vi bliver alle gladere når vi accepterer det.'; Stars: 3; Author: 'George Orwell'),
     // 4
     (Line: 'Udmærket.'; Stars: 4; Author: 'Niels'),
     (Line: 'Minder mig om dengang med Mona.'; Stars: 4; Author: 'Leonardo da Vinci'),
     (Line: 'Som en god kop morgenurin.'; Stars: 4; Author: 'Mohandas Karamchand Gandhi'),
-    (Line: 'Stort set intet mangler her; det er dig der ikke kan værdsætte det.'; Stars: 4; Author: 'Marcus Aurelius'),
     // 5
     (Line: 'Det var sjovt.'; Stars: 5; Author: 'Spectrum'),
     (Line: 'Hvis pik er Gud er det her Jesus.'; Stars: 5; Author: 'Carl-Mar Møller'),
     (Line: 'You had me at ''Wes Andersson'''; Stars: 5; Author: 'The New York Times')
-    (Line: 'Livet begynder her.'; Stars: 5; Author: 'Lao Tzu')
   );
 var
   prei, ri: Integer;
