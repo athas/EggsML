@@ -1,0 +1,79 @@
+Changes in v. 2.2
+=================
+- Major error in relations of plants and animals fixed
+
+Changes in v. 2.1.5
+===================
+- Minor changes
+
+Changes in v. 2.1
+=================
+- The total number of links to base concepts / core synsets is now 5,000
+
+Changes in v. 2.0
+=================
+- The total number synsets is now 65,000
+- Many corrections
+- 600 Danish cities and 200 capitals added
+
+Changes in v. 1.4
+=================
+- The total number synsets is now 61,000
+
+Changes in v. 1.2.1
+===================
+Additions
+- relation Domain added
+- synset attribute Domain added
+
+Changes in v. 1.2
+=================
+Additions
+- The total number of synsets is now 59,000
+
+Changes in v. 1.1
+=================
+
+Additions
+- 10,000 synsets added. Most of these are added without any
+  relations other than the hyponymOf relation and whatever relations
+  they may inherit.
+- 'instanceOf' relation added: 250 proper names of countries and 
+  major geographical areas are added. These are treated as 'Nouns' 
+  that have 'instanceOf' relations to their hypernym instead of 
+  'hyponymOf'. 
+
+Changes in v. 1.0.2
+===================
+
+Additions
+- Ids of wordsenses now included in csv files as well as in
+  rdf/owl files.
+
+Bug fixes:
+- Comments about inherited relations were missing in v. 1.0.1.
+  Is not re-introduced
+
+Changes in v. 1.0.1
+===================
+
+Additions
+- Part of speech is now included explicitly for Words. Previously 
+  information about part of speech had to be extracted from the 
+  synset and wordsense type.
+- The DanNet resource is now available in both .csv ("comma separated
+  values") format as well as the rdf/owl format. Both formats are
+  available from the download page at http://wordnet.dk
+
+Bug fixes
+- Bug caused some word and wordsense information to be included for
+  synsets not present in the release.
+- Bug caused some relations to be duplicated.
+- Bug caused some wordsense and register information to be duplicated.
+- Reference to not-existing file usedForQualifiedBy.rdf has been removed
+  from DanNet_full.owl
+- Bug caused spaces in labels on synsets to be eliminated.
+- (serious) Bug caused the wrong lexical form of collocations to be 
+  included as lexicalForm in the Word construct: for instance instead of 
+  'blå spejder', 'spejder' was selected; instead of 'sort peber', 'peber'
+  was selected.
