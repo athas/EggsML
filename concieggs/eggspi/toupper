@@ -1,2 +1,4 @@
-#!/bin/sh
-awk '{print toupper($0)}'
+#!/usr/bin/env perl
+use utf8;
+use Encode qw/encode decode/;
+print encode('utf-8', uc(decode('utf-8', $_))) while (<>);
