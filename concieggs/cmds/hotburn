@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# Bed concieggs-komikeren lave en bait-and-switch-sammenlignings-vits
+# der bare SMADRER xD
+
+computer() {
+    # SÅDAN TALER EN PC
+    echo "$1" | toupper
+}
+
+hyps="$CONCIEGGS_DB_DIR/dannet-utils/hyponyms"
+
+# Only use hyperonyms with at least two hyponyms.
+over="$(cut -d'<' -f2 $hyps | sort | uniq -c | sort -n | grep -v ' 1 ' | sed -r 's/ *[0-9]+ //' | randomLine)"
+grep -E "<$over"'$' $hyps | sort -R | head -n 2 | cut -d'<' -f1 | {
+    read under0
+    read under1
+
+    randomLine <<EOF
+/me laver et hot burn!
+/me laver standupper-fagter
+Hey, nu skal nogen ned med nakken.
+For. Satan.
+HVA SÅ DANMARK
+EOF
+
+    echo "$EGGS_USER: Hvad er forskellen på $(computer $under0) og $(computer $under1)?  Det ene er $(computer $over) -- og det andet er $(computer $under0)!"
+}

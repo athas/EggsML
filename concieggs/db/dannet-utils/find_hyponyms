@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# Find hyponyms.  Also do some filtering to keep them nice.
+#
+# Run once.
+
+cd "$(basename "$0")"
+db="../DanNet-2.2_csv"
+
+f() {
+    grep -E "^$(grep -E "^[0-9]+@[0-9]+@$1@" "$db/wordsenses-utf-8.csv" | cut -d@ -f2)@" "$db/words-utf-8.csv" \
+        | cut -d@ -f2
+}
+
+cat "$db/relations-utf-8.csv" | grep hyponymOf | while read line; do
+    x="$(echo $line | cut -d@ -f1)"
+    y="$(echo $line | cut -d@ -f4)"
+    f "$x" | while read xf; do
+        f "$y" | while read yf; do
+            if ! [ "$xf" ] || ! [ "$yf" ] || \
+                    (echo "$xf" | grep -q ' ') || (echo "$yf" | grep -q ' ') || \
+                    (echo "$xf" | grep -qE "$yf"'$'); then
+                continue
+            fi
+            echo "$xf<$yf"
+        done
+    done
+done > hyponyms
