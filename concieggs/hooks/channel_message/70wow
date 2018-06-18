@@ -1,8 +1,8 @@
 #!/bin/sh
 #
-# Lol derudaf.
+# wow derudaf.
 
-lol() {
+wow() {
     o=o
     O=O
     for i in $(seq 1 $(random 0 4)); do
@@ -20,9 +20,14 @@ Død og kritte!
 Z${O}MG
 Milde makrel!
 Helle dusse da!
+Du store kineser!
+Sikke en redelighed!
+Så for Søren!
+Nu har jeg da aldrig!
+Hillemænd!
 EOF
 }
 
 if echo "$EGGS_BODY" | grep -qiE 'w[aeiouæøå]+w'; then
-    lol
+    wow
 fi
