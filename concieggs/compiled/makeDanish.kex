@@ -150,4 +150,5 @@ word3 := /[Hh]/ ~/eap/ "ob"
        | ~/malware/ "progra-lø-mmel"
        | ~/[Bb]itcoin/ "eTulipan"
        | ~/[Bb]lockchain/ "eGuirlande"
+       | ~/USA/ "AFS"
        | /[a-zA-ZæøåÆØÅ0-9]+/
