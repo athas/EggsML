@@ -7,7 +7,7 @@ use regex
 const main = {args : byte[:][:]
       var hits = 0
       var s = std.try(std.fslurp(std.In))
-      for a in args[1:]
+      for a : args[1:]
               var start = 0
               while true
                     match std.strfind(s[start:], a)

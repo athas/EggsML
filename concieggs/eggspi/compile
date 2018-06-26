@@ -31,7 +31,7 @@ else
             ;;
         *c)
             compile() {
-                gcc -std=c99 -I "$CONCIEGGS_DIR/eggspi" -lm $1 -o $2
+                gcc -std=c99 -D_XOPEN_SOURCE=600 -I "$CONCIEGGS_DIR/eggspi" -lm $1 -o $2
             }
             ;;
         *sml)
@@ -84,6 +84,17 @@ else
                 KLASSE=$(echo $TIS | cut -c1-1 | tr '[a-z]' '[A-Z]')$(echo $TIS | cut -c 2-)
                 echo '#!/bin/sh\njava '$KLASSE' $@' > $CRAP
                 chmod +x $CRAP
+            }
+            ;;
+        *fs)
+            compile() {
+                fsharpc --out:"$2.exe" "$1" > /dev/null
+                cat > "$2" <<EOF
+#!/bin/sh
+
+exec mono "$2.exe" "$@"
+EOF
+                chmod +x "$2"
             }
             ;;
         *)

@@ -96,7 +96,7 @@ elif [ "$happening" ]; then
 elif [ "$status" ]; then
         reaktion
 elif [ "$definition" ]; then
-    description="$(lookupDanishWord "$word")"
+    description="$(ordnet "$word")"
     if [ "$description" ]; then
         echo "$EGGS_USER: Det betyder blandt andet det her:"
         echo "$description" | randomLine

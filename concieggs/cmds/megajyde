@@ -10,20 +10,34 @@ truck = r'''
   ________/ / |OO| ||
  |         |-------||
 (|         |     -.||
- |  ____   \       ||
-/| / __ \   |______||
+ |  ____   \       |\
+/| / __ \   |______| 
 \|| /  \ |___________
    | () |            
     \__/             
 '''.split('\n')[1:-1]
 
+bagtruck = r'''
+ _______             
+| _____ \ GODDAW DO' 
+|| (__)\ \           
+|| |OO| \ \________  
+||-------|         | 
+||.-     |         |)
+/|       /   ____  |
+ |______|   / __ \ |\
+___________| /  \ ||/
+            | () |   
+             \__/    
+'''.split('\n')[1:-1]
+
 baghjul = r'''
-
-
-
-
-
-
+                        
+                        
+                        
+                        
+                        
+                        
 _______________________ 
      / __ \   / __ \   |
 ____| /  \ |_| /  \ |__|
@@ -34,5 +48,5 @@ ____| /  \ |_| /  \ |__|
 def fuse(blocks, sep=""):
     return map(lambda parts: sep.join(parts), zip(*blocks))
 
-for line in fuse([truck] + [baghjul] * random.randint(1, 4)):
+for line in fuse([truck] + [baghjul] * random.randint(1, 4) + [bagtruck] * random.randint(0, 1)):
     print(line)

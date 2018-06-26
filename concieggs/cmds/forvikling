@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+# Beret om en sjov forvikling.
+
+hyps="$CONCIEGGS_DB_DIR/dannet-utils/hyponyms"
+
+wanted_raw=$(randomLine < $hyps)
+wanted=$(echo "$wanted_raw" | cut -d'<' -f1 | toupper)
+wanted_category=$(echo "$wanted_raw" | cut -d'<' -f2)
+got=$(cat $hyps | fgrep "$wanted_category" | randomLine | cut -d'<' -f1 | toupper)
+
+randomLine <<EOF
+Kender I det når man leder efter $wanted men kun kan finde $got?
+Her forleden troede jeg at jeg havde fat i $wanted, men så var det faktisk $got!
+Så var der dengang jeg havde bestilt $wanted men modtog $got!
+EOF

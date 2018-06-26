@@ -1,0 +1,66 @@
+#!/bin/sh
+#
+# Smit en på kanalen.
+
+bruger="$1"
+if ! [ "$bruger" ]; then
+    bruger="$(recentlyActive | randomLine)"
+fi
+
+hoster=$(randomLine <<EOF
+hoster og harsker
+harsker og hoster
+nyser ad helvede til
+prikker hul i sine bylder
+kan ikke tænke klart
+føler sin hovedpine sprede sig
+har det ikke så godt
+snotter over hele kanalen
+bliver svimmel
+EOF
+       )
+
+detaljeret=$(randomLine <<EOF
+tropisk
+indisk-inspireret
+kraftig
+voldsom
+arktisk
+unavngivet
+utilpasset
+nyopdaget
+nyopfundet
+tempereret
+alternativ
+hjemmegroet
+EOF
+          )
+
+sygdom=$(randomLine <<EOF
+syge
+forkølelse
+diarré
+fantomsyge
+øv-dag
+forstoppethed
+skørbug
+brækket ben
+tandpine
+fantomsmerte
+feber
+grimhed
+EOF
+      )
+
+ting=$(randomLine <<EOF
+ting
+halløjsa
+bakterie
+virus
+lort
+EOF
+    )
+
+echo "/me $hoster..."
+sleep 2
+echo "/me smitter $bruger med noget $detaljeret $sygdom-$ting"

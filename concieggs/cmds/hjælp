@@ -13,6 +13,8 @@ doc () {
     fi
 }
 
+alias=$(cmdAlias "$EGGS_USER" "$1")
+
 if [ $# -lt 1 ]; then
     if onEggsChannel; then
         echo "Brug 'eggsml' hvis du vil melde dig til spisning, 'neggst' og 'preggs' til at se hvem der spiser med. Forstår du ikke frokost? benyt 'hjælp frokost'"
@@ -20,6 +22,9 @@ if [ $# -lt 1 ]; then
         echo "Dette er IRC.  Du kan skrive med folk på DIKU og hele verdenen rundt."
     fi
     echo "Vil du have hjælp til en specific kommando, brug da: hjælp <kommando>"
+elif [ "$alias" ]; then
+    echo "$alias: "
+    doc $CONCIEGGS_DIR/cmds/"$alias"
 elif [ -f "$CONCIEGGS_DIR/cmds/$1" ]; then
     echo "$1: "
     doc $CONCIEGGS_DIR/cmds/$1

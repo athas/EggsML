@@ -1,0 +1,10 @@
+#!/bin/sh
+#
+# FIX.
+#
+# Run without arguments to convert the packaged files from latin-1 to
+# utf-8.
+
+for x in dummies.csv relations.csv synset_attributes.csv synsets.csv words.csv wordsenses.csv; do
+    iconv -f iso-8859-1 -t utf-8 $x -o $(basename $x .csv)-utf-8.csv
+done

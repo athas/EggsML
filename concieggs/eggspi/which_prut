@@ -1,0 +1,5 @@
+#!/bin/sh
+
+i=$(echo $1 | num_occurs 'u')
+
+commands | head -n "$i" | tail -n 1
