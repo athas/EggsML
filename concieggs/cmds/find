@@ -4,6 +4,7 @@
 
 use 5.012;
 use warnings;
+no warnings 'once';
 use utf8::all;
 use LWP::Simple qw(get $ua);
 use HTML::Query qw(Query);

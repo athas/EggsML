@@ -5,6 +5,7 @@
 use 5.012;
 use strict;
 use warnings;
+no warnings 'once';
 
 use EggsML::EggsPI text => [qw(curl)];
 use Data::Dumper;
