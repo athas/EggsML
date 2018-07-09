@@ -8,7 +8,7 @@ use warnings;
 
 use EggsML::EggsPI text => [qw(curl)];
 use Data::Dumper;
-use HTML::Query;
+use HTML::Query qw(Query);
 
 exit(-1) if @ARGV < 1;
 my $firstName = shift @ARGV;
@@ -16,7 +16,7 @@ my $lastName = shift @ARGV // '';
 
 my $dst = 'https://www.dst.dk/da/Statistik/emner/befolkning-og-valg/navne/HvorMange?ajax=1';
 my $html = curl('-s', $dst, '--data', "firstName=$firstName&lastName=$lastName");
-my $tree = HTML::Query::Query(text => $html);
+my $tree = Query(text => $html);
 my @trs = $tree->query('tbody > tr')->get_elements;
 for my $tr (@trs) {
     my $subtree = Query(tree => $tr);
