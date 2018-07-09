@@ -1,0 +1,29 @@
+#!/usr/bin/env perl
+#
+# Hvor mange hedder <fornavn> <efternavn>? (Kan være tomme, men skal forekomme.)
+
+use 5.012;
+use strict;
+use warnings;
+
+use EggsML::EggsPI text => [qw(curl)];
+use Data::Dumper;
+use HTML::Query qw(Query);
+
+exit(-1) if @ARGV < 1;
+my $firstName = shift @ARGV;
+my $lastName = shift @ARGV // '';
+
+my $dst = 'https://www.dst.dk/da/Statistik/emner/befolkning-og-valg/navne/HvorMange?ajax=1';
+my $html = curl('-s', $dst, '--data', "firstName=$firstName&lastName=$lastName");
+my $tree = Query(text => $html);
+my @trs = $tree->query('tbody > tr')->get_elements;
+for my $tr (@trs) {
+    my $subtree = Query(tree => $tr);
+    my @tds = map { $_->as_trimmed_text } $subtree->query('td')->get_elements;
+    if ($tds[0] =~ m/^Der er to eller færre personer/) {
+        print $tds[0] . "\n";
+    } else {
+        printf '%s: %s (i år), %s (sidste år), ændring: %s' . "\n", @tds;
+    }
+}
