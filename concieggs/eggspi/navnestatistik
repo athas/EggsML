@@ -21,7 +21,7 @@ my @trs = $tree->query('tbody > tr')->get_elements;
 for my $tr (@trs) {
     my $subtree = Query(tree => $tr);
     my @tds = map { $_->as_trimmed_text } $subtree->query('td')->get_elements;
-    if ($tds[0] =~ m/^Der er to eller færre personer/) {
+    if ($tds[0] =~ m/^Der er to eller færre personer/ || $tds[0] =~ m/^Der er ingen/) {
         print $tds[0] . "\n";
     } else {
         printf '%s: %s (i år), %s (sidste år), ændring: %s' . "\n", @tds;
