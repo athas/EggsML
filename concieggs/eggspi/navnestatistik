@@ -25,6 +25,7 @@ for my $tr (@trs) {
     if ($tds[0] =~ m/^Der er to eller færre personer/ || $tds[0] =~ m/^Der er ingen/) {
         print $tds[0] . "\n";
     } else {
-        printf '%s: %s (i år), %s (sidste år), ændring: %s' . "\n", @tds;
+        printf '%s: %s i år, %s sidste år, ændring: %s%s',
+            $tds[0], $tds[2], $tds[1], $tds[3], "\n";
     }
 }
