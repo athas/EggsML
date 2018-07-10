@@ -13,6 +13,7 @@ use HTML::Query qw(Query);
 use JSON;
 use URI::Escape;
 use Time::Piece;
+use List::Util qw(max);
 
 my $use_json = 0;
 if (@ARGV && $ARGV[0] eq '--json') {
@@ -91,18 +92,22 @@ sub dst_pretty {
     my $head = shift;
     my $result = shift;
 
-    my @nonzero = grep { $_->{2018} || $_->{2017} } @$result;
-    my @result = map { dst_pretty_row($_) } @nonzero;
+    my @years = grep { /^\d+$/ } @$head;
+    my $year = max @years;
+    
+    my @nonzero = grep { grep { /^(\d+)/ && $1 > 0 } values %$_ } @$result;
+    my @result = map { dst_pretty_row($year, $_) } @nonzero;
     push @result, "ingen resultater" unless @result;
     return (join ", ", @result) . "\n";
 }
 
 sub dst_pretty_row {
+    my $year = shift;
     my $row = shift;
     my $title = delete $row->{title};
     my $change = $_->{'Ændring'};
     $change = $change
       ? ' (' . (substr($change, 0, 1) eq '-' ? $change : '+' . $change) . ') '
       : ' ';
-    return $_->{2018} . $change . lcfirst $title;
+    return $_->{$year} . $change . lcfirst $title;
 }
