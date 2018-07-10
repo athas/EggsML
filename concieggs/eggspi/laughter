@@ -27,6 +27,7 @@ if {$isntChristmas} {
         {tro lo {""}}
         {rofl "" {ade kopter saurus}}
         {wolol o {""}}
+        {hydr " hydr" {""}}
     }
     foreach {prefix ha suffixes} [randindex $has] {}
     set suffix [randindex $suffixes]
