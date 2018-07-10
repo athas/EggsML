@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 #
-# Hvor mange hedder <fornavn> <efternavn>? (Kan være tomme, men skal forekomme.)
+# Hvor mange hedder [--json] <fornavn> [efternavn]? (Fornavn kan være tomt, efternavn kan være tomt/manglende.)
 
 use 5.012;
 use strict;
@@ -10,22 +10,99 @@ no warnings 'once';
 use EggsML::EggsPI text => [qw(curl)];
 use Data::Dumper;
 use HTML::Query qw(Query);
+use JSON;
+use URI::Escape;
+use Time::Piece;
 
-exit(-1) if @ARGV < 1;
-my $firstName = shift @ARGV;
-my $lastName = shift @ARGV // '';
+my $use_json = 0;
+if (@ARGV && $ARGV[0] eq '--json') {
+    $use_json = 1;
+    shift @ARGV;
+}
 
-my $dst = 'https://www.dst.dk/da/Statistik/emner/befolkning-og-valg/navne/HvorMange?ajax=1';
-my $html = curl('-s', $dst, '--data', "firstName=$firstName&lastName=$lastName");
-my $tree = Query(text => $html);
-my @trs = $tree->query('tbody > tr')->get_elements;
-for my $tr (@trs) {
-    my $subtree = Query(tree => $tr);
-    my @tds = map { $_->as_trimmed_text } $subtree->query('td')->get_elements;
-    if ($tds[0] =~ m/^Der er to eller færre personer/ || $tds[0] =~ m/^Der er ingen/) {
-        print $tds[0] . "\n";
-    } else {
-        printf '%s: %s i år, %s sidste år, ændring: %s%s',
-            $tds[0], $tds[2], $tds[1], $tds[3], "\n";
+unless (@ARGV) {
+    print $use_json ? dst_json(0, []) : "ingen resultater";
+    exit(-1);
+}
+
+our $dst = 'https://www.dst.dk/da/Statistik/emner/befolkning-og-valg/navne/HvorMange?ajax=1';
+
+my ($head, $result) = dst_result(dst_html(@ARGV));
+print $use_json ? dst_json(1, $head, $result)
+                : dst_pretty(1, $head, $result);
+
+sub dst_html {
+    my $firstName = shift;
+    my $lastName = shift // '';
+    my $queryString = sprintf('firstName=%s&lastName=%s',
+        uri_escape($firstName), uri_escape($lastName));
+    my $html = curl('-s', $dst, '--data', $queryString);
+    my $tree = Query(text => $html);
+    return $tree;
+}
+
+sub dst_result {
+    my $tree = shift;
+    my @head = map { $_->as_trimmed_text } $tree->query('thead > tr > th')->get_elements;
+    my @result;
+    for my $row ($tree->query('tbody > tr')->get_elements) {
+        my @row = map { $_->as_trimmed_text } Query(tree => $row)->query('td')->get_elements;
+        my $title = $row[0];
+        # Der er ingen personer med efternavnet 'SHAMALAMA'
+        if ($title =~ m/^Der er ingen /) {
+            $title =~ s/^Der er ingen //;
+            push @result, {
+                title    => $title,
+                $head[1] => 0,
+                $head[2] => 0,
+                $head[3] => 0,
+            };
+        }
+        # Der er to eller færre personer med navnet 'SIMON SHAMALAMA'
+        elsif ($title =~ m/^Der er to eller færre /) {
+            $title =~ s/^Der er to eller færre //;
+            push @result, {
+                title    => $title,
+                $head[1] => "0-2",
+                $head[2] => "0-2",
+                $head[3] => "0",
+            };
+        } else {
+            push @result, {
+                title    => $row[0],
+                $head[1] => $row[1],
+                $head[2] => $row[2],
+                $head[3] => $row[3],
+            };
+        }
     }
+    return \@head, \@result;
+}
+
+sub dst_json {
+    my $status = shift;
+    my $head = shift;
+    my $result = shift;
+    return to_json({ status => $status, result => $result}, { pretty => 1 });
+}
+
+sub dst_pretty {
+    my $status = shift;
+    my $head = shift;
+    my $result = shift;
+
+    my @nonzero = grep { $_->{2018} || $_->{2017} } @$result;
+    my @result = map { dst_pretty_row($_) } @nonzero;
+    push @result, "ingen resultater" unless @result;
+    return (join ", ", @result) . "\n";
+}
+
+sub dst_pretty_row {
+    my $row = shift;
+    my $title = delete $row->{title};
+    my $change = $_->{'Ændring'};
+    $change = $change
+      ? ' (' . (substr($change, 0, 1) eq '-' ? $change : '+' . $change) . ') '
+      : ' ';
+    return $_->{2018} . $change . lcfirst $title;
 }
