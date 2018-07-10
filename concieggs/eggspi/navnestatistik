@@ -94,7 +94,7 @@ sub dst_pretty {
 
     my @years = grep { /^\d+$/ } @$head;
     my $year = max @years;
-    
+
     my @nonzero = grep { grep { /^(\d+)/ && $1 > 0 } values %$_ } @$result;
     my @result = map { dst_pretty_row($year, $_) } @nonzero;
     push @result, "ingen resultater" unless @result;
