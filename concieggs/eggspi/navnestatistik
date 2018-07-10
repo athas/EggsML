@@ -8,11 +8,9 @@ use warnings;
 no warnings 'once';
 
 use EggsML::EggsPI text => [qw(curl)];
-use Data::Dumper;
 use HTML::Query qw(Query);
 use JSON;
 use URI::Escape;
-use Time::Piece;
 use List::Util qw(max);
 
 my $use_json = 0;
