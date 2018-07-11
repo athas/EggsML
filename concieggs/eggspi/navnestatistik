@@ -25,6 +25,13 @@ unless (@ARGV) {
 }
 
 our $dst = 'https://www.dst.dk/da/Statistik/emner/befolkning-og-valg/navne/HvorMange?ajax=1';
+our @comments = (
+    "Et hit i børnehaven!",
+    "Det kunne dit næste barn hedde.",
+    "En klassiker.",
+    "Det var godt nok et grimt navn.",
+    "Eksotisk!",
+);
 
 my ($head, $result) = dst_result(dst_html(@ARGV));
 print $use_json ? dst_json(1, $head, $result)
@@ -92,8 +99,11 @@ sub dst_text {
 
     my @nonzero = grep { grep { /^(\d+)/ && $1 > 0 } values %$_ } @$result;
     my @result = map { dst_text_row($year, $_) } @nonzero;
-    push @result, "ingen resultater" unless @result;
-    return "Der var " . (join ", ", @result) . "\n";
+    if (@result) {
+        return "Der var " . (join ", ", @result) . ". " . $comments[rand @comments] . "\n";
+    } else {
+        return "Der var ingen resultater.";
+    }
 }
 
 sub dst_text_row {
