@@ -12,11 +12,6 @@ EOF`
 
 eval "$(echo "$@" | parse '^ *((?<jul>julet er det(?: i procent)?)|mange har efternavnet (?<efternavn>.+)\??|mange har fornavnet (?<fornavn>.+)\??|mange (?:har navnet|hedder) (?<navne>.+?)(?: til (?<forefter>for|efter)navn)?\??$|(?<gammel>(gammelt?|ungt?|lang tid|længe))|(?<lang>(langt?|kort|højt?|lavt?))|(?<charmerende>charmerende)|(?<tung>(tungt?|let))|(?<klog>(dumt?|klogt?|stupid))|(?<mange>mange)|(?<stor>(stort?|lille|meget))|(?<irriterende>(irriterende|udmattende|enerverende|trættende))|(?<grim>(grimt?|ulækkert?|monstrøst?|klamt?))).*')"
 
-echo "fornavn: '$fornavn'"
-echo "efternavn: '$efternavn'"
-echo "navne: '$navne'"
-echo "forefter: '$forefter'"
-
 if [ "$jul" ]; then
     charm="$(checkCharmen)"
     printf "Det er %.$(($charm + 2))f%% jul!  Det er %s julet!\n" "$(christmasLevel)" "$(christmasLevel -s)"
