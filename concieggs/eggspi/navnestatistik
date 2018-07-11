@@ -28,7 +28,7 @@ our $dst = 'https://www.dst.dk/da/Statistik/emner/befolkning-og-valg/navne/HvorM
 
 my ($head, $result) = dst_result(dst_html(@ARGV));
 print $use_json ? dst_json(1, $head, $result)
-                : dst_pretty(1, $head, $result);
+                : dst_text(1, $head, $result);
 
 sub dst_html {
     my $firstName = shift;
@@ -47,7 +47,6 @@ sub dst_result {
     for my $row ($tree->query('tbody > tr')->get_elements) {
         my @row = map { $_->as_trimmed_text } Query(tree => $row)->query('td')->get_elements;
         my $title = $row[0];
-        # Der er ingen personer med efternavnet 'SHAMALAMA'
         if ($title =~ m/^Der er ingen /) {
             $title =~ s/^Der er ingen //;
             push @result, {
@@ -56,9 +55,7 @@ sub dst_result {
                 $head[2] => 0,
                 $head[3] => 0,
             };
-        }
-        # Der er to eller færre personer med navnet 'SIMON SHAMALAMA'
-        elsif ($title =~ m/^Der er to eller færre /) {
+        } elsif ($title =~ m/^Der er to eller færre /) {
             $title =~ s/^Der er to eller færre //;
             push @result, {
                 title    => $title,
@@ -85,7 +82,7 @@ sub dst_json {
     return to_json({ status => $status, result => $result}, { pretty => 1 });
 }
 
-sub dst_pretty {
+sub dst_text {
     my $status = shift;
     my $head = shift;
     my $result = shift;
@@ -94,12 +91,12 @@ sub dst_pretty {
     my $year = max @years;
 
     my @nonzero = grep { grep { /^(\d+)/ && $1 > 0 } values %$_ } @$result;
-    my @result = map { dst_pretty_row($year, $_) } @nonzero;
+    my @result = map { dst_text_row($year, $_) } @nonzero;
     push @result, "ingen resultater" unless @result;
-    return (join ", ", @result) . "\n";
+    return "Der var " . (join ", ", @result) . "\n";
 }
 
-sub dst_pretty_row {
+sub dst_text_row {
     my $year = shift;
     my $row = shift;
     my $title = delete $row->{title};
