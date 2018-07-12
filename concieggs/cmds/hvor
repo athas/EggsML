@@ -28,7 +28,10 @@ elif [ "$navne" ]; then
     elif [ "$forefter" = "efter" ]; then
         navnestatistik '' "$navne"
     else
-        navnestatistik $navne
+        case $navne in
+          *\ * ) navnestatistik $navne ;;
+          * )    navnestatistik $navne $navne ;;
+        esac
     fi
     exit
 elif [ "$gammel" ]; then
