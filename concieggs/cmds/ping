@@ -4,6 +4,10 @@
 
 if [ ! "$1" ]; then
   echo "$EGGS_USER: Pong."
-else
-  ping -c 4 $1
+  exit
 fi
+
+case "$1" in
+  *:*:* ) ping6 -c 4 $1 ;;
+  *     ) ping  -c 4 $1 ;;
+esac
