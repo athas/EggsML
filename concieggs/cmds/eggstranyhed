@@ -1,1 +1,11 @@
-ekstranyhed
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# Bed concieggs om at give dig en brugbar nyhed fra INTERNETTET.
+
+import urllib2
+import json
+
+content = urllib2.urlopen("http://nyforside.dk/api").read()
+d = json.loads(content)
+print(d["Headline"])
