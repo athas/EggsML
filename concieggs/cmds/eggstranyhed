@@ -8,4 +8,4 @@ import json
 
 content = urllib2.urlopen("http://nyforside.dk/api").read()
 d = json.loads(content)
-print(d["Headline"])
+print(d["Headline"].encode('utf8'))
