@@ -30,6 +30,7 @@ our @comments = (
     "Det kunne dit næste barn hedde.",
     "En klassiker.",
     "Eksotisk!",
+    "Ja, det kan man så også hedde.",
 );
 
 my ($head, $result) = dst_result(dst_html(@ARGV));
@@ -101,7 +102,15 @@ sub dst_text {
     if (@result) {
         return "Der var " . (join ", ", @result) . ". " . $comments[rand @comments] . "\n";
     } else {
-        return "Der var ingen resultater.";
+        my $n = int(rand(1000));
+        my @noresult = (
+            "Det var der vist ikke nogen som hed.",
+            "Det bliver sikkert populært før eller siden...",
+            "Jeg... Jeg tror ikke det er et navn.",
+            "Det navn er vist ikke blevet godkendt!",
+            "Der var $n med nav... ej, der var ikke nogen.",
+        );
+        return $noresult[rand @noresult];
     }
 }
 
