@@ -6,6 +6,9 @@
 import urllib2
 import json
 
-content = urllib2.urlopen("http://nyforside.dk/api").read()
-d = json.loads(content)
-print(d["Headline"].encode('utf8'))
+try:
+  content = urllib2.urlopen("http://nyforside.dk/api").read()
+  d = json.loads(content)
+  print(d["Headline"].encode('utf8'))
+except:
+  print("Brainfuck har vist slammet i den igen.")
