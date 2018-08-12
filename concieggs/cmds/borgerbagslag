@@ -7,17 +7,19 @@ hyps="$CONCIEGGS_DB_DIR/dannet-utils/hyponyms"
 
 echo "$all_forslag" | sort -R | while read forslag; do
     # Dangerous!
+    line=''
     for word in $forslag; do
         match=$(fgrep -w $word $hyps|head -n 1)
         if [ "$match" ]; then
             wanted_category=$(echo "$match" | cut -d'<' -f2)
-            cat $hyps | fgrep "$wanted_category" | randomLine | cut -d'<' -f1
+            line="$line$(cat $hyps | fgrep "$wanted_category" | randomLine | cut -d'<' -f1) "
             any=yes
         else
-            echo $word
+            line="$line$word "
         fi
     done
     if [ "$any" ]; then
+        echo "$line"
         exit
     fi
 done
