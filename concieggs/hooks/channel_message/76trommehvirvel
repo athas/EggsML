@@ -1,7 +1,5 @@
 #!/bin/sh
 
-shuttingUp && exit
-
 case "$EGGS_BODY" in
   *trommehvirvel*)
       echo '/me brrrrrrrrrrrrrrrrrrr'
