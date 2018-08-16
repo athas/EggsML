@@ -16,7 +16,14 @@ $user: Kig lige bag dig!  Der er e$(tMonster)!!!
 Vend dig om, $user!  Jeg kan se e$(tMonster)!!!
 EOF
 
-sleep 5
+sleep 4
+
+randomLine <<EOF
+/me kan ikke holde masken
+/me trækker på smilebåndet
+EOF
+
+sleep 1
 
 randomLine <<EOF
 ... Det var bare GAS, $user!
