@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# Dril nogen med de værst tænkelige ord.  Brug: dril <bruger>
+
+user=$1
+
+tMonster() {
+    randomLine <<EOF
+t monster
+t uhyre
+EOF
+}
+
+randomLine <<EOF
+$user: Kig lige bag dig!  Der er e$(tMonster)!!!
+Vend dig om, $user!  Jeg kan se e$(tMonster)!!!
+EOF
+
+sleep 5
+
+randomLine <<EOF
+... Det var bare GAS, $user!
+... Det var bare FOR SJOV, $user!
+EOF
+
+sleep 2
+
+echo "$user: $(laughter)"
