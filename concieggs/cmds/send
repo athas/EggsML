@@ -5,7 +5,7 @@
 
 set -f
 
-eval "$(echo "$@" | parse '(?<rawcmd>.+) til ((?<addr>.+@.+|spiltirsdag)|(?<twitter>twitter|inter(?:nettet|tubes|webben)?)|(?<kantinen>kantinen))')"
+eval "$(echo "$@" | parse '(?<rawcmd>.+) til ((?<addr>.+@.+|spiltirsdag)|(?<twitter>twitter)|(?<kantinen>kantinen))')"
 
 if [ "$rawcmd" ]; then
     if [ "$addr" = "spiltirsdag" ]; then
