@@ -5,7 +5,7 @@
 shuttingUp && exit
 
 if isFullMoon "$(dateTomorrow)"; then
-    maybeGood .025 || exit
+    maybeGood .0025 || exit
     line=$(randomLine <<EOF
 Blodet strømmer stærkere igennem mig...
 /me føler langsomt sine negle vokse hurtigere end normalt
@@ -14,7 +14,7 @@ Noget rører sig dybt indeni.  Det kommer frem...
 EOF
         )
 elif isFullMoon "$(dateToday)"; then
-    maybeGood .05 || exit
+    maybeGood .005 || exit
     line=$(randomLine <<EOF
 Awuuuuuu!
 /me river tøjet af sig
@@ -39,7 +39,7 @@ IIIIIH, HVORFOR NU FULDMÅNE IGEN???
 EOF
         )
 elif isFullMoon "$(dateYesterday)"; then
-    maybeGood .025 || exit
+    maybeGood .0025 || exit
     line=$(randomLine <<EOF
 I må altså virkelig undskylde det der i går.  Det sker bare hver måned...
 /me spadserer pinligt og næsten nøgen ned ad gaden
