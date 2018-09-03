@@ -12,7 +12,7 @@ må_ej_gætte=_
 
 ######################################################################
 :ny_runde
-tilstand_formatteret=<${tilstand}>sed 's/_/▯/g'
+tilstand_formatteret=<${tilstand}>sed 's/_/~/g'
 >echo I skal gætte dette ord: $'{tilstand_formatteret}
 
 read kommando
