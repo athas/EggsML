@@ -10,7 +10,7 @@ B-B-Beyblade!
 Wow, nu går det løs!
 EOF
 
-for _ in $(seq 1 $(random 1 20)); do
+for _ in $(seq 1 $(random 1 5)); do
     randomLine <<EOF
 Kanalens fidget spinner spinner videre som en drøm.
 Drej, drej, drej, stopper aldrig, nej.
@@ -21,6 +21,7 @@ Det er jo det rene spin city!
 /me er den vildeste spindoktor.
 Fidget spinneren drejer videre.
 Vroooom!
+Wow, stopper den nogensinde?
 EOF
     sleep 0.5
 done
