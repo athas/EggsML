@@ -2,6 +2,9 @@
 #
 # Lad fluen summe rundt.
 
+echo 'Fluen tager lige en lur.  Der er alt for mange falske fluer rundtomkring i øjeblikket.'
+exit
+
 who="$(recentlyActive)"
 
 if [ -z $delay ]; then
