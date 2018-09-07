@@ -71,9 +71,13 @@ say "Interacting with concieggs_irc in $irc_dir."
 umask 002
 
 ircloop () {
-    # Connect to IRC.
-    sic -h irc.freenode.net -n "$irc_username" || true
-    say "IRC crashed." >&2
+    while true; do
+        # Connect to IRC.
+        sic -h irc.freenode.net -n "$irc_username" || true
+        say "IRC crashed - reconnecting in a few seconds." >&2
+        # Sleep a few seconds before trying again.
+        sleep 4
+    done
 }
 
 eventprocessor () {
