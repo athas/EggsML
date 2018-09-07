@@ -4,6 +4,10 @@ if [ "$EGGS_USER" = "$CONCIEGGS_NAME" ]; then
     exit
 fi
 
+if echo "$EGGS_USER" | egrep -q '^freenode-'; then
+    exit
+fi
+
 . $CONCIEGGS_DIR/concieggs.conf
 
 set -f
