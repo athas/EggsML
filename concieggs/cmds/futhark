@@ -20,23 +20,17 @@ if [ $# = 0 ]; then
 elif [ $# = 1 -a "$1" = --version ]; then
     ssh napoleon.hiperfit.dk "futhark-c --version"
 else
-    if [ "$1" = -t ]; then
-        flags="-t /dev/stdout"
-        shift
-    fi
-    if echo "$@" | egrep -q '^(fun|entry|module|val|type|import|let)'; then
+    if echo "$@" | egrep -q '^(entry|module|type|import|let)'; then
         code="$@"
     else
-        code=$(printf 'import "/futlib/math" import "/futlib/array" let main() =\n%s' "$*")
+        code=$(printf 'let main =\n%s' "$*")
     fi
 
     allthatjazz=$(cat <<EOF
     file=\$(mktemp).fut
     cat > \$file
-    if futhark-c "\$file" -o "\$file.bin" 2>&1; then
-        \$file.bin $flags 2>&1
-    fi
-    rm -f "\$file" "\$file.bin"
+    futharki "\$file" 2>&1
+    rm -f "\$file"
 EOF
                )
     (echo "$code" | timeout 10 ssh napoleon.hiperfit.dk "$allthatjazz" && pleasedBy "$EGGS_USER" 10) || echo "$EGGS_USER: Det gik galt."
