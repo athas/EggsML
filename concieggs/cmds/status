@@ -1,3 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
-curl -L -s -o /dev/null -w "%{http_code}" --connect-timeout 1 $1
+sc0=$(curl -s -o /dev/null -w "%{http_code}" --connect-timeout 1 $1)
+echo "$sc0"
+if [[ $sc0 == 3* ]]; then
+    sc_follow=$(curl -L -s -o /dev/null -w "%{http_code}" --connect-timeout 1 $1)
+    echo "Følger jeg denne, får jeg $sc_follow."
+fi
+exit 0;
