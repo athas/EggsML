@@ -3,7 +3,6 @@
 # concieggs er et komplekst individ med modstridende holdninger.
 
 shuttingUp && exit
-maybeGood .1 || exit
 checkCooldown ideologi 300 || exit
 
 if (echo "$EGGS_BODY" | grep -qEi '(^| |\,|;|:|\.)+su+( |\,|;|:|\.|\?|!|$)'); then
