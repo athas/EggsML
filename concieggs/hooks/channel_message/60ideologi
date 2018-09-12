@@ -4,15 +4,19 @@
 
 shuttingUp && exit
 maybeGood .1 || exit
-checkCooldown ideologi 300 || exit
 
 if (echo "$EGGS_BODY" | grep -qEi '(^| |\,|;|:|\.)+su+( |\,|;|:|\.|\?|!|$)'); then
-    echo 'SU? Er det ikke bedre at kode for kapitalen?'
+    MESSAGE='SU? Er det ikke bedre at kode for kapitalen?'
 else
     case "$EGGS_BODY" in
-        *idé*) echo 'En idé?  Hvor uambitiøst.  Fortæl hellere verden om din *vision!*' ;;
-        *penge*) echo 'Penge?  Lad os dog fordele produktionsmidlerne mere ordentligt!' ;;
-        *pligt*) echo 'Pligter?  Overfor staten??' ;;
-        *frihed*) echo 'Hvad med samfundet?' ;;
+        *idé*) MESSAGE='En idé?  Hvor uambitiøst.  Fortæl hellere verden om din *vision!*' ;;
+        *penge*) MESSAGE='Penge?  Lad os dog fordele produktionsmidlerne mere ordentligt!' ;;
+        *pligt*) MESSAGE='Pligter?  Overfor staten??' ;;
+        *frihed*) MESSAGE='Hvad med samfundet?' ;;
     esac
+fi
+
+if [ ! -z "$MESSAGE" ]; then
+    checkCooldown ideologi 300 || exit
+    echo "$MESSAGE"
 fi
