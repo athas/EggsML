@@ -1,0 +1,79 @@
+#!/bin/sh
+#
+# Hvem, dig?
+
+if [ "$*" = "er din kæreste" -o "$*" = "er du kærester med" ]; then
+    echo "Lige nu er min kæreste $(dbRead kaereste). <3"
+    exit
+fi
+
+eval "$(echo "$@" | parse 'er (?<hveranden>hveranden)|'\
+'^(?<swear>(fuck |helvede |satan ))?er (?<swear2>(fucking |fandens ))?(?<king>kongen?( (af|på) #?[Ee]ggs[Mm][Ll])?|'\
+'(?<god>gud))|'\
+'(?<prikkede>(prikkede sidst))|'\
+'har (?<thing>[^ ]+)|'\
+'(koder (?<language>.*))|'\
+'(?<folkevalg>stemte|stemmer (?<bruger>[^ ]+) på)|'\
+'vil ikke (?<livet>livet)')"
+
+if [ "$king" ] && ! [ "$god" ] && ! [ "$user" ]; then
+    kingname="$(dbRead eggsking)"
+    if dbRead robespierre; then
+        echo "Republikken er sand!  Kongens hovedet er på Mars-pladsen!"
+    elif [ -z "$kingname" ]; then
+        echo "Der er ingen siddende konge af EggsML."
+    else
+        echo "$(randomName $kingname) sidder på tronen!  Hil $(randomName $kingname)!  Han længe leve!"
+    fi
+elif [ "$god" ] && ! [ "$user" ]; then
+    if dbRead dawkins; then
+        echo "$EGGS_USER: Dr. Richard Dawkins har allerede i sit værk, The God Delusion, samt utallige gange på sin fremragende blog, forklaret at enhver gud er pure opspind."
+        exit
+    fi
+    v="$(dbRead eggsgod | wc -l | sed 's/ //g')"
+    if [ $v = 0 ]; then
+        echo "Der er ingen gud!  Alt er kaos!"
+    elif [ $v = 1 ]; then
+        godname="$(dbRead eggsgod)"
+        echo "$godname er vor Herre!  Underkast jer hans fromhed!"
+    else
+        echo "Vores mytologi har $v guder: $(listGods | enumerate)."
+    fi
+elif [ "$prikkede" ]; then
+    runcmd prikkeleg -hvem
+elif [ "$thing" ]; then
+    who=$(dbRead "has_$thing")
+    if [ "$who" ]; then
+        echo "$who har $thing!"
+    else
+        echo "Ingen!"
+    fi
+elif [ "$language" ]; then
+    if say "$language" | grep -q '[Pp]ascal'; then
+        echo "$EGGS_USER: Det gør Christian Nobel, alias $(randomName svip)."
+    else
+        echo "$EGGS_USER: $language?  Det skal jeg ikke kunne sige."
+    fi
+elif [ "$livet" ]; then
+    echo "$EGGS_USER: Jamen, det vil hveranden!"
+elif [ "$hveranden" ]; then
+    echo "$EGGS_USER: De vil ikke livet!"
+elif [ "$folkevalg" ]; then
+    if [ "$bruger" = 'du' ]; then
+        randomLine <<EOF
+$EGGS_USER: På $(electee)!
+$EGGS_USER: Jeg stemmer da på $(electee).
+$(electee) er den eneste der kan lede nationen fremad, $EGGS_USER!
+EOF
+    else
+        randomLine <<EOF
+$EGGS_USER: $bruger stemmer sikkert på $(electee)!
+$EGGS_USER: $bruger har nok set sig varm på $(electee).
+$EGGS_USER: Jeg så $bruger stå i stemmeboksen og sætte kryds ud for $(electee).
+Uha, det tør jeg ikke sige.  Men det var jo nok $(electee)...
+EOF
+    fi
+else
+    runcmd jeopardy "hvem $@"
+    exit
+fi
