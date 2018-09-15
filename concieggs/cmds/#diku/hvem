@@ -13,7 +13,7 @@ eval "$(echo "$@" | parse 'er (?<hveranden>hveranden)|'\
 '(?<prikkede>(prikkede sidst))|'\
 'har (?<thing>[^ ]+)|'\
 '(koder (?<language>.*))|'\
-'(?<folkevalg>stemte|stemmer (?<bruger>[^ ]+) på)|'\
+'(?<folkevalg>(stemte|stemmer) (?<bruger>[^ ]+) på)|'\
 'vil ikke (?<livet>livet)')"
 
 if [ "$king" ] && ! [ "$god" ] && ! [ "$user" ]; then
