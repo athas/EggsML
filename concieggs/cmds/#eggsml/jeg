@@ -2,7 +2,7 @@
 #
 # Nedfæld essentielle personlige fakta og præferencer i logeprotokollen.
 
-eval "$(echo "$@" | parse 'er ((?<beneggter>beneggter)|(?<eggsalteret>eggsalteret))|foretrækker ((?<nothing>intet)|(?<pref>.+))|(har fødselsdag (?<birthday>.+))|er (?<king>konge)|er (?<god>gud)|er (?<alsogod>også gud)|er (?<truegod>den eneste (sande|rigtige) gud)|er (?<notgod>ikke (længere|mere) gud)|er (?<root>root)|hedder (?<username>.+?) på (?<service>GitHub|last\.fm)')"
+eval "$(echo "$@" | parse 'er ((?<beneggter>beneggter)|(?<eggsalteret>eggsalteret))|foretrækker ((?<nothing>intet)|(?<pref>.+))')"
 
 who=$(randomName $EGGS_USER)
 if ! [ "$who" ]; then
@@ -34,115 +34,6 @@ elif [ "$nothing" ]; then
 elif [ "$pref" ]; then
     echo "$pref" | dbUserWrite $who pref
     echo "$(ack)  For fremtiden vil jeg minde logebrødrene om, at $(du $who) foretrækker $(preference1 $who)."
-elif [ "$birthday" ]; then
-    if [ "$birthday" = 'i dag' ]; then
-        date=$(dateToday | sed 's/^....-//')
-    else
-        date=$(parseDate "$birthday")
-        if ! [ "$date" ]; then
-            echo "$EGGS_USER: Jeg forstår ikke den dato."
-            exit
-        fi
-    fi
-    if [ "$(dbUserRead $who birthday)" = "$date" ]; then
-        echo "$EGGS_USER: Det ved jeg allerede godt!"
-    else
-        echo $date | dbUserWrite $who birthday
-        echo "$(ack)  Nu ved jeg at du har fødselsdag $(formatDate $date)."
-    fi
-elif [ "$king" ]; then
-    kingname="$(dbRead eggsking)"
-    if dbRead robespierre; then
-        echo "$EGGS_USER: Robespierre og hans slæng har allerede indført en permanent republik."
-    elif [ -z "$kingname" ]; then
-        if isArrested "$EGGS_USER"; then
-            echo "Da ikke mens du er i brummen?"
-        else
-            echo "OK."
-            makeKing "$EGGS_USER"
-            echo "Længe leve $(randomKingName $EGGS_USER)!"
-        fi
-    else
-        if cmpNames "$kingname" "$EGGS_USER"; then
-            echo "Det er korrekt."
-        else
-            echo "Nej haj!"
-        fi
-    fi
-elif [ "$god" ] || [ "$alsogod" ] || [ "$truegod" ]; then
-    v="$(dbRead eggsgod | wc -l | sed 's/ //g')"
-    if dbRead dawkins; then
-        echo "$EGGS_USER: Dr. Richard Dawkins har allerede i sit værk, The God Delusion, forklaret hvorfor det umuligt kan være tilfældet."
-    elif isGod "$EGGS_USER"; then
-        if [ "$v" = 1 ]; then
-            echo "Men De er jo allerede vor Herre!"
-        else
-            if [ "$truegod" ]; then
-                echo "Ud med de hedenske guder!  Hil vor Herre $who!"
-                removePaganGods
-                makeGod "$who"
-            else
-                echo "De er jo allerede en af vor guder!"
-            fi
-        fi
-    elif [ "$(lookupDebt $EGGS_USER)" -gt 0 ]; then
-        echo "$EGGS_USER: Det finder jeg usandsynligt.  Skulle vorherre ikke forestille at være ufejlbarlig?"
-    elif isThereAGod; then
-        if [ "$alsogod" ]; then
-            if [ "$v" = 1 ]; then
-                echo "Moderne monotenitiske religioner er forkerte!  Flere guder er vejen!"
-            else
-                echo "Vores mytologi vokser!  Jo flere guder jo bedre!"
-            fi
-            makeGod "$who"
-        elif [ "$truegod" ]; then
-            echo "Ud med de hedenske guder!  Hil vor Herre $who!"
-            removePaganGods
-            makeGod "$who"
-        else
-            if [ "$v" = 1 ]; then
-                echo "Men der er allerede en gud!"
-            else
-                echo "Måske du skal spørge de andre guder først?"
-            fi
-        fi
-    else
-        echo "Vor Herre $who!  Lad os alle bede."
-        makeGod "$who"
-    fi
-elif [ "$notgod" ]; then
-    if isGod "$EGGS_USER"; then
-        echo "Du svinger dine gudekræfter en sidste gang."
-        echo "Du kan mærke kraften svække, men du ved at det er det eneste rigtige."
-        echo "Gud."
-        echo "Er."
-        echo "Død."
-        prevgods="$(mktemp)"
-        dbRead eggsgod > "$prevgods"
-        dbDelete eggsgod
-        while read user; do
-            if ! cmpNames "$EGGS_USER" "$user"; then
-                makeGod "$user"
-            fi
-        done < "$prevgods"
-    else
-        echo "$(Du $EGGS_USER) er altså ikke spor guddommelig!"
-    fi
-elif [ "$root" ]; then
-    auth="$(authedName $EGGS_USER)"
-    if ! [ "$auth" ]; then
-        echo "$EGGS_USER: Det har jeg svært ved at sige."
-        annoyedBy "$EGGS_USER" 2 "påstod at være root uden at kende Nickserv"
-    elif [ "$auth" = Athas ]; then
-        echo "$EGGS_USER: Ja."
-    else
-        echo "$EGGS_USER: Nej."
-        annoyedBy "$EGGS_USER" 10 "påstod at være root"
-    fi
-elif [ "$username" ]; then
-    servicefile="$(echo "$service" | perl -E 'say lc( <> =~ s/\W//r)')name"
-    echo "$username" | dbUserWrite "$EGGS_USER" $servicefile
-    echo "$EGGS_USER: OK, det er noteret at du hedder $username på $service!"
 else
     echo "$EGGS_USER: Vær venlig at læse dokumentationen."
 fi

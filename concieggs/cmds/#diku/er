@@ -2,6 +2,11 @@
 #
 # Spørg den netværkskyndige, concieggs, om et domænenavn er ledig.
 
+if [ "$1" = det -a "$2" = "jul" ]; then
+    isChristmas && echo "Ja!!!" || echo "Nej!!!"
+    exit
+fi
+
 if [[ ( "$2" == "ledig" ) || ( "$2" == "ledig?" ) ]]; then
     runcmd dig "$1" "ledighed"
 elif [ $# -gt 1 ]; then
