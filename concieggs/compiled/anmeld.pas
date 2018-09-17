@@ -28,7 +28,7 @@ end;
 
 procedure Reviews();
 const
-  rs: array[0..23] of TReview =
+  rs: array[0..24] of TReview =
   (
     // Brainfuck
     (Line: 'Alle prutter jo bare på hinanden.'; Stars: 0; Author: 'Brainfuck'),
@@ -38,6 +38,7 @@ const
     (Line: 'Det er et los i bollerne og en kniv i hjertet.'; Stars: 1; Author: 'Oscar Davidsen'),
     (Line: 'Den bedste måde at vinde på; undgå det som pesten!'; Stars: 1; Author: 'Sun Tzu'),
     (Line: 'I like to remember what my father taught me; that at one point or another, we were all new to this world.'; Stars: 1; Author: 'Dolores Abernathy'),
+    (Line: '1 * for at være en skarp kontrast mod alt der er godt og velsmagende.'; Stars: 1; Author: 'Isa R.'),
     // 2
     (Line: 'Jeg mener, at det er moderat sjovt.'; Stars: 2; Author: 'Sword_Smith'),
     (Line: 'Better than my first ex-wife.'; Stars: 2; Author: 'King Henry VIII'),
