@@ -11,7 +11,7 @@ computer() {
 Fuck() {
     ting="$*"
     randomLine <<EOF
-Fuck $ting!
+For søren, $ting!
 Nej, nej, $ting, nej-nej-nej...
 EOF
 }
