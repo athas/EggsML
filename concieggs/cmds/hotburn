@@ -8,6 +8,14 @@ computer() {
     echo "$1" | toupper
 }
 
+Fuck() {
+    ting="$*"
+    randomLine <<EOF
+Fuck $ting!
+Nej, nej, $ting, nej-nej-nej...
+EOF
+}
+
 hyps="$CONCIEGGS_DB_DIR/dannet-utils/hyponyms"
 
 # Only use hyperonyms with at least two hyponyms.
@@ -24,5 +32,5 @@ For. Satan.
 HVA SÅ DANMARK
 EOF
 
-    echo "$EGGS_USER: Hvad er forskellen på $(computer $under0) og $(computer $under1)?  Det ene er $(computer $over) -- og det andet er $(computer $under0)!"
+    echo "Hvad er forskellen på $(computer $under0) og $(computer $under1)?  Det ene er $(computer $over) -- og det andet er $(computer $under0)!  $(Fuck $(computer $under0))"
 }
