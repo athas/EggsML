@@ -13,6 +13,9 @@ Fuck() {
     randomLine <<EOF
 For søren, $ting!
 Nej, nej, $ting, nej-nej-nej...
+Ha!
+Ha!  Haaah.
+$ting er bare _fjollet_.
 EOF
 }
 
