@@ -5,10 +5,36 @@
 
 import urllib2
 import json
+import subprocess
+import sys
 
 try:
-  content = urllib2.urlopen("http://nyforside.dk/api").read()
+  if len(sys.argv) == 2:
+    token = subprocess.check_output(["dbRead", "eggstranyhedtoken"])
+    if sys.argv[1] == "god":
+      content = urllib2.urlopen("http://nyforside.dk/api/voteup?token=" + token, " ").read()
+      d = json.loads(content)
+      if d["Message"] != "":
+        print "Jep, den er stemt op!"
+      else:
+        print "Jeg tror Brainfuck har pruttet i koden: " + d["Error"]
+      sys.exit(0)
+    elif sys.argv[1] == "dårlig":
+      content = urllib2.urlopen("http://nyforside.dk/api/votedown?token=" + token, " ").read()
+      d = json.loads(content)
+      if d["Message"] != "":
+        print "Ja, den var også dårlig!"
+      else:
+        print "Jeg tror Brainfuck har pruttet i koden: " + d["Error"]
+      sys.exit(0)
+    else:
+      print "Jeg forstår kun 'god' eller 'dårlig'"
+      sys.exit(0)
+  content = urllib2.urlopen("http://nyforside.dk/api/").read()
   d = json.loads(content)
+  subprocess.call("echo '" + d["Token"] + "' | dbWrite eggstranyhedtoken", shell=True)
   print(d["Headline"].encode('utf8'))
+except SystemExit:
+  pass
 except:
   print("Brainfuck har vist slammet i den igen.")
