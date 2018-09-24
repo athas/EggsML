@@ -25,7 +25,7 @@ EOF
 hyps="$CONCIEGGS_DB_DIR/dannet-utils/hyponyms"
 
 # Only use hyperonyms with at least two hyponyms.
-over="$(cut -d'<' -f2 $hyps | sort | uniq -c | sort -n | grep -v ' 1 ' | sed -E 's/ *[0-9]+ //' | randomLine)"
+over="$(cut -d'<' -f2 $hyps | sort | uniq -c | sort -n | grep -v ' 1 ' | sed -E 's/ *[0-9]+ //' | grep "$1" | randomLine)"
 grep -E "<$over"'$' $hyps | sort -R | head -n 2 | cut -d'<' -f1 | {
     read under0
     read under1
