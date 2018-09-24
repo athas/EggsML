@@ -13,7 +13,8 @@ sub punktummer {
     return "."x$i;
 }
 
-$EGGS_BODY =~ s/(\.|\,)( |$)/punktummer()." "/ge;
-print $EGGS_BODY;
-exit(0);
+while (my $line = <>) {
+    $line =~ s/(\.|\,)( |$)/punktummer()." "/ge;
+    print $line;
+}
 
