@@ -17,6 +17,8 @@ Ha!
 Ha!  Haaah.
 $ting er bare _fjollet_.
 $ting, alligevel..
+Det var sgu på tide nogen sagde det!
+Ej, I skal lige have en lille lun éen:
 EOF
 }
 
@@ -34,6 +36,7 @@ grep -E "<$over"'$' $hyps | sort -R | head -n 2 | cut -d'<' -f1 | {
 Hey, nu skal nogen ned med nakken.
 For. Satan.
 HVA SÅ DANMARK
+.. men så slog det mig:
 EOF
 
     echo "Hvad er forskellen på $(computer $under0) og $(computer $under1)?  Det ene er $(computer $over) -- og det andet er $(computer $under0)!  $(Fuck $(computer $under0))"
