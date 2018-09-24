@@ -35,7 +35,7 @@ hyps="$CONCIEGGS_DB_DIR/dannet-utils/hyponyms"
 # Only use hyperonyms with at least two hyponyms.
 over="$(cut -d'<' -f2 $hyps | sort | uniq -c | sort -n | grep -v ' 1 ' | sed -E 's/ *[0-9]+ //' | grep -i "$1" | randomLine)"
 if ! [ "$over" ]; then
-    echo "Hvad er forskellen på $(consonant)$(vowel)--ej, jeg gider ikke længere."
+    echo "Hvad er forskellen på $(consonant)$(vowel) — ej, jeg gider ikke længere."
     randomLine <<EOF
 /me smider mikrofonen i hovedet på $(randomName)
 /me lægger sig til at sove på den fedtede scene
@@ -59,5 +59,5 @@ HVA SÅ DANMARK
 Ej, I skal lige have en lille lun éen:
 EOF
 
-    echo "Hvad er forskellen på $(computer $under0) og $(computer $under1)?  Det ene er $(computer $over) -- og det andet er $(computer $under0)!  $(Fuck $(computer $under0))"
+    echo "Hvad er forskellen på $(computer $under0) og $(computer $under1)?  Det ene er $(computer $over) — og det andet er $(computer $under0)!  $(Fuck $(computer $under0))"
 }
