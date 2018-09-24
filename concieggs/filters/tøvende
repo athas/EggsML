@@ -1,4 +1,3 @@
 #!/bin/sh
 
-echo -n ".."
-echo $EGGS_BODY
+{ echo -n ".. "; cat - ; }
