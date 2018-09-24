@@ -22,10 +22,29 @@ Har jeg ret eller hvad?
 EOF
 }
 
+consonant() {
+    echo BCDFGHJKLMNPQRSTVWXZ | cut -b $(random 0 19)
+}
+
+wovel() {
+    echo AEIOUY | cut -b $(random 0 5)
+}
+
 hyps="$CONCIEGGS_DB_DIR/dannet-utils/hyponyms"
 
 # Only use hyperonyms with at least two hyponyms.
-over="$(cut -d'<' -f2 $hyps | sort | uniq -c | sort -n | grep -v ' 1 ' | sed -E 's/ *[0-9]+ //' | grep "$1" | randomLine)"
+over="$(cut -d'<' -f2 $hyps | sort | uniq -c | sort -n | grep -v ' 1 ' | sed -E 's/ *[0-9]+ //' | grep -i "$1" | randomLine)"
+if ! [ "$over" ]; then
+    echo "Hvad er forskellen på $(consonant)$(wovel)--ej, jeg gider ikke længere."
+    randomLine <<EOF
+/me smider mikrofonen i hovedet på $(randomName)
+/me lægger sig til at sove på den fedtede scene
+/me indser at livet ikke er at optræde i Casper Christensens nye natklub
+/me kigger ud på publikum, der alle sidder og kigger ned i deres smartphones
+/me synes at den akavede pause er vildt sjov
+EOF
+    exit
+fi
 grep -E "<$over"'$' $hyps | sort -R | head -n 2 | cut -d'<' -f1 | {
     read under0
     read under1
