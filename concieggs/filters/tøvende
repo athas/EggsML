@@ -1,19 +1,4 @@
-#!/usr/bin/env perl
+#!/bin/sh
 
-use v5.20;
-use warnings;
-use utf8;
-
-use Encode qw/decode/;
-use utf8::all;
-my $EGGS_BODY = decode('utf-8', $ENV{EGGS_BODY});
-
-sub punktummer {
-    my $i = int(rand(2)) + 2;
-    return "."x$i;
-}
-
-$EGGS_BODY =~ s/(\.|\,)( |$)/punktummer()." "/ge;
-print $EGGS_BODY;
-exit(0);
-
+echo -n ".."
+echo $EGGS_BODY
