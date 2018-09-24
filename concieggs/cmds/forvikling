@@ -4,7 +4,11 @@
 
 hyps="$CONCIEGGS_DB_DIR/dannet-utils/hyponyms"
 
-wanted_raw=$(randomLine < $hyps)
+if [ $# = 1 ]; then
+    wanted_raw=$(grep -i $1 $hyps | randomLine)
+else
+    wanted_raw=$(randomLine < $hyps)
+fi
 wanted=$(echo "$wanted_raw" | cut -d'<' -f1 | toupper)
 wanted_category=$(echo "$wanted_raw" | cut -d'<' -f2)
 got=$(cat $hyps | fgrep "$wanted_category" | randomLine | cut -d'<' -f1 | toupper)
