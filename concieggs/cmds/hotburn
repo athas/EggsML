@@ -12,11 +12,11 @@ Fuck() {
     ting="$*"
     randomLine <<EOF
 For søren, $ting!
-Nej, nej, $ting, nej-nej-nej...
+Nej, nej, $ting, nej-nej-nej ...
 Ha!
 Ha!  Haaah.
 $ting er bare _fjollet_.
-$ting, alligevel..
+$ting, alligevel ...
 Det var sgu på tide nogen sagde det!
 Ej, I skal lige have en lille lun éen:
 Har jeg ret eller hvad?
