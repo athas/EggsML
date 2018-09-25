@@ -6,6 +6,7 @@
     echo "$line" | sed -e 's/fluen/duen/g' \
                        -e 's/Fluen/Duen/g' \
                        -e 's/FLUEN/DUEN/g' \
+                       -e 's/fluer/duer/g' \
                        -e 's/summer/basker/g' \
                        -e 's/bøtten/fugleburet/g' \
                        -e 's/krukken/fugleburet/g' \
