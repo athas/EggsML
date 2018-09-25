@@ -4,17 +4,19 @@ use strict;
 no warnings;
 use utf8;
 use Time::Piece;
-use EggsML::EggsPI boolean => [qw(shuttingUp)];
 
-exit if shuttingUp;
-exit unless 0.1 > rand;
+if (0.2 > rand) {
+    given (localtime->day_of_week) {
+        when(0) { say "Åh nej, søndag!"; }
+        when(1) { say "Åh nej, mandag!"; }
+        when(2) { say "Åh nej, tirsdag!"; }
+        when(3) { say "Åh nej, onsdag!"; }
+        when(4) { say "Jubi, lille fredag!"; }
+        when(5) { say "Jubii, fredag!"; }
+        when(6) { say "Jubiii, lørdag!!"; }
+    }
+}
 
-given (localtime->day_of_week) {
-    when(0) { print "Åh nej, søndag!"; }
-    when(1) { print "Åh nej, mandag!"; }
-    when(2) { print "Åh nej, tirsdag!"; }
-    when(3) { print "Åh nej, onsdag!"; }
-    when(4) { print "Jubi, lille fredag!"; }
-    when(5) { print "Jubii, fredag!"; }
-    when(6) { print "Jubiii, lørdag!!"; }
+while (my $line = <STDIN>) {
+    print $line;
 }
