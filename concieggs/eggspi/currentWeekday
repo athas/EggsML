@@ -1,0 +1,10 @@
+#!/bin/sh
+case "$(date +%A)" in
+  Monday) echo mandag ;;
+  Tuesday) echo tirsdag ;;
+  Wednesday) echo onsdag ;;
+  Thursday) echo torsdag ;;
+  Friday) echo fredag ;;
+  Saturday) echo lørdag ;;
+  Sunday) echo søndag ;;
+esac
