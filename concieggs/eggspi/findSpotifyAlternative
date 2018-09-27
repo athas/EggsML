@@ -1,0 +1,26 @@
+#!/usr/bin/env perl
+use 5.024;
+use warnings;
+
+use Mojo::JSON qw(from_json);
+use Mojo::UserAgent;
+use Mojo::URL;
+
+my $msg = join(" ", <>);
+my ($spotify_link) = $msg =~ m{(https?://open\.spotify\.com/track/\w+)};
+
+exit(0) unless $spotify_link;
+
+my $ua = Mojo::UserAgent->new;
+
+my $dom = $ua->get($spotify_link)->result->dom;
+my ($script) = grep { /Spotify\.Entity\s*=/ } map { split(/\n/, $_) } $dom->find('script')->each;
+
+my ($json) = $script =~ m/Spotify\.Entity\s*=\s*(.*);\s*$/;
+my $data = from_json($json);
+
+my $artist = $data->{artists}->[0]->{name};
+my $track = $data->{name};
+
+my $url = Mojo::URL->new('https://www.youtube.com/results')->query(search_query => qq{"$artist" "$track"});
+say "$url";
