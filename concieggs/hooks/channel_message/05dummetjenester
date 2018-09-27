@@ -6,7 +6,7 @@ shame() {
 
 if echo "$EGGS_BODY" | grep spotify.com -q; then
     NON_SPOTIFY_LINK="$(echo "$EGGS_BODY" | findSpotifyAlternative)"
-    echo "Athas: Bare rolig! Du skal ikke føle dig udenfor. Du kan bruge følgende hægte i stedet: $NON_SPOTIFY_LINK"
+    echo "$EGGS_USER: Hvad med i stedet at bruge den mere inkluderende hægte $NON_SPOTIFY_LINK ?"
 fi
 if echo "$EGGS_BODY" | grep www.linkedin.com -q; then
     shame LinkedIn
