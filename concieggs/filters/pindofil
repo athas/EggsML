@@ -28,6 +28,7 @@ Søren Pinds valgplakat fra 2011 viste ham træde ud af et fly som en verdensman
 Søren Pind er en hyppig gæst i P4s "Mads og Monopolet".
 Søren Pind tabte slaget om den slappe vandstråle.
 Søren Pind blev mæt og træt af at være politiker.
+Søren pind blev den 1. oktober 2018 cybersherif i en Cyber Defence-virksomhed oprettet af tidligere medarbejdere fra Forsvaret.
 END_OF_PIND
 
 while (my $line = <>) {
