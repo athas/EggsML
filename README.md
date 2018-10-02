@@ -18,3 +18,4 @@ FORBEDRET AF
 ------------
 
 Mest Troels, Niels, Sebastian, Mikkel, Brandt, jer vi har glemt :heart:
+# this is ur junior
