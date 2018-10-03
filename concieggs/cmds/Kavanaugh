@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+
+import requests
+import re
+
+url = 'https://www.predictit.org/api/marketdata/group/39'
+
+resp = requests.get(url=url)
+data = resp.json()
+
+markets = data['Markets']
+
+yeaVotes = list(filter(lambda x: x['TickerSymbol'] == 'YEA.SC.103118', markets))[0]
+yeaContracts = yeaVotes['Contracts']
+
+pNay = re.compile('^4')
+pYea = re.compile('^(5|6)')
+
+nayPrice = 0.0
+yeaPrice = 0.0
+for yeaContract in yeaContracts:
+    if (pNay.match(yeaContract['ShortName'])):
+        nayPrice += yeaContract['LastTradePrice']
+    if (pYea.match(yeaContract['ShortName'])):
+        yeaPrice += yeaContract['LastTradePrice']
+
+print("Under antagelse om ikke-arbitrage er sandsynligheden for at Kavanaugh vælges {:4.1f} pct.".format(100 * yeaPrice / (yeaPrice + nayPrice)))
