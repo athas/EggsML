@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+
+import requests
+
+url = 'https://www.predictit.org/api/marketdata/all/'
+
+resp = requests.get(url=url)
+data = resp.json()
+
+markets = data['Markets']
+
+print(len(markets))
+print(markets[0])
+print(markets[1])
+print(markets[2])
+print(markets[3])
+print(markets[4])
+
+# Hej svip! markets-variablen er nu en liste af markeder, som hver indeholder
+# en liste af kontrakter. Kan du finde det element i markets-listen, hvis
+# "LongName"-værdi matcher brugerinputtet bedst?
