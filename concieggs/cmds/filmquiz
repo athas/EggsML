@@ -12,7 +12,7 @@ exit
 :harlinjer
 emne=<${linjer}>head -n1
 tmpbeskrivelse=<${linjer}>tail -n1
-beskrivelse=<${tmpbeskrivelse}>translate da
+beskrivelse=<${tmpbeskrivelse}>translate en da
 
 >echo "${EGGS_USER}: ${beskrivelse}"
 
