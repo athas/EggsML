@@ -11,7 +11,7 @@ exit
 
 :harlinjer
 emne=<${linjer}>head -n1
-beskrivelse=<${linjer}>tail -n1
+beskrivelse=<${linjer}>tail -n1|translate da
 
 >echo "${EGGS_USER}: ${beskrivelse}"
 
