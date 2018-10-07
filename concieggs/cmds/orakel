@@ -22,4 +22,4 @@ contracts = match['Contracts']
 
 for contract in contracts:
     navn = subprocess.run(['translate', 'en', 'da'], stdout=subprocess.PIPE, input=contract['LongName'].encode('utf-8'))
-    print (navn.stdout.decode('utf-8') + " {:4.1f} pct.".format(100 * contract['LastTradePrice']))
+    print (navn.stdout.decode('utf-8').rstrip() + " {:4.1f} pct.".format(100 * contract['LastTradePrice']))
