@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 
 import requests
+import re
+import sys
+import subprocess
 
 url = 'https://www.predictit.org/api/marketdata/all/'
 
@@ -9,13 +12,16 @@ data = resp.json()
 
 markets = data['Markets']
 
-print(len(markets))
-print(markets[0])
-print(markets[1])
-print(markets[2])
-print(markets[3])
-print(markets[4])
+match = next( (x for x in markets if ( any(list(map(lambda y: sys.argv[1] in y['LongName'], x['Contracts'] ))))), None)
 
-# Hej svip! markets-variablen er nu en liste af markeder, som hver indeholder
-# en liste af kontrakter. Kan du finde det element i markets-listen, hvis
-# "LongName"-værdi matcher brugerinputtet bedst?
+if match is None:
+    print("Ingen kender det, end ikke jeg selv. Kun Faderen ved det.")
+    exit(1)
+
+contracts = match['Contracts']
+
+for contract in contracts:
+    print(contract['LongName'])
+    #result = subprocess.run(['translate', 'en da' + contract['LongName']], stdout=subprocess.PIPE)
+    print("{:4.1f} pct.".format(100 * contract['LastTradePrice']))
+    #print(result)
