@@ -16,7 +16,7 @@ match = next( (x for x in markets if ( any(list(map(lambda y: sys.argv[1] in y['
 
 if match is None:
     print("Ingen kender det, end ikke jeg selv. Kun Faderen ved det.")
-    exit(1)
+    exit(0)
 
 contracts = match['Contracts']
 
