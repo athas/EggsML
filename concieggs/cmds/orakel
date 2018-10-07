@@ -21,7 +21,6 @@ if match is None:
 contracts = match['Contracts']
 
 for contract in contracts:
-    print(contract['LongName'])
+    print(contract['LongName']+ ": {:4.1f} pct.".format(100 * contract['LastTradePrice']))
     #result = subprocess.run(['translate', 'en da' + contract['LongName']], stdout=subprocess.PIPE)
-    print("{:4.1f} pct.".format(100 * contract['LastTradePrice']))
     #print(result)
