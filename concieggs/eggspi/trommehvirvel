@@ -1,0 +1,19 @@
+#!/bin/sh
+
+n="$1"
+if ! [ "$n" ]; then
+    n=1
+fi
+
+r() {
+    yes r | head -n $1 | tr $'\n' ' ' | sed 's/ //g'
+}
+
+m=19
+for i in $(seq 1 $n); do
+    echo "/me b$(r $m)"
+    m=$(expr $m + 2)
+    sleep 2
+done
+sleep 5
+echo "/me Badum-tschh!"
