@@ -12,7 +12,7 @@ data = resp.json()
 
 markets = data['Markets']
 
-matches = list(x for x in markets if ( any(list(map(lambda y: sys.argv[1] in y['LongName'], x['Contracts'] )))))
+matches = list(x for x in markets if ( any(list(map(lambda y: sys.argv[1].lower() in y['LongName'].lower(), x['Contracts'] )))))
 
 if not matches:
     print("Ingen kender det, end ikke jeg selv. Kun Faderen ved det.")
