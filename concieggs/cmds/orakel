@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import requests
-import re
+import random
 import sys
 import subprocess
 
@@ -12,14 +12,20 @@ data = resp.json()
 
 markets = data['Markets']
 
-match = next( (x for x in markets if ( any(list(map(lambda y: sys.argv[1] in y['LongName'], x['Contracts'] ))))), None)
+matches = list(x for x in markets if ( any(list(map(lambda y: sys.argv[1] in y['LongName'], x['Contracts'] )))))
 
-if match is None:
+if not matches:
     print("Ingen kender det, end ikke jeg selv. Kun Faderen ved det.")
     exit(0)
 
+match = random.choice(matches)
 contracts = match['Contracts']
 
 for contract in contracts:
+    # Print in English
+    # navn = contract['LongName']
+    # print (navn + " {:4.1f} pct.".format(100 * contract['LastTradePrice']))
+
+    # Print in Danish
     navn = subprocess.run(['translate', 'en', 'da'], stdout=subprocess.PIPE, input=contract['LongName'].encode('utf-8'))
     print (navn.stdout.decode('utf-8').rstrip() + " {:4.1f} pct.".format(100 * contract['LastTradePrice']))
