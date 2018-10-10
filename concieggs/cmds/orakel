@@ -40,4 +40,4 @@ for contract in contracts:
 
     # Print in Danish
     navn = subprocess.run(['translate', 'en', 'da'], stdout=subprocess.PIPE, input=contract['LongName'].encode('utf-8'))
-    print (navn.stdout.decode('utf-8').rstrip() + " {:4.1f} pct.".format(100 * contract['LastTradePrice']) + symbol +  "({:4.1f})".format(100 * contract['LastClosePrice']))
+    print (navn.stdout.decode('utf-8').rstrip() + " {:4.1f} pct. ".format(100 * contract['LastTradePrice']) + symbol +  "({:4.1f})".format(100 * contract['LastClosePrice']))
