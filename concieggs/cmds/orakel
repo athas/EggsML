@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+#
+# Spørg oraklet om sandsynlighedsfordelinger for et givent emne. Sammenligning med 24 timer gamle sandsynligheder vises også.
 
 import requests
 import random
