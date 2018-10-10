@@ -31,7 +31,7 @@ for contract in contracts:
     elif (contract['LastClosePrice'] > contract['LastTradePrice']):
         symbol = "\x0304\u2193\x03" # red down arrow
     else:
-        symbol = "\u23af" # horizontal line
+        symbol = "\u2014" # horizontal line
 
 
     # Print in English
