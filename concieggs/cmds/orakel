@@ -31,10 +31,10 @@ contracts = match['Contracts']
 for contract in contracts:
     if (contract['LastClosePrice'] < contract['LastTradePrice']):
         symbol = "\x0309\u2191\x03" # green up arrow
-        diff   = "\x0309+{:4.1f}\x03".format(contract['LastTradePrice'] - contract['LastClosePrice'])
+        diff   = "\x0309+{:4.1f}\x03".format(100*(contract['LastTradePrice'] - contract['LastClosePrice']))
     elif (contract['LastClosePrice'] > contract['LastTradePrice']):
         symbol = "\x0304\u2193\x03" # red down arrow
-        diff   = "\x0304-{:4.1f}\x03".format(contract['LastClosePrice'] - contract['LastTradePrice'])
+        diff   = "\x0304-{:4.1f}\x03".format(100*(contract['LastClosePrice'] - contract['LastTradePrice']))
     else:
         symbol = "\u2013" # ndash
         diff   = "0"
