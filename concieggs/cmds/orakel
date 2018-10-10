@@ -25,9 +25,9 @@ contracts = match['Contracts']
 
 for contract in contracts:
     if (contract['LastClosePrice'] < contract['LastTradePrice']):
-        symbol = "\u2191" # up arrow
+        symbol = "\x0309\u2191\x03" # green up arrow
     elif (contract['LastClosePrice'] > contract['LastTradePrice']):
-        symbol = "\u2193" # down arrow
+        symbol = "\x0304\u2193\x03" # red down arrow
     else:
         symbol = "\u23af" # horizontal line
 
