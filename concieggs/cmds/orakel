@@ -24,10 +24,18 @@ match = random.choice(matches)
 contracts = match['Contracts']
 
 for contract in contracts:
+    if (contract['LastClosePrice'] < contract['LastTradePrice']):
+        symbol = "\u2191" # up arrow
+    elif (contract['LastClosePrice'] > contract['LastTradePrice']):
+        symbol = "\u2193" # down arrow
+    else:
+        symbol = "\u23af" # horizontal line
+
+
     # Print in English
     # navn = contract['LongName']
     # print (navn + " {:4.1f} pct.".format(100 * contract['LastTradePrice']))
 
     # Print in Danish
     navn = subprocess.run(['translate', 'en', 'da'], stdout=subprocess.PIPE, input=contract['LongName'].encode('utf-8'))
-    print (navn.stdout.decode('utf-8').rstrip() + " {:4.1f} pct.".format(100 * contract['LastTradePrice']))
+    print (navn.stdout.decode('utf-8').rstrip() + " {:4.1f} pct.".format(100 * contract['LastTradePrice']) + symbol +  "({:4.1f})".format(100 * contract['LastClosePrice']))
