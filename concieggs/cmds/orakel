@@ -37,7 +37,7 @@ for contract in contracts:
         diff   = "\x0304-{:4.1f}\x03".format(100*(contract['lastClosePrice'] - contract['lastTradePrice']))
     else:
         symbol = "\u2013" # ndash
-        diff   = "0"
+        diff   = "+ 0.0"
 
 
     # Print in English
