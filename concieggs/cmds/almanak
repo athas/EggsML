@@ -21,7 +21,7 @@ now = datetime.now().time()
 
 if (sunrise > now):
     print("I dag står solen op kl. {0} og går ned kl. {1}".format(sunrise, sunset))
-elif (sunset < now):
+elif (sunset > now):
     print("I dag stod solen op kl. {0} og går ned kl. {1}".format(sunrise, sunset))
 else:
     print("I dag stod solen op kl. {0} og gik ned kl. {1}".format(sunrise, sunset))
