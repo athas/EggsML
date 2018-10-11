@@ -28,6 +28,12 @@ if not matches:
 match = random.choice(matches)
 contracts = match['contracts']
 
+translate_input = "\n".join(map(lambda x: x['longName'], contracts))
+process = subprocess.run(['translate', 'en', 'da'], stdout=subprocess.PIPE, input=translate_input.encode('utf-8'))
+translate_output = process.stdout.decode('utf-8').rstrip()
+contract_names_dk = translate_output.split('\n')
+
+i = 0
 for contract in contracts:
     if (contract['lastClosePrice'] < contract['lastTradePrice']):
         symbol = "\x0309\u2191\x03" # green up arrow
@@ -39,11 +45,9 @@ for contract in contracts:
         symbol = "\u2013" # ndash
         diff   = "+ 0.0"
 
+    print (contract_names_dk[i].rstrip() + " {:4.1f} pct. ".format(100 * contract['lastTradePrice']) + symbol +  " ({0})".format(diff))
+    i += 1
 
     # Print in English
     #navn = contract['longName']
     #print (navn + " {:4.1f} pct. ".format(100 * contract['lastTradePrice']) + symbol +  " ({0})".format(diff))
-
-    # Print in Danish
-    navn = subprocess.run(['translate', 'en', 'da'], stdout=subprocess.PIPE, input=contract['longName'].encode('utf-8'))
-    print (navn.stdout.decode('utf-8').rstrip() + " {:4.1f} pct. ".format(100 * contract['lastTradePrice']) + symbol +  " ({0})".format(diff))
