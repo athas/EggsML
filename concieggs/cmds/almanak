@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+
+from datetime import datetime
+import urllib.request as ur
+import xml.etree.ElementTree as ET
+
+def date_convert(s):
+    """Convert a datetime string from yr.no to datetime object."""
+    return datetime.strptime(s, "%Y-%m-%dT%H:%M:%S").time()
+
+with ur.urlopen('https://www.yr.no/place/Denmark/Capital/Copenhagen/forecast.xml') as f:
+    tree = ET.parse(f)
+root = tree.getroot()
+
+sun = root.find('sun')
+
+sunrise = date_convert(sun.attrib['rise'])
+sunset = date_convert(sun.attrib['set'])
+
+now = datetime.now().time()
+
+if (sunrise > now):
+    print("I dag står solen op kl. {0} og går ned kl. {1}".format(sunrise, sunset))
+elif (sunset < now):
+    print("I dag stod solen op kl. {0} og går ned kl. {1}".format(sunrise, sunset))
+else:
+    print("I dag stod solen op kl. {0} og gik ned kl. {1}".format(sunrise, sunset))
