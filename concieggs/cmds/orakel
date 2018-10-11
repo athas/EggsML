@@ -14,7 +14,10 @@ data = resp.json()
 
 markets = data['markets']
 
-matches = list(x for x in markets if ( any(list(map(lambda y: sys.argv[1] in y['longName'], x['contracts'] )))))
+if sys.argv[1]:
+    matches = list(x for x in markets if ( any(list(map(lambda y: sys.argv[1] in y['longName'], x['contracts'] )))))
+else:
+    matches = markets['contracts']
 
 if not matches:
     matches = list(x for x in markets if ( any(list(map(lambda y: sys.argv[1].lower() in y['longName'].lower(), x['contracts'] )))))
