@@ -37,7 +37,7 @@ translate_output = process.stdout.decode('utf-8').rstrip()
 contract_names_dk = translate_output.split('\n')
 #contract_names_dk = translate_input.split('\n') # for local debuggin if translate is not in $PATH
 
-if not contract_names_dk:
+if not contract_names_dk or len(contract_names_dk) < len(contracts):
     contract_names_dk = [None] * len(contracts)
 
 i = 0
