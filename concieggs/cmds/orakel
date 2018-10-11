@@ -12,12 +12,12 @@ url = 'https://www.predictit.org/api/marketdata/all/'
 resp = requests.get(url=url)
 data = resp.json()
 
-markets = data['Markets']
+markets = data['markets']
 
-matches = list(x for x in markets if ( any(list(map(lambda y: sys.argv[1] in y['LongName'], x['Contracts'] )))))
+matches = list(x for x in markets if ( any(list(map(lambda y: sys.argv[1] in y['longName'], x['contracts'] )))))
 
 if not matches:
-    matches = list(x for x in markets if ( any(list(map(lambda y: sys.argv[1].lower() in y['LongName'].lower(), x['Contracts'] )))))
+    matches = list(x for x in markets if ( any(list(map(lambda y: sys.argv[1].lower() in y['longName'].lower(), x['contracts'] )))))
     if not matches:
         print(random.choice([
             "Ingen kender det, end ikke jeg selv. Kun Faderen ved det.",
@@ -26,24 +26,24 @@ if not matches:
         exit(0)
 
 match = random.choice(matches)
-contracts = match['Contracts']
+contracts = match['contracts']
 
 for contract in contracts:
-    if (contract['LastClosePrice'] < contract['LastTradePrice']):
+    if (contract['lastClosePrice'] < contract['lastTradePrice']):
         symbol = "\x0309\u2191\x03" # green up arrow
-        diff   = "\x0309+{:4.1f}\x03".format(100*(contract['LastTradePrice'] - contract['LastClosePrice']))
-    elif (contract['LastClosePrice'] > contract['LastTradePrice']):
+        diff   = "\x0309+{:4.1f}\x03".format(100*(contract['lastTradePrice'] - contract['lastClosePrice']))
+    elif (contract['lastClosePrice'] > contract['lastTradePrice']):
         symbol = "\x0304\u2193\x03" # red down arrow
-        diff   = "\x0304-{:4.1f}\x03".format(100*(contract['LastClosePrice'] - contract['LastTradePrice']))
+        diff   = "\x0304-{:4.1f}\x03".format(100*(contract['lastClosePrice'] - contract['lastTradePrice']))
     else:
         symbol = "\u2013" # ndash
         diff   = "0"
 
 
     # Print in English
-    # navn = contract['LongName']
+    # navn = contract['longName']
     # print (navn + " {:4.1f} pct.".format(100 * contract['LastTradePrice']))
 
     # Print in Danish
-    navn = subprocess.run(['translate', 'en', 'da'], stdout=subprocess.PIPE, input=contract['LongName'].encode('utf-8'))
-    print (navn.stdout.decode('utf-8').rstrip() + " {:4.1f} pct. ".format(100 * contract['LastTradePrice']) + symbol +  " ({0})".format(diff))
+    navn = subprocess.run(['translate', 'en', 'da'], stdout=subprocess.PIPE, input=contract['longName'].encode('utf-8'))
+    print (navn.stdout.decode('utf-8').rstrip() + " {:4.1f} pct. ".format(100 * contract['lastTradePrice']) + symbol +  " ({0})".format(diff))
