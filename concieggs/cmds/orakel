@@ -41,8 +41,8 @@ for contract in contracts:
 
 
     # Print in English
-    # navn = contract['longName']
-    # print (navn + " {:4.1f} pct.".format(100 * contract['LastTradePrice']))
+    #navn = contract['longName']
+    #print (navn + " {:4.1f} pct. ".format(100 * contract['lastTradePrice']) + symbol +  " ({0})".format(diff))
 
     # Print in Danish
     navn = subprocess.run(['translate', 'en', 'da'], stdout=subprocess.PIPE, input=contract['longName'].encode('utf-8'))
