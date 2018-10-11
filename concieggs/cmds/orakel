@@ -37,6 +37,9 @@ translate_output = process.stdout.decode('utf-8').rstrip()
 contract_names_dk = translate_output.split('\n')
 #contract_names_dk = translate_input.split('\n') # for local debuggin if translate is not in $PATH
 
+if not contract_names_dk:
+    contract_names_dk = [None] * len(contracts)
+
 i = 0
 for contract in contracts:
     # if contract is new or price is unchanged
