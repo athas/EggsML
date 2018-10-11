@@ -1,0 +1,4 @@
+#!/bin/sh
+#
+# Returner af concieggs' HEAD
+echo "Jeg er $(git rev-parse HEAD)"
