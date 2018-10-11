@@ -16,17 +16,16 @@ markets = data['markets']
 
 if len(sys.argv) > 1:
     matches = list(x for x in markets if ( any(list(map(lambda y: sys.argv[1] in y['longName'], x['contracts'] )))))
+    if not matches:
+        matches = list(x for x in markets if ( any(list(map(lambda y: sys.argv[1].lower() in y['longName'].lower(), x['contracts'] )))))
+        if not matches:
+            print(random.choice([
+                "Ingen kender det, end ikke jeg selv. Kun Faderen ved det.",
+                "Der må jeg være svar skyldig. Måske du allerede selv har en idé?",
+            ]))
+            exit(0)
 else:
     matches = markets
-
-if not matches:
-    matches = list(x for x in markets if ( any(list(map(lambda y: sys.argv[1].lower() in y['longName'].lower(), x['contracts'] )))))
-    if not matches:
-        print(random.choice([
-            "Ingen kender det, end ikke jeg selv. Kun Faderen ved det.",
-            "Der må jeg være svar skyldig. Måske du allerede selv har en idé?",
-        ]))
-        exit(0)
 
 match = random.choice(matches)
 contracts = match['contracts']
