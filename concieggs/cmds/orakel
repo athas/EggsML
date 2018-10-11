@@ -32,6 +32,7 @@ translate_input = "\n".join(map(lambda x: x['longName'], contracts))
 process = subprocess.run(['translate', 'en', 'da'], stdout=subprocess.PIPE, input=translate_input.encode('utf-8'))
 translate_output = process.stdout.decode('utf-8').rstrip()
 contract_names_dk = translate_output.split('\n')
+#contract_names_dk = translate_input.split('\n') # for local debuggin if translate is not in $PATH
 
 i = 0
 for contract in contracts:
@@ -50,7 +51,3 @@ for contract in contracts:
 
     print (contract_names_dk[i].rstrip() + " {:4.1f} pct. ".format(100 * contract['lastTradePrice']) + symbol +  " ({0})".format(diff))
     i += 1
-
-    # Print in English
-    #navn = contract['longName']
-    #print (navn + " {:4.1f} pct. ".format(100 * contract['lastTradePrice']) + symbol +  " ({0})".format(diff))
