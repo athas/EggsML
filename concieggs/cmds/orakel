@@ -49,5 +49,9 @@ for contract in contracts:
         symbol = "\x0304\u2193\x03" # red down arrow
         diff   = "\x0304-{:4.1f}\x03".format(100*(contract['lastClosePrice'] - contract['lastTradePrice']))
 
+    # if translation failed, print English name instead
+    if contract_names_dk[i] == None:
+        contract_names_dk[i] = contract['longName']
+
     print (contract_names_dk[i].rstrip() + " {:4.1f} pct. ".format(100 * contract['lastTradePrice']) + symbol +  " ({0})".format(diff))
     i += 1
