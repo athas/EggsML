@@ -37,8 +37,11 @@ translate_output = process.stdout.decode('utf-8').rstrip()
 contract_names_dk = translate_output.split('\n')
 #contract_names_dk = translate_input.split('\n') # for local debuggin if translate is not in $PATH
 
-if not contract_names_dk or len(contract_names_dk) < len(contracts):
+if not contract_names_dk:
     contract_names_dk = [None] * len(contracts)
+
+if len(contract_names_dk) < len(contracts):
+    contract_names_dk = contract_names_dk + [None] * (len(contracts) - len(contract_names_dk))
 
 i = 0
 for contract in contracts:
@@ -55,9 +58,6 @@ for contract in contracts:
         symbol = "\x0304\u2193\x03" # red down arrow
         diff   = "\x0304-{:4.1f}\x03".format(100*(contract['lastClosePrice'] - contract['lastTradePrice']))
 
-    # if translation failed, print English name instead
-    if (len(contract_names_dk) < i):
-        contract_names_dk[i] = contract['longName']
     if not contract_names_dk[i]:
         contract_names_dk[i] = contract['longName']
 
