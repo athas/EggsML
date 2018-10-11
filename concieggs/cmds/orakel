@@ -35,6 +35,8 @@ contract_names_dk = translate_output.split('\n')
 
 i = 0
 for contract in contracts:
+    if contract['lastClosePrice'] == None:
+        contract['lastClosePrice'] = 0.0
     if (contract['lastClosePrice'] < contract['lastTradePrice']):
         symbol = "\x0309\u2191\x03" # green up arrow
         diff   = "\x0309+{:4.1f}\x03".format(100*(contract['lastTradePrice'] - contract['lastClosePrice']))
