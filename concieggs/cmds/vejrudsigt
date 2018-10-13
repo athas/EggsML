@@ -222,6 +222,19 @@ root = tree.getroot()
 forecast = root.find('forecast')
 tabular = forecast.find('tabular')
 sun = root.find('sun')
+sunrise = date_convert(sun.attrib['rise'])
+sunrise_time = sunrise.time()
+sunset = date_convert(sun.attrib['set'])
+sunset_time = sunset.time()
+
+now = datetime.now().time()
+
+if (sunrise_time > now):
+    print("I dag står solen op kl. {0} og går ned kl. {1}.".format(sunrise_time, sunset_time))
+elif (sunset_time > now):
+    print("I dag stod solen op kl. {0} og går ned kl. {1}.".format(sunrise_time, sunset_time))
+else:
+    print("I dag stod solen op kl. {0} og gik ned kl. {1}.".format(sunrise_time, sunset_time))
 
 recently_active = eggspi.recentlyActive().decode('utf-8').rstrip().split('\n')
 fancy_unicode = 'svip' in recently_active
@@ -244,8 +257,6 @@ for time, hero_line in zip(tabular, hero):
     temperature = time.find('temperature').attrib['value']
     weather_description = time.find('symbol').attrib['name'].lower()
 
-    sunrise = date_convert(sun.attrib['rise'])
-    sunset = date_convert(sun.attrib['set'])
     is_approx_daytime = is_daytime(date, sunrise, sunset)
 
     weather_symbol = weather_to_symbol(weather_description, is_approx_daytime, fancy_unicode)
