@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# Solopgang og
+# Vis tidspunktet for solopgang og solnedgang for København eller andre steder.
 
 from datetime import datetime
 from dateutil import tz
