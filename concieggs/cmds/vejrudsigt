@@ -230,11 +230,11 @@ sunset_time = sunset.time()
 now = datetime.now().time()
 
 if (sunrise_time > now):
-    print("I dag står solen op kl. {0} og går ned kl. {1}.".format(sunrise_time, sunset_time))
+    print("I dag står solen op kl. {0} og går ned kl. {1}".format(sunrise_time, sunset_time))
 elif (sunset_time > now):
-    print("I dag stod solen op kl. {0} og går ned kl. {1}.".format(sunrise_time, sunset_time))
+    print("I dag stod solen op kl. {0} og går ned kl. {1}".format(sunrise_time, sunset_time))
 else:
-    print("I dag stod solen op kl. {0} og gik ned kl. {1}.".format(sunrise_time, sunset_time))
+    print("I dag stod solen op kl. {0} og gik ned kl. {1}".format(sunrise_time, sunset_time))
 
 recently_active = eggspi.recentlyActive().decode('utf-8').rstrip().split('\n')
 fancy_unicode = 'svip' in recently_active
