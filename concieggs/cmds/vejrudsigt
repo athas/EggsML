@@ -135,14 +135,20 @@ def is_daytime(date, sunrise, sunset):
     """Determine if the time part of a date is within some daytime."""
     return sunrise.time() <= date.time() <= sunset.time()
 
+def is_noon(date):
+    """"Determine if a given datetime represents a time at noon."""
+    return date.hour == 0 and date.minute == 0 and date.second == 0
+
 def is_midnight(date):
     """Determine if a given datetime is exactly midnight."""
-    return date.hour == 0 and date.minute == 0 and date.second == 0
+    return date.hour == 12
 
 def date_format(date):
     """Format a date with the proper whitespace padding."""
     if is_midnight(date):
         hour = "midnat"
+    elif is_noon(date):
+        hour = "middag"
     else:
         hour = "kl. " + str(int(date.strftime("%H"))).rjust(2)
 
