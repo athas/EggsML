@@ -1,27 +1,37 @@
 #!/usr/bin/env python3
+#
+# Solopgang og
 
 from datetime import datetime
-import urllib.request as ur
-import xml.etree.ElementTree as ET
+from dateutil import tz
+import time
+import requests
+import sys
 
 def date_convert(s):
-    """Convert a datetime string from yr.no to datetime object."""
+    """Convert a datetime string to datetime object."""
     return datetime.strptime(s, "%Y-%m-%dT%H:%M:%S").time()
 
-with ur.urlopen('https://www.yr.no/place/Denmark/Capital/Copenhagen/forecast.xml') as f:
-    tree = ET.parse(f)
-root = tree.getroot()
-
-sun = root.find('sun')
-
-sunrise = date_convert(sun.attrib['rise'])
-sunset = date_convert(sun.attrib['set'])
-
-now = datetime.now().time()
-
-if (sunrise > now):
-    print("I dag står solen op kl. {0} og går ned kl. {1}".format(sunrise, sunset))
-elif (sunset > now):
-    print("I dag stod solen op kl. {0} og går ned kl. {1}".format(sunrise, sunset))
+# Find location
+if (len(sys.argv) < 2):
+    location = "Copenhagen"
 else:
-    print("I dag stod solen op kl. {0} og gik ned kl. {1}".format(sunrise, sunset))
+    process = subprocess.run(['translate', 'en', 'da'], stdout=subprocess.PIPE, input=sys.argv[1].encode('utf-8'))
+    location = process.stdout.decode('utf-8').rstrip()
+
+# Get data from openweathermap
+url = "http://api.openweathermap.org/data/2.5/weather?q={0}&lang=da&units=metric&APPID=4b42ecc61fd13e0a0cb7006d583fb3e0".format(location)
+resp = requests.get(url=url)
+data = resp.json()
+
+# Set timezone to CET
+from_zone = tz.gettz('UTC')
+to_zone = tz.gettz('CET')
+sunrise_ut = data["sys"]["sunrise"]
+sunset_ut = data["sys"]["sunset"]
+sunrise = datetime.utcfromtimestamp(sunrise_ut).replace(tzinfo=from_zone).astimezone(to_zone).time()
+sunset = datetime.utcfromtimestamp(sunset_ut).replace(tzinfo=from_zone).astimezone(to_zone).time()
+
+if (len(sys.argv) > 1):
+    print("Almanak for {0} (CET):".format(sys.argv[1]))
+print("🌅 {0} 🌇 {1}".format(sunrise, sunset))
