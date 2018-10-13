@@ -22,6 +22,7 @@ if len(sys.argv) > 1:
             print(random.choice([
                 "Ingen kender det, end ikke jeg selv. Kun Faderen ved det.",
                 "Der må jeg være svar skyldig. Måske du allerede selv har en idé?",
+                "Min krystalkugle er ikke stor nok til det emne. Jeg vil anbefale, at du spørger en ven.",
             ]))
             exit(0)
 else:
