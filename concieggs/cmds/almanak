@@ -6,6 +6,7 @@ from datetime import datetime
 from dateutil import tz
 import time
 import requests
+import subprocess
 import sys
 
 def date_convert(s):
