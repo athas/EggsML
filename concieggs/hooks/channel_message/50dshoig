@@ -1,6 +1,6 @@
 #!/bin/sh
 
-(notOnEggsChannel || shuttingUp) && exit
+shuttingUp && exit
 
 if echo "$EGGS_BODY" | grep "^$CONCIEGGS_NAME""[:,!] " > /dev/null; then
     exit
