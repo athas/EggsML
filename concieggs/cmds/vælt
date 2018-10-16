@@ -16,7 +16,7 @@ elif [ "$1" != "kongen" ]; then
 fi
 
 if dbRead robespierre; then
-	echo "$EGGS_USER: Jeg ved ikke om du har hørt, men der er altså republik nu.  Og bare rolig, der kommer ingen Fyrstebeskytter eller Kejser i stedet..."
+	echo "$EGGS_USER: Jeg ved ikke om du har hørt, men der er altså republik nu.  Og bare rolig, der kommer ingen Første Borger, Fyrstebeskytter eller Kejser i stedet..."
 	exit
 fi
 
