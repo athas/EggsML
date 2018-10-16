@@ -19,7 +19,10 @@ eval "$(echo "$@" | parse 'er (?<hveranden>hveranden)|'\
 if [ "$king" ] && ! [ "$god" ] && ! [ "$user" ]; then
     kingname="$(dbRead eggsking)"
     if dbRead robespierre; then
-        echo "Republikken er sand!  Kongens hovedet er på Mars-pladsen!"
+    	randomline <<EOF
+Republikken er sand!  Kongens hovedet er på Revolutionspladsen!
+Intet rationelt samfund kan baseres på guddommelig magt!
+EOF
     elif [ -z "$kingname" ]; then
         echo "Der er ingen siddende konge af EggsML."
     else

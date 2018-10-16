@@ -4,27 +4,29 @@
 
 if [ "$1" = af ] && dbRead robespierre; then
     if dbRead dawkins; then
-        (
-            echo "$EGGS_USER: Uden guddommelighed, hvordan kan kongen så få magten?"
-            echo "$EGGS_USER: Måske du skal tale med Hr. Dawkins om hvordan man bliver konge?"
-            echo "$EGGS_USER: Hvis magten ikke kommer fra folket?  Hvorfra så?!"
-        ) | randomLine
+    	randomLine <<EOF
+$EGGS_USER: Uden guddommelighed, hvordan kan kongen så få magten?
+$EGGS_USER: Måske du skal tale med Hr. Dawkins om hvordan man bliver konge?
+$EGGS_USER: Hvis magten ikke kommer fra folket?  Hvorfra så?!
+EOF
         exit
     fi
     if ! checkCooldown "robespierre" $((3600 * 24)); then
         echo "$EGGS_USER: Giv lige republikken en chance!"
         exit
     fi
-    (echo "$EGGS_USER: Længe leve kongen!"
-     echo "$EGGS_USER: Monarkiet er tilbage!"
-     echo "$EGGS_USER: De gamle værdier vender tilbage!"
-     echo "$EGGS_USER: Wienerkongressen havde ret!"
-     echo "$EGGS_USER: Bourbon-restoration er klar!"
-    ) | randomLine
+    randomLine <<EOF
+Længe leve kongen!
+Monarkiet er tilbage!
+De gamle værdier vender tilbage!
+Wienerkongressen sikrede det!
+Bourbon-restoration er rede!
+EOF
+	echo "Men øøøøh... hvem skal være konge?"
     dbDelete robespierre
 else
     if dbRead robespierre; then
-        echo "$EGGS_USER: Robespierre har altså taget sig af det tidligere kongerige.  Så han er nok også røget i Terroren."
+        echo "$EGGS_USER: Robespierre har altså taget sig af det tidligere kongerige.  Så han har nok også mistet hovedet."
         exit
     fi
     if ! checkCooldown "robespierre" $((3600 * 24)); then
@@ -35,12 +37,16 @@ else
     sleep 1
     if [ $(dbRead eggsking) ]; then
         king=$(dbRead eggsking)
-        (
-            echo "Kong ${king}s hoved røg i revolution."
-            echo "Terroren fik ramt på $king."
-            echo "Ingen Gud kan give nogen magten!  Kong $king er afsat, og det er tronen også!"
-            echo "Al magt kommer fra folket, ikke Gud!"
-        ) | randomLine
+        randomLine <<EOF
+Vive la revolution !
+¡Viva la revolutión!
+Kong ${king}s hoved røg i svinget!
+Guillotinen fik ramt på $king.
+Ingen Gud kan give nogen magten!  Kong $king er afsat, og det er tronen også!
+Al magt kommer fra folket, ikke Gud!
+Hvis blot King ${king} ikke havde været så skide ufleksibel.  Men hvor om alting er, er han og kongeriget dødt!
+Kongen er død, længe leve republikken!
+EOF
     fi
     dbDelete underArrest
     dbDelete vilvæltekongen

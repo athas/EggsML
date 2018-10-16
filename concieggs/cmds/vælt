@@ -15,6 +15,11 @@ elif [ "$1" != "kongen" ]; then
     exit
 fi
 
+if dbRead robespierre; then
+	echo "$EGGS_USER: Jeg ved ikke om du har hørt, men der er altså republik nu.  Og bare rolig, der kommer ingen Fyrstebeskytter eller Kejser i stedet..."
+	exit
+fi
+
 kingname="$(dbRead eggsking)"
 if [ -z "$kingname" ]; then
     echo "$EGGS_USER: Uagtet dit ønske om at gøre oprør mod 'manden', så er tronen allerede ganske tom."
