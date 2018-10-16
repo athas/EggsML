@@ -7,7 +7,7 @@ eval "$(echo "$@" | tolower | parse '.*(?<shutUp>([kK][æÆ]+[fF][tT]|[mM]+[uU]+
 if [ "$shutUp" ]; then
     countaggression=$(echo "$@" | num_occurs '!' 'æ' 'Æ' '!')
     countwords=$(echo "$@" | wc -w)
-    count=$(($countaggression - 2 + $countwords - 1))
+    count=$(($countaggression - 1 + $countwords - 1))
     duration=$((60*10*$count))
     time=$(($(nowTime) + $duration))
 
