@@ -14,10 +14,10 @@ if [ "$birthday" ]; then
             exit
         fi
     fi
-    if [ "$(dbUserRead $who birthday)" = "$date" ]; then
+    if [ "$(dbUserRead $EGGS_USER birthday)" = "$date" ]; then
         echo "$EGGS_USER: Det ved jeg allerede godt!"
     else
-        echo $date | dbUserWrite $who birthday
+        echo $date | dbUserWrite $EGGS_USER birthday
         echo "$(ack)  Nu ved jeg at du har fødselsdag $(formatDate $date)."
     fi
 elif [ "$king" ]; then
@@ -48,9 +48,9 @@ elif [ "$god" ] || [ "$alsogod" ] || [ "$truegod" ]; then
             echo "Men De er jo allerede vor Herre!"
         else
             if [ "$truegod" ]; then
-                echo "Ud med de hedenske guder!  Hil vor Herre $who!"
+                echo "Ud med de hedenske guder!  Hil vor Herre $EGGS_USER!"
                 removePaganGods
-                makeGod "$who"
+                makeGod "$EGGS_USER"
             else
                 echo "De er jo allerede en af vor guder!"
             fi
@@ -64,11 +64,11 @@ elif [ "$god" ] || [ "$alsogod" ] || [ "$truegod" ]; then
             else
                 echo "Vores mytologi vokser!  Jo flere guder jo bedre!"
             fi
-            makeGod "$who"
+            makeGod "$EGGS_USER"
         elif [ "$truegod" ]; then
-            echo "Ud med de hedenske guder!  Hil vor Herre $who!"
+            echo "Ud med de hedenske guder!  Hil vor Herre $EGGS_USER!"
             removePaganGods
-            makeGod "$who"
+            makeGod "$EGGS_USER"
         else
             if [ "$v" = 1 ]; then
                 echo "Men der er allerede en gud!"
@@ -77,8 +77,8 @@ elif [ "$god" ] || [ "$alsogod" ] || [ "$truegod" ]; then
             fi
         fi
     else
-        echo "Vor Herre $who!  Lad os alle bede."
-        makeGod "$who"
+        echo "Vor Herre $EGGS_USER!  Lad os alle bede."
+        makeGod "$EGGS_USER"
     fi
 elif [ "$notgod" ]; then
     if isGod "$EGGS_USER"; then
