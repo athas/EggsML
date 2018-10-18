@@ -20,8 +20,9 @@ if [ "$king" ] && ! [ "$god" ] && ! [ "$user" ]; then
     kingname="$(dbRead eggsking)"
     if dbRead robespierre; then
     	randomLine <<EOF
-Republikken er sand!  Kongens hovedet er på Revolutionspladsen!
+Republikken er sand!  Kongens hovedet ligger på Revolutionspladsen!
 Intet rationelt samfund kan baseres på guddommelig magt!
+Dydighedsforvaltningen har magten!  Længe leve Robespierre!
 EOF
     elif [ -z "$kingname" ]; then
         echo "Der er ingen siddende konge af EggsML."
