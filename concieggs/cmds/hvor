@@ -41,7 +41,7 @@ elif [ "$kongembede" ]; then
         tiltale="du"
     fi
     c=$(countRoyalReign "$hvilkenkonge")
-    if [ $c = 0 ]; then
+    if [ $c = "0" ]; then
          echo "$EGGS_USER: Mig bekendt har $tiltale aldrig været konge."
          exit
     fi
@@ -54,7 +54,7 @@ elif [ "$antalkonge" ]; then
         tiltale="du"
     fi
     c=$(countRoyalReigns "$hvilkenkonge")
-    if [ $c = 0 ]; then
+    if [ $c = "0" ]; then
          echo "$EGGS_USER: Mig bekendt har $tiltale aldrig været konge."
          exit
     fi
