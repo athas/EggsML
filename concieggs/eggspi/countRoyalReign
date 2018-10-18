@@ -21,7 +21,7 @@ dbRead eggskinglist | while read line; do
         fi
         wasprev=1
     fi
-    if [ cmpNames $king $kingname ]; then
+    if cmpNames $king $kingname; then
         lasttime=$ascension
         wasprev=0
     fi
