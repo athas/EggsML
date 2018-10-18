@@ -40,11 +40,11 @@ elif [ "$kongembede" ]; then
         hvilkenkonge=$EGGS_USER
         tiltale="du"
     fi
-    if [ $(countRoyalReign $hvilkenkonge) ]; then
+    if countRoyalReign "$hvilkenkonge"; then
          echo "$EGGS_USER: Mig bekendt har $tiltale aldrig været konge."
          exit
     fi
-    echo "$EGGS_USER: Så vidt jeg kan se, har $tiltale alt i alt været konge i $(countRoyalReign $hvilkenkonge)."
+    echo "$EGGS_USER: Så vidt jeg kan se, har $tiltale alt i alt været konge i $(countRoyalReign '$hvilkenkonge')."
     exit
 elif [ "$antalkonge" ]; then
     tiltale=$EGGS_USER
@@ -52,11 +52,11 @@ elif [ "$antalkonge" ]; then
         hvilkenkonge=$EGGS_USER
         tiltale="du"
     fi
-    if [ $(countRoyalReigns $hvilkenkonge) ]; then
+    if countRoyalReigns "$hvilkenkonge"; then
          echo "$EGGS_USER: Mig bekendt har $tiltale aldrig været konge."
          exit
     fi
-    echo "$EGGS_USER: Så vidt jeg kan se, har $tiltale alt i alt været konge i $(countRoyalReigns $hvilkenkonge) gange."
+    echo "$EGGS_USER: Så vidt jeg kan se, har $tiltale alt i alt været konge $(countRoyalReigns '$hvilkenkonge') gange."
     exit
 elif [ "$gammel" ]; then
     unit=$(randomLine <<EOF
