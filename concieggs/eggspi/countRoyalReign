@@ -28,3 +28,4 @@ dbRead eggskinglist | while read line; do
         wasprev=0
     fi
 done
+echo $count

@@ -15,3 +15,4 @@ dbRead eggskinglist | while read line; do
         count=$(expr "$count" + "1")
     fi
 done
+echo $count
