@@ -10,7 +10,7 @@ tusindedele
 hundrededele
 EOF`
 
-eval "$(echo "$@" | parse '^ *((?<jul>julet er det(?: i procent)?)|((?<kongembede>længe har)|(?<antalkonge>mange gange var)) (?<hvilkenkonge>[^ ]+) (?:været )konge\??|mange har efternavnet (?<efternavn>.+)\??|mange har fornavnet (?<fornavn>.+)\??|mange (?:har navnet|hedder) (?<navne>.+?)(?: til (?<forefter>for|efter)navn)?\??$|(?<gammel>(gammelt?|ungt?|lang tid|længe))|(?<lang>(langt?|kort|højt?|lavt?))|(?<charmerende>charmerende)|(?<tung>(tungt?|let))|(?<klog>(dumt?|klogt?|stupid))|(?<mange>mange)|(?<stor>(stort?|lille|meget))|(?<irriterende>(irriterende|udmattende|enerverende|trættende))|(?<grim>(grimt?|ulækkert?|monstrøst?|klamt?))).*')"
+eval "$(echo "$@" | parse '^ *((?<jul>julet er det(?: i procent)?)|((?<kongembede>længe har)|(?<antalkonge>mange gange har)) (?<hvilkenkonge>[^ ]+) været konge\??|mange har efternavnet (?<efternavn>.+)\??|mange har fornavnet (?<fornavn>.+)\??|mange (?:har navnet|hedder) (?<navne>.+?)(?: til (?<forefter>for|efter)navn)?\??$|(?<gammel>(gammelt?|ungt?|lang tid|længe))|(?<lang>(langt?|kort|højt?|lavt?))|(?<charmerende>charmerende)|(?<tung>(tungt?|let))|(?<klog>(dumt?|klogt?|stupid))|(?<mange>mange)|(?<stor>(stort?|lille|meget))|(?<irriterende>(irriterende|udmattende|enerverende|trættende))|(?<grim>(grimt?|ulækkert?|monstrøst?|klamt?))).*')"
 
 if [ "$jul" ]; then
     charm="$(checkCharmen)"
@@ -45,6 +45,7 @@ elif [ "$kongeembede" ]; then
          exit
     fi
     echo "$EGGS_USER: Så vidt jeg kan se, har $tiltale alt i alt været konge i $(countRoyalReign $hvilkenkonge)."
+    exit
 elif [ "$antalkonge" ]; then
     tiltale=$EGGS_USER
     if [ "$hvilkenkonge" = "jeg" ]; then
@@ -56,6 +57,7 @@ elif [ "$antalkonge" ]; then
          exit
     fi
     echo "$EGGS_USER: Så vidt jeg kan se, har $tiltale alt i alt været konge i $(countRoyalReigns $hvilkenkonge) gange."
+    exit
 elif [ "$gammel" ]; then
     unit=$(randomLine <<EOF
 år
