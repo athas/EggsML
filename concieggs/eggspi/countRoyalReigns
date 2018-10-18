@@ -2,12 +2,10 @@
 #
 # Count the amount of times a king has reigned.
 
-king=$1
+king="$(authedName $1)"
+if ! [ "$king" ]; then
+    echo 0
+    exit
+fi
 
-count=$(dbRead eggskinglist | while read line; do
-    kingname=$(echo $line | cut -d ' ' -f 2)
-    if [ "$kingname" ] && cmpNames $king $kingname; then
-        echo prut
-    fi
-done | wc -l)
-echo $count
+dbRead eggskinglist | egrep -c '^[^ ]+ '"$king"'$'
