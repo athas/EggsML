@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# Hvis Futhark var en knallert, så var denne kommando thansen.
+
+pleasedBy "$EGGS_USER"
+
+(echo "$code" | timeout 10 ssh napoleon.hiperfit.dk "futhark-pkg $@" && pleasedBy "$EGGS_USER" 10) || echo "$EGGS_USER: Det gik galt."
