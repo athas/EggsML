@@ -8,23 +8,17 @@ wasprev=1
 lasttime=-1
 
 dbRead eggskinglist | while read line; do
-    ascension=''
-    kingname=''
-    interregnum=''
-    myth=''
-    eval "$(echo "$line" | parse '(?<ascension>[0-9]+) (?<kingname>.+)|(?<interregnum>[0-9]+)|(?<myth>.+)')"
+    time=$(cut -d ' ' -f 1)
+    kingname=$(cut -d ' ' -f 2)
     if [ $wasprev ]; then
-    	diff=0
-        if [ "$ascension" ]; then
-        	diff=$(expr "$ascension" - "$lasttime")
-        elif [ "$interregnum" ]; then
-        	diff=$(expr "$interregnum" - "$lasttime")
+        if echo "$time" | egrep -q '^[0-9]+$'; then
+            diff=$(expr "$time" - "$lasttime")
+            count=$(expr "$count" + "$diff")
+            wasprev=1
         fi
-        count=$(expr "$count" + "$diff")
-        wasprev=1
     fi
     if cmpNames $king $kingname; then
-        lasttime=$ascension
+        lasttime=$time
         wasprev=0
     fi
 done
