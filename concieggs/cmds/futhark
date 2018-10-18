@@ -28,10 +28,9 @@ else
     fi
 
     allthatjazz=$(cat <<EOF
-    file=\$(mktemp).fut
+    file=concieggs.fut
     cat > \$file
     futharki "\$file" 2>&1
-    rm -f "\$file"
 EOF
                )
     (echo "$code" | timeout 10 ssh napoleon.hiperfit.dk "$allthatjazz" && pleasedBy "$EGGS_USER" 10) || echo "$EGGS_USER: Det gik galt."
