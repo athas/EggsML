@@ -2,7 +2,7 @@
 #
 # Count the amount of times a king has reigned.
 
-king="$(authedName $1)"
+king="$(mainAlias $1)"
 if ! [ "$king" ]; then
     echo 0
     exit
