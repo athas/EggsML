@@ -14,11 +14,13 @@ dbRead eggskinglist | while read line; do
     myth=''
     eval "$(echo "$line" | parse '(?<ascension>[0-9]+) (?<kingname>.+)|(?<interregnum>[0-9]+)|(?<myth>.+)')"
     if [ $wasprev ]; then
+    	diff=0
         if [ "$ascension" ]; then
-            count=$(expr $count + $(expr $ascension - $lasttime))
+        	diff=$(expr "$ascension" - "$lasttime")
         elif [ "$interregnum" ]; then
-            count=$(expr $count + $(expr $interregnum - $lasttime))
+        	diff=$(expr "$interregnum" - "$lasttime")
         fi
+        count=$(expr "$count" + "$diff")
         wasprev=1
     fi
     if cmpNames $king $kingname; then
