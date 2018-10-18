@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# Count the amount of time a king has reigned in seconds.
+
+king=$1
+count=0
+wasprev=1
+lasttime=-1
+
+dbRead eggskinglist | while read line; do
+    ascension=''
+    kingname=''
+    interregnum=''
+    myth=''
+    eval "$(echo "$line" | parse '(?<ascension>[0-9]+) (?<kingname>.+)|(?<interregnum>[0-9]+)|(?<myth>.+)')"
+    if [ $wasprev ]; then
+        if [ "$ascension" ]; then
+            count=$(expr $count + $(expr $ascension - $lasttime))
+        elif [ "$interregnum" ]; then
+            count=$(expr $count + $(expr $interregnum - $lasttime))
+        fi
+        wasprev=1
+    fi
+    if [ cmpNames $king $kingname ]; then
+        lasttime=$ascension
+        wasprev=0
+    fi
+done

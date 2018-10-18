@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# Count the amount of times a king has reigned.
+
+king=$1
+count=0
+
+dbRead eggskinglist | while read line; do
+    ascension=''
+    kingname=''
+    interregnum=''
+    myth=''
+    eval "$(echo "$line" | parse '(?<ascension>[0-9]+) (?<kingname>.+)|(?<interregnum>[0-9]+)|(?<myth>.+)')"
+    if [ cmpNames $king $kingname ]; then
+        count=$(expr $count + 1)
+    fi
+done
