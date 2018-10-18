@@ -34,13 +34,13 @@ elif [ "$navne" ]; then
         esac
     fi
     exit
-elif [ "$kongeembede" ]; then
+elif [ "$kongembede" ]; then
     tiltale=$EGGS_USER
     if [ "$hvilkenkonge" = "jeg" ]; then
         hvilkenkonge=$EGGS_USER
         tiltale="du"
     fi
-    if [ $(countRoyalReign $hvilkenkonge) = 0 ]; then
+    if [ $(countRoyalReign $hvilkenkonge) ]; then
          echo "$EGGS_USER: Mig bekendt har $tiltale aldrig været konge."
          exit
     fi
@@ -52,7 +52,7 @@ elif [ "$antalkonge" ]; then
         hvilkenkonge=$EGGS_USER
         tiltale="du"
     fi
-    if [ $(countRoyalReigns $hvilkenkonge) = 0 ]; then
+    if [ $(countRoyalReigns $hvilkenkonge) ]; then
          echo "$EGGS_USER: Mig bekendt har $tiltale aldrig været konge."
          exit
     fi
