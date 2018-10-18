@@ -35,7 +35,7 @@ elif [ "$navne" ]; then
     fi
     exit
 elif [ "$kongembede" ]; then
-    tiltale=$EGGS_USER
+    tiltale=$hvilkenkonge
     if [ "$hvilkenkonge" = "jeg" ]; then
         hvilkenkonge=$EGGS_USER
         tiltale="du"
@@ -48,7 +48,7 @@ elif [ "$kongembede" ]; then
     echo "$EGGS_USER: Så vidt jeg kan se, har $tiltale alt i alt været konge i $c."
     exit
 elif [ "$antalkonge" ]; then
-    tiltale=$EGGS_USER
+    tiltale=$hvilkenkonge
     if [ "$hvilkenkonge" = "jeg" ]; then
         hvilkenkonge=$EGGS_USER
         tiltale="du"
