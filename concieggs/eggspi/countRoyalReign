@@ -8,8 +8,8 @@ wasprev=1
 lasttime=-1
 
 dbRead eggskinglist | while read line; do
-    time=$(cut -d ' ' -f 1)
-    kingname=$(cut -d ' ' -f 2)
+    time=$(echo $line | cut -d ' ' -f 1)
+    kingname=$(echo $line | cut -d ' ' -f 2)
     if [ $wasprev ]; then
         if echo "$time" | egrep -q '^[0-9]+$'; then
             diff=$(expr "$time" - "$lasttime")

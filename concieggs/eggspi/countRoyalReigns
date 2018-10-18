@@ -6,7 +6,7 @@ king=$1
 count=0
 
 dbRead eggskinglist | while read line; do
-    kingname=$(cut -d ' ' -f 2)
+    kingname=$(echo $line | cut -d ' ' -f 2)
     if [ "$kingname" ]; then
         if cmpNames $king $kingname; then
             count=$(expr "$count" + "1")
