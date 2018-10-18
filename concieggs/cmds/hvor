@@ -45,7 +45,7 @@ elif [ "$kongembede" ]; then
          echo "$EGGS_USER: Mig bekendt har $tiltale aldrig været konge."
          exit
     fi
-    echo "$EGGS_USER: Så vidt jeg kan se, har $tiltale alt i alt været konge i $c."
+    echo "$EGGS_USER: Så vidt jeg kan se, har $tiltale alt i alt været konge i $c sekunder."
     exit
 elif [ "$antalkonge" ]; then
     tiltale=$hvilkenkonge

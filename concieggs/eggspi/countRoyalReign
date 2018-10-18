@@ -3,23 +3,5 @@
 # Count the amount of time a king has reigned in seconds.
 
 king=$1
-count=0
-wasprev=1
-lasttime=-1
 
-dbRead eggskinglist | while read line; do
-    time=$(echo $line | cut -d ' ' -f 1)
-    kingname=$(echo $line | cut -d ' ' -f 2)
-    if [ $wasprev ]; then
-        if echo "$time" | egrep -q '^[0-9]+$'; then
-            diff=$(expr "$time" - "$lasttime")
-            count=$(expr "$count" + "$diff")
-            wasprev=1
-        fi
-    fi
-    if cmpNames $king $kingname; then
-        lasttime=$time
-        wasprev=0
-    fi
-done
-echo $count
+dbRead eggskinglist | egrep '^[^ ]+ '"$king"'$' -A 1 --group-separator='!' | tr '\n' ' ' | tr '!' '\n' | awk '{ s += $3 - $1 } END {print s}'
