@@ -1,0 +1,52 @@
+#!/usr/bin/env python3
+
+import requests
+import re
+
+url = 'https://www.predictit.org/api/marketdata/all'
+
+resp = requests.get(url=url)
+data = resp.json()
+
+markets = data['markets']
+
+# Senate odds
+senate = list(filter(lambda x: x['id'] == 2703, markets))[0]
+senateContracts = senate['contracts']
+republicanControlPrice = list(filter(lambda x: x['id'] == 4332, senateContracts))[0]['lastTradePrice']
+republicanControlPricePrev = list(filter(lambda x: x['id'] == 4332, senateContracts))[0]['lastClosePrice']
+democraticControlPrice = list(filter(lambda x: x['id'] == 4333, senateContracts))[0]['lastTradePrice']
+democraticControlPricePrev = list(filter(lambda x: x['id'] == 4333, senateContracts))[0]['lastClosePrice']
+
+sumPriceS = republicanControlPrice + democraticControlPrice
+sumPriceSPrev = republicanControlPricePrev + democraticControlPricePrev
+republicanChanceS = republicanControlPrice / sumPriceS
+republicanChanceSPrev = republicanControlPricePrev / sumPriceSPrev
+republicanChanceSDiff = republicanChanceS - republicanChanceSPrev
+democraticChanceS = democraticControlPrice / sumPriceS
+democraticChanceSPrev = democraticControlPricePrev / sumPriceSPrev
+democraticChanceSDiff = democraticChanceS - democraticChanceSPrev
+
+# House odds
+house = list(filter(lambda x: x['id'] == 2704, markets))[0]
+houseContracts = house['contracts']
+republicanControlPrice = list(filter(lambda x: x['id'] == 4330, houseContracts))[0]['lastTradePrice']
+republicanControlPricePrev = list(filter(lambda x: x['id'] == 4330, houseContracts))[0]['lastClosePrice']
+democraticControlPrice = list(filter(lambda x: x['id'] == 4331, houseContracts))[0]['lastTradePrice']
+democraticControlPricePrev = list(filter(lambda x: x['id'] == 4331, houseContracts))[0]['lastClosePrice']
+
+sumPriceH = republicanControlPrice + democraticControlPrice
+sumPriceHPrev = republicanControlPricePrev + democraticControlPricePrev
+republicanChanceH = republicanControlPrice / sumPriceH
+republicanChanceHPrev = republicanControlPricePrev / sumPriceHPrev
+republicanChanceHDiff = republicanChanceH - republicanChanceHPrev
+democraticChanceH = democraticControlPrice / sumPriceH
+democraticChanceHPrev = democraticControlPricePrev / sumPriceHPrev
+democraticChanceHDiff = democraticChanceH - democraticChanceHPrev
+
+print("Senatet: Sandsynlighed for republikansk kontrol: {:4.1f} ({:4.1f}); demokratisk: {:4.1f} ({:4.1f})".format((republicanChanceS * 100), republicanChanceSDiff * 100 , democraticChanceS * 100, democraticChanceSDiff * 100 ))
+print("Repræsentanternes Hus: Sandsynlighed for republikansk kontrol: {:4.1f} ({:4.1f}); demokratisk: {:4.1f} ({:4.1f})".format((republicanChanceH * 100), republicanChanceHDiff * 100 , democraticChanceH * 100, democraticChanceHDiff * 100 ))
+
+
+
+
