@@ -3,5 +3,6 @@
 # Count the amount of time a king has reigned in seconds.
 
 king="$(mainAlias $1)"
+regexking=$(aliases $king | awk 'BEGIN {s=0; printf "("} {if (s!=0) {printf "|"} s++;printf "%s",$1} END {print ")"}')
 
-dbRead eggskinglist | egrep '^[0-9]+ '"$king"'$' -A 1 | tr '\n' ' ' | tr -s '\-\-' '\n' | awk 'BEGIN {s = 0} { s += $3 - $1 } END {print s}'
+dbRead eggskinglist | egrep '^[0-9]+ '"$regexking"'$' -A 1 | tr '\n' ' ' | tr -s '\-\-' '\n' | awk 'BEGIN {s = 0} { s += $3 - $1 } END {print s}'
