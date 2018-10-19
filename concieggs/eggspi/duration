@@ -1,12 +1,12 @@
 #!/usr/bin/env perl
+#
+# Take a duration based on seconds and print them nicely.
 use 5.020;
 use strict;
 use warnings;
 use utf8::all;
 
-my $unixtime1 = shift @ARGV;
-my $unixtime2 = shift @ARGV || time;
-my $delta = abs($unixtime2 - $unixtime1);
+my $delta = shift @ARGV;
 
 my $minute = 60;
 my $hour = 60 * $minute;
@@ -70,4 +70,4 @@ sub og {
     return ($rest ? $rest . ' og ' : '') . $last;
 }
 
-say og(@duration) . ' siden';
+say og(@duration);
