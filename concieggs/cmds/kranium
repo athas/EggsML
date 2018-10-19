@@ -1,4 +1,4 @@
 #!/bin/sh
 #
 # Returner af concieggs' HEAD
-echo "Jeg er $(git rev-parse HEAD)"
+echo "Jeg er $(git rev-parse HEAD) med commitbeskeden \"$(git log -1 --pretty=%B)\""
