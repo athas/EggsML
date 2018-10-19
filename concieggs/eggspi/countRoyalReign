@@ -4,4 +4,4 @@
 
 king="$(mainAlias $1)"
 
-dbRead eggskinglist | egrep '^[0-9]+ '"$king"'$' -A 1 | tr '\n' ' ' | tr -s '\-\-' '\n' | awk '{ s += $3 - $1 } END {print s}'
+dbRead eggskinglist | egrep '^[0-9]+ '"$king"'$' -A 1 | tr '\n' ' ' | tr -s '\-\-' '\n' | awk 'BEGIN {s = 0} { s += $3 - $1 } END {print s}'
