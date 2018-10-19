@@ -2,4 +2,6 @@
 #
 # Make a user God!
 
-echo "$1" | dbWriteAppend eggsgod
+god="$(mainAlias $1)"
+
+echo "$god" | dbWriteAppend eggsgod

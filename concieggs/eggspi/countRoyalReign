@@ -2,6 +2,6 @@
 #
 # Count the amount of time a king has reigned in seconds.
 
-king=$1
+king="$(mainAlias $1)"
 
 dbRead eggskinglist | egrep '^[^ ]+ '"$king"'$' -A 1 --group-separator='!' | tr '\n' ' ' | tr '!' '\n' | awk '{ s += $3 - $1 } END {print s}'

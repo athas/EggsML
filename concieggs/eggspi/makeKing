@@ -2,12 +2,14 @@
 #
 # Make a user King!
 
-echo "$1" | dbWrite eggsking
+king="$(mainAlias $1)"
+
+echo "$king" | dbWrite eggsking
 
 kongenavn | dbWrite eggskingname
 
 now=$(date '+%s')
-echo "$now $1" | dbWriteAppend eggskinglist
+echo "$now $king" | dbWriteAppend eggskinglist
 
 dbDelete vilvæltekongen
-removeFromBadStanding "$1"
+removeFromBadStanding "$king"
