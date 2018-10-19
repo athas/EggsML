@@ -21,7 +21,7 @@ if [ "$king" ] && ! [ "$god" ] && ! [ "$user" ]; then
     if dbRead robespierre; then
     	randomLine <<EOF
 Republikken er sand!  Kongens hovedet ligger på Revolutionspladsen!
-Intet rationelt samfund kan baseres på guddommelig magt!
+Intet rationelt samfund kan baseres på påstået guddommelig magt!
 Dydighedsforvaltningen har magten!  Længe leve Robespierre!
 EOF
     elif [ -z "$kingname" ]; then
