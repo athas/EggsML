@@ -1,11 +1,21 @@
-#!/bin/sh
+#!/usr/bin/env perl
 #
 # Count the amount of times a king has reigned.
 
-king="$(mainAlias $1)"
-if ! [ "$king" ]; then
-    echo 0
-    exit
-fi
+use 5.020;
+use warnings;
+no warnings 'experimental::smartmatch';
 
-dbRead eggskinglist | egrep -c '^[^ ]+ '"$king"'$'
+use EggsML::EggsPI list => [qw(aliases dbRead)];
+
+unless (@ARGV > 0) {
+    say "0";
+    exit(0);
+}
+
+my ($user) = @ARGV;
+my @aliases = map { fc } aliases($user);
+my @kinglist = dbRead('eggskinglist');
+
+my @kings = map { fc s/^(?:\d+ )?(\S+)$/$1/r } @kinglist;
+say scalar grep { $_ ~~ \@aliases } @kings;
