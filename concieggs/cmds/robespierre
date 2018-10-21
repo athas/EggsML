@@ -8,6 +8,7 @@ if [ "$1" = af ] && dbRead robespierre; then
 $EGGS_USER: Uden guddommelighed, hvordan kan kongen så få magten?
 $EGGS_USER: Måske du skal tale med Hr. Dawkins om hvordan man bliver konge?
 $EGGS_USER: Hvis magten ikke kommer fra folket?  Hvorfra så?!
+$EGGS_USER: Nej!  Vi tror kun på Det Almægtige Væsen!
 EOF
         exit
     fi
@@ -17,12 +18,15 @@ EOF
     fi
     randomLine <<EOF
 Længe leve kongen!
-Monarkiet er tilbage!
-De gamle værdier vender tilbage!
-Wienerkongressen sikrede det!
-Bourbon-restoration er rede!
+Ned med republikken, det var kun kaos!
+Tæller Kejserriget som et Kongerige?  Men hvor om alting er har vi nu faktisk en Konge.
+Wienerkongressen gav os kongen tilbage!
+Bourbonerne er tilbage!
+Giv Louis XVIII nøglerne til tronen!
 EOF
-	echo "Men øøøøh... hvem skal være konge?"
+# TODO: Lav en Wienerkongres-funktion, som udvælger en konge.
+    sleep 1
+	echo "Men øøøøh... hvem skal nu være konge?"
     dbDelete robespierre
 else
     if dbRead robespierre; then
@@ -30,12 +34,12 @@ else
         exit
     fi
     if ! checkCooldown "robespierre" $((3600 * 24)); then
-        echo "$EGGS_USER: Giv lige Robespierre en chance, manden bliver jo træt af al den revolution!"
+        echo "$EGGS_USER: Giv lige Robespierre en chance, vi skal lige putte hovedet tilbage på ham først!"
         exit
     fi
     echo "$(ack)  Robespierre-tilstand aktiveret!"
     sleep 1
-    if [ $(dbRead eggsking) ]; then
+    if dbRead eggsking; then
         king=$(dbRead eggsking)
         randomLine <<EOF
 Vive la revolution !
