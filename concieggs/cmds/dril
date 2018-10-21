@@ -29,6 +29,7 @@ t gespenst
 t genfærd
 t spøgelse
 n vejleder
+n dæmon
 EOF
 }
 
@@ -39,6 +40,7 @@ Pawel
 Cosmin
 deadlinen
 Andresen
+samtalen med chefen
 EOF
 }
 
@@ -64,6 +66,7 @@ randomLine <<EOF
 /me kan ikke holde masken
 /me trækker på smilebåndet
 /me holder et grin tilbage
+/me smiler med øjnene
 EOF
 
 sleep 1
