@@ -11,12 +11,21 @@ tMonster() {
     randomLine <<EOF
 t monster
 t uhyre
+n øksemorder
+t kuglelyn
+EOF
+}
+
+farligt() {
+    randomLine <<EOF
+pejlevognen
 EOF
 }
 
 randomLine <<EOF
 $user: Kig lige bag dig!  Der er e$(tMonster)!!!
 Vend dig om, $user!  Jeg kan se e$(tMonster)!!!
+Så for pokker, $user!  Nu kommer $(farligt)!!!
 EOF
 
 sleep 4
@@ -24,6 +33,7 @@ sleep 4
 randomLine <<EOF
 /me kan ikke holde masken
 /me trækker på smilebåndet
+/me holder et grin tilbage
 EOF
 
 sleep 1
@@ -31,6 +41,7 @@ sleep 1
 randomLine <<EOF
 ... Det var bare GAS, $user!
 ... Det var bare FOR SJOV, $user!
+... Jeg laver sjov med dig, $user!
 EOF
 
 sleep 2
