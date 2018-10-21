@@ -40,6 +40,6 @@ if dbRead robespierre; then
 elif isKing "$last"; then
     echo "Fluen har fundet lorten, og lander på $last!  Men $last er allerede konge, så i praksis ingen ny konge."
 else
-    echo "Fluen har fundet lorten, og lander på $last!  $last er den nye konge af #eggsml!"
+    echo "Fluen har fundet lorten, og lander på $last!  $last er den nye Konge af IRC!"
     makeKing "$last"
 fi

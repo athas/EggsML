@@ -103,7 +103,7 @@ def hvemFoerer(dictionary, Vindersekvens=False):
     taber = randomAlias(sorted_dict[0][0])
 
     if Vindersekvens:
-        print ("%s %s! Du har lige vundet i prikkeleg!! %s er den nye konge af #eggsml!" % (congrats() , vinder, vinder))
+        print ("%s %s! Du har lige vundet i prikkeleg!! %s er den nye Konge af IRC!" % (congrats() , vinder, vinder))
         print("Her er din cutscene!")
         sys.stdout.flush()
         subprocess.call(["runcmd heldigvideo"], shell=True)
