@@ -13,12 +13,16 @@ t monster
 t uhyre
 n øksemorder
 t kuglelyn
+n vejleder
 EOF
 }
 
 farligt() {
     randomLine <<EOF
 pejlevognen
+Pawel
+Cosmin
+deadlinen
 EOF
 }
 
@@ -42,6 +46,7 @@ randomLine <<EOF
 ... Det var bare GAS, $user!
 ... Det var bare FOR SJOV, $user!
 ... Jeg laver sjov med dig, $user!
+... pwned, $user!
 EOF
 
 sleep 2
