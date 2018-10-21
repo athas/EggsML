@@ -13,6 +13,9 @@ t monster
 t uhyre
 n øksemorder
 t kuglelyn
+t gespenst
+t genfærd
+t spøgelse
 EOF
 }
 
@@ -22,10 +25,19 @@ pejlevognen
 EOF
 }
 
+pinligt() {
+    randomLine <<EOF
+glemt at lyne op
+sovs på skjorten
+spinat mellem tænderne
+EOF
+}
+
 randomLine <<EOF
 $user: Kig lige bag dig!  Der er e$(tMonster)!!!
 Vend dig om, $user!  Jeg kan se e$(tMonster)!!!
 Så for pokker, $user!  Nu kommer $(farligt)!!!
+Ej $user, du har $(pinligt)!!
 EOF
 
 sleep 4
