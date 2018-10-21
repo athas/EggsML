@@ -1,4 +1,5 @@
 #!/bin/sh
 #
 # Returner af concieggs' HEAD
-echo "Jeg er $(git rev-parse HEAD) med commitbeskeden \"$(git log -1 --pretty=%B)\""
+SVIP=${1:-"HEAD"}
+echo "Jeg er $(git rev-parse $SVIP) med commitbeskeden \"$(git log --format=%B -n 1 $SVIP)\""
