@@ -3,8 +3,20 @@
 # Dril nogen med de værst tænkelige ord.  Brug: dril <bruger>
 
 user=$1
+
+if isKing "$user"; then
+    echo "$EGGS_USER: Nej!  Man driller ikke kongen!  Så er det i brummen med dig!"
+    arrestUser "$EGGS_USER"
+    exit
+fi
+
 if ! [ "$user" ]; then
     user=$EGGS_USER
+fi
+
+if isKing "$user"; then
+    echo "Øøøøøh... det vil jeg helst ikke, Deres Majestæt."
+    exit
 fi
 
 tMonster() {
