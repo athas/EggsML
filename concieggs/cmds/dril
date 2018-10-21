@@ -3,6 +3,9 @@
 # Dril nogen med de værst tænkelige ord.  Brug: dril <bruger>
 
 user=$1
+if ! [ "$user" ]; then
+    user=$EGGS_USER
+fi
 
 tMonster() {
     randomLine <<EOF
