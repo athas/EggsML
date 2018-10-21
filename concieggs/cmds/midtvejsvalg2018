@@ -27,6 +27,37 @@ democraticChanceS = democraticControlPrice / sumPriceS
 democraticChanceSPrev = democraticControlPricePrev / sumPriceSPrev
 democraticChanceSDiff = democraticChanceS - democraticChanceSPrev
 
+# Odds derived from Senate seats market
+# But we can't combine odds yet since we do not have the
+# volume information (we want to combine using the volume as weighting)
+# These prices are included since they have the largest volume
+# at the time of this commit.
+senateSeatContracts = list(filter(lambda x: x['id'] == 2891, markets))[0]['contracts']
+
+# 50 seats for the Republicans will give them control of the Senate
+# since VP Pence is the tie breaker
+pWin = re.compile("^(5|6)")
+pLose = re.compile("^(4)")
+winPrice = 0.0
+winPricePrev = 0.0
+losePrice = 0.0
+losePricePrev = 0.0
+for c in senateSeatContracts:
+    if (pWin.match(c['shortName'])):
+        winPrice += c['lastTradePrice']
+        winPricePrev += c['lastClosePrice']
+    if (pLose.match(c['shortName'])):
+        losePrice += c['lastTradePrice']
+        losePricePrev += c['lastClosePrice']
+
+totalPriceS = winPrice + losePrice
+totalPriceSPrev = winPricePrev + losePricePrev
+odds = winPrice / totalPriceS
+diff = winPrice / totalPriceS - winPricePrev / totalPriceSPrev
+
+#print("{:4.1f}".format(odds * 100))
+#print("{:4.1f}".format(diff * 100))
+
 # House odds
 house = list(filter(lambda x: x['id'] == 2704, markets))[0]
 houseContracts = house['contracts']
