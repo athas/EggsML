@@ -1,5 +1,6 @@
 #!/bin/sh
 #
-# Returner af concieggs' HEAD
+# Returner hash af concieggs' HEAD, eller andet commit ved at commit til det, som git gør.
 SVIP=${1:-"HEAD"}
-echo "Jeg er $(git rev-parse $SVIP) med commitbeskeden \"$(git log --format=%B -n 1 $SVIP)\""
+[ "$#" -gt 0 ] && [ "$1" != 'HEAD' ] && VERB="var" || VERB="er"
+echo "Jeg $VERB $(git rev-parse $SVIP) med commitbeskeden \"$(git log --format=%B -n 1 $SVIP)\""
