@@ -10,7 +10,7 @@ if isKing "$user"; then
     exit
 fi
 
-if ! [ "$user" ] || [ $user = concieggs ]; then
+if ! [ "$user" ] || [ $user = $CONCIEGGS_NAME ]; then
     user=$EGGS_USER
 fi
 
