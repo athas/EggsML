@@ -10,7 +10,7 @@ if isKing "$user"; then
     exit
 fi
 
-if ! [ "$user" ]; then
+if ! [ "$user" ] || [ $user = concieggs ]; then
     user=$EGGS_USER
 fi
 
@@ -47,6 +47,7 @@ pinligt() {
 glemt at lyne op
 sovs på skjorten
 spinat mellem tænderne
+chips i skægget
 EOF
 }
 
