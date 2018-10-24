@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# Træk data ud af Marvels API.
+
+public_key=$(cat $HOME/credentials/marvel/public-key)
+private_key=$(cat $HOME/credentials/marvel/private-key)
+timestamp=$(date +%s)
+
+hash=$(echo -n $timestamp$private_key$public_key | md5)
+
+endpoint=$1
+shift
+args=''
+for arg in "$@"; do
+    args="$args -d $arg"
+done
+curl -s -G -d apikey=$public_key -d ts=$timestamp -d hash=$hash $args "https://gateway.marvel.com/v1/public/$endpoint"
