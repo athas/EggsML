@@ -23,7 +23,8 @@ got=$(cat $hyps | fgrep "$wanted_category_raw" | randomLine | cut -d'<' -f1 | to
 randomLine <<EOF
 $char1 og $char2 dyster om hvorvidt $wanted_category er $wanted eller $got!
 Et fjendskab opstår mellem $char1 og $char2 når $char1 stjæler $wanted fra $char2, som så må nøjes med $got!
-Det umage par $char1 og $char2 forenes i kampen mod at forhindre $wanted i at blive klassificieret som $wanted_category!
+Det umage par $char1 og $char2 forenes i kampen mod at forhindre $wanted i at blive klassificeret som $wanted_category!
 $char1 affyrer en stråle af energi mod $char2, men strålen rammer $wanted som forvandles til $got!
 $char1 indleder forblændet et forhold med $char2 i håbet om at $char2 er $wanted, men så viser det sig at $char2 hele tiden var $got.
+$char1 bryder med $char2 over uenigheder i etikken ved at bruge $got i stedet for $wanted til at løse $wanted_category.
 EOF
