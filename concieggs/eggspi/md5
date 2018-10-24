@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Linux har en dårligere md5-kommando end *BSD.
+
+/bin/md5 2> /dev/null || md5sum | cut -d ' ' -f 1
