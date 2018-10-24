@@ -10,7 +10,10 @@ else
         exit
     fi
     hook=$1
-    if isHookDetached "$hook"; then
+    if [ "$hook" = "alting" -o "$hook" = "alt" ]; then
+        echo "$EGGS_USER: Nej, jeg kan ikke bare forsvinde."
+        exit
+    else if isHookDetached "$hook"; then
         echo "$EGGS_USER: $hook er skam allerede afhægtet."
     else
         if [ "$hook" = runcmd ]; then
