@@ -24,4 +24,5 @@ randomLine <<EOF
 $char1 og $char2 dyster om hvorvidt $wanted_category er $wanted eller $got!
 Et fjendskab opstår mellem $char1 og $char2 når $char1 stjæler $wanted fra $char2, som så må nøjes med $got!
 Det umage par $char1 og $char2 forenes i kampen mod at forhindre $wanted i at blive klassificieret som $wanted_category!
+$char1 affyrer en stråle af energi mod $char2, men strålen rammer $wanted som forvandles til $got!
 EOF
