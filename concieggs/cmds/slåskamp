@@ -17,7 +17,7 @@ else
 fi
 wanted=$(echo "$wanted_raw" | cut -d'<' -f1 | toupper)
 wanted_category_raw=$(echo "$wanted_raw" | cut -d'<' -f2)
-wanted_category=$(echo "$wanted_category" | toupper)
+wanted_category=$(echo "$wanted_category_raw" | toupper)
 got=$(cat $hyps | fgrep "$wanted_category_raw" | randomLine | cut -d'<' -f1 | toupper)
 
 randomLine <<EOF
