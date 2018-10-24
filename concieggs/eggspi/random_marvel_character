@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -e
+
+marvel characters limit=1 offset=$(random 0 1490) | egrep -o '"name":"[^"]+"' | head -n 1 | cut -d '"' -f 4
