@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# Se hvordan vores lille by ser ud.
+
+# TODO: Antag noget andet.
+
+dbRead hyggeby

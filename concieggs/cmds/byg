@@ -1,0 +1,49 @@
+#!/bin/sh
+#
+# Byg noget i vores lille by.
+
+MAPWIDTH=10
+MAPHEIGHT=10
+what=$2
+tile=$4
+
+if [ ! "$tile" ]; then
+    echo "Sådan bygger man: byg en <ting> på <felt>"
+    exit
+fi
+
+tilecol="${tile:0:1}"
+tilerow="${tile:1:1}"
+
+# TODO: Brug $MAPWIDTH i stedet for bare at begrænse til J.
+
+if [ ! "$tilerow" ] || [ ! "$tilecol" ] || echo $tilecol | egrep -vq "[a-jA-J]" || echo $tilerow | egrep -vq "[0-9]"; then
+    echo "Jeg kender kun felter fra A-J 0-9, og skriv dem f.eks. A0"
+    exit
+fi
+
+tilecol="${tilecol^^}"
+tilencol=$(($(printf '%d' "'$tilecol") - 64))
+
+function updateMap() {
+    item=$1
+    tilerow=$2
+    tilecol=$3
+    map=$(dbRead hyggeby)
+    while [ $(echo "$map" | wc -l) -lt $(($MAPHEIGHT + 1)) ]; do
+        map="$map"$(yes '. ' | head -n $MAPWIDTH | tr -d '\n')$'\n'
+    done
+    line=$(echo "$map" | sed -n "${tilerow}p" | awk "{\$${tilecol}=\"$item\";}1")
+    map=$(echo "$map" | sed "${tilerow}s/.*/$line/")
+    echo "$map" | dbWrite hyggeby
+}
+
+case $what in
+    vej)
+        echo "Jeg har bygget en vej på $tilecol$tilerow!"
+        updateMap V $tilerow $tilencol
+        break;;
+    *)
+        echo "Øh, jeg fatter ikke hvad $what er."
+        ;;
+esac
