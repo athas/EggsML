@@ -10,4 +10,8 @@ hash=$(echo -n $timestamp$private_key$public_key | md5)
 
 endpoint=$1
 shift
-curl -s -G -d apikey=$public_key -d ts=$timestamp -d hash=$hash "$@" "https://gateway.marvel.com/v1/public/$endpoint"
+args=''
+for arg in "$@"; do
+    args="$args -d $arg"
+done
+curl -s -G -d apikey=$public_key -d ts=$timestamp -d hash=$hash $args "https://gateway.marvel.com/v1/public/$endpoint"

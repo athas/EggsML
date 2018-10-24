@@ -4,7 +4,7 @@
 
 # Udvid det her:
 
-character=$(marvel characters -d limit=1 -d offset=$(random 0 1490) \
+character=$(marvel characters limit=1 offset=$(random 0 1490) \
                 | egrep -o '"name":"[^"]+"' | head -n 1 | cut -d '"' -f 4)
 
 echo "$EGGS_USER: Min favorit fra MARVEL er selvfølgelig $character!"
