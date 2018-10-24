@@ -1,0 +1,26 @@
+#!/bin/sh
+#
+# Et forslag til næste film i Marvel-universet.
+
+char1=$(random_marvel_character | toupper)
+char2=$(random_marvel_character | toupper)
+
+hyps="$CONCIEGGS_DB_DIR/dannet-utils/hyponyms"
+
+# Only use hyperonyms with at least two hyponyms.
+over="$(cut -d'<' -f2 $hyps | sort | uniq -c | sort -n | grep -v ' 1 ' | sed -E 's/ *[0-9]+ //' | grep -i "$1" | randomLine)"
+
+if [ $# = 1 ]; then
+    wanted_raw=$(grep -i $1 $hyps | randomLine)
+else
+    wanted_raw=$(randomLine < $hyps)
+fi
+wanted=$(echo "$wanted_raw" | cut -d'<' -f1 | toupper)
+wanted_category=$(echo "$wanted_raw" | cut -d'<' -f2)
+got=$(cat $hyps | fgrep "$wanted_category" | randomLine | cut -d'<' -f1 | toupper)
+
+randomLine <<EOF
+$char1 og $char2 dyster om hvorvidt $wanted_category er $wanted eller $got!
+Et fjendskab opstår mellem $char1 og $char2 når $char1 stjæler $wanted fra $char2, som så må nøjes med $got!
+Det umage par $char1 og $char2 forenes i kampen mod at forhindre $wanted i at blive klassificieret som $wanted_category!
+EOF
