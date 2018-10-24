@@ -14,11 +14,6 @@ if ! [ "$user" ] || [ $user = $CONCIEGGS_NAME ]; then
     user=$EGGS_USER
 fi
 
-if isKing "$user"; then
-    echo "Øøøøøh... det vil jeg helst ikke, Deres Majestæt."
-    exit
-fi
-
 tMonster() {
     randomLine <<EOF
 t monster
