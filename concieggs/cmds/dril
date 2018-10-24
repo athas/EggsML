@@ -26,6 +26,8 @@ t spøgelse
 n vejleder
 n dæmon
 t skelet
+n ulv
+n isbjørn
 EOF
 }
 
@@ -57,7 +59,7 @@ Så for pokker, $user!  Nu kommer $(farligt)!!!
 Ej $user, du har $(pinligt)!!
 EOF
 
-sleep 4
+sleep 6
 
 randomLine <<EOF
 /me kan ikke holde masken
@@ -66,15 +68,16 @@ randomLine <<EOF
 /me smiler med øjnene
 EOF
 
-sleep 1
+sleep 3
 
 randomLine <<EOF
 ... Det var bare GAS, $user!
 ... Det var bare FOR SJOV, $user!
 ... Jeg laver sjov med dig, $user!
 ... pwned, $user!
+... $user, der fik jeg dig!
 EOF
 
-sleep 2
+sleep 1
 
 echo "$user: $(laughter)"
