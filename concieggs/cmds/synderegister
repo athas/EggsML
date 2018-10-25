@@ -13,7 +13,7 @@ for who in $(dbIterate "users" | sed 's!users/!!'); do
         echo "$name $reasons."
         any=yes
     fi
-done
+done | head -n 10
 
 if ! [ "$any" ]; then
     echo "$EGGS_USER: Ingen er skyldige i mine øjne."
