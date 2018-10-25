@@ -21,7 +21,7 @@ if [ ! "$tilerow" ] || [ ! "$tilecol" ] || echo $tilecol | egrep -vq "[a-jA-J]" 
     exit
 fi
 
-tilecol="${tilecol^^}"
+tilecol=$(echo "$tilecol" | tr 'a-z' 'A-Z')
 tilencol=$(($(printf '%d' "'$tilecol") - 64))
 
 function updateMap() {
