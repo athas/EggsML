@@ -1,0 +1,13 @@
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+
+my $EGGS_BODY = $ENV{EGGS_BODY};
+
+system("shuttingUp");
+exit if ($? >> 8) == 0;
+
+my $CONCIEGGS_NAME = $ENV{CONCIEGGS_NAME};
+if ($EGGS_BODY =~ qr/$CONCIEGGS_NAME/i) {
+    print "Taler I om mig?\n";
+}
