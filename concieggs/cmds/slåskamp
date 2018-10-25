@@ -4,6 +4,7 @@
 
 char1=$(random_marvel_character | toupper)
 char2=$(random_marvel_character | toupper)
+char3=$(random_marvel_character | toupper)
 
 hyps="$CONCIEGGS_DB_DIR/dannet-utils/hyponyms"
 
@@ -26,5 +27,7 @@ Et fjendskab opstår mellem $char1 og $char2 når $char1 stjæler $wanted fra $c
 Det umage par $char1 og $char2 forenes i kampen mod at forhindre $wanted i at blive klassificeret som $wanted_category!
 $char1 affyrer en stråle af energi mod $char2, men strålen rammer $wanted som forvandles til $got!
 $char1 indleder forblændet et forhold med $char2 i håbet om at $char2 er $wanted, men så viser det sig at $char2 hele tiden var $got.
-$char1 bryder med $char2 over uenigheder i etikken ved at bruge $got i stedet for $wanted til at løse $wanted_category.
+$char1 bryder med $char2 over uenigheder i etikken ved at bruge $got i stedet for $wanted når der skal bruges $wanted_category.
+Konflikten spænder til når $char1 havde fået lovning på $wanted fra $char2, men $char2 så dukker op med $got!
+Er $wanted virkelig $wanted_category?  $char1 og $char2 er ikke enige, men danner fælles front da $char3 ankommer med $got.
 EOF
