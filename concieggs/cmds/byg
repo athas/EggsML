@@ -24,7 +24,7 @@ fi
 tilecol=$(echo "$tilecol" | tr 'a-z' 'A-Z')
 tilencol=$(($(printf '%d' "'$tilecol") - 64))
 
-function updateMap() {
+updateMap () {
     item=$1
     tilerow=$2
     tilecol=$3
