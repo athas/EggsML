@@ -12,8 +12,7 @@ if [ ! "$tile" ]; then
     exit
 fi
 
-tilecol="${tile:0:1}"
-tilerow="${tile:1:1}"
+eval "$(echo "$tile" | parse '(?<tilecol>[a-zA-Z]+)(?<tilerow>[0-9]+)')"
 
 # TODO: Brug $MAPWIDTH i stedet for bare at begrænse til J.
 
