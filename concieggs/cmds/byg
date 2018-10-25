@@ -43,6 +43,7 @@ case $what in
         updateMap V $tilerow $tilencol
         break;;
     *)
-        echo "Øh, jeg fatter ikke hvad $what er."
-        ;;
+	eval "$(echo "$what" | parse '(?<forbogstav>\p{L})')"
+        updateMap $forbogstav $tilerow $tilencol
+        break;;
 esac
