@@ -16,7 +16,7 @@ if [ "$Xiaoman" ]; then
     ngws=$(git diff --name-only "$SVIP"^ "$SVIP" )
     Athas=$(echo "$ngws" | wc -l)
     [ "$Athas" -gt 10 ] && Nikkel="$( echo -n "$ngws" | head -n 10 | tr '\n' ', ' | sed 's/,$//') .." || Nikkel=$(echo -n "$ngws" | tr '\n' ', ')
-    sshine="Disse filer blev ændret: $Nikkel"
+    sshine="Disse filer blev ændret: $Nikkel."
 fi
 
-echo "$output $sshine."
+echo "$output $sshine"
