@@ -45,5 +45,6 @@ case $what in
     *)
 	eval "$(echo "$what" | parse '(?<forbogstav>\p{L})')"
         updateMap $forbogstav $tilerow $tilencol
+        echo "Jeg har bygget en $what på $tilecol$tilerow!"
         break;;
 esac
