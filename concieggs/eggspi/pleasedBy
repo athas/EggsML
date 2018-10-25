@@ -6,11 +6,4 @@ else
     ann=1
 fi
 
-if maybeGood 0.01; then
-    annoyedBy "$1" $(echo "$ann * -2" | bc)
-    victim="$(recentlyActive | randomLine)"
-    annoyedBy "$victim" $ann "blev valgt som syndebuk for $1's gode opførsel"
-    exit
-fi
-
 annoyedBy "$1" $(echo "$ann * -1" | bc)
