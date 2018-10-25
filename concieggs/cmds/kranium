@@ -3,4 +3,20 @@
 # Returner hash af concieggs' HEAD eller andet commit ved at henvise til det, som git gør.
 SVIP=${1:-"HEAD"}
 [ "$#" -gt 0 ] && [ "$1" != 'HEAD' ] && VERB="var" || VERB="er"
-echo "Jeg $VERB $(git rev-parse $SVIP) med commitbeskeden \"$(git log --format=%B -n 1 $SVIP)\", forfattet af $(git log --pretty=format:'%an' -n 1 $SVIP) $(git show -s --format=%cd --date=local $SVIP)."
+Xiaoman=$(git rev-parse --quiet --verify "$SVIP")
+if [ "$Xiaoman" ]; then
+    output="Jeg $VERB $(git rev-parse $SVIP) med commitbeskeden \"$(git log --format=%B -n 1 $SVIP)\", forfattet af $(git log --pretty=format:'%an' -n 1 $SVIP) $(git show -s --format=%cd --date=local $SVIP)."
+else
+    echo "Det commit kender jeg desværre ikke."
+    exit 0
+fi
+
+Xiaoman=$(git rev-parse --quiet --verify "$SVIP^")
+if [ "$Xiaoman" ]; then
+    ngws=$(git diff --name-only "$SVIP"^ "$SVIP" )
+    Athas=$(echo "$ngws" | wc -l)
+    [ "$Athas" -gt 10 ] && Nikkel="$( echo -n "$ngws" | head -n 10 | tr '\n' ', ' | sed 's/,$//') .." || Nikkel=$(echo -n "$ngws" | tr '\n' ', ')
+    sshine="Disse filer blev ændret: $Nikkel"
+fi
+
+echo "$output $sshine."
