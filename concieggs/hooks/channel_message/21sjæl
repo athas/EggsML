@@ -1,13 +1,12 @@
-#!/usr/bin/env perl
-use 5.012;
-use warnings;
+#!/bin/sh
 
-my $EGGS_BODY = $ENV{EGGS_BODY};
+shuttingUp && exit
 
-system("shuttingUp");
-exit if ($? >> 8) == 0;
-
-my $CONCIEGGS_NAME = $ENV{CONCIEGGS_NAME};
-if ($EGGS_BODY =~ qr/$CONCIEGGS_NAME/i) {
-    print "Taler I om mig?\n";
-}
+if echo "$EGGS_BODY" | grep -qiE $CONCIEGGS_NAME; then
+    randomLine <<EOF
+Taler I om mig?
+Ja, det er mig der er ${CONCIEGGS_NAME}!
+Det er altså ikke særligt høfligt at tale om mig, men ikke at tale til mig.
+Jeg er lige her.
+EOF
+fi
