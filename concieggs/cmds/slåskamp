@@ -35,4 +35,7 @@ $char1 med $wanted møder $got's forkæmper $char2 i en episk konflikt der skal 
 $char1 forklædt som $wanted infiltrerer en hemmelig organisation der spreder $wanted_category, men $char2 gennemskuer forklædningen!  Skulle $char1 have valgt $got i stedet?
 Efter mange års konflikt mellem $char1 og $char2 indgås kompromis om at $wanted er lige så godt som $got.  Lige indtil $char3 blander sig...
 $char1 og $char2 slapper af efter deres fælles bekæmpelse af $expected.  MEN UD AF DET BLÅ KOMMER SÅ $got!!!
+$char1 har i årevis bevogtet statens dyrebare beholdning af $wanted, men i kulissen pønser $char2 på at stjæle alt $wanted, og erstatte det med det langt billigere $got.
+$char1 cirkelsparker $char2, som smadrer ind i en lagerbygning fyldt med $wanted_category. $char2 ligger kvæstet mellem $wanted og $got, men får så en snedig idé...
+For at stoppe $char1, rejser $char2 tilbage i tiden for at forhindre mødet mellem $char1 og $wanted. Men da $char2 kommer tilbage, er verden helt uden $wanted_category.
 EOF
