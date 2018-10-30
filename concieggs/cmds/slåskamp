@@ -34,4 +34,5 @@ $wanted eller $got?  Dette er netop spørgsmålet i en voldsom konflikt der opst
 $char1 med $wanted møder $got's forkæmper $char2 i en episk konflikt der skal komme til at afgøre fremtiden for $wanted_category.
 $char1 forklædt som $wanted infiltrerer en hemmelig organisation der spreder $wanted_category, men $char2 gennemskuer forklædningen!  Skulle $char1 have valgt $got i stedet?
 Efter mange års konflikt mellem $char1 og $char2 indgås kompromis om at $wanted er lige så godt som $got.  Lige indtil $char3 blander sig...
+$char1 og $char2 slapper af efter deres fælles bekæmpelse af $expected.  MEN UD AF DET BLÅ KOMMER SÅ $got!!!
 EOF
