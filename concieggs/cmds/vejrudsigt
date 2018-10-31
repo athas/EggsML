@@ -127,6 +127,18 @@ hitler = r'''
 ░░░░░▀▄░▄▀█░░░░░█░░▌░░░░▀▄░░░░░█
 '''
 
+suisse = r'''
+          /\
+         /**\
+        /****\   /\
+       /      \ /**\
+      /  /\    /    \
+     /  /  \  /      \
+    /  /    \/ /\     \
+   /  /      \/  \/\   \
+__/__/_______/___/__\___\
+'''
+
 def date_convert(s):
     """Convert a datetime string from yr.no to datetime object."""
     return datetime.strptime(s, "%Y-%m-%dT%H:%M:%S")
@@ -225,9 +237,11 @@ def color_wind_symbol(windspeed, wind_symbol):
 
 cph_url = 'https://www.yr.no/place/Denmark/Capital/Copenhagen/forecast.xml'
 url = cph_url
+hero = ''
 if (os.getenv('EGGS_USER') == "sword_smith"):
     url = 'https://www.yr.no/place/Switzerland/Zug/Zug/forecast.xml'
     warning = 'Vejrudsigt for *Zug, Schweiz*'
+    hero = suisse
 
 with ur.urlopen(url) as f:
     tree = ET.parse(f)
@@ -251,13 +265,15 @@ fancy_unicode = 'svip' in recently_active
 
 pad_temp = max(len(time.find('temperature').attrib['value']) for time in tabular)
 
-safe_choices = [s.split('\n')[1:-1] for s in
-                [superman, kingkong, someguy, kram]]
-edgy_choices = [s.split('\n')[1:-1] for s in
-                [hitler]]
-is_edgy = eggspi.ircChannel().decode('utf-8').strip() != '#diku'
-choices = safe_choices + (edgy_choices if is_edgy else [])
-hero = random.choice(choices)
+if not hero:
+    safe_choices = [s.split('\n')[1:-1] for s in
+                    [superman, kingkong, someguy, kram]]
+    edgy_choices = [s.split('\n')[1:-1] for s in
+                    [hitler]]
+    is_edgy = eggspi.ircChannel().decode('utf-8').strip() != '#diku'
+    choices = safe_choices + (edgy_choices if is_edgy else [])
+    hero = random.choice(choices)
+
 for time, hero_line in zip(tabular, hero):
     if (cph_url != url):
         hero_line = "" # only print heros in Copenhagen
