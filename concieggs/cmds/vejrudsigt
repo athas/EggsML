@@ -275,8 +275,6 @@ if not hero:
     hero = random.choice(choices)
 
 for time, hero_line in zip(tabular, hero):
-    if (cph_url != url):
-        hero_line = "" # only print heros in Copenhagen
     date = date_convert(time.attrib['from'])
 
     wind = time.find('windDirection').attrib['code']
