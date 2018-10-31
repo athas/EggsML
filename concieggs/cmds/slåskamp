@@ -22,7 +22,6 @@ wanted_category=$(echo "$wanted_category_raw" | toupper)
 got=$(cat $hyps | fgrep "$wanted_category_raw" | randomLine | cut -d'<' -f1 | toupper)
 
 randomLine <<EOF
-$char1 og $char2 dyster om hvorvidt $wanted_category er $wanted eller $got!
 Et fjendskab opstår mellem $char1 og $char2 når $char1 stjæler $wanted fra $char2, som så må nøjes med $got!
 Det umage par $char1 og $char2 forenes i kampen mod at forhindre $wanted i at blive klassificeret som $wanted_category!
 $char1 affyrer en stråle af energi mod $char2, men strålen rammer $wanted som forvandles til $got!
@@ -32,7 +31,7 @@ Konflikten spænder til når $char1 havde fået lovning på $wanted fra $char2, 
 Er $wanted virkelig $wanted_category?  $char1 og $char2 er ikke enige, men danner fælles front da $char3 ankommer med $got.
 $wanted eller $got?  Dette er netop spørgsmålet i en voldsom konflikt der opstår mellem $char1 og $char2.
 $char1 med $wanted møder $got's forkæmper $char2 i en episk konflikt der skal komme til at afgøre fremtiden for $wanted_category.
-$char1 forklædt som $wanted infiltrerer en hemmelig organisation der spreder $wanted_category, men $char2 gennemskuer forklædningen!  Skulle $char1 have valgt $got i stedet?
+$char1 forklædt som $wanted infiltrerer den dunkle COUNCIL OF $wanted_category, men $char2 gennemskuer forklædningen!  Skulle $char1 have valgt $got i stedet?
 Efter mange års konflikt mellem $char1 og $char2 indgås kompromis om at $wanted er lige så godt som $got.  Lige indtil $char3 blander sig...
 $char1 og $char2 slapper af efter deres fælles bekæmpelse af $expected.  MEN UD AF DET BLÅ KOMMER SÅ $got!!!
 $char1 har i årevis bevogtet statens dyrebare beholdning af $wanted, men i kulissen pønser $char2 på at stjæle alt $wanted, og erstatte det med det langt billigere $got.
