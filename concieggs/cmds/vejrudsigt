@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import random
+import urllib.parse
 import urllib.request as ur
 import xml.etree.ElementTree as ET
 from lxml.html import fromstring
@@ -146,13 +147,16 @@ def get_url_from_search_string(s):
     # It might very well be a better idea to use regexes here
     # This CSS selector is probably super flaky
     try:
-        with ur.urlopen('https://www.yr.no/soek/soek.aspx?sted={}'.format(s)) as f:
+        with ur.urlopen('https://www.yr.no/soek/soek.aspx?sted={}'.format(urllib.parse.quote_plus(s))) as f:
             body = f.read()
             document = fromstring(body.decode("utf-8"))
             place_desc = document.cssselect('table.yr-table.yr-table-search-results > tr:first-of-type > td:nth-of-type(2) > a')[0].get('href')
+            place_names = place_desc.split('/')
+            place_desc = "/".join(map(lambda x: urllib.parse.quote_plus(x), place_names))
             return "https://www.yr.no" + place_desc + "/forecast.xml"
-    except ex:
-        sys.exit(ex.message)
+    except Exception as ex:
+        if hasattr(ex, 'message'):
+            sys.exit(ex.message)
         return
 
 def date_convert(s):
