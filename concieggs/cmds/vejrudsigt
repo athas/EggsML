@@ -151,7 +151,8 @@ def get_url_from_search_string(s):
             document = fromstring(body.decode("utf-8"))
             place_desc = document.cssselect('table.yr-table.yr-table-search-results > tr:first-of-type > td:nth-of-type(2) > a')[0].get('href')
             return "https://www.yr.no" + place_desc + "/forecast.xml"
-    except:
+    except ex:
+        sys.exit(ex.message)
         return
 
 def date_convert(s):
