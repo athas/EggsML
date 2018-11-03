@@ -161,9 +161,9 @@ def get_url_from_search_string(s):
                 place_names = f.geturl().split('/')
 
             start_index = place_names.index("sted")
-            place_names = place_names[start_index + 1:]
             if not start_index:
                 start_index = place_names.index("place")
+            place_names = place_names[start_index + 1:]
 
             place_desc = "/".join(map(lambda x: urllib.parse.quote_plus(x), place_names))
             return "https://www.yr.no/place/" + place_desc + "/forecast.xml"
