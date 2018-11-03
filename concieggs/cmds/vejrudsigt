@@ -145,15 +145,28 @@ suisse = r'''
 def get_url_from_search_string(s):
     """Given a search string, return the URL for the data for the matching place"""
     # It might very well be a better idea to use regexes here
-    # This CSS selector is probably super flaky
+    # This CSS selector is probably super flaky or short-lived
     try:
-        with ur.urlopen('https://www.yr.no/soek/soek.aspx?sted={}'.format(urllib.parse.quote_plus(s))) as f:
-            body = f.read()
-            document = fromstring(body.decode("utf-8"))
-            place_desc = document.cssselect('table.yr-table.yr-table-search-results > tr:first-of-type > td:nth-of-type(2) > a')[0].get('href')
-            place_names = place_desc.split('/')
+        search_url = 'https://www.yr.no/soek/soek.aspx?sted={}'.format(urllib.parse.quote_plus(s))
+        with ur.urlopen(search_url) as f:
+            # If a redirect was not followed, read URL from HTML
+            if f.geturl() == search_url:
+                body = f.read()
+                document = fromstring(body.decode("utf-8"))
+                place_desc = document.cssselect('table.yr-table.yr-table-search-results > tr:first-of-type > td:nth-of-type(2) > a')[0].get('href')
+                place_names = place_desc.split('/')
+
+            # A redirect was followed. Get the API URL from the redirect URL
+            else:
+                place_names = f.geturl().split('/')
+
+            start_index = place_names.index("sted")
+            place_names = place_names[start_index + 1:]
+            if not start_index:
+                start_index = place_names.index("place")
+
             place_desc = "/".join(map(lambda x: urllib.parse.quote_plus(x), place_names))
-            return "https://www.yr.no" + place_desc + "/forecast.xml"
+            return "https://www.yr.no/place/" + place_desc + "/forecast.xml"
     except Exception as ex:
         if hasattr(ex, 'message'):
             sys.exit(ex.message)
@@ -273,10 +286,18 @@ root = tree.getroot()
 forecast = root.find('forecast')
 tabular = forecast.find('tabular')
 sun = root.find('sun')
-sunrise = date_convert(sun.attrib['rise'])
-sunrise_time = sunrise.time()
-sunset = date_convert(sun.attrib['set'])
-sunset_time = sunset.time()
+
+# If the sun is under the horizon throught the day, set polar_night to True
+if 'never_rise' in sun.attrib and sun.attrib['never_rise']:
+    sunrise_time = "Polarnat"
+    sunset_time = ""
+    polar_night = True
+else:
+    sunrise = date_convert(sun.attrib['rise'])
+    sunrise_time = sunrise.time()
+    sunset = date_convert(sun.attrib['set'])
+    sunset_time = sunset.time()
+    polar_night = False
 
 now = datetime.now().time()
 
@@ -309,7 +330,7 @@ for time, hero_line in zip(tabular, hero):
     temperature = time.find('temperature').attrib['value']
     weather_description = time.find('symbol').attrib['name'].lower()
 
-    is_approx_daytime = is_daytime(date, sunrise, sunset)
+    is_approx_daytime = not polar_night and is_daytime(date, sunrise, sunset)
 
     weather_symbol = weather_to_symbol(weather_description, is_approx_daytime, fancy_unicode)
     wind_symbol = wind_code_to_symbols(wind.upper())
