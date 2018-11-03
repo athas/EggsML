@@ -23,7 +23,17 @@ got=$(cat $hyps | fgrep "$wanted_category_raw" | randomLine | cut -d'<' -f1 | to
 
 if ! [ "$wanted" ]; then
     # Brugeren har valgt noget dumt.
-    echo "$char1 og $char2 skyder hinanden."
+    kedeligt=$(randomLine <<EOF
+$char1 og $char2 skyder hinanden.
+$char1 kigger på græs der gror.
+$char1 og $char2 tager på museum.
+$char1 og $char2 tager i IKEA.
+$char1 venter på bussen.
+$char1 og $char2 leger stilleleg.
+$char1, $char2 og $char3 har ikke gruppesex.
+EOF
+)
+    echo "$kedeligt"
     exit
 fi
 
