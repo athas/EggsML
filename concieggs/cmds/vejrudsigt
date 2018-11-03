@@ -275,8 +275,10 @@ sunset_time = sunset.time()
 
 now = datetime.now().time()
 
-if warning:
-    print(warning)
+if cph_url != url:
+    loc = root.find('location')
+    print("Vejrudsigt for {} i {}".format(loc.find('name').text, loc.find('country').text))
+    # TODO: Add distance to Kantine here, see vejrLib.go
 print("🌅 {0} 🌇 {1}".format(sunrise_time, sunset_time))
 
 recently_active = eggspi.recentlyActive().decode('utf-8').rstrip().split('\n')
