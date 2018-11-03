@@ -15,6 +15,7 @@ sang() {
 ${CC}09Ih, inde på $KANAL spiller de $SANG.
 ${CC}10$KANAL spiller $SANG, lige nu!
 ${CC}11Hvis du skulle få lyst, kan du høre $SANG på $KANAL.
+${CC}12Åh ja, min gode ven lyttede jo altid til $SANG -- og nu spiller den på $KANAL. :-)
 ${CC}13Hov! $KANAL spiller jo min yndlingssang; $SANG.
 EOF
 }
