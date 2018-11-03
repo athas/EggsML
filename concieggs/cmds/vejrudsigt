@@ -153,7 +153,11 @@ def get_url_from_search_string(s):
             if f.geturl() == search_url:
                 body = f.read()
                 document = fromstring(body.decode("utf-8"))
-                place_desc = document.cssselect('table.yr-table.yr-table-search-results > tr:first-of-type > td:nth-of-type(2) > a')[0].get('href')
+                first_is_municipality = document.cssselect('table.yr-table.yr-table-search-results > tr:first-of-type > td:nth-of-type(4)')[0].text == "Kommune"
+                if first_is_municipality:
+                    place_desc = document.cssselect('table.yr-table.yr-table-search-results > tr:nth-of-type(2) > td:nth-of-type(2) > a')[0].get('href')
+                else:
+                    place_desc = document.cssselect('table.yr-table.yr-table-search-results > tr:first-of-type > td:nth-of-type(2) > a')[0].get('href')
                 place_names = place_desc.split('/')
 
             # A redirect was followed. Get the API URL from the redirect URL
