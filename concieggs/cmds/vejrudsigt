@@ -154,11 +154,13 @@ def get_url_from_search_string(ls):
             if f.geturl() == search_url:
                 body = f.read()
                 document = fromstring(body.decode("utf-8"))
-                first_is_municipality = document.cssselect('table.yr-table.yr-table-search-results > tr:first-of-type > td:nth-of-type(4)')[0].text == "Kommune"
-                if first_is_municipality:
-                    place_desc = document.cssselect('table.yr-table.yr-table-search-results > tr:nth-of-type(2) > td:nth-of-type(2) > a')[0].get('href')
-                else:
-                    place_desc = document.cssselect('table.yr-table.yr-table-search-results > tr:first-of-type > td:nth-of-type(2) > a')[0].get('href')
+                i = 1 # which row represents a good hit? (1-indexed)
+                while(True):
+                    bad = document.cssselect('table.yr-table.yr-table-search-results > tr:nth-of-type({}) > td:nth-of-type(4)'.format(i))[0].text in ["Kommune", "Land"]
+                    if not bad:
+                        break
+                    i += 1
+                place_desc = document.cssselect('table.yr-table.yr-table-search-results > tr:nth-of-type({}) > td:nth-of-type(2) > a'.format(i))[0].get('href')
                 place_names = place_desc.split('/')
 
             # A redirect was followed. Get the API URL from the redirect URL
@@ -280,7 +282,7 @@ hero = ''
 if len(sys.argv) > 1:
     url = get_url_from_search_string(sys.argv[1:])
     if not url:
-        print("Jeg kender ikke {}.".format(" ".join(sys.argv[1:])))
+        print("Jeg kender ikke stedet {}.".format(" ".join(sys.argv[1:])))
         exit(0)
 else:
     if (os.getenv('EGGS_USER') == "sword_smith"):
