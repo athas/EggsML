@@ -144,9 +144,12 @@ suisse = r'''
 
 def get_url_from_search_string(ls):
     """Given a search string, return the URL for the data for the matching place"""
+    s = " ".join(ls)
+    # special handling of Nordpolen because for some reason yr.no considers it a country
+    if s in ["Nordpolen", "nordpolen"]:
+        return "https://www.yr.no/place/Nordpolen/Annet/Nordpolen/forecast.xml"
     # It might very well be a better idea to use regexes here
     # This CSS selector is probably super flaky or short-lived
-    s = " ".join(ls)
     try:
         search_url = 'https://www.yr.no/soek/soek.aspx?sted={}'.format(urllib.parse.quote_plus(s))
         with ur.urlopen(search_url) as f:
