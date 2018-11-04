@@ -142,10 +142,11 @@ suisse = r'''
 |_______/__/_______/___/__\___\
 '''
 
-def get_url_from_search_string(s):
+def get_url_from_search_string(ls):
     """Given a search string, return the URL for the data for the matching place"""
     # It might very well be a better idea to use regexes here
     # This CSS selector is probably super flaky or short-lived
+    s = " ".join(ls)
     try:
         search_url = 'https://www.yr.no/soek/soek.aspx?sted={}'.format(urllib.parse.quote_plus(s))
         with ur.urlopen(search_url) as f:
@@ -164,9 +165,11 @@ def get_url_from_search_string(s):
             else:
                 place_names = f.geturl().split('/')
 
-            start_index = place_names.index("sted")
-            if not start_index:
+            if "sted" in place_names:
+                start_index = place_names.index("sted")
+            else:
                 start_index = place_names.index("place")
+
             place_names = place_names[start_index + 1:]
 
             place_desc = "/".join(map(lambda x: urllib.parse.quote_plus(x), place_names))
@@ -275,9 +278,9 @@ cph_url = 'https://www.yr.no/place/Denmark/Capital/Copenhagen/forecast.xml'
 url = cph_url
 hero = ''
 if len(sys.argv) > 1:
-    url = get_url_from_search_string(sys.argv[1])
+    url = get_url_from_search_string(sys.argv[1:])
     if not url:
-        print("Jeg kender ikke {}".format(sys.argv[1]))
+        print("Jeg kender ikke {}.".format(" ".join(sys.argv[1:])))
         exit(0)
 else:
     if (os.getenv('EGGS_USER') == "sword_smith"):
