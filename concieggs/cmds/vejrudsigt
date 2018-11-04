@@ -296,17 +296,24 @@ forecast = root.find('forecast')
 tabular = forecast.find('tabular')
 sun = root.find('sun')
 
-# If the sun is under the horizon throught the day, set polar_night to True
+# Handle polar nights/midnight sun
 if 'never_rise' in sun.attrib and sun.attrib['never_rise']:
     sunrise_time = "Polarnat"
     sunset_time = ""
     polar_night = True
+    midnight_sun = False
+elif 'never_set' in sun.attrib and sun.attrib['never_set']:
+    sunrise_time = "Midnatssol"
+    sunset_time = ""
+    polar_night = False
+    midnight_sun = True
 else:
     sunrise = date_convert(sun.attrib['rise'])
     sunrise_time = sunrise.time()
     sunset = date_convert(sun.attrib['set'])
     sunset_time = sunset.time()
     polar_night = False
+    midnight_sun = False
 
 now = datetime.now().time()
 
@@ -339,7 +346,7 @@ for time, hero_line in zip(tabular, hero):
     temperature = time.find('temperature').attrib['value']
     weather_description = time.find('symbol').attrib['name'].lower()
 
-    is_approx_daytime = not polar_night and is_daytime(date, sunrise, sunset)
+    is_approx_daytime = midnight_sun or not polar_night and is_daytime(date, sunrise, sunset)
 
     weather_symbol = weather_to_symbol(weather_description, is_approx_daytime, fancy_unicode)
     wind_symbol = wind_code_to_symbols(wind.upper())
