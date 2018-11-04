@@ -159,7 +159,7 @@ def get_url_from_search_string(ls):
                 document = fromstring(body.decode("utf-8"))
                 i = 1 # which row represents a good hit? (1-indexed)
                 while(True):
-                    bad = document.cssselect('table.yr-table.yr-table-search-results > tr:nth-of-type({}) > td:nth-of-type(4)'.format(i))[0].text in ["Kommune", "Land"]
+                    bad = document.cssselect('table.yr-table.yr-table-search-results > tr:nth-of-type({}) > td:nth-of-type(4)'.format(i))[0].text in ["Kommune", "Land", "Delstat", "Region", "Fylke"]
                     if not bad:
                         break
                     i += 1
