@@ -1,0 +1,24 @@
+#!/bin/sh
+#
+# Hvad foregår der LIGE NU i Hollywood?
+
+character() {
+    random_marvel_character | toupper
+}
+
+actor() {
+    cat $CONCIEGGS_DB_DIR/kendte_skuespillere | randomLine | toupper
+}
+
+subtitle() {
+    (randomLine | toupper) <<EOF
+origins
+revolution
+judgment
+EOF
+}
+
+randomLine <<EOF
+Under optagelserne til den voldelige film $(character): $(subtitle) lykkes det en fan at snige sig ind på settet, men $(actor) er så meget inde i rollen at den fan ender på hospitalet.
+Mens $(actor) går i kostume for at blive til $(character), render instruktøren ind med en nyt manus!  Nu skal det hele pludselig være PG-13...
+EOF
