@@ -14,7 +14,7 @@ subtitle() {
     (randomLine | toupper) <<EOF
 origins
 revolution
-judgment
+judgment day
 EOF
 }
 
