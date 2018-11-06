@@ -3,7 +3,7 @@
 # Få inspiration til aktiv deltagelse i folkestyret.
 
 all_forslag=$(borgerforslag)
-hyps="$CONCIEGGS_DB_DIR/dannet-utils/hyponyms"
+hyps="$CONCIEGGS_DB_DIR/DanNet/hyponymOf"
 
 echo "$all_forslag" | sort -R | while read forslag; do
     # Dangerous!

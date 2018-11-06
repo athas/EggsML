@@ -2,7 +2,7 @@
 #
 # Beret om en sjov forvikling.
 
-hyps="$CONCIEGGS_DB_DIR/dannet-utils/hyponyms"
+hyps="$CONCIEGGS_DB_DIR/DanNet/hyponymOf"
 
 if [ $# = 1 ]; then
     wanted_raw=$(grep -i $1 $hyps | randomLine)

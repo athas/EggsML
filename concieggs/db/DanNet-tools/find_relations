@@ -1,18 +1,30 @@
 #!/bin/sh
 #
-# Find hyponyms.  Also do some filtering to keep them nice.
+# Find word relations.  Also do some filtering to keep them nice.
 #
-# Run once.
+# Run once for each relation.  It's pretty slow (and stupid).
+#
+# Usage: ./find_relations RELATION
+#
+# Looks for instances of RELATION (e.g. 'hyponymOf'), and saves them
+# into the file ../DanNet/RELATION with each line of the format 'X<Y',
+# where X has the asked-for relation to Y.
 
 cd "$(dirname "$0")"
 db="../DanNet-2.2_csv"
+
+relation="$1"
+if ! [ "$relation" ]; then
+   echo "error: missing relation argument" > /dev/stderr
+   exit 1
+fi
 
 f() {
     grep -E "^$(grep -E "^[0-9]+@[0-9]+@$1@" "$db/wordsenses-utf-8.csv" | cut -d@ -f2)@" "$db/words-utf-8.csv" \
         | cut -d@ -f2
 }
 
-cat "$db/relations-utf-8.csv" | grep hyponymOf | while read line; do
+cat "$db/relations-utf-8.csv" | grep "$relation" | while read line; do
     x="$(echo $line | cut -d@ -f1)"
     y="$(echo $line | cut -d@ -f4)"
     f "$x" | while read xf; do
@@ -25,4 +37,4 @@ cat "$db/relations-utf-8.csv" | grep hyponymOf | while read line; do
             echo "$xf<$yf"
         done
     done
-done > hyponyms
+done > "../DanNet/$relation"

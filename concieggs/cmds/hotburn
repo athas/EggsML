@@ -30,7 +30,7 @@ vowel() {
     echo AEIOUY | cut -b $(random 1 6)
 }
 
-hyps="$CONCIEGGS_DB_DIR/dannet-utils/hyponyms"
+hyps="$CONCIEGGS_DB_DIR/DanNet/hyponymOf"
 
 # Only use hyperonyms with at least two hyponyms.
 over="$(cut -d'<' -f2 $hyps | sort | uniq -c | sort -n | grep -v ' 1 ' | sed -E 's/ *[0-9]+ //' | grep -i "$1" | randomLine)"

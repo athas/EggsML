@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# Count how many relations exist for each type of relation.  Use to
+# determine which relations are interesting.
+
+cd "$(dirname "$0")"
+db="../DanNet-2.2_csv"
+
+relations() {
+    cat "$db/relations-utf-8.csv" | cut -d @ -f 2
+}
+
+relations | sort | uniq | while read relation; do
+    echo "$(relations | grep -wc $relation):$relation"
+done | sort -nr | sed -E 's/^([0-9]+):(.+)$/\2: \1/g'

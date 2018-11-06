@@ -6,7 +6,7 @@ char1=$(random_marvel_character | toupper)
 char2=$(random_marvel_character | toupper)
 char3=$(random_marvel_character | toupper)
 
-hyps="$CONCIEGGS_DB_DIR/dannet-utils/hyponyms"
+hyps="$CONCIEGGS_DB_DIR/DanNet/hyponymOf"
 
 if [ $# = 1 ]; then
     wanted_raw=$(grep -i $1 $hyps | randomLine)
