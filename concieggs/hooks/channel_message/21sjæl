@@ -3,10 +3,14 @@
 shuttingUp && exit
 
 if echo "$EGGS_BODY" | grep -qiE $CONCIEGGS_NAME; then
-    randomLine <<EOF
+    if [ $(random 1 3) = 3 ]; then
+        sed "s/$CONCIEGGS_NAME/$EGGS_USER/g"
+    else
+        randomLine <<EOF
 Taler I om mig?
 Ja, det er mig der er ${CONCIEGGS_NAME}!
 Det er altså ikke særligt høfligt at tale om mig, men ikke at tale til mig.
 Jeg er lige her.
 EOF
+    fi
 fi
