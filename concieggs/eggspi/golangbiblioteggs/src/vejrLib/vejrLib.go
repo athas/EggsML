@@ -18,13 +18,17 @@ const (
 
 // Der er sikkert også andre lande.
 var COUNTRIES = map[string]string{
-	"DE": "Tyskland",
-	"DK": "Danmark",
-	"FR": "Frankrig",
-	"IE": "Irland",
-	"NO": "Norge",
-	"SE": "Sverige",
-	"GB": "Det Forenede Kongerige af Storbritannien og Nordirland",
+	"CA": "Canada",
+	"CH": "Det Schweiziske Edsforbund",
+	"DE": "Den Tyske Forbundsrepublik",
+	"DK": "Kongeriget Danmark",
+	"FR": "Den Franske Republik",
+	"IE": "Republikken Irland",
+	"IT": "Den Italienske Republik",
+	"NO": "Kongeriget Norge",
+	"NL": "Nederlandene",
+	"SE": "Kongeriget Sverige",
+	"GB": "Storbritanniens og Nordirlands Forenede Kongerige",
 	"US": "Amerikas Forenede Stater",
 }
 
