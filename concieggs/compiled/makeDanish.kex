@@ -148,7 +148,7 @@ word3 := /[Hh]/ ~/eap/ "ob"
        | ~/swap/ "svup"
        | ~/porno?/ "naturfilm"
        | ~/malware/ "progra-lø-mmel"
-       | ~/[Bb]itcoin/ "eDaler"
+       | ~/[Bb]itcoin/ "eTulipan"
        | ~/[Bb]lockchain/ "eGuirlande"
        | ~/USA/ "de forenede Nordamerikanske Fristater"
        | /[a-zA-ZæøåÆØÅ0-9]+/
