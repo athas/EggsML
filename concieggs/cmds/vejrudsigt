@@ -194,11 +194,11 @@ def is_daytime(date, sunrise, sunset):
 
 def is_noon(date):
     """"Determine if a given datetime represents a time at noon."""
-    return date.hour == 0 and date.minute == 0 and date.second == 0
+    return date.hour == 12
 
 def is_midnight(date):
     """Determine if a given datetime is exactly midnight."""
-    return date.hour == 12
+    return date.hour == 0
 
 def date_format(date):
     """Format a date with the proper whitespace padding."""
