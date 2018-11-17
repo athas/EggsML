@@ -200,16 +200,31 @@ def is_midnight(date):
     """Determine if a given datetime is exactly midnight."""
     return date.hour == 0
 
+def is_lauds(date):
+    return date.hour == 6
+
+def is_vesper(date):
+    return date.hour == 18
+
+already_printed_days = []
 def date_format(date):
     """Format a date with the proper whitespace padding."""
     if is_midnight(date):
         hour = "midnat"
     elif is_noon(date):
         hour = "middag"
+    elif is_lauds(date):
+        hour = "laudes"
+    elif is_vesper(date):
+        hour = "vesper"
     else:
         hour = "kl. " + str(int(date.strftime("%H"))).rjust(2)
 
-    return date.strftime("D. %e. ") + hour
+    if (date.strftime("%e") in already_printed_days):
+        return "       " + hour
+    else:
+        already_printed_days.append(date.strftime("%e"))
+        return date.strftime("D. %e. ") + hour
 
 def weather_to_symbol(weather, is_daytime, fancy_unicode):
     # https://en.wikipedia.org/wiki/Miscellaneous_Symbols
