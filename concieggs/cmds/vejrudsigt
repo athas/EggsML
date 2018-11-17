@@ -206,9 +206,10 @@ def is_lauds(date):
 def is_vesper(date):
     return date.hour == 18
 
-already_printed_days = []
+prior_date = ""
 def date_format(date):
     """Format a date with the proper whitespace padding."""
+    global prior_date # tell Python to reuse global var in this function instead of making a new var with local scope
     if is_midnight(date):
         hour = "midnat"
     elif is_noon(date):
@@ -220,11 +221,12 @@ def date_format(date):
     else:
         hour = "kl. " + str(int(date.strftime("%H"))).rjust(2)
 
-    if (date.strftime("%e") in already_printed_days):
-        return "       " + hour
+    date = date.strftime("%e")
+    if (date == prior_date):
+        return "      " + hour
     else:
-        already_printed_days.append(date.strftime("%e"))
-        return date.strftime("D. %e. ") + hour
+        prior_date = date
+        return "D. " + date + " " + hour
 
 def weather_to_symbol(weather, is_daytime, fancy_unicode):
     # https://en.wikipedia.org/wiki/Miscellaneous_Symbols
