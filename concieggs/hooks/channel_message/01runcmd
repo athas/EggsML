@@ -5,5 +5,5 @@ set -f
 eval "$(parseConcieggsCommand)"
 
 if [ "$rawcmd" ]; then
-    runcmd "$rawcmd" $args || true
+    timeout 10s runcmd "$rawcmd" $args || true
 fi
