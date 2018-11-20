@@ -15,7 +15,7 @@ fi
 if [ "$2" ]; then
     if /usr/bin/whois "$1" | grep -q "Country"; then
         echo "Den er desværre optaget. Bedre held næste gang!"
-    elif /usr/bin/whois "$1" | grep -q "no address associated with name"; then
+    elif /usr/bin/whois "$1" 2>&1 | grep -q "no address associated with name"; then
         echo "Den adresse lugter mærkelig..."
     else
         echo "Den er ledig! Køb køb køb!"
