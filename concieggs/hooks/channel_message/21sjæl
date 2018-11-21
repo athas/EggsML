@@ -3,7 +3,7 @@
 shuttingUp && exit
 
 if echo "$EGGS_BODY" | grep -qiE $CONCIEGGS_NAME; then
-    if [ $(random 1 3) = 3 ]; then
+    if [ $(random 1 2) = 2 ]; then
         echo $(echo "$EGGS_BODY" | sed "s/$CONCIEGGS_NAME/$EGGS_USER/g")
     else
         randomLine <<EOF
