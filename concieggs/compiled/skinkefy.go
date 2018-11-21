@@ -114,6 +114,7 @@ func skinkefy(word string) string {
 	} else {
 		if (rand.Intn(100) <= skinkeFactor &&
 			!IkkeSkinker.Contains(word) &&
+			isNoun &&
 			len(word) >= skinkeLength) ||
 			Skinker.Contains(word) {
 			// Yes, we got a skinke, let's add the word.
