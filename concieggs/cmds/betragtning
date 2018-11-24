@@ -46,30 +46,30 @@ read_many() {
 }
 
 
-# Hot burns.
+# Betragtninger.
 
-hotburn_i_kender_godt() {
+betragtning_i_kender_godt() {
     (random_topic domain 3 "$user_filter" && random_topic domain 1) | {
         eval $(read_many d1 d1e1 d1e2 d1e3 d2 d2e1) || exit 1
         echo "Så I kender godt $d1, ikke?  Det er sådan $d1e1, $d1e2, $d1e3 — behøver jeg sige mere? ... Men $d2, det er jo kun $d2e1!"
     }
 }
 
-hotburn_samfundet() {
+betragtning_samfundet() {
     random_topic madeBy 2 "$user_filter" | {
         eval $(read_many tegne kunst indkobsliste) || exit 1
         echo "Samfundet fortæller mig at alle åbenbart bare kan lave $kunst ved at $tegne — men sidst jeg prøvede at $tegne, kom der altså bare $indkobsliste!"
     }
 }
 
-hotburn_hele_mit_liv() {
+betragtning_hele_mit_liv() {
     random_topic roleAgent 2 "$user_filter" | {
         eval $(read_many bede franciskaner augustiner) || exit 1
         echo "Hele mit liv har jeg fået at vide at man *skal* være $franciskaner for at $bede — det er jo klart.  Men den anden dag så jeg $augustiner gøre det ... i fuldt dagslys!"
     }
 }
 
-# INTROSPECTION FEATURE: Pick a hotburn_* function at random and evaluate it.
-# If it fails, try another one (and so on).  If all fail, point out that the
-# audience is stupid.
-eval "$(cat "$0" | egrep '^hotburn_' | cut -d '(' -f 1 | randomise | tr $'\n' '|' | sed -E 's/\|/||/g')what_a_crowd"
+# INTROSPECTION FEATURE: Pick a betragtning_* function at random and evaluate
+# it.  If it fails, try another one (and so on).  If all fail, point out that
+# the audience is stupid.
+eval "$(cat "$0" | egrep '^betragtning_' | cut -d '(' -f 1 | randomise | tr $'\n' '|' | sed -E 's/\|/||/g')what_a_crowd"
