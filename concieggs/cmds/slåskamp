@@ -2,9 +2,17 @@
 #
 # Et forslag til næste film i Marvel-universet.
 
-char1=$(random_marvel_character | toupper)
-char2=$(random_marvel_character | toupper)
-char3=$(random_marvel_character | toupper)
+random_actor() {
+    randomLine < $CONCIEGGS_DB_DIR/kendte_skuespillere
+}
+
+character() {
+    random_marvel_character | sed -E "s/\([^)]+\)/($(random_actor))/" | toupper
+}
+
+char1=$(character)
+char2=$(character)
+char3=$(character)
 
 hyps="$CONCIEGGS_DB_DIR/DanNet/hyponymOf"
 
