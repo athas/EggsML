@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Bare sådan lidt dybere end hotburn.  Brug: hotburn2 [emne]
+# Jamen, hvad sker der lige for dét?  Brug: betragtning [emne]
 
 user_filter="$1"
 
