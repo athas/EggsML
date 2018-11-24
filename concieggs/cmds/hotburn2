@@ -1,39 +1,72 @@
 #!/bin/sh
 #
-# Find på bedre navn eller flet det her med hotburn.
+# Bare sådan lidt dybere end hotburn.  Brug: hotburn2 [emne]
 
-DanNet="$CONCIEGGS_DB_DIR/DanNet"
+user_filter="$1"
 
-case $(random 0 1) in
-    0)
-        domains="$DanNet/domain"
 
-        # Only use domains with at least three instances.
-        domain1="$(cut -d'<' -f2 $domains | sort | uniq -c | sort -n | grep -Ev ' [12] ' | sed -E 's/ *[0-9]+ //' | grep -i "$1" | randomLine)"
-        if ! [ "$domain1" ]; then
-            echo Bøøøøøøvs.
-            exit
-        fi
-        grep -E "<$domain1"'$' $domains | sort -R | head -n 3 | cut -d'<' -f1 | toupper | {
-            domain1="$(echo "$domain1" | toupper)"
-            read d1i1
-            read d1i2
-            read d1i3
-            d2line="$(cat "$domains" | randomLine | toupper)"
-            domain2="$(echo "$d2line" | cut -d'<' -f2)"
-            d2i1="$(echo "$d2line" | cut -d'<' -f1)"
+# Helper functions.
 
-            echo "Så I kender godt $domain1, ikke?  Det er sådan $d1i1, $d1i2, $d1i3 — behøver jeg sige mere? ... Men $domain2, det er jo kun $d2i1!"
-        }
-        ;;
+dan_net_file() {
+    echo "$CONCIEGGS_DB_DIR/DanNet/$1"
+}
 
-    1)
-        madeby="$DanNet/madeBy"
-        tegne="$(cat $madeby | randomLine | cut -d'<' -f2)"
-        grep -E "<$tegne"'$' $madeby | sort -R | head -n 2 | cut -d'<' -f1 | {
-            read kunst
-            read indkobsliste
-            echo "Samfundet fortæller mig at alle åbenbart bare kan lave $(echo $kunst | toupper) ved at $(echo $tegne | toupper) — men sidst jeg prøvede at $(echo $tegne | toupper), kom der altså bare $(echo $indkobsliste | toupper)!"
-        }
-        ;;
-esac
+random_topic() {
+    file="$(dan_net_file $1)"
+    n_entries="$2" # At most 9
+    filter="$3" # Can be empty
+
+    # Find a topic with at least $n_entries entries.
+    topic=$(cut -d'<' -f2 "$file" \
+                | sort | uniq -c | sort -n \
+                | egrep -v " [1-$n_entries] " | sed -E 's/ *[0-9]+ //' \
+                | grep -i "$filter" | randomLine)
+    if ! [ "$topic" ]; then
+        exit 1
+    fi
+    echo $topic | toupper
+
+    # Find $n_entries entries of that topic.
+    egrep "<$topic"'$' "$file" | sort -R | head -n $n_entries | cut -d'<' -f1 | toupper
+}
+
+what_a_crowd() {
+    randomLine <<EOF
+/me giver bare sådan op
+EOF
+}
+
+read_many() {
+    for var in "$@"; do
+        echo -n "read $var; "
+    done
+}
+
+
+# Hot burns.
+
+hotburn_i_kender_godt() {
+    (random_topic domain 3 "$user_filter" && random_topic domain 1) | {
+        eval $(read_many d1 d1e1 d1e2 d1e3 d2 d2e1) || exit 1
+        echo "Så I kender godt $d1, ikke?  Det er sådan $d1e1, $d1e2, $d1e3 — behøver jeg sige mere? ... Men $d2, det er jo kun $d2e1!"
+    }
+}
+
+hotburn_samfundet() {
+    random_topic madeBy 2 "$user_filter" | {
+        eval $(read_many tegne kunst indkobsliste) || exit 1
+        echo "Samfundet fortæller mig at alle åbenbart bare kan lave $kunst ved at $tegne — men sidst jeg prøvede at $tegne, kom der altså bare $indkobsliste!"
+    }
+}
+
+hotburn_() {
+    random_topic roleAgent 2 "$user_filter" | {
+        eval $(read_many bede franciskaner augustiner) || exit 1
+        echo "Hele mit liv har jeg fået at vide at man *skal* være $franciskaner for at $bede — det er jo klart.  Men den anden dag så jeg $augustiner gøre det ... i fuldt dagslys!"
+    }
+}
+
+# INTROSPECTION FEATURE: Pick a hotburn_* function at random and evaluate it.
+# If it fails, try another one (and so on).  If all fail, point out that the
+# audience is stupid.
+eval "$(cat "$0" | egrep '^hotburn_' | cut -d '(' -f 1 | randomise | tr $'\n' '|' | sed -E 's/\|/||/g')what_a_crowd"
