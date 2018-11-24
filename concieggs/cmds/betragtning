@@ -33,6 +33,9 @@ random_topic() {
 what_a_crowd() {
     randomLine <<EOF
 /me giver bare sådan op
+Ja, det kunne være skægt hvis jeg kunne lave en betragtning om '$user_filter'.
+Kan I ikke lige grine lidt mere?
+/me går i stå
 EOF
 }
 
