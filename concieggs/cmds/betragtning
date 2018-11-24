@@ -2,8 +2,7 @@
 #
 # Jamen, hvad sker der lige for dét?  Brug: betragtning [emne]
 
-
-# Helper functions.
+user_filter="$1"
 
 what_a_crowd() {
     randomLine <<EOF
@@ -13,11 +12,6 @@ Kan I ikke lige grine lidt mere?
 /me går i stå
 EOF
 }
-
-
-# Betragtninger.
-
-user_filter="$1"
 
 betragtning_i_kender_godt() {
     (danNetEntries domain 3 "$user_filter" && danNetEntries domain 1) | {
@@ -37,6 +31,13 @@ betragtning_hele_mit_liv() {
     danNetEntries roleAgent 2 "$user_filter" | {
         eval $(readMany bede franciskaner augustiner) || exit 1
         echo "Hele mit liv har jeg fået at vide at man *skal* være $franciskaner for at $bede — det er jo klart.  Men den anden dag så jeg $augustiner gøre det ... i fuldt dagslys!"
+    }
+}
+
+betragtning_jamen_nej() {
+    danNetEntries partHolonymOf 3 "$user_filter" | {
+        eval $(readMany emne ting_a ting_b ting_c) || exit 1
+        echo "Altså, okay, så både $ting_a og $ting_b har $emne — fint nok ... men $ting_c???  Der har $emne???  Jamen... nej!"
     }
 }
 
