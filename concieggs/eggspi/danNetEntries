@@ -1,0 +1,18 @@
+#!/bin/sh
+
+file="$(danNetFile $1)"
+n_entries="$2" # At most 9
+filter="$3" # Optional
+
+# Find a topic with at least $n_entries entries.
+topic=$(cut -d'<' -f2 "$file" \
+            | sort | uniq -c | sort -n \
+            | egrep -v " [1-$n_entries] " | sed -E 's/ *[0-9]+ //' \
+            | grep -i "$filter" | randomLine)
+if ! [ "$topic" ]; then
+    exit 1
+fi
+echo $topic | toupper
+
+# Find $n_entries entries of that topic.
+egrep "<$topic"'$' "$file" | sort -R | head -n $n_entries | cut -d'<' -f1 | toupper

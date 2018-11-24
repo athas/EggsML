@@ -2,33 +2,8 @@
 #
 # Jamen, hvad sker der lige for dét?  Brug: betragtning [emne]
 
-user_filter="$1"
-
 
 # Helper functions.
-
-dan_net_file() {
-    echo "$CONCIEGGS_DB_DIR/DanNet/$1"
-}
-
-random_topic() {
-    file="$(dan_net_file $1)"
-    n_entries="$2" # At most 9
-    filter="$3" # Can be empty
-
-    # Find a topic with at least $n_entries entries.
-    topic=$(cut -d'<' -f2 "$file" \
-                | sort | uniq -c | sort -n \
-                | egrep -v " [1-$n_entries] " | sed -E 's/ *[0-9]+ //' \
-                | grep -i "$filter" | randomLine)
-    if ! [ "$topic" ]; then
-        exit 1
-    fi
-    echo $topic | toupper
-
-    # Find $n_entries entries of that topic.
-    egrep "<$topic"'$' "$file" | sort -R | head -n $n_entries | cut -d'<' -f1 | toupper
-}
 
 what_a_crowd() {
     randomLine <<EOF
@@ -39,32 +14,28 @@ Kan I ikke lige grine lidt mere?
 EOF
 }
 
-read_many() {
-    for var in "$@"; do
-        echo -n "read $var; "
-    done
-}
-
 
 # Betragtninger.
 
+user_filter="$1"
+
 betragtning_i_kender_godt() {
-    (random_topic domain 3 "$user_filter" && random_topic domain 1) | {
-        eval $(read_many d1 d1e1 d1e2 d1e3 d2 d2e1) || exit 1
+    (danNetEntries domain 3 "$user_filter" && danNetEntries domain 1) | {
+        eval $(readMany d1 d1e1 d1e2 d1e3 d2 d2e1) || exit 1
         echo "Så I kender godt $d1, ikke?  Det er sådan $d1e1, $d1e2, $d1e3 — behøver jeg sige mere? ... Men $d2, det er jo kun $d2e1!"
     }
 }
 
 betragtning_samfundet() {
-    random_topic madeBy 2 "$user_filter" | {
-        eval $(read_many tegne kunst indkobsliste) || exit 1
+    danNetEntries madeBy 2 "$user_filter" | {
+        eval $(readMany tegne kunst indkobsliste) || exit 1
         echo "Samfundet fortæller mig at alle åbenbart bare kan lave $kunst ved at $tegne — men sidst jeg prøvede at $tegne, kom der altså bare $indkobsliste!"
     }
 }
 
 betragtning_hele_mit_liv() {
-    random_topic roleAgent 2 "$user_filter" | {
-        eval $(read_many bede franciskaner augustiner) || exit 1
+    danNetEntries roleAgent 2 "$user_filter" | {
+        eval $(readMany bede franciskaner augustiner) || exit 1
         echo "Hele mit liv har jeg fået at vide at man *skal* være $franciskaner for at $bede — det er jo klart.  Men den anden dag så jeg $augustiner gøre det ... i fuldt dagslys!"
     }
 }
