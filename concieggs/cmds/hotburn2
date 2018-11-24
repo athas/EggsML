@@ -59,7 +59,7 @@ hotburn_samfundet() {
     }
 }
 
-hotburn_() {
+hotburn_hele_mit_liv() {
     random_topic roleAgent 2 "$user_filter" | {
         eval $(read_many bede franciskaner augustiner) || exit 1
         echo "Hele mit liv har jeg fået at vide at man *skal* være $franciskaner for at $bede — det er jo klart.  Men den anden dag så jeg $augustiner gøre det ... i fuldt dagslys!"
