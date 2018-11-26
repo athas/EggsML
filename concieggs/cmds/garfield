@@ -4,13 +4,18 @@
 
 topic="$1"
 
+skip_line() {
+    read whatever
+    cat
+}
+
 max_page=$(curl -s "https://garfield.com/comic?keywords=$topic" \
                | egrep -o ';page=[0-9]+">' \
                | tail -n 1 | cut -d = -f 2 | cut -d '"' -f 1)
 page=$(random 1 $max_page)
 url=$(curl -s "https://garfield.com/comic?keywords=$topic&page=$page" \
           | egrep -o '<a href="https://garfield.com/comic/[0-9]+/[0-9]+/[0-9]+">' \
-          | randomLine | cut -d '"' -f 2)
+          | skip_line | randomLine | cut -d '"' -f 2)
 
 if [ "$url" ]; then
     randomLine <<EOF
