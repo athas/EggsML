@@ -12,19 +12,18 @@ skip_line() {
 max_page=$(curl -s "https://garfield.com/comic?keywords=$topic" \
                | egrep -o ';page=[0-9]+">' \
                | tail -n 1 | cut -d = -f 2 | cut -d '"' -f 1)
+if ! [ "$max_page" ]; then
+    echo "$EGGS_USER: Jeg kunne ikke finde dét."
+fi
 page=$(random 1 $max_page)
 url=$(curl -s "https://garfield.com/comic?keywords=$topic&page=$page" \
           | egrep -o '<a href="https://garfield.com/comic/[0-9]+/[0-9]+/[0-9]+">' \
           | skip_line | randomLine | cut -d '"' -f 2)
 
-if [ "$url" ]; then
-    randomLine <<EOF
+randomLine <<EOF
 $EGGS_USER: Hvad med $url — den er ret skæg :)
 $url er bare hygge, $EGGS_USER.
 Jeg kan huske da jeg først så $url i det der album.
 $url er vist noget for dig, $EGGS_USER.
 Jeg kan da ikke benægte at jeg grinede en smule da jeg læste $url :p
 EOF
-else
-    echo "$EGGS_USER: Jeg kunne ikke finde dét."
-fi
