@@ -20,10 +20,19 @@ begin
   Result.Author := Author;
 end;
 
+function TypeOfStars(): string;
+const
+  sl: array[0..10] of string = ('stjerner', 'kartofler', 'hjerter', 'heste', 'finker', 
+    'tænder', 'skinker', 'grønsager', 'joller', 'høflighedshumørikoner',
+    'tophatte');
+begin
+  Result := sl[Random(Length(sl)-1)];
+end;
+
 procedure PrintReview(Review: TReview);
 begin
   WriteLn(Format('"%s"', [Review.Line]));
-  WriteLn(Format('~ (%d/5 stjener) %s', [Review.Stars, Review.Author]));
+  WriteLn(Format('~ (%d/5 %s) %s', [Review.Stars, TypesOfStars(), Review.Author]));
 end;
 
 procedure Reviews();
