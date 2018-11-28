@@ -50,7 +50,7 @@ func loadWords(words *[]string, filename string) {
 
 func main() {
 	loadWords(&Nouns, "ordbog-dansk-navneord")
-	UseWordList = len(Nouns)+len(Verbs) > 0
+	UseWordList = len(Nouns) > 0
 	rand.Seed(time.Now().Unix())
 	// Using bufio.Reader, because we cannot bufio.Scanner,
 	// because the machine uses go 1.0.2.
