@@ -113,6 +113,7 @@ func skinkefy(word string) string {
 		word = camelCaseR.ReplaceAllStringFunc(word, skinkefy)
 	} else {
 		if (rand.Intn(100) <= skinkeFactor &&
+			isNoun &&
 			!IkkeSkinker.Contains(word) &&
 			len(word) >= skinkeLength) ||
 			Skinker.Contains(word) {
