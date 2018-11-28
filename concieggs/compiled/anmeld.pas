@@ -32,7 +32,7 @@ end;
 procedure PrintReview(Review: TReview);
 begin
   WriteLn(Format('"%s"', [Review.Line]));
-  WriteLn(Format('~ (%d/5 %s) %s', [Review.Stars, TypesOfStars(), Review.Author]));
+  WriteLn(Format('~ (%d/5 %s) %s', [Review.Stars, TypeOfStars(), Review.Author]));
 end;
 
 procedure Reviews();
