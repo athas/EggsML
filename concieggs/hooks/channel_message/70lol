@@ -20,6 +20,6 @@ ROFLMAO
 EOF
 }
 
-if echo "$EGGS_BODY" | grep -qE '[Ll][Oo][Ll]|[Rr][Oo][Ff][Ll]|xD'; then
+if echo "$EGGS_BODY" | grep -qE '[Ll][Oo][Ll]|[Rr][Oo][Ff][Ll]|xD|1drv.ms'; then
     lol
 fi
