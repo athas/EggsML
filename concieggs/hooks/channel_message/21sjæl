@@ -2,6 +2,13 @@
 
 shuttingUp && exit
 
+# Undlad at reagere på ting der er kommandoer, men som ikke gav noget uddata da
+# 01runcmd kørte.
+eval "$(parseConcieggsCommand)"
+if [ "$rawcmd" ]; then
+    exit
+fi
+
 if echo "$EGGS_BODY" | grep -qiE $CONCIEGGS_NAME; then
     if [ $(random 1 2) = 2 ]; then
         echo $(echo "$EGGS_BODY" | sed "s/$CONCIEGGS_NAME/$EGGS_USER/g")
