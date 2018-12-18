@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+import random
+
+def maybe_upper(word):
+    if (random.random() < 0.1):
+        return word.upper()
+    else:
+        return word
+
+def maybe_dots(word):
+    if (random.random() < 0.2):
+        return word + "..."
+    else:
+        return word
+
+def style_word(word):
+    return maybe_upper(maybe_dots(word))
+
+def main():
+    words = ["Omelette","du","Fromage"]
+    ending = random.choice([".","!","?"])
+    stylized_words = " ".join([style_word(word) for word in words])
+
+    print(stylized_words + ending)
+
+if __name__ == '__main__':
+    main()
