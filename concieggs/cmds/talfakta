@@ -1,0 +1,6 @@
+#!/bin/sh
+
+fakta=("/trivia" "/year" "/math")
+valgt=${fakta[$RANDOM % ${#fakta[@]} ]}
+
+curl -s http://numbersapi.com/$1$valgt
