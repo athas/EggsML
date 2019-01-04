@@ -1,0 +1,3 @@
+#!/bin/bash
+
+curl http://numbersapi.com/$1
