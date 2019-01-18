@@ -65,6 +65,7 @@ while (<>) {
     s/(?<=[Nn]ikkel)/ine/eig;
     s/(?<=[Nn]iels)/ine/eig;
     s/(?<=svip)/ine/eig;
+    s/(?<=ckjaer)/ine/eig;
 
     # Burde nok generaliseres.
     s/(?<=Athas)/ine/eig;
