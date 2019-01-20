@@ -16,4 +16,4 @@ smiley=$(randomLine <<EOF
 EOF
 )
 
-sed -r -e "s/^(.+:)/$hilsen \1/" -e "s/^([^:]+)$/$hilsen $EGGS_WHERE.  \1/" -e "s/\$/  $smiley/"
+sed -r -e "s/^([^:]+:)/$hilsen \1/" -e "s/^([^:]+)$/$hilsen $EGGS_WHERE.  \1/" -e "s/\$/  $smiley/"

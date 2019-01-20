@@ -22,4 +22,4 @@ Er det så svært at fatte?
 EOF
 )
 
-sed -r -e "s/^(.+:)/$svin \1/" -e "s/^([^:]+)$/$svin $EGGS_WHERE.  \1/" -e "s/\$/  $vrede/"
+sed -r -e "s/^([^:]+:)/$svin \1/" -e "s/^([^:]+)$/$svin $EGGS_WHERE.  \1/" -e "s/\$/  $vrede/"
