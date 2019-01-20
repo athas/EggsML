@@ -16,9 +16,4 @@ smiley=$(randomLine <<EOF
 EOF
 )
 
-LINE=$(cat -)
-if $(echo $LINE | grep -q ':'); then
-  sed -r -e "s/^/$hilsen /" -e "s/\$/ $smiley/"
-else
-  sed -r -e "s/^/$hilsen $EGGS_WHERE.  /" -e "s/\$/  $smiley/"
-fi
+sed -r -e "s/^(.+:)/$hilsen \1/" -e "s/^([^:]+)$/$hilsen $EGGS_WHERE.  \1/" -e "s/\$/  $smiley/"

@@ -22,9 +22,4 @@ Er det så svært at fatte?
 EOF
 )
 
-LINE=$(cat -)
-if $(echo $LINE | grep -q ':'); then
-  sed -r -e "s/^/$svin /" -e "s/\$/  $vrede/"
-else
-  sed -r -e "s/^/$svin $EGGS_WHERE.  /" -e "s/\$/  $vrede/"
-fi
+sed -r -e "s/^(.+:)/$svin \1/" -e "s/^([^:]+)$/$svin $EGGS_WHERE.  \1/" -e "s/\$/  $vrede/"
