@@ -23,7 +23,7 @@ EOF
 )
 
 LINE=$(cat -)
-echo $LINE | if $(echo $LINE | grep -q ':'); then
+if $(echo $LINE | grep -q ':'); then
   sed -r -e "s/^/$svin /" -e "s/\$/  $vrede/"
 else
   sed -r -e "s/^/$svin $EGGS_WHERE.  /" -e "s/\$/  $vrede/"

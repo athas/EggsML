@@ -17,7 +17,7 @@ EOF
 )
 
 LINE=$(cat -)
-echo $LINE | if $(echo $LINE | grep -q ':'); then
+if $(echo $LINE | grep -q ':'); then
   sed -r -e "s/^/$hilsen /" -e "s/\$/ $smiley/"
 else
   sed -r -e "s/^/$hilsen $EGGS_WHERE.  /" -e "s/\$/  $smiley/"
