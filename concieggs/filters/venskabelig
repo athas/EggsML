@@ -1,4 +1,4 @@
-#!/usr/bin/env dash
+#!/usr/bin/env sh
 
 hilsen=$(randomLine <<EOF
 Min ven
@@ -16,4 +16,9 @@ smiley=$(randomLine <<EOF
 EOF
 )
 
-sed -r -e "s/^/$hilsen /" -e "s/\$/ $smiley/"
+LINE=$(cat -)
+echo $LINE | if $(echo $LINE | grep -q ':'); then
+  sed -r -e "s/^/$hilsen /" -e "s/\$/ $smiley/"
+else
+  sed -r -e "s/^/$hilsen $EGGS_WHERE.  /" -e "s/\$/  $smiley/"
+fi
