@@ -50,4 +50,8 @@ def print_distance(place1, place2):
     print(f"Afstanden fra {place1} til {place2} i bil er {dist:.1f} km, hvis du flyver er der {dist_direct:.1f} km.")
 
 
-print_distance(sys.argv[1], sys.argv[2])
+inp = " ".join(sys.argv[2:])
+
+[p1, p2] = inp.split(" til ")
+
+print_distance(p1, p2)
