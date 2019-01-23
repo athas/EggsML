@@ -48,7 +48,7 @@ def print_distance(place1, place2):
 
     dist = results["travelDistance"]
     if dist == -1.0:
-        print(f"Afstanden fra {place1} til {place2} i fugleflugt er {dist_dist:.1f} km.")
+        print(f"Afstanden fra {place1} til {place2} i fugleflugt er {dist_direct:.1f} km.")
     else:
         print(f"Afstanden fra {place1} til {place2} i bil er {dist:.1f} km, hvis du flyver er der {dist_direct:.1f} km.")
 
