@@ -30,6 +30,7 @@ my @categories = (
     [qw(.com .net .org .dk .co.uk .biz .aero .nu .xxx)],
     [qw(false true)],
     [qw(sandt falsk)],
+    [qw(var er)],
     [qw(forkert rigtigt)],
     [qw(højre venstre)],
     [qw(første anden tredje fjerde femte sjette syvende ottende niende tiende)],
