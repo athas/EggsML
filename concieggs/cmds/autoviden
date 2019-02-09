@@ -40,7 +40,7 @@ def run_main(args):
         return complain()
     if not (s.endswith(u'.') or s.endswith(u':')):
         s += u'.'
-    if s.strip():
+    if s.strip() == u'':
         return complain()
     print s.encode('utf-8')
 
