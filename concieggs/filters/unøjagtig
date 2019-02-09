@@ -31,6 +31,7 @@ my @categories = (
     [qw(false true)],
     [qw(sandt falsk)],
     [qw(var er)],
+    [qw(blev bliver)],
     [qw(forkert rigtigt)],
     [qw(højre venstre)],
     [qw(første anden tredje fjerde femte sjette syvende ottende niende tiende)],
