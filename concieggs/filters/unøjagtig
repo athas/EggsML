@@ -35,6 +35,7 @@ my @categories = (
     [qw(første anden tredje fjerde femte sjette syvende ottende niende tiende)],
     [qw(↓ ↑ ← → ↙ ↖ ↘ ↗)],
     [qw(☁ ☀ ☾ ☔ ☁ ☃)],
+    [('i dag', 'i morgen', 'i overmorgen', 'i går', 'i forgårs')],
 );
 
 # Numbers
