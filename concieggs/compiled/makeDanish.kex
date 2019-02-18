@@ -151,6 +151,6 @@ word3 := /[Hh]/ ~/eap/ "ob"
        | ~/malware/ "progra-lø-mmel"
        | ~/[Bb]itcoin/ "eTulipan"
        | ~/[Bb]lockchain/ "eGuirlande"
-       | ~/USA/ "de forenede Nordamerikanske Fristater"
+       | ~/USA/ "AFS"
        | ~/[Aa]ttribute/ "kendetegn"
        | /[a-zA-ZæøåÆØÅ0-9]+/
