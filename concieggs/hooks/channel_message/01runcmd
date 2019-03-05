@@ -5,5 +5,8 @@ set -f
 eval "$(parseConcieggsCommand)"
 
 if [ "$rawcmd" ]; then
-    gtimeout 10s runcmd "$rawcmd" $args
+    if [ "$rawcmd" == "fluen" ]; then
+        runcmd "$rawcmd" $args
+    else
+        gtimeout 10s runcmd "$rawcmd" $args
 fi
