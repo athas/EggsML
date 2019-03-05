@@ -153,4 +153,5 @@ word3 := /[Hh]/ ~/eap/ "ob"
        | ~/[Bb]lockchain/ "eGuirlande"
        | ~/USA/ "AFS"
        | ~/[Aa]ttribute/ "kendetegn"
+       | ~/[Ll]ifehack/ "staldfidus"
        | /[a-zA-ZæøåÆØÅ0-9]+/
