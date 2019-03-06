@@ -9,4 +9,5 @@ if [ "$rawcmd" ]; then
         runcmd "$rawcmd" $args
     else
         gtimeout 10s runcmd "$rawcmd" $args
+    fi
 fi
