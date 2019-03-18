@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [ "$EGGS_USER" = "$CONCIEGGS_NAME" ]; then
+    exit
+fi
+
 if [ $(random 1 2) = 1 ]; then
     # Produce a random thought when someone enters the channel
     rand=$(random 1 3)
