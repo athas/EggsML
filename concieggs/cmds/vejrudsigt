@@ -200,12 +200,6 @@ def is_midnight(date):
     """Determine if a given datetime is exactly midnight."""
     return date.hour == 0
 
-def is_lauds(date):
-    return date.hour == 6
-
-def is_vesper(date):
-    return date.hour == 18
-
 prior_date = ""
 def date_format(date):
     """Format a date with the proper whitespace padding."""
@@ -214,10 +208,6 @@ def date_format(date):
         hour = "midnat"
     elif is_noon(date):
         hour = "middag"
-    elif is_lauds(date):
-        hour = "laudes"
-    elif is_vesper(date):
-        hour = "vesper"
     else:
         hour = "kl. " + str(int(date.strftime("%H"))).rjust(2)
 
