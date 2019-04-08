@@ -1,6 +1,6 @@
-#!/usr/bin/env dash
+#!/usr/bin/env sh
 
-hilsen=$(randomLine <<EOF
+svin=$(randomLine <<EOF
 For helvede,
 Forbandede
 Hop i havet,
@@ -11,15 +11,15 @@ Fjolset
 EOF
 )
 
-smiley=$(randomLine <<EOF
+vrede=$(randomLine <<EOF
 For helvede!
 Hvor tit skal jeg sige det?
 DNUR!
 Og hold så kæft.
 Er det så svært at fatte?
 >:(
-...er det til at fatte?
+... er det til at fatte?
 EOF
 )
 
-sed -r -e "s/^/$hilsen /" -e "s/\$/ $smiley/"
+sed -r -e "s/^([^:]+:)/$svin \1/" -e "s/^([^:]+)$/$svin $EGGS_WHERE.  \1/" -e "s/\$/  $vrede/"

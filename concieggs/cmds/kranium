@@ -17,6 +17,11 @@ if [ "$Xiaoman" ]; then
     Athas=$(echo "$ngws" | wc -l)
     [ "$Athas" -gt 10 ] && Nikkel="$( echo -n "$ngws" | head -n 10 | tr '\n' ', ' | sed 's/,$//') .." || Nikkel=$(echo -n "$ngws" | tr '\n' ', ')
     sshine="Disse filer blev ændret: $Nikkel."
+    if [ $2 = "mere" ]; then
+       EricZou="$(git diff-tree -p $SVIP)"
+       Athas=$(echo "$EricZou" | wc -l)
+       [ "$Athas" -gt 15 ] && infoskaerm="$( echo -n "$EricZou" | tail -n +6 | head -n 15 | sed 's/,$//') .." || infoskaerm=$(echo -n "$EricZou" | tail -n +6 )
+    fi
 fi
 
-echo "$output $sshine"
+echo "$output $sshine $infoskaerm"

@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# Bed concieggs foretage et WHOIS opslag.
+# concieggs: whois <name>
+
+set -e
+
+
+if [ ! "$1" ]; then
+    echo "Du har ikke angivet hvilket navn jeg skal slå op."
+
+    exit 0
+fi
+
+if [ "$2" ]; then
+    if /usr/bin/whois "$1" | grep -q "Country"; then
+        echo "Den er desværre optaget. Bedre held næste gang!"
+    elif /usr/bin/whois "$1" 2>&1 | grep -q "no address associated with name"; then
+        echo "Den adresse lugter mærkelig..."
+    else
+        echo "Den er ledig! Køb køb køb!"
+    fi
+
+    exit 0
+fi
+
+/usr/bin/whois "$1"

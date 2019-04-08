@@ -15,6 +15,7 @@ import (
 	"vejrLib"
 )
 
+// prut
 const (
 	APIKEY                 = "4b42ecc61fd13e0a0cb7006d583fb3e0"
 	kantinevejrBeskrivelse = "Kantinen er inden døre, og der er derfor nok tørvejr og stuetemperatur. Men det ved du nok bedre end jeg!"

@@ -3,9 +3,29 @@
 # Bed concieggs-komikeren lave en bait-and-switch-sammenlignings-vits
 # der bare SMADRER xD
 
-computer() {
-    # SÅDAN TALER EN PC
-    echo "$1" | toupper
+consonant() {
+    echo BCDFGHJKLMNPQRSTVWXZ | cut -b $(random 1 20)
+}
+
+vowel() {
+    echo AEIOUY | cut -b $(random 1 6)
+}
+
+total_fail() {
+    echo "Hvad er forskellen på $(consonant)$(vowel) — ej, jeg gider ikke længere."
+    randomLine <<EOF
+/me smider mikrofonen i hovedet på $(randomName)
+/me lægger sig til at sove på den fedtede scene
+/me indser at livet ikke er at optræde i Casper Christensens nye natklub
+/me kigger ud på publikum, der alle sidder og kigger ned i deres smartphones
+/me synes at den akavede pause er vildt sjov
+/me giver sig til at skrive vitser for Andreas Bo i stedet
+/me tager tilløb til en omgang grænseoverskridende crowd work
+/me fortryder at det er i dag han optager til DVD'en
+/me laver en pludselig og meget spøjs posering
+/me går over til scenetæppet og finder en guitar frem i stedet
+/me checker lige sin insta
+EOF
 }
 
 Fuck() {
@@ -22,39 +42,8 @@ Har jeg ret eller hvad?
 EOF
 }
 
-consonant() {
-    echo BCDFGHJKLMNPQRSTVWXZ | cut -b $(random 1 20)
-}
-
-vowel() {
-    echo AEIOUY | cut -b $(random 1 6)
-}
-
-hyps="$CONCIEGGS_DB_DIR/DanNet/hyponymOf"
-
-# Only use hyperonyms with at least two hyponyms.
-over="$(cut -d'<' -f2 $hyps | sort | uniq -c | sort -n | grep -v ' 1 ' | sed -E 's/ *[0-9]+ //' | grep -i "$1" | randomLine)"
-if ! [ "$over" ]; then
-    echo "Hvad er forskellen på $(consonant)$(vowel) — ej, jeg gider ikke længere."
-    randomLine <<EOF
-/me smider mikrofonen i hovedet på $(randomName)
-/me lægger sig til at sove på den fedtede scene
-/me indser at livet ikke er at optræde i Casper Christensens nye natklub
-/me kigger ud på publikum, der alle sidder og kigger ned i deres smartphones
-/me synes at den akavede pause er vildt sjov
-/me giver sig til at skrive vitser for Andreas Bo i stedet
-/me tager tilløb til en omgang grænseoverskridende crowd work
-/me fortryder at det er i dag han optager til DVD'en
-/me laver en pludselig og meget spøjs posering
-/me går over til scenetæppet og finder en guitar frem i stedet
-/me checker lige sin insta
-EOF
-    exit
-fi
-grep -E "<$over"'$' $hyps | sort -R | head -n 2 | cut -d'<' -f1 | {
-    read under0
-    read under1
-
+danNetEntries hyponymOf 2 "$1" | {
+    eval $(readMany over under0 under1) || exit 1
     randomLine <<EOF
 /me laver et hot burn!
 /me laver standupper-fagter
@@ -64,6 +53,5 @@ HVA SÅ DANMARK
 .. men så slog det mig:
 Ej, I skal lige have en lille lun éen:
 EOF
-
-    echo "Hvad er forskellen på $(computer $under0) og $(computer $under1)?  Det ene er $(computer $over) — og det andet er $(computer $under0)!  $(Fuck $(computer $under0))"
-}
+    echo "Hvad er forskellen på $under0 og $under1?  Det ene er $over — og det andet er $under0!  $(Fuck $under0)"
+} || total_fail

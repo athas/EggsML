@@ -4,10 +4,6 @@ shame() {
     annoyedBy "$EGGS_USER" 5 "hægtede til $1 (jeg har ikke en konto)"
 }
 
-if echo "$EGGS_BODY" | grep spotify.com -q; then
-    NON_SPOTIFY_LINK="$(echo "$EGGS_BODY" | findSpotifyAlternative)"
-    echo "$EGGS_USER: Hvad med i stedet at bruge den mere inkluderende hægte $NON_SPOTIFY_LINK ?"
-fi
 if echo "$EGGS_BODY" | grep www.linkedin.com -q; then
     shame LinkedIn
 fi

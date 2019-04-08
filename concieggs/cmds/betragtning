@@ -1,0 +1,47 @@
+#!/bin/sh
+#
+# Jamen, hvad sker der lige for dét?  Brug: betragtning [emne]
+
+user_filter="$1"
+
+what_a_crowd() {
+    randomLine <<EOF
+/me giver bare sådan op
+Ja, det kunne være skægt hvis jeg kunne lave en betragtning om '$user_filter'.
+Kan I ikke lige grine lidt mere?
+/me går i stå
+EOF
+}
+
+betragtning_i_kender_godt() {
+    (danNetEntries domain 3 "$user_filter" && danNetEntries domain 1) | {
+        eval $(readMany d1 d1e1 d1e2 d1e3 d2 d2e1) || exit 1
+        echo "Så I kender godt $d1, ikke?  Det er sådan $d1e1, $d1e2, $d1e3 — behøver jeg sige mere? ... Men $d2, det er jo kun $d2e1!"
+    }
+}
+
+betragtning_samfundet() {
+    danNetEntries madeBy 2 "$user_filter" | {
+        eval $(readMany tegne kunst indkobsliste) || exit 1
+        echo "Samfundet fortæller mig at alle åbenbart bare kan lave $kunst ved at $tegne — men sidst jeg prøvede at $tegne, kom der altså bare $indkobsliste!"
+    }
+}
+
+betragtning_hele_mit_liv() {
+    danNetEntries roleAgent 2 "$user_filter" | {
+        eval $(readMany bede franciskaner augustiner) || exit 1
+        echo "Hele mit liv har jeg fået at vide at man *skal* være $franciskaner for at $bede — det er jo klart.  Men den anden dag så jeg $augustiner gøre det ... i fuldt dagslys!"
+    }
+}
+
+betragtning_jamen_nej() {
+    danNetEntries partHolonymOf 3 "$user_filter" | {
+        eval $(readMany emne ting_a ting_b ting_c) || exit 1
+        echo "Altså, okay, så både $ting_a og $ting_b har $emne — fint nok ... men $ting_c???  Der har $emne???  Jamen... nej!"
+    }
+}
+
+# INTROSPECTION FEATURE: Pick a betragtning_* function at random and evaluate
+# it.  If it fails, try another one (and so on).  If all fail, point out that
+# the audience is stupid.
+eval "$(cat "$0" | egrep '^betragtning_' | cut -d '(' -f 1 | randomise | tr $'\n' '|' | sed -E 's/\|/||/g')what_a_crowd"

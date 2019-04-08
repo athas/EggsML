@@ -5,5 +5,9 @@ set -f
 eval "$(parseConcieggsCommand)"
 
 if [ "$rawcmd" ]; then
-    runcmd "$rawcmd" $args || true
+    if [ "$rawcmd" = fluen -o "$rawcmd" = duen -o "$rawcmd" = flaske ]; then
+        runcmd "$rawcmd" $args
+    else
+        gtimeout 10s runcmd "$rawcmd" $args
+    fi
 fi

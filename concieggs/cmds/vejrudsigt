@@ -194,14 +194,16 @@ def is_daytime(date, sunrise, sunset):
 
 def is_noon(date):
     """"Determine if a given datetime represents a time at noon."""
-    return date.hour == 0 and date.minute == 0 and date.second == 0
+    return date.hour == 12
 
 def is_midnight(date):
     """Determine if a given datetime is exactly midnight."""
-    return date.hour == 12
+    return date.hour == 0
 
+prior_date = ""
 def date_format(date):
     """Format a date with the proper whitespace padding."""
+    global prior_date # tell Python to reuse global var in this function instead of making a new var with local scope
     if is_midnight(date):
         hour = "midnat"
     elif is_noon(date):
@@ -209,7 +211,12 @@ def date_format(date):
     else:
         hour = "kl. " + str(int(date.strftime("%H"))).rjust(2)
 
-    return date.strftime("D. %e. ") + hour
+    date = date.strftime("%e")
+    if (date == prior_date):
+        return "      " + hour
+    else:
+        prior_date = date
+        return "D. " + date + " " + hour
 
 def weather_to_symbol(weather, is_daytime, fancy_unicode):
     # https://en.wikipedia.org/wiki/Miscellaneous_Symbols

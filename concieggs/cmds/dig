@@ -26,15 +26,16 @@ if [ ! "$type" ]; then
     exit
 fi
 
-if [ "$type" == "ledighed" ]; then
-    if /usr/sbin/dig $name | grep -q "AUTHORITY: 1"; then
-        echo "Den er ledig! Køb køb køb!"
-    else
-        echo "Den er desværre optaget. Bedre held næste gang!"
-    fi
-
-    exit 0
-fi
+# Uddateret metode, se whois!
+#if [ "$type" == "ledighed" ]; then
+#    if /usr/sbin/dig $name | grep -q "AUTHORITY: 1"; then
+#        echo "Den er ledig! Køb køb køb!"
+#    else
+#        echo "Den er desværre optaget. Bedre held næste gang!"
+#    fi
+#
+#    exit 0
+#fi
 
 r=$(/usr/sbin/dig +short $server $name $type)
 if [ "$r" ]; then

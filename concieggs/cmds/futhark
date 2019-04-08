@@ -30,7 +30,7 @@ else
     allthatjazz=$(cat <<EOF
     file=concieggs.fut
     cat > \$file
-    futharki "\$file" 2>&1
+    futhark run -w "\$file" 2>&1
 EOF
                )
     (echo "$code" | timeout 10 ssh napoleon.hiperfit.dk "$allthatjazz" && pleasedBy "$EGGS_USER" 10) || echo "$EGGS_USER: Det gik galt."

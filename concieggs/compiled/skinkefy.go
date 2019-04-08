@@ -30,8 +30,6 @@ var Skinker skinkeList
 var IkkeSkinker skinkeList
 var UseWordList bool
 var Nouns []string
-var Verbs []string
-var Adjectives []string
 
 func loadWords(words *[]string, filename string) {
 	wordsFile, err := os.Open(path.Join(os.Getenv("CONCIEGGS_DB_DIR"), filename))
@@ -52,9 +50,7 @@ func loadWords(words *[]string, filename string) {
 
 func main() {
 	loadWords(&Nouns, "ordbog-dansk-navneord")
-	loadWords(&Verbs, "ordbog-dansk-udsagnsord")
-	loadWords(&Adjectives, "ordbog-dansk-tillægsord")
-	UseWordList = len(Nouns)+len(Verbs) > 0
+	UseWordList = len(Nouns) > 0
 	rand.Seed(time.Now().Unix())
 	// Using bufio.Reader, because we cannot bufio.Scanner,
 	// because the machine uses go 1.0.2.
@@ -95,23 +91,6 @@ func oneSkinkeNoun(condition int, plural bool, definitive bool) string {
 	return oneSkinke(condition, word)
 }
 
-func oneSkinkeVerb(condition int, presentTense bool, pastTense bool) string {
-	var word string
-	switch {
-	case presentTense:
-		word = "skinker"
-	case pastTense:
-		word = "skinkede"
-	default:
-		word = "skinke"
-	}
-	return oneSkinke(condition, word)
-}
-
-func oneSkinkeAdjective(condition int) string {
-	return oneSkinke(condition, "skinkende")
-}
-
 func foundWord(words []string, word string) bool {
 	found := false
 	for _, w := range words {
@@ -125,9 +104,7 @@ func foundWord(words []string, word string) bool {
 
 func skinkefy(word string) string {
 	isNoun := foundWord(Nouns, word)
-	isVerb := foundWord(Verbs, word)
-	isAdjective := foundWord(Adjectives, word)
-	if UseWordList && !isNoun && !isVerb && !isAdjective {
+	if UseWordList && !isNoun { 
 		return word
 	}
 	camelCaseCheckR, _ := regexp.Compile("[\\p{Ll}][\\p{Lu}][\\p{L}]+")
@@ -136,6 +113,7 @@ func skinkefy(word string) string {
 		word = camelCaseR.ReplaceAllStringFunc(word, skinkefy)
 	} else {
 		if (rand.Intn(100) <= skinkeFactor &&
+			isNoun &&
 			!IkkeSkinker.Contains(word) &&
 			len(word) >= skinkeLength) ||
 			Skinker.Contains(word) {
@@ -160,12 +138,6 @@ func skinkefy(word string) string {
 			// If it ends on ET/EN, it's definitive.
 			if isNoun {
 				word = oneSkinkeNoun(skinkeCondition, end == 'R', end2 == 'E' && (end == 'T' || end == 'N'))
-			}
-			if isVerb {
-				word = oneSkinkeVerb(skinkeCondition, end == 'R', end2 == 'D' && end == 'E')
-			}
-			if isAdjective {
-				word = oneSkinkeAdjective(skinkeCondition)
 			}
 		} else {
 			// Not a skinke word.  If it appears again, it should remain
