@@ -1,9 +1,6 @@
 #!/bin/sh
 
-alias="$(aliases "$1" | head -n 1)"
+alias="$1"
+mainAlias="$(aliases "$alias" | head -n 1)"
 
-if [ "$alias" = '' ]; then
-    exit 1
-else
-    echo "$alias"
-fi
+echo ${mainAlias:-$alias}
