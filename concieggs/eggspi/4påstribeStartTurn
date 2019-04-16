@@ -1,0 +1,8 @@
+#!/usr/bin/env perl
+use 5.024;
+use warnings;
+
+my ($user, $user2, $circle, $board) = @ARGV;
+
+say "$user: Det er din tur i kampen mod $user2. Du er $circle. Her er hvordan brættet ser ud:\n$board";
+say "$user: Tag dit træk ved at skrive '4påstribe <søjle>'.";

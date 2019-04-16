@@ -1,0 +1,28 @@
+#!/usr/bin/env perl
+use utf8::all;
+use 5.024;
+use warnings;
+
+my ($user, $circ, $empty, $board, $col) = @ARGV;
+
+if ($col !~ /^\d$/ || $col > 6) {
+    say "$user: Skriv et søjlenummer mellem 0 og 6.";
+    exit(1);
+}
+
+my @board = map { [ split(//, ) ] } grep { $_ } split(/\n/, $board);
+
+my $h = -1;
+while ($h+1 <= $#board && $board[$h+1]->[$col] eq $empty) {
+    $h++;
+}
+
+if ($h == -1) {
+    say "$user: Den søjle er fyldt! Vælg en anden.";
+    exit(1);
+}
+
+$board[$h]->[$col] = $circ;
+
+my $new_board = join("\n", map { join('', @$_) } @board);
+say $new_board;

@@ -1,0 +1,81 @@
+#!/usr/bin/env rash
+#
+# Spil 4 på stribe!
+
+:start
+>resetCooldown "4påstribe"
+USER1=>env | grep '^EGGS_USER' | cut -d'=' -f2
+>echo "${USER1} vil gerne spille 4 på stribe! Hvem er frisk på en omgang?"
+
+:findUser2
+read tmp
+USER2=>env | grep '^EGGS_USER' | cut -d'=' -f2
+
+>cmpNames "${USER1}" "${USER2}"
+jz start
+
+POOR_VICTIM=>recentlyActive
+>echo "${USER1} og ${USER2} spiller 4 på stribe! ${POOR_VICTIM}, husk at heppe med!"
+
+STARTING_PLAYER=>echo "${USER1}\n${USER2}" | randomLine
+
+P1_CIRCLE=🔴
+P2_CIRCLE=🔵
+NO_CIRCLE=⚪
+
+BOARD=>echo "⚪⚪⚪⚪⚪⚪⚪\n⚪⚪⚪⚪⚪⚪⚪\n⚪⚪⚪⚪⚪⚪⚪\n⚪⚪⚪⚪⚪⚪⚪\n⚪⚪⚪⚪⚪⚪⚪\n⚪⚪⚪⚪⚪⚪⚪"
+
+>echo "${STARTING_PLAYER} starter!"
+>cmpNames "${USER2}" "${STARTING_PLAYER}"
+jz user2turn
+
+:user1turn
+OUTPUT=>4påstribeCheckBoard "${USER1}" "${P1_CIRCLE}" "${USER2}" "${P2_CIRCLE}" "${BOARD}"
+jz gameover
+
+>4påstribeStartTurn "${USER1}" "${USER2}" "${P1_CIRCLE}" "${BOARD}"
+read col
+
+EGGS_USER=>env | grep '^EGGS_USER' | cut -d'=' -f2
+>cmpNames "${USER1}" "${EGGS_USER}"
+jz user1makemove
+j user1turn
+
+:user1makemove
+OUTPUT=>4påstribeMakeMove "${USER1}" "${P1_CIRCLE}" "${NO_CIRCLE}" "${BOARD}" "${col}"
+jz user1finish
+
+>echo ${OUTPUT}
+j user1turn
+
+:user1finish
+BOARD=<${OUTPUT}>cat
+j user2turn
+
+:user2turn
+OUTPUT=>4påstribeCheckBoard "${USER1}" "${P1_CIRCLE}" "${USER2}" "${P2_CIRCLE}" "${BOARD}"
+jz gameover
+
+>4påstribeStartTurn "${USER2}" "${USER1} "${P2_CIRCLE}" "${BOARD}"
+read col
+
+EGGS_USER=>env | grep '^EGGS_USER' | cut -d'=' -f2
+>cmpNames "${USER2}" "${EGGS_USER}"
+jz user2makemove
+j user2turn
+
+:user2makemove
+OUTPUT=>4påstribeMakeMove "${USER2}" "${P2_CIRCLE}" "${NO_CIRCLE}" "${BOARD}" "${col}"
+jz user2finish
+
+>echo ${OUTPUT}
+j user2turn
+
+:user2finish
+BOARD=<${OUTPUT}>cat
+j user1turn
+
+:gameover
+WINNER=<${OUTPUT}>head -n1
+
+>echo "${WINNER}: Tillykke, du har vundet! Det endelige bræt så sådan ud:\n${BOARD}"

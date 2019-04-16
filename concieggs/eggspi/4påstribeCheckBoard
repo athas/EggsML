@@ -1,0 +1,24 @@
+#!/usr/bin/env perl
+use utf8::all;
+use 5.024;
+use warnings;
+
+my ($p1, $p1circ, $p2, $p2circ, $board) = @ARGV;
+
+sub find_winner {
+    # Horizontal
+    return $1 if $board =~ m/([$p1circ$p2circ])\1{3}/s;
+    # Vertical
+    return $1 if $board =~ m/([$p1circ$p2circ])(?:.{7}\1){3}/s;
+    # Diagonal ltr
+    return $1 if $board =~ m/([$p1circ$p2circ])(?:.{8}\1){3}/s;
+    # Diagonal rtl
+    return $1 if $board =~ m/([$p1circ$p2circ])(?:.{6}\1){3}/s;
+
+    return;
+}
+
+my $winner = find_winner;
+exit(1) unless $winner;
+
+say $winner eq $p1circ ? $p1 : $p2;
