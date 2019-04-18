@@ -56,7 +56,7 @@ j user2turn
 OUTPUT=>4påstribeCheckBoard "${USER1}" "${P1_CIRCLE}" "${USER2}" "${P2_CIRCLE}" "${BOARD}"
 jz gameover
 
->4påstribeStartTurn "${USER2}" "${USER1} "${P2_CIRCLE}" "${BOARD}"
+>4påstribeStartTurn "${USER2}" "${USER1}" "${P2_CIRCLE}" "${BOARD}"
 read col
 
 EGGS_USER=>env | grep '^EGGS_USER' | cut -d'=' -f2
