@@ -14,7 +14,7 @@ USER2=>env | grep '^EGGS_USER' | cut -d'=' -f2
 >cmpNames "${USER1}" "${USER2}"
 jz start
 
-POOR_VICTIM=>recentlyActive
+POOR_VICTIM=>recentlyActive | randomLine
 >echo "${USER1} og ${USER2} spiller 4 på stribe! ${POOR_VICTIM}, husk at heppe med!"
 
 STARTING_PLAYER=>echo "${USER1}\n${USER2}" | randomLine
