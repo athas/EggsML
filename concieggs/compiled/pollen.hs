@@ -4,7 +4,6 @@
 import Control.Monad
 import qualified Data.Aeson as Ae
 import qualified Data.ByteString.Lazy as BS
-import Data.Monoid
 import GHC.Generics
 import Network.HTTP.Client
 import Network.HTTP.Client.TLS
