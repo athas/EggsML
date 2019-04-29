@@ -1,72 +1,97 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE DeriveGeneric #-}
 
-import Network.HTTP
-import Text.XML.Light
+import Control.Monad
+import qualified Data.Aeson as Ae
+import qualified Data.ByteString.Lazy as BS
 import Data.Monoid
-import qualified Data.Text as T
-import qualified Data.Text.IO as TIO
-import qualified Data.ByteString.Char8 as BS
-import qualified Data.Text.Encoding as TEN
+import GHC.Generics
+import Network.HTTP.Client
+import Network.HTTP.Client.TLS
+import Text.XML.Light
 
-url = "http://www.dmi.dk/vejr/services/pollen-rss/"
+data DMIProduct = DMIProduct
+  { timestamp :: Integer
+  , text_type :: String
+  , text_format :: String
+  , text :: String
+  , varnishURL :: String
+  } deriving (Generic, Show)
 
-downloadPollen :: IO String
-downloadPollen = Network.HTTP.simpleHTTP (getRequest url) >>= getResponseBody
+data DMIResult = DMIResult
+  { name :: String
+  , language :: String
+  , products :: DMIProduct
+  } deriving (Generic, Show)
 
-layout :: [[T.Text]] -> T.Text
-layout lls = let len1 = maximum $ map (T.length . head) lls
-                 len2 = maximum $ map (T.length . head . tail) lls
-                 totlen = len1 + len2 + 1
-                 divider = T.append (T.append "\n+" (T.append (T.replicate len1 "-") (T.cons '+' (T.replicate len2 "-")))) "+\n"
-                 body = T.intercalate divider  [T.append (T.cons '|' (T.justifyLeft len1 ' ' s1))
-                                                         (T.snoc (T.cons '|' (T.justifyRight len2 ' ' s2)) '|')
-                                            | [s1, s2] <- lls]
-                                          in T.strip $ T.append (T.append divider body) divider
+newtype PollenResult =
+  PollenResult [DMIResult]
+  deriving (Generic, Show)
 
-findPollen :: Maybe Element -> Maybe T.Text
-findPollen e = e >>= findElement (unqual "item")
-                 >>= findElement (unqual "description")
-                 >>= return . layout . (map $ T.splitOn ": ")
-                            . (filter (\x -> x /= ""))
-                            . (map ((T.dropEnd 1) . T.strip))
-                            . T.lines . TEN.decodeUtf8 . BS.pack . strContent
+data Pollental = Pollental
+  { location :: String
+  , values :: [(String, String)]
+  }
 
-printResult :: Maybe T.Text -> IO ()
-printResult (Just s) = do
-  TIO.putStrLn "Atjuu! Her kommer dagens pollental:"
-  let s_lines = T.lines s
-      blank_lines = repeat $ T.replicate (maximum $ map T.length s_lines) " "
-      comb x y
-        | " " `T.isPrefixOf` y = x <> T.tail y
-        | otherwise = T.init x <> y
-  mapM_ TIO.putStrLn $ zipWith comb (s_lines ++ blank_lines) babe
-printResult Nothing = TIO.putStrLn "Ingen pollental!"
+instance Ae.FromJSON DMIProduct
 
-babe :: [T.Text]
-babe =
-  [ "            _"
-  , "   .&&&&&& / )"
-  , "   .&&&/ \\ |/"
-  , "   .&& <,( |\\"
-  , "    &&  _/ | )"
-  , "    _ ) &._/ /"
-  , "  /  )__| .'"
-  , " /./| _)_)"
-  , "( | \\.--|"
-  , " \\|  ) !|"
-  , " /| /.__|"
-  , "(_// _\\_/______"
-  , "  (            )"
-  , "   '..____.-'/ |"
-  , "    \\  |    (  |"
-  , "     \\ /     \\ |"
-  , "     / |      )|"
-  , "    (  |     / |"
-  , "     \\ |      \\|"
-  , "      )|"
-  , "     / |"
-  , "      \\|"
-  ]
+instance Ae.FromJSON DMIResult
+
+instance Ae.FromJSON PollenResult
+
+url = "https://www.dmi.dk/dmidk_byvejrWS/rest/texts/forecast/pollen/Danmark"
+
+downloadPollen :: IO BS.ByteString
+downloadPollen = do
+  manager <- newManager tlsManagerSettings
+  request <- parseRequest url
+  response <- httpLbs request manager
+  return $ responseBody response
+
+fe :: String -> Element -> Maybe Element
+fe = findElement . unqual
+
+parsePollen :: Element -> Maybe Pollental
+parsePollen e = do
+  loc <- fmap strContent (fe "name" e)
+  readings <- fe "readings" e
+  let values = findChildren (unqual "reading") readings
+  fmap
+    (Pollental loc)
+    (mapM
+       (\c -> do
+          n <- fmap strContent (fe "name" c)
+          v <- fmap strContent (fe "value" c)
+          return (n, v))
+       values)
+
+findPollen :: Element -> Maybe Pollental
+findPollen e = do
+  pollen <- fe "pollen_info" e
+  regions <- fe "region" pollen
+  parsePollen regions
+
+printResult :: Maybe Pollental -> IO ()
+printResult (Just (Pollental loc v)) = do
+  putStrLn $ "Atjuu! Her kommer dagens pollental for " ++ loc ++ ":"
+  mapM_
+    (\(ty, amount) -> when (amount /= "-") (putStrLn (ty ++ ": " ++ amount)))
+    v
+printResult Nothing = putStrLn "Ingen pollental!"
+
+decodeXml :: String -> Maybe Pollental
+decodeXml s = do
+  e <- parseXMLDoc s
+  findPollen e
+
+decodeShit :: BS.ByteString -> Maybe Pollental
+decodeShit s = do
+  jsonPollen <- Ae.decode s
+  case jsonPollen of
+    PollenResult [o] -> decodeXml (text (products o))
+    _ -> Nothing
 
 main :: IO ()
-main = downloadPollen >>= (printResult . findPollen . parseXMLDoc)
+main = do
+  p <- downloadPollen
+  printResult (decodeShit p)
