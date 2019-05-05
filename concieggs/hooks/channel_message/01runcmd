@@ -8,6 +8,6 @@ if [ "$rawcmd" ]; then
     if [ "$rawcmd" = fluen -o "$rawcmd" = duen -o "$rawcmd" = flaske ]; then
         runcmd "$rawcmd" $args
     else
-        gtimeout 10s runcmd "$rawcmd" $args
+        gtimeout 30s runcmd "$rawcmd" $args
     fi
 fi
