@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# Brug: tidszone BY
+
+city="$*"
+
+offset_text=$(curl -s "https://www.timeanddate.com/$(curl -s https://www.timeanddate.com/worldclock/results.html?query=$(echo "$city" | tr ' ' '+') | grep -oE '<td><a href="[^"]+' | head -n 1 | cut -d '"' -f 2 | sed 's/worldclock/time\/zone/')" | grep -oE 'Current Offset: </span> <span class=big>[^<]+' | cut -d '>' -f 3)
+
+if [ "$offset_text" = 'No UTC/GMT offset' ]; then
+    offset=0
+elif echo "$offset_text" | grep -qE 'UTC/GMT \+[0-9]+ hours'; then
+    offset=$(echo "$offset_text" | grep -oE '[0-9]+')
+elif echo "$offset_text" | grep -qE 'UTC/GMT -[0-9]+ hours'; then
+    offset=-$(echo "$offset_text" | grep -oE '[0-9]+')
+fi
+
+offset_koebenhavn=$(date +%z | sed -E 's/\+|0//g')
+
+offset_rel=$(expr $offset - $offset_koebenhavn)
+
+if [ "$offset_rel" = 0 ]; then
+    echo "$city er på Københavnstid!"
+elif echo "$offset_rel" | grep -q -; then
+    echo "$city er$(echo "$offset_rel" | tr - ' ') timer bagud København."
+else
+    echo "$city er $offset_rel timer foran København."
+fi
