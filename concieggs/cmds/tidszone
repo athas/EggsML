@@ -4,7 +4,8 @@
 
 city="$*"
 
-offset_text=$(curl -s "https://www.timeanddate.com/$(curl -s https://www.timeanddate.com/worldclock/results.html?query=$(echo "$city" | tr ' ' '+') | grep -oE '<td><a href="[^"]+' | head -n 1 | cut -d '"' -f 2 | sed 's/worldclock/time\/zone/')" | grep -oE 'Current Offset: </span> <span class=big>[^<]+' | cut -d '>' -f 3)
+path="$(curl -s https://www.timeanddate.com/worldclock/results.html?query=$(echo "$city" | tr ' ' '+') | grep -oE '<td><a href="[^"]+' | head -n 1 | cut -d '"' -f 2 | sed 's/worldclock/time\/zone/')"
+offset_text=$(curl -s "https://www.timeanddate.com/$path" | grep -oE 'Current Offset: </span> <span class=big>[^<]+' | cut -d '>' -f 3)
 
 if [ "$offset_text" = 'No UTC/GMT offset' ]; then
     offset=0
