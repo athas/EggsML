@@ -64,22 +64,27 @@ type JsonAPI struct {
 func main() {
 	city := "København"
 	country := "DK"
+	velkomst := false;
 	if len(os.Args) > 1 {
-		// Hvad er vejret i Kantinen?
-		if os.Args[1] == "Kantinen" {
-			fmt.Println(kantinevejrBeskrivelse)
-			return
+		if os.Args[1] == "Velkomstbesked"{
+			velkomst = true;
 		}
-
-		args := append(os.Args[:0], os.Args[1:]...)
-		argsStr := strings.Join(args, " ")
-		ss := strings.Split(argsStr, ",")
-		if len(ss) == 1 {
-			city = ss[0]
-		}
-		if len(ss) >= 2 {
-			city = strings.Trim(ss[0], " ")
-			country = strings.Trim(ss[1], " ")
+		else {
+			// Hvad er vejret i Kantinen?
+			if os.Args[1] == "Kantinen" {
+				fmt.Println(kantinevejrBeskrivelse)
+				return
+			}
+			args := append(os.Args[:0], os.Args[1:]...)
+			argsStr := strings.Join(args, " ")
+			ss := strings.Split(argsStr, ",")
+			if len(ss) == 1 {
+				city = ss[0]
+			}
+			if len(ss) >= 2 {
+				city = strings.Trim(ss[0], " ")
+				country = strings.Trim(ss[1], " ")
+			}
 		}
 	}
 
@@ -125,7 +130,12 @@ func main() {
 
 	realCountry := vejrLib.CountryFromCode(dat.Sys.Country)
 
-	t, _ := template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}: {{.Beskrivelse}} med en temperatur på {{.Degrees}}°C. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}. {{.Afstand}} {{.Age}}`)
+	if (velkomst){
+		t, _ := template.New("Vejr").Parse(`Vidste du at vejret her i København er {{.Beskrivelse}} med en temperatur på {{.Degrees}}°C? Der blæser en {{.WindBeaufortName}} fra {{.WindDirection}}.`)
+	}
+	else {
+		t, _ := template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}: {{.Beskrivelse}} med en temperatur på {{.Degrees}}°C. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}. {{.Afstand}} {{.Age}}`)
+	}
 	out := bytes.NewBufferString("")
 	t.Execute(out, struct {
 		City             string
