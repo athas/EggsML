@@ -10,7 +10,7 @@ if [ 1 = 1 ]; then
     case $rand in
         # Produce a random thought
         1)
-            rt=`~/EggsML/cmds/vejr Velkomstbesked`
+            rt=`$CONCIEGGS_DIR/cmds/vejr Velkomstbesked`
             ;;
         2)
             rt=`$CONCIEGGS_DIR/cmds/forvikling`
