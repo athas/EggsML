@@ -67,9 +67,8 @@ func main() {
 	velkomst := false;
 	if len(os.Args) > 1 {
 		if os.Args[1] == "Velkomstbesked"{
-			velkomst = true;
-		}
-		else {
+			velkomst = true
+		} else {
 			// Hvad er vejret i Kantinen?
 			if os.Args[1] == "Kantinen" {
 				fmt.Println(kantinevejrBeskrivelse)
@@ -133,8 +132,7 @@ func main() {
 	var t template.Template
 	if (velkomst){
 		t, _ := template.New("Vejr").Parse(`Vidste du at vejret her i København er {{.Beskrivelse}} med en temperatur på {{.Degrees}}°C? Der blæser en {{.WindBeaufortName}} fra {{.WindDirection}}.`)
-	}
-	else {
+	} else {
 		t, _ := template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}: {{.Beskrivelse}} med en temperatur på {{.Degrees}}°C. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}. {{.Afstand}} {{.Age}}`)
 	}
 	out := bytes.NewBufferString("")
