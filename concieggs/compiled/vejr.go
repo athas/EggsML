@@ -130,6 +130,7 @@ func main() {
 
 	realCountry := vejrLib.CountryFromCode(dat.Sys.Country)
 
+	var t template.Template
 	if (velkomst){
 		t, _ := template.New("Vejr").Parse(`Vidste du at vejret her i København er {{.Beskrivelse}} med en temperatur på {{.Degrees}}°C? Der blæser en {{.WindBeaufortName}} fra {{.WindDirection}}.`)
 	}
