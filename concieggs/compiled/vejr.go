@@ -131,8 +131,12 @@ func main() {
 
 	var t *template.Template
 	if (velkomst){
-		if (description == 800 || description == 801) {
-			t, _ = template.New("Vejr").Parse("Sikke et dejligt vejr vi har her i Kongens København! Det er jo {{.Beskrivelse}} og {{.Degrees}}°C, og der blæser en {{.WindBeaufortName}} fra {{.WindDirection}}.")
+		if (description == 800 || description == 801) { // klar himmel
+			t, _ = template.New("Vejr").Parse("Synes du ikke også, vejret er dejligt?")
+		} else if (description <= 622 && description >= 200 ) { // nedbør
+			t, _ = template.New("Vejr").Parse("Synes du ikke også, vejret er træls?")
+		} else if description == 804 { // overskyet
+			t, _ = template.New("Vejr").Parse("Det er lidt trist vejr, vi har, ikke?")
 		} else {
 			t, _ = template.New("Vejr").Parse(`Vidste du at vejret her i København er {{.Beskrivelse}} med en temperatur på {{.Degrees}}°C? Der blæser en {{.WindBeaufortName}} fra {{.WindDirection}}.`)
 		}
