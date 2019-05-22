@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-fakta=("/trivia" "/year" "/math" "year")
+fakta=("/trivia" "/year" "/math" "date")
 valgt=${fakta[$RANDOM % ${#fakta[@]} ]}
 
 curl -s http://numbersapi.com/random/$1$valgt
