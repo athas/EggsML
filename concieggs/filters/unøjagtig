@@ -19,7 +19,7 @@ my @categories = (
     [qw(Trump Bush Clinton Reagan Obama)],
     [qw(Søren Jørgen George)],
     [qw(Troels Truls Athas trulsa)],
-    [qw(Sebbe sword_smith simon sshine)],
+    [qw(Sebbe sword_smith simon sshine svip)],
     [qw(højre venstre)],
     [qw(op ned)],
     [qw(nord syd øst vest)],
