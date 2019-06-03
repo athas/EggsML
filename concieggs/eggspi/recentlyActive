@@ -19,7 +19,6 @@ filterIsOnline() {
 recentChat $lines \
     | egrep -o '^#[a-z]+ +:[0-9 :\-]+<([^ >]+)' \
     | cut -d'<' -f2 \
-    | grep -v '^hej_fra_github$' \
     | grep -v "^$CONCIEGGS_NAME\$" \
     | grep -v '^guest_' \
     | grep -v '^infoskaerm' \
