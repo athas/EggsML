@@ -99,6 +99,8 @@ def run_main():
                         exit = 0
                     else:
                         exit = 1
+            elif command == "_git_pull":
+                git_pull()
             else:
                 sys.stderr.write("Unrecognized command %s" % command)
         fd.write(str(int(exit))+'\n')

@@ -2,6 +2,7 @@
 
 from random import choice
 import sys
+import os
 
 def user_aliases(eggs, name):
     for user_aliases in eggs.aliases:
@@ -122,3 +123,9 @@ def print_eggscount(eggs,name):
 
 def same_eggser(eggs,x,y):
     return user_aliases(eggs,x) == user_aliases(eggs,y)
+
+def git_pull():
+    old = os.getcwd()
+    os.chdir('/eggsml')
+    os.system('git pull')
+    os.chdir(old)
