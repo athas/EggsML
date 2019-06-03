@@ -18,7 +18,7 @@ my %news_sites = (
     },
     bt => sub {
         my $dom = $ua->get('http://bt.dk')->result->dom;
-        my @articles = $dom->find('.dre-item__alt-title--lg')->map('all_text')->each;
+        my @articles = $dom->find('.dre-item__alt-title--lg')->map(sub { join(' ', shift->children->map('all_text')->each) })->each;
         return @articles;
     },
     dr => sub {

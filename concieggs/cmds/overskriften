@@ -6,7 +6,7 @@ EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
 TIME_START=>python -c "import time; print(time.time())"
 
 # The deadline is 30 seconds for guessing a correct answer. Feel free to change this.
-DEADLINE=>echo 30
+DEADLINE=30
 
 linje=>headlines | randomLine
 jz harlinje
