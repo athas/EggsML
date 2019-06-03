@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# encoding: utf-8
 #
 # Find Twitter-konti for de danske folketingsmedlemmer.  Husk at køre det her
 # skrift en gang imellem, og forbedr det gerne.
@@ -7,16 +8,20 @@ import sys
 import re
 import random
 import urllib
+import urllib2
 
-url_template = 'http://www.ft.dk/Folketinget/searchResults.aspx?letter=ALLE&pageSize=100&pageNr={}'
+opener = urllib2.build_opener()
+opener.addheaders = [('User-Agent', 'Mozilla/5.0')]
+
+url_template = 'https://www.ft.dk/searchResults.aspx?sortln=desc&pageSize=100&pageNr={}'
 
 member_urls = []
 for i in range(2):
     url = url_template.format(i + 1)
-    data = urllib.urlopen(url).read()
+    data = opener.open(url).read()
     member_urls.extend(
         ('http://www.ft.dk' + l for l in
-         re.findall(r'/Folketinget/findMedlem/[^.]+\.aspx', data)))
+         re.findall(r'/da/medlemmer/folketingetsmedlemmer/[^"\']+', data)))
 member_urls = list(set(member_urls))
 
 twitter_users = []
@@ -32,14 +37,14 @@ for url, i in zip(member_urls, range(len(member_urls))):
         continue
     print "'- Fandt hjemmeside", homepage_url
     try:
-        data = urllib.urlopen(homepage_url).read()
-    except IOError:
+        data = opener.open(homepage_url).read()
+    except Exception:
         continue
     m = re.search('<frame src="([^"]+)">', data)
     if m is not None:
         homepage_url = m.group(1)
-        data = urllib.urlopen(homepage_url).read()        
-    users = re.findall('href="https?://twitter.com/([^/"]+)', data)
+        data = opener.open(homepage_url).read()
+    users = re.findall('https?://twitter.com/([^/"]+)', data)
     users = list(filter(lambda user: not (user == 'share'
                                           or user.startswith('home')
                                           or user == 'intent' # ???
@@ -56,6 +61,7 @@ for url, i in zip(member_urls, range(len(member_urls))):
     users = [fix(u) for u in users]
     if not users:
         continue
+    users = list(set(users))
     print "   '- Fandt TWITTER-BRUGERE", users
     twitter_users.extend(users)
 
