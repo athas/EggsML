@@ -6,7 +6,7 @@ eval "$(echo "$@" | parse \
 'skylder (?<debtor>[^ ]+)$|'\
 'har (?<debtor>[^ ]+) til gode$|'\
 'spiller de( [^ ]+)? (på|hos|ved|i) (?<channel>.+)$|'\
-'er balancen på ([Bb]itcoinadressen )?(?<btc>[^ ]+)|'\
+'er balancen på ([Bb]itcoinadressen )?(?<btc>[^ \?]+)|'\
 '(?<whatis>er (?<subject>.+))$|'\
 '(?<missing>mangler jeg)$|'\
 '(?<wtf>hulen)$|'\
@@ -227,25 +227,25 @@ elif [ "$listener" ]; then
     exit
 
 elif [ "$btc" ]; then
-    if echo "$btc" | egrep -q '^tb1[0-9A-Za-z]+'; then
-        json=$(curl -s "https://blockstream.info/testnet/api/address/$btc");
+    if echo "$btc" | egrep -q '^tb1.*'; then
+        json=$(curl -s "https://blockstream.info/testnet/api/address/$btc")
         first_part='import json; data = json.loads(r"""'
         second_part='"""); print(data["chain_stats"]["funded_txo_sum"] - data["chain_stats"]["spent_txo_sum"])'
-        btc_balance=$(python -c "$first_part $json $second_part")
+        btc_balance=$(python -c "$first_part$json$second_part")
     fi
     if echo "$btc" | egrep -q '^bc1[0-9A-Za-z]+'; then
         json=$(curl -s "https://blockstream.info/api/address/$btc");
         first_part='import json; data = json.loads(r"""'
         second_part='"""); print(data["chain_stats"]["funded_txo_sum"] - data["chain_stats"]["spent_txo_sum"])'
-        btc_balance=$(python -c "$first_part $json $second_part")
+        btc_balance=$(python -c "$first_part$json$second_part")
     fi
     if echo "$btc" | egrep -q '^[m|2][0-9A-Za-z]+'; then
         json=$(curl -s "https://blockstream.info/testnet/api/address/$btc");
         first_part='import json; data = json.loads(r"""'
         second_part='"""); print(data["chain_stats"]["funded_txo_sum"] - data["chain_stats"]["spent_txo_sum"])'
-        btc_balance=$(python -c "$first_part $json $second_part")
+        btc_balance=$(python -c "$first_part$json$second_part")
     fi
-    if echo "$btc" | egrep -q '^[0-9A-Za-z]+$'; then
+    if echo "$btc" | egrep -q '^[1|3][0-9A-Za-z]+$'; then
         btc_balance=$(curl -s "https://blockchain.info/q/addressbalance/$btc")
     fi
     if echo $btc_balance | egrep -q '^[0-9]+$'; then
