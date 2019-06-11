@@ -228,16 +228,22 @@ elif [ "$listener" ]; then
 
 elif [ "$btc" ]; then
     if echo "$btc" | egrep -q '^tb1[0-9A-Za-z]+'; then
-        json=$(curl -s "https://blockstream.info/testnet/api/address/$btc"); received=$(echo "$json" | jq '.chain_stats.funded_txo_sum'); spent=$(echo "$json" | jq '.chain_stats.spent_txo_sum');
-        btc_balance=$(expr $received - $spent)
+        json=$(curl -s "https://blockstream.info/testnet/api/address/$btc");
+        first_part='import json; data = json.loads(r"""'
+        second_part='"""); print(data["chain_stats"]["funded_txo_sum"] - data["chain_stats"]["spent_txo_sum"])'
+        btc_balance=$(python -c "$first_part $json $second_part")
     fi
     if echo "$btc" | egrep -q '^bc1[0-9A-Za-z]+'; then
-        json=$(curl -s "https://blockstream.info/api/address/$btc"); received=$(echo "$json" | jq '.chain_stats.funded_txo_sum'); spent=$(echo "$json" | jq '.chain_stats.spent_txo_sum');
-        btc_balance=$(expr $received - $spent)
+        json=$(curl -s "https://blockstream.info/api/address/$btc");
+        first_part='import json; data = json.loads(r"""'
+        second_part='"""); print(data["chain_stats"]["funded_txo_sum"] - data["chain_stats"]["spent_txo_sum"])'
+        btc_balance=$(python -c "$first_part $json $second_part")
     fi
     if echo "$btc" | egrep -q '^[m|2][0-9A-Za-z]+'; then
-        json=$(curl -s "https://blockstream.info/api/address/$btc"); received=$(echo "$json" | jq '.chain_stats.funded_txo_sum'); spent=$(echo "$json" | jq '.chain_stats.spent_txo_sum');
-        btc_balance=$(expr $received - $spent)
+        json=$(curl -s "https://blockstream.info/testnet/api/address/$btc");
+        first_part='import json; data = json.loads(r"""'
+        second_part='"""); print(data["chain_stats"]["funded_txo_sum"] - data["chain_stats"]["spent_txo_sum"])'
+        btc_balance=$(python -c "$first_part $json $second_part")
     fi
     if echo "$btc" | egrep -q '^[0-9A-Za-z]+$'; then
         btc_balance=$(curl -s "https://blockchain.info/q/addressbalance/$btc")
