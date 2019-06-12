@@ -187,9 +187,9 @@ elif [ "$kingname" ]; then
     kingname="$(dbRead eggskingname)"
 
     if [ "$name" ] && [ "$kingname" ]; then
-        echo "$EGGS_USER: Kongens royale navn er naturligvis HKH ${kingname}, også kendt under det borgerlige navn $(randomName "$name")!"
+        echo "$EGGS_USER: Kongens royale navn er naturligvis H.M. ${kingname}, også kendt under det borgerlige navn $(randomName "$name")!"
     else
-        echo "$EGGS_USER: Gisp, det ser ikke ud til at HKH har noget royalt navn!"
+        echo "$EGGS_USER: Gisp! Det ser ikke ud til at Majestæten har noget royalt navn!"
     fi
 elif [ "$forkortelse" ]; then
     ordene="$(falskForkortelse "$forkortelse")"
