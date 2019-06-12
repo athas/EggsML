@@ -232,9 +232,7 @@ elif [ "$btc" ]; then
     $(echo "$btc" | egrep -q '^bc1[0-9A-Za-z]+' || echo "$btc" | egrep -q '^[1|3][0-9A-Za-z]+' ) && json=$(curl -s "https://blockstream.info/api/address/$btc")
 
     if [ "$json" ]; then
-        received=$(echo "$json" | jq '.chain_stats.funded_txo_sum')
-        spent=$(echo "$json" | jq '.chain_stats.spent_txo_sum')
-        btc_balance=$(expr $received - $spent)
+        btc_balance=$(echo "$json" | jq '.chain_stats | .funded_txo_sum - .spent_txo_sum')
     fi
 
     if echo $btc_balance | egrep -q '^[0-9]+$'; then
