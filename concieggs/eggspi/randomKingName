@@ -11,10 +11,10 @@ $1 Augustus
 EOF
 else
     randomLine <<EOF
-kong $name
-hans majestæt $name
-hans majestæt
-$name rex
-hans kongelige højhed $1
+Kong $name
+Hans Majestæt $name
+Hans Majestæt
+$name Rex
+Hans Majestæt $1
 EOF
 fi
