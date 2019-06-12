@@ -268,7 +268,7 @@ elif [ "$txid" ]; then
         block_number=$(python -c "$first_part $json $second_part; print(data[\"status\"][\"block_height\"])")
         msg="Transaktionen er bekræftet i blok nummer $block_number på $net."
     else
-        msg="Transaktionen er endnu ikke bekræftet, men ligger i mempool $net."
+        msg="Transaktionen er endnu ikke bekræftet, men ligger i mempool på $net."
     fi
     echo "$msg"
 
