@@ -15,4 +15,4 @@ Mest Brainfuck, Lindbo og Dybber.
 FORBEDRET AF
 ------------
 
-Mest Troels, Niels, Sebastian, Mikkel, Brandt, jer vi har glemt :heart:
+Mest Troels, Niels, Sebastian, Mikkel, Brandt, sshine, sword-smith og jer, vi har glemt :heart:
