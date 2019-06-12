@@ -8,6 +8,6 @@ if [ "$rawcmd" ]; then
     if [ "$rawcmd" = fluen -o "$rawcmd" = duen -o "$rawcmd" = flaske ]; then
         runcmd "$rawcmd" $args
     else
-        gtimeout 30s runcmd "$rawcmd" $args
+        gtimeout 30s runcmd "$rawcmd" $args || (echo "Jeg må give fortabt!"; echo "Nej. Det tog for lang tid ...";) | randomLine
     fi
 fi
