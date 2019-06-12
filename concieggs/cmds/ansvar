@@ -64,7 +64,7 @@ sub ansvar_enkelt_linje {
     # og der er så meget besvær med at benytte ack, søger vi i de
     # mest interessante mapper:
     my @subdirs = qw(cmds compiled eggspi filters hooks ops virker-egge);
-    chomp (my @matches = capturex('egrep', "-Rn$i", '--', $regex, @subdirs));
+    chomp (my @matches = capturex('egrep', "-IRn$i", '--', $regex, @subdirs));
     if (!@matches) {
         my $victim = pick(@victims);
         say "$EGGS_USER: Den stump kode har jeg svært ved at finde, " .
