@@ -265,7 +265,8 @@ elif [ "$txid" ]; then
     second_part=$(echo '""")')
     confirmed=$(python -c "$first_part $json $second_part; print(data[\"status\"][\"confirmed\"])")
     if [ "$confirmed" = "True" ]; then
-        msg="Transaktionen er bekræftet."
+        block_number=$(python -c "$first_part $json $second_part; print(data[\"status\"][\"block_height\"])")
+        msg="Transaktionen er bekræftet i blok nummer $block_number."
     else
         msg="Transaktionen er endnu ikke bekræftet, men ligger i mempool."
     fi
