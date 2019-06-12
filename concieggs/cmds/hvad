@@ -7,6 +7,7 @@ eval "$(echo "$@" | parse \
 'har (?<debtor>[^ ]+) til gode$|'\
 'spiller de( [^ ]+)? (på|hos|ved|i) (?<channel>.+)$|'\
 'er balancen på ([Bb]itcoinadressen )?(?<btc>[^ \?]+)|'\
+'er status på (?<txid>[^ \?]+)|'\
 '(?<whatis>er (?<subject>.+))$|'\
 '(?<missing>mangler jeg)$|'\
 '(?<wtf>hulen)$|'\
@@ -245,6 +246,30 @@ elif [ "$btc" ]; then
      echo "$EGGS_USER: Det må Bitcoin-vejrguderne vide."
      echo "$EGGS_USER: Den er vist steget 10.000% siden i morges!"
     ) | randomLine
+
+elif [ "$txid" ]; then
+    if echo "$txid" | egrep -q '[0-9a-fA-F]{64}'; then
+        sc_mainnet=$(curl -s -o /dev/null -w "%{http_code}" --connect-timeout 1 "https://blockstream.info/api/tx/$txid")
+        sc_testnet=$(curl -s -o /dev/null -w "%{http_code}" --connect-timeout 1 "https://blockstream.info/testnet/api/tx/$txid")
+        [ $sc_mainnet -eq 200 ] && json=$(curl -s "https://blockstream.info/api/tx/$txid")
+        [ $sc_testnet -eq 200 ] && json=$(curl -s "https://blockstream.info/testnet/api/tx/$txid")
+        if [ -z "$json" ]; then
+            echo "Den transaktion kender jeg desværre ikke."
+            exit 0
+        fi
+    else
+        echo "Det transaktions-id ser ikke gyldigt ud"
+        exit 1
+    fi
+    first_part=$(echo 'import json; data = json.loads(r"""')
+    second_part=$(echo '""")')
+    confirmed=$(python -c "$first_part $json $second_part; print(data[\"status\"][\"confirmed\"])")
+    if [ "$confirmed" = "True" ]; then
+        msg="Transaktionen er bekræftet."
+    else
+        msg="Transaktionen er endnu ikke bekræftet, men ligger i mempool."
+    fi
+    echo "$msg"
 
 elif [ "$version2" ]; then
     version2Debat | {
