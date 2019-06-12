@@ -259,8 +259,6 @@ elif [ "$txid" ]; then
         echo "Det transaktions-id ser ikke gyldigt ud"
         exit 1
     fi
-    first_part=$(echo 'import json; data = json.loads(r"""')
-    second_part=$(echo '""")')
     confirmed=$(echo "$json" | jq '.status.confirmed')
     if [ "$confirmed" = "true" ]; then
         block_number=$(echo "$json" | jq '.status.block_height')
