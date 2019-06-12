@@ -9,6 +9,7 @@ use File::Spec;
 use Git::Repository qw(Blame Log);
 use Time::Piece;
 use IPC::System::Simple qw(capturex);
+use List::UtilsBy qw(rev_nsort_by);
 
 use Env qw(EGGS_USER EGGS_BODY CONCIEGGS_DIR CONCIEGGS_NAME);
 use EggsML::EggsPI boolean => [qw(annoyedBy)],
@@ -71,22 +72,29 @@ sub ansvar_enkelt_linje {
         exit;
     }
 
-    my $n = @matches;
-    if ($n > 5) {
-        say "$EGGS_USER: Den stump kode forekommer godt nok mange gange ($n)."
-            . "  Det er næppe originalt nok til at give nogen ansvar for.";
-        exit;
-    }
-
+    my %authors;
+    my @line_answers;
     for my $match (@matches) {
         my ($match_filename, $match_line, $match_text) = split /:/, $match, 3;
         my $git_match_filename = File::Spec->catfile($CONCIEGGS_DIR, $match_filename);
         my $blame = $repo->blame($git_match_filename, ignore_whitespace => 0);
         my $author = $blame->[$match_line - 1]->{commit_attributes}->{author};
+        $authors{$author}++;
 
         $match_text =~ s/^\s*//;
         $match_text =~ s/\s*$//;
-        say "Linje $match_line i $match_filename er skrevet af $author: $match_text";
+        push @line_answers, "Linje $match_line i $match_filename er skrevet af $author: $match_text";
+    }
+
+    my $n = @matches;
+    if ($n > 6) {
+        my @top_authors = rev_nsort_by { $authors{$_} } keys %authors;
+        my @top_line = map { sprintf('%s (%s)', $_, $authors{$_}) } @top_authors;
+        say "$EGGS_USER: Den stump kode forekommer godt nok mange gange ($n),"
+            . " mestendels begået af: " . join(', ', @top_line);
+        exit;
+    } else {
+        say $_ for @line_answers;
     }
 
     exit;
