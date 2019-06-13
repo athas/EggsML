@@ -1,0 +1,3 @@
+#!/bin/sh
+
+echo "$@: Klokken er $(date +%H:%M) og du er anholdt!"
