@@ -62,8 +62,14 @@ type JsonAPI struct {
 }
 
 func main() {
-	city := "København"
-	country := "DK"
+	user := os.Getenv("EGGS_USER")
+	if user == "sword_smith" {
+		city := "Zug"
+		country := "CH"
+	} else {
+		city := "København"
+		country := "DK"
+	}
 	velkomst := false;
 	if len(os.Args) > 1 {
 		if os.Args[1] == "Velkomstbesked"{
