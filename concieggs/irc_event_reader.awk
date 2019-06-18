@@ -74,12 +74,16 @@ match(payload, /^<([^ ]+)> (.*)$/, matches) {
   if (message_from == name) {
     next
   }
+
   setvars=("export EGGS_USER=" shellquote(message_from) "\n"            \
            "export EGGS_WHERE=" shellquote(context) "\n"                \
            "export EGGS_WHEN=" shellquote(timestamp) "\n"               \
            "export CONCIEGGS_NAME=" shellquote(name) "\n"                    \
            "export EGGS_BODY=" shellquote(message_body) "\n"            \
            "export EGGS_LINE=" shellquote($0) "\n")
+  if (message_body ~ '/^vær.*/') {
+      next
+  }
   if (match(context, /^#/)) {
     system(setvars "\n" "runFor \"$EGGS_WHERE\" runHooks channel_message")
   } else {
