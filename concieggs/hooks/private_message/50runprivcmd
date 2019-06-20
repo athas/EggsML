@@ -17,5 +17,14 @@ awk_getargs='{ print substr($0, index($0, $1)+length($1)+1, length($0)) }'
 
 rawcmd=$(echo "$EGGS_BODY"|gawk "$awk_getcmd")
 if [ "$rawcmd" ]; then
-    exit 1
+    args="$(echo "$EGGS_BODY"|gawk "$awk_getargs")"
+    if [ "$rawcmd" = "vær" ]; then
+        echo "$EGGS_USER: Hvis jeg skal ændre mig for din skyld, så stå da offentligt frem med det!" \
+            | sayTo "$CONCIEGGS_DEFAULT_CHANNEL"
+    fi
+    runcmd -a "$rawcmd" $args
+    if [ "$rawcmd" = "maxima" ]; then
+        echo "$EGGS_USER skriver måske farlige ting til mig privat!" \
+            | sayTo "$CONCIEGGS_DEFAULT_CHANNEL"
+    fi
 fi
