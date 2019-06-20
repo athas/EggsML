@@ -19,7 +19,7 @@ rawcmd=$(echo "$EGGS_BODY"|gawk "$awk_getcmd")
 if [ "$rawcmd" ]; then
     args="$(echo "$EGGS_BODY"|gawk "$awk_getargs")"
     runcmd -a "$rawcmd" $args
-    if [ "$rawcmd" = "maxima" ] || [ "$rawcmd" = "vær" ]; then
+    if [ "$rawcmd" = "maxima" ]; then
         echo "$EGGS_USER skriver måske farlige ting til mig privat!" \
             | sayTo "$CONCIEGGS_DEFAULT_CHANNEL"
     fi
