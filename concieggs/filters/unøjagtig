@@ -38,7 +38,6 @@ my @categories = (
     [qw(↓ ↑ ← → ↙ ↖ ↘ ↗)],
     [qw(☁ ☀ ☾ ☔ ☁ ☃)],
     [('i dag', 'i morgen', 'i overmorgen', 'i går', 'i forgårs')],
-    [qw(ad af ak al am an at av bi bo by bæ da de dj du dy dø ed eg ej fæ få ha hi ja jo ko kø le li lo ly læ lå mø må ni nu ny næ nå og oh ok om op os pc på er et en ex ud æd æg æv åd åg ål)]
 );
 
 # Numbers
