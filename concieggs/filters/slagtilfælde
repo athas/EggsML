@@ -18,6 +18,11 @@ my @symptoms = (
     "får en lammelse i benet",
     "kan ikke synke",
     "får en lammelse i højre side af ansigtet",
+    "får det ildebefindende",
+    "fråder om munden",
+    "kan ikke løfte venstre arm",
+    "mister besindelsen",
+    "kan ikke længere formulere sætninger",
     );
 
 # Numbers
