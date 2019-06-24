@@ -29,6 +29,7 @@ while (my $line = <>) {
         $line =~ s/\b(?:$pattern)\b/randpick(@$values)/egi;
     }
 
+    $line =~ s/\s+$//g; # remove EOL newline messing up output if last word is repeated
     my @words = split / /, $line;
     my @newwords;
     my $collapse = 0;
