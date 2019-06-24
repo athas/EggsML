@@ -3,8 +3,6 @@ use 5.012;
 use warnings;
 use utf8::all;
 
-# Categories
-
 sub randpick {
     return $_[rand(@_)];
 }
@@ -25,8 +23,6 @@ my @symptoms = (
     "kan ikke længere formulere sætninger",
     );
 
-# Numbers
-
 while (my $line = <>) {
     foreach my $values (@categories) {
         my $pattern = join '|', map(quotemeta, @$values);
@@ -34,15 +30,13 @@ while (my $line = <>) {
     }
 
     my @words = split / /, $line;
-    my $i = 0;
     my @newwords;
     my $collapse = 0;
     foreach my $word (@words) {
         if (rand(10) < 1) {
             push @newwords, $word;
         }
-        $i++;
-        if (rand(30) < 1) {
+        if (rand(50) < 1) {
             push @newwords, "øøhhh ... ";
             $collapse = 1;
             last;
