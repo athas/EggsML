@@ -21,6 +21,7 @@ my @symptoms = (
     "kan ikke løfte venstre arm",
     "mister besindelsen",
     "kan ikke længere formulere sætninger",
+    "begynder at græde ukontrollabelt",
     );
 
 while (my $line = <>) {
