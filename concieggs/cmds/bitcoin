@@ -10,22 +10,19 @@ import os
 from functools import partial
 import itertools
 import random
-import urllib2
-import re
+import requests
+import urllib.request as ur
+import urllib.parse
 import xml.etree.ElementTree as ET
 from lxml import html
 
 def run_main(args):
     args = parseArgs(args)
 
-    #list = urllib2.urlopen("https://coinbase.com/charts")
-    #content = list.read()
-    #priceInUSD = content.split('Buy Price: $')[1].split('<')[0]
-    #priceInUSD = float(priceInUSD.replace(",","."))
     process = subprocess.run(['bitcoinpris', 'median'], stdout=subprocess.PIPE)
-    priceInUSD = int(process.stdout.decode('utf-8').rstrip())
+    priceInUSD = float(process.stdout.decode('utf-8').rstrip())
     dollarkurz = dollarkurs()
-    priceInDKK = priceInUSD * (dollarkurz / 100.0)
+    priceInDKK = float(priceInUSD * (dollarkurz / 100.0))
     try:
         antalBitcoin = args[2] / priceInDKK
     except TypeError:
@@ -35,8 +32,8 @@ def run_main(args):
     user = os.getenv("EGGS_USER")
     if user is None:
         user = "min ven"
-    print "Tillykke %s, du kan købe %.4f bitcoin for dine penge."  % (user, antalBitcoin)
-    print "Husk altid at %s, inden du gør den slags :-)" % (reminder())
+    print ("Tillykke {}, du kan købe {:4.4f} bitcoin for dine penge.".format(user, antalBitcoin))
+    print ("Husk altid at {}, inden du gør den slags :-)".format(reminder()))
     bitcoinAdvisor(priceInDKK)
 
 def reminder():
@@ -69,8 +66,9 @@ def reminder():
     return rm
 
 def dollarkurs(valuta="USD"):
-    page = urllib2.urlopen("http://valutakurser.dk").read()
-    tree = html.fromstring(page)
+    page = ur.urlopen("http://valutakurser.dk")
+    body = page.read()
+    tree = html.fromstring(body.decode("utf-8"))
     kurs = tree.xpath("//div[@id='" + valuta + "']/text()")[0]
     return float(kurs.replace(',','.'))
 
@@ -84,7 +82,7 @@ def parseArgs(args):
     return args
 
 def fejl():
-    print "Brug 'bitcoin for <beløb> kroner'"
+    print ("Brug 'bitcoin for <beløb> kroner'")
 
 def fremtid():
     v = random.randint(1, 60)
@@ -96,23 +94,22 @@ def fremtid():
         m = "minut" if v == 1 else "minutter"
     elif t == 2:
         m = "time" if v == 1 else "timer"
-    return "%i %s" % (v, m)
+    return "{} {}".format(str(v), m)
 
 def bitcoinAdvisor(kronerPrBTC):
     try:
         oldPrice = float(sh.dbRead("bitcoin"))
     except:
         sh.dbWrite("bitcoin", stdin=str(0.00))
-        oldPrice = 0.00
     finally:
         sh.dbWrite("bitcoin", stdin= str(kronerPrBTC))
 
         if oldPrice < kronerPrBTC:
-            print "Kursen er steget siden sidst, SÆLG ALLE DINE BITCOINS!"
-            print "Sidst var den jo %.4f kroner per bitcoin, men hvem ved hvad den er om %s?" % (kronerPrBTC, fremtid())
+            print ("Kursen er steget siden sidst, SÆLG ALLE DINE BITCOINS!")
+            print ("Sidst var den jo {:4.1f} kroner per bitcoin, men hvem ved hvad den er om {}?".format(kronerPrBTC, fremtid()))
         else:
-            print "Kursen er faldet siden sidst, INVESTÉR AL DIN EJENDOM I BITCOINS!"
-            print "Den var tidligere %.4f kroner per bitcoin, men hvem ved hvad den er om %s" % (kronerPrBTC, fremtid())
+            print ("Kursen er faldet siden sidst, INVESTÉR AL DIN EJENDOM I BITCOINS!")
+            print ("Den var tidligere {4.1f} kroner per bitcoin, men hvem ved hvad den er om {}".format(kronerPrBTC, fremtid()))
 
 if __name__ == '__main__':
     run_main(sys.argv)
