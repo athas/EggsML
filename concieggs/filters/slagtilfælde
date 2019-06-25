@@ -50,6 +50,7 @@ while (my $line = <>) {
     {
         say $line;
         say "/me " . randpick(@symptoms);
+        exit 0; # collapse must stop current printing
     } else {
         say $line;
     }
