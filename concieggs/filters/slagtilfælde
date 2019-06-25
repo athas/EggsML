@@ -38,7 +38,7 @@ while (my $line = <>) {
         if (rand(10) < 1) {
             push @newwords, $word;
         }
-        if (rand(50) < 1) {
+        if (rand(100) < 1) {
             push @newwords, "øøhhh ... ";
             $collapse = 1;
             last;
