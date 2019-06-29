@@ -35,4 +35,7 @@ sunset = datetime.utcfromtimestamp(sunset_ut).replace(tzinfo=from_zone).astimezo
 
 if (len(sys.argv) > 1):
     print("Almanak for {0} (CET):".format(sys.argv[1]))
-print("🌅 {0} 🌇 {1}".format(sunrise, sunset))
+if (sunrise_ut == sunset_ut):
+    print("🌅 midnatssol")
+else:
+    print("🌅 {0} 🌇 {1}".format(sunrise, sunset))
