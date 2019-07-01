@@ -1,6 +1,6 @@
 #!/bin/sh
 ":"; exec emacs --quick --script "$0" "$@" # -*-emacs-lisp-*-
-(add-to-list 'load-path (concat (getenv "CONCIEGGS_LIB_DIR") "/emeggslisp"))
+
 (require 'concieggs)
 
 (run-on-stdin 'downcase)
