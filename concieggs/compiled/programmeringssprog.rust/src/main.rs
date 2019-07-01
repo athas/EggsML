@@ -14,7 +14,9 @@ static PREFIXES: [&str; 9] = [
 
 static ROOTS: [&str; 22] = [
     "Pascal", "Haskell", "Blaise", "Curry", "Go", "Rust", "A", "B", "C", "D", "E", "F", "Erlang",
-    "Prolog", "Neumann", "Euclid", "Fermat", "ML", "Scheme", "Lisp", "Church", "Alonzo",
+    "Prolog", "Neumann", "Euclid", "Fermat", "ML", "Scheme", "Lisp", "Church", "Alonzo", "Futhar",
+    "Java", "COBOL", "Forth", "Fortran", "Turing", "Gauss", "Riemann", "Newton", "Hilbert", "Naur",
+    "Perl", "PHP", "Swift", "Python", "Basic",
 ];
 
 static SUFFIXES: [(&str, u32); 15] = [
