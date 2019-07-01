@@ -1,6 +1,6 @@
 use rand::seq::SliceRandom;
 
-static PREFIXES: [&str; 9] = [
+static PREFIXES: [&str; 12] = [
     "Visual ",
     "Microsoft ",
     "Cloud ",
@@ -9,23 +9,27 @@ static PREFIXES: [&str; 9] = [
     "Object ",
     "Standard ",
     "Common ",
+    "Liquid ",
+    "Meta",
+    "Win",
     "",
 ];
 
-static ROOTS: [&str; 22] = [
+static ROOTS: [&str; 38] = [
     "Pascal", "Haskell", "Blaise", "Curry", "Go", "Rust", "A", "B", "C", "D", "E", "F", "Erlang",
     "Prolog", "Neumann", "Euclid", "Fermat", "ML", "Scheme", "Lisp", "Church", "Alonzo", "Futhar",
     "Java", "COBOL", "Forth", "Fortran", "Turing", "Gauss", "Riemann", "Newton", "Hilbert", "Naur",
     "Perl", "PHP", "Swift", "Python", "Basic",
 ];
 
-static SUFFIXES: [(&str, u32); 15] = [
+static SUFFIXES: [(&str, u32); 18] = [
     ("#", 10),
     ("++", 10),
-    (".NET", 10),
+    (" .NET", 10),
     ("*", 10),
     ("--", 10),
-    ("script", 10),
+    ("script", 30),
+    (" with Classes", 10),
     (" 2", 1),
     (" 3", 1),
     (" 4", 1),
@@ -34,7 +38,9 @@ static SUFFIXES: [(&str, u32); 15] = [
     (" 7", 1),
     (" 8", 1),
     (" 9", 1),
-    ("", 10),
+    (" 68", 1),
+    (" 77", 1),
+    ("", 100),
 ];
 
 fn main() {
