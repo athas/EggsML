@@ -86,6 +86,13 @@ else
                 chmod +x $CRAP
             }
             ;;
+        *rust)
+            compile() {
+                cd "$1"
+                cargo build --release
+                cp target/release/programmeringssprog "$2"
+            }
+            ;;
         *fs)
             compile() {
                 fsharpc --out:"$2.exe" "$1" > /dev/null
