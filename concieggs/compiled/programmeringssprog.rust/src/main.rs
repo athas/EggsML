@@ -17,8 +17,22 @@ static ROOTS: [&str; 22] = [
     "Prolog", "Neumann", "Euclid", "Fermat", "ML", "Scheme", "Lisp", "Church", "Alonzo",
 ];
 
-static SUFFIXES: [&str; 15] = [
-    "#", "++", ".NET", "*", "--", "script", " 2", " 3", " 4", " 5", " 6", " 7", " 8", " 9", "",
+static SUFFIXES: [(&str, u32); 15] = [
+    ("#", 10),
+    ("++", 10),
+    (".NET", 10),
+    ("*", 10),
+    ("--", 10),
+    ("script", 10),
+    (" 2", 1),
+    (" 3", 1),
+    (" 4", 1),
+    (" 5", 1),
+    (" 6", 1),
+    (" 7", 1),
+    (" 8", 1),
+    (" 9", 1),
+    ("", 10),
 ];
 
 fn main() {
@@ -31,7 +45,12 @@ fn main() {
 
     result.push_str(ROOTS.choose(&mut rng).unwrap_or(&""));
 
-    result.push_str(SUFFIXES.choose(&mut rng).unwrap_or(&""));
+    result.push_str(
+        SUFFIXES
+            .choose_weighted(&mut rng, |item| item.1)
+            .map(|item| item.0)
+            .unwrap_or(&""),
+    );
 
     println!("{}", result);
 }
