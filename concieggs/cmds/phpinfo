@@ -5,7 +5,7 @@ use utf8;
 
 use List::Util qw/shuffle/;
 
-my @phpinfo = split(/\n/, `echo "<?php phpinfo(); ?>" | php-7.0`);
+my @phpinfo = split(/\n/, `echo "<?php phpinfo(); ?>" | php-7.1`);
 @phpinfo = shuffle( grep { $_ !~ /^\s+$/ } @phpinfo );
 
 say "Udvalgte linjer fra phpinfo:";
