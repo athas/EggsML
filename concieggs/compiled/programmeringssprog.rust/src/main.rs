@@ -1,4 +1,5 @@
 use rand::seq::SliceRandom;
+use rand::Rng;
 
 static PREFIXES: [(&str, u32); 13] = [
     ("Visual ", 10),
@@ -56,6 +57,19 @@ fn main() {
             .map(|item| item.0)
             .unwrap_or(&""),
     );
+
+    loop {
+        if rng.gen_range(1, 10) == 9 {
+            result.push_str(
+                PREFIXES
+                    .choose_weighted(&mut rng, |item| item.1)
+                    .map(|item| item.0)
+                    .unwrap_or(&""),
+            );
+        } else {
+            break;
+        }
+    }
 
     result.push_str(ROOTS.choose(&mut rng).unwrap_or(&""));
 
