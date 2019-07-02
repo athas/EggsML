@@ -38,6 +38,11 @@ my @categories = (
     [qw(↓ ↑ ← → ↙ ↖ ↘ ↗)],
     [qw(☁ ☀ ☾ ☔ ☁ ☃)],
     [('i dag', 'i morgen', 'i overmorgen', 'i går', 'i forgårs')],
+    [('Kongeriget', 'Republikken', 'Forbundsrepublikken',
+            'Den Demokratiske Folkerepublik', 'Folkerepublikken',
+            'Den Føderative Republik', 'Den Bolivarianske Republik',
+            'Sultanatet', 'Den Islamiske Republik',
+            'Det hasjimitiske kongerige', 'Den Arabiske Republik')],
 );
 
 # Numbers
