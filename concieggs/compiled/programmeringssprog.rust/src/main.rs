@@ -1,7 +1,7 @@
 use rand::seq::SliceRandom;
 use rand::Rng;
 
-static PREFIXES: [(&str, u32); 13] = [
+static PREFIXES: [(&str, u32); 14] = [
     ("Visual ", 10),
     ("Microsoft ", 10),
     ("Cloud ", 10),
@@ -14,6 +14,7 @@ static PREFIXES: [(&str, u32); 13] = [
     ("Meta", 2),
     ("Win", 1),
     ("Holy", 1),
+    ("Linear ", 1),
     ("", 10),
 ];
 
