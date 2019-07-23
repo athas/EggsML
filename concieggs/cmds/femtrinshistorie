@@ -1,0 +1,83 @@
+#!/bin/sh
+#
+# Lad concieggs finde en Historie frem fra Gemmerne.
+#
+# Direkte fra Loppemarked.
+
+deMoedtes=$(randomLine <<EOF
+i Theatret
+i Cirkus Variété
+i Mørkningen paa Østergade
+paa et Ægteskabskontor
+i en Pølsekælder
+i Tivoli
+i en Trippevals i Skoven
+i Figaro
+i Sporvognen
+i Køkkenet
+i Gadedøren
+i et Telt paa Dyrehavsbakken
+EOF
+)
+
+hanSagde=$(randomLine <<EOF
+Hvor De er behavelig, Frøken Iversen!
+Skal vi to ga en Maaneskinstur?
+Hvad holder De mest af, naar De skal være ærlig?
+Tør jeg saa haabe paa det, De veed nok?
+Skal de tvære os To, lille Madam!
+Er De med paa Noderne, saa lad os faa Ende paa det.
+Bliver det saa til noget, lille Sidse?
+Lad mig trykke Dem til min stribede Vest.
+Er du der, min dejlige Gine!
+Deres Tournyre er gledet op paa Ryggen.
+Søde Gine, elsker du din egen Chrissian?
+Et lille Kys vilde være rart i denne Kulde.
+EOF
+)
+
+hunSagde=$(randomLine <<EOF
+Det er noget, eg selv bestemmer.
+Hold Deres Hænder hos Dem selv.
+De skulde sige det til hende, De veed nok.
+De holder temmelig meget af højhælede Toddyer.
+Kom i mine Arme, smækfede unge Mand.
+Skulde det være en anden Gang.
+Maa vi være fri, Moppe?
+De skal ikke sige det til min Moder.
+Vil De væk med den Harmonika.
+EOF
+)
+
+folkSagde=$(randomLine <<EOF
+Den er go', Brøndum.
+Det var da endelig paa Tiden.
+Det er Jensens Skyld.
+Sikken en Næse det Barn har.
+Der er vist Sand paa Trappen.
+Der er Bal i Haven.
+Mon han kan klare de Ærter alene?
+Den er af Kragelund!
+Den er stejl at gaa paa.
+Hun spiller Fandange med ham.
+Den kan blive god med Tiden.
+EOF
+)
+
+detBlevTil=$(randomLine <<EOF
+En Køretur.
+En bedre Middag.
+at Madam Olsen blev hentet.
+Forlovelsesgilde paa Frikadeller og danske Snapse.
+— Den gik ikke, Granberg!
+Tvillinger.
+En sød lille Pige med Krøller.
+at De fik hinanden i Enden.
+En melet Kartoffel.
+Bryllup og Gilde paa Skydebanen.
+at De fik begge kolde Fødder.
+Ballade og Guldregn.
+EOF
+)
+
+echo "De mødtes ${deMoedtes}.  Han sagde: »${hanSagde}«  Hun sagde: »${hunSagde}«  Folk sagde: »${folkSagde}«.  Det blev til ${detBlevTil}"
