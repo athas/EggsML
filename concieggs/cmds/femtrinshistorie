@@ -37,7 +37,7 @@ EOF
 )
 
 hunSagde=$(randomLine <<EOF
-Det er noget, eg selv bestemmer.
+Det er noget, jeg selv bestemmer.
 Hold Deres Hænder hos Dem selv.
 De skulde sige det til hende, De veed nok.
 De holder temmelig meget af højhælede Toddyer.
@@ -50,7 +50,7 @@ EOF
 )
 
 folkSagde=$(randomLine <<EOF
-Den er go', Brøndum.
+Den er go\', Brøndum.
 Det var da endelig paa Tiden.
 Det er Jensens Skyld.
 Sikken en Næse det Barn har.
