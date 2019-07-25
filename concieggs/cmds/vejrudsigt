@@ -295,7 +295,7 @@ if len(sys.argv) > 1:
         print("Jeg kender ikke stedet {}.".format(" ".join(sys.argv[1:])))
         exit(0)
 else:
-    if (os.getenv('EGGS_USER') == "sword_smith"):
+    if (os.getenv('EGGS_USER') == "sword_smith" or os.getenv('EGGS_USER') == "trobjo"):
         url = 'https://www.yr.no/place/Switzerland/Zug/Zug/forecast.xml'
         hero = suisse.split('\n')[1:-1]
 
