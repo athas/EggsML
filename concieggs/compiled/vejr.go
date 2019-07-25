@@ -71,9 +71,9 @@ func main() {
 		city = "København"
 		country = "DK"
 	}
-	velkomst := false;
+	velkomst := false
 	if len(os.Args) > 1 {
-		if os.Args[1] == "Velkomstbesked"{
+		if os.Args[1] == "Velkomstbesked" {
 			velkomst = true
 		} else {
 			// Hvad er vejret i Kantinen?
@@ -118,6 +118,7 @@ func main() {
 	windSpeed := dat.Wind.Speed
 	windBeaufortName := vejrLib.Beaufort(dat.Wind.Speed)
 	windDirection := dat.Wind.Deg
+	humidity := dat.Main.Humidity
 
 	/* Hent vejrbeskrivelse, fortolk og fordansk denne */
 	description := dat.Weather[0].Id
@@ -137,18 +138,20 @@ func main() {
 	realCountry := vejrLib.CountryFromCode(dat.Sys.Country)
 
 	var t *template.Template
-	if (velkomst){
-		if (description == 800 || description == 801) { // klar himmel
+	if velkomst {
+		if humidity >= 75 && degrees > 25 {
+			t, _ = template.New("Vejr").Parse("Jeg er ved at dø af varme!")
+		} else if description == 800 || description == 801 { // klar himmel
 			t, _ = template.New("Vejr").Parse("Synes du ikke også, vejret er dejligt?")
-		} else if (description <= 622 && description >= 200 ) { // nedbør
+		} else if description <= 622 && description >= 200 { // nedbør
 			t, _ = template.New("Vejr").Parse("Synes du ikke også, vejret er træls?")
 		} else if description == 804 { // overskyet
 			t, _ = template.New("Vejr").Parse("Det er lidt trist vejr, vi har, ikke?")
 		} else {
-			t, _ = template.New("Vejr").Parse(`Vidste du at vejret her i København er {{.Beskrivelse}} med en temperatur på {{.Degrees}}°C? Der blæser en {{.WindBeaufortName}} fra {{.WindDirection}}.`)
+			t, _ = template.New("Vejr").Parse(`Vidste du at vejret her i København er {{.Beskrivelse}} med en temperatur på {{.Degrees}}°C og en luftfugtighed på {{.Humidity}}%? Der blæser en {{.WindBeaufortName}} fra {{.WindDirection}}.`)
 		}
 	} else {
-		t, _ = template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}: {{.Beskrivelse}} med en temperatur på {{.Degrees}}°C. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}. {{.Afstand}} {{.Age}}`)
+		t, _ = template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}: {{.Beskrivelse}} med en temperatur på {{.Degrees}}°C og luftfugtighed på {{.Humidity}}%. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}. {{.Afstand}} {{.Age}}`)
 	}
 	out := bytes.NewBufferString("")
 	t.Execute(out, struct {
@@ -160,8 +163,8 @@ func main() {
 		WindSpeed        string
 		WindDirection    string
 		Afstand          string
-		//Position          string
-		Age string
+		Humidity         int
+		Age              string
 	}{
 		city,
 		realCountry,
@@ -171,7 +174,7 @@ func main() {
 		fmt.Sprintf("%.1f", windSpeed),
 		windDirectionstr,
 		afstandStr,
-		//fmt.Sprintf("længdegrad: %.3f°, breddegrad: %.3f°.", lon, lat),
+		humidity,
 		ageStr,
 	})
 
