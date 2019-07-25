@@ -1,9 +1,3 @@
-#!/usr/bin/env python3
+#!/usr/bin/env bash
 
-import requests
-
-url = "https://www.bitstamp.net/api/ticker/"
-resp = requests.get(url=url)
-data = resp.json()
-price = data["last"]
-print (price + " usd.")
+echo $(bitcoinpris $1)

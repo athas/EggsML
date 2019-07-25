@@ -15,6 +15,10 @@ void talord(char *num)
         { "nul", "et", "to", "tre", "fire",
           "fem", "seks", "syv", "otte", "ni" };
 
+    char *tens_multiple_single_digits[] =
+        { "nul", "en", "to", "tre", "fire",
+          "fem", "seks", "syv", "otte", "ni" };
+
     char *two_digits[] =
         { "", "ti", "elleve", "tolv", "tretten", "fjorten",
           "femten", "seksten", "sytten", "atten", "nitten" };
@@ -54,7 +58,7 @@ void talord(char *num)
             else {
                 int i = *num - '0';
                 int j = *(num + 1) - '0';
-                printf("%s%s%s", j ? single_digits[j] : "",
+                printf("%s%s%s", j ? tens_multiple_single_digits[j] : "",
                                  j ? "og" : "",
                                  i ? tens_multiple[i] : "");
                 return;

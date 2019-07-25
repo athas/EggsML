@@ -62,6 +62,12 @@ export PYTHONPATH=$CONCIEGGS_LIB_DIR:$PYTHONPATH
 # And Perl!
 export PERL5LIB=$CONCIEGGS_LIB_DIR/perleggs:$PERL5LIB
 
+# Let's have some Emacs Lisp as well.
+get_loadpath=$(mktemp)
+(echo "(princ (mapconcat 'identity load-path \":\"))"; echo "(kill-emacs 0)") > $get_loadpath
+export EMACSLOADPATH=$(emacs --quick --script $get_loadpath):$CONCIEGGS_LIB_DIR/emeggslisp
+rm $get_loadpath
+
 # Hack for UTF-8 handling in GHC on OpenBSD
 export HS_ENCODING=UTF-8
 

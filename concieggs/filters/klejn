@@ -3,5 +3,5 @@
 
 (require 'concieggs)
 
-(run-on-stdin 'upcase)
+(run-on-stdin 'downcase)
 (kill-emacs 0)

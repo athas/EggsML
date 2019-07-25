@@ -3,8 +3,6 @@ use 5.012;
 use warnings;
 use utf8::all;
 
-# Categories
-
 sub randpick {
     return $_[rand(@_)];
 }
@@ -23,9 +21,8 @@ my @symptoms = (
     "kan ikke løfte venstre arm",
     "mister besindelsen",
     "kan ikke længere formulere sætninger",
+    "begynder at græde ukontrollabelt",
     );
-
-# Numbers
 
 while (my $line = <>) {
     foreach my $values (@categories) {
@@ -33,16 +30,15 @@ while (my $line = <>) {
         $line =~ s/\b(?:$pattern)\b/randpick(@$values)/egi;
     }
 
+    $line =~ s/\s+$//g; # remove EOL newline messing up output if last word is repeated
     my @words = split / /, $line;
-    my $i = 0;
     my @newwords;
     my $collapse = 0;
     foreach my $word (@words) {
         if (rand(10) < 1) {
             push @newwords, $word;
         }
-        $i++;
-        if (rand(30) < 1) {
+        if (rand(50) < 1) {
             push @newwords, "øøhhh ... ";
             $collapse = 1;
             last;
@@ -54,6 +50,7 @@ while (my $line = <>) {
     {
         say $line;
         say "/me " . randpick(@symptoms);
+        exit 0; # collapse must stop current printing
     } else {
         say $line;
     }
