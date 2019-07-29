@@ -7,6 +7,10 @@ proc run cmd {
     return [list [expr {![dict get $options -code]}] $output]
 }
 
+proc myRand {} {
+    expr {int(rand() * 10) + 1}
+}
+
 proc randindex xs {
     return [lindex $xs [expr {int(rand() * [llength $xs])}]]
 }
@@ -15,6 +19,16 @@ proc sjov {} {
     set prefix {VILDT ULTRA ROFLENDE MEGA LOLLENDE}
     set suffix {GRINERN SJOV MORSOM LOLZ ROFLCOPTER HYL}
     return "[randindex $prefix] [randindex $suffix]"
+}
+
+proc roflcopter {} {
+" ROFL:ROFL:ROFL:ROFL
+         _^___
+ L    __/   [] \
+LOL===__        \
+ L      \________]
+         I   I
+        --------/"
 }
 
 if {[lindex [run shuttingUp] 0]} {exit 0}
@@ -26,5 +40,6 @@ incr active [regsub -all -nocase {[Hh][aeioø](?:(?:h[aeioø])+h?|h)} $text [lin
 
 if {$active > 0} {
     puts stdout $text
+    if { [myRand] > 9} { puts stdout [roflcopter] }
     run [list pleasedBy $::env(EGGS_USER) 5]
 }
