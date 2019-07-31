@@ -40,6 +40,7 @@ incr active [regsub -all -nocase {[Hh][aeioø](?:(?:h[aeioø])+h?|h)} $text [lin
 
 if {$active > 0} {
     puts stdout $text
-    if { [myRand] > 0} { puts stdout [roflcopter] }
+    # FIXME
+    # if { [myRand] > 0} { puts stdout [roflcopter] }
     run [list pleasedBy $::env(EGGS_USER) 5]
 }
