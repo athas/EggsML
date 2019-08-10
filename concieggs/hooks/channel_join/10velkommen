@@ -4,7 +4,7 @@ if ! checkCooldown "velkomstGlobal" 60; then
     exit 0
 fi
 
-if ! checkCooldown "Velkomst$EGGS_USER" $((60 * 60 * 2)); then
+if ! checkCooldown "Velkomst$EGGS_USER" $((60 * 60 * 72)); then
     exit 0
 fi
 
