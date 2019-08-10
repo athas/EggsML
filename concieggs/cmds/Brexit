@@ -10,4 +10,4 @@ data = resp.json()
 
 price = data['contracts'][0]['lastTradePrice']
 
-print("Under antagelse om ikke-arbitrage er sandsynligheden for at Brexit inden 1/11-2019 {:4.1f} pct.".format(price * 100))
+print("Under antagelse om ikke-arbitrage er sandsynligheden for Brexit inden 1/11-2019 {:4.0f} pct.".format(price * 100))
