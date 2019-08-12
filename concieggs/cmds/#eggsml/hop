@@ -7,12 +7,8 @@ if [ $# -lt 2 ]; then
     echo "$EGGS_USER: Jeg har aldeles ikke i sinde bare at hoppe og danse for $(dig $EGGS_USER)!  $(Du $EGGS_USER) må udtrykke $(dig $EGGS_USER) forståeligt."
 else
     if [ "$1" = "på" ]; then
-        if echo "$2" | grep -Eq '(^#diku|^#eggsml$)'; then
-            echo "$(ack)  Jeg hopper ind på $2."
-            ircJoinChannelAdditional "$2"
-        else
-            echo "$EGGS_USER: Det...  Det tør jeg altså ikke.  Jeg bliver nok bare bannet."
-        fi
+        echo "$(ack)  Jeg hopper ind på $2."
+        ircJoinChannelAdditional "$2"
     elif [ "$1" = "af" ]; then
         echo "$(ack)  Jeg forlader $2."
         ircPartChannelAdditional "$2"
