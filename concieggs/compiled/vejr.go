@@ -67,7 +67,7 @@ func main() {
 	if (user == "sword_smith" || user == "trobjo") {
 		city = "Zug"
 		country = "CH"
-	} else if user="svip" {
+	} else if user == "svip" {
 		city = "Providence"
 		country = "USA"
 	} else {
