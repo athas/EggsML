@@ -1,38 +1,54 @@
-#!/bin/sh
+#!/usr/bin/env perl
 #
-# Spørg om essentielle datoer.
+# Hvornår stopper en bus i nærheden af DIKU?
 
-removeYear() {
-    sed 's/^....-//'
+use 5.012;
+use warnings;
+use utf8::all;
+
+use HTML::Entities qw/decode_entities/;
+use JSON qw/from_json/;
+use LWP::Simple;
+
+# x, y = web mercator coordinates for UP1
+my $buses_url = 'http://mobil.moviatrafik.dk/nearbystop.html?lat=55.702046&lon=12.561093&x=1398294.477&y=7499328.657';
+
+sub stop_url {
+    my $key = shift;
+    return "http://mobil.moviatrafik.dk/busStopDepartures.html?key=$key";
 }
 
-eval "$(echo "$@" | parse '(?<birthday>har (?<birthday_kid>[^ ]+) fødselsdag)')"
+my $query = join(' ', @ARGV);
 
-who=$(randomName $EGGS_USER)
-if ! [ "$who" ]; then
-    echo "$EGGS_USER: Jeg kender dig slet, slet, slet ikke.  Hvad laver du her?"
-    exit
-fi
+unless ($query =~ qr/kommer( næste)? (?<bus>.*?) *$/) {
+    print "Hvor skulle jeg dog vide det fra?\n";
+    exit(0);
+}
 
-if [ "$birthday" ]; then
-    if [ "$birthday_kid" != jeg ]; then
-        who=$(randomName "$birthday_kid")
-        if ! [ "$who" ]; then
-            echo "$EGGS_USER: Hvem i alverden er denne '$birthday_kid'???"
-            exit
-        fi
-        recp="$who"
-    else
-        recp="Du"
-    fi
-    date=$(dbUserRead $who birthday)
-    if ! [ "$date" ]; then
-        echo "$EGGS_USER: $recp har aldrig fødselsdag!"
-    elif [ $(echo "$date" | removeYear) = $(dateToday | removeYear) ]; then
-        echo "$EGGS_USER: $recp HAR FØDSELSDAG I DAG!  HURRRAAAAA!"
-    else
-        echo "$EGGS_USER: $recp har fødselsdag $(formatDate $date)!"
-    fi
-else
-    echo "Brug: hvornår har (jeg|<bruger>) fødselsdag?"
-fi
+sub normalize {
+    my $s = shift;
+    $s =~ s/\s//g;
+    return uc($s);
+}
+
+my $busname = $+{'bus'};
+my $busname_n = normalize($busname);
+
+my $stops = from_json(get($buses_url));
+for my $stop (@$stops) {
+    my @buses = grep { normalize($_->{designation}) eq $busname_n } @{$stop->{lines}};
+
+    next unless @buses;
+
+    for my $bus (@buses) {
+        my $businfo = from_json(get(stop_url($bus->{key})));
+        $businfo = $businfo->[0]->{lines}->[0];
+
+        my $times = join(', ', map { $_->{timeLeft} } @{$businfo->{departures}});
+        $times =~ s/,([^,]*)$/ og$1/;
+        printf("%s mod %s stopper ved %s om %s minutter.\n", $businfo->{designation}, decode_entities($businfo->{destination}), decode_entities($stop->{name}), $times);
+    }
+    exit(0);
+}
+
+print "$busname stopper altså ikke i nærheden af DIKU.\n";
