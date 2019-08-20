@@ -41,6 +41,9 @@ func main() {
 	results1 := results.([]interface{})
 	result := results1[rand.Intn(len(results1))].(map[string]interface{})
 	url := fmt.Sprintf("http://oeis.org/A%06d", int(result["number"].(float64)))
-	fmt.Printf("Det er jo den fra %s — %s\nSe bare her: %s", url, result["name"],
-		strings.Replace(result["data"].(string), segment, "\002" + segment + "\002", -1))
+	sequence := strings.Replace("," + result["data"].(string) + ",",
+		"," + segment + ",", ",\002" + segment + "\002,", -1)
+	sequence = sequence[1:len(sequence)-1]
+	fmt.Printf("Det er jo den fra %s — %s\nSe bare her: %s.",
+		url, result["name"], sequence)
 }
