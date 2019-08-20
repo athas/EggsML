@@ -43,5 +43,5 @@ func main() {
 	results1 := results.([]interface{})
 	result := results1[rand.Intn(len(results1))].(map[string]interface{})
 	url := fmt.Sprintf("http://oeis.org/A%06d", int(result["number"].(float64)))
-	fmt.Printf("\00302Det er jo den fra %s — %s\nSe bare her: %s", url, result["name"], result["data"])
+	fmt.Printf("\002Det er jo den fra %s — %s\nSe bare her: %s", url, result["name"], result["data"])
 }
