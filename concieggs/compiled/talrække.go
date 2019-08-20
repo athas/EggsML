@@ -11,14 +11,12 @@ import (
 	"fmt"
 )
 
-func searchUrl(args []string) string {
-	return "http://oeis.org/search?fmt=json&q=" + strings.Join(args, ",")
-}
-
 func main() {
 	rand.Seed(time.Now().Unix())
 
-	resp, err := http.Get(searchUrl(os.Args[1:]))
+	segment := strings.Join(os.Args[1:], ",")
+	searchUrl := "http://oeis.org/search?fmt=json&q=" + segment
+	resp, err := http.Get(searchUrl)
 	if err != nil {
 		fmt.Println("OEIS ER NEDE!!!  RING TIL 113!")
 		return
@@ -43,5 +41,6 @@ func main() {
 	results1 := results.([]interface{})
 	result := results1[rand.Intn(len(results1))].(map[string]interface{})
 	url := fmt.Sprintf("http://oeis.org/A%06d", int(result["number"].(float64)))
-	fmt.Printf("\002Det er jo den fra %s — %s\nSe bare her: %s", url, result["name"], result["data"])
+	fmt.Printf("Det er jo den fra %s — %s\nSe bare her: %s", url, result["name"],
+		strings.Replace(result["data"].(string), segment, "\002" + segment + "\015", -1))
 }
