@@ -1,0 +1,59 @@
+#!/usr/bin/sbcl --script
+
+(defconstant *python3* "/home/concieggs/bin/python3")
+
+(defun fields (c string)
+  "Returns a list of substrings of string
+divided by ONE space each.
+Note: Two consecutive spaces will be seen as
+if there were an empty string between them."
+  (loop for i = 0 then (1+ j)
+        as j = (position c string :start i)
+        collect (subseq string i j)
+        while j))
+
+(defun lines (s) (fields #\Newline s))
+
+(defun unencode (s)
+  (with-output-to-string (output)
+    (with-input-from-string (input s)
+      (sb-ext:run-program
+       *python3*
+       '("-c" "import html, sys; [print(html.unescape(l), end=\"\") for l in sys.stdin]")
+       :input input
+       :output output))))
+
+(defun ordnet-query (query)
+  (let* ((body (with-output-to-string (s)
+                 (sb-ext:run-program
+                  "/usr/bin/curl"
+                  (list "-s" (format nil "https://ordnet.dk/ddo/ordbog?query=~A" query))
+                  :output s)))
+         (without-faste-udtryk
+             (let ((pos (search "id=\"faste-udtryk\"" body)))
+               (if pos
+                   (subseq body 0 pos)
+                   body)))
+         (definition-lines (delete-if-not (lambda (line)
+                                            (search "class=\"definition\"" line))
+                                          (lines without-faste-udtryk))))
+    (map 'list (lambda (line)
+                 (let ((front (position #\> line))
+                       (end (position #\< line :from-end t)))
+                   (unencode
+                    (if (and (not (null front)) (not (null end)))
+                        (subseq line (1+ front) end)
+                        line))))
+         definition-lines)))
+
+
+(defun define (query)
+  (let ((response (ordnet-query query)))
+    (if (= 0 (length response))
+        (format t "Jeg kunne ikke finde nogen definition for ordet ~S~%" query)
+        (progn (format t "Jeg har fundet følgende definitioner for ordet ~S:~%" query)
+               (map nil (lambda (betydning) (format t "  ~A~%" betydning)) response)))))
+
+(defun main () (define (read-line)))
+
+(main)
