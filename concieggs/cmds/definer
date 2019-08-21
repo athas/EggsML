@@ -2,6 +2,8 @@
 
 (defconstant *python3* "/home/concieggs/bin/python3")
 
+(defconstant *curl* "/usr/local/bin/curl")
+
 (defun fields (c string)
   "Returns a list of substrings of string
 divided by ONE space each.
@@ -26,7 +28,7 @@ if there were an empty string between them."
 (defun ordnet-query (query)
   (let* ((body (with-output-to-string (s)
                  (sb-ext:run-program
-                  "/usr/bin/curl"
+                  *curl*
                   (list "-s" (format nil "https://ordnet.dk/ddo/ordbog?query=~A" query))
                   :output s)))
          (without-faste-udtryk
