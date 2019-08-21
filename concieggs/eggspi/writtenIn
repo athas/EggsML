@@ -31,6 +31,7 @@ my %interps = (
     'ruby'    => 'Ruby',
     'runghc'  => 'Haskell',
     'tclsh'   => 'TCL',
+    'sbcl'    => 'Common Lisp'
 );
 
 my %exts = (
@@ -41,6 +42,7 @@ my %exts = (
     'myr'  => 'Myrddin',
     'pas'  => 'Pascal',
     'sml'  => 'Standard ML',
+    'rust' => 'Rust',
 );
 
 if (my $guess = $interps{$interp}) {
