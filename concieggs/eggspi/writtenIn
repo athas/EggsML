@@ -31,7 +31,7 @@ my %interps = (
     'ruby'    => 'Ruby',
     'runghc'  => 'Haskell',
     'tclsh'   => 'TCL',
-    'sbcl'    => 'Common Lisp'
+    'sbcl --script'    => 'Common Lisp'
 );
 
 my %exts = (
