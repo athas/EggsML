@@ -13,7 +13,7 @@ sub ukendt {
 
 my $filename = shift @ARGV or ukendt;
 my $shebang = io($filename)->getline or ukendt;
-my ($interp) = $shebang =~ /^#!.*?([^\/\s]+)$/ or ukendt;
+my ($interp) = $shebang =~ /^#!.*?([^\/\n]+)$/ or ukendt;
 
 my %interps = (
     'sh'      => 'Bourne Shell',
@@ -31,8 +31,8 @@ my %interps = (
     'ruby'    => 'Ruby',
     'runghc'  => 'Haskell',
     'tclsh'   => 'TCL',
-    'sbcl --script'    => 'Common Lisp'
-);
+    'sbcl --script'    => 'Common Lisp',
+    );
 
 my %exts = (
     'c'    => 'C',
