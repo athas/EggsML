@@ -1,8 +1,5 @@
-#!/usr/local/bin/sbcl --script
-
-(defconstant *python3* "/home/concieggs/bin/python3")
-
-(defconstant *curl* "/usr/local/bin/curl")
+#!/bin/sh
+":"; exec sbcl --script "$0" "$@"
 
 (defun fields (c string)
   "Returns a list of substrings of string
@@ -20,8 +17,8 @@ if there were an empty string between them."
   (with-output-to-string (output)
     (with-input-from-string (input s)
       (sb-ext:run-program
-       *python3*
-       '("-c" "import html, sys; [print(html.unescape(l), end=\"\") for l in sys.stdin]")
+       "/usr/bin/env"
+       '("python3" "-c" "import html, sys; [print(html.unescape(l), end=\"\") for l in sys.stdin]")
        :input input
        :output output))))
 
@@ -34,8 +31,8 @@ if there were an empty string between them."
 (defun ordnet-query (query)
   (let* ((body (with-output-to-string (s)
                  (sb-ext:run-program
-                  *curl*
-                  (list "-s" (format nil "https://ordnet.dk/ddo/ordbog?query=~A" query))
+                  "/usr/bin/env"
+                  (list "curl" "-s" (format nil "https://ordnet.dk/ddo/ordbog?query=~A" query))
                   :output s)))
          (without-faste-udtryk
              (let ((pos (search "id=\"faste-udtryk\"" body)))
