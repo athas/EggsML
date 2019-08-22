@@ -97,24 +97,12 @@ elif [ "$happening" ]; then
 elif [ "$status" ]; then
         reaktion
 elif [ "$definition" ]; then
-    description="$(ordnet "$word")"
+    description="$(betydning "$word")"
     if [ "$description" ]; then
         echo "$EGGS_USER: Det betyder blandt andet det her:"
         echo "$description" | randomLine
     else
-        if [ "$EGGS_USER" = "ngws" ]; then
-        	randomLine <<EOF
-Jeg tror altså din kode er slam.
-En dag må du gerne tage et kig på ordnet-programmet.
-ngws:  Hvorfor slammer du så meget? :(
-EOF
-        else
-            randomLine <<EOF
-$EGGS_USER: Jeg kan desværre ikke hjælper dig, fordi ngws kun koder slam.
-Jeg drømmer om en dag hvor jeg er kodet ordentligt.  Men dette er ikke dagen.
-$EGGS_USER: Måske du skulle spørge ngws om hvorfor ordnet-programmet er slam?
-EOF
-        fi
+        echo "$EGGS_USER: Jeg kunne ikke finde nogen betydning for det ord."
     fi
 elif [ "$missing" ]; then
     echo "Du mangler $(randomLine < "$CONCIEGGS_DB_DIR/ordbog-dansk-navneord")!"
