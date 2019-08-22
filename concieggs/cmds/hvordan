@@ -5,7 +5,7 @@
 # TODO: Antag noget andet.
 
 eval "$(echo "$@" | parse \
-'(?<vejr>bliver vejret(\si\s(?<sted>.+))?\?)$')"
+'(?<vejr>bliver vejret(\si\s(?<sted>.+))?(\?)*)$')"
 
 if [ "$vejr" ]; then
     if [ "$sted" ]; then
