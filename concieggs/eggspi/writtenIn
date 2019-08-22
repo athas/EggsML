@@ -6,15 +6,6 @@ use warnings;
 use IO::All;
 use File::Basename;
 
-sub ukendt {
-    print "Ukendt";
-    exit(1);
-}
-
-my $filename = shift @ARGV or ukendt;
-my $shebang = io($filename)->getline or ukendt;
-my ($interp) = $shebang =~ /^#!.*?([^\/\s]+)$/ or ukendt;
-
 my %interps = (
     'sh'      => 'Bourne Shell',
     'bash'    => 'BASH',
@@ -31,7 +22,6 @@ my %interps = (
     'ruby'    => 'Ruby',
     'runghc'  => 'Haskell',
     'tclsh'   => 'TCL',
-    '--script'=> 'Common Lisp',
 );
 
 my %exts = (
@@ -45,7 +35,26 @@ my %exts = (
     'rust' => 'Rust',
 );
 
-if (my $guess = $interps{$interp}) {
+my %execs = (
+    'emacs' => 'Emacs Lisp',
+    'sbcl'  => 'Common Lisp',
+);
+
+my $filename = shift @ARGV;
+exit unless $filename;
+my $io = io($filename);
+my ($interp) = ($io->getline // '') =~ /^#!.*?([^\/\s]+)$/;
+
+if ($interp eq 'sh') {
+    if (my ($exec) = ($io->getline // '') =~ /exec ([^ ]+)/) {
+        if (my $guess = $execs{$exec}) {
+            print $guess;
+            exit(0);
+        }
+    }
+}
+
+if ($interp && (my $guess = $interps{$interp})) {
     print $guess;
     exit(0);
 }
@@ -68,4 +77,5 @@ if (my $guess = $exts{$exts[0]}) {
     exit(0);
 }
 
-ukendt;
+print "Ukendt";
+exit(1);
