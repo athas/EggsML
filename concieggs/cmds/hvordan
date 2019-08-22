@@ -4,7 +4,7 @@
 
 # TODO: Antag noget andet.
 
-eval "$(echo "$@" | ./concieggs/eggspi/parse \
+eval "$(echo "$@" | parse \
 '(?<vejr>bliver vejret(\si\s(?<sted>.+))?\?)$')"
 
 if [ "$vejr" ]; then
