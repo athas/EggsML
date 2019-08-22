@@ -9,10 +9,10 @@ eval "$(echo "$@" | parse \
 
 if [ "$vejr" ]; then
     if [ "$sted" ]; then
-        echo -e $(vejrudsigt "$sted")
+        echo -e "$(vejrudsigt "$sted")"
         exit
     fi
-    echo -e $(vejrudsigt)
+    echo -e "$(vejrudsigt)"
     exit
 fi
 
