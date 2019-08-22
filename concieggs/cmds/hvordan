@@ -8,7 +8,11 @@ eval "$(echo "$@" | parse \
 '(?<vejr>bliver vejret(\si\s(?<sted>.+))?\?)$')"
 
 if [ "$vejr" ]; then
-    echo $(vejrudsigt "$sted")
+    if [ "$sted" ]; then
+        echo -e $(vejrudsigt "$sted")
+        exit
+    fi
+    echo -e $(vejrudsigt)
     exit
 fi
 
