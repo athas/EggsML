@@ -1,0 +1,6 @@
+#!/usr/bin/env compile
+#
+# Få concieggs til at fortælle den nuværende vejr hvor som helst i
+# Verden. Afstanden fra målestationen til Kantinen oplyses,
+# hvis den er over 2 km, og alderen af målingen oplyses,
+# såfremt den er over 60 minutter.

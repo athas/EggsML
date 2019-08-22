@@ -5,14 +5,23 @@
 # TODO: Antag noget andet.
 
 eval "$(echo "$@" | parse \
-'(?<vejr>bliver vejret(\si\s(?<sted>.+))?(\?)*)$')"
+'(?<vejrudsigt>bliver vejret(\si\s(?<sted>.+))?(\?)*)$|'\
+'(?<vejr>er vejret(\si\s(?<sted>.+))?(\?)*)$')";
 
-if [ "$vejr" ]; then
+if [ "$vejrudsigt" ]; then
     if [ "$sted" ]; then
         echo -e "$(vejrudsigt "$sted")"
         exit
     fi
     echo -e "$(vejrudsigt)"
+    exit
+fi
+if [ "$vejr" ]; then
+    if [ "$sted" ]; then
+        echo "$(vejr "$sted")"
+        exit
+    fi
+    echo "$(vejr)"
     exit
 fi
 
