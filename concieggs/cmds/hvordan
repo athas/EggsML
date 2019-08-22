@@ -4,4 +4,12 @@
 
 # TODO: Antag noget andet.
 
+eval "$(echo "$@" | ./concieggs/eggspi/parse \
+'(?<vejr>bliver vejret(\si\s(?<sted>.+))?\?)$')"
+
+if [ "$vejr" ]; then
+    echo $(vejrudsigt "$sted")
+    exit
+fi
+
 dbRead hyggeby
