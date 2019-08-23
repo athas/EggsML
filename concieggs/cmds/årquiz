@@ -1,0 +1,29 @@
+#!/usr/bin/env rash
+
+linjer=>yearquiz
+info=<${linjer}>head -n1
+år=<${info}>cut -d' ' -f1
+n_fakta=<${info}>cut -d' ' -f2
+
+>echo "Nu får I ${n_fakta} begivenheder fra det givne år.  Gæt året!"
+<${linjer}>tail -n${n_fakta}
+
+:læsgæt
+read gæt
+EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
+<${gæt}>grep -qiE '.+'
+jz videre
+>echo "${EGGS_USER}: Du skal skrive et årstal."
+j læsgæt
+
+:videre
+<"${gæt}">grep -qiE "${år}"
+jz korrektgæt
+
+>echo "${EGGS_USER}: Forkert!  Det var i ${år}!"
+>wrongScoreInc ${EGGS_USER} "årquiz"
+exit
+
+:korrektgæt
+>echo "${EGGS_USER}: Præcis!  Flot klaret!"
+>correctScoreInc ${EGGS_USER} "årquiz"

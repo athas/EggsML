@@ -39,6 +39,11 @@ else
                 mosmlc -P full -toplevel -o $2 $1
             }
             ;;
+        *ml)
+            compile() {
+                ocamlfind ocamlc -linkpkg -package unix -o $2 $1
+            }
+            ;;
         *pas)
             compile() {
                 cd $(dirname $1)
