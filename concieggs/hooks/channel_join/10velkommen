@@ -23,7 +23,7 @@ case $rand in
         rt=`$CONCIEGGS_DIR/cmds/vejr Velkomstbesked`
         ;;
     3)
-        rt=`$CONCIEGGS_DIR/cmds/forvikling`
+        rt=`$CONCIEGGS_DIR/cmds/forvikling Velkomstbesked`
         ;;
     4)
         rt=`$CONCIEGGS_DIR/cmds/betragtning`

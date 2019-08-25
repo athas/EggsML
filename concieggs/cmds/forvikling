@@ -4,7 +4,7 @@
 
 hyps="$CONCIEGGS_DB_DIR/DanNet/hyponymOf"
 
-if [ $# = 1 ]; then
+if [ $# = 1 ] && [ $1 != "Velkomstbesked" ]; then
     wanted_raw=$(grep -i $1 $hyps | randomLine)
 else
     wanted_raw=$(randomLine < $hyps)
@@ -13,8 +13,12 @@ wanted=$(echo "$wanted_raw" | cut -d'<' -f1 | toupper)
 wanted_category=$(echo "$wanted_raw" | cut -d'<' -f2)
 got=$(cat $hyps | fgrep "$wanted_category" | randomLine | cut -d'<' -f1 | toupper)
 
-randomLine <<EOF
+if [ "$1" = "Velkomstbesked" ]; then
+    echo "Kender du det, når man leder efter $wanted, men kun kan finde $got?"
+else
+    randomLine <<EOF
 Kender I det når man leder efter $wanted men kun kan finde $got?
 Her forleden troede jeg at jeg havde fat i $wanted, men så var det faktisk $got!
 Så var der dengang jeg havde bestilt $wanted men modtog $got!
 EOF
+fi
