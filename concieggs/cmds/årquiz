@@ -5,7 +5,13 @@ info=<${linjer}>head -n1
 år=<${info}>cut -d' ' -f1
 n_fakta=<${info}>cut -d' ' -f2
 
->echo "Nu får I ${n_fakta} begivenheder fra det givne år.  Gæt året!"
+>test ${n_fakta} == 1
+jz kun_en
+begivenheder=begivenheder
+:kun_en
+begivenheder=begivenhed
+
+>echo "Nu får I ${n_fakta} ${begivenheder} fra det givne år.  Gæt året!"
 <${linjer}>tail -n${n_fakta}
 
 :læsgæt
