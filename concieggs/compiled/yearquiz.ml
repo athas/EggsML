@@ -94,11 +94,22 @@ let ok_sport s =
   || find_substring s 0 "anlægge" != -1
   || find_substring s 0 "sætte" != -1
 
+let ok_musik s =
+  find_substring s 0 "vinde" != -1
+  || find_substring s 0 "tabe" != -1
+  || find_substring s 0 "hitte" != -1
+  || find_substring s 0 "danne" != -1
+  || find_substring s 0 "udgive" != -1
+  || find_substring s 0 "udsende" != -1
+  || find_substring s 0 "spille" != -1
+
 let parse text =
   let begivenheder = parse_events text "== Begivenheder ==" in
   let sport = parse_events text "== Sport ==" in
   let sport = List.filter ok_sport sport in
-  begivenheder @ sport
+  let musik = parse_events text "== Musik ==" in
+  let musik = List.filter ok_musik musik in
+  begivenheder @ sport @ musik
 
 (* https://stackoverflow.com/a/15095713 *)
 let shuffle d =
@@ -108,7 +119,7 @@ let shuffle d =
 
 let rec find_year_facts () =
   Random.self_init ();
-  let year = 1908 in (* 1700 + Random.int 200 in (* XXX: Better distribution *) *)
+  let year = 1700 + Random.int 200 in (* XXX: Better distribution *)
   let url = base_url ^ string_of_int year in
   let text_in = Unix.open_process_in ("python3 -c 'import urllib.request; import json; import html; print(html.unescape(json.load(urllib.request.urlopen(\"" ^ url ^ "\"))[\"parse\"][\"parsetree\"][\"*\"]))'") in
   let text = read_all text_in in
