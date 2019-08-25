@@ -41,16 +41,28 @@ let rec remove_link_artefacts string start =
        else rest ()
   else rest ()
 
-let parse text =
-  let events_start = find_substring text 0 "== Begivenheder ==" in
+let rec remove_ext_artefacts string start =
+  let ext_start = find_substring string start "<ext" in
+  let ext_end = if ext_start != -1
+                then find_substring string ext_start "</ext>"
+                else -1 in
+  if ext_end != -1
+  then String.sub string start ext_start
+       ^ remove_ext_artefacts string (ext_end + String.length "</ext>")
+  else String.sub string start (String.length string - start)
+
+let parse_events text header =
+  let events_start = find_substring text 0 header in
   if events_start != -1
-  then let events_end = find_substring text events_start "\n\n" in
+  then let events_end = find_substring text events_start "\n\n<h level=\"2\"" in
+       let events_end = if events_end == -1 then find_substring text events_start "\n\n" else events_end in
        let rec find_events cur_start =
          let sub_start = find_substring text cur_start "\n* " in
          if sub_start != -1 && sub_start < events_end
          then let sub_end = find_substring text (sub_start + 1) "\n" in
               let line = String.sub text (sub_start + 3) (sub_end - sub_start - 3) in
               let line = remove_link_artefacts line 0 in
+              let line = remove_ext_artefacts line 0 in
               let date_dash1 = "]] - " in
               let date_dash2 = "]] – " in
               let dash1 = find_substring line 0 date_dash1 in
@@ -72,6 +84,22 @@ let parse text =
        in find_events events_start
   else []
 
+let ok_sport s =
+  find_substring s 0 "vinde" != -1
+  || find_substring s 0 "tabe" != -1
+  || find_substring s 0 "besejre" != -1
+  || find_substring s 0 "forsvare" != -1
+  || find_substring s 0 "holde" != -1
+  || find_substring s 0 "stifte" != -1
+  || find_substring s 0 "anlægge" != -1
+  || find_substring s 0 "sætte" != -1
+
+let parse text =
+  let begivenheder = parse_events text "== Begivenheder ==" in
+  let sport = parse_events text "== Sport ==" in
+  let sport = List.filter ok_sport sport in
+  begivenheder @ sport
+
 (* https://stackoverflow.com/a/15095713 *)
 let shuffle d =
     let nd = List.map (fun c -> (Random.bits (), c)) d in
@@ -80,7 +108,7 @@ let shuffle d =
 
 let rec find_year_facts () =
   Random.self_init ();
-  let year = 1700 + Random.int 200 in (* XXX: Better distribution *)
+  let year = 1908 in (* 1700 + Random.int 200 in (* XXX: Better distribution *) *)
   let url = base_url ^ string_of_int year in
   let text_in = Unix.open_process_in ("python3 -c 'import urllib.request; import json; import html; print(html.unescape(json.load(urllib.request.urlopen(\"" ^ url ^ "\"))[\"parse\"][\"parsetree\"][\"*\"]))'") in
   let text = read_all text_in in
