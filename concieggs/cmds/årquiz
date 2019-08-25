@@ -5,7 +5,7 @@ info=<${linjer}>head -n1
 år=<${info}>cut -d' ' -f1
 n_fakta=<${info}>cut -d' ' -f2
 
->test ${n_fakta} == 1
+>test ${n_fakta} = 1
 jz kun_en
 begivenheder=begivenheder
 :kun_en
