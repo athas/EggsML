@@ -119,12 +119,12 @@ let shuffle d =
 
 let rec find_year_facts () =
   Random.self_init ();
-  let year = 1600 + Random.int 400 in (* XXX: Better distribution *)
+  let year = 1600 + Random.int 420 in (* XXX: Better distribution *)
   let url = base_url ^ string_of_int year in
   let text_in = Unix.open_process_in ("python3 -c 'import urllib.request; import json; import html; print(html.unescape(json.load(urllib.request.urlopen(\"" ^ url ^ "\"))[\"parse\"][\"parsetree\"][\"*\"]))'") in
   let text = read_all text_in in
   close_in text_in;
-  let text = replace text 0 (string_of_int year) "1XXX" in
+  let text = replace text 0 (string_of_int year) "XXXX" in
   let lines = parse text in
   if List.length lines == 0
   then find_year_facts ()
