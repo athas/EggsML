@@ -124,6 +124,7 @@ let rec find_year_facts () =
   let text_in = Unix.open_process_in ("python3 -c 'import urllib.request; import json; import html; print(html.unescape(json.load(urllib.request.urlopen(\"" ^ url ^ "\"))[\"parse\"][\"parsetree\"][\"*\"]))'") in
   let text = read_all text_in in
   close_in text_in;
+  let text = replace text 0 (string_of_int year) "1XXX" in
   let lines = parse text in
   if List.length lines == 0
   then find_year_facts ()
