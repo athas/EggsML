@@ -121,7 +121,7 @@ let rec find_year_facts () =
   Random.self_init ();
   let year = 1600 + Random.int 400 in (* XXX: Better distribution *)
   let url = base_url ^ string_of_int year in
-  let text_in = Unix.open_process_in ("python3 -c 'import urllib.request; import json; import html; print(html.unescape(json.load(urllib.request.urlopen(\"" ^ url ^ "\"))[\"parse\"][\"parsetree\"][\"*\"]))'") in
+  let text_in = Unix.open_process_in ("python3 -c 'import urllib.request; import json; import html; print(html.unescape(json.load(urllib.request.urlopen(\"" ^ url ^ "\"))[\"parse\"][\"parsetree\"][\"*\"]).replace(str(year), \"1XXX\"))'") in
   let text = read_all text_in in
   close_in text_in;
   let lines = parse text in
