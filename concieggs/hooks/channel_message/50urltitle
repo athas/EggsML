@@ -19,7 +19,6 @@ EOU
     local $| = 1;
 
     for my $link (@links) {
-        print STDERR "Henter siden '$link' for at finde titlen...\n";
         next if (timeout_call(5, sub { $mech->get($link); }));
         next unless $mech->title;
         printf("%s: %s\n", $mech->title, $link);
