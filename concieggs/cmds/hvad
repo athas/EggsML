@@ -250,7 +250,13 @@ elif [ "$txid" ]; then
     confirmed=$(echo "$json" | jq '.status.confirmed')
     if [ "$confirmed" = "true" ]; then
         block_number=$(echo "$json" | jq '.status.block_height')
-        msg="Transaktionen er bekræftet i blok nummer $block_number på $net."
+        if [ "$net" = "testnet" ]; then
+            now=$(curl -s https://blockstream.info/testnet/api/blocks/tip/height)
+        else
+            now=$(curl -s https://blockstream.info/api/blocks/tip/height)
+        fi
+        confirmations=$(($now - $block_number + 1))
+        msg="Transaktionen er bekræftet i blok nummer $block_number på $net. Den har $confirmations bekræftelser."
     else
         msg="Transaktionen er endnu ikke bekræftet, men ligger i mempool på $net."
     fi
