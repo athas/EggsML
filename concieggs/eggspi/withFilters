@@ -12,7 +12,7 @@ line="$3"
 # That way, filters can rewrite the message liberally without distorting the
 # way it gets delivered as an action.
 apply_db_filter() {
-    if echo "$line" | grep -q '^/me '; then
+    if echo "$line" | egrep -q '^/me '; then
         sed 's/^\/me //' | apply_db_filter_inner | sed 's/^/\/me /'
     else
         apply_db_filter_inner
