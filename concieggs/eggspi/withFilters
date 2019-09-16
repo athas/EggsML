@@ -8,7 +8,19 @@ channel="$1"
 destuser="$2" # empty if it's not a 'user: message' message.
 line="$3"
 
+# We would like to remove '/me ' from messages before passing them to filters.
+# That way, filters can rewrite the message liberally without distorting the
+# way it gets delivered as an action.
 apply_db_filter() {
+    if echo "$line" | grep -q '^/me '; then
+        sed 's/^\/me //' | apply_db_filter_inner | sed 's/^/\/me /'
+    else
+        apply_db_filter_inner
+    fi
+}
+
+apply_db_filter_inner() {
+    # Set 'filterchain'
     if [ "$destuser" != '' ]; then
         filterchain=$(echo -n $(dbRead "filterchain_$destuser"))
     fi
@@ -18,6 +30,8 @@ apply_db_filter() {
     if ! [ "$cmd" ]; then
         filterchain=$(echo -n $(dbRead filterchain))
     fi
+
+    # Apply 'filterchain', or not.
     if [ "$filterchain" ]; then
         translate da $filterchain
     else
