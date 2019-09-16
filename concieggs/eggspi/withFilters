@@ -13,7 +13,7 @@ line="$3"
 # way it gets delivered as an action.
 apply_db_filter() {
     if echo "$line" | egrep -q '^/me '; then
-        sed 's/^\/me //' | apply_db_filter_inner | sed 's/^/\/me /'
+        perl -ple 's!^/me !!' | apply_db_filter_inner | perl -ple 's!^!/me ! unless m!^/me !'
     else
         apply_db_filter_inner
     fi
