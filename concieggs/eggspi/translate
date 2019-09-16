@@ -9,7 +9,7 @@ t() {
         "$filter"
     else
         $CONCIEGGS_HOME/bin/translate-shell/translate -brief "$(langcode $1):$(langcode $2)" - \
-            | perl -ple 's!^/ me !/me !' # Google Translate breaks '/me' lines. Unbreak them.
+            | perl -ple 's!^/(?: me)? !/me !' # Google Translate breaks '/me' lines. Unbreak them.
     fi
 }
 
