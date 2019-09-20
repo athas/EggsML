@@ -1,0 +1,5 @@
+#!/bin/sh
+
+if (echo "$EGGS_BODY" | grep -qi præcis); then
+    præcis
+fi
