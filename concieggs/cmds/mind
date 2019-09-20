@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Mind en given logebroder om noget næste gang han ytrer sig.
+# Mind en bruger om noget ved næste ytring.
 
 
 if ! [ "$2" = "om" -a "$3" = "at" -a "$4" ]; then
@@ -16,12 +16,10 @@ fi
 
 to="$(randomName "$1")"
 if ! [ "$to" ]; then
-    echo "$1 er ikke logebroder, men lad gå..."
     to="$1"
 fi
 from="$(randomName "$EGGS_USER")"
 if ! [ "$from" ]; then
-    echo "$EGGS_USER: Du er ikke logebroder, men lad gå... almuen har vel også behov for mine ydelser."
     from="$EGGS_USER"
 fi
 
