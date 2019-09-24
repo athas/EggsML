@@ -2,6 +2,7 @@
 
 shuttingUp && exit
 isTodayRoyal || exit
+maybeGood .1 || exit
 checkCooldown royal $((60*20)) || exit
 
 event=$(royalsToday | randomLine)
