@@ -151,7 +151,7 @@ word3 := /[Hh]/ ~/eap/ "ob"
        | ~/malware/ "progra-lø-mmel"
        | ~/[Bb]itcoin/ "bitmønt"
        | ~/[Bb]lockchain/ "eGuirlande"
-       | ~/USA/ "AFS"
+       | ~/USA/ "DNF"
        | ~/[Aa]ttribute/ "kendetegn"
        | ~/[Ll]ifehack/ "staldfidus"
        | /[a-zA-ZæøåÆØÅ0-9]+/
