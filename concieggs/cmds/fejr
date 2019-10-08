@@ -1,0 +1,9 @@
+#!/bin/sh
+
+fejring="$*"
+
+randomLine <<EOF
+Vent, er det i dag?  Hurra for ${fejring}!
+Rejs jer op for ${fejring}!
+Jeg fejrer $fejring hvert år, hvad med jer?
+EOF
