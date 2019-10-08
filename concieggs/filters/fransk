@@ -17,8 +17,8 @@ def style_word(word):
     return maybe_upper(maybe_dots(word))
 
 def main():
-    words = ["Omelette","du","Fromage"]
-    ending = random.choice([".","!","?"])
+    words = ["Omelette","du","fromage"]
+    ending = random.choice(["."," !"," ?"])
     stylized_words = " ".join([style_word(word) for word in words])
 
     print(stylized_words + ending)
