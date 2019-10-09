@@ -82,5 +82,5 @@ while (my $line = <>) {
 
     $line =~ s/kr(?:\b|\.|oner)/randpick('kr.', 'dollars', 'bobs')/egi;
 
-    say $line;
+    print $line;
 }
