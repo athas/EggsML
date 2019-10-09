@@ -2,5 +2,8 @@
 #
 # Injicér resultat i concieggs-monaden.
 
-echo "ConcieggsLint: Du kunne også bruge 'pure', ej at forveksle med 'puré' jf. Funktor-Applikativ-Monade-forslaget."
+if ! checkCooldown "return" $((3600 * 24)); then
+    echo "ConcieggsLint: Du kunne også bruge 'pure', ej at forveksle med 'puré' jf. Funktor-Applikativ-Monade-forslaget."
+fi
+
 echo -e "$@"
