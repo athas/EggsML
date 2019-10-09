@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Injicér resultat i concieggs-applikativ-funktoren.
+
+echo -e "$@"

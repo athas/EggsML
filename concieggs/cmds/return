@@ -2,4 +2,5 @@
 #
 # Injicér resultat i concieggs-monaden.
 
+echo "ConcieggsLint: Du kunne også bruge 'pure', ej at forveksle med 'puré' jf. Funktor-Applikativ-Monade-forslaget.
 echo -e "$@"
