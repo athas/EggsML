@@ -2,7 +2,7 @@
 #
 # Injicér resultat i concieggs-monaden.
 
-if ! checkCooldown "return" $((3600 * 24)); then
+if checkCooldown "return" $((3600 * 24)); then
     echo "ConcieggsLint: Du kunne også bruge 'pure', ej at forveksle med 'puré' jf. Funktor-Applikativ-Monade-forslaget."
 fi
 
