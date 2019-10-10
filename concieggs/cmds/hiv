@@ -5,7 +5,7 @@
 cd /eggsml
 if [ "$(git pull)" != 'Already up-to-date.' ]; then
     echo 'Jeg har hentet de nyeste ændringer fra https://github.com/Athas/EggsML!'
-    aids
+    concieggs/cmds/aids
 else
     echo 'Jeg blev bedt om at hente ændringer fra Git, men der var ingen!'
 fi
