@@ -152,6 +152,8 @@ word3 := /[Hh]/ ~/eap/ "ob"
        | ~/[Bb]itcoin/ "bitmønt"
        | ~/[Bb]lockchain/ "eGuirlande"
        | ~/USA/ "DNF"
+       | ~/[Dd]eep [Ss]tate/ "embedsvælde"
+       | ~/[Dd]yb [Ss]tat/ "embedsvælde"
        | ~/[Aa]ttribute/ "kendetegn"
        | ~/[Ll]ifehack/ "staldfidus"
        | /[a-zA-ZæøåÆØÅ0-9]+/
