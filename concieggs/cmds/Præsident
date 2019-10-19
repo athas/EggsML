@@ -7,7 +7,7 @@ resp = requests.get(url=url)
 data = resp.json()
 candidates = data['contracts']
 
-output = "Sandsynligheden for kandidaterne er:\n"
+output = "Sandsynlighed for sejr ved præsidentvalget 3. november 2020:\n"
 for candidate in candidates:
     
     # Skip the candidate that have less than 2 % chance to prevent spamming the channel
