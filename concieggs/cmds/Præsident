@@ -11,7 +11,7 @@ output = "Sandsynlighed for sejr ved præsidentvalget 3. november 2020:\n"
 for candidate in candidates:
     
     # Skip the candidate that have less than 2 % chance to prevent spamming the channel
-    if (candidate['lastClosePrice'] < 0.02):
+    if (candidate['lastTradePrice'] < 0.02):
         continue
     
     # if contract is new or price is unchanged
