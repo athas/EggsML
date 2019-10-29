@@ -156,4 +156,5 @@ word3 := /[Hh]/ ~/eap/ "ob"
        | ~/[Dd]ybe? [Ss]tat/ "embedsvælde"
        | ~/[Aa]ttribute/ "kendetegn"
        | ~/[Ll]ifehack/ "staldfidus"
+       | ~/[Ll]etbane/ "sporvogn"
        | /[a-zA-ZæøåÆØÅ0-9]+/
