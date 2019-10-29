@@ -10,10 +10,9 @@ ytvids = re.finditer(r'\b(?:youtube.com/watch.*?\bv=|youtu.be/)([A-Z0-9-_]{11})'
 
 vids = []
 
-# API key obtained from https://console.developers.google.com
+# API key obtained from https://console.developers.google.com by ngws
 # Restricted to only work on IP: 149.210.169.107, 2a01:7c8:aaac:1cf:fca5:5751:2300:ea09
-# Belongs to the "DIKU Kantine Infoscreen" thing. Ask Sebbe.
-API_KEY = 'AIzaSyBxz24Pvk0zwBfdQDwkRYu2xAcJORdlMjA'
+API_KEY = 'AIzaSyBzA4P-MAA_7bCeDe4krSySHsPKvHCyrjA'
 
 for vid in ytvids:
     vidid = vid.group(1)
