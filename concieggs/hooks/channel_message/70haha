@@ -32,7 +32,7 @@ LOL===__        \
 }
 
 if {[lindex [run shuttingUp] 0]} {exit 0}
-if {[lindex [list [run maybeGood 0.3]] 0]} {exit 0}
+if {[lindex [run [list maybeGood 0.3]] 0]} {exit 0}
 
 set active 0
 set text $::env(EGGS_BODY)
