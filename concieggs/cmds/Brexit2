@@ -1,0 +1,12 @@
+#!/usr/bin/env python3
+# Hvad mener Frimarkedshelligånden er sandsynligheden for at Det Forenede Kongerige kan genvinde sin selvstændighed inden 1. februar 2020?
+
+import requests
+
+# En oversigt over alle markeder på predictit kan findes på: https://www.predictit.org/api/marketdata/all/
+url = 'https://www.predictit.org/api/marketdata/markets/6072'
+resp = requests.get(url=url)
+data = resp.json()
+price = data['contracts'][0]['lastTradePrice']
+
+print("Markedet siger at sandsynlighed for at det Forenede Kongerige forlader EU inden 1. februar 2020 er {:2.0f} pct.".format(price * 100))

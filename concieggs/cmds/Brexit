@@ -1,12 +1,2 @@
 #!/usr/bin/env python3
-# Hvad mener Frimarkedshelligånden er sandsynligheden for at Det Forenede Kongerige kan genvinde sin selvstændighed?
-
-import requests
-
-# En oversigt over alle markeder på predictit kan findes på: https://www.predictit.org/api/marketdata/all/
-url = 'https://www.predictit.org/api/marketdata/markets/5429'
-resp = requests.get(url=url)
-data = resp.json()
-price = data['contracts'][0]['lastTradePrice']
-
-print("Under antagelse om ikke-arbitrage er sandsynligheden for Brexit inden 1/11-2019 {:2.0f} pct.".format(price * 100))
+print("Det lykkedes hverken T May eller Bojo at hive det Forenede Kongerige ud af det 4. Rige inden 1. november 2019.")
