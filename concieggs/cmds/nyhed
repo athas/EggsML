@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+
+from lxml.html import fromstring
+import random
+import subprocess
+import sys
+import urllib.request as ur
+
+make_danish = True
+
+with ur.urlopen("https://news.ycombinator.com/") as f:
+    body = f.read()
+    document = fromstring(body.decode("utf-8"))
+    news_list =  document.cssselect('tr.athing')
+    news = random.choice(news_list)
+    news = news.cssselect('td.title > a.storylink')[0]
+    text = news.text
+    link = news.get('href')
+    if (make_danish):
+        process = subprocess.run(['translate', 'en', 'da'], stdout=subprocess.PIPE, input=text.encode('utf-8'))
+        text = process.stdout.decode('utf-8').rstrip()
+    print('Du kan læse historien "{}" på {}.'.format(text, link))
+
+
