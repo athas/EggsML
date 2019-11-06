@@ -7,6 +7,8 @@ import random
 import sys
 import subprocess
 
+make_danish = False
+
 url = 'https://www.predictit.org/api/marketdata/all/'
 
 resp = requests.get(url=url)
@@ -15,9 +17,12 @@ data = resp.json()
 markets = data['markets']
 
 if len(sys.argv) > 1:
-    matches = list(x for x in markets if ( any(list(map(lambda y: sys.argv[1] in y['longName'], x['contracts'] )))))
+    search_term = sys.argv[1]
+    matches = list(x for x in markets if ( any(list(map(lambda y: search_term in y['name'], x['contracts'] )))))
+    matches = matches + list(x for x in markets if search_term in x['name'])
     if not matches:
-        matches = list(x for x in markets if ( any(list(map(lambda y: sys.argv[1].lower() in y['longName'].lower(), x['contracts'] )))))
+        matches = list(x for x in markets if ( any(list(map(lambda y: search_term.lower() in y['name'].lower(), x['contracts'] )))))
+        matches = matches + list(x for x in markets if search_term.tolower() in x['name'])
         if not matches:
             print(random.choice([
                 "Ingen kender det, end ikke jeg selv. Kun Faderen ved det.",
@@ -29,21 +34,26 @@ else:
     matches = markets
 
 match = random.choice(matches)
+# print(match)
 contracts = match['contracts']
+contract_name = match['name']
+# print(contract_name)
 
-translate_input = "\n".join(map(lambda x: x['longName'], contracts))
-process = subprocess.run(['translate', 'en', 'da'], stdout=subprocess.PIPE, input=translate_input.encode('utf-8'))
-translate_output = process.stdout.decode('utf-8').rstrip()
-contract_names_dk = translate_output.split('\n')
-#contract_names_dk = translate_input.split('\n') # for local debuggin if translate is not in $PATH
+contract_names_dk = list(map(lambda x: x['name'], contracts))
+if (make_danish):
+    translate_input = "\n".join(map(lambda x: x['name'], contracts))
+    process = subprocess.run(['translate', 'en', 'da'], stdout=subprocess.PIPE, input=translate_input.encode('utf-8'))
+    translate_output = process.stdout.decode('utf-8').rstrip()
+    contract_names_dk = translate_output.split('\n')
 
 if not contract_names_dk:
     contract_names_dk = [None] * len(contracts)
 
-if len(contract_names_dk) < len(contracts):
+if len(list(contract_names_dk)) < len(contracts):
     contract_names_dk = contract_names_dk + [None] * (len(contracts) - len(contract_names_dk))
 
 i = 0
+output = contract_name + "\n" if len(contracts) > 1 else ""
 for contract in contracts:
     # if contract is new or price is unchanged
     if (contract['lastClosePrice'] == None or contract['lastClosePrice'] == contract['lastTradePrice'] ):
@@ -59,7 +69,8 @@ for contract in contracts:
         diff   = "\x0304-{:4.1f}\x03".format(100*(contract['lastClosePrice'] - contract['lastTradePrice']))
 
     if not contract_names_dk[i]:
-        contract_names_dk[i] = contract['longName']
+        contract_names_dk[i] = contract['name']
 
-    print (contract_names_dk[i].rstrip() + " {:4.1f} pct. ".format(100 * contract['lastTradePrice']) + symbol +  " ({0})".format(diff))
+    output += contract_names_dk[i].rstrip() + " {:4.1f} pct. ".format(100 * contract['lastTradePrice']) + symbol +  " ({0})".format(diff) + "\n"
     i += 1
+print(output.rstrip())
