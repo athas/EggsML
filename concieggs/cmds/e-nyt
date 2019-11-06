@@ -6,7 +6,7 @@ import subprocess
 import sys
 import urllib.request as ur
 
-make_danish = True
+make_danish = False
 
 with ur.urlopen("https://news.ycombinator.com/") as f:
     body = f.read()
