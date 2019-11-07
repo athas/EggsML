@@ -8,17 +8,36 @@ import urllib.request as ur
 
 make_danish = False
 
-with ur.urlopen("https://news.ycombinator.com/") as f:
-    body = f.read()
-    document = fromstring(body.decode("utf-8"))
-    news_list =  document.cssselect('tr.athing')
-    news = random.choice(news_list)
-    news = news.cssselect('td.title > a.storylink')[0]
-    text = news.text
-    link = news.get('href')
-    if (make_danish):
-        process = subprocess.run(['translate', 'en', 'da'], stdout=subprocess.PIPE, input=text.encode('utf-8'))
-        text = process.stdout.decode('utf-8').rstrip()
-    print('Du kan læse historien "{}" på {}.'.format(text, link))
+formatted_links = []
+for i in range(1, 10):
+    with ur.urlopen("https://news.ycombinator.com/" + ("news?p={}".format(str(i)))) as f:
+        body = f.read()
+        document = fromstring(body.decode("utf-8"))
+        stories =  document.cssselect('tr.athing')
+        for story in stories:
+            anchor = story.cssselect('td.title > a.storylink')[0]
+            text = anchor.text
+            link = anchor.get('href')
+            formatted_links.append((text, link))
+
+extra_output = ""
+if (len(sys.argv) > 1):
+    ss = sys.argv[1].lower()
+    formatted_links = list(filter(lambda x: ss in x[0].lower() or ss in x[1].lower(), formatted_links))
+    if len(formatted_links) == 0:
+        print("Det kunne jeg desværre ikke finde en historie om.")
+        exit(0)
+    else:
+        if len(formatted_links) == 1:
+            extra_output = "Hacker News har én historie om {} :".format(sys.argv[1])
+        else:
+            extra_output = "Hacker News har {} historier om {}. ".format(str(len(formatted_links)), sys.argv[1])
+
+story = random.choice(formatted_links)
+if (make_danish):
+    process = subprocess.run(['translate', 'en', 'da'], stdout=subprocess.PIPE, input=text.encode('utf-8'))
+    text = process.stdout.decode('utf-8').rstrip()
+
+print('{}Du kan læse historien "{}" på {}.'.format(extra_output, story[0], story[1]))
 
 
