@@ -60,6 +60,7 @@ for link in all_links:
     formatted_links.append((text, url))
 
 # Allow user to pick a theme that interests them
+extra_output = ""
 if (len(sys.argv) > 1):
     cool_stories = []
     if sys.argv[1] == "dyr":
@@ -67,10 +68,14 @@ if (len(sys.argv) > 1):
     else:
         cool_stories = list(filter(lambda x: sys.argv[1].lower() in x[0].lower(), formatted_links))
     if (len(cool_stories) > 0):
+        if (len(cool_stories) > 1):
+            extra_output = "Drudge Report har {} historier om det emne. ".format(len(cool_stories))
+        else:
+            extra_output = "Drudge Report har én historie om det emne. ".format(len(cool_stories))
         present = random.choice(cool_stories)
     else:
         print("Det kunne jeg desværre ikke finde en historie om.")
         exit(0)
 else:
     present = random.choice(formatted_links)
-print('Du kan læse historien "{}" på {}.'.format(present[0], present[1]))
+print('{}Du kan læse historien "{}" på {}.'.format(extra_output, present[0], present[1]))
