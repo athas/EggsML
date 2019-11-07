@@ -9,6 +9,7 @@ import sys
 import urllib.request as ur
 
 make_danish = False
+animal_words = ["dog", "cat", "animal", "horse", "elephant", "pig", "zoo", "sheep", "cow", "bull", "dolphin", "zebra", "giraffe", "fish", "mammal", "mouse", "mice", "rat", "ape", "monkey"]
 
 # We load the page with curl instead of a Python lib since I got 403 when using a Python lib
 process = subprocess.run(['curl', '--silent' ,'https://drudgereport.com'], stdout=subprocess.PIPE, input=None)
@@ -60,7 +61,13 @@ for link in all_links:
 
 # Allow user to pick a theme that interests them
 if (len(sys.argv) > 1):
-    cool_stories = list(filter(lambda x: sys.argv[1].lower() in x[0].lower(), formatted_links))
+    cool_stories = []
+    if sys.argv[1] == "dyr":
+        cool_stories = list(filter(lambda x: any(map(lambda y: y in x[0] ,animal_words)), formatted_links))
+        print(len(cool_stories))
+        #cool_stories = list(filter(any(lambda y: y[0] in x[0], animal_words ), formatted_links))
+    else:
+        cool_stories = list(filter(lambda x: sys.argv[1].lower() in x[0].lower(), formatted_links))
     if (len(cool_stories) > 0):
         present = random.choice(cool_stories)
     else:
