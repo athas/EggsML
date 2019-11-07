@@ -64,8 +64,6 @@ if (len(sys.argv) > 1):
     cool_stories = []
     if sys.argv[1] == "dyr":
         cool_stories = list(filter(lambda x: any(map(lambda y: y in x[0] ,animal_words)), formatted_links))
-        print(len(cool_stories))
-        #cool_stories = list(filter(any(lambda y: y[0] in x[0], animal_words ), formatted_links))
     else:
         cool_stories = list(filter(lambda x: sys.argv[1].lower() in x[0].lower(), formatted_links))
     if (len(cool_stories) > 0):
