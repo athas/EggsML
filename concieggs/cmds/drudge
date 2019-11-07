@@ -9,7 +9,7 @@ import sys
 import urllib.request as ur
 
 make_danish = False
-animal_words = ["dog", "cat", "animal", "horse", "elephant", "pig", "zoo", "sheep", "cow", "bull", "dolphin", "zebra", "giraffe", "fish", "mammal", "mouse", "mice", "rat", "ape", "monkey"]
+animal_words = ["dog", "cat", "animal", "horse", "elephant", "pig", "zoo", "sheep", "cow", "bull", "dolphin", "zebra", "giraffe", "fish", "mammal", "mouse", "mice", "rat", "ape", "monkey", "orangutan", "gorilla", "chimpanzee", "rodent"]
 
 # We load the page with curl instead of a Python lib since I got 403 when using a Python lib
 process = subprocess.run(['curl', '--silent' ,'https://drudgereport.com'], stdout=subprocess.PIPE, input=None)
