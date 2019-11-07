@@ -30,7 +30,7 @@ if (len(sys.argv) > 1):
         ss = ss.lower()
         formatted_links = list(filter(lambda x: ss in x[0].lower() or ss in x[1].lower(), formatted_links))
         if len(formatted_links) == 0:
-            print("Det kunne jeg desværre ikke finde en historie om.")
+            print("Jeg kunne desværre ikke finde en historie om {}.".format(ss))
             exit(0)
 
     if len(formatted_links) == 1:
