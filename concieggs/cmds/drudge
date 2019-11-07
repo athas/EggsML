@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+
+from lxml.html import fromstring
+from lxml.etree import tostring
+import random
+import re
+import subprocess
+import sys
+import urllib.request as ur
+
+make_danish = False
+
+# We load the page with curl instead of a Python lib since I got 403 when using a Python lib
+process = subprocess.run(['curl', '--silent' ,'https://drudgereport.com'], stdout=subprocess.PIPE, input=None)
+body = str(process.stdout.rstrip())
+dom = fromstring(body)
+
+# is this page ASCII or UTF8? Probably ASCII but it shouldn't matter since I think they only use ASCII characters anyway
+
+# Top left
+tl = re.search('<! TOP LEFT STARTS HERE>(.*?)<!', body)
+tl_dom = fromstring(tl.group(1))
+tl_links = tl_dom.cssselect('a')
+
+# Main headline
+m = re.search('<! MAIN HEADLINE>(.*?)</center>', body)
+m_dom = fromstring(m.group(1))
+m_links = m_dom.cssselect('a')
+if (len(sys.argv) > 1 and sys.argv[1] == "overskrift"):
+    print('Overskriften på Drudge Report er: "{}" og kan læses på {}.'.format(m_links[0].text, m_links[0].get('href')))
+    exit(0)
+
+# Left column
+l_dom = dom.cssselect('table > tr:nth-child(1) > td:nth-child(1)')
+l = re.search('<td(.*?)<!', str(tostring(l_dom[0])))
+l_dom = fromstring(l.group(1))
+l_links = l_dom.cssselect('a')
+
+# Centre column
+c_dom = dom.cssselect('table > tr:nth-child(1) > td:nth-child(3)')
+c = re.search('<td(.*?)<!', str(tostring(c_dom[0])))
+c_dom = fromstring(c.group(1))
+c_links = c_dom.cssselect('a')
+
+# Right column
+r_dom = dom.cssselect('table > tr:nth-child(1) > td:nth-child(5)')
+r = re.search('<td(.*?)<!', str(tostring(r_dom[0])))
+r_dom = fromstring(r.group(1))
+r_links = r_dom.cssselect('a')
+
+all_links = tl_links + m_links + l_links + c_links + r_links
+formatted_links = []
+for link in all_links:
+    text = link.text
+    if text == None or text == "ANDROID..." or "DRUDGE APP IPHONE" in text or "Daily presidential tracking" in text:
+        continue
+    text = text.replace("\\", "")
+    url = link.get('href')
+    formatted_links.append((text, url))
+
+present = random.choice(formatted_links)
+print('Du kan læse historien "{}" på {}.'.format(present[0], present[1]))
