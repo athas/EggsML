@@ -8,6 +8,7 @@ import sys
 import urllib.request as ur
 
 make_danish = False
+max_number_of_articles = 10
 
 formatted_links = []
 for i in range(1, 25):
@@ -34,9 +35,18 @@ if (len(sys.argv) > 1):
             exit(0)
 
     if len(formatted_links) == 1:
-        extra_output = "Hacker News har én historie om {} :".format(ss)
+        extra_output = "Hacker News har én aktuel historie om {} :".format(ss)
     else:
-        extra_output = "Hacker News har {} historier om {}. ".format(str(len(formatted_links)), ss)
+        extra_output = "Hacker News har {} aktuelle historier om {}. ".format(str(len(formatted_links)), ss)
+
+    if (len(sys.argv) > 2 and sys.argv[2] == "alle"):
+        article_links = ""
+        if len(formatted_links) > max_number_of_articles:
+            article_links = "De første {} artikler er: ".format(str(max_number_of_articles)) + ", ".join(map(lambda x: x[1], formatted_links[:max_number_of_articles]))
+        else:
+            article_links = ", ".join(map(lambda x: x[1], formatted_links))
+        print(extra_output + article_links + ".")
+        exit(0)
 
 story = random.choice(formatted_links)
 if (make_danish):
