@@ -27,15 +27,15 @@ tl_links = tl_dom.cssselect('a')
 m = re.search('<! MAIN HEADLINE>(.*?)</center>', body)
 m_dom = fromstring(m.group(1))
 m_links = m_dom.cssselect('a')
-if (len(sys.argv) > 1 and sys.argv[1] == "overskrift"):
+if (len(sys.argv) > 1 and (sys.argv[1] == "overskrift" or sys.argv[1] == "o")):
     for headline_link in m_links:
         text = headline_link.text
 
         # If text is none, this probably means that headline is red with DOM element <font> => Matt Drudge is exited!
         # We will follow his lead and also color our text red in IRC
         if text == None:
-            text = headline_link.cssselect('font')[0].text
-        print('Overskriften på Drudge Report er: "\x0304{}\x03" og kan læses på {}.'.format(text.replace("\\", ""), headline_link.get('href')))
+            text = "\x0304" + headline_link.cssselect('font')[0].text + "\x03"
+        print('Overskriften på Drudge Report er: "{}" og kan læses på {}.'.format(text.replace("\\", ""), headline_link.get('href')))
         exit(0)
 
 # Left column
