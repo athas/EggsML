@@ -20,6 +20,11 @@ for i in range(1, 25):
         body = f.read()
         document = fromstring(body.decode("utf-8"))
     except urllib.error.HTTPError:
+
+        # Print error to stderr
+        import traceback
+        traceback.print_exc()
+
         if (i == 1):
             print("Jeg må slet ikke kravle rundt på Hacker News :(")
             exit(0)
@@ -55,6 +60,8 @@ if (len(sys.argv) > 1):
             article_links = "De første {} artikler er: ".format(str(max_number_of_articles)) + ", ".join(map(lambda x: x[1], formatted_links[:max_number_of_articles]))
         else:
             article_links = ", ".join(map(lambda x: x[1], formatted_links))
+
+        # No need to make this Danish since it already is
         print(http_error + extra_output + article_links + ".")
         exit(0)
 
