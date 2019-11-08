@@ -22,7 +22,7 @@ if len(sys.argv) > 1:
     matches = matches + list(x for x in markets if search_term in x['name'])
     if not matches:
         matches = list(x for x in markets if ( any(list(map(lambda y: search_term.lower() in y['name'].lower(), x['contracts'] )))))
-        matches = matches + list(x for x in markets if search_term.tolower() in x['name'])
+        matches = matches + list(x for x in markets if search_term.lower() in x['name'])
         if not matches:
             print(random.choice([
                 "Ingen kender det, end ikke jeg selv. Kun Faderen ved det.",
