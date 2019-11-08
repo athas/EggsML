@@ -14,6 +14,7 @@ max_number_of_articles = 10
 formatted_links = []
 http_error = ""
 document = ""
+score_regex = re.compile(r"(\d+)\spoints")
 for i in range(1, 25):
     try:
         f = ur.urlopen("https://news.ycombinator.com/" + ("news?p={}".format(str(i))))
@@ -30,12 +31,13 @@ for i in range(1, 25):
             exit(0)
         http_error = "Jeg fik kun lov til at hente de første {} sider. ".format(str(i))
         break;
-    stories =  document.cssselect('tr.athing')
-    for story in stories:
+    stories_and_score =  zip(document.cssselect('tr.athing'), document.cssselect('span.score'))
+    for (story, score) in stories_and_score:
         anchor = story.cssselect('td.title > a.storylink')[0]
         text = anchor.text
         link = anchor.get('href')
-        formatted_links.append((text, link))
+        score_capture = score_regex.search(score.text)
+        formatted_links.append((text, link, int(score_capture.group(1)), i))
 
 extra_output = ""
 if (len(sys.argv) > 1):
@@ -70,4 +72,4 @@ if (make_danish):
     process = subprocess.run(['translate', 'en', 'da'], stdout=subprocess.PIPE, input=text.encode('utf-8'))
     text = process.stdout.decode('utf-8').rstrip()
 
-print('{}{}Du kan læse historien "{}" på {}.'.format(http_error, extra_output, story[0], story[1]))
+print('{}{}Du kan læse historien "{}" på {}. Den har {} point og blev fundet på side {}.'.format(http_error, extra_output, story[0], story[1], story[2], story[3]))
