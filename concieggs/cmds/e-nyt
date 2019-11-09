@@ -13,8 +13,7 @@ max_number_of_articles = 10
 
 formatted_links = []
 http_error = ""
-document = ""
-score_regex = re.compile(r"(\d+)\spoints")
+score_regex = re.compile(r"(\d+)\spoints?")
 for i in range(1, 25):
     try:
         f = ur.urlopen("https://news.ycombinator.com/" + ("news?p={}".format(str(i))))
@@ -31,6 +30,7 @@ for i in range(1, 25):
             exit(0)
         http_error = "Jeg fik kun lov til at hente de første {} sider. ".format(str(i))
         break;
+
     stories_and_score =  zip(document.cssselect('tr.athing'), document.cssselect('span.score'))
     for (story, score) in stories_and_score:
         anchor = story.cssselect('td.title > a.storylink')[0]
