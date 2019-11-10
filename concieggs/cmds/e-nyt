@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+#
+# Søg på Hacker News blandt aktuelle historier eller blandt alle historie.
+# Anvendelse: e-nyt <søgning> <a[ktuelle]|global>
 
 from lxml.html import fromstring
 import json
@@ -17,7 +20,12 @@ formatted_links = []
 http_error = ""
 score_regex = re.compile(r"(\d+)\spoints?")
 
-if len(sys.argv) > 2 and (sys.argv[2] == "gammel" or sys.argv[2] == "g" or sys.argv[2] == "global"):
+valid_2nd_args = ["a", "aktuel", "aktuelle", "g", "global"]
+if len(sys.argv) < 3 or sys.argv[2] not in valid_2nd_args:
+    print("brug: e-nyt <søgning> <a|g>, a => aktuelle historier, g => global søgning i hele historikken")
+    exit(0)
+
+if len(sys.argv) > 2 and (sys.argv[2] == "g" or sys.argv[2] == "global"):
     resp = requests.get("https://hn.algolia.com/api/v1/search_by_date?query={}&tags=story&hitsPerPage=1".format(sys.argv[1]))
     data = resp.json()
     output = ""
