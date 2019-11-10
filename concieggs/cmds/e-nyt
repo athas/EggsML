@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
 # Søg på Hacker News blandt aktuelle historier eller blandt alle historie.
-# Anvendelse: e-nyt <søgning> <a[ktuelle]|global>
+# Anvendelse: e-nyt <søgning> <a[ktuelle]|g[lobal]>
 
 from lxml.html import fromstring
 import json
