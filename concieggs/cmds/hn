@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
 # Søg på Hacker News blandt aktuelle historier eller blandt alle historie.
-# Anvendelse: e-nyt <a[ktuelle] [søgning [alle]]|g[lobal] <søgning>>
+# Anvendelse: "hn <søgning> [alle]" eller "hn <a[ktuelle] [søgning [alle]]|g[lobal] <søgning>>"
 
 from lxml.html import fromstring
 import json
@@ -25,12 +25,15 @@ ss = ""
 if len(sys.argv) > 2:
     ss = sys.argv[2]
 
-active_search = (len(sys.argv) in [2,3,4]) and sys.argv[1] in ["a", "aktuel", "aktuelle"]
-return_all = len(sys.argv) == 4 and sys.argv[3] == "alle"
+active_search = len(sys.argv) == 2 or (len(sys.argv) in [2,3,4] and sys.argv[1] in ["a", "aktuel", "aktuelle"])
 global_search = len(sys.argv) == 3 and sys.argv[1] in ["global", "g"]
+return_all = not global_search and (len(sys.argv) == 4 and sys.argv[3] == "alle" or len(sys.argv) == 3 and sys.argv[2] == "alle")
+
+if active_search and len(sys.argv) < 3:
+    ss = sys.argv[1]
 
 if not global_search and not active_search:
-    print("brug: e-nyt <a [søgning [alle]]|g <søgning>>  a => aktuelle historier, g => global søgning i hele historikken")
+    print("brug: e-nyt <a [søgning [alle]]|g <søgning>>  a => aktuelle historier, g => global søgning i hele historikken. Eller: e-nyt <søgning> [alle]")
     exit(0)
 
 if global_search:
