@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Hjælp med musikken
+
+echo "Jeg har nu fjernet la fra min diatoniske skala."
