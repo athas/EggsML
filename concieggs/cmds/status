@@ -1,10 +1,3 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-sc0=$(curl -s -o /dev/null -w "%{http_code}" --connect-timeout 1 $1)
-echo -n "$sc0"
-case $sc0 in 3*)
-    sc_follow=$(curl -L -s -o /dev/null -w "%{http_code}" --connect-timeout 1 $1)
-    echo -n " -> $sc_follow"
-esac
-echo
-exit 0;
+echo $(status $@)

@@ -92,15 +92,35 @@ if (len(sys.argv) > 1):
         else:
             extra_output = "Drudge Report har én historie om {}. ".format(ss)
         present = random.choice(cool_stories)
+
     else:
         print("Det kunne jeg desværre ikke finde en historie om.")
         exit(0)
 else:
     present = random.choice(formatted_links)
 
+# Verify that concieggs can load page as many links are blocked in Europe due to GDPR
+# Python is an inferior language without do/while loops so we use this ugly code instead
+success_regex = re.compile(r".*200.*")
+process = subprocess.run(['status', present[1]], stdout=subprocess.PIPE, input=None)
+status = str(process.stdout.rstrip().decode('utf-8'))
+tried = 0
+while not success_regex.match(status):
+    tried += 1
+    if tried >= len(cool_stories):
+        extra_output += "Desværre er siden vist blokeret for os europæere. "
+        found_animal_story = False
+        break
+    else:
+        tried_index = list(map(lambda x: x[1], cool_stories)).index(present[1])
+        new_index = (tried_index + 1) % len(cool_stories)
+        present = cool_stories[new_index]
+        process = subprocess.run(['status', present[1]], stdout=subprocess.PIPE, input=None)
+        status = str(process.stdout.rstrip().decode('utf-8'))
+
 if len(sys.argv) > 2 and sys.argv[1] == "dyr" and sys.argv[2] == "Velkomstbesked":
     # Print nice welcome message about animals if we found animal stories, otherwise exit
     if found_animal_story:
         print('Har du set den søde dyrehistorie "{}" på {}?'.format(present[0], present[1]))
 else:
-    print('{}Du kan læse historien "{}" på {}.'.format(extra_output, present[0], present[1]))
+    print('{}Du kan finde historien "{}" på {}.'.format(extra_output, present[0], present[1]))
