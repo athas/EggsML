@@ -60,6 +60,9 @@ all_links = tl_links + m_links + l_links + c_links + r_links
 formatted_links = []
 for link in all_links:
     text = link.text
+    if text == None:
+        if len(link.cssselect('i')) > 0:
+            text = link.cssselect('i')[0].text
     if text == None or text == "ANDROID..." or "DRUDGE APP IPHONE" in text or "Daily presidential tracking" in text:
         continue
     text = text.replace("\\", "")
