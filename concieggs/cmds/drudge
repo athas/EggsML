@@ -72,7 +72,8 @@ if (len(sys.argv) > 1):
     ss = sys.argv[1]
     cool_stories = []
     if ss == "dyr":
-        cool_stories = list(filter(lambda x: any(map(lambda y: y in x[0].lower(), animal_words)), formatted_links))
+        animal_regexes = list(map(lambda y: re.compile(r"[\W\s^]{}[\W\s$]".format(y)), animal_words))
+        cool_stories = list(filter(lambda x: any(map(lambda y: y.search(x[0].lower()), animal_regexes)), formatted_links))
     else:
         regex = re.compile(r"{}[\W\s$]".format(ss))
         cool_stories = list(filter(lambda x: regex.search(x[0]), formatted_links))
