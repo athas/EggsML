@@ -9,7 +9,7 @@ import sys
 import urllib.request as ur
 
 make_danish = False
-animal_words = ["dog", "cat", "animal", "horse", "elephant", "pig", "zoo", "sheep", "cow", "bull", "dolphin", "zebra", "giraffe", "fish", "mammal", "mouse", "mice", "rat", "ape", "monkey", "orangutan", "gorilla", "chimpanzee", "rodent"]
+animal_words = ["dog", "cat", "animal", "horse", "elephant", "pig", "zoo", "sheep", "cow", "bull", "dolphin", "zebra", "giraffe", "fish", "mammal", "mouse", "mice", "rat", "ape", "monkey", "orangutan", "gorilla", "chimpanzee", "rodent", "pooch"]
 
 # We load the page with curl instead of a Python lib since I got 403 when using a Python lib
 process = subprocess.run(['curl', '--silent' ,'https://drudgereport.com'], stdout=subprocess.PIPE, input=None)
@@ -77,7 +77,7 @@ if (len(sys.argv) > 1):
     cool_stories = []
     if ss == "dyr":
         animal_regexes = list(map(lambda y: re.compile(r"[\W\s^]{}[\W\s$]".format(y)), animal_words))
-        cool_stories = list(filter(lambda x: any(map(lambda y: y.search(x[0].lower()), animal_regexes)), formatted_links))
+        cool_stories = list(filter(lambda x: any(map(lambda y: y[0].search(x[0].lower()) or "{} ".format(x[0].lower()).startswith(y[1]), zip(animal_regexes, animal_words))), formatted_links))
         if len(cool_stories) > 0:
             found_animal_story = True
     else:
