@@ -12,22 +12,23 @@ if [ "$EGGS_USER" = "$CONCIEGGS_NAME" ]; then
     exit
 fi
 
-sleep 6
-
 # Produce a random thought when someone enters the channel
 # but wait a short while such that it seems more natural
-rand=$(random 1 4)
+sleep 6
+rand=$(random 1 10)
 case $rand in
     # Produce a random thought
-    1|2)
+    1|2|3)
         rt=`$CONCIEGGS_DIR/cmds/vejr Velkomstbesked`
         ;;
-    3)
+    4|5|6)
         rt=`$CONCIEGGS_DIR/cmds/forvikling Velkomstbesked`
         ;;
-    4)
+    7|8|9)
         rt=`$CONCIEGGS_DIR/cmds/betragtning`
         ;;
+    10)
+        rt=`$CONCIEGGS_DIR/cmds/drudge dyr Velkomstbesked`
 esac
 
 echo "Velkommen $EGGS_USER! $rt"

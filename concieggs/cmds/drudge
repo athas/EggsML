@@ -31,7 +31,7 @@ if (len(sys.argv) > 1 and (sys.argv[1] == "overskrift" or sys.argv[1] == "o")):
     for headline_link in m_links:
         text = headline_link.text
 
-        # If text is none, this probably means that headline is red with DOM element <font> => Matt Drudge is exited!
+        # If text is none, this probably means that headline is red with DOM element <font> => Matt Drudge is excited!
         # We will follow his lead and also color our text red in IRC
         if text == None:
             text = "\x0304" + headline_link.cssselect('font')[0].text + "\x03"
@@ -68,12 +68,15 @@ for link in all_links:
 
 # Allow user to pick a theme that interests them
 extra_output = ""
+found_animal_story = False
 if (len(sys.argv) > 1):
     ss = sys.argv[1]
     cool_stories = []
     if ss == "dyr":
         animal_regexes = list(map(lambda y: re.compile(r"[\W\s^]{}[\W\s$]".format(y)), animal_words))
         cool_stories = list(filter(lambda x: any(map(lambda y: y.search(x[0].lower()), animal_regexes)), formatted_links))
+        if len(cool_stories) > 0:
+            found_animal_story = True
     else:
         regex = re.compile(r"{}[\W\s$]".format(ss))
         cool_stories = list(filter(lambda x: regex.search(x[0]), formatted_links))
@@ -91,4 +94,10 @@ if (len(sys.argv) > 1):
         exit(0)
 else:
     present = random.choice(formatted_links)
-print('{}Du kan læse historien "{}" på {}.'.format(extra_output, present[0], present[1]))
+
+if len(sys.argv) > 2 and sys.argv[1] == "dyr" and sys.argv[2] == "Velkomstbesked":
+    # Print nice welcome message about animals if we found animal stories, otherwise exit
+    if found_animal_story:
+        print('Har du set den søde dyrehistorie "{}" på {}?'.format(present[0], present[1]))
+else:
+    print('{}Du kan læse historien "{}" på {}.'.format(extra_output, present[0], present[1]))
