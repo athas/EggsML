@@ -47,4 +47,6 @@ else
      randomName "$EGGS_USER"
      ircChannel
      echo "$command") | dbInsertData reminders > /dev/null
+
+    echo "$EGGS_USER: Meget vel!  Om $count $unit vil jeg udføre '$command'."
 fi
