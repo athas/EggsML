@@ -22,6 +22,12 @@ case "$unit" in
     minutter)
         seconds=$(($count * 60))
         ;;
+    time)
+        seconds=$(($count * 3600))
+        ;;
+    timer)
+        seconds=$(($count * 3600))
+        ;;
     *)
         echo "$EGGS_USER: Beklager, men jeg er ikke bekendt med tidsenheden '$unit'."
         exit
