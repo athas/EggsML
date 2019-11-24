@@ -40,5 +40,5 @@ else
      echo $(($now + $seconds))
      randomName "$EGGS_USER"
      ircChannel
-     echo "$command") | dbInsertData reminders
+     echo "$command") | dbInsertData reminders > /dev/null
 fi

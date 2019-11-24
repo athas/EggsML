@@ -17,7 +17,7 @@ for reminder in $(dbIterate reminders); do
               if [ $(($now - $when > 60)) = 1 ]; then
                   echo "Bedre sent end aldrig!"
               fi
-              echo "$who: der er nu gået de ønskede $duration."
+              echo "$who: Der er nu gået de ønskede $duration."
               runcmd $command
               dbDelete "$reminder"
           fi
