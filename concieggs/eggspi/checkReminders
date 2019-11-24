@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+# Not a hook because I don't want this to silence other hooks, or be
+# silenced by them.  There Has To Be A Better Way!
+
+here=$(ircChannel)
+now=$(nowTime)
+
+for reminder in $(dbIterate reminders); do
+    dbRead "$reminder" |
+        ( read duration
+          read when
+          read who
+          read where
+          read command
+          if [ "$here" = "$where" -a "$now" -gt "$when" ]; then
+              if [ $(($now - $when > 60)) = 1 ]; then
+                  echo "Bedre sent end aldrig!"
+              fi
+              echo "$who: der er nu gået de ønskede $duration."
+              runcmd $command
+              dbDelete "$reminder"
+          fi
+        )
+done

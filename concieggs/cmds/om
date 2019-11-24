@@ -1,0 +1,44 @@
+#!/bin/sh
+#
+# Anmod logebotten om at udføre en handling i den nærmeste fremtid.
+
+eval "$(echo "$@" | parse '^(?<count>[0-9]+) (?<unit>[^:]+): (?<command>.*)$')"
+
+if ! [ "$count" ]; then
+    echo "$EGGS_USER: Brug: om <antal> <sekunder|minutter|timer>: <kommando>"
+    exit
+fi
+
+case "$unit" in
+    sekund)
+        seconds=$count
+        ;;
+    sekunder)
+        seconds=$count
+        ;;
+    minut)
+        seconds=$(($count * 60))
+        ;;
+    minutter)
+        seconds=$(($count * 60))
+        ;;
+    *)
+        echo "$EGGS_USER: Beklager, men jeg er ikke bekendt med tidsenheden '$unit'."
+        exit
+        ;;
+esac;
+
+if [ "$seconds" -gt 36000 ]; then
+    echo "$EGGS_USER: Om forladelse, men min hukommelse rækker ikke til at huske så langt ud i fremtiden."
+    annoyedBy "$EGGS_USER" 1 "bad mig om at huske noget i lang tid"
+elif [ "$seconds" -le 0 ]; then
+    echo "$EGGS_USER: Ja, den er god med dig, Karl Smart."
+    annoyedBy "$EGGS_USER" 10 "bad mig om at minde ham om noget i fortiden"
+else
+    now=$(nowTime)
+    (echo "$count $unit"
+     echo $(($now + $seconds))
+     randomName "$EGGS_USER"
+     ircChannel
+     echo "$command") | dbInsertData reminders
+fi
