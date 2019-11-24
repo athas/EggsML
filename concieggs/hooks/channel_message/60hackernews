@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# shuttingUp && exit
+
+# if ! checkCooldown "HackerNewsHistorie" $(60*60*13); then
+#    exit 0
+# fi
+
+echo "$EGGS_USER: $($CONCIEGGS_DIR/cmds/hn)"
