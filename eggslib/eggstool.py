@@ -68,6 +68,6 @@ if __name__ == '__main__':
         if len(sys.argv) != 4:
             sys.stderr.write("Usage: %s %s %s <name>" % (sys.argv[0], lunchfile, command))
         else:
-            print e.get_fate(sys.argv[3], False)
+            print(e.get_fate(sys.argv[3], False))
     else:
         exit("Unrecognized command %s" % command)

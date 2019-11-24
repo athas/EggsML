@@ -6,37 +6,37 @@ import os
 
 def user_aliases(eggs, name):
     for user_aliases in eggs.aliases:
-        if name.lower() in map(lambda (x): x.lower(), user_aliases):
+        if name.lower() in map(lambda x: x.lower(), user_aliases):
             return user_aliases
 
 def print_aliases(eggs, name):
     aliases = user_aliases(eggs,name)
     if aliases != None:
         for alias in aliases:
-            print alias
+            print(alias)
         return True
     return False
 
 def print_all_aliases(eggs):
-    print "\n".join( "\n".join(aliases) for aliases in eggs.aliases )
+    print("\n".join( "\n".join(aliases) for aliases in eggs.aliases ))
 
 def print_wishes(eggs):
     for wish in eggs.get_wishes():
-        print wish
+        print(wish)
 
 def print_balance_of_payments(eggs):
     userinfo = eggs.get_userinfo()
     balance = 0
     for v in userinfo:
         balance += userinfo[v]['balance']
-    print "%.2f" % balance
+    print("%.2f" % balance)
 
 
 
 def print_balances(eggs):
     userinfo = eggs.get_userinfo()
     for v in userinfo:
-        print round(userinfo[v]['balance'], 2), eggs.get_alias_rand(v)
+        print(round(userinfo[v]['balance'], 2), eggs.get_alias_rand(v))
 
 
 from datetime import timedelta
@@ -66,9 +66,9 @@ def print_consecutive(eggs,name):
          acc = ([d['date']], current if len(current) > len(longest) else longest)
 
   if len(longest) > len(current):
-    print len(longest)
+    print(len(longest))
   else:
-    print len(current)
+    print(len(current))
 
 def print_lunches(eggs, name):
     dates = eggs.get_dates()
@@ -78,7 +78,7 @@ def print_lunches(eggs, name):
     for d in reversed(dates):
         for u in d['users']:
             if u['user'] in aliases:
-                print d['date']
+                print(d['date'])
 
 def print_eggsmates(eggs,name):
 
@@ -96,7 +96,7 @@ def print_eggsmates(eggs,name):
   for l in eggs.dates:
       if ate(l['users'],aliases[0]):
         for x in l['users']:
-          if x['user'] <> aliases[0]:
+          if x['user'] != aliases[0]:
               acc[x['user']] = acc.get(x['user'],0) + 1
 
   eggsmates = sorted(acc.items(),key=lambda i: i[1],reverse=True)
@@ -105,7 +105,7 @@ def print_eggsmates(eggs,name):
   for (user,count) in eggsmates[0:5]:
       s += " %s (%s)" % (choice(user_aliases(eggs,user)),count)
 
-  print s
+  print(s)
   return True
 
 def print_eggscount(eggs,name):
@@ -119,7 +119,7 @@ def print_eggscount(eggs,name):
       #swap x['amount'] with '1' to count partitipation
       return reduce(lambda acc,x: (x['amount'] if x['user']==aliases[0] else 0)+acc,items,0)
 
-    print reduce(lambda acc,x: inner(x['users'])+acc,eggs.dates,0)
+    print(reduce(lambda acc,x: inner(x['users'])+acc,eggs.dates,0))
 
 def same_eggser(eggs,x,y):
     return user_aliases(eggs,x) == user_aliases(eggs,y)
