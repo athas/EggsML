@@ -2,7 +2,7 @@
 
 shuttingUp && exit
 
-if ! checkCooldown "HackerNewsHistorie" $(60*60*13); then
+if ! checkCooldown "HackerNewsHistorie" $((60*60*13)); then
     exit 0
 fi
 
