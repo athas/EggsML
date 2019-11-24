@@ -18,6 +18,7 @@ for reminder in $(dbIterate reminders); do
                   echo "Bedre sent end aldrig!"
               fi
               echo "$who: Der er nu gået de ønskede $duration."
+              export EGGS_USER=$who
               runcmd $command
               dbDelete "$reminder"
           fi
