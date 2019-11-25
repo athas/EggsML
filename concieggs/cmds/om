@@ -10,22 +10,13 @@ if ! [ "$count" ]; then
 fi
 
 case "$unit" in
-    sekund)
+    sekund|sekunder)
         seconds=$count
         ;;
-    sekunder)
-        seconds=$count
-        ;;
-    minut)
+    minut|minutter)
         seconds=$(($count * 60))
         ;;
-    minutter)
-        seconds=$(($count * 60))
-        ;;
-    time)
-        seconds=$(($count * 3600))
-        ;;
-    timer)
+    time|timer)
         seconds=$(($count * 3600))
         ;;
     *)
