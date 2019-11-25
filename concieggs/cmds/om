@@ -48,5 +48,5 @@ else
      ircChannel
      echo "$command") | dbInsertData reminders > /dev/null
 
-    echo "$EGGS_USER: $(ack)!  Om $count $unit vil jeg udføre '$command'."
+    echo "$EGGS_USER: $(ack)  Om $count $unit vil jeg udføre '$command'."
 fi
