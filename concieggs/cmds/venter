@@ -12,10 +12,15 @@ fi
 
 if [ "$(dbIterate reminders)" ]; then
     randomLine <<EOF
-Ja, det kan du ligne regne med! :-)
+$EGGS_USER: Ja, det kan du ligne regne med! :-)
+$EGGS_USER: Orv ja, det tør siges... ;-)
+$EGGS_USER: Novra for en guldtand fremtiden vil byde på! :))))
+$EGGS_USER: Jamen, ja, i den grad, helt klart. :]
 EOF
 else
     randomLine <<EOF
-Nej, desværre.
+$EGGS_USER: Nej, desværre.
+$EGGS_USER: Næ.
+$EGGS_USER: NEJ.
 EOF
 fi
