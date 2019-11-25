@@ -34,7 +34,7 @@ case "$unit" in
         ;;
 esac;
 
-if [ "$seconds" -gt 36000 ]; then
+if [ "$seconds" -gt 86400 ]; then
     echo "$EGGS_USER: Om forladelse, men min hukommelse rækker ikke til at huske så langt ud i fremtiden."
     annoyedBy "$EGGS_USER" 1 "bad mig om at huske noget i lang tid"
 elif [ "$seconds" -le 0 ]; then
