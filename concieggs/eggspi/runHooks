@@ -17,6 +17,8 @@ if (!curhook || hook == curhook) {
 EOF
              )
 
+checkReminders
+
 ls "$CONCIEGGS_DIR/hooks/$hooks/" |
     while read -r f; do
         spoke=''

@@ -41,9 +41,7 @@ else
             ;;
         *ml)
             compile() {
-                ocamlfind ocamlc -linkpkg -package base -package stdio -o $2 $1
-                # ocamlc -open Base -o $2 $1
-                # ocamlfind ocamlc -linkpkg -package unix -o $2 $1
+                ocamlfind ocamlc -linkpkg -package unix -o $2 $1
             }
             ;;
         *pas)

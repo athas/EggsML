@@ -1,5 +1,3 @@
-open Base
-
 (* Helper program for the årquiz game. *)
 
 let base_url = "https://da.wikipedia.org/w/api.php?action=parse&format=json&prop=parsetree&page="
@@ -8,9 +6,9 @@ let base_url = "https://da.wikipedia.org/w/api.php?action=parse&format=json&prop
 let read_all fd =
   let chunk = 1024 in
   let rec read buffer size offset =
-    let used = Stdio.In_channel.input fd buffer offset chunk
-    in if used <= 0 then Bytes.fill buffer 0 (-chunk) ' '
-       else read (Bytes.fill buffer 0 used ' ') (size + used) (offset + used)
+    let used = input fd buffer offset chunk
+    in if used <= 0 then Bytes.extend buffer 0 (-chunk)
+       else read (Bytes.extend buffer 0 used) (size + used) (offset + used)
   in Bytes.to_string (read (Bytes.create chunk) chunk 0)
 
 let rec find_substring string start sub =
