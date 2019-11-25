@@ -1,0 +1,21 @@
+#!/bin/sh
+#
+# Er concieggs spændt på noget i fremtiden???  Hvad mon det kan være???
+# Brug: venter du på noget?
+
+eval "$(echo "$@" | parse '^(?<request>du på noget)')"
+
+if ! [ "$request" ]; then
+    echo "$EGGS_USER: Det ved jeg ikke."
+    exit
+fi
+
+if [ "$(dbIterate reminders)" ]; then
+    randomLine <<EOF
+Ja, det kan du ligne regne med! :-)
+EOF
+else
+    randomLine <<EOF
+Nej, desværre.
+EOF
+fi
