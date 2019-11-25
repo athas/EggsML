@@ -101,6 +101,13 @@ throttle() {
     gawk -f $dir/throttle.awk
 }
 
+ticks() {
+    while true; do
+        echo tick
+        sleep 10
+    done
+}
+
 outfile=$irc_dir/out
 
 # Make sure the outfile exists.
@@ -109,8 +116,11 @@ touch "$outfile" 2>/dev/null || true
 # Start eggsmld.
 $EGGS_DIR/eggslib/eggsmld.py $EGGS_DIR/slashdotfrokost $EGGS_DAEMON_SOCKET &
 
-# Tie the two loops together.
-tail -f -n 0 "$outfile" | \
+# Tie the loops together.
+{
+    ticks &
+    tail -f -n 0 "$outfile"
+} | \
     eventprocessor | \
     tee /dev/stderr | \
     throttle | \
