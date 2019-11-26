@@ -101,17 +101,12 @@ throttle() {
     gawk -f $dir/throttle.awk
 }
 
-ticksfifo=$irc_dir/ticks
-mkfifo $ticksfifo
-
 ticks() {
     while true; do
         echo tick
         sleep 10
-    done >> "$ticksfifo"
+    done
 }
-
-ticks &
 
 outfile=$irc_dir/out
 
@@ -122,7 +117,10 @@ touch "$outfile" 2>/dev/null || true
 $EGGS_DIR/eggslib/eggsmld.py $EGGS_DIR/slashdotfrokost $EGGS_DAEMON_SOCKET &
 
 # Tie the loops together.
-tail -f -n 0 "$outfile" "$ticksfifo" | grep -v '^==> ' | \
+{
+    ticks &
+    tail -f -n 0 "$outfile"
+} | \
     eventprocessor | \
     tee /dev/stderr | \
     throttle | \
