@@ -11,7 +11,7 @@ eval "$(echo "$@" | parse \
 '(?<missing>mangler jeg)$|'\
 '(?<wtf>hulen)$|'\
 '(?<status>så)$|'\
-'(?<definition>betyder (?<word>[^ ]+))$|'\
+'(?<definition>betyder (?<word>.+))$|'\
 '(?<meaning>mener (?<who>[^ ]+) med (?<what>[^ ]+)$)|'\
 'hedder (?<githubname>[^ ]+) på GitHub|'\
 'sker der i (?<kodeprojekt>[^ ]+)[ -]land|'\
