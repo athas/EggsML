@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# wrapper om vær
+
+$CONCIEGGS_DIR/cmds/når "$@"
