@@ -4,6 +4,7 @@ use warnings;
 use utf8::all;
 use Env qw(EGGS_USER);
 use EggsML::EggsPI text => [qw(annoyedBy)];
+use POSIX qw(ceil);
 
 unless (@ARGV <= 1) {
     say "Ingen jader til dig.";
@@ -18,7 +19,7 @@ unless ($n =~ m/^-?\d+$/) {
 
 if ($n < 1) {
     say "Siger du, at jeg er flad som et vaskebræt? Hrmf.";
-    annoyedBy($EGGS_USER, 1 + log(1-$n), "fornærmede mine jader");
+    annoyedBy($EGGS_USER, int(ceil(1 + log(1-$n))), "fornærmede mine jader");
     exit(0);
 }
 
