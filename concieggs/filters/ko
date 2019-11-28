@@ -2,10 +2,8 @@
 use 5.020;
 use strict;
 use warnings;
-use utf8::all;
 
-use EggsML::EggsPI list => ['cowsay'];
+use EggsML::EggsPI raw => ['cowsay'];
 
 chomp (my @lines = <STDIN>);
-@lines = cowsay({ stdin => \@lines }, "-n");
-say $_ for @lines;
+say cowsay({ stdin => \@lines }, "-n");
