@@ -76,8 +76,8 @@ if (len(sys.argv) > 1):
     ss = sys.argv[1]
     cool_stories = []
     if ss == "dyr":
-        animal_regexes = list(map(lambda y: re.compile(r"[\W\s^]{}[\W\s$]".format(y)), animal_words))
-        cool_stories = list(filter(lambda x: any(map(lambda y: y[0].search(x[0].lower()) or "{} ".format(x[0].lower()).startswith(y[1]), zip(animal_regexes, animal_words))), formatted_links))
+        animal_regexes = list(map(lambda y: re.compile(r"[\W\s^]{}s?[\W\s$]".format(y)), animal_words))
+        cool_stories = list(filter(lambda x: any(map(lambda y: y[0].search(x[0].lower()) or "{} ".format(x[0].lower()).startswith(y[1]) or "{}s ".format(x[0].lower()).startswith(y[1]), zip(animal_regexes, animal_words))), formatted_links))
         if len(cool_stories) > 0:
             found_animal_story = True
     else:
@@ -121,6 +121,6 @@ while not success_regex.match(status):
 if len(sys.argv) > 2 and sys.argv[1] == "dyr" and sys.argv[2] == "Velkomstbesked":
     # Print nice welcome message about animals if we found animal stories, otherwise exit
     if found_animal_story:
-        print('Har du set den søde dyrehistorie "{}" på {}?'.format(present[0], present[1]))
+        print('Har du set den søde dyrehistorie "{}", som jeg fandt på {}?'.format(present[0], present[1]))
 else:
     print('{}Du kan finde historien "{}" på {}.'.format(extra_output, present[0], present[1]))
