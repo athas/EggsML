@@ -1,4 +1,6 @@
 #!/bin/sh
+#
+# Velbelæste og velopdragne concieggs bidrager til samtalen til de pæne middagsselskaber, den inviteres til. 
 
 shuttingUp && exit
 
