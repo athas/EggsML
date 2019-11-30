@@ -2,6 +2,7 @@
 #
 # Spørg oraklet om sandsynlighedsfordelinger for et givent emne. Sammenligning med 24 timer gamle sandsynligheder vises også.
 
+from operator import itemgetter
 import requests
 import random
 import sys
@@ -16,13 +17,41 @@ data = resp.json()
 
 markets = data['markets']
 
+# Allow user to search for something that interests them
 if len(sys.argv) > 1:
-    search_term = sys.argv[1]
-    matches = list(x for x in markets if ( any(list(map(lambda y: search_term in y['name'], x['contracts'] )))))
-    matches = matches + list(x for x in markets if search_term in x['name'])
-    if not matches:
+    search_terms = sys.argv[1:]
+
+    if len(search_terms) > len(set(search_terms)):
+        print("Søgeord må ikke gentages.")
+        exit(0)
+
+    weighted_matches = []
+    for market in markets:
+        weight = 0
+
+        # Loop over all search terms, if one shows up in the market name it
+        # has weight 3, if it shows up in a contract name it has weight 1.
+        # These numbers are pretty arbitrary
+        for search_term in search_terms:
+            match_market_name = search_term in market['name']
+            weight = weight + 3 if match_market_name else weight
+
+            # Do not add weight from contract names if there was only one contract
+            # and we already found a match since this would count double the match
+            # for a single search.
+            if len(market['contracts']) > 1 or not match_market_name:
+                for contract in market['contracts']:
+                    weight = weight + 1 if search_term in contract['name'] else weight
+
+        if weight > 0:
+            weighted_matches.append((market, weight))
+
+    if weighted_matches:
+        match = max(weighted_matches, key=itemgetter(1))[0]
+    else:
         matches = list(x for x in markets if ( any(list(map(lambda y: search_term.lower() in y['name'].lower(), x['contracts'] )))))
         matches = matches + list(x for x in markets if search_term.lower() in x['name'])
+
         if not matches:
             print(random.choice([
                 "Ingen kender det, end ikke jeg selv. Kun Faderen ved det.",
@@ -30,14 +59,12 @@ if len(sys.argv) > 1:
                 "Min krystalkugle er ikke stor nok til det emne. Jeg vil anbefale, at du spørger en ven.",
             ]))
             exit(0)
+        match = random.choice(matches)
 else:
-    matches = markets
+    match = random.choice(markets)
 
-match = random.choice(matches)
-# print(match)
 contracts = match['contracts']
 contract_name = match['name']
-# print(contract_name)
 
 contract_names_dk = list(map(lambda x: x['name'], contracts))
 if (make_danish):
@@ -54,7 +81,18 @@ if len(list(contract_names_dk)) < len(contracts):
 
 i = 0
 output = contract_name + "\n" if len(contracts) > 1 else ""
+some_skipped = False
 for contract in contracts:
+    # Don't allow more than 12 lines to be printed
+    if i > 12:
+        some_skipped = True
+        break
+
+    # If many contracts exist for this market, do not print those with probability less than 2 %
+    if contract['lastTradePrice'] < 0.02 and len(contracts) > 5 and max(contracts, key=lambda x: x['lastTradePrice'])['lastTradePrice'] > 0.01:
+        some_skipped = True
+        continue
+
     # if contract is new or price is unchanged
     if (contract['lastClosePrice'] == None or contract['lastClosePrice'] == contract['lastTradePrice'] ):
         symbol = "\u2013" # ndash
@@ -73,4 +111,8 @@ for contract in contracts:
 
     output += contract_names_dk[i].rstrip() + " {:4.1f} pct. ".format(100 * contract['lastTradePrice']) + symbol +  " ({0})".format(diff) + "\n"
     i += 1
+
+if some_skipped:
+    output += "... "
+
 print(output.rstrip())
