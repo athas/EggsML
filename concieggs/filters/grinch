@@ -12,7 +12,7 @@ my @bad_drinks = qw(snaps gløgg glögg likør rom portvin valnøddesnaps);
 while (my $line = <>) {
 
     # If sentence starts with the bad word, skip entire sentence. Nothing good can come from this.
-    if ($line =~ qr/^ju+l/i){
+    if ($line =~ qr/^ju+l\b/i){
         next;
     }
 
@@ -37,7 +37,7 @@ while (my $line = <>) {
     }
 
     $line =~ s/jule-?//gi;
-    $line =~ s/ju+l/vinter/gi;
+    $line =~ s/\bju+l\b/vinter/gi;
     $line =~ s/juletræ/træ/gi;
     $line =~ s/\bhygge\b/arbejde hårdt/gi;
 
