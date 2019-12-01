@@ -36,6 +36,8 @@ int main(int argc, char* *argv) {
     files[i - 1] = f;
   }
 
+  char* line = NULL;
+  size_t line_len = 0;
   while (true) {
     retval = select(fd_max + 1, &rfds, NULL, NULL, NULL);
     if (retval >= 1) {
@@ -43,12 +45,14 @@ int main(int argc, char* *argv) {
         FILE* f = files[i];
         int fd = fileno(f);
         if (FD_ISSET(fd, &rfds)) {
-          char* line = NULL;
-          size_t len = 0;
           ssize_t nread;
-          nread = getline(&line, &len, f);
-          assert(nread != -1);
-          fwrite(line, nread, 1, stdout);
+          while (true) {
+            nread = getline(&line, &line_len, f);
+            if (nread == -1) {
+              break;
+            }
+            fwrite(line, nread, 1, stdout);
+          }
         }
         FD_SET(fd, &rfds);
       }
