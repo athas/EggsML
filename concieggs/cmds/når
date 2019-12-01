@@ -46,6 +46,12 @@ if [ "$alias" = "når" ] && [ "$who" != "jeg" ] && [ "$cmd" != "når" ]; then
     exit 0
 fi
 
+if isKing "$who"; then
+    echo "$EGGS_USER: $(randomKingName $who)s befalinger kan undersåtter ikke rokke ved."
+    annoyedBy "$EGGS_USER" 10 "prøvede at sætte et alias for $(randomKingName $who)"
+    exit 0
+fi
+
 if ! isCommand "$cmd" ; then
     if [ "$cmd" = "$CONCIEGGS_NAME" ]; then
         echo "$EGGS_USER: Jeg er ikke en kommando! Jeg er et tænkende, følende væsen!"
