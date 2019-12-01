@@ -32,6 +32,7 @@ while (my $line = <>) {
     }
 
     $line =~ s/\bjulet\b/mørkt og koldt/gi;
+    $line =~ s/[Ee]n gave/et stykke kul/gi;
     $line =~ s/\bgaver?\b/kul/gi;
     $line =~ s/juletræ/træ/gi;
     $line =~ s/juleaften/vintersolhverv/gi;
