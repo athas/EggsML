@@ -26,20 +26,22 @@ while (my $line = <>) {
         next;
     }
 
-    # Ban gifts!
-    if ($line =~ qr/\bgave\b/i){
-        next;
-    }
-
     # Ban games!
     if ($line =~ qr/(rafle|pakkeleg)/){
         next;
     }
 
+    $line =~ s/\bjulet\b/mørkt og koldt/gi;
     $line =~ s/jule-?//gi;
-    $line =~ s/\bju+l\b/vinter/gi;
+    $line =~ s/\bgaver?\b/kul/gi;
     $line =~ s/juletræ/træ/gi;
+    $line =~ s/juleaften/vintersolhverv/gi;
+    $line =~ s/\bho(ho)+/haha/gi;
+    $line =~ s/\bhøjtid(en)?/kulden og mørket/gi;
+    $line =~ s/\bjuler\b/fryser/gi;
+    $line =~ s/\bju+l\b/vinter/gi;
     $line =~ s/\bhygge\b/arbejde hårdt/gi;
+    $line =~ s/hygge\b//gi;
 
     # Ban bad foods
     my $food_pattern = '(' . join('|', @bad_foods) . ')';
