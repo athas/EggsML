@@ -6,8 +6,8 @@ use 5.012;
 use warnings;
 use utf8::all;
 
-my @bad_foods = qw(risengrød sylte flæskesteg sild eiskonfekt konfekt marcipan nougat blodpølse risalamande);
-my @bad_drinks = qw(snaps gløgg glögg likør rom portvin valnøddesnaps);
+my @bad_foods = qw(risengrød sylte flæskesteg sild eiskonfekt konfekt marcipan nougat blodpølse risalamande and gås medisterpølse);
+my @bad_drinks = qw(snaps gløgg glögg likør rom portvin valnøddesnaps juleøl sne-bajer snebajer porsesnaps sprut vin);
 
 while (my $line = <>) {
 
@@ -44,9 +44,9 @@ while (my $line = <>) {
     $line =~ s/hygge\b//gi;
 
     # Ban bad foods
-    my $food_pattern = '(' . join('|', @bad_foods) . ')';
+    my $food_pattern = '(\b' . join('\b|\b', @bad_foods) . '\b)';
     my $food_regex = qr/$food_pattern/i;
-    my $drinks_pattern = '(' . join('|', @bad_drinks) . ')';
+    my $drinks_pattern = '(\b' . join('\b|\b', @bad_drinks) . '\b)';
     my $drinks_regex = qr/$drinks_pattern/i;
     $line =~ s/$food_regex/lasagne/gi; # all banned foods are now lasagne, bitches
     $line =~ s/$drinks_regex/mælk/gi; # all banned drinks are now milk
