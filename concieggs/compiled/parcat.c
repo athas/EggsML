@@ -25,33 +25,32 @@ int main(int argc, char* *argv) {
   FD_ZERO(&rfds);
   int fd_max = 0;
   for (int i = 1; i < argc; i++) {
-    int fd = open(argv[i], O_RDWR);
-    fd_max = fd > fd_max ? fd : fd_max;
-    assert(fd != -1);
-    assert(fd <= FD_SETSIZE);
     FILE* f = fdopen(fd, "rw");
     assert(f != NULL);
+    int fd = fileno(f)
+    fd_max = fd > fd_max ? fd : fd_max;
     setvbuf(f, NULL, _IOLBF, BUFSIZ);
     FD_SET(fd, &rfds);
     files[i - 1] = f;
   }
+  fd_max++;
 
   char* line = NULL;
   size_t line_len = 0;
   while (true) {
-    retval = select(fd_max + 1, &rfds, NULL, NULL, NULL);
+    retval = select(fd_max, &rfds, NULL, NULL, NULL);
     if (retval >= 1) {
       for (int i = 0; i < n_fds; i++) {
         FILE* f = files[i];
         int fd = fileno(f);
         if (FD_ISSET(fd, &rfds)) {
-          ssize_t nread;
           while (true) {
-            nread = getline(&line, &line_len, f);
+            ssize_t nread = getline(&line, &line_len, f);
             if (nread == -1) {
               break;
             }
             fwrite(line, nread, 1, stdout);
+            fwrite(line, nread, 1, stderr); // debugging
           }
         }
         FD_SET(fd, &rfds);
@@ -60,6 +59,5 @@ int main(int argc, char* *argv) {
       exit(EXIT_FAILURE);
     }
   }
-
   exit(EXIT_SUCCESS);
 }
