@@ -2,7 +2,6 @@
    print it to standard out.  Assumes there is always an entire line to read
    whenever a read becomes possible.  */
 
-#define _GNU_SOURCE
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/stat.h>
