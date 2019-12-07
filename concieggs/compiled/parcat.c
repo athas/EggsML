@@ -25,9 +25,9 @@ int main(int argc, char* *argv) {
   FD_ZERO(&rfds);
   int fd_max = 0;
   for (int i = 1; i < argc; i++) {
-    FILE* f = fdopen(fd, "rw");
+    FILE* f = fopen(argv[i], "rw");
     assert(f != NULL);
-    int fd = fileno(f)
+    int fd = fileno(f);
     fd_max = fd > fd_max ? fd : fd_max;
     setvbuf(f, NULL, _IOLBF, BUFSIZ);
     FD_SET(fd, &rfds);
