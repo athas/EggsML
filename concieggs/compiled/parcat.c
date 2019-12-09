@@ -1,6 +1,6 @@
 /* Stream from multiple files.  Whenever a new line is ready from either file,
-   print it to standard out.  Assumes there is always an entire line to read
-   whenever a read becomes possible.  */
+   print it to standard out.  Do not print existing contents of files.  Assumes
+   there is always an entire line to read whenever a read becomes possible.  */
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -19,16 +19,20 @@ int main(int argc, char* *argv) {
   fd_set rfds;
   int retval;
 
-  assert(argc > 1);
+  if (argc == 1) {
+    exit(EXIT_SUCCESS);
+  }
+
   n_fds = argc - 1;
   FD_ZERO(&rfds);
   int fd_max = 0;
   for (int i = 1; i < argc; i++) {
     FILE* f = fopen(argv[i], "rw");
     assert(f != NULL);
+    setvbuf(f, NULL, _IOLBF, BUFSIZ);
+    fseek(f, 0, SEEK_END);
     int fd = fileno(f);
     fd_max = fd > fd_max ? fd : fd_max;
-    setvbuf(f, NULL, _IOLBF, BUFSIZ);
     FD_SET(fd, &rfds);
     files[i - 1] = f;
   }
@@ -58,5 +62,6 @@ int main(int argc, char* *argv) {
       exit(EXIT_FAILURE);
     }
   }
+
   exit(EXIT_SUCCESS);
 }
