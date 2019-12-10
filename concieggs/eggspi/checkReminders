@@ -14,9 +14,6 @@ for reminder in $(dbIterate reminders); do
           read where
           read command
           if [ "$here" = "$where" -a "$now" -gt "$when" ]; then
-              if [ $(($now - $when > 60)) = 1 ]; then
-                  echo "Bedre sent end aldrig!"
-              fi
               echo "$who: Der er nu gået de ønskede $duration."
               export EGGS_USER=$who
               runcmd $command
