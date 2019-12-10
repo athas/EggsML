@@ -101,14 +101,10 @@ eventprocessor () {
     done
 }
 
-
-export CONCIEGGS_TICKS_SLEEP_PIDFILE=$(mktemp)
 ticks() {
     while true; do
         echo tick
-        sleep $(timeToNextReminder) &
-        echo $! > $CONCIEGGS_TICKS_SLEEP_PIDFILE
-        wait
+        sleep 10
     done
 }
 
