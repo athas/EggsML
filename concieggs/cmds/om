@@ -40,4 +40,7 @@ else
      echo "$command") | dbInsertData reminders > /dev/null
 
     echo "$EGGS_USER: $(ack)  Om $count $unit vil jeg udføre '$command'."
+
+    # Prematurely end ticks loop in concieggsd.
+    kill $(cat $CONCIEGGS_TICKS_SLEEP_PIDFILE) 2>/dev/null || true
 fi
