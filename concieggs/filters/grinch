@@ -44,6 +44,7 @@ while (my $line = <>) {
     $line =~ s/\bpakker\b/stykker kul/gi;
     $line =~ s/\bhygge\b/arbejde hårdt/gi;
     $line =~ s/hygge\b//gi;
+    $line =~ s/fugle-//gi;
 
     # Ban bad foods
     my $food_pattern = '(\b' . join('\b|\b', @bad_foods) . '\b)';
