@@ -24,7 +24,7 @@ function shellquote(str) {
     timestamp=matches[2]
     payload=matches[3]
   } else if (match($0, /tick/)) {
-    system(setvars "\n" "runForAll checkReminders")
+    system(setvars "\n" "runFor \"$EGGS_WHERE\" checkReminders")
     next
   } else {
     # Invalid.
