@@ -8,4 +8,4 @@ fi
 
 pleasedBy "$EGGS_USER"
 
-kg -e "$*" 2>&1
+kg -e "$*" 2>&1 || true
