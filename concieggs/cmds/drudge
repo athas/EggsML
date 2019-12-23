@@ -35,7 +35,11 @@ if (len(sys.argv) > 1 and (sys.argv[1] == "overskrift" or sys.argv[1] == "o")):
         # If text is none, this probably means that headline is red with DOM element <font> => Matt Drudge is excited!
         # We will follow his lead and also color our text red in IRC
         if text == None:
-            text = "\x0304" + headline_link.cssselect('font')[0].text + "\x03"
+            uftext = headline_link.cssselect('font')[0].text_content().strip()
+            if uftext == None:
+                text = headline_link.text_content().strip()
+            else:
+                text = "\x0304" + uftext + "\x03"
         print('Overskriften på Drudge Report er: "{}" og kan læses på {}.'.format(text.replace("\\", ""), headline_link.get('href')))
         exit(0)
 
@@ -60,7 +64,7 @@ r_links = r_dom.cssselect('a')
 all_links = tl_links + m_links + l_links + c_links + r_links
 formatted_links = []
 for link in all_links:
-    text = link.text
+    text = link.text_content().strip()
     if text == None:
         if len(link.cssselect('i')) > 0:
             text = link.cssselect('i')[0].text
