@@ -39,6 +39,7 @@ case "$what" in
     *)
         if ! [ isChristmas ] && [ echo "$what" | tr [:upper:] [:lower:] | grep -qi "grinch" ]; then
             echo "Det kan jeg kun finde ud af i nogle uger omkring vintersolhverv :("
+            exit
         fi
 
         if echo "$what" | grep -q '?'; then
