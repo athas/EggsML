@@ -2,6 +2,8 @@
    print it to standard out.  Assumes there is always an entire line to read
    whenever a read becomes possible (will block until a newline is found). */
 
+#define _XOPEN_SOURCE 700
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/stat.h>
