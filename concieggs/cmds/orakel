@@ -29,17 +29,22 @@ if len(sys.argv) > 1:
     for market in markets:
         weight = 0
 
-        # Loop over all search terms, if one shows up in the market name it
-        # has weight 3, if it shows up in a contract name it has weight 1.
+        # Loop over all search terms, if one shows up in the market name with
+        # the same casing it has weight 4, if it shows up in a contract name
+        # or with different casing, it has weight 1.
         # These numbers are pretty arbitrary
         for search_term in search_terms:
-            match_market_name = search_term in market['name']
-            weight = weight + 3 if match_market_name else weight
+            match_market_name_exact = search_term in market['name']
+            match_market_name_approx = search_term.lower() in market['name'].lower()
+            if match_market_name_exact:
+                weight = weight + 4
+            elif match_market_name_approx:
+                weight = weight + 1
 
             # Do not add weight from contract names if there was only one contract
             # and we already found a match since this would count double the match
             # for a single search.
-            if len(market['contracts']) > 1 or not match_market_name:
+            if len(market['contracts']) > 1 or not match_market_name_exact and not match_market_name_approx:
                 for contract in market['contracts']:
                     weight = weight + 1 if search_term in contract['name'] else weight
 
@@ -50,7 +55,6 @@ if len(sys.argv) > 1:
         match = max(weighted_matches, key=itemgetter(1))[0]
     else:
         matches = list(x for x in markets if ( any(list(map(lambda y: search_term.lower() in y['name'].lower(), x['contracts'] )))))
-        matches = matches + list(x for x in markets if search_term.lower() in x['name'])
 
         if not matches:
             print(random.choice([
@@ -61,6 +65,7 @@ if len(sys.argv) > 1:
             exit(0)
         match = random.choice(matches)
 else:
+    # If no search term was provided, simply pick a random one from all markets
     match = random.choice(markets)
 
 contracts = match['contracts']
