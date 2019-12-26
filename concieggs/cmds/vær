@@ -37,7 +37,7 @@ case "$what" in
 
     # Sprog el.lign.
     *)
-        if [ ! "$(isChristmas)" ] && [ echo "$what" | tr [:upper:] [:lower:] | grep -qi "grinch" ]; then
+        if [ ! "$(isChristmas)" ] && echo "$what" | grep -qi "grinch"; then
             echo "Det kan jeg kun finde ud af i nogle uger omkring vintersolhverv :("
             exit
         fi
