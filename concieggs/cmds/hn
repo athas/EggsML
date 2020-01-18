@@ -19,17 +19,18 @@ max_number_of_articles = 10
 http_error = ""
 score_regex = re.compile(r"(\d+)\spoints?")
 
+active_search = len(sys.argv) == 1 or len(sys.argv) == 2 or (len(sys.argv) in [2,3,4] and sys.argv[1] in ["a", "aktuel", "aktuelle", "OnlyLink42"])
+only_link_and_title = len(sys.argv) == 2 and sys.argv[1] == "OnlyLink42"
+global_search = len(sys.argv) == 3 and sys.argv[1] in ["global", "g"]
+return_all = not global_search and (len(sys.argv) == 4 and sys.argv[3] == "alle" or len(sys.argv) == 3 and sys.argv[2] == "alle")
+
 # Get parameters from command line arguments
 mode = len(sys.argv) > 1 and sys.argv[1]
 ss = ""
 if len(sys.argv) > 2:
     ss = sys.argv[2]
 
-active_search = len(sys.argv) == 1 or len(sys.argv) == 2 or (len(sys.argv) in [2,3,4] and sys.argv[1] in ["a", "aktuel", "aktuelle"])
-global_search = len(sys.argv) == 3 and sys.argv[1] in ["global", "g"]
-return_all = not global_search and (len(sys.argv) == 4 and sys.argv[3] == "alle" or len(sys.argv) == 3 and sys.argv[2] == "alle")
-
-if active_search and len(sys.argv) < 3 and len(sys.argv) > 1:
+if active_search and not only_link_and_title and len(sys.argv) < 3 and len(sys.argv) > 1:
     ss = sys.argv[1]
 
 if not global_search and not active_search:
@@ -80,6 +81,10 @@ for i in range(1, 25):
         anchor = story.cssselect('td.title > a.storylink')[0]
         text = anchor.text
         link = anchor.get('href')
+
+        # Handle HN internal links
+        if link.startswith('item'):
+            link = "https://news.ycombinator.com/" + link
         score_capture = score_regex.search(score.text)
         formatted_links.append((text, link, int(score_capture.group(1)), i))
 
@@ -117,4 +122,7 @@ if (make_danish):
     process = subprocess.run(['translate', 'en', 'da'], stdout=subprocess.PIPE, input=text.encode('utf-8'))
     text = process.stdout.decode('utf-8').rstrip()
 
-print('{}{}Du kan læse historien "{}" på {}. Den har {} point og blev fundet på side {}.'.format(http_error, extra_output, story[0], story[1], story[2], story[3]))
+if only_link_and_title:
+    print('{}¶{}'.format(story[0], story[1]))
+else:
+    print('{}{}Du kan læse historien "{}" på {}. Den har {} point og blev fundet på side {}.'.format(http_error, extra_output, story[0], story[1], story[2], story[3]))
