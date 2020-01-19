@@ -34,7 +34,7 @@ if active_search and not only_link_and_title and len(sys.argv) < 3 and len(sys.a
     ss = sys.argv[1]
 
 if not global_search and not active_search:
-    print("brug: hn <a [søgning [alle]]|g <søgning>>  a => aktuelle historier, g => global søgning i hele historikken. Eller: e-nyt <søgning> [alle]")
+    print("brug: hn <a [søgning [alle]]|g <søgning>>  a => aktuelle historier, g => global søgning i hele historikken. Eller: hn <søgning> [alle")
     exit(0)
 
 if global_search:
