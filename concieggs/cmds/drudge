@@ -10,7 +10,7 @@ import urllib.request as ur
 
 CHECK_LINK_ACCESS = True
 MAKE_DANISH = False
-ANIMAL_WORDS = ["dog", "cat", "animal", "horse", "elephant", "pig", "zoo", "sheep", "cow", "bull", "dolphin", "zebra", "giraffe", "fish", "mammal", "mouse", "mice", "rat", "ape", "monkey", "orangutan", "gorilla", "chimpanzee", "rodent", "pooch", "iguana", "iguanas", "crocodile", "crocodiles", "hog", "hogs", "cattle", "k-9", "k9", "canine", "feline", "puppy", "puppies", "alligator", "ant", "bear", "bee", "bird", "camel", "cheetah", "chicken", "deer", "duck", "eagle", "owl", "panda", "hamster", "wolf", "wolves", "tiger", "squirrel", "shark", "seal", "lion", "parrot"]
+ANIMAL_WORDS = ["dog", "cat", "animal", "horse", "elephant", "pig", "zoo", "sheep", "cow", "bull", "dolphin", "zebra", "giraffe", "fish", "mammal", "mouse", "mice", "rat", "ape", "monkey", "orangutan", "gorilla", "chimpanzee", "rodent", "pooch", "iguana", "iguanas", "crocodile", "crocodiles", "hog", "hogs", "cattle", "k-9", "k9", "canine", "feline", "puppy", "puppies", "alligator", "ant", "bear", "bee", "bird", "camel", "cheetah", "chicken", "deer", "duck", "eagle", "owl", "panda", "hamster", "wolf", "wolves", "tiger", "squirrel", "shark", "seal", "lion", "parrot", "llama", "turkey", "goose", "geese", "lizard", "ostrich", "ostriches", "dinosaur", "hippo", "hippopotamus", "whale", "raccoon"]
 
 welcome_message = len(sys.argv) > 2 and sys.argv[1] == "dyr" and sys.argv[2] == "Velkomstbesked"
 
