@@ -65,7 +65,7 @@ while (<>) {
     s/(?<=[Rr]asm)us/ine/eig;
     s/(?<=[Nn]ikkel)/ine/eig;
     s/(?<=[Nn]iels)/ine/eig;
-    s/(?<=[Ff]rederik)/ke/eig;
+    s/(?<=[Ff]rederik)/ke/ig;
     s/(?<=[Cc])hristian/hristine/ig;
     s/(?<=[Ww])illiam/ilhelmine/ig;
     s/(?<=svip)/ine/eig;
