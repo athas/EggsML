@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Rigtig træls kommando
+
+sleep $1
