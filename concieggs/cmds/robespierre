@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Gør op med al dette fjollede monarki.
+# Gør op/indfør fjollet/gudsbenådet monarki.
 
 if [ "$1" = af ] && dbRead robespierre; then
     if dbRead dawkins; then
