@@ -6,4 +6,9 @@ use warnings;
 use EggsML::EggsPI raw => ['cowsay'];
 
 chomp (my @lines = <STDIN>);
-say cowsay({ stdin => \@lines }, "-n");
+my @split_lines = ();
+foreach ( @lines ) {
+    push @split_lines, ( $_ =~ m/.{40}/g );
+}
+
+say cowsay({ stdin => \@split_lines }, "-n");
