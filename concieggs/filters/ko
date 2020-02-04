@@ -8,7 +8,7 @@ use EggsML::EggsPI raw => ['cowsay'];
 chomp (my @lines = <STDIN>);
 my @split_lines = ();
 foreach ( @lines ) {
-    push @split_lines, ( $_ =~ m/.{40}/g );
+    push @split_lines, ( $_ =~ m/.{120}/g );
 }
 
 say cowsay({ stdin => \@split_lines }, "-n");
