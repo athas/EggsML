@@ -11,6 +11,5 @@ foreach ( @lines ) {
     push @split_lines, ( $_ =~ m/.{0,120}/g );
 }
 
-$split_lines[-1] =~ s/^\s+|\s+$//g;
 pop @split_lines if ($split_lines[-1] =~ /^\s*$/);
 say cowsay({ stdin => \@split_lines }, "-n");
