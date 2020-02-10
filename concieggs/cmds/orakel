@@ -30,16 +30,16 @@ if len(sys.argv) > 1:
         weight = 0
 
         # Loop over all search terms, if one shows up in the market name with
-        # the same casing it has weight 4, if it shows up in a contract name
-        # or with different casing, it has weight 1.
+        # the same casing it has weight 5, if it shows up in a contract name
+        # or with different casing, it has weight 1 and 3, respectively.
         # These numbers are pretty arbitrary
         for search_term in search_terms:
             match_market_name_exact = search_term in market['name']
             match_market_name_approx = search_term.lower() in market['name'].lower()
             if match_market_name_exact:
-                weight = weight + 4
+                weight = weight + 5
             elif match_market_name_approx:
-                weight = weight + 1
+                weight = weight + 3
 
             # Do not add weight from contract names if there was only one contract
             # and we already found a match since this would count double the match
