@@ -118,6 +118,7 @@ for contract in contracts:
     i += 1
 
 if some_skipped:
-    output += "... "
+    output.rstrip()
+    output += "  ... "
 
 print(output.rstrip())
