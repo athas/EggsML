@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 #
 # Spørg oraklet om sandsynlighedsfordelinger for et givent emne. Sammenligning med 24 timer gamle sandsynligheder vises også.
+# Brug et eller flere søgeord til at finde emner, e.g.: "orakel Pope" eller "orakel Canadian Prime Minister".
 
 from operator import itemgetter
 import requests
@@ -32,7 +33,9 @@ if len(sys.argv) > 1:
         # Loop over all search terms, if one shows up in the market name with
         # the same casing it has weight 5, if it shows up in a contract name
         # or with different casing, it has weight 1 and 3, respectively.
-        # These numbers are pretty arbitrary
+        # These numbers are pretty arbitrary but two case insensitive hits
+        # should be more important than one case sensitive hit because some
+        # of our users don't like to use the shift button.
         for search_term in search_terms:
             match_market_name_exact = search_term in market['name']
             match_market_name_approx = search_term.lower() in market['name'].lower()
@@ -54,6 +57,7 @@ if len(sys.argv) > 1:
     if weighted_matches:
         match = max(weighted_matches, key=itemgetter(1))[0]
     else:
+        # If no matches were found above, search all contract names for a case insensitive match
         matches = list(x for x in markets if ( any(list(map(lambda y: search_term.lower() in y['name'].lower(), x['contracts'] )))))
 
         if not matches:
@@ -117,6 +121,7 @@ for contract in contracts:
     output += contract_names_dk[i].rstrip() + " {:4.1f} pct. ".format(100 * contract['lastTradePrice']) + symbol +  " ({0})".format(diff) + "\n"
     i += 1
 
+# Skipped results are indicated with a "..." marker at the end of the last printed line
 if some_skipped:
     output = output.rstrip()
     output += "  ... "
