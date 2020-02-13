@@ -1,0 +1,19 @@
+#!/usr/bin/env perl
+use 5.012;
+use warnings;
+use utf8::all;
+
+sub preserve_case($$) {
+    my ($old, $new) = @_;
+    my $mask = uc $old ^ $old;
+    uc $new | $mask .
+    substr($mask, 1) x ((length($new) - length($old)) > 0 ? length($new) - length($old) :  length($old) - length($new))
+}
+
+while (my $line = <>) {
+    $line =~ s/(\w{5,})/preserve_case($1, "skinke")/egi;
+    $line =~ s/\s+$//;
+    $line =~ s/\s\s+/ /g;
+    $line =~ s/\s([.,!\?])/$1/g;
+    say $line;
+}
