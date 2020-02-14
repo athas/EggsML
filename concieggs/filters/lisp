@@ -1,0 +1,12 @@
+#!/usr/bin/env clisp
+
+(defun read-word (&optional (stream *standard-input*))
+  (loop for c = (peek-char nil stream nil nil)
+        while (and c (eql c (peek-char t stream nil nil)))
+        collect (read-char stream) into word
+        finally (return (coerce word 'string))))
+
+(let ((words (loop for x = (read-word)
+                   while (not (string= x ""))
+                   collect (intern (string-upcase x)))))
+  (prin1 words))
