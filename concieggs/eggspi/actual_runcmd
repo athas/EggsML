@@ -19,9 +19,13 @@ dbRead cur_cmd | dbWrite last_cmd
 echo "$cmd $@" | dbWrite cur_cmd
 case "$cmd" in
 er|hvem|hvad|hvor|hvorfor|hvornår|har*|kan|skal|hvilke*)
-"$acmd" $(echo "$@" | sed 's/\?*$//') || broke
-;;
+    gtimeout 30s "$acmd" $(echo "$@" | sed 's/\?*$//') || broke
+    ;;
+# If a command should be allowed more than 30s to run, include its name here
+fluen|duen|flaske|benåd*)
+    gtimeout 240s "$acmd" "$@" || broke
+    ;;
 *)
-"$acmd" "$@" || broke
-;;
+    gtimeout 30s "$acmd" "$@" || broke
+    ;;
 esac | gawk '{print; fflush()}' # Hack: use awk to newline-terminate.

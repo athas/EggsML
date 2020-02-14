@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# Velbelæste og velopdragne concieggs bidrager til samtalen til de pæne middagsselskaber, den inviteres til. 
+
+shuttingUp && exit
+
+if ! checkCooldown "HackerNewsHistorie" $((60*60*13)); then
+    exit 0
+fi
+
+IFS='¶' # paragraph (¶) is set as delimiter
+read -ra STORY <<< "$(./concieggs/cmds/hn OnlyLink42)" # str is read into an array as tokens separated by IFS
+IFS=
+echo "$EGGS_USER: Jeg faldt lige over historien \"${STORY[0]}\" på ${STORY[1]} og syntes den gav mig en god forståelse emnet. Har du læst den?"

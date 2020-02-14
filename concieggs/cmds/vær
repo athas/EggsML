@@ -37,6 +37,11 @@ case "$what" in
 
     # Sprog el.lign.
     *)
+        if [ ! "$(isChristmas)" ] && echo "$what" | grep -qi "grinch"; then
+            echo "Det kan jeg kun finde ud af i nogle uger omkring vintersolhverv :("
+            exit
+        fi
+
         if echo "$what" | grep -q '?'; then
           what=$(echo "$what" | perl -pe 'use EggsML::EggsPI text => [qw(randomFilter)]; s/(^| )\?(?= |$)/"$1".randomFilter/eg')
         fi

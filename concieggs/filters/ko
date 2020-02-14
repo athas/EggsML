@@ -2,10 +2,14 @@
 use 5.020;
 use strict;
 use warnings;
-use utf8::all;
 
-use EggsML::EggsPI list => ['cowsay'];
+use EggsML::EggsPI raw => ['cowsay'];
 
 chomp (my @lines = <STDIN>);
-@lines = cowsay({ stdin => \@lines }, "-n");
-say $_ for @lines;
+my @split_lines = ();
+foreach ( @lines ) {
+    push @split_lines, ( $_ =~ m/.{0,120}/g );
+}
+
+pop @split_lines if ($split_lines[-1] =~ /^\s*$/);
+say cowsay({ stdin => \@split_lines }, "-n");

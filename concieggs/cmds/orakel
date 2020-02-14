@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 #
 # Spørg oraklet om sandsynlighedsfordelinger for et givent emne. Sammenligning med 24 timer gamle sandsynligheder vises også.
+# Brug et eller flere søgeord til at finde emner, e.g.: "orakel Pope" eller "orakel Canadian Prime Minister".
 
+from operator import itemgetter
 import requests
 import random
 import sys
 import subprocess
+
+make_danish = False
 
 url = 'https://www.predictit.org/api/marketdata/all/'
 
@@ -14,10 +18,48 @@ data = resp.json()
 
 markets = data['markets']
 
+# Allow user to search for something that interests them
 if len(sys.argv) > 1:
-    matches = list(x for x in markets if ( any(list(map(lambda y: sys.argv[1] in y['longName'], x['contracts'] )))))
-    if not matches:
-        matches = list(x for x in markets if ( any(list(map(lambda y: sys.argv[1].lower() in y['longName'].lower(), x['contracts'] )))))
+    search_terms = sys.argv[1:]
+
+    if len(search_terms) > len(set(search_terms)):
+        print("Søgeord må ikke gentages.")
+        exit(0)
+
+    weighted_matches = []
+    for market in markets:
+        weight = 0
+
+        # Loop over all search terms, if one shows up in the market name with
+        # the same casing it has weight 5, if it shows up in a contract name
+        # or with different casing, it has weight 1 and 3, respectively.
+        # These numbers are pretty arbitrary but two case insensitive hits
+        # should be more important than one case sensitive hit because some
+        # of our users don't like to use the shift button.
+        for search_term in search_terms:
+            match_market_name_exact = search_term in market['name']
+            match_market_name_approx = search_term.lower() in market['name'].lower()
+            if match_market_name_exact:
+                weight = weight + 5
+            elif match_market_name_approx:
+                weight = weight + 3
+
+            # Do not add weight from contract names if there was only one contract
+            # and we already found a match since this would count double the match
+            # for a single search.
+            if len(market['contracts']) > 1 or not match_market_name_exact and not match_market_name_approx:
+                for contract in market['contracts']:
+                    weight = weight + 1 if search_term in contract['name'] else weight
+
+        if weight > 0:
+            weighted_matches.append((market, weight))
+
+    if weighted_matches:
+        match = max(weighted_matches, key=itemgetter(1))[0]
+    else:
+        # If no matches were found above, search all contract names for a case insensitive match
+        matches = list(x for x in markets if ( any(list(map(lambda y: search_term.lower() in y['name'].lower(), x['contracts'] )))))
+
         if not matches:
             print(random.choice([
                 "Ingen kender det, end ikke jeg selv. Kun Faderen ved det.",
@@ -25,26 +67,41 @@ if len(sys.argv) > 1:
                 "Min krystalkugle er ikke stor nok til det emne. Jeg vil anbefale, at du spørger en ven.",
             ]))
             exit(0)
+        match = random.choice(matches)
 else:
-    matches = markets
+    # If no search term was provided, simply pick a random one from all markets
+    match = random.choice(markets)
 
-match = random.choice(matches)
 contracts = match['contracts']
+contract_name = match['name']
 
-translate_input = "\n".join(map(lambda x: x['longName'], contracts))
-process = subprocess.run(['translate', 'en', 'da'], stdout=subprocess.PIPE, input=translate_input.encode('utf-8'))
-translate_output = process.stdout.decode('utf-8').rstrip()
-contract_names_dk = translate_output.split('\n')
-#contract_names_dk = translate_input.split('\n') # for local debuggin if translate is not in $PATH
+contract_names_dk = list(map(lambda x: x['name'], contracts))
+if (make_danish):
+    translate_input = "\n".join(map(lambda x: x['name'], contracts))
+    process = subprocess.run(['translate', 'en', 'da'], stdout=subprocess.PIPE, input=translate_input.encode('utf-8'))
+    translate_output = process.stdout.decode('utf-8').rstrip()
+    contract_names_dk = translate_output.split('\n')
 
 if not contract_names_dk:
     contract_names_dk = [None] * len(contracts)
 
-if len(contract_names_dk) < len(contracts):
+if len(list(contract_names_dk)) < len(contracts):
     contract_names_dk = contract_names_dk + [None] * (len(contracts) - len(contract_names_dk))
 
 i = 0
+output = contract_name + "\n" if len(contracts) > 1 else ""
+some_skipped = False
 for contract in contracts:
+    # Don't allow more than 12 lines to be printed
+    if i > 12:
+        some_skipped = True
+        break
+
+    # If many contracts exist for this market, do not print those with probability less than 2 %
+    if contract['lastTradePrice'] < 0.02 and len(contracts) > 5 and max(contracts, key=lambda x: x['lastTradePrice'])['lastTradePrice'] > 0.01:
+        some_skipped = True
+        continue
+
     # if contract is new or price is unchanged
     if (contract['lastClosePrice'] == None or contract['lastClosePrice'] == contract['lastTradePrice'] ):
         symbol = "\u2013" # ndash
@@ -59,7 +116,14 @@ for contract in contracts:
         diff   = "\x0304-{:4.1f}\x03".format(100*(contract['lastClosePrice'] - contract['lastTradePrice']))
 
     if not contract_names_dk[i]:
-        contract_names_dk[i] = contract['longName']
+        contract_names_dk[i] = contract['name']
 
-    print (contract_names_dk[i].rstrip() + " {:4.1f} pct. ".format(100 * contract['lastTradePrice']) + symbol +  " ({0})".format(diff))
+    output += contract_names_dk[i].rstrip() + " {:4.1f} pct. ".format(100 * contract['lastTradePrice']) + symbol +  " ({0})".format(diff) + "\n"
     i += 1
+
+# Skipped results are indicated with a "..." marker at the end of the last printed line
+if some_skipped:
+    output = output.rstrip()
+    output += "  ... "
+
+print(output.rstrip())

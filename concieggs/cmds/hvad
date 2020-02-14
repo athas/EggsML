@@ -8,11 +8,10 @@ eval "$(echo "$@" | parse \
 'spiller de( [^ ]+)? (på|hos|ved|i) (?<channel>.+)$|'\
 'er balancen på ([Bb]itcoinadressen )?(?<btc>[^ \?]+)|'\
 'er status på (?<txid>[^ \?]+)|'\
-'(?<whatis>er (?<subject>.+))$|'\
 '(?<missing>mangler jeg)$|'\
 '(?<wtf>hulen)$|'\
 '(?<status>så)$|'\
-'(?<definition>betyder (?<word>[^ ]+))$|'\
+'(?<definition>betyder (?<word>.+))$|'\
 '(?<meaning>mener (?<who>[^ ]+) med (?<what>[^ ]+)$)|'\
 'hedder (?<githubname>[^ ]+) på GitHub|'\
 'sker der i (?<kodeprojekt>[^ ]+)[ -]land|'\
@@ -21,6 +20,7 @@ eval "$(echo "$@" | parse \
 '(?<kingname>hedder kongen)|'\
 '(står (?<forkortelse>[^ ]+) for)|'\
 '(?:lytter (?<listener>[^ ]+) til(?: lige nu)?)|'\
+'(?<whatis>er (?<subject>.+))$|'\
 '(blev der af (?<fate>[^ ]+))')"
 
 if [ "$whatis" ]; then
@@ -39,7 +39,7 @@ if [ "$whatis" ]; then
       if [ $(date +%H%M) = 1337 ]; then
           echo 'KLOKKEN ER LEET!!!'
       else
-          echo "Den lille viser peger på $(talord $(($(date +%l) % 12))), den store på $(talord $(($(date +%M | tr 0 ' ')))), og den helt lille på $(talord $(($(date +%S | tr 0 ' '))))."
+          echo "Den lille viser peger på $(talord $(($(date +%l) % 12))), den store på $(talord $(($(date +%M | tr 0 ' ')))) og den lange, tynde på $(talord $(($(date +%S | tr 0 ' '))))."
       fi
     exit
   elif [ "$yourproblem" ]; then

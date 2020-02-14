@@ -16,6 +16,7 @@ while (<>) {
     s/manden/kvinden/ig;
     s/kongen/dronningen/ig;
     s/konge/dronning/ig;
+    s/kong/dronning/ig;
     s/sværd/skjold/ig;
     s/mand/kvinde/ig;
     s/mænd/kvinder/ig;
@@ -64,6 +65,9 @@ while (<>) {
     s/(?<=[Rr]asm)us/ine/eig;
     s/(?<=[Nn]ikkel)/ine/eig;
     s/(?<=[Nn]iels)/ine/eig;
+    s/(?<=[Ff]rederik)/ke/ig;
+    s/(?<=[Cc])hristian/hristine/ig;
+    s/(?<=[Ww])illiam/ilhelmine/ig;
     s/(?<=svip)/ine/eig;
     s/(?<=ckjaer)/ine/eig;
 

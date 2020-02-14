@@ -7,11 +7,15 @@ set -f # No globbing
 
 setTrap() {
     # Kill all children when we quit, and cleanup after eggsmld.
-    trap 'eggsmld_cleanup; exit' INT QUIT TERM
-    trap 'eggsmld_cleanup; cleanup' EXIT
+    trap 'fifo_cleanup; eggsmld_cleanup; exit' INT QUIT TERM
+    trap 'fifo_cleanup; eggsmld_cleanup; cleanup' EXIT
 }
 
 setTrap
+
+fifo_cleanup() {
+    rm -f "$tailfifo" "$ticksfifo"
+}
 
 eggsmld_cleanup() {
     # Try to remove its socket.
@@ -97,6 +101,13 @@ eventprocessor () {
     done
 }
 
+ticks() {
+    while true; do
+        echo tick
+        sleep 10
+    done
+}
+
 throttle() {
     gawk -f $dir/throttle.awk
 }
@@ -109,8 +120,17 @@ touch "$outfile" 2>/dev/null || true
 # Start eggsmld.
 $EGGS_DIR/eggslib/eggsmld.py $EGGS_DIR/slashdotfrokost $EGGS_DAEMON_SOCKET &
 
-# Tie the two loops together.
-tail -f -n 0 "$outfile" | \
+# Handle the inputs.
+tailfifo="$irc_dir/tail"
+mkfifo "$tailfifo"
+ticksfifo="$irc_dir/ticks"
+mkfifo "$ticksfifo"
+
+(tail -f -n 0 "$outfile" > "$tailfifo") &
+(ticks > "$ticksfifo") &
+
+# Tie the loops together.
+parcat "$tailfifo" "$ticksfifo" | \
     eventprocessor | \
     tee /dev/stderr | \
     throttle | \

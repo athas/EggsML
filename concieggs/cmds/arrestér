@@ -31,6 +31,13 @@ if isKing "$EGGS_USER"; then
         echo "$EGGS_USER: Men, Deres højtærede Majestæt, den person er jo ej en registreret borger!"
     elif isArrested "$user"; then
         echo "$EGGS_USER: Men, Deres meget højtærede Majestæt, vi har allerede arresteret dét svin!"
+    elif isGod "$user"; then
+        v="$(dbRead eggsgod | wc -l | sed 's/ //g')"
+        if [ "$v" = 1 ]; then
+            echo "$EGGS_USER: Men, Deres Majestæt, vi kan da ikke arrestere selveste GUD!"
+        else
+            echo "$EGGS_USER: Men, Deres Majestæt, vi kan da ikke arrestere en af guderne!"
+        fi
     elif wantToOverthrowTheKing "$user"; then
         echo "$EGGS_USER: Argh, Deres Majestæt, $user er en del af oprøret, som beskytter forbryderen!  Jeg kunne ikke få has på svinet!"
     else

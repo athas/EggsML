@@ -109,7 +109,7 @@ void checklink(const char* link) {
     }
   }
   /* Always log */
-  linestrlen = snprintf(buf, sizeof(buf), "%s %ld %s\n", link, now, eggsuser);
+  linestrlen = snprintf(buf, sizeof(buf), "%s %ld %s\n", link, (long int)now, eggsuser);
   write(linksfd, buf, linestrlen);
 }
 

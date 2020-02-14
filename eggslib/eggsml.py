@@ -4,6 +4,7 @@ import eggsml_math
 from datetime import date
 import random
 import numpy
+import functools
 
 class eggsml:
 
@@ -652,5 +653,5 @@ class eggsml:
                 else:
                     pass
 
-        self.dates.sort(self.datesort)
+        self.dates.sort(key=functools.cmp_to_key(self.datesort))
         self.users = self.get_users()

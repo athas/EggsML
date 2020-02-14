@@ -1,0 +1,11 @@
+#!/bin/sh
+# APL men K men Klong.
+
+if [ $# -eq 0 ]; then
+   echo "$EGGS_USER: Jeg er bange for at jeg har brug for mere information."
+   exit
+fi
+
+pleasedBy "$EGGS_USER"
+
+kg -e "$*" 2>&1 || true

@@ -1,0 +1,66 @@
+#!/usr/bin/env perl
+#
+# Fjern alle referencer til den trælse højtid i december
+
+use 5.012;
+use warnings;
+use utf8::all;
+
+my @bad_foods = qw(risengrød sylte flæskesteg sild eiskonfekt konfekt marcipan nougat blodpølse risalamande and gås medisterpølse);
+my @bad_drinks = qw(snaps gløgg glögg likør rom portvin valnøddesnaps juleøl sne-bajer snebajer porsesnaps sprut vin);
+
+while (my $line = <>) {
+
+    # If sentence starts with the bad word, skip entire sentence. Nothing good can come from this.
+    if ($line =~ qr/^ju+l\b/i){
+        next;
+    }
+
+    # Nothing is worse than singing, also ban these sentences
+    if ($line =~ qr/(\bsynge|\bsang|\bnr\..*hæfte)/i){
+        next;
+    }
+
+    # The bad event has special greetings. Ban them!
+    if ($line =~ qr/\bglædelig\b/i){
+        next;
+    }
+
+    # Ban games!
+    if ($line =~ qr/(rafle|pakkeleg)/){
+        next;
+    }
+
+    $line =~ s/\bjulet\b/mørkt og koldt/gi;
+    $line =~ s/[Ee]n gave/et stykke kul/gi;
+    $line =~ s/\bgaver?\b/kul/gi;
+    $line =~ s/juletræ/træ/gi;
+    $line =~ s/juleaften/vintersolhverv/gi;
+    $line =~ s/jule-?//gi;
+    $line =~ s/\bho(ho)+/haha/gi;
+    $line =~ s/\bhøjtid(en)?/kulden og mørket/gi;
+    $line =~ s/\bjuler\b/fryser/gi;
+    $line =~ s/\bju+l\b/vinter/gi;
+    $line =~ s/\bpakker\b/stykker kul/gi;
+    $line =~ s/\bhygge\b/arbejde hårdt/gi;
+    $line =~ s/hygge\b//gi;
+    $line =~ s/fugle-//gi;
+
+    # Ban bad foods
+    my $food_pattern = '(\b' . join('\b|\b', @bad_foods) . '\b)';
+    my $food_regex = qr/$food_pattern/i;
+    my $drinks_pattern = '(\b' . join('\b|\b', @bad_drinks) . '\b)';
+    my $drinks_regex = qr/$drinks_pattern/i;
+    $line =~ s/$food_regex/lasagne/gi; # all banned foods are now lasagne, bitches
+    $line =~ s/$drinks_regex/mælk/gi; # all banned drinks are now milk
+
+    # Avoid printing empty lines or white space lines
+    if ($line =~ /^\s*$/){
+        next;
+    }
+
+    # Strip trailing whitespace
+    $line =~s/\s+$//;
+
+    say $line;
+}

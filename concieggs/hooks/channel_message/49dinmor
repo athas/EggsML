@@ -4,7 +4,7 @@
 
 shuttingUp && exit
 
-maybeGood .3 || exit
+maybeGood .03 || exit
 
 rules=$(cat <<'EOF'
     s/(^|\. )[^ ]+ (var|er|kunne|har|tog)/\1Din mor \2/g;

@@ -5,9 +5,5 @@ set -f
 eval "$(parseConcieggsCommand)"
 
 if [ "$rawcmd" ]; then
-    if [ "$rawcmd" = fluen -o "$rawcmd" = duen -o "$rawcmd" = flaske ]; then
-        gtimeout 240s  runcmd "$rawcmd" $args  || (echo "Nu må i til at skrive noget ordentlig kode. En kommando bør ikke tage over fire minutter at afvikle!";) | randomLine
-    else
-        gtimeout 30s runcmd "$rawcmd" $args || (echo "Jeg må give fortabt!"; echo "Nej. Det tog for lang tid ...";) | randomLine
-    fi
+        gtimeout 300s runcmd "$rawcmd" $args  || (echo "Nu må i til at skrive noget ordentlig kode. En kommando bør ikke tage over fem minutter at afvikle!"; echo "Jeg døde næsten!!! Vil du mig livet?"; echo "Jeg stødte ind i et problem. I skal vist have jeres skolepenge tilbage."; echo "Min kode er lort. Elendige amatører! Måske skulle I finde noget andet at lave? Har I overvejet at blive skraldemænd?";) | randomLine
 fi

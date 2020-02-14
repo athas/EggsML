@@ -4,7 +4,7 @@
 
 set -e
 
-eval "$(echo "$@" | parse '(?<who>jeg) (siger|skriver|ytrer|skriger|nævner|prutter|rabler om|hvæser) (?<alias>[^ =]+)(?: så)? mener jeg(?: faktisk)? (?<command>.+)|(?<who>[^ ]+) siger (?<alias>[^ =]+)(?: så)? mener (han|hun|hen)(?: faktisk)? (?<command>.+)')"
+eval "$(echo "$@" | parse '(?<who>jeg) (siger|skriver|ytrer|skriger|nævner|prutter|rabler om|hvæser) (?<alias>[^ =]+)(?: så)? mener jeg(?: faktisk)? (?<command>[^\.\?\!]+)|(?<who>[^ ]+) siger (?<alias>[^ =]+)(?: så)? mener (han|hun|hen)(?: faktisk)? (?<command>[^\.\?\!]+)')"
 
 if ! [ "$who" ]; then
     echo "$EGGS_USER: Brug: når <hvem> siger <hvad> mener <jeg|han|hun|hen> <noget andet>"
@@ -46,6 +46,12 @@ if [ "$alias" = "når" ] && [ "$who" != "jeg" ] && [ "$cmd" != "når" ]; then
     exit 0
 fi
 
+if isKing "$who"; then
+    echo "$EGGS_USER: $(randomKingName $who)s befalinger kan undersåtter ikke rokke ved."
+    annoyedBy "$EGGS_USER" 10 "prøvede at sætte et alias for $(randomKingName $who)"
+    exit 0
+fi
+
 if ! isCommand "$cmd" ; then
     if [ "$cmd" = "$CONCIEGGS_NAME" ]; then
         echo "$EGGS_USER: Jeg er ikke en kommando! Jeg er et tænkende, følende væsen!"
@@ -54,13 +60,6 @@ if ! isCommand "$cmd" ; then
     fi
     exit 0
 fi
-
-if [ "$cmd" = "jeopardy" ]; then
-    echo "$EGGS_USER: Hovsa sa sa. Man må altså ikke snyde i Jeopardy."
-    annoyedBy "$EGGS_USER" 5 "prøvede at sætte et gætte-alias til Jeopardy"
-    exit
-fi
-
 
 allAliases="$(dbUserRead "$name" "cmd_aliases")"
 oldCommand="$(echo "$allAliases" | grep -i "^$lcalias=" | cut -d'=' -f 2 )"

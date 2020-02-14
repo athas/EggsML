@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# Run a simple shell command for all currently used channels.
+
+for where in $CONCIEGGS_DEFAULT_CHANNEL $CONCIEGGS_ERROR_CHANNEL $(dbIterate channels); do
+    EGGS_WHERE="$where" runFor "$where" "$@"
+done

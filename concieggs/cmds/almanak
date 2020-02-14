@@ -4,6 +4,7 @@
 
 from datetime import datetime
 from dateutil import tz
+import math
 import time
 import requests
 import subprocess
@@ -17,8 +18,7 @@ def date_convert(s):
 if (len(sys.argv) < 2):
     location = "Copenhagen"
 else:
-    process = subprocess.run(['translate', 'en', 'da'], stdout=subprocess.PIPE, input=sys.argv[1].encode('utf-8'))
-    location = process.stdout.decode('utf-8').rstrip()
+    location = sys.argv[1]
 
 # Get data from openweathermap
 url = "http://api.openweathermap.org/data/2.5/weather?q={0}&lang=da&units=metric&APPID=4b42ecc61fd13e0a0cb7006d583fb3e0".format(location)
@@ -30,12 +30,13 @@ from_zone = tz.gettz('UTC')
 to_zone = tz.gettz('CET')
 sunrise_ut = data["sys"]["sunrise"]
 sunset_ut = data["sys"]["sunset"]
-sunrise = datetime.utcfromtimestamp(sunrise_ut).replace(tzinfo=from_zone).astimezone(to_zone).time()
-sunset = datetime.utcfromtimestamp(sunset_ut).replace(tzinfo=from_zone).astimezone(to_zone).time()
+sunrise = datetime.utcfromtimestamp(sunrise_ut).replace(tzinfo=from_zone).astimezone(to_zone)
+sunset = datetime.utcfromtimestamp(sunset_ut).replace(tzinfo=from_zone).astimezone(to_zone)
+daylight_time = (sunset - sunrise).seconds
 
 if (len(sys.argv) > 1):
     print("Almanak for {0} (CET):".format(sys.argv[1]))
 if (sunrise_ut == sunset_ut):
     print("🌅 midnatssol")
 else:
-    print("🌅 {0} 🌇 {1}".format(sunrise, sunset))
+    print("🌅 {} 🌇 {}. Solen er oppe i {} timer og {} minutter.".format(sunrise.time(), sunset.time(), math.floor(daylight_time / 3600), math.floor(daylight_time % 3600 / 60)))

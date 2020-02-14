@@ -1,0 +1,128 @@
+#!/usr/bin/env python3
+#
+# Søg på Hacker News blandt aktuelle historier eller blandt alle historie.
+# Anvendelse: "hn <søgning> [alle]" eller "hn <a[ktuelle] [søgning [alle]]|g[lobal] <søgning>>"
+
+from lxml.html import fromstring
+import json
+import random
+import re
+import requests
+import subprocess
+import sys
+import urllib
+import urllib.request as ur
+
+make_danish = False
+max_number_of_articles = 10
+
+http_error = ""
+score_regex = re.compile(r"(\d+)\spoints?")
+
+active_search = len(sys.argv) == 1 or len(sys.argv) == 2 or (len(sys.argv) in [2,3,4] and sys.argv[1] in ["a", "aktuel", "aktuelle", "OnlyLink42"])
+only_link_and_title = len(sys.argv) == 2 and sys.argv[1] == "OnlyLink42"
+global_search = len(sys.argv) == 3 and sys.argv[1] in ["global", "g"]
+return_all = not global_search and (len(sys.argv) == 4 and sys.argv[3] == "alle" or len(sys.argv) == 3 and sys.argv[2] == "alle")
+
+# Get parameters from command line arguments
+mode = len(sys.argv) > 1 and sys.argv[1]
+ss = ""
+if len(sys.argv) > 2:
+    ss = sys.argv[2]
+
+if active_search and not only_link_and_title and len(sys.argv) < 3 and len(sys.argv) > 1:
+    ss = sys.argv[1]
+
+if not global_search and not active_search:
+    print("brug: hn <a [søgning [alle]]|g <søgning>>  a => aktuelle historier, g => global søgning i hele historikken. Eller: hn <søgning> [alle")
+    exit(0)
+
+if global_search:
+    resp = requests.get("https://hn.algolia.com/api/v1/search_by_date?query={}&tags=story&hitsPerPage=1".format(ss))
+    data = resp.json()
+    output = ""
+    num_hits = data["nbHits"]
+    if num_hits == 0:
+        output = "Jeg kunne ikke finde nogen historier om {} på Hacker News".format(ss)
+    else:
+        story = data["hits"][0]
+        number_desc = ""
+        if num_hits == 1:
+            number_desc = "én historie"
+        else:
+            number_desc = "{} historier".format(num_hits)
+
+        output = "Hacker News har {} om {}. Den nyeste er \"{}\" på {} med {} point.".format(number_desc, ss, story["title"], story["url"], story["points"])
+
+    print(output)
+    exit(0)
+
+# Active search
+formatted_links = []
+for i in range(1, 25):
+    try:
+        f = ur.urlopen("https://news.ycombinator.com/news?p={}".format(str(i)))
+        body = f.read()
+        document = fromstring(body.decode("utf-8"))
+    except urllib.error.HTTPError:
+
+        # Print error to stderr
+        import traceback
+        traceback.print_exc()
+
+        if (i == 1):
+            print("Jeg må slet ikke kravle rundt på Hacker News :(")
+            exit(0)
+        http_error = "Jeg fik kun lov til at hente de første {} sider. ".format(str(i))
+        break;
+
+    stories_and_score =  zip(document.cssselect('tr.athing'), document.cssselect('span.score'))
+    for (story, score) in stories_and_score:
+        anchor = story.cssselect('td.title > a.storylink')[0]
+        text = anchor.text
+        link = anchor.get('href')
+
+        # Handle HN internal links
+        if link.startswith('item'):
+            link = "https://news.ycombinator.com/" + link
+        score_capture = score_regex.search(score.text)
+        formatted_links.append((text, link, int(score_capture.group(1)), i))
+
+extra_output = ""
+if ss != "":
+    regex = re.compile(r"{}[\W\s$\n]".format(ss))
+    found = list(filter(lambda x: regex.search(x[0]), formatted_links))
+    if len(found) == 0:
+        ss = ss.lower()
+        found = list(filter(lambda x: ss in x[0].lower() or ss in x[1].lower(), formatted_links))
+        if len(found) == 0:
+            print("Jeg kunne desværre ikke finde en historie om {}.".format(ss))
+            exit(0)
+
+    if len(found) == 1:
+        extra_output = "Hacker News har én aktuel historie om {} :".format(ss)
+    else:
+        extra_output = "Hacker News har {} aktuelle historier om {}. ".format(str(len(found)), ss)
+
+    if return_all:
+        article_links = ""
+        if len(found) > max_number_of_articles:
+            article_links = "De første {} artikler er: ".format(str(max_number_of_articles)) + ", ".join(map(lambda x: x[1], found[:max_number_of_articles]))
+        else:
+            article_links = ", ".join(map(lambda x: x[1], found))
+
+        # No need to make this Danish since it already is
+        print(http_error + extra_output + article_links + ".")
+        exit(0)
+else:
+    found = formatted_links
+
+story = random.choice(found)
+if (make_danish):
+    process = subprocess.run(['translate', 'en', 'da'], stdout=subprocess.PIPE, input=text.encode('utf-8'))
+    text = process.stdout.decode('utf-8').rstrip()
+
+if only_link_and_title:
+    print('{}¶{}'.format(story[0], story[1]))
+else:
+    print('{}{}Du kan læse historien "{}" på {}. Den har {} point og blev fundet på side {}.'.format(http_error, extra_output, story[0], story[1], story[2], story[3]))

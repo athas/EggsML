@@ -6,4 +6,6 @@ shame() {
 
 if echo "$EGGS_BODY" | grep www.linkedin.com -q; then
     shame LinkedIn
+elif echo "$EGGS_BODY" | grep spotify.com -q; then
+    shame Spotify
 fi
