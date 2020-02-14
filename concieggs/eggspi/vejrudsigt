@@ -353,6 +353,15 @@ for time, hero_line in zip(tabular, hero):
     wind = time.find('windDirection').attrib['code']
     windspeed = float(time.find('windSpeed').attrib['mps'])
 
+    # https://youtu.be/WzjWMLv_ZJI
+    precipitation = float(time.find('precipitation').attrib['value'])
+    precipitation_uncertainty = float(0)
+    long_precipitation = False
+    if (hasattr(time.find, 'maxvalue')) and (hasattr(time.find, 'minvalue')):
+        # check if attribute exists
+        precipitation_uncertainty = float(time.find('precipitation').attrib['maxvalue']) - float(time.find('precipitation').attrib['minvalue'])
+        long_precipitation = True
+
     temperature = time.find('temperature').attrib['value']
     weather_description = time.find('symbol').attrib['name'].lower()
 
@@ -363,12 +372,17 @@ for time, hero_line in zip(tabular, hero):
     wrapped_wind_symbol = color_wind_symbol(windspeed, wind_symbol)
     wind_format_string = "{:4.0f} m/s" if (os.getenv('EGGS_USER') == "sword_smith") else "{:4.1f} m/s"
     wind_speed = wind_format_string.format(windspeed)
+    if long_precipitation:
+        precipitation_string = "{:3.1f} mm ± {:3.1f}".format(precipitation, precipitation_uncertainty)
+    else:
+        precipitation_string = "{:3.0f} mm".format(precipitation)
 
     front = '{}:  {}° {}'.format(
         date_format(date),
         temperature.rjust(pad_temp),
         wrapped_wind_symbol.rjust(6)).ljust(23)
     middle = "{}".format(wind_speed).rjust(9)
-    back = "{}  {}".format(weather_symbol, hero_line)
+    second_breakfast = "{}".format(precipitation_string).rjust(14).ljust(15)
+    back = "{} {}".format(weather_symbol, hero_line)
 
-    print("{}{} {}".format(front, middle, back))
+    print("{}{}{} {}".format(front, middle, second_breakfast, back))
