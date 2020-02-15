@@ -382,12 +382,12 @@ for time, hero_line in zip(tabular, hero):
         date_format(date),
         temperature.rjust(pad_temp),
         wrapped_wind_symbol.rjust(6)).ljust(23)
-    middle = "{}".format(wind_speed).rjust(9)
+    middle = "{}".format(wind_speed).rjust(10)
     second_breakfast = ""
     if long_precipitation:
         second_breakfast = "{}".format(precipitation_string).rjust(15).ljust(15)
     else:
-        second_breakfast = "{}".format(precipitation_string).rjust(6).ljust(6)
+        second_breakfast = "{}".format(precipitation_string).rjust(7).ljust(7)
     back = "{} {}".format(weather_symbol, hero_line)
 
     print("{}{}{} {}".format(front, middle, second_breakfast, back))
