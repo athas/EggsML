@@ -142,6 +142,8 @@ suisse = r'''
 |_______/__/_______/___/__\___\
 '''
 
+print_precipitation_uncertainty = False
+
 def get_url_from_search_string(ls):
     """Given a search string, return the URL for the data for the matching place"""
     s = " ".join(ls)
@@ -357,8 +359,7 @@ for time, hero_line in zip(tabular, hero):
     precipitation = float(time.find('precipitation').attrib['value'])
     precipitation_uncertainty = float(0)
     long_precipitation = False
-    if (hasattr(time.find, 'maxvalue')) and (hasattr(time.find, 'minvalue')):
-        # check if attribute exists
+    if (print_precipitation_uncertainty and 'maxvalue' in time.find('precipitation').attrib and 'minvalue' in time.find('precipitation').attrib):
         precipitation_uncertainty = float(time.find('precipitation').attrib['maxvalue']) - float(time.find('precipitation').attrib['minvalue'])
         long_precipitation = True
 
@@ -382,7 +383,11 @@ for time, hero_line in zip(tabular, hero):
         temperature.rjust(pad_temp),
         wrapped_wind_symbol.rjust(6)).ljust(23)
     middle = "{}".format(wind_speed).rjust(9)
-    second_breakfast = "{}".format(precipitation_string).rjust(14).ljust(15)
+    second_breakfast = ""
+    if long_precipitation:
+        second_breakfast = "{}".format(precipitation_string).rjust(15).ljust(15)
+    else:
+        second_breakfast = "{}".format(precipitation_string).rjust(6).ljust(6)
     back = "{} {}".format(weather_symbol, hero_line)
 
     print("{}{}{} {}".format(front, middle, second_breakfast, back))
