@@ -11,14 +11,14 @@ if [ "$rawcmd" ]; then
 fi
 
 if echo "$EGGS_BODY" | grep -qiE $CONCIEGGS_NAME; then
-    if [ $(random 1 2) = 2 ]; then
-        echo $(echo "$EGGS_BODY" | sed "s/$CONCIEGGS_NAME/$EGGS_USER/g")
-    else
+    if [ $(random 1 4) = 4 ]; then
         randomLine <<EOF
 Taler I om mig?
 Ja, det er mig der er ${CONCIEGGS_NAME}!
 Det er altså ikke særligt høfligt at tale om mig, men ikke at tale til mig.
 Jeg er lige her.
 EOF
+    else
+        echo $(echo "$EGGS_BODY" | sed "s/$CONCIEGGS_NAME/$EGGS_USER/g")
     fi
 fi
