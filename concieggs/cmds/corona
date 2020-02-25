@@ -2,6 +2,7 @@
 
 import requests
 import csv
+import random
 
 deathcsv = requests.get('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv')
 deathreader = csv.reader(deathcsv.text.splitlines()[1:])
@@ -14,5 +15,8 @@ confirmedreader = csv.reader(confirmedcsv.text.splitlines()[1:])
 confirmed = 0
 for row in confirmedreader:
     confirmed += int(row[-1])
+    
+countries = ['Kina', 'et krydstogskib', 'Sydkorea', 'Japan', 'Italien', 'Singapore', 'Hongkong', 'Iran', 'Amerikas forenede stater', 'Thailand', 'Taiwan', 'Australien', 'Malaysien', 'Tyskland', 'Vietname', 'de Forenede Arabiske Emirater', 'Frankrig', 'Macau', 'Canada', 'det Forenede Kongerige', 'Filippinerne', 'Indien', 'Rusland', 'Spanien', 'Irak', 'Israel', 'Lebanon', 'Sverige', 'Beglien', 'Cambodien', 'Ægypten', 'Finland', 'Nepal', 'Srilanka']
 
-print('Coronastatus: %d smittede, %d døde' % (confirmed, deaths))
+print('Coronavirusen har indtil videre slået %d mennesker ihjel og smittet %d.' % (deaths, confirmed))
+print('Du kan hjælpe ved at tage til %s og indånde folks hoste, og derefter hoste på andre mennesker.' % random.choice(countries))
