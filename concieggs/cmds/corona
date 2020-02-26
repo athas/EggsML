@@ -16,7 +16,7 @@ confirmed = 0
 for row in confirmedreader:
     confirmed += int(row[-1])
 
-countries = ['Kina', 'et krydstogskib', 'Sydkorea', 'Japan', 'Italien', 'Singapore', 'Hongkong', 'Iran', 'Amerikas forenede stater', 'Thailand', 'Taiwan', 'Australien', 'Malaysien', 'Tyskland', 'Vietname', 'de Forenede Arabiske Emirater', 'Frankrig', 'Macau', 'Canada', 'det Forenede Kongerige', 'Filippinerne', 'Indien', 'Rusland', 'Spanien', 'Irak', 'Israel', 'Lebanon', 'Sverige', 'Beglien', 'Cambodien', 'Ægypten', 'Finland', 'Nepal', 'Srilanka']
+countries = ['Kina', 'et krydstogskib', 'Sydkorea', 'Japan', 'Italien', 'Singapore', 'Hongkong', 'Iran', 'Amerikas forenede stater', 'Thailand', 'Taiwan', 'Australien', 'Malaysien', 'Tyskland', 'Vietname', 'de Forenede Arabiske Emirater', 'Frankrig', 'Macau', 'Canada', 'det Forenede Kongerige', 'Filippinerne', 'Indien', 'Rusland', 'Spanien', 'Irak', 'Israel', 'Lebanon', 'Sverige', 'Belgien', 'Cambodien', 'Ægypten', 'Finland', 'Nepal', 'Srilanka', 'Schweiz']
 
 print('Coronavirussen har indtil videre slået %d mennesker ihjel og smittet %d. Det svarer til en succesrate på %.2f%%!' % (deaths, confirmed, deaths / confirmed * 100))
 print('Du kan hjælpe ved at tage til %s og indånde folks hoste, og derefter hoste på andre mennesker.' % random.choice(countries))
