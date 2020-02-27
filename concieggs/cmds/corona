@@ -10,13 +10,7 @@ import sys
 area_search = False
 area = ""
 deathcsv = requests.get('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv')
-if len(sys.argv) > 1:
-    relevant_lines = list(filter(lambda x: re.search(sys.argv[1], x), deathcsv.text.splitlines()))
-    deathreader = csv.reader(relevant_lines[1:])
-    area_search = True
-    area = sys.argv[1]
-else:
-    deathreader = csv.reader(deathcsv.text.splitlines()[1:])
+deathreader = csv.reader(deathcsv.text.splitlines()[1:])
 
 deaths = 0
 deathsPerCountry = {}
@@ -28,11 +22,7 @@ for row in deathreader:
         deathsPerCountry[row[1]] = int(row[-1])
 
 confirmedcsv = requests.get('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv')
-if area_search:
-    relevant_lines = list(filter(lambda x: re.search(area, x), confirmedcsv.text.splitlines()))
-    confirmedreader = csv.reader(relevant_lines[1:])
-else:
-    confirmedreader = csv.reader(confirmedcsv.text.splitlines()[1:])
+confirmedreader = csv.reader(confirmedcsv.text.splitlines()[1:])
 
 confirmed = 0
 confirmedPerCountry = {}
