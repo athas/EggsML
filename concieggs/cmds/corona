@@ -3,25 +3,45 @@
 import requests
 import csv
 import random
+import re
 import math
+import sys
 
+area_search = False
+area = ""
 deathcsv = requests.get('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv')
-deathreader = csv.reader(deathcsv.text.splitlines()[1:])
+if len(sys.argv) > 1:
+    relevant_lines = list(filter(lambda x: re.search(sys.argv[1], x), deathcsv.text.splitlines()))
+    deathreader = csv.reader(relevant_lines[1:])
+    area_search = True
+    area = sys.argv[1]
+else:
+    deathreader = csv.reader(deathcsv.text.splitlines()[1:])
+
 deaths = 0
 for row in deathreader:
     deaths += int(row[-1])
 
 confirmedcsv = requests.get('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv')
-confirmedreader = csv.reader(confirmedcsv.text.splitlines()[1:])
+if area_search:
+    relevant_lines = list(filter(lambda x: re.search(area, x), confirmedcsv.text.splitlines()))
+    confirmedreader = csv.reader(relevant_lines[1:])
+else:
+    confirmedreader = csv.reader(confirmedcsv.text.splitlines()[1:])
+
 confirmed = 0
 for row in confirmedreader:
     confirmed += int(row[-1])
 
 countries = ['Kina', 'et krydstogskib', 'Sydkorea', 'Japan', 'Italien', 'Singapore', 'Hongkong', 'Iran', 'Amerikas forenede stater', 'Thailand', 'Taiwan', 'Australien', 'Malaysien', 'Tyskland', 'Vietname', 'de Forenede Arabiske Emirater', 'Frankrig', 'Macau', 'Canada', 'det Forenede Kongerige', 'Filippinerne', 'Indien', 'Rusland', 'Spanien', 'Irak', 'Israel', 'Lebanon', 'Sverige', 'Belgien', 'Cambodien', 'Ægypten', 'Finland', 'Nepal', 'Srilanka', 'Schweiz']
 
-print('Coronavirussen har indtil videre slået %d mennesker ihjel og smittet %d. Det svarer til en succesrate på %.2f%%!' % (deaths, confirmed, deaths / confirmed * 100))
+kill_rate = deaths / confirmed * 100 if confirmed > 0 else 0
+if area_search:
+    print('I %s har Coronavirussen indtil videre slået %d mennesker ihjel og smittet %d. Det svarer til en succesrate på %.2f%%!' % (area, deaths, confirmed, kill_rate))
+else:
+    print('Coronavirussen har indtil videre slået %d mennesker ihjel og smittet %d. Det svarer til en succesrate på %.2f%%!' % (deaths, confirmed, kill_rate))
 
 msgs = ['Du kan hjælpe ved at tage til %s og indånde folks hoste, og derefter hoste på andre mennesker.' % random.choice(countries),
-        'Kan vi få den op på %d%%?' % math.ceil(deaths / confirmed * 100),
+        'Kan vi få den op på %d%%?' % math.ceil(kill_rate + 0.01),
         'Hvem mon bliver nummer %d?' % (deaths+1)]
 print(random.choice(msgs))
