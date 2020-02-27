@@ -39,7 +39,7 @@ if len(sys.argv) > 1:
     try:
         c = alternatives[' '.join(sys.argv[1:])]
     except KeyError:
-        c = sys.argv[1]
+        c = ' '.join(sys.argv[1:])
     try:
         idx = countries[c]
         try:
