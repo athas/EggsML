@@ -7,8 +7,6 @@ import re
 import math
 import sys
 
-area_search = False
-area = ""
 deathcsv = requests.get('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv')
 deathreader = csv.reader(deathcsv.text.splitlines()[1:])
 
@@ -39,7 +37,7 @@ alternatives = {'US': 'Amerikas forenede stater', 'DK': 'Danmark'}
 idx = ''
 if len(sys.argv) > 1:
     try:
-        c = alternatives[sys.argv[1]]
+        c = alternatives[' '.join(sys.argv[1:])]
     except KeyError:
         c = sys.argv[1]
     try:
