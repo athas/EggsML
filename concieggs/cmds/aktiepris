@@ -27,7 +27,6 @@ ticker = yf.Ticker(sys.argv[1])
 if ticker is None:
     exit("Jeg kunne ikke finde %s" % sys.argv[1]);
 
-print(ticker.info)
 price = get_price(ticker)
 currency = get_quote_currency(ticker)
 print("%s handles til %.2f %s" % (sys.argv[1], price, currency))
