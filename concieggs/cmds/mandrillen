@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+array[0]="https://www.youtube.com/watch?v=3v_jTzMWD0o"
+array[1]="https://www.youtube.com/watch?v=oMhOqLuqH6Y"
+array[2]="https://www.youtube.com/watch?v=QrlxXCSmfEs"
+array[3]="https://www.youtube.com/watch?v=QiN7mv6hFKQ"
+array[4]="https://www.youtube.com/watch?v=4G7z6J9HgDs"
+array[5]="https://www.youtube.com/watch?v=IjQpjmMf67Y"
+array[6]="https://www.youtube.com/watch?v=Q-AtGh4NkzE"
+
+size=${#array[@]}
+index=$(($RANDOM % $size))
+echo "Du kan f.eks. se den her: ${array[$index]}"
