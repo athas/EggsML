@@ -98,7 +98,7 @@ else:
 
 msgs = ['Hvem mon bliver nummer %d?' % (deaths+1)]
 if confirmed > 0:
-    msgs.append('Kan vi få den op på %d%%?' % math.ceil(deaths / confirmed * 100))
+    msgs.append('Kan vi få den op på %d%%?' % math.floor(deaths / confirmed * 100 + 1))
 
 if idx == '':
     msgs.append('Du kan hjælpe ved at tage til %s og indånde folks hoste, og derefter hoste på andre mennesker.' % random.choice(list(countries.keys())))
