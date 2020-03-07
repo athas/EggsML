@@ -44,16 +44,38 @@ alternatives = {'US': 'Amerikas forenede stater', 'USA': 'Amerikas forenede stat
 
 idx = ''
 if len(sys.argv) > 1:
-    try:
-        c = alternatives[' '.join(sys.argv[1:])]
-    except KeyError:
-        c = ' '.join(sys.argv[1:])
+    if ' '.join(sys.argv[1:]) == 'højest':
+        # find land med højeste dødelighed
+        highest = 0.0
+        c = ''
+        for country, deaths in deathsPerCountry.items():
+            confirmed = confirmedPerCountry[country]
+            if deaths > 0 and deaths / confirmed > highest:
+                highest = deaths / confirmed
+                c = country
+    elif ' '.join(sys.argv[1:]) == 'flest':
+        # find land med flest smittede (nok Kina)
+        most = 0
+        c = ''
+        for country, confirmed in confirmedPerCountry.items():
+            if confirmed > most:
+                most = confirmed
+                c = country
+    else:
+        try:
+            c = alternatives[' '.join(sys.argv[1:])]
+        except KeyError:
+            c = ' '.join(sys.argv[1:])
     try:
         idx = countries[c]
     except KeyError:
         try:
             test = confirmedPerCountry[c]
             idx = c
+            for dansk, engelsk in countries.items():
+                if idx == engelsk:
+                    c = dansk
+                    break
         except KeyError:
             print('Æh, jeg har altså ikke hørt om %s' % (c))
     if idx != '':
