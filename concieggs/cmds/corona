@@ -13,11 +13,15 @@ deathreader = csv.reader(deathcsv.text.splitlines()[1:])
 deaths = 0
 deathsPerCountry = {}
 for row in deathreader:
-    deaths += int(row[-1])
     try:
-        deathsPerCountry[row[1]] += int(row[-1])
+        i = int(row[-1])
+    except ValueError:
+        i = 0
+    deaths += i
+    try:
+        deathsPerCountry[row[1]] += i
     except KeyError:
-        deathsPerCountry[row[1]] = int(row[-1])
+        deathsPerCountry[row[1]] = i
 
 confirmedcsv = requests.get('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv')
 confirmedreader = csv.reader(confirmedcsv.text.splitlines()[1:])
@@ -25,13 +29,17 @@ confirmedreader = csv.reader(confirmedcsv.text.splitlines()[1:])
 confirmed = 0
 confirmedPerCountry = {}
 for row in confirmedreader:
-    confirmed += int(row[-1])
     try:
-        confirmedPerCountry[row[1]] += int(row[-1])
+        i = int(row[-1])
+    except ValueError:
+        i = 0
+    confirmed += i
+    try:
+        confirmedPerCountry[row[1]] += i
     except KeyError:
-        confirmedPerCountry[row[1]] = int(row[-1])
+        confirmedPerCountry[row[1]] = i
 
-countries = {'Kina': 'Mainland China', 'et krydstogskib': '', 'Sydkorea': 'South Korea', 'Japan': 'Japan', 'Italien': 'Italy', 'Singapore': 'Singapore', 'Hongkong': 'Hong Kong', 'Iran': 'Iran', 'Amerikas forenede stater': 'US', 'Thailand': 'Thailand', 'Taiwan': 'Taiwan', 'Australien': 'Australia', 'Malaysien': 'Malaysia', 'Tyskland': 'Germany', 'Vietnam': 'Vietnam', 'de Forenede Arabiske Emirater': 'United Arab Emirates', 'Frankrig': 'France', 'Macau': 'Macau', 'Canada': 'Canada', 'det Forenede Kongerige': 'UK', 'Filippinerne': 'Philippines', 'Indien': 'India', 'Rusland': 'Russia', 'Spanien': 'Spain', 'Irak': 'Iraq', 'Israel': 'Israel', 'Lebanon': 'Lebanon', 'Sverige': 'Sweden', 'Belgien': 'Belgium', 'Cambodien': 'Cambodia', 'Ægypten': 'Egypt', 'Finland': 'Finland', 'Nepal': 'Nepal', 'Srilanka': 'Sri Lanka', 'Schweiz': 'Switzerland', 'Danmark': 'Denmark', 'Østrig': 'Austria', 'Oman': 'Oman', 'Afghanistan': 'Afghanistan', 'Kuwait': 'Kuwait', 'Kroatien': 'Croatia', 'Bahrain': 'Bahrain', 'Pakistan': 'Pakistan', 'Brasilien': 'Brazi;', 'Georgien': 'Georgia', 'Grækenland': 'Greece', 'Makedonien': 'North Macedonia', 'Norge': 'Norway', 'Rumænien': 'Romania', 'Letland': 'Latvia', 'Litauen': 'Lithuania', 'Estland': 'Estonia', 'Bulgarien': 'Bulgaria', 'Luxemborg': 'Luxembourg','Polen':'Poland','Færøerne':'Faroe Islands','Grønland':'Greenland','Sydafrika':'South Africa','Slovenien':'Slovenia','Bosnien og Herzegovinien':'Bosnia and Herzegovina','Pælestina':'Palestine','Ungarn':'Hungary','Saudiarabien':'Saudi Arabia'}
+countries = {'Kina': 'Mainland China', 'et krydstogskib': '', 'Sydkorea': 'South Korea', 'Japan': 'Japan', 'Italien': 'Italy', 'Singapore': 'Singapore', 'Hongkong': 'Hong Kong', 'Iran': 'Iran', 'Amerikas forenede stater': 'US', 'Thailand': 'Thailand', 'Taiwan': 'Taiwan', 'Australien': 'Australia', 'Malaysien': 'Malaysia', 'Tyskland': 'Germany', 'Vietnam': 'Vietnam', 'de Forenede Arabiske Emirater': 'United Arab Emirates', 'Frankrig': 'France', 'Macau': 'Macau', 'Canada': 'Canada', 'det Forenede Kongerige': 'UK', 'Filippinerne': 'Philippines', 'Indien': 'India', 'Rusland': 'Russia', 'Spanien': 'Spain', 'Irak': 'Iraq', 'Israel': 'Israel', 'Lebanon': 'Lebanon', 'Sverige': 'Sweden', 'Belgien': 'Belgium', 'Cambodien': 'Cambodia', 'Ægypten': 'Egypt', 'Finland': 'Finland', 'Nepal': 'Nepal', 'Srilanka': 'Sri Lanka', 'Schweiz': 'Switzerland', 'Danmark': 'Denmark', 'Østrig': 'Austria', 'Oman': 'Oman', 'Afghanistan': 'Afghanistan', 'Kuwait': 'Kuwait', 'Kroatien': 'Croatia', 'Bahrain': 'Bahrain', 'Pakistan': 'Pakistan', 'Brasilien': 'Brazi;', 'Georgien': 'Georgia', 'Grækenland': 'Greece', 'Makedonien': 'North Macedonia', 'Norge': 'Norway', 'Rumænien': 'Romania', 'Letland': 'Latvia', 'Litauen': 'Lithuania', 'Estland': 'Estonia', 'Bulgarien': 'Bulgaria', 'Luxemborg': 'Luxembourg','Polen':'Poland','Færøerne':'Faroe Islands','Grønland':'Greenland','Sydafrika':'South Africa','Slovenien':'Slovenia','Bosnien og Herzegovinien':'Bosnia and Herzegovina','Pælestina':'Palestine','Ungarn':'Hungary','Saudiarabien':'Saudi Arabia','Algeriet':'Algeria'}
 alternatives = {'US': 'Amerikas forenede stater', 'USA': 'Amerikas forenede stater', 'Amerika': 'Amerikas forenede stater', 'DK': 'Danmark', 'Q8': 'Kuwait'}
 
 idx = ''
