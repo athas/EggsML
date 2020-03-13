@@ -82,7 +82,7 @@ EOF`
         uheld=`randomLine <<EOF
 kommer til at nyse paa
 EOF`
-        echo "/me $uheld $bruger."
+        echo "/me $uheld $bruger2."
     fi
 
     echo $time | dbWrite shutUpUntil
