@@ -76,6 +76,7 @@ EOF`
 
     time=$(($(nowTime) + 600))
     say "Javel, men jeg skal lige sige farvel først!"
+    sleep 3
     echo "/me $afskedshilsen $bruger."
     if [ $(random 1 4) = 4 ]; then
         uheld=`randomLine <<EOF
