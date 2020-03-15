@@ -23,7 +23,7 @@ case "$EGGS_BODY" in
         cat $CONCIEGGS_DB_DIR/revue_titles | randomLine
         ;;
     coronavirus)
-        n=$(stat -c '%s' $CONCIEGGS_DB_DIR/coronavirus)
+        n=$(stat -f '%s' $CONCIEGGS_DB_DIR/coronavirus)
         m=$(random 10 20)
         i=$(random 0 $((n-m)))
         cat $CONCIEGGS_DB_DIR/coronavirus | head -c $i | tail -c $m
