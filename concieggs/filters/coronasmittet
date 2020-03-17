@@ -1,0 +1,67 @@
+#!/usr/bin/env python3
+import random
+import sys
+from enum import Enum
+
+class Symptoms(Enum):
+    FEVER = 1
+    DRY_COUGH = 2
+    FATIGUE = 3
+    SPUTUM_PRODUCTION = 4
+    SHORTNESS_OF_BREATH = 5
+    MUSCLE_PAIN = 6
+    SORE_THROAT = 7
+    HEADACHE = 8
+    CHILLS = 9
+    NAUSEA = 10
+    NASAL_CONGESTION = 11
+    DIARRHOEA = 12
+    DEATH = 13
+
+class Interrupt(Enum):
+    HALF = 1
+    FULL = 2
+    FULLACTION = 3
+
+# fra https://en.wikipedia.org/wiki/2019%E2%80%9320_coronavirus_pandemic#Signs_and_symptoms
+symptoms = [
+    (None, 1.0, []),
+    (Symptoms.FEVER, 0.879, [('Gisp, er det varmt herinde?', None), ('Jeg kunne godt bruge lidt vand.', None)]),
+    (Symptoms.DRY_COUGH, 0.677, [('*host host*', None)]),
+    (Symptoms.FATIGUE, 0.381, [('Jeg kunne godt bruge at ligge ned.', None)]),
+    (Symptoms.SPUTUM_PRODUCTION, 0.334, [('*hoster slim op*  Adr, det må I undskylde.', None)]),
+    (Symptoms.SHORTNESS_OF_BREATH, 0.186, [('Uha, det var mange trapper...', None), ('*gisper efter vejret*', None)]),
+    (Symptoms.MUSCLE_PAIN, 0.148, [('Argh, det gør nas i min ene hofte!', Interrupt.HALF), ('Har jeg forstudet noget?', None)]),
+    (Symptoms.SORE_THROAT, 0.139, [('Har nogen en Halls?', None)]),
+    (Symptoms.HEADACHE, 0.136, [('Har nogen en panodil?', None), ('Det har jeg altså ikke overskud til lige nu.', Interrupt.FULL)]),
+    (Symptoms.CHILLS, 0.114, [('Uha, det blev koldt lige pludseligt.', None)]),
+    (Symptoms.NAUSEA, 0.050, [('kaster op.', Interrupt.FULLACTION), ('Jeg får det dårligt...', Interrupt.HALF)]),
+    (Symptoms.NASAL_CONGESTION, 0.048, [('Har nogen nogle næsedråber?', None)]),
+    (Symptoms.DIARRHOEA, 0.037, [('*skynder sig på toilettet*', Interrupt.HALF)]),
+    (Symptoms.DEATH, 0.340, [('dør.', Interrupt.FULLACTION)]),
+]
+
+total = 0.0
+for symptom in symptoms:
+  total += symptom[1]
+
+r = random.randint(0, int(total*100.0))
+
+said = sys.stdin.read().strip()
+
+for symptom in symptoms:
+  r -= symptom[1]*100.0
+  if r < 0.0:
+    if symptom[0] != None:
+      a = random.choice(symptom[2])
+      if a[1] == None:
+        print("%s  %s" % (a[0], said))
+      elif a[1] == Interrupt.HALF:
+        print("%s...  %s" % (said[0:random.randint(0, len(said))], a[0]))
+      elif a[1] == Interrupt.FULL:
+        print(a[0])
+      elif a[1] == Interrupt.FULLACTION:
+        print("/me %s" % (a[0]))
+    else:
+      print(said)
+    break
