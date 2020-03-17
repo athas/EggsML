@@ -80,13 +80,13 @@ EOF`
     echo "/me $afskedshilsen $bruger."
     if [ $(random 1 4) = 4 ]; then
         uheld=`randomLine <<EOF
-kommer til at nyse paa
+kommer til at nyse på
 EOF`
         echo "/me $uheld $bruger2."
     fi
 
     echo $time | dbWrite shutUpUntil
-    echo "Jeg regner med at vaere tip-top kl. $(timeToDate $time)."
+    echo "Jeg regner med at være tip-top kl. $(timeToDate $time)."
 
 elif [ "$hundene" ]; then
     $CONCIEGGS_DIR/cmds/vær også hund
