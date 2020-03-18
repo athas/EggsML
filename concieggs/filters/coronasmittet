@@ -31,7 +31,7 @@ symptoms = [
     (Symptoms.FATIGUE, 0.381, [('Jeg kunne godt bruge at ligge ned.', None)]),
     (Symptoms.SPUTUM_PRODUCTION, 0.334, [('*hoster slim op*  Adr, det må I undskylde.', None)]),
     (Symptoms.SHORTNESS_OF_BREATH, 0.186, [('Uha, det var mange trapper...', None), ('*gisper efter vejret*', None)]),
-    (Symptoms.MUSCLE_PAIN, 0.148, [('Argh, det gør nas i min ene hofte!', Interrupt.HALF), ('Har jeg forstudet noget?', None)]),
+    (Symptoms.MUSCLE_PAIN, 0.148, [('Argh, det gør nas i min ene hofte!', Interrupt.HALF), ('Har jeg forstuvet noget?', None)]),
     (Symptoms.SORE_THROAT, 0.139, [('Har nogen en Halls?', None)]),
     (Symptoms.HEADACHE, 0.136, [('Har nogen en panodil?', None), ('Det har jeg altså ikke overskud til lige nu.', Interrupt.FULL)]),
     (Symptoms.CHILLS, 0.114, [('Uha, det blev koldt lige pludseligt.', None)]),
