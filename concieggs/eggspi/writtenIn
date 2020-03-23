@@ -22,6 +22,7 @@ my %interps = (
     'ruby'    => 'Ruby',
     'runghc'  => 'Haskell',
     'tclsh'   => 'TCL',
+    'clisp'   => 'Common Lisp',
 );
 
 my %exts = (
