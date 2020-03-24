@@ -4,7 +4,7 @@
 # en god idé at lade den gå undercover.
 
 
-eval "$(echo "$@"| parse '(?<noget>undercover( som (?<navn>[a-zA-Z_]+))?)|(?<krig>i krig m[eo]d (?<alias>[a-zA-Z_]+))|(?<fyrre>i karantæne)|(?<hundene>i hundene)')"
+eval "$(echo "$@"| parse '(?<noget>undercover( som (?<navn>[a-zA-Z][a-zA-Z0-9_]*))?)|(?<krig>i krig m[eo]d (?<alias>[a-zA-Z_]+))|(?<fyrre>i karantæne)|(?<hundene>i hundene)')"
 
 if [ "$noget" ]; then
     if ! [ "$navn" ]; then
