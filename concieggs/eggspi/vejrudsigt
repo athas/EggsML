@@ -166,7 +166,6 @@ print_precipitation_uncertainty = False
 def get_url_from_search_string(ls):
     """Given a search string, return the URL for the data for the matching place"""
     s = " ".join(ls)
-    print("search string: " + s)
     # special handling of Nordpolen because for some reason yr.no considers it a country
     if s in ["Nordpolen", "nordpolen"]:
         return "https://www.yr.no/place/Nordpolen/Annet/Nordpolen/forecast.xml"
