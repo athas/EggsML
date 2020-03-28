@@ -6,6 +6,7 @@ import random
 import re
 import math
 import sys
+import locale
 
 deathcsv = requests.get('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv')
 deathreader = csv.reader(deathcsv.text.splitlines()[1:])
@@ -102,17 +103,19 @@ if len(sys.argv) > 1:
         except KeyError:
             confirmed = 0
 
+locale.setlocale(locale.LC_ALL, 'da_DK.UTF-8')
+
 if idx != '':
     if confirmed == 0:
         print('Coronavirussen har sgu\' ikke berørt nogen i %s endnu.  Måske du skulle hjælpe lidt til?' % c)
     else:
-        print('Coronavirussen har indtil videre slået %d mennesker ihjel og smittet %d i %s. Det svarer til en succesrate på %.2f%%!' % (deaths, confirmed, c, deaths / confirmed * 100))
+        print('Coronavirussen har indtil videre slået {0:n} mennesker ihjel og smittet {1:n} i {2}. Det svarer til en succesrate på {3:n}%!'.format(deaths, confirmed, c, round(deaths / confirmed * 100, 2)))
 else:
-    print('Coronavirussen har indtil videre slået %d mennesker ihjel og smittet %d. Det svarer til en succesrate på %.2f%%!' % (deaths, confirmed, deaths / confirmed * 100))
+    print('Coronavirussen har indtil videre slået {0:n} mennesker ihjel og smittet {1:n}. Det svarer til en succesrate på {2:n}%!'.format(deaths, confirmed, round(deaths / confirmed * 100, 2)))
 
-msgs = ['Hvem mon bliver nummer %d?' % (deaths+1)]
+msgs = ['Hvem mon bliver nummer {0:n}?'.format(deaths+1)]
 if confirmed > 0:
-    msgs.append('Kan vi få den op på %d%%?' % math.floor(deaths / confirmed * 100 + 1))
+    msgs.append('Kan vi få den op på {0:n}%?'.format(round(math.floor(deaths / confirmed * 100 + 1),2)))
 
 if idx == '':
     msgs.append('Du kan hjælpe ved at tage til %s og indånde folks hoste, og derefter hoste på andre mennesker.' % random.choice(list(countries.keys())))
