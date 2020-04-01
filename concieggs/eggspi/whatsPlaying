@@ -69,6 +69,9 @@ def getTitle(r):
 
 
 def tryGetTitle(channelName):
+    if channelName == "radioloud":
+        return "Undtagelsestilstand på LOUD"
+
     chosenChannel = defaultChannel
     for key in channelDict.keys():
         flatKey = flattenString(key)
