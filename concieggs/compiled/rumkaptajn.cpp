@@ -20,6 +20,9 @@ int main() {
   while (cin.read(&c, 1)) {
     if (rum) {
       cout << "rum";
+      if (isdigit(c)) {
+        cout << "-";
+      }
       rum = false;
     }
     cout << c;
