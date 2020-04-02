@@ -109,6 +109,11 @@ EOF
                 chmod +x "$2"
             }
             ;;
+        *cpp)
+            compile() {
+                clang++ -std=c++11 -lm $1 -o $2
+            }
+            ;;
         *)
             echo "Cannot compile file $srcfile - unknown extension."
             exit 2
