@@ -19,9 +19,12 @@ int main() {
   }
   while (cin.read(&c, 1)) {
     if (rum) {
-      cout << "rum";
-      if (isdigit(c)) {
-        cout << "-";
+      if (!isalpha(c)) {
+        cout << "rum-";
+      } else if (isupper(c)) {
+        cout << "RUM";
+      } else {
+        cout << "rum";
       }
       rum = false;
     }
