@@ -79,9 +79,9 @@ for link in all_links:
 # Allow user to pick a theme that interests them
 extra_output = ""
 found_animal_story = False
+cool_stories = []
 if (len(sys.argv) > 1):
     ss = sys.argv[1]
-    cool_stories = []
     if ss == "dyr":
         cool_stories = list(filter(lambda x: any(map(lambda y: re.search(r"\b{}s?\b".format(y), x[0], re.IGNORECASE), ANIMAL_WORDS)), formatted_links))
 
@@ -98,7 +98,6 @@ if (len(sys.argv) > 1):
             extra_output = "Drudge Report har {} historier om {}. ".format(len(cool_stories), ss)
         else:
             extra_output = "Drudge Report har én historie om {}. ".format(ss)
-        present = random.choice(cool_stories)
 
     else:
         # Only print msg if function was called by a user and not as a welcome msg.
@@ -106,7 +105,22 @@ if (len(sys.argv) > 1):
             print("Det kunne jeg desværre ikke finde en historie om.")
         exit(0)
 else:
-    present = random.choice(formatted_links)
+    cool_stories = formatted_links
+
+# Pick the story to present, attempt to find one that was not previously presented
+found = len(cool_stories)
+present_index = random.choice(range(found))
+present = cool_stories[present_index]
+if len(cool_stories) > 1:
+    # If more than 1 relevant story was found, attempt to find a story that has not previously been presented
+    # Delete from the cool_stories list those stories that have already been presented
+    # If checkCooldown has a return code 0, the story has not previously been presented
+    run_params = ["checkCooldown", "drudge_link_" + present[1]]
+    proc = subprocess.run(run_params)
+    while proc.returncode != 0 and len(cool_stories) > 1:
+        del cool_stories[present_index % len(cool_stories)]
+        present = cool_stories[present_index % len(cool_stories)]
+        proc = subprocess.run(run_params)
 
 # Verify that concieggs can load page as many links are blocked in Europe due to GDPR
 # Python is an inferior language without do/while loops so we use this ugly code instead
