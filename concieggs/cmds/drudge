@@ -115,11 +115,13 @@ if len(cool_stories) > 1:
     # If more than 1 relevant story was found, attempt to find a story that has not previously been presented
     # Delete from the cool_stories list those stories that have already been presented
     # If checkCooldown has a return code 0, the story has not previously been presented
-    run_params = ["checkCooldown", "drudge_link_" + present[1], "604800"] # 604800 seconds = 7 days
+    cache_key_prefix = "drudge_link_"
+    run_params = ["checkCooldown", cache_key_prefix + present[1], "604800"] # 604800 seconds = 7 days
     proc = subprocess.run(run_params)
     while proc.returncode != 0 and len(cool_stories) > 1:
         del cool_stories[present_index % len(cool_stories)]
         present = cool_stories[present_index % len(cool_stories)]
+        run_params[1] = cache_key_prefix + present[1]
         proc = subprocess.run(run_params)
 
 # Verify that concieggs can load page as many links are blocked in Europe due to GDPR
