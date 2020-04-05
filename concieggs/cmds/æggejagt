@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# Lad concieggs om at gemme et påskeæg i en kommando.  Derefter går
+# den vilde jagt!  Den der finder ægget bliver den nye konge af IRC,
+# samt får praleretten indtil den næste vinder.
+
+if dbExists ægget; then
+    echo "$EGGS_USER: Der er allerede en æggejagt i gang."
+else
+    echo "$EGGS_USER: $(ack)  Jeg gemmer et påskeæg i en tilfældig kommando."
+    egg=$(ls $CONCIEGGS_DIR/cmds | randomLine)
+    echo $egg | dbWrite ægget
+    sleep 2
+    echo "Der har været en lille påskehøne"
+    echo "Den har lagt et lille æg"
+    echo "Kig oppe, kig nede, du skal bare lede"
+    echo "Se ude, se inde, prøv om du kan finde, det lille påskeæg."
+fi

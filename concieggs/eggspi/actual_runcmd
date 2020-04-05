@@ -15,17 +15,43 @@ broke() {
     exit 1
 }
 
+eggcheck() {
+    if dbExists ægget; then
+        egg=$(dbRead ægget)
+        if [ "$egg" = "$cmd" ]; then
+            echo "$EGGS_USER: Du fandt ægget!  Tillykke!  Du er den nye konge af IRC!"
+            makeKing "$EGGS_USER"
+            dbDelete ægget
+        else
+            last=$(dbRead last_cmd | cut -d' ' -f1)
+            this_dist=$(echo "$cmd" | levenshtein "$egg" | cut -d' ' -f1)
+            last_dist=$(echo "$last" | levenshtein "$egg" | cut -d' ' -f1)
+            if [ "$last" != "$cmd" ]; then
+                if [ $last_dist -eq $this_dist ]; then
+                    echo "$EGGS_USER: $(egg_heat $this_dist)"
+                elif [ $last_dist -gt $this_dist ]; then
+                    echo "$EGGS_USER: Varmere..."
+                else
+                    echo "$EGGS_USER: Koldere..."
+                fi
+            fi
+        fi
+    fi
+}
+
 dbRead cur_cmd | dbWrite last_cmd
 echo "$cmd $@" | dbWrite cur_cmd
 case "$cmd" in
 er|hvem|hvad|hvor|hvorfor|hvornår|har*|kan|skal|hvilke*)
-    gtimeout 30s "$acmd" $(echo "$@" | sed 's/\?*$//') || broke
+    timeout 30s "$acmd" $(echo "$@" | sed 's/\?*$//'
     ;;
 # If a command should be allowed more than 30s to run, include its name here
 fluen|duen|flaske|benåd*)
-    gtimeout 240s "$acmd" "$@" || broke
+    timeout 240s "$acmd" "$@" || broke
     ;;
 *)
-    gtimeout 30s "$acmd" "$@" || broke
+    timeout 30s "$acmd" "$@" || broke
     ;;
 esac | gawk '{print; fflush()}' # Hack: use awk to newline-terminate.
+
+eggcheck

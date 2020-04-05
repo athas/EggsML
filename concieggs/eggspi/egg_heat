@@ -1,0 +1,13 @@
+#!/bin/sh
+
+dist=$1
+
+case $dist in
+    0) echo "Du er der!";;
+    1) echo "Det er lige ved at det brænder!";;
+    2) echo "Det er pænt varmt!";;
+    3) echo "Det er godt lunt.";;
+    4) echo "Lunkent...";;
+    5) echo "Køligt.";;
+    *) echo "Ret koldt.";;
+esac
