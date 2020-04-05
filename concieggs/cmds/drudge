@@ -173,4 +173,4 @@ if welcome_message:
     if found_animal_story:
         print('Har du set den søde dyrehistorie "{}", som jeg fandt på {}?'.format(present[0], present[1]))
 else:
-    print('{}Du kan finde historien "{}" på {}.'.format(extra_output, present[0], present[1]))
+    print('{}Du kan finde historien "{}" på {}'.format(extra_output, present[0], present[1]))
