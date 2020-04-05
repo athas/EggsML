@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from functools import reduce
 import hashlib
 from lxml.html import fromstring
 from lxml.etree import tostring
@@ -75,26 +76,42 @@ for link in all_links:
         continue
     text = text.replace("\\", "")
     url = link.get('href')
-    formatted_links.append((text, url))
+    formatted_links.append((text, url, 0)) # [(link_text, url, weight)]
 
 # Allow user to pick a theme that interests them
 extra_output = ""
 found_animal_story = False
+custom_search = False
 cool_stories = []
 if (len(sys.argv) > 1):
-    ss = sys.argv[1]
-    if ss == "dyr":
+    if len(sys.argv) == 2 and sys.argv[1] == "dyr":
         cool_stories = list(filter(lambda x: any(map(lambda y: re.search(r"\b{}s?\b".format(y), x[0], re.IGNORECASE), ANIMAL_WORDS)), formatted_links))
 
         if len(cool_stories) > 0:
             found_animal_story = True
     else:
-        regex = re.compile(r"{}[\W\s$]".format(ss))
-        cool_stories = list(filter(lambda x: regex.search(x[0]), formatted_links))
-        if len(cool_stories) == 0:
-            ss = ss.lower()
-            cool_stories = list(filter(lambda x: ss in x[0].lower() or ss in x[1].lower(), formatted_links))
+        custom_search = True
+        search_terms = sys.argv[1:]
+        index = 0
+        for flink in formatted_links:
+            weight = 0
+            for search_term in search_terms:
+                if re.search(r"\b{}\b".format(search_term), flink[0]):
+                    weight += 5
+                    continue
+                if re.search(r"\b{}\b".format(search_term), flink[0], re.IGNORECASE):
+                    weight += 3
+                    continue
+                if search_term.lower() in flink[1].lower():
+                    weight += 1
+
+            # pick those stories that had a match on the search terms
+            if weight > 0:
+                cool_stories.append((formatted_links[index][0], formatted_links[index][1], weight))
+            index += 1
+
     if (len(cool_stories) > 0):
+        ss = " ".join(sys.argv[1:])
         if (len(cool_stories) > 1):
             extra_output = "Drudge Report har {} historier om {}. ".format(len(cool_stories), ss)
         else:
@@ -109,21 +126,25 @@ else:
     cool_stories = formatted_links
 
 # Pick the story to present, attempt to find one that was not previously presented
-found = len(cool_stories)
-present_index = random.choice(range(found))
-present = cool_stories[present_index]
-if len(cool_stories) > 1:
-    # If more than 1 relevant story was found, attempt to find a story that has not previously been presented
-    # Delete from the cool_stories list those stories that have already been presented
-    # If checkCooldown has a return code 0, the story has not previously been presented
-    cache_key_prefix = "drudge_link_"
-    run_params = ["checkCooldown", cache_key_prefix + hashlib.sha256(present[1].encode('utf-8')).hexdigest(), "604800"] # 604800 seconds = 7 days
-    proc = subprocess.run(run_params)
-    while proc.returncode != 0 and len(cool_stories) > 1:
-        del cool_stories[present_index % len(cool_stories)]
-        present = cool_stories[present_index % len(cool_stories)]
-        run_params[1] = cache_key_prefix + hashlib.sha256(present[1].encode('utf-8')).hexdigest()
+# Unless it is a custom search, then we simply present the one with the highest weight
+if custom_search:
+    present = list(reduce(lambda x, y: x if (x[2] > y[2]) else y, cool_stories))
+else:
+    found = len(cool_stories)
+    present_index = random.choice(range(found))
+    present = cool_stories[present_index]
+    if len(cool_stories) > 1:
+        # If more than 1 relevant story was found, attempt to find a story that has not previously been presented
+        # Delete from the cool_stories list those stories that have already been presented
+        # If checkCooldown has a return code 0, the story has not previously been presented
+        cache_key_prefix = "drudge_link_"
+        run_params = ["checkCooldown", cache_key_prefix + hashlib.sha256(present[1].encode('utf-8')).hexdigest(), "604800"] # 604800 seconds = 7 days
         proc = subprocess.run(run_params)
+        while proc.returncode != 0 and len(cool_stories) > 1:
+            del cool_stories[present_index % len(cool_stories)]
+            present = cool_stories[present_index % len(cool_stories)]
+            run_params[1] = cache_key_prefix + hashlib.sha256(present[1].encode('utf-8')).hexdigest()
+            proc = subprocess.run(run_params)
 
 # Verify that concieggs can load page as many links are blocked in Europe due to GDPR
 # Python is an inferior language without do/while loops so we use this ugly code instead
