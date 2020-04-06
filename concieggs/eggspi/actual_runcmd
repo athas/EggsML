@@ -34,6 +34,14 @@ eggcheck() {
                 else
                     echo "$EGGS_USER: Koldere..."
                 fi
+                if [ "$(random 1 10)" = 1 ]; then
+                    firstc=$(echo - "$egg" | cut -c1)
+                    lastc=$(echo -n "$egg" | rev | cut -c1)
+                    num=$(echo -n "$egg" | wc -c)
+                    ( echo "Et lille vink: Ægget er gemt i en kommando der starter med '$firstc'."
+                      echo "Et lille vink: Ægget er gemt i en kommando der slutter med '$lastc'."
+                      echo "Et lille vink: Ægget er gemt i en kommando på $num tegn.") | randomLine
+                fi
             fi
         fi
     fi
