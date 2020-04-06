@@ -97,6 +97,9 @@ else:
   case args[0]
   of "status": status()
   of "spil": newGame()
+  of "forfra":
+    echo "Okay, så spiller vi forfra. Hvem vil spille nim?"
+    setState(@[])
   of "hjælp": help()
   else:
     if isPlaying(currentState):
