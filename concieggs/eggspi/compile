@@ -98,6 +98,11 @@ else
                 cp target/release/programmeringssprog "$2"
             }
             ;;
+        *nim)
+            compile() {
+                nim -o:"$2" compile "$1"
+            }
+            ;;
         *fs)
             compile() {
                 fsharpc --out:"$2.exe" "$1" > /dev/null
