@@ -3,7 +3,7 @@
 from strutils import splitWhitespace, strip, join, parseInt, parseUInt
 from os import commandLineParams, getEnv
 from osproc import execProcess
-from random import randomize, rand
+from random import randomize, random
 import sequtils
 
 randomize()
@@ -26,7 +26,7 @@ proc printState(s: seq[string]) =
   echo "Spillet ser således ud: ", s[3..len(s)-1].join(" ").splitWhitespace().join(" "), " og det er ", getFirstPlayer(s), "s tur. Brug `nim N BIN` for at tage N pinde fra bunke BIN"
 
 proc isFresh(s: seq[string]): bool =
-  s == []
+  s == @[]
 
 proc isPlaying(s: seq[string]): bool =
   s.len() > 3 and s[0] == "spiller"
@@ -77,8 +77,8 @@ proc newGame() =
     var firstPlayer = getFirstPlayer(currentState)
     echo "Super! Du skal spille imod ", firstPlayer
 
-    var numBins = rand(2..6)
-    var state = @["spiller", firstPlayer, currentUser, newSeqWith(numBins, rand(2..6)).join(" ")]
+    var numBins = random(8)+2
+    var state = @["spiller", firstPlayer, currentUser, newSeqWith(numBins, random(8)+2).join(" ")]
 
     setState(state)
 
