@@ -35,7 +35,7 @@ eggcheck() {
                     echo "$EGGS_USER: Koldere..."
                 fi
                 if [ "$(random 1 10)" = 1 ]; then
-                    firstc=$(echo - "$egg" | cut -c1)
+                    firstc=$(echo -n "$egg" | cut -c1)
                     lastc=$(echo -n "$egg" | rev | cut -c1)
                     num=$(echo -n "$egg" | wc -c | awk '{print $1}')
                     ( echo "Et lille vink: Ægget er gemt i en kommando der starter med '$firstc'."
