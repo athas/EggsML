@@ -23,7 +23,7 @@ proc getSecondPlayer(s: seq[string]): string =
   s[2]
 
 proc printState(s: seq[string]) =
-  echo "Spillet ser således ud: ", s[3..len(s)-1].join(" ").splitWhitespace().join(" "), " og det er ", getFirstPlayer(s), "'s tur. Brug `nim N BIN` for at tage N pinde fra bunke BIN"
+  echo "Spillet ser således ud: ", s[3..len(s)-1].join(" ").splitWhitespace().join(" "), " og det er ", getFirstPlayer(s), "'s tur. Brug `nim N BIN` for at tage N pinde fra bunke BIN. Sidste person til at tage en pind vinder!"
 
 proc isFresh(s: seq[string]): bool =
   s == @[]
