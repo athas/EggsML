@@ -118,7 +118,9 @@ else:
         setBin(currentState, bin, newNumber)
 
         if gameOver(currentState):
-          echo "Du vandt, ", currentUser, "!! ", getSecondPlayer(currentState), " er den store fede taber."
+          echo "Du vandt, ", currentUser, "! Du er nu kongen af IRC!"
+          execProcess("makeKing \"$EGGS_USER\"")
+          echo "Du tabte, ", getSecondPlayer(currentState), ", bedre held næste gang!"
           setState(@[])
           quit()
 
