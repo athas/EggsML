@@ -119,7 +119,7 @@ else:
 
         if gameOver(currentState):
           echo "Du vandt, ", currentUser, "! Du er nu kongen af IRC!"
-          execProcess("makeKing \"$EGGS_USER\"")
+          discard execProcess("makeKing \"$EGGS_USER\"")
           echo "Du tabte, ", getSecondPlayer(currentState), ", bedre held næste gang!"
           setState(@[])
           quit()
