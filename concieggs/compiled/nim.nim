@@ -92,7 +92,7 @@ proc joinGame() =
     echo "Der er altså allerede nogen der spiller. Du kan jo skubbe til ", nextPlayer, " for at få lidt gang i spillet"
 
 proc help() =
-  echo "Brug `nim status` for at få en oversigt over spillets status, brug `nim spil` eller bare `nim` for at komme i gang. Du kan også udfordre en anden spiller ved at skrive `nim SPILLER`"
+  echo "Brug `nim status` for at få en oversigt over spillets status, brug `nim spil` eller bare `nim` for at komme i gang. Du kan også udfordre en anden spiller ved at skrive `nim SPILLER`. Er dit spil gået i stå? Så brug `nim forfra`."
 
 if len(args) == 0:
   joinGame()
