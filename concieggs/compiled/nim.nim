@@ -69,7 +69,16 @@ if currentUser == "":
 
 var args = commandLineParams()
 
-proc newGame() =
+proc newGame(player1: string, player2: string) =
+  var numBins = random(8)+2
+  var state = @["spiller", player1, player2, newSeqWith(numBins, random(8)+2).join(" ")]
+
+  setState(state)
+
+  printState(state)
+  echo player1, ": Du skal starte."
+
+proc joinGame() =
   if isFresh(currentState):
     setState(@["venter", currentUser])
     echo "Den er fjong, men du mangler altså en at spille imod"
@@ -77,26 +86,20 @@ proc newGame() =
     var firstPlayer = getFirstPlayer(currentState)
     echo "Super! Du skal spille imod ", firstPlayer
 
-    var numBins = random(8)+2
-    var state = @["spiller", firstPlayer, currentUser, newSeqWith(numBins, random(8)+2).join(" ")]
-
-    setState(state)
-
-    printState(state)
-    echo firstPlayer, ": Du skal starte."
+    newGame(firstPlayer, currentUser)
   else:
     var nextPlayer = getFirstPlayer(currentState)
     echo "Der er altså allerede nogen der spiller. Du kan jo skubbe til ", nextPlayer, " for at få lidt gang i spillet"
 
 proc help() =
-  echo "Brug `nim status` for at få en oversigt over spillets status, brug `nim spil` eller bare `nim` for at komme i gang."
+  echo "Brug `nim status` for at få en oversigt over spillets status, brug `nim spil` eller bare `nim` for at komme i gang. Du kan også udfordre en anden spiller ved at skrive `nim SPILLER`"
 
 if len(args) == 0:
-  newGame()
+  joinGame()
 else:
   case args[0]
   of "status": status()
-  of "spil": newGame()
+  of "spil": joinGame()
   of "forfra":
     echo "Okay, så spiller vi forfra. Hvem vil spille nim?"
     setState(@[])
@@ -136,4 +139,5 @@ else:
         echo "Hvad har du gang i? Det er ", getFirstPlayer(currentState), "'s tur..."
 
     else:
-      echo "Du skal først starte et spil. Prøv med bare `nim`..."
+      echo "Duper-super, du har udfordret ", args[0], "! Må den bedste person vinde."
+      newGame(currentUser, args[0])
