@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# This script is run on all non-command output from the IRC bot.
+# This script is run on all non-IRC-command output from the IRC bot.
 
 set -e
 
@@ -20,15 +20,20 @@ apply_db_filter() {
 }
 
 apply_db_filter_inner() {
-    # Set 'filterchain'
-    if [ "$destuser" != '' ]; then
-        filterchain=$(echo -n $(dbRead "filterchain_$destuser"))
-    fi
-    if ! [ "$cmd" ] && [ "$channel" != '' ]; then
-        filterchain=$(echo -n $(dbRead "filterchain_$channel"))
-    fi
-    if ! [ "$cmd" ]; then
-        filterchain=$(echo -n $(dbRead filterchain))
+    # EGGS_FILTER var overwrites all other potential filterchain settings
+	if [ "$EGGS_FILTER" != '' ]; then
+	    filterchain=$EGGS_FILTER
+	else
+        # Set 'filterchain'
+        if [ "$destuser" != '' ]; then
+            filterchain=$(echo -n $(dbRead "filterchain_$destuser"))
+        fi
+        if ! [ "$cmd" ] && [ "$channel" != '' ]; then
+            filterchain=$(echo -n $(dbRead "filterchain_$channel"))
+        fi
+        if ! [ "$cmd" ]; then
+            filterchain=$(echo -n $(dbRead filterchain))
+        fi
     fi
 
     # Apply 'filterchain', or not.

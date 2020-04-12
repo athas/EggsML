@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# Bed concieggs om at være på en bestemt led mens du kører en kommando.
+
+eval "$(echo "$@" | parse 'du er (?<what>.+?): (?<command>.+)$')"
+
+if [ "$what" ] && [ "$command" ]; then
+    export EGGS_FILTER=$what
+    runcmd $command
+    unset EGGS_FILTER
+else
+    echo "Brug: mens du er <væremåde>: <kommando>"
+fi
