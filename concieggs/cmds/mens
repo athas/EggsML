@@ -5,9 +5,9 @@
 eval "$(echo "$@" | parse 'du er (?<what>.+?): (?<command>.+)$')"
 
 if [ "$what" ] && [ "$command" ]; then
-    export EGGS_FILTER=$what
+    echo "$what" | "filterchain_overwrite"
     runcmd $command
-    unset EGGS_FILTER
+    dbDelete "filterchain_overwrite"
 else
     echo "Brug: mens du er <væremåde>: <kommando>"
 fi
