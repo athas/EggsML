@@ -4,8 +4,10 @@
 #
 # TODO: Make the entire date handling stuff way less retarded.
 
-if which /usr/local/bin/gdate > /dev/null; then
+if which /usr/local/bin/gdate > /dev/null 2>/dev/null; then
     /usr/local/bin/gdate "$@"
+elif [ -d /run/current-system ]; then
+    /run/current-system/sw/bin/date "$@"
 else
     /bin/date "$@"
 fi
