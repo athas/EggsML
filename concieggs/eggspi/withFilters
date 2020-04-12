@@ -22,7 +22,7 @@ apply_db_filter() {
 apply_db_filter_inner() {
     # EGGS_FILTER var overwrites all other potential filterchain settings
     filterchain=$(echo -n $(dbRead "filterchain_overwrite"))
-	if ! [ "$filterchain"] ; then
+	if ! [ "$filterchain" ] ; then
         # Set 'filterchain'
         if [ "$destuser" != '' ]; then
             filterchain=$(echo -n $(dbRead "filterchain_$destuser"))
@@ -33,6 +33,8 @@ apply_db_filter_inner() {
         if ! [ "$cmd" ]; then
             filterchain=$(echo -n $(dbRead filterchain))
         fi
+    elif [ "$filterchain" = 'normal' ]; then
+        filterchain=''
     fi
 
     # Apply 'filterchain', or not.
