@@ -1,7 +1,7 @@
 #!/bin/sh
 
 shuttingUp && exit
-maybeGood .3 || exit
+maybeGood .6 || exit
 
 # Undlad at reagere på ting der er kommandoer, men som ikke gav noget uddata da
 # 01runcmd kørte.
@@ -17,6 +17,8 @@ Taler I om mig?
 Ja, det er mig der er ${CONCIEGGS_NAME}!
 Det er altså ikke særligt høfligt at tale om mig, men ikke at tale til mig.
 Jeg er lige her.
+hejsa!
+Når man taler om solen, så skinner jeg!
 EOF
     else
         echo $(echo "$EGGS_BODY" | sed "s/$CONCIEGGS_NAME/$EGGS_USER/g")
