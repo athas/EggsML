@@ -14,6 +14,6 @@ t() {
 
 eval $(python - "$@" <<EOF
 import sys
-print ' | '.join("t '%s' '%s'" % t for t in zip(sys.argv[1:], sys.argv[2:]))
+print(' | '.join("t '%s' '%s'" % t for t in zip(sys.argv[1:], sys.argv[2:])))
 EOF
 )
