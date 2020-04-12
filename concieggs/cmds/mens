@@ -12,7 +12,7 @@ if [ "$what" ] && [ "$command" ]; then
             exit
         fi
     done
-    
+
     echo "$what" | dbWrite "filterchain_overwrite"
     runcmd $command
     dbDelete "filterchain_overwrite"
