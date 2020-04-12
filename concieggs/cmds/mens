@@ -15,7 +15,6 @@ if [ "$what" ] && [ "$command" ]; then
 
     echo "$what" | dbWrite "filterchain_overwrite"
     runcmd $command
-    dbDelete "filterchain_overwrite"
 else
     echo "Brug: mens du er <væremåde>: <kommando>"
 fi

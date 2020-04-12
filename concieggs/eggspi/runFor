@@ -27,3 +27,5 @@ filter_non_commands() {
 where=$1
 shift
 ((("$@" 2>&4 | filter_non_commands | ircify_actions | sayTo "$where" >&3) 4>&1) | sayTo "$CONCIEGGS_ERROR_CHANNEL" >&3) 3>&1
+
+dbDelete "filterchain_overwrite"
