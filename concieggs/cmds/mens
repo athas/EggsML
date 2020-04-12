@@ -5,7 +5,15 @@
 eval "$(echo "$@" | parse 'du er (?<what>.+?): (?<command>.+)$')"
 
 if [ "$what" ] && [ "$command" ]; then
-    echo "$what" | "filterchain_overwrite"
+    for filter in $what
+    do
+        if ! isFilter $filter; then
+            echo "$filter er altså bare overhovedet ikke en væremåde!"
+            exit
+        fi
+    done
+    
+    echo "$what" | dbWrite "filterchain_overwrite"
     runcmd $command
     dbDelete "filterchain_overwrite"
 else
