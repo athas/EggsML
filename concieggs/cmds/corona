@@ -11,6 +11,7 @@ deathcsv = requests.get('https://raw.githubusercontent.com/CSSEGISandData/COVID-
 deathreader = csv.reader(deathcsv.text.splitlines()[1:])
 
 deaths = 0
+deathsDay = [0,0,0,0,0]
 deathsPerCountry = {}
 deathsDayPerCountry = {}
 for row in deathreader:
@@ -26,6 +27,8 @@ for row in deathreader:
         deathsPerCountry[row[1]] += last5[4]
     except KeyError:
         deathsPerCountry[row[1]] = last5[4]
+    for i in range(0,5):
+        deathsDay[i] += last5[i]
     try:
         test = deathsDayPerCountry[row[1]]
         for i in range(0,5):
@@ -37,6 +40,7 @@ confirmedcsv = requests.get('https://raw.githubusercontent.com/CSSEGISandData/CO
 confirmedreader = csv.reader(confirmedcsv.text.splitlines()[1:])
 
 confirmed = 0
+confirmedDay = [0,0,0,0,0]
 confirmedPerCountry = {}
 confirmedDayPerCountry = {}
 for row in confirmedreader:
@@ -52,6 +56,8 @@ for row in confirmedreader:
         confirmedPerCountry[row[1]] += last5[4]
     except KeyError:
         confirmedPerCountry[row[1]] = last5[4]
+    for i in range(0,5):
+        confirmedDay[i] += last5[i]
     try:
         test = confirmedDayPerCountry[row[1]]
         for i in range(0,5):
@@ -93,6 +99,7 @@ def country(iput):
 showProgress = False
 idx = ''
 if len(sys.argv) > 1:
+    c = ''
     if ' '.join(sys.argv[1:]) == 'højest':
         # find land med højeste dødelighed
         highest = 0.0
