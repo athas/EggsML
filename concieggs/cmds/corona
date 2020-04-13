@@ -154,7 +154,7 @@ def diff(ls, i, j):
     if ls[i] == 0:
         return 0.0 # Den rigtige måde!
     else:
-        return d/ls[i]
+        return d/ls[i] * 100
 
 if showProgress:
     if idx != '':
