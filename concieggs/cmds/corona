@@ -12,50 +12,85 @@ deathreader = csv.reader(deathcsv.text.splitlines()[1:])
 
 deaths = 0
 deathsPerCountry = {}
+deathsDayPerCountry = {}
 for row in deathreader:
+    last5 = [0,0,0,0,0]
+    for j in range(1,6):
+        try:
+            i = int(row[-j])
+        except ValueError:
+            i = 0
+        last5[5-j] = i
+    deaths += last5[4]
     try:
-        i = int(row[-1])
-    except ValueError:
-        i = 0
-    deaths += i
-    try:
-        deathsPerCountry[row[1]] += i
+        deathsPerCountry[row[1]] += last5[4]
     except KeyError:
-        deathsPerCountry[row[1]] = i
+        deathsPerCountry[row[1]] = last5[4]
+    try:
+        test = deathsDayPerCountry[row[1]]
+        for i in range(0,5):
+            deathsDayPerCountry[row[1]][i] += last5[i]
+    except KeyError:
+        deathsDayPerCountry[row[1]] = last5
 
 confirmedcsv = requests.get('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv')
 confirmedreader = csv.reader(confirmedcsv.text.splitlines()[1:])
 
 confirmed = 0
 confirmedPerCountry = {}
+confirmedDayPerCountry = {}
 for row in confirmedreader:
+    last5 = [0,0,0,0,0]
+    for j in range(1,6):
+        try:
+            i = int(row[-j])
+        except ValueError:
+            i = 0
+        last5[5-j] = i
+    confirmed += last5[4]
     try:
-        i = int(row[-1])
-    except ValueError:
-        i = 0
-    confirmed += i
-    try:
-        confirmedPerCountry[row[1]] += i
+        confirmedPerCountry[row[1]] += last5[4]
     except KeyError:
-        confirmedPerCountry[row[1]] = i
+        confirmedPerCountry[row[1]] = last5[4]
+    try:
+        test = confirmedDayPerCountry[row[1]]
+        for i in range(0,5):
+            confirmedDayPerCountry[row[1]][i] += last5[i]
+    except KeyError:
+        confirmedDayPerCountry[row[1]] = last5
 
-countries = {'Kina': 'China', 'et krydstogskib': '', 'Sydkorea': 'Korea, South', 'Japan': 'Japan', 'Italien': 'Italy', 'Singapore': 'Singapore', 'Hongkong': 'Hong Kong', 'Iran': 'Iran', 'Amerikas forenede stater': 'US', 'Thailand': 'Thailand', 'Taiwan': 'Taiwan', 'Australien': 'Australia', 'Malaysien': 'Malaysia', 'Tyskland': 'Germany', 'Vietnam': 'Vietnam', 'de Forenede Arabiske Emirater': 'United Arab Emirates', 'Frankrig': 'France', 'Macau': 'Macau', 'Canada': 'Canada', 'det Forenede Kongerige': 'United Kingdom', 'Filippinerne': 'Philippines', 'Indien': 'India', 'Rusland': 'Russia', 'Spanien': 'Spain', 'Irak': 'Iraq', 'Israel': 'Israel', 'Lebanon': 'Lebanon', 'Sverige': 'Sweden', 'Belgien': 'Belgium', 'Cambodien': 'Cambodia', 'Ægypten': 'Egypt', 'Finland': 'Finland', 'Nepal': 'Nepal', 'Srilanka': 'Sri Lanka', 'Schweiz': 'Switzerland', 'Danmark': 'Denmark', 'Østrig': 'Austria', 'Oman': 'Oman', 'Afghanistan': 'Afghanistan', 'Kuwait': 'Kuwait', 'Kroatien': 'Croatia', 'Bahrain': 'Bahrain', 'Pakistan': 'Pakistan', 'Brasilien': 'Brazi;', 'Georgien': 'Georgia', 'Grækenland': 'Greece', 'Makedonien': 'North Macedonia', 'Norge': 'Norway', 'Rumænien': 'Romania', 'Letland': 'Latvia', 'Litauen': 'Lithuania', 'Estland': 'Estonia', 'Bulgarien': 'Bulgaria', 'Luxemborg': 'Luxembourg','Polen': 'Poland','Færøerne': 'Faroe Islands','Grønland': 'Greenland', 'Sydafrika': 'South Africa','Slovenien': 'Slovenia','Bosnien og Herzegovinien':'Bosnia and Herzegovina','Palæstina':'Palestine','Ungarn':'Hungary','Saudiarabien':'Saudi Arabia','Algeriet':'Algeria','Vatikanet':'Vatican City','Nederlandene':'Netherlands','Irland':'Ireland', 'Slovakiet': 'Slovakia', 'Tjekkiet': 'Czechia', 'Kypern': 'Cyprus'}
+countries = {'Kina': 'China', 'et krydstogskib': '', 'Sydkorea': 'Korea, South', 'Japan': 'Japan', 'Italien': 'Italy', 'Singapore': 'Singapore', 'Hongkong': 'Hong Kong', 'Iran': 'Iran', 'Amerikas forenede stater': 'US', 'Thailand': 'Thailand', 'Taiwan': 'Taiwan', 'Australien': 'Australia', 'Malaysien': 'Malaysia', 'Tyskland': 'Germany', 'Vietnam': 'Vietnam', 'de Forenede Arabiske Emirater': 'United Arab Emirates', 'Frankrig': 'France', 'Macau': 'Macau', 'Canada': 'Canada', 'det Forenede Kongerige': 'United Kingdom', 'Filippinerne': 'Philippines', 'Indien': 'India', 'Rusland': 'Russia', 'Spanien': 'Spain', 'Irak': 'Iraq', 'Israel': 'Israel', 'Lebanon': 'Lebanon', 'Sverige': 'Sweden', 'Belgien': 'Belgium', 'Cambodien': 'Cambodia', 'Ægypten': 'Egypt', 'Finland': 'Finland', 'Nepal': 'Nepal', 'Srilanka': 'Sri Lanka', 'Schweiz': 'Switzerland', 'Danmark': 'Denmark', 'Østrig': 'Austria', 'Oman': 'Oman', 'Afghanistan': 'Afghanistan', 'Kuwait': 'Kuwait', 'Kroatien': 'Croatia', 'Bahrain': 'Bahrain', 'Pakistan': 'Pakistan', 'Brasilien': 'Brazi;', 'Georgien': 'Georgia', 'Grækenland': 'Greece', 'Makedonien': 'North Macedonia', 'Norge': 'Norway', 'Rumænien': 'Romania', 'Letland': 'Latvia', 'Litauen': 'Lithuania', 'Estland': 'Estonia', 'Bulgarien': 'Bulgaria', 'Luxemborg': 'Luxembourg','Polen': 'Poland','Færøerne': 'Faroe Islands','Grønland': 'Greenland', 'Sydafrika': 'South Africa','Slovenien': 'Slovenia','Bosnien og Herzegovinien':'Bosnia and Herzegovina','Palæstina':'Palestine','Ungarn':'Hungary','Saudiarabien':'Saudi Arabia','Algeriet':'Algeria','Vatikanet':'Vatican City','Nederlandene':'Netherlands','Irland':'Ireland', 'Slovakiet': 'Slovakia', 'Tjekkiet': 'Czechia', 'Kypern': 'Cyprus', 'Malta': 'Malta', 'Portugal': 'Portugal'}
 groupings = {'den Europæiske Union': ['Belgien', 'Bulgarien', 'Kypern', 'Danmark', 'Estland', 'Finland', 'Frankrig', 'Grækenland', 'Irland', 'Italien', 'Kroatien', 'Letland', 'Litauen', 'Luxemborg', 'Malta', 'Nederlandene', 'Polen', 'Portugal', 'Rumænien', 'Slovakiet', 'Slovenien', 'Spanien', 'Sverige', 'Tjekkiet', 'Tyskland', 'Ungarn', 'Østrig']}
 alternatives = {'US': 'Amerikas forenede stater', 'USA': 'Amerikas forenede stater', 'Amerika': 'Amerikas forenede stater', 'DK': 'Danmark', 'Q8': 'Kuwait', 'Pavestaten': 'Vatikanet', 'UK': 'det Forenede Kongerige', 'EU': 'den Europæiske Union'}
 
 for group, members in groupings.items():
     groupDeaths = 0
     groupConfirmed = 0
+    groupDeathsDay = [0,0,0,0,0]
+    groupConfirmedDay = [0,0,0,0,0]
     for member in members:
         try:
             idx = countries[member]
             groupDeaths += deathsPerCountry[idx]
             groupConfirmed += confirmedPerCountry[idx]
+            for i in range(0,5):
+                groupDeathsDay[i] += deathsDayPerCountry[idx][i]
+                groupConfirmedDay[i] += confirmedDayPerCountry[idx][i]
         except KeyError:
             pass
     deathsPerCountry[group] = groupDeaths
     confirmedPerCountry[group] = groupConfirmed
+    deathsDayPerCountry[group] = groupDeathsDay
+    confirmedDayPerCountry[group] = groupConfirmedDay
+    
+def country(iput):
+    try:
+        c = alternatives[' '.join(iput)]
+    except KeyError:
+        c = ' '.join(iput)
+    return c
 
+showProgress = False
 idx = ''
 if len(sys.argv) > 1:
     if ' '.join(sys.argv[1:]) == 'højest':
@@ -75,44 +110,75 @@ if len(sys.argv) > 1:
             if confirmed > most:
                 most = confirmed
                 c = country
+    elif sys.argv[1] == 'udvikling':
+        # vis udvikling for et land
+        showProgress = True
+        if len(sys.argv) > 2:
+            c = country(sys.argv[2:])
     else:
+        c = country(sys.argv[1:])
+    if len(c) > 0:
         try:
-            c = alternatives[' '.join(sys.argv[1:])]
+            idx = countries[c]
         except KeyError:
-            c = ' '.join(sys.argv[1:])
-    try:
-        idx = countries[c]
-    except KeyError:
-        try:
-            test = confirmedPerCountry[c]
-            idx = c
-            for dansk, engelsk in countries.items():
-                if idx == engelsk:
-                    c = dansk
-                    break
-        except KeyError:
-            print('Æh, jeg har altså ikke hørt om %s' % (c))
+            try:
+                test = confirmedPerCountry[c]
+                idx = c
+                for dansk, engelsk in countries.items():
+                    if idx == engelsk:
+                        c = dansk
+                        break
+            except KeyError:
+                print('Æh, jeg har altså ikke hørt om %s' % (c))
+        if idx != '':
+            try:
+                deaths = deathsPerCountry[idx]
+            except KeyError:
+                deaths = 0
+            try:
+                confirmed = confirmedPerCountry[idx]
+            except KeyError:
+                confirmed = 0
+            if showProgress:
+                try:
+                    deathsDay = deathsDayPerCountry[idx]
+                except KeyError:
+                    deathsDay = [0,0,0,0,0]
+                try:
+                    confirmedDay = confirmedDayPerCountry[idx]
+                except KeyError:
+                    confirmedDay = [0,0,0,0,0]
+
+def diff(ls, i, j):
+    d = ls[j] - ls[i]
+    if ls[i] == 0:
+        return 0.0 # Den rigtige måde!
+    else:
+        return d/ls[i]
+
+if showProgress:
     if idx != '':
-        try:
-            deaths = deathsPerCountry[idx]
-        except KeyError:
-            deaths = 0
-        try:
-            confirmed = confirmedPerCountry[idx]
-        except KeyError:
-            confirmed = 0
-
-if idx != '':
-    if confirmed == 0:
-        print('Coronavirussen har sgu\' ikke berørt nogen i %s endnu.  Måske du skulle hjælpe lidt til?' % c)
+        if confirmed == 0:
+            print('Coronavirussen har ikke udviklet sig i %s endnu!  Hvis den hvide mands byrde!' % c)
+        else:
+            print('Coronavirussen har udviklet sig i %s (smittede/døde) de sidste fem dage: %d/%d, %d/%d (+%.2f%%/+%.2f%%), %d/%d (+%.2f%%/+%.2f%%), %d/%d (+%.2f%%/+%.2f%%), %d/%d (+%.2f%%/+%.2f%%)' % (c, confirmedDay[0], deathsDay[0], confirmedDay[1], deathsDay[1], diff(confirmedDay,0,1), diff(deathsDay,0,1), confirmedDay[2], deathsDay[2], diff(confirmedDay,1,2), diff(deathsDay,1,2), confirmedDay[3], deathsDay[3], diff(confirmedDay,2,3), diff(deathsDay,2,3), confirmedDay[4], deathsDay[4], diff(confirmedDay,3,4), diff(deathsDay,3,4)))
     else:
-        print('Coronavirussen har indtil videre slået {0:n} mennesker ihjel og smittet {1:n} i {2}. Det svarer til en succesrate på {3:n}%!'.format(deaths, confirmed, c, round(deaths / confirmed * 100, 2)))
+        print('Coronavirussen har udviklet sig på verdensplan (smittede/døde) de sidste fem dage: %d/%d, %d/%d (+%.2f%%/+%.2f%%), %d/%d (+%.2f%%/+%.2f%%), %d/%d (+%.2f%%/+%.2f%%), %d/%d (+%.2f%%/+%.2f%%)' % (confirmedDay[0], deathsDay[0], confirmedDay[1], deathsDay[1], diff(confirmedDay,0,1), diff(deathsDay,0,1), confirmedDay[2], deathsDay[2], diff(confirmedDay,1,2), diff(deathsDay,1,2), confirmedDay[3], deathsDay[3], diff(confirmedDay,2,3), diff(deathsDay,2,3), confirmedDay[4], deathsDay[4], diff(confirmedDay,3,4), diff(deathsDay,3,4)))
 else:
-    print('Coronavirussen har indtil videre slået {0:n} mennesker ihjel og smittet {1:n}. Det svarer til en succesrate på {2:n}%!'.format(deaths, confirmed, round(deaths / confirmed * 100, 2)))
+    if idx != '':
+        if confirmed == 0:
+            print('Coronavirussen har sgu\' ikke berørt nogen i %s endnu.  Måske du skulle hjælpe lidt til?' % c)
+        else:
+            print('Coronavirussen har indtil videre slået {0:n} mennesker ihjel og smittet {1:n} i {2}. Det svarer til en succesrate på {3:n}%!'.format(deaths, confirmed, c, round(deaths / confirmed * 100, 2)))
+    else:
+        print('Coronavirussen har indtil videre slået {0:n} mennesker ihjel og smittet {1:n}. Det svarer til en succesrate på {2:n}%!'.format(deaths, confirmed, round(deaths / confirmed * 100, 2)))
 
-msgs = ['Hvem mon bliver nummer {0:n}?'.format(deaths+1)]
-if confirmed > 0:
-    msgs.append('Kan vi få den op på {0:n}%?'.format(round(math.floor(deaths / confirmed * 100 + 1),2)))
+msgs = []
+if not showProgress:
+    msgs.append('Hvem mon bliver nummer {0:n}?'.format(deaths+1))
+    if confirmed > 0:
+        msgs.append('Kan vi få den op på {0:n}%?'.format(round(math.floor(deaths / confirmed * 100 + 1),2)))
+# TODO: Lav en god besked om udvikling
 
 if idx == '':
     msgs.append('Du kan hjælpe ved at tage til %s og indånde folks hoste, og derefter hoste på andre mennesker.' % random.choice(list(countries.keys())))
