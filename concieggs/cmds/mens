@@ -8,8 +8,10 @@ if [ "$what" ] && [ "$command" ]; then
     for filter in $what
     do
         if ! isFilter $filter; then
-            echo "$filter er altså bare overhovedet ikke en væremåde!"
-            exit
+        	if [ "$filter" != "normal" ]; then
+		        echo "$filter er altså bare overhovedet ikke en væremåde!"
+		        exit
+		    fi
         fi
     done
 
