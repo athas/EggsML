@@ -36,10 +36,11 @@ apply_db_filter_inner() {
         fi
     fi
 
+    # Remove any trailing line change
+    filterchain=$(echo -n $filterchain)
+
     if [ "$filterchain" = 'normal' ]; then
         filterchain=''
-    else
-        filterchain=$(echo -n $filterchain)
     fi
 
     # Apply 'filterchain', or not.
