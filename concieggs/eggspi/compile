@@ -36,7 +36,7 @@ else
             ;;
         *cob)
             compile() {
-                cobc -x $2 $1
+                cobc -x -o $2 $1
             }
             ;;
         *sml)
