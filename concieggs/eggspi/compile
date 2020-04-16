@@ -38,6 +38,7 @@ else
             compile() {
                 cobc -x $2 $1
             }
+            ;;
         *sml)
             compile() {
                 mosmlc -P full -toplevel -o $2 $1
