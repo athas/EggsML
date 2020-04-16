@@ -34,6 +34,10 @@ else
                 gcc -std=c99 -I "$CONCIEGGS_DIR/eggspi" -lm $1 -o $2
             }
             ;;
+        *cob)
+            compile() {
+                cobc -x $2 $1
+            }
         *sml)
             compile() {
                 mosmlc -P full -toplevel -o $2 $1
