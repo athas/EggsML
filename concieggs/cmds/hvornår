@@ -6,7 +6,10 @@ removeYear() {
     sed 's/^....-//'
 }
 
-eval "$(echo "$@" | parse '(?<birthday>har (?<birthday_kid>[^ ]+) fødselsdag)')"
+eval "$(echo "$@" | parse \
+'(?<birthday>har (?<birthday_kid>[^ ]+) fødselsdag)$|'\
+'(?<halvening>(sker|kommer) the halvening)')"
+halvening=test
 
 who=$(randomName $EGGS_USER)
 if ! [ "$who" ]; then
@@ -33,6 +36,12 @@ if [ "$birthday" ]; then
     else
         echo "$EGGS_USER: $recp har fødselsdag $(formatDate $date)!"
     fi
+elif [ "$halvening" ]; then
+    res=$(curl -s https://blockchain.info/q/getblockcount)
+    missing_blocks=$((210000 - $res % 210000))
+    estimated_missing_min=$(($missing_blocks * 10))
+    estimated_halvening=$(date -d "+$estimated_missing_min min" '+%F %T')
+    echo "Den næste halvening forventes $estimated_halvening"
 else
-    echo "Brug: hvornår har (jeg|<bruger>) fødselsdag?"
+    echo "Brug: hvornår har (jeg|<bruger>) fødselsdag? Eller: hvornår (kommer|sker) the halvening?"
 fi
