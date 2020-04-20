@@ -40,7 +40,7 @@ elif [ "$halvening" ]; then
     missing_blocks=$((210000 - $res % 210000))
     estimated_missing_min=$(($missing_blocks * 10))
     estimated_halvening=$(date -d "+$estimated_missing_min min" '+%F %T')
-    echo "Den næste halvening forventes $estimated_halvening"
+    echo "Den næste halvering i Bitcoins inflation sker om $missing_blocks blokke og forventes $estimated_halvening CET"
 else
     echo "Brug: hvornår har (jeg|<bruger>) fødselsdag? Eller: hvornår (kommer|sker) the halvening?"
 fi
