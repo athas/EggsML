@@ -1,0 +1,21 @@
+#!/usr/bin/env perl
+#
+# `snak` ligesom `gentauro`
+
+use 5.012;
+use strict;
+use warnings;
+use utf8::all;
+
+sub gentauro { rand() < 0.10 ? "`" . shift . "`" : shift }
+
+while (my $line = <STDIN>) {
+    chomp $line;
+
+    my $me = $line =~ m!^/me !i;
+    $line = substr $line, 4 if $me;
+    $line =~ s/\b(\S+)\b/gentauro($1)/ge;
+
+    my $meprefix = $me ? "/me " : "";
+    say $meprefix . $line;
+}
