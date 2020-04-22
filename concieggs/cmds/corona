@@ -163,14 +163,22 @@ def diff(ls, i, j):
     else:
         return d/ls[i] * 100
 
+def averageDiff(ls):
+    n = 0
+    diff = 0
+    for i in range(1,len(ls)):
+        n += 1
+        diff += ls[i] - ls[i-1]
+    return diff/n
+
 if showProgress:
     if idx != '':
         if confirmed == 0:
             print('Coronavirussen har ikke udviklet sig i %s endnu!  Hvis den hvide mands byrde!' % c)
         else:
-            print('Coronavirussen har udviklet sig i %s (smittede/døde) de sidste fem dage: %d/%d, %d/%d (+%.2f%%/+%.2f%%), %d/%d (+%.2f%%/+%.2f%%), %d/%d (+%.2f%%/+%.2f%%), %d/%d (+%.2f%%/+%.2f%%)' % (c, confirmedDay[0], deathsDay[0], confirmedDay[1], deathsDay[1], diff(confirmedDay,0,1), diff(deathsDay,0,1), confirmedDay[2], deathsDay[2], diff(confirmedDay,1,2), diff(deathsDay,1,2), confirmedDay[3], deathsDay[3], diff(confirmedDay,2,3), diff(deathsDay,2,3), confirmedDay[4], deathsDay[4], diff(confirmedDay,3,4), diff(deathsDay,3,4)))
+            print('Coronavirussen har udviklet sig i %s (smittede/døde) de sidste fem dage: %d/%d, %d/%d (+%.2f%%/+%.2f%%), %d/%d (+%.2f%%/+%.2f%%), %d/%d (+%.2f%%/+%.2f%%), %d/%d (+%.2f%%/+%.2f%%) (gennemsnit: +%d/+%d)' % (c, confirmedDay[0], deathsDay[0], confirmedDay[1], deathsDay[1], diff(confirmedDay,0,1), diff(deathsDay,0,1), confirmedDay[2], deathsDay[2], diff(confirmedDay,1,2), diff(deathsDay,1,2), confirmedDay[3], deathsDay[3], diff(confirmedDay,2,3), diff(deathsDay,2,3), confirmedDay[4], deathsDay[4], diff(confirmedDay,3,4), diff(deathsDay,3,4), averageDiff(confirmedDay), averageDiff(deathsDay)))
     else:
-        print('Coronavirussen har udviklet sig på verdensplan (smittede/døde) de sidste fem dage: %d/%d, %d/%d (+%.2f%%/+%.2f%%), %d/%d (+%.2f%%/+%.2f%%), %d/%d (+%.2f%%/+%.2f%%), %d/%d (+%.2f%%/+%.2f%%)' % (confirmedDay[0], deathsDay[0], confirmedDay[1], deathsDay[1], diff(confirmedDay,0,1), diff(deathsDay,0,1), confirmedDay[2], deathsDay[2], diff(confirmedDay,1,2), diff(deathsDay,1,2), confirmedDay[3], deathsDay[3], diff(confirmedDay,2,3), diff(deathsDay,2,3), confirmedDay[4], deathsDay[4], diff(confirmedDay,3,4), diff(deathsDay,3,4)))
+        print('Coronavirussen har udviklet sig på verdensplan (smittede/døde) de sidste fem dage: %d/%d, %d/%d (+%.2f%%/+%.2f%%), %d/%d (+%.2f%%/+%.2f%%), %d/%d (+%.2f%%/+%.2f%%), %d/%d (+%.2f%%/+%.2f%%) (gennemsnit: +%d/+%d)' % (confirmedDay[0], deathsDay[0], confirmedDay[1], deathsDay[1], diff(confirmedDay,0,1), diff(deathsDay,0,1), confirmedDay[2], deathsDay[2], diff(confirmedDay,1,2), diff(deathsDay,1,2), confirmedDay[3], deathsDay[3], diff(confirmedDay,2,3), diff(deathsDay,2,3), confirmedDay[4], deathsDay[4], diff(confirmedDay,3,4), diff(deathsDay,3,4), averageDiff(confirmedDay), averageDiff(deathsDay)))
 else:
     if idx != '':
         if confirmed == 0:
