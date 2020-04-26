@@ -3,7 +3,7 @@ use utf8::all;
 use 5.022;
 use warnings;
 
-die "Brug: getPopulation <land>" unless $#ARGV == 0; 
+die "Brug: getPopulationOf <land>" unless $#ARGV == 0;
 my $waOutput = `wa population of $ARGV[0]`;
 $waOutput =~ /\s*Result: (\d+(?:\.\d+)?)\s(people|million|billion)/;
 
