@@ -1,0 +1,26 @@
+#!/usr/bin/env perl
+use utf8::all;
+use 5.022;
+use warnings;
+
+die "Brug: getPopulation <land>" unless $#ARGV == 0; 
+my $waOutput = `wa population of $ARGV[0]`;
+$waOutput =~ /\s*Result: (\d+(?:\.\d+)?)\s(people|million|billion)/;
+
+my $populationString = $1;
+my $multiplier = $2;
+
+die "Unable to interpret population number. Got: $waOutput" unless $populationString ne '' and $multiplier ne '';
+
+my $population;
+if ($multiplier eq "people") {
+    $population = $populationString;
+} elsif ($multiplier eq "million") {
+    $population = $populationString * 1000000;
+} elsif ($multiplier eq "billion") {
+    $population = $populationString * 1000000000;
+} else {
+    die "Unable to interpret population number. Got: $waOutput";
+}
+
+say $population;
