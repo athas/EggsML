@@ -18,6 +18,7 @@ while (my $line = <STDIN>) {
     my $me = $line =~ m!^/me !i;
     $line = substr $line, 4 if $me;
     $line =~ s/\b(\S+)\b/gentauro($1)/ge;
+    $line =~ s/ell/LeL/ge;
 
     my $meprefix = $me ? "/me " : "";
     say $meprefix . $line;
