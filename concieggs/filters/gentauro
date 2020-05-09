@@ -12,13 +12,22 @@ sub gentauro {
     return length($word) > 3 && rand() < 0.20 ? "`$word`" : $word;
 }
 
+
+sub funny_stuff {
+    my $word = shift;
+    if(length($word) > 3 && rand() < 0.90){
+        $word =~ s/(\S)([aeiou])(l)(\3*)\b/$1\Ul$2$3/gi;
+    }
+    return $word;
+}
+
 while (my $line = <STDIN>) {
     chomp $line;
 
     my $me = $line =~ m!^/me !i;
     $line = substr $line, 4 if $me;
     $line =~ s/\b(\S+)\b/gentauro($1)/ge;
-    $line =~ s/ell/LeL/g;
+    $line =~ s/\b(\S+)\b/funny_stuff($1)/ge;
 
     my $meprefix = $me ? "/me " : "";
     say $meprefix . $line;
