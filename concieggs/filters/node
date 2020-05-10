@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-if [ maybeGood ]; then
-   gunzip -c $CONCIEGGS_DB_DIR/npm-packages.json.gz | shuf -n 1  | head -c-3 | jq -r '"Har du prøvet den fantastiske node pakke \(.id)?"'
-fi
+maybeGood 0.5 && gunzip -c $CONCIEGGS_DB_DIR/npm-packages.json.gz | shuf -n 1  | head -c-3 | jq -r '"Har du prøvet den fantastiske node pakke \(.id)?"'
 
 cat -
