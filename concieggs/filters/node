@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ $(( $RANDOM % 2 )) -eq 0 ]; then
+if [ $(random 0 2) -eq 0 ]; then
    gunzip -c $CONCIEGGS_DB_DIR/npm-packages.json.gz | shuf -n 1  | head -c-3 | jq -r '"Har du prøvet den fantastiske node pakke \(.id)?"'
 fi
 
