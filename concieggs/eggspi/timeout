@@ -2,8 +2,10 @@
 #
 # Wrapper for invoking GNU timeout on non-GNU systems.
 
-if which /usr/local/bin/gtimeout > /dev/null; then
+if which /usr/local/bin/gtimeout >/dev/null 2>/dev/null; then
     /usr/local/bin/gtimeout "$@"
+elif which /run/current-system/sw/bin/timeout >/dev/null 2>/dev/null; then
+    /run/current-system/sw/bin/timeout "$@"
 else
     /usr/bin/timeout "$@"
 fi

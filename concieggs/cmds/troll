@@ -2,4 +2,7 @@
 #
 # Afvikl et udtryk i Torben's programmeringssprog.
 
-echo "$@" | troll /dev/stdin 2>&1
+if ! (echo "$@" | timeout 4s troll /dev/stdin 2>&1); then
+   echo "$EGGS_USER: Så mange terninger har Torben slet ikke."
+   annoyedBy "$EGGS_USER" 10 "fik Torben til at slå terninger i urimeligt lang tid"
+fi
