@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Afvikl et udtryk i Torben's programmeringssprog.
+
+echo "$@" | troll /dev/stdin
