@@ -2,4 +2,4 @@
 #
 # Afvikl et udtryk i Torben's programmeringssprog.
 
-echo "$@" | troll /dev/stdin
+echo "$@" | troll /dev/stdin 2>&1
