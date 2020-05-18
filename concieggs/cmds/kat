@@ -7,4 +7,14 @@ if ! [ "$length" ]; then
     length=$(expr $(checkCharmen) '*' 3)
 fi
 
-makeCat $length || echo "$EGGS_USER: Så vild er jeg ikke."
+if [ "$length" -gt 200 ] || [ "$length" -lt 0 ]
+then
+    say "$EGGS_USER: Det ville være MIS-handling."
+    annoyedBy "$EGGS_USER" 1 "forsøg på mishandling"
+    exit
+fi
+
+for i in $(seq $length); do
+    echo -n $(catte)
+done
+catte
