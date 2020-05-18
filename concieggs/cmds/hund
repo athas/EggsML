@@ -13,17 +13,7 @@ then
     exit
 fi
 
-echo ' ▄▀▄▀▀▀▀▄▀▄         '
-echo ' █░░░░░░░░▀▄      ▄ '
-echo '█░░▀░░▀░░░░░▀▄▄  █░█'
-echo '█░▄░█▀░▄░░░░░░░▀▀░░█'
-echo '█░░▀▀▀▀░░░░░░░░░░░░█'
-echo '█░░░░░░░░░░░░░░░░░░█'
-for i in $(seq 1 $SEGMENTS)
-do
-    echo '█░░░░░░░░░░░░░░░░░░█'
+for i in $(seq $SEGMENTS); do
+    echo -n $(doggo)
 done
-echo '█░░░░░░░░░░░░░░░░░░█'
-echo ' █░░▄▄░░▄▄▄▄░░▄▄░░█ '
-echo ' █░▄▀█░▄▀  █░▄▀█░▄▀ '
-echo '  ▀   ▀     ▀   ▀   '
+doggo
