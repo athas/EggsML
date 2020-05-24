@@ -1,0 +1,30 @@
+#!/bin/sh
+
+set -e
+
+cd "$(dirname "$0")"
+
+levenshtein() {
+    ../eggspi/levenshtein "$@"
+}
+
+tempdir=$(mktemp -d)
+cat > "$tempdir/find_close_words" <<"EOF"
+#!/bin/sh
+word="$1"
+cat ordbog-dansk-navneord-gode \
+    | levenshtein $word \
+    | grep -E '^[12] ' \
+    | sort -n \
+    | cut -d' ' -f2 \
+    | grep -v $word \
+    | tr $'\n' ' ' \
+    | sed -E -e "s/^/$word:/" -e 's/ $/\n/'
+EOF
+chmod +x "$tempdir/find_close_words"
+export PATH="$tempdir:$PATH"
+# This is slow, but we only have to run it once.
+parallel -j 8 find_close_words \
+         < ordbog-dansk-navneord-gode \
+         > ordbog-dansk-navneord-gode-levenshtein
+rm -r "$tempdir"

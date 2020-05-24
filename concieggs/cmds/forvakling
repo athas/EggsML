@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# Ligesom en forvikling, men vakler på en mere tvivlsom humorkilde.
+
+fil="$CONCIEGGS_DB_DIR/ordbog-dansk-navneord-gode-levenshtein"
+
+linje=$(cat $fil | randomLine)
+wanted=$(echo $linje | cut -d':' -f1 | toupper)
+got=$(echo $linje | cut -d':' -f2 | tr ' ' $'\n' | randomLine | toupper)
+    randomLine <<EOF
+Jeg har _aldrig_ ejet $wanted — men så er det jo godt at jeg derhjemme har $got!
+Hahaha, og så var jeg sendt i byen for at købe $wanted — men, iiih, altså, jeg kom til at snuppe $got!
+Er det bare mig, eller føles det nogle gange som om $wanted bare er en pudset udgave af $got?
+Okay, jeg ved godt at folk er sådan "lad os tage i Irma og købe $wanted" — men helt ærligt, Lidls $got, anyone?
+EOF
