@@ -15,22 +15,22 @@ fi
 # Produce a random thought when someone enters the channel
 # but wait a short while such that it seems more natural
 sleep 6
-rand=$(random 1 13)
+rand=$(random 1 5)
 case $rand in
     # Produce a random thought
-    1|2|3|4)
+    1)
         rt=`$CONCIEGGS_DIR/cmds/vejr Velkomstbesked`
         ;;
-    5|6)
+    2)
         rt=`$CONCIEGGS_DIR/cmds/forvikling Velkomstbesked`
         ;;
-    7|8|9)
+    3)
         rt=`$CONCIEGGS_DIR/cmds/forvakling`
         ;;
-    10|11|12)
+    4)
         rt=`$CONCIEGGS_DIR/cmds/betragtning`
         ;;
-    13)
+    5)
         rt=`$CONCIEGGS_DIR/cmds/drudge dyr Velkomstbesked`
 esac
 
