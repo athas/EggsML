@@ -4,7 +4,7 @@
 
 fil="$CONCIEGGS_DB_DIR/ordbog-dansk-navneord-gode-levenshtein"
 
-linje=$(cat $fil | randomLine)
+linje=$(cat $fil | grep "$*" | randomLine)
 wanted=$(echo $linje | cut -d':' -f1 | toupper)
 got=$(echo $linje | cut -d':' -f2 | tr ' ' '\n' | randomLine | toupper)
     randomLine <<EOF
