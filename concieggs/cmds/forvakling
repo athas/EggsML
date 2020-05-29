@@ -4,7 +4,11 @@
 
 fil="$CONCIEGGS_DB_DIR/ordbog-dansk-navneord-gode-levenshtein"
 
-linje=$(cat $fil | grep "$*" | randomLine)
+linje=$(cat $fil | grep "$*:" | randomLine)
+if ! [ "$linje" ]; then
+    echo "$EGGS_USER: Hey, det der kan jeg ikke."
+    exit
+fi
 wanted=$(echo $linje | cut -d':' -f1 | toupper)
 got=$(echo $linje | cut -d':' -f2 | tr ' ' '\n' | randomLine | toupper)
     randomLine <<EOF
