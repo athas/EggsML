@@ -30,5 +30,6 @@ int main() {
   while ((n = getline(&line, &buf, stdin)) != -1) {
     fputs(strtrim(line), stdout);
   }
+  fflush(stdout);
   free(line);
 }
