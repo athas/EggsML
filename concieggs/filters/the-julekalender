@@ -3,10 +3,11 @@
 while read line; do
     for word in $line; do
         case $(random 0 4) in
-            0) echo "$word" | translate dansk engelsk
+            0) echo -n "$word" | translate dansk engelsk
                ;;
-            *) echo "$word"
+            *) echo -n "$word"
                ;;
         esac
     done
+    echo
 done
