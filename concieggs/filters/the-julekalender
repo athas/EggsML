@@ -1,14 +1,3 @@
 #!/bin/sh
 
-while read line; do
-    for word in $line; do
-        case $(random 0 4) in
-            0) echo "$word" | translate dansk engelsk | trim
-               echo -n " "
-               ;;
-            *) echo -n "$word "
-               ;;
-        esac
-    done
-    echo
-done
+onword 'translate dansk engelsk'
