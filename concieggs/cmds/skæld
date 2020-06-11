@@ -24,12 +24,14 @@ if (process.argv[2] == 'ud') {
       var choices_backfire = ['På ' + recp + '?  Nej, det ville ikke være rart!',
                               'Man må ikke være ond!',
                               'Rolig nu, vi skal alle være her.',
-                              'Nej, jeg vil insistere på at have en positiv tilgang!'
+                              'Nej, jeg vil insistere på at have en positiv tilgang!',
+                              'Det er vist dig der trænger til at blive skældt ud.'
                              ];
       var choices_real = ['Fyfy!',
                           EGGS_USER + ' er meget ked af hvad du gjorde, okay?',
                           'Det må man ikke!',
-                          'Pas lige på med det der næste gang.'
+                          'Pas lige på med det der næste gang.',
+                          'Den er ikke helt god, vel?',
                          ];
       if (Math.random() < 0.5) {
         var choices = choices_backfire;
