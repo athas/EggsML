@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 // Skæld ud på nogen.  Brug: skæld ud på PERSON.
 
+const execSync = require('child_process').execSync;
+
 EGGS_USER = process.env.EGGS_USER;
 
 function answer(message, to) {
@@ -16,6 +18,7 @@ if (process.argv[2] == 'ud') {
     var recp = process.argv[4];
     if (recp == 'concieggs') {
       answer('Ha ha ha ... LOL hvor er du morsom.')
+      execSync('annoyedBy ' + EGGS_USER + ' 10 "skældte ud på mig"');
     }
     else {
       var choices_backfire = ['På ' + recp + '?  Nej, det ville ikke være rart!',
