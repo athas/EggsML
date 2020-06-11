@@ -15,7 +15,7 @@ if (process.argv[2] == 'ud') {
       && process.argv[4]) {
     var recp = process.argv[4];
     if (recp == 'concieggs') {
-      answer('Fuck selv af, din humørswinger!')
+      answer('Ha ha ha ... LOL hvor er du morsom.')
     }
     else {
       var choices_backfire = ['På ' + recp + '?  Nej, det ville ikke være rart!',
