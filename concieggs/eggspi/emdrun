@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+emd run <(cat "$1" | awk '/%-/ { prog = 1; } { if (prog) print; }')

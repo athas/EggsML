@@ -1,0 +1,39 @@
+#!/usr/bin/env emdrun
+#
+# Savner du inspiration til dit næste commit til concieggs?
+# Få stokastistisk inspiration her.
+
+%-
+
+(:def what
+      (:oneof
+       (| "en krog")
+       (| "en kommando")
+       (| "et filter")))
+
+(:def verbum
+      (:oneof
+       (| "skænde")
+       (| "hylde")
+       (| "nævne")
+       (| "parodiere")))
+
+(:def adjektiv
+      (:oneof
+        (| "søde")
+        (| "dumme")
+        (| "oversete")
+        (| "undervurderede")
+        (| "glemte")))
+
+(:def noget
+      (:oneof
+       (| "Bitcoin")
+       (| "Stauning")
+       (| "Revolutionen")
+       (| "${adjektiv} kattekillinger")
+       (| "${adjektiv} hundehvalpe")
+       (| "Hitler")))
+
+(:def main
+      "Du kunne lave ${what} til at ${verbum} ${noget}!")
