@@ -185,9 +185,16 @@ else:
         if confirmed == 0:
             print('Coronavirussen har sgu\' ikke berørt nogen i %s endnu.  Måske du skulle hjælpe lidt til?' % c)
         else:
-            process = subprocess.run(['getPopulationOf', c], stdout=subprocess.PIPE)
-            population = int(process.stdout.decode('utf-8').rstrip())
-            print('Coronavirussen har indtil videre slået {0:n} mennesker ihjel og smittet {1:n} i {2}. Det svarer til en succesrate på {3:n}% og en micromort på {4:n}'.format(deaths, confirmed, c, round(deaths / confirmed * 100, 2), round(deaths / population * 1000000, 1)))
+            # Get population to get micromorts of covid-19
+            child = subprocess.Popen(['getPopulationOf', idx], stdout=subprocess.PIPE)
+            output = child.communicate()[0]
+            rc = child.returncode
+            micromort_info = ""
+            if rc == 0:
+                population = int(output.decode('utf-8').rstrip())
+                micromort_info = " og en micromort på {0:n}".format(round(deaths/population * 1000000, 1))
+
+            print('Coronavirussen har indtil videre slået {0:n} mennesker ihjel og smittet {1:n} i {2}. Det svarer til en succesrate på {3:n}%'.format(deaths, confirmed, c, round(deaths / confirmed * 100, 2)) + micromort_info)
     else:
         print('Coronavirussen har indtil videre slået {0:n} mennesker ihjel og smittet {1:n}. Det svarer til en succesrate på {2:n}%!'.format(deaths, confirmed, round(deaths / confirmed * 100, 2)))
 
