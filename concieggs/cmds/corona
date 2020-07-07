@@ -5,6 +5,7 @@ import csv
 import random
 import re
 import math
+import subprocess
 import sys
 
 deathcsv = requests.get('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv')
@@ -184,7 +185,9 @@ else:
         if confirmed == 0:
             print('Coronavirussen har sgu\' ikke berørt nogen i %s endnu.  Måske du skulle hjælpe lidt til?' % c)
         else:
-            print('Coronavirussen har indtil videre slået {0:n} mennesker ihjel og smittet {1:n} i {2}. Det svarer til en succesrate på {3:n}%!'.format(deaths, confirmed, c, round(deaths / confirmed * 100, 2)))
+            process = subprocess.run(['getPopulationOf', 'idx'], stdout=subprocess.PIPE)
+            population = int(process.stdout.decode('utf-8').rstrip())
+            print('Coronavirussen har indtil videre slået {0:n} mennesker ihjel og smittet {1:n} i {2}. Det svarer til en succesrate på {3:n}% og en micromort på {4:n}'.format(deaths, confirmed, c, round(deaths / confirmed * 100, 2), round(deaths / population * 1000000, 1)))
     else:
         print('Coronavirussen har indtil videre slået {0:n} mennesker ihjel og smittet {1:n}. Det svarer til en succesrate på {2:n}%!'.format(deaths, confirmed, round(deaths / confirmed * 100, 2)))
 
@@ -192,7 +195,7 @@ msgs = []
 if not showProgress:
     msgs.append('Hvem mon bliver nummer {0:n}?'.format(deaths+1))
     if confirmed > 0:
-        msgs.append('Kan vi få den op på {0:n}%?'.format(round(math.floor(deaths / confirmed * 100 + 1),2)))
+        msgs.append('Kan vi få succesraten op på {0:n}%?'.format(round(math.floor(deaths / confirmed * 100 + 1),2)))
 # TODO: Lav en god besked om udvikling
 
 if idx == '':
