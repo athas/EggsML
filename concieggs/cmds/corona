@@ -172,6 +172,16 @@ def averageDiff(ls):
         diff += ls[i] - ls[i-1]
     return diff/n
 
+# Returns None on failure to get population
+def getPopulation(place):
+    child = subprocess.Popen(['getPopulationOf', place], stdout=subprocess.PIPE)
+    output = child.communicate()[0]
+    rc = child.returncode
+    micromort_info = ""
+    if rc == 0:
+        return int(output.decode('utf-8').rstrip())
+    return None
+
 if showProgress:
     if idx != '':
         if confirmed == 0:
@@ -186,12 +196,9 @@ else:
             print('Coronavirussen har sgu\' ikke berørt nogen i %s endnu.  Måske du skulle hjælpe lidt til?' % c)
         else:
             # Get population to get micromorts of covid-19
-            child = subprocess.Popen(['getPopulationOf', idx], stdout=subprocess.PIPE)
-            output = child.communicate()[0]
-            rc = child.returncode
+            population = getPopulation(idx)
             micromort_info = ""
-            if rc == 0:
-                population = int(output.decode('utf-8').rstrip())
+            if (population != None):
                 micromort_info = " og en micromort på {0:n}".format(round(deaths/population * 1000000, 1))
 
             print('Coronavirussen har indtil videre slået {0:n} mennesker ihjel og smittet {1:n} i {2}. Det svarer til en succesrate på {3:n}%'.format(deaths, confirmed, c, round(deaths / confirmed * 100, 2)) + micromort_info)
