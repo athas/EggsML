@@ -185,7 +185,7 @@ else:
         if confirmed == 0:
             print('Coronavirussen har sgu\' ikke berørt nogen i %s endnu.  Måske du skulle hjælpe lidt til?' % c)
         else:
-            process = subprocess.run(['getPopulationOf', 'idx'], stdout=subprocess.PIPE)
+            process = subprocess.run(['getPopulationOf', c], stdout=subprocess.PIPE)
             population = int(process.stdout.decode('utf-8').rstrip())
             print('Coronavirussen har indtil videre slået {0:n} mennesker ihjel og smittet {1:n} i {2}. Det svarer til en succesrate på {3:n}% og en micromort på {4:n}'.format(deaths, confirmed, c, round(deaths / confirmed * 100, 2), round(deaths / population * 1000000, 1)))
     else:
