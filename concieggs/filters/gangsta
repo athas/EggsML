@@ -49,6 +49,9 @@ while (my $text = <>) {
     $text =~ s/regeringen /da rulers /g;
     $text =~ s/Regeringen /Da rulers /g;
     $text =~ s/ statsministeren / over-chiefen /g;
+    $text =~ s/Kongen /Top-chiefen /g;
+    $text =~ s/ kongen / top-chiefen /g;
+    $text =~ s/ konge / top-chief /g;
     $text =~ s/ livstid / 4ever-straf /g;
     $text =~ s/statsminister /overchief /g;
     $text =~ s/huset\b/cribbet/g;
@@ -316,7 +319,10 @@ while (my $text = <>) {
     $text =~ s/ kan godt lide / har opperen på over /g;
     $text =~ s/ godt kan lide / har opperen på over /g;
     $text =~ s/ virkelig / fucking sindssygt /g;
-
+    $text =~ s/ revolutionær?e / gangsta /g;
+    $text =~ s/ musik / beats /g;
+    $text =~ s/ strategi / moves /g;
+    $text =~ s/ royale? / badass /g;
 
     # fixups på tidligere regler
     $text =~ s/ hjalp / hjalp en homie og /g;
