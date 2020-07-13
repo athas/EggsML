@@ -5,7 +5,7 @@ use warnings;
 
 die "Brug: getPopulationOf <land>" unless $#ARGV == 0;
 my $waOutput = `wa population of $ARGV[0]`;
-$waOutput =~ /\s*Result: (\d+(?:\.\d+)?)\s(people|million|billion)/;
+$waOutput =~ /\s*(?:Result:|Summary: total\s+\|)\s+(\d+(?:\.\d+)?)\s(people|million|billion)/;
 
 my $populationString = $1;
 my $multiplier = $2;
