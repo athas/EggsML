@@ -27,7 +27,7 @@ save() {
                 break
             fi
         done
-        if [ "$is_forbidden"]; then
+        if [ "$is_forbidden" ]; then
             break
         fi
     done <<EOF
