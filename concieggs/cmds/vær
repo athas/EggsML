@@ -3,7 +3,7 @@
 # Bed concieggs om at være på en bestemt led.  Brug: 'vær MÅDE' eller
 # 'vær MÅDE mod BRUGER' eller 'vær MÅDE på KANAL'.  Der er mange MÅDER.
 
-eval "$(echo "$@" | parse '^(?:(?<additive>også)|(?<prepend>først) )?(?<what>.+?)(?: (?:mod|på) (?<specific>#?[^\s/]+))?$')"
+eval "$(echo "$@" | parse '^(?:(?<additive>også)|(?<prepend>først)|(?<negate>ikke) )?(?<what>.+?)(?: (?:mod|på) (?<specific>#?[^\s/]+))?$')"
 
 if [ ! "$what" ]; then
     echo "Du mangler en væremåde."
@@ -23,6 +23,13 @@ save() {
     echo "$*" | dbWrite $file
     echo "$(ack)  Væremåden er sat!"
 }
+
+if [ "$negate" ]; then
+    s="$(dbRead $file)"
+    for lang in $what; do
+        s="$(echo $s | grep -v "$lang")"
+    done
+fi
 
 case "$what" in
     # Gå tilbage til normal kedsomhed.
