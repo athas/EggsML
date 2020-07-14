@@ -20,14 +20,31 @@ else
 fi
 
 save() {
-    echo "$*" | dbWrite $file
-    echo "$(ack)  Væremåden er sat!"
+    while read forbidden; do
+        for lang in $forbidden; do
+            if ! echo "$*" | egrep -q "\<$lang\>"; then
+                is_forbidden=1
+                break
+            fi
+        done
+        if [ "$is_forbidden"]; then
+            break
+        fi
+    done <<EOF
+fraktur vildere
+EOF
+    if [ "$is_forbidden" ]; then
+        echo "Nej tak, den kombination bringer kun ulykke."
+    else
+        echo "$*" | dbWrite $file
+        echo "$(ack)  Væremåden er sat!"
+    fi
 }
 
 if [ "$negate" ]; then
     s="$(dbRead $file)"
     for lang in $what; do
-        s="$(echo $s | grep -v "$lang")"
+        s="$(echo $s | egrep -v "\<$lang\>")"
     done
     save $s
     exit
