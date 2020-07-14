@@ -21,9 +21,10 @@ fi
 
 save() {
     while read forbidden; do
+        is_forbidden=1
         for lang in $forbidden; do
             if ! echo "$*" | egrep -q "\<$lang\>"; then
-                is_forbidden=1
+                is_forbidden=''
                 break
             fi
         done
@@ -44,7 +45,7 @@ EOF
 if [ "$negate" ]; then
     s="$(dbRead $file)"
     for lang in $what; do
-        s="$(echo $s | egrep -v "\<$lang\>")"
+        s="$(echo $s | sed "s/\<$lang\>//g")"
     done
     save $s
     exit
