@@ -29,6 +29,8 @@ if [ "$negate" ]; then
     for lang in $what; do
         s="$(echo $s | grep -v "$lang")"
     done
+    save $s
+    exit
 fi
 
 case "$what" in
