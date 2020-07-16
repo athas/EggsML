@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# shuttingUp && exit
+
+if [ $(echo "$EGGS_BODY" | tr '[:upper:]' '[:lower:]' | tr -d '[:punct:][:space:]') = "ja" ]; then
+    echo "Nej."
+fi
+
+if [ $(echo "$EGGS_BODY" | tr '[:upper:]' '[:lower:]' | tr -d '[:punct:][:space:]') = "jo" ]; then
+    echo "Nej."
+fi
+
+if [ $(echo "$EGGS_BODY" | tr '[:upper:]' '[:lower:]' | tr -d '[:punct:][:space:]') = "nej" ]; then
+    echo "Jo."
+fi
