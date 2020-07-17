@@ -13,3 +13,7 @@ fi
 if [ $(echo "$EGGS_BODY" | tr '[:upper:]' '[:lower:]' | tr -d '[:punct:][:space:]') = "nej" ]; then
     echo "Jo."
 fi
+
+if [ $(echo "$EGGS_BODY" | tr '[:upper:]' '[:lower:]' | tr -d '[:punct:][:space:]') = "næ" ]; then
+    echo "Jo."
+fi
