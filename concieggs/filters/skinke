@@ -5,7 +5,7 @@ use utf8::all;
 
 sub preserve_case($$) {
     my ($old, $new) = @_;
-    return $old if (lc($old) eq "skinken" || lc($old) eq "skinkende" || lc($old) eq "skinkens");
+    return $old if (lc($old) eq "skinken" || lc($old) eq "skinkende" || lc($old) eq "skinkens" || lc($old) eq "skinker");
     my $mask = uc $old ^ $old;
     uc $new | $mask .
     substr($mask, 1) x ((length($new) - length($old)) > 0 ? length($new) - length($old) :  length($old) - length($new))
@@ -14,6 +14,7 @@ sub preserve_case($$) {
 while (my $line = <>) {
     $line =~ s/(\w{6,})e[nt]s\W/preserve_case($1, "skinkens")/egi;
     $line =~ s/(\w{7,})e[nt]\W/preserve_case($1, "skinken")/egi;
+    $line =~ s/(\w{7,})e[nt]\W/preserve_case($1, "skinker")/egi;
     $line =~ s/(\w{6,})ske\W/preserve_case($1, "skinkende")/egi;
     $line =~ s/(\w{9,})/preserve_case($1, "skinke")/egi;
     $line =~ s/\s+$//;
