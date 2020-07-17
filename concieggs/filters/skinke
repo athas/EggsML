@@ -14,7 +14,7 @@ sub preserve_case($$) {
 while (my $line = <>) {
     $line =~ s/(\w{6,})e[nt]s\W/preserve_case($1, "skinkens")/egi;
     $line =~ s/(\w{7,})e[nt]\W/preserve_case($1, "skinken")/egi;
-    $line =~ s/(\w{7,})e[nt]\W/preserve_case($1, "skinker")/egi;
+    $line =~ s/(\w{7,})er\W/preserve_case($1, "skinker")/egi;
     $line =~ s/(\w{6,})ske\W/preserve_case($1, "skinkende")/egi;
     $line =~ s/(\w{9,})/preserve_case($1, "skinke")/egi;
     $line =~ s/\s+$//;
