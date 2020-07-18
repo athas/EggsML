@@ -19,6 +19,7 @@ while (my $line = <>) {
     $line =~ s/(\w{9,})/preserve_case($1, "skinke")/egi;
     $line =~ s/\s+$//;
     $line =~ s/\s\s+/ /g;
-    $line =~ s/\s+([.,!\?:;\-\"\'\/])/$1/g;
+    $line =~ s/\s+([.,!\?:;\-\'\/])/$1/g;
+    $line =~ s/\s\s+(\")/ $1/g;
     say $line;
 }
