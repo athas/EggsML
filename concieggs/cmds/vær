@@ -20,10 +20,11 @@ else
 fi
 
 save() {
+    new="$*"
     while read forbidden; do
         is_forbidden=1
         for lang in $forbidden; do
-            if ! echo "$*" | egrep -q "\<$lang\>"; then
+            if ! echo "$new" | egrep -q "\<$lang\>"; then
                 is_forbidden=''
                 break
             fi
@@ -37,13 +38,21 @@ EOF
     if [ "$is_forbidden" ]; then
         echo "Nej tak, den kombination bringer kun ulykke."
     else
-        echo "$*" | dbWrite $file
-        echo "$(ack)  Væremåden er sat!"
+        s="$(dbRead $file)"
+        if [ "$new" = "$s" ]; then
+            if [ "$new" = '' ]; then
+                new=normal
+            fi
+            echo "Jamen jeg er jo allerede $new!"
+            annoyedBy "$EGGS_USER" 2 "bad mig være på en måde jeg allerede var"
+        else
+            echo "$new" | dbWrite $file
+            echo "$(ack)  Væremåden er sat!"
+        fi
     fi
 }
 
 if [ "$negate" ]; then
-    s="$(dbRead $file)"
     for lang in $what; do
         s="$(echo $s | sed "s/\<$lang\>//g")"
     done
