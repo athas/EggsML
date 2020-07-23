@@ -1,19 +1,21 @@
 #!/bin/sh
 
-# shuttingUp && exit
+shuttingUp && exit
 
-if [ $(echo "$EGGS_BODY" | tr '[:upper:]' '[:lower:]' | tr -d '[:punct:][:space:]') = "ja" ]; then
+den_der=$(echo "$EGGS_BODY" | tr '[:upper:]' '[:lower:]' | tr -d '[:punct:][:space:]')
+
+if [ "$den_der" = "ja" ]; then
     echo "Nej."
 fi
 
-if [ $(echo "$EGGS_BODY" | tr '[:upper:]' '[:lower:]' | tr -d '[:punct:][:space:]') = "jo" ]; then
+if [ "$den_der" = "jo" ]; then
     echo "Nej."
 fi
 
-if [ $(echo "$EGGS_BODY" | tr '[:upper:]' '[:lower:]' | tr -d '[:punct:][:space:]') = "nej" ]; then
+if [ "$den_der" = "nej" ]; then
     echo "Jo."
 fi
 
-if [ $(echo "$EGGS_BODY" | tr '[:upper:]' '[:lower:]' | tr -d '[:punct:][:space:]') = "næ" ]; then
+if [ "$den_der" = "næ" ]; then
     echo "Jo."
 fi
