@@ -54,6 +54,7 @@ while (<>) {
     s/(?<=\bs)ir/øster/ig;
     s/\bLord\b/Lady/g;
     s/fyr/fyrinde/ig;
+    s/computer/femputer/ig;
 
     s/(?<=[Ss]ør)en/ine/eig;
     s/(?<=[Jj]ørg)en/ine/eig;
