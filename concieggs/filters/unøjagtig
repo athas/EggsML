@@ -43,6 +43,8 @@ my @categories = (
             'Den Føderative Republik', 'Den Bolivarianske Republik',
             'Sultanatet', 'Den Islamiske Republik',
             'Det hasjimitiske kongerige', 'Den Arabiske Republik')],
+    [qw(tre fire fem seks syv otte elleve tolv tretten fjorten femten seksten sytten atten nitten)],
+    [qw(tyve tredive fyrre treds fjers firs fems)],
 );
 
 # Numbers
