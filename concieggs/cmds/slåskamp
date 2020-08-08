@@ -10,16 +10,6 @@ character() {
     random_marvel_character | sed -E "s/\([^)]+\)/($(random_actor))/" | toupper
 }
 
-filmtitle() {
-    randomLine <<EOF
-COUNCIL OF $wanted_category
-AGE OF $wanted_category
-DEFENDERS OF $wanted_category
-NIGHT OF THE LIVING $wanted
-SPRÆNGFARLIG $wanted
-EOF
-}
-
 char1=$(character)
 char2=$(character)
 char3=$(character)
@@ -34,7 +24,6 @@ fi
 wanted=$(echo "$wanted_raw" | cut -d'<' -f1 | toupper)
 wanted_category_raw=$(echo "$wanted_raw" | cut -d'<' -f2)
 wanted_category=$(echo "$wanted_category_raw" | toupper)
-wanted_filmtitle=$(filmtitle)
 got=$(cat $hyps | fgrep "$wanted_category_raw" | randomLine | cut -d'<' -f1 | toupper)
 
 if ! [ "$wanted" ]; then
@@ -61,15 +50,15 @@ Konflikten spænder til når $char1 havde fået lovning på $wanted fra $char2, 
 Er $wanted virkelig $wanted_category?  $char1 og $char2 er ikke enige, men danner fælles front da $char3 ankommer med $got.
 $wanted eller $got?  Dette er netop spørgsmålet i en voldsom konflikt der opstår mellem $char1 og $char2.
 $char1 med $wanted møder $got's forkæmper $char2 i en episk konflikt der skal komme til at afgøre fremtiden for $wanted_category.
-$char1 forklædt som $wanted infiltrerer den dunkle $wanted_filmtitle, men $char2 gennemskuer forklædningen!  Skulle $char1 have valgt $got i stedet?
+$char1 forklædt som $wanted infiltrerer den dunkle COUNCIL OF $wanted_category, men $char2 gennemskuer forklædningen!  Skulle $char1 have valgt $got i stedet?
 Efter mange års konflikt mellem $char1 og $char2 indgås kompromis om at $wanted er lige så godt som $got.  Lige indtil $char3 blander sig...
 $char1 har i årevis bevogtet statens dyrebare beholdning af $wanted, men i kulissen pønser $char2 på at stjæle alt $wanted ved at udskifte det med usselt $got.
 $char1 cirkelsparker $char2, som smadrer ind i en lagerbygning fyldt med $wanted_category. $char2 ligger kvæstet mellem $wanted og $got, men får så en snedig idé...
 For at stoppe $char1, rejser $char2 tilbage i tiden for at forhindre mødet mellem $char1 og $wanted. Men da $char2 kommer tilbage, er verden helt uden $wanted_category.
 En udmattet $char1 ligger brak efter at have reddet byen fra $wanted, men ud af ingenting dukker $char2 pludselig op med $got.
 $char2 sprænger en beskidt bombe med $wanted på Town Square, med tusinder af smittede til følge. $char1 har en eksperimentel kur mod $got, men er det mon godt nok...?
-Der er finansielle problemer i $wanted_filmtitle, og sparehensyn tvinger $char1 til at udskifte $wanted med $got.
-I filmen $wanted_filmtitle overraskes publikum da $char1 skaber en kunstig intelligens af $got, som prompte bliver til $wanted.  $char2 væmmes.
+Der er finansielle problemer i DEFENDERS OF $wanted_category, og sparehensyn tvinger $char1 til at udskifte $wanted med $got.
+I filmen AGE OF $wanted_category overraskes publikum da $char1 skaber en kunstig intelligens af $got, som prompte bliver til $wanted.  $char2 væmmes.
 Da kraftværkets $wanted_category CORE går i selvsving, ofrer $char1 sig for at skærme $char2 mod den dødelige stråling. Da $char2 kommer til sig selv, er $char1 forvandlet til $wanted.
-I filmen $wanted_filmtitle spreder $char2 genoplivningsserum over byens kirkegård for $wanted_category. $char1 og $got (som er på de godes side) klarer ærterne.
+I filmen NIGHT OF THE LIVING $wanted, spreder $char2 genoplivningsserum over byens kirkegård for $wanted_category. $char1 og $got (som er på de godes side) klarer ærterne.
 EOF
