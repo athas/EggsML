@@ -40,15 +40,14 @@ EOF
     exit
 fi
 
-good_guys() {
-    randomLine <<EOF
+good_guys=$(randomLine <<EOF
 COUNCIL OF $wanted_category
 DEFENDERS OF $wanted_category
 GUARDIANS OF THE $wanted_category
 THE $wanted_category LEAGUE
 THE $wanted_category AVENGERS
 EOF
-}
+)
 
 randomLine <<EOF
 Et fjendskab opstår mellem $char1 og $char2, begge medlemmer af $good_guys, når $char1 stjæler $wanted fra $char2, som så må nøjes med $got!
