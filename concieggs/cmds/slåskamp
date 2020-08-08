@@ -40,24 +40,34 @@ EOF
     exit
 fi
 
+good_guys() {
+    randomLine <<EOF
+COUNCIL OF $wanted_category
+DEFENDERS OF $wanted_category
+GUARDIANS OF THE $wanted_category
+THE $wanted_category LEAGUE
+THE $wanted_category AVENGERS
+EOF
+}
+
 randomLine <<EOF
-Et fjendskab opstår mellem $char1 og $char2 når $char1 stjæler $wanted fra $char2, som så må nøjes med $got!
-Det umage par $char1 og $char2 forenes i kampen mod at forhindre $wanted i at blive klassificeret som $wanted_category!
+Et fjendskab opstår mellem $char1 og $char2, begge medlemmer af $good_guys, når $char1 stjæler $wanted fra $char2, som så må nøjes med $got!
+Det umage par $char1 og $char2 forenes som $good_guys i kampen mod at forhindre $wanted i at blive klassificeret som $wanted_category!
 $char1 affyrer en stråle af energi mod $char2, men strålen rammer $wanted som forvandles til $got!
-$char1 indleder forblændet et forhold med $char2 i håbet om at $char2 er $wanted, men så viser det sig at $char2 hele tiden var $got.
+$char1 indleder forblændet et forhold med $char2 fra $good_guys i håbet om at $char2 er $wanted, men så viser det sig at $char2 hele tiden var $got.
 $char1 bryder med $char2 over uenigheder i etikken ved at bruge $got i stedet for $wanted når der skal bruges $wanted_category.
 Konflikten spænder til når $char1 havde fået lovning på $wanted fra $char2, men $char2 så dukker op med $got!
-Er $wanted virkelig $wanted_category?  $char1 og $char2 er ikke enige, men danner fælles front da $char3 ankommer med $got.
-$wanted eller $got?  Dette er netop spørgsmålet i en voldsom konflikt der opstår mellem $char1 og $char2.
-$char1 med $wanted møder $got's forkæmper $char2 i en episk konflikt der skal komme til at afgøre fremtiden for $wanted_category.
+Er $wanted virkelig $wanted_category?  $char1 og $char2 er ikke enige, men $good_guys danner fælles front da $char3 ankommer med $got.
+$wanted eller $got?  Dette er netop spørgsmålet i en voldsom konflikt der opstår mellem $char1 og $char2, og truer med at sprænge $good_guys.
+$char1 med $wanted møder $got's forkæmper $char2 i en episk konflikt i $good_guys der skal komme til at afgøre fremtiden for $wanted_category.
 $char1 forklædt som $wanted infiltrerer den dunkle COUNCIL OF $wanted_category, men $char2 gennemskuer forklædningen!  Skulle $char1 have valgt $got i stedet?
 Efter mange års konflikt mellem $char1 og $char2 indgås kompromis om at $wanted er lige så godt som $got.  Lige indtil $char3 blander sig...
-$char1 har i årevis bevogtet statens dyrebare beholdning af $wanted, men i kulissen pønser $char2 på at stjæle alt $wanted ved at udskifte det med usselt $got.
+$char1 har i årevis bevogtet ${good_guys}s dyrebare beholdning af $wanted, men i kulissen pønser $char2 på at stjæle alt $wanted ved at udskifte det med usselt $got.
 $char1 cirkelsparker $char2, som smadrer ind i en lagerbygning fyldt med $wanted_category. $char2 ligger kvæstet mellem $wanted og $got, men får så en snedig idé...
 For at stoppe $char1, rejser $char2 tilbage i tiden for at forhindre mødet mellem $char1 og $wanted. Men da $char2 kommer tilbage, er verden helt uden $wanted_category.
 En udmattet $char1 ligger brak efter at have reddet byen fra $wanted, men ud af ingenting dukker $char2 pludselig op med $got.
 $char2 sprænger en beskidt bombe med $wanted på Town Square, med tusinder af smittede til følge. $char1 har en eksperimentel kur mod $got, men er det mon godt nok...?
-Der er finansielle problemer i DEFENDERS OF $wanted_category, og sparehensyn tvinger $char1 til at udskifte $wanted med $got.
+Der er finansielle problemer i $good_guys, og sparehensyn tvinger $char1 til at udskifte $wanted med $got.
 I filmen AGE OF $wanted_category overraskes publikum da $char1 skaber en kunstig intelligens af $got, som prompte bliver til $wanted.  $char2 væmmes.
 Da kraftværkets $wanted_category CORE går i selvsving, ofrer $char1 sig for at skærme $char2 mod den dødelige stråling. Da $char2 kommer til sig selv, er $char1 forvandlet til $wanted.
 I filmen NIGHT OF THE LIVING $wanted, spreder $char2 genoplivningsserum over byens kirkegård for $wanted_category. $char1 og $got (som er på de godes side) klarer ærterne.
