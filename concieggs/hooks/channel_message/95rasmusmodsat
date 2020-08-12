@@ -19,3 +19,7 @@ fi
 if [ "$den_der" = "næ" ]; then
     echo "Jo."
 fi
+
+if [ "$den_der" = "tak" ]; then
+    echo "Det manglede da bare."
+fi
