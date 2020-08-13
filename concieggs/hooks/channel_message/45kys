@@ -1,4 +1,4 @@
-#!/usr/bin/env php-7.1
+#!/usr/bin/env php
 <?php
 
 $user = getenv('EGGS_USER');
