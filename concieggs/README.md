@@ -15,5 +15,5 @@ concieggsd.
 (\*): Prøv at køre denne kommando, og så smide dem igennem `cpan -i <moduler>`:
 
 ```
-grep -hPr '^\s*use (\S*).*;' . | cut -d' ' -f2 | cut -d';' -f1 | sort | uniq | grep -P '^[A-Z]' --color=never | tr '\n' ' '
+grep -hPr '^\s*use (\S*).*;' . | cut -d' ' -f2 | cut -d';' -f1 | sort | uniq | grep -v 'EggsML' | grep -P '^[A-Z]' --color=never | tr '\n' ' '
 ```
