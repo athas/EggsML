@@ -178,13 +178,21 @@ def get_url_from_search_string(ls):
             if f.geturl() == search_url:
                 body = f.read()
                 document = fromstring(body.decode("utf-8"))
-                i = 1 # which row represents a good hit? (1-indexed)
+                table = 1
+                row = 1 # which row represents a good hit? (1-indexed)
                 while(True):
-                    bad = document.cssselect('table.yr-table.yr-table-search-results tbody tr:nth-of-type({}) > td:nth-of-type(4)'.format(i))[0].text in ["Kommune", "Land", "Delstat", "Region", "Fylke"]
+                    els = document.cssselect('table.yr-table-search-results tr:nth-of-type({}) td:nth-of-type(4)'.format(row))
+                    bad = True
+                    table = 1
+                    for el in els:
+                        bad = el.text in ["Kommune", "Land", "Delstat", "Region", "Fylke"]
+                        if not bad:
+                            break
+                        table += 1
                     if not bad:
                         break
-                    i += 1
-                place_desc = document.cssselect('table.yr-table.yr-table-search-results tbody tr:nth-of-type({}) > td:nth-of-type(2) > a'.format(i))[0].get('href')
+                    row += 1
+                place_desc = document.cssselect('table.yr-table-search-results:nth-of-type({}) tr:nth-of-type({}) > td:nth-of-type(2) > a'.format(table, row))[0].get('href')
                 place_names = place_desc.split('/')
 
             # A redirect was followed. Get the API URL from the redirect URL
