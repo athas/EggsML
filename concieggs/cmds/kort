@@ -62,6 +62,8 @@ if __name__ == '__main__':
         query = " ".join(sys.argv[1:])
         if "fra en DC9" in query:
             query = query.replace("fra en DC9", "")
+        if "fra en rumstation" in query:
+            query = query.replace("fra en rumstation", "")
         (lat, lon) = sted.get_coords(query)
         lat = "{:2.6f}".format(lat)
         lon = "{:2.6f}".format(lon)
@@ -73,6 +75,8 @@ if __name__ == '__main__':
         zoom = 15
         if "fra en DC9" in " ".join(sys.argv[1:]):
             zoom = 9
+        if "fra en rumstation" in " ".join(sys.argv[1:]):
+            zoom = 4
         main(lat, lon, zoom)
         sys.exit(0)
 
