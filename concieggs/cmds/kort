@@ -5,6 +5,7 @@ from random import shuffle
 import re
 import subprocess
 import sys
+import eggsthon.sted as sted
 
 USE_RANDOM_COLOURS = True
 
@@ -55,11 +56,19 @@ def main(lat, lon):
     sys.stdout.buffer.write(output)
 
 if __name__ == '__main__':
-    if len(sys.argv) == 3:
+    locationFound = False
+    if len(sys.argv) > 1:
+        # let us search for that name
+        (lat, lon) = sted.get_coords(sys.argv[1:])
+        lat = "{:2.6f}".format(lat)
+        lon = "{:2.6f}".format(lon)
+        locationFound = p_coords.match(lat) and p_coords.match(lon)
+    if not locationFound and len(sys.argv) == 3:
         lat, lon = sys.argv[1:]
-        if p_coords.match(lat) and p_coords.match(lon):
-            main(lat, lon)
-            sys.exit(0)
+        locationFound = p_coords.match(lat) and p_coords.match(lon)
+    if locationFound:
+        main(lat, lon)
+        sys.exit(0)
 
-    print('Usage: {} LA.TATIDUDE LON.GITUDE'.format(sys.argv[0]))
+    print('Brug: kort LÆ.NGDEGRAD BR.EDDEGRAD')
     sys.exit(1)
