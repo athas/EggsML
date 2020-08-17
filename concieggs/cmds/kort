@@ -26,6 +26,7 @@ colour_mapping = {
 removes = [b'\x1b[2J', b'\x1b[?6h', b'\r', b'\x1b\[39;48;5;16m', b';48;5;16']
 p_fg = re.compile(b'\x1b\[38;5;(\d+)m')
 p_coords = re.compile('^-?\d+(.\d*)?$')
+p_size = re.compile('\((\d+)x(\d+)\)')
 
 unused_colours = list(range(2, 16))
 shuffle(unused_colours)
@@ -43,9 +44,9 @@ def sub_fg(match):
     fg = match.group(1)
     return b'\x03' + get_colour(fg)
 
-def main(lat, lon, zoom):
+def main(lat, lon, zoom, width, height):
     output = subprocess.check_output(
-            f'~/node_modules/.bin/mapscii -H -h 10 -w 40 -z {zoom} --lat {lat} --lon {lon}',
+            f'~/node_modules/.bin/mapscii -H -w {width} -h {height} -z {zoom} --lat {lat} --lon {lon}',
             shell=True)
 
     for _remove in removes:
@@ -57,6 +58,7 @@ def main(lat, lon, zoom):
 
 if __name__ == '__main__':
     locationFound = False
+    width, height = 40, 10
     if len(sys.argv) > 1:
         # let us search for that name
         query = " ".join(sys.argv[1:])
@@ -68,8 +70,10 @@ if __name__ == '__main__':
         lat = "{:2.6f}".format(lat)
         lon = "{:2.6f}".format(lon)
         locationFound = p_coords.match(lat) and p_coords.match(lon)
+        if m := p_size.search(query):
+            width, height = m.groups()
     if not locationFound and len(sys.argv) >= 3:
-        lat, lon = sys.argv[1:2]
+        lat, lon = sys.argv[1:3]
         locationFound = p_coords.match(lat) and p_coords.match(lon)
     if locationFound:
         zoom = 15
@@ -77,7 +81,7 @@ if __name__ == '__main__':
             zoom = 9
         if "fra en rumstation" in " ".join(sys.argv[1:]):
             zoom = 4
-        main(lat, lon, zoom)
+        main(lat, lon, zoom, width, height)
         sys.exit(0)
 
     print('Brug: kort LÆ.NGDEGRAD BR.EDDEGRAD')
