@@ -72,7 +72,7 @@ if __name__ == '__main__':
     if locationFound:
         zoom = 15
         if "fra en DC9" in " ".join(sys.argv[1:]):
-            zoom = 10
+            zoom = 9
         main(lat, lon, zoom)
         sys.exit(0)
 
