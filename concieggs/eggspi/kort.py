@@ -54,7 +54,7 @@ def make_map(lat, lon, zoom, width, height):
 
     output = p_fg.sub(sub_fg, output)
     output.replace(b'\x1b\[39;49m', b'\x03')
-    return output
+    return output.decode('utf8')
 
 if __name__ == '__main__':
     locationFound = False
@@ -83,7 +83,7 @@ if __name__ == '__main__':
         if "fra en rumstation" in " ".join(sys.argv[1:]):
             zoom = 4
         output = make_map(lat, lon, zoom, width, height)
-        sys.stdout.buffer.write(output)
+        sys.stdout.write(output)
         sys.exit(0)
 
     print('Brug: kort LÆ.NGDEGRAD BR.EDDEGRAD')
