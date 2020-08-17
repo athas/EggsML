@@ -8,6 +8,7 @@ from lxml.html import fromstring
 from datetime import datetime
 import eggsthon.shell as eggspi
 import os
+import subprocess
 import sys
 
 superman = r'''
@@ -356,8 +357,15 @@ else:
 
 now = datetime.now().time()
 
+loc = root.find('location')
+try:
+    _loc = loc.find('location')
+    lat = _loc.attrib['latitude']
+    lon = _loc.attrib['longitude']
+except:
+    lat = lon = None
+
 if cph_url != url:
-    loc = root.find('location')
     print("Vejrudsigt for {} i {}".format(loc.find('name').text, loc.find('country').text))
     # TODO: Add distance to Kantine here, see vejrLib.go
 print("🌅 {0} 🌇 {1}".format(sunrise_time, sunset_time))
@@ -367,7 +375,10 @@ fancy_unicode = 'svip' in recently_active
 
 pad_temp = max(len(time.find('temperature').attrib['value']) for time in tabular)
 
-if not hero:
+if lat and lon and random.random() < 0.5:
+    _height = len(tabular)
+    hero = subprocess.check_output(f'kort {} {} (25x{_height})')
+elif not hero:
     safe_choices = [s.split('\n')[1:-1] for s in
                     [superman, kingkong, someguy, kram]]
     edgy_choices = [s.split('\n')[1:-1] for s in
