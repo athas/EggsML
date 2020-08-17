@@ -43,9 +43,9 @@ def sub_fg(match):
     fg = match.group(1)
     return b'\x03' + get_colour(fg)
 
-def main(lat, lon):
+def main(lat, lon, zoom):
     output = subprocess.check_output(
-            f'~/node_modules/.bin/mapscii -H -h 10 -w 40 -z 15 --lat {lat} --lon {lon}',
+            f'~/node_modules/.bin/mapscii -H -h 10 -w 40 -z {zoom} --lat {lat} --lon {lon}',
             shell=True)
 
     for _remove in removes:
@@ -59,15 +59,21 @@ if __name__ == '__main__':
     locationFound = False
     if len(sys.argv) > 1:
         # let us search for that name
-        (lat, lon) = sted.get_coords(sys.argv[1:])
+        query = " ".join(sys.argv[1:])
+        if "fra en DC9" in query:
+            query = query.replace("fra en DC9", "")
+        (lat, lon) = sted.get_coords(query)
         lat = "{:2.6f}".format(lat)
         lon = "{:2.6f}".format(lon)
         locationFound = p_coords.match(lat) and p_coords.match(lon)
-    if not locationFound and len(sys.argv) == 3:
-        lat, lon = sys.argv[1:]
+    if not locationFound and len(sys.argv) >= 3:
+        lat, lon = sys.argv[1:2]
         locationFound = p_coords.match(lat) and p_coords.match(lon)
     if locationFound:
-        main(lat, lon)
+        zoom = 15
+        if "fra en DC9" in " ".join(sys.argv[1:]):
+            zoom = 9
+        main(lat, lon, zoom)
         sys.exit(0)
 
     print('Brug: kort LÆ.NGDEGRAD BR.EDDEGRAD')
