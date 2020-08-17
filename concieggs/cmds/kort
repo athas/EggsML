@@ -70,7 +70,8 @@ if __name__ == '__main__':
         lat = "{:2.6f}".format(lat)
         lon = "{:2.6f}".format(lon)
         locationFound = p_coords.match(lat) and p_coords.match(lon)
-        if m := p_size.search(query):
+        m = p_size.search(query)
+        if m:
             width, height = m.groups()
     if not locationFound and len(sys.argv) >= 3:
         lat, lon = sys.argv[1:3]
