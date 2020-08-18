@@ -377,7 +377,7 @@ pad_temp = max(len(time.find('temperature').attrib['value']) for time in tabular
 
 if lat and lon and random.random() < 0.5:
     _height = len(tabular)
-    hero = kort.make_map(lat, lon, 10, 100, _height).split('\n')
+    hero = kort.make_map(lat, lon, 10, 60, _height).split('\n')
 elif not hero:
     safe_choices = [s.split('\n')[1:-1] for s in
                     [superman, kingkong, someguy, kram]]
