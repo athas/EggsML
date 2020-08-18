@@ -76,6 +76,9 @@ if __name__ == '__main__':
         if int(height) > 40:
             print('Max højde er 40')
             sys.exit(1)
+        if int(width) > 85:
+            print('Max bredde er 85')
+            sys.exit(1)
     if not locationFound and len(sys.argv) >= 3:
         lat, lon = sys.argv[1:3]
         locationFound = p_coords.match(lat) and p_coords.match(lon)
