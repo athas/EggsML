@@ -73,6 +73,9 @@ if __name__ == '__main__':
         m = p_size.search(query)
         if m:
             width, height = m.groups()
+        if height > 40:
+            print('Max højde er 40')
+            sys.exit(1)
     if not locationFound and len(sys.argv) >= 3:
         lat, lon = sys.argv[1:3]
         locationFound = p_coords.match(lat) and p_coords.match(lon)
