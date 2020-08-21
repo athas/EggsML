@@ -46,7 +46,7 @@ def sub_fg(match):
 
 def make_map(lat, lon, zoom, width, height):
     output = subprocess.check_output(
-            f'~/node_modules/.bin/mapscii -H -w {width} -h {height} -z {zoom} --lat {lat} --lon {lon}',
+            f'~/node_modules/.bin/mapscii -b0 -H -w {width} -h {height} -z {zoom} --lat {lat} --lon {lon}',
             shell=True)
 
     for _remove in removes:
