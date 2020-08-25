@@ -50,6 +50,9 @@ def make_map(lat, lon, zoom, width, height):
     output = subprocess.check_output(
             f'~/node_modules/.bin/mapscii -H -w {width} -h {height} -z {zoom} --lat {lat} --lon {lon}',
             shell=True)
+    if b'Error:' in output:
+        sys.stderr.buffer.write(output)
+        raise Exception('mapscii output contains "Error:"')
 
     for _remove in removes:
         output = output.replace(_remove, b'')
