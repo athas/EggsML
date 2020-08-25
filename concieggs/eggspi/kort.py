@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 from functools import reduce
-import os
 from random import shuffle
 import re
 import subprocess
@@ -48,14 +47,7 @@ def sub_fg(match):
     return b'\x03' + get_colour(fg)
 
 def make_map(lat, lon, zoom, width, height):
-    output = ''
-    user = os.getenv("EGGS_USER")
-    if user == "sword_smith":
-        output = subprocess.check_output(
-            f'~/node_modules/.bin/mapscii -b0 -H -w {width} -h {height} -z {zoom} --lat {lat} --lon {lon}',
-            shell=True)
-    else:
-        output = subprocess.check_output(
+    output = subprocess.check_output(
             f'~/node_modules/.bin/mapscii -H -w {width} -h {height} -z {zoom} --lat {lat} --lon {lon}',
             shell=True)
     if b'Error:' in output:
