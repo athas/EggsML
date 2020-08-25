@@ -14,12 +14,12 @@ if (@links) {
     use Sys::SigAction qw/timeout_call/;
 EOU
 
-    my $mech = WWW::Mechanize->new( agent => 'ircbot:concieggs:1.0 (by reddit.com/u/Sebbe)', timeout => 5 );
+    my $mech = WWW::Mechanize->new( agent => 'ircbot:concieggs:1.0 (by reddit.com/u/Sebbe)', timeout => 10 );
     $mech->add_header('Accept-Language', 'da, en;q=0.8');
     local $| = 1;
 
     for my $link (@links) {
-        next if (timeout_call(5, sub { $mech->get($link); }));
+        next if (timeout_call(10, sub { $mech->get($link); }));
         next unless $mech->title;
         printf("%s: %s\n", $mech->title, $link);
     }
