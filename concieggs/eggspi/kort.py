@@ -23,7 +23,9 @@ colour_mapping = {
         b'255': b'15', # light grey
 }
 
-removes = [b'\x1b[2J', b'\x1b[?6h', b'\r', b'\x1b\[39;48;5;16m', b';48;5;16']
+removes = [b'\x1b[2J', b'\x1b[?6h', b'\r', b'\x1b\[39;48;5;16m', b';48;5;16',
+        b'\x1b[39m', b'\x1b[39;49m'
+        ]
 p_fg = re.compile(b'\x1b\[38;5;(\d+)m')
 p_coords = re.compile('^-?\d+(.\d*)?$')
 p_size = re.compile('\((\d+)x(\d+)\)')
