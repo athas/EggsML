@@ -14,6 +14,18 @@ else
     echo -n "Jeg giver $* "
 fi
 
+bristol() {
+        randomLine <<EOF
+1 (separate, hårde klumper)
+2 (pølseformet, men klumpet)
+3 (pølseformet, men med krakeleringer på overfladen)
+4 (pølse- eller slangeformet, glat og blød)
+5 (bløde klatter med klare afgrænsninger)
+6 (bløde, grødede klatter med svage, forrevne kanter)
+7 (helt våd og opløst)
+EOF
+}
+
 (
     echo "bestået\nikke bestået" | randomLine
     echo "godkendt\nikke godkendt\nikke godkendt - genaflevér" | randomLine
@@ -23,7 +35,7 @@ fi
     printf "%s på 7-trins-skalaen\n" "$(echo "-3\n00\n02\n4\n7\n10\n12" | randomLine)"
     printf "%s på ECTS-skalaen\n" "$(echo "A\nB\nC\nD\nE\nFx\nF" | randomLine)"
     printf "%s på den amerikanske skala\n" "$(echo "A+\nA\nA-\nB+\nB\nB-\nC+\nC\nC-\nD+\nD\nD-\nF" | randomLine)"
-    printf "%s på Bristols afføringsskala\n" "$(echo "1\n2\n3\n4\n5\n6\n7" | randomLine)"
+    printf "%s på Bristols afføringsskala\n" "$(bristol)"
     printf "%s GPA\n" "$(awk 'BEGIN { printf("%.1f\n", rand() * 4.0) }')"
     printf "%d%%\n" $(($RANDOM % 101))
     printf "%s på den numeriske skala\n" "$(echo "8\n6\n4\n2\n0" | randomLine)"
