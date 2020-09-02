@@ -8,6 +8,8 @@ if [ $# -eq 0 ]; then
 fi
 if [ "$*" = "$EGGS_USER" ] || [ "$*" = "mig" ]; then
     echo -n "Jeg giver Dem "
+elif [ "$*" = "$CONCIEGGS_NAME" ]; then
+    echo "$EGGS_USER: Bedøm dig selv!"
 else
     echo -n "Jeg giver $* "
 fi
