@@ -12,4 +12,4 @@ curl --silent 'https://hn.algolia.com/api/v1/search_by_date?tags=story' | \
     jq --argjson i "$RANDOM" --raw-output \
         '.hits | map(select(.url != null))
                | .[$i % length]
-               | "Jeg har lige læst \(.title) på \(.url) og syntes, den gav mig en god forståelse for emnet. Har du læst den?"'
+               | "Jeg har lige læst \(.title) på \(.url) og syntes, den gav mig en god forståelse for emnet. Har du læst den? Den diskuteres her: https://news.ycombinator.com/item?id=\(.objectID)"'

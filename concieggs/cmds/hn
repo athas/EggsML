@@ -82,11 +82,15 @@ for i in range(1, 25):
         text = anchor.text
         link = anchor.get('href')
 
+        # Find link to comments
+        id_ = story.get('id')
+        discussion_link = "https://news.ycombinator.com/item?id=" + id_
+
         # Handle HN internal links
         if link.startswith('item'):
             link = "https://news.ycombinator.com/" + link
         score_capture = score_regex.search(score.text)
-        formatted_links.append((text, link, int(score_capture.group(1)), i))
+        formatted_links.append((text, link, int(score_capture.group(1)), i, discussion_link))
 
 extra_output = ""
 if ss != "":
@@ -123,6 +127,6 @@ if (make_danish):
     text = process.stdout.decode('utf-8').rstrip()
 
 if only_link_and_title:
-    print('{}¶{}'.format(story[0], story[1]))
+    print('{}¶{}¶{}'.format(story[0], story[1], story[4]))
 else:
-    print('{}{}Du kan læse historien "{}" på {}. Den har {} point og blev fundet på side {}.'.format(http_error, extra_output, story[0], story[1], story[2], story[3]))
+    print('{}{}Du kan læse historien "{}" på {}. Den har {} point og blev fundet på side {}. Diskussion: {}'.format(http_error, extra_output, story[0], story[1], story[2], story[3], story[4]))
