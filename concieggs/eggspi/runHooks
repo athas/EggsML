@@ -17,6 +17,17 @@ if (!curhook || hook == curhook) {
 EOF
              )
 
+doGentauto() {
+    i=0;
+    while read -r line; do
+        if [ $i = 0 ]; then
+            echo "$(date +%H:%M) <$EGGS_USER> $EGGS_BODY"
+        fi
+        i=$((i+1))
+        echo "$line"
+    done
+}
+
 ls "$CONCIEGGS_DIR/hooks/$hooks/" |
     while read -r f; do
         spoke=''
@@ -24,9 +35,14 @@ ls "$CONCIEGGS_DIR/hooks/$hooks/" |
         if [ -x "$hook" ]; then
             decorateStdout "hooks/$f" decorateStderr "hooks/$f" runhook "$hook"
         fi
-    done | \
-        if dbExists debugging; then
-            cat
-        else
-            awk "$onlyFirstHook"
-        fi
+    done |
+    if dbExists debugging; then
+        cat
+    else
+        awk "$onlyFirstHook"
+    fi |
+    if usesFilter gentauro; then
+        doGentauto
+    else
+        cat
+    fi
