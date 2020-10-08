@@ -9,7 +9,7 @@ use utf8::all;
 
 sub gentauro {
     my $word = shift;
-    return length($word) > 3 && rand() < 0.20 ? "`$word`" : $word;
+    return length($word) > 3 && rand() < 0.20 ? "\"$word\"" : $word;
 }
 
 
