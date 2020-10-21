@@ -4,7 +4,8 @@ set -e
 
 cooldown=$1
 cooldown_duration=$2
-file="$CONCIEGGS_DB_DIR/cooldowns/$1"
+file=$(echo $1 | sed 's/\//_/g')
+file="$CONCIEGGS_DB_DIR/cooldowns/$file"
 
 if [ -f "$file" ]; then
     until=$(cat "$file")
