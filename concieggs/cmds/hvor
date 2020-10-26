@@ -10,7 +10,7 @@ tusindedele
 hundrededele
 EOF`
 
-eval "$(echo "$@" | parse '^ *((?<jul>julet er det(?: i procent)?)|(?<population>mange bor(?: der)? i (?<sted>[^\?]+))|((?<kongembede>længe har)|(?<antalkonge>mange gange har)) (?<hvilkenkonge>[^ ]+) været konge\??|mange har efternavnet (?<efternavn>.+)\??|mange har fornavnet (?<fornavn>.+)\??|mange (?:har navnet|hedder) (?<navne>.+?)(?: til (?<forefter>for|efter)navn)?\??$|(?<gammel>(gammelt?|ungt?|lang tid|længe))|(?<lang>(langt?|kort|højt?|lavt?))|(?<charmerende>charmerende)|(?<tung>(tungt?|let))|(?<klog>(dumt?|klogt?|stupid))|(?<mange>mange)|(?<stor>(stort?|lille|meget))|(?<irriterende>(irriterende|udmattende|enerverende|trættende))|(?<grim>(grimt?|ulækkert?|monstrøst?|klamt?))).*')"
+eval "$(echo "$@" | parse '^ *((?<jul>julet er det(?: i procent)?)|(?<population>mange bor(?: der)? i (?<sted>[^\?]+))|(?<gdp>rig[et] er(:? de i)? (?<sted>[^\?]+))|((?<kongembede>længe har)|(?<antalkonge>mange gange har)) (?<hvilkenkonge>[^ ]+) været konge\??|mange har efternavnet (?<efternavn>.+)\??|mange har fornavnet (?<fornavn>.+)\??|mange (?:har navnet|hedder) (?<navne>.+?)(?: til (?<forefter>for|efter)navn)?\??$|(?<gammel>(gammelt?|ungt?|lang tid|længe))|(?<lang>(langt?|kort|højt?|lavt?))|(?<charmerende>charmerende)|(?<tung>(tungt?|let))|(?<klog>(dumt?|klogt?|stupid))|(?<mange>mange)|(?<stor>(stort?|lille|meget))|(?<irriterende>(irriterende|udmattende|enerverende|trættende))|(?<grim>(grimt?|ulækkert?|monstrøst?|klamt?))).*')"
 
 if [ "$jul" ]; then
     charm="$(checkCharmen)"
@@ -18,6 +18,9 @@ if [ "$jul" ]; then
     exit
 elif [ "$population" ]; then
     getPopulationOf "$sted";
+    exit;
+elif [ "$gdp" ]; then
+    getGdpPcOf "$sted";
     exit;
 elif [ "$fornavn" ]; then
     navnestatistik "$fornavn" ''

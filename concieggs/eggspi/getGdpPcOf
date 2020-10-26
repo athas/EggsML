@@ -1,0 +1,14 @@
+#!/usr/bin/env perl
+use utf8::all;
+use 5.022;
+use warnings;
+
+die "Brug: GetGdpPcOf <land>" unless $#ARGV == 0;
+my $waOutput = `wa gdp per capita of $ARGV[0]`;
+$waOutput =~ /\s*(?:Result:)\s+\$(\d+(?:\.\d+)?)/;
+
+my $gdpPcString = $1;
+
+die "Unable to interpret population number. Got: $waOutput" unless $gdpPcString ne '';
+
+say $population;
