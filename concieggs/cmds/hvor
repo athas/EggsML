@@ -20,7 +20,7 @@ elif [ "$population" ]; then
     getPopulationOf "$sted";
     exit;
 elif [ "$gdp" ]; then
-    getGdpPcOf "$sted";
+    echo "Den gennemsnitlige årsindkomst i $sted er $(getGdpPcOf $sted) usd.";
     exit;
 elif [ "$fornavn" ]; then
     navnestatistik "$fornavn" ''
