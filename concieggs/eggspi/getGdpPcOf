@@ -11,4 +11,4 @@ my $gdpPcString = $1;
 
 die "Unable to interpret population number. Got: $waOutput" unless $gdpPcString ne '';
 
-say $population;
+say $gdpPcString;
