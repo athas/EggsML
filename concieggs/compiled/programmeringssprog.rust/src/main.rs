@@ -18,7 +18,7 @@ static PREFIXES: [(&str, u32); 14] = [
     ("", 10),
 ];
 
-static ROOTS: [&str; 38] = [
+static ROOTS: [&str; 43] = [
     "Pascal", "Haskell", "Blaise", "Curry", "Go", "Rust", "A", "B", "C", "D", "E", "F", "Erlang",
     "Prolog", "Neumann", "Euclid", "Fermat", "ML", "Scheme", "Lisp", "Church", "Alonzo", "Futhark",
     "Java", "COBOL", "Forth", "Fortran", "Turing", "Gauss", "Riemann", "Newton", "Hilbert", "Naur",
