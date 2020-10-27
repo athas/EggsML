@@ -124,6 +124,11 @@ EOF
                 clang++ -std=c++11 -lm $1 -o $2
             }
             ;;
+        *fut)
+            compile() {
+                futhark c $1 -o $2
+            }
+            ;;
         *)
             echo "Cannot compile file $srcfile - unknown extension."
             exit 2
