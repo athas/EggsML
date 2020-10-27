@@ -5,7 +5,7 @@ use warnings;
 
 die "Brug: GetGdpPcOf <land>" unless $#ARGV == 0;
 my $waOutput = `wa gdp per capita of $ARGV[0]`;
-$waOutput =~ /\s*(?:Result:)\s+\$(\d+(?:\.\d+)?)/;
+$waOutput =~ /\s*(?:[Rr]esult:)\s+\$(\d+(?:\.\d+)?)/;
 
 my $gdpPcString = $1;
 
