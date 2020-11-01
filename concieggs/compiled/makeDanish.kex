@@ -20,6 +20,7 @@ word1 := ~/computer science/ "datalogi"
        | ~/web/ "spindel"
        | ~/e-?mail/ "elektropost"
        | ~/harddisk/ "fastpladelager"
+       | ~/spread ?sheet/ "regneark"
        | ~/merge/ "flet" (~/r/ "ter" | ~/[ -]?sort/ "tesortering")
        | ~/quick/ "kvik"
        | ~/escape/ "flygt"
