@@ -1,0 +1,31 @@
+#!/bin/sh
+#
+# Find en god tegneseriestribe fra gocomics.com.
+#
+# Brug: gocomics stribe [emne]
+
+stribe="$1"
+emne="$2"
+
+if ! [ "$emne" ]; then
+    emne='.'
+fi
+
+max_page=$(curl -s "https://www.gocomics.com/search/full_results?category=comic&short_name=$stribe&sort=date_desc&terms=$emne" \
+               | grep '<a rel="next" class="gc-pagination__item"' \
+               | tail -n 1 \
+               | cut -d '>' -f 2 \
+               | cut -d '<' -f 1)
+if ! [ "$max_page" ]; then
+    max_page=1
+fi
+page=$(random 1 $max_page)
+url=$(curl -s "https://www.gocomics.com/search/full_results?category=comic&short_name=$stribe&sort=date_desc&terms=$emne&page=$page" \
+          | egrep -o "<a itemprop='image' class=\"\" href=\"/$stribe/[0-9]+/[0-9]+/[0-9]+\"" \
+          | randomLine \
+          | cut -d '"' -f 4)
+
+if [ "$url" ]; then
+    url=https://www.gocomics.com$url
+    echo $url
+fi
