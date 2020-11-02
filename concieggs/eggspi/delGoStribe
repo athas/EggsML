@@ -13,6 +13,8 @@ $url er bare hygge, $EGGS_USER.
 Jeg kan huske da jeg først så $url i det der album.
 $url er vist noget for dig, $EGGS_USER.
 Jeg kan da ikke benægte at jeg grinede en smule da jeg læste $url :p
+$EGGS_USER: $url er det rene kunst, siger jeg dig!
+Haha, den rammer plet: $url
 EOF
 else
     echo "$EGGS_USER: Jeg kunne ikke finde dét."
