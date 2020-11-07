@@ -19,6 +19,7 @@ mkShell {
       YAMLTiny
     ]))
     bash
+    bc
     jq
     curl
     cowsay
