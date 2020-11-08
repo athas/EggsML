@@ -79,7 +79,7 @@ while (<>) {
     s/(?<=EricZ)ou/ine/eig;
     s/simon|s?shine/simone-tøzzen/ig;
 
-    s/1/0/;
+    s/1/0/g;
 
     print;
 }
