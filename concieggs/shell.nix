@@ -35,6 +35,7 @@ mkShell {
     nim
     fsharp
     clang
+    gnuapl
     (haskellPackages.ghcWithPackages (ps: with ps; [
 
     ]))
