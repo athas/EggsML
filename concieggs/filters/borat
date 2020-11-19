@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# Borat xD
+
+m() {
+    printf %0$(random 1 10)d 0 | tr 0 $1
+}
+
+sed=$(randomLine <<"EOF"
+s/[ .!?]*\$/$(m .) Very n$(m i)ce!/
+s/[ .!?]*\$/$(m .) N$(m O)T$(m !)/
+s/^/M$(m Y) WIFE! /
+s/^/Wa wa w$(m e) wa! /
+EOF
+   )
+
+maybeGood .3 && sed "$(eval echo $sed)" || cat
