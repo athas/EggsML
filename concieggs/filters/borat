@@ -14,4 +14,4 @@ s/^/Wa wa w$(m e) wa! /
 EOF
    )
 
-maybeGood .3 && sed "$(eval echo $sed)" || cat
+maybeGood .3 && sed -E "$(eval echo $sed)" || cat
