@@ -36,6 +36,7 @@ mkShell {
     fsharp
     clang
     gnuapl
+    ocaml
     (haskellPackages.ghcWithPackages (ps: with ps; [
 
     ]))
