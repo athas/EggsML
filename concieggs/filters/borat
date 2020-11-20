@@ -7,6 +7,7 @@ m() {
 }
 
 sed=$(randomLine <<"EOF"
+s/$/I have a chair, I have a chair. /
 s/[ .!?]*\$/$(m .) Very n$(m i)ce!/
 s/[ .!?]*\$/$(m .) N$(m O)T$(m !)/
 s/^/M$(m Y) WIFE! /
