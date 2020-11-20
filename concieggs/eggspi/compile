@@ -129,6 +129,10 @@ EOF
                 futhark c $1 -o $2
             }
             ;;
+        *f90)
+            compile() {
+                f90 "$1" -o "$2"
+            };;
         *)
             echo "Cannot compile file $srcfile - unknown extension."
             exit 2

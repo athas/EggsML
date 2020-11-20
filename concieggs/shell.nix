@@ -37,6 +37,7 @@ mkShell {
     clang
     gnuapl
     ocaml
+    gfortran
     (haskellPackages.ghcWithPackages (ps: with ps; [
 
     ]))

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ $(uname) = OpenBSD ]; then
+    egfortran "$@" # What the fuck is this anyway?
+else
+    gfortran "$@"
+fi

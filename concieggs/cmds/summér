@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+# Tæl nogle tal sammen.  Dårlig kommando.  Bare lad være med at bruge den.
+
+x=$(sum "$@" | trim)
+
+if [ $? != 0 ]; then
+    echo "$EGGS_USER: Der var vist lidt støj på linjen.  Vil de prøve igen?"
+else
+    echo "$(ack)  Summen er "$x"."
+fi
