@@ -70,6 +70,9 @@ func main() {
 	} else if user == "svip" {
 		city = "Providence"
 		country = "USA"
+	} else if user == "trulsa" {
+		city = "Trondheim"
+		country = "NO"
 	} else {
 		city = "København"
 		country = "DK"
