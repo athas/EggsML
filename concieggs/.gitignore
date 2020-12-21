@@ -1,2 +1,4 @@
 .sml.lock
 .sml.sock
+.merlin
+_build

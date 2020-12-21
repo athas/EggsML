@@ -8,7 +8,7 @@ if [ $# -lt 1 ]; then
 fi
 
 basename=${1##*/}
-srcfile=$(find $CONCIEGGS_DIR/compiled -name "$basename.*")
+srcfile=$(find $CONCIEGGS_DIR/compiled -maxdepth 1 -name "$basename.*")
 
 if ! [ "$srcfile" ]; then
     echo "$0: cannot find source for program '$basename'" >&2
@@ -42,6 +42,13 @@ else
         *sml)
             compile() {
                 mosmlc -P full -toplevel -o $2 $1
+            }
+            ;;
+        *dune)
+            compile() {
+                cd "$1"
+                dune build "$basename.exe"
+                cp "_build/default/$basename.exe" $2
             }
             ;;
         *ml)

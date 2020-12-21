@@ -37,6 +37,7 @@ mkShell {
     clang
     gnuapl
     ocaml
+    dune
     gfortran
     (haskellPackages.ghcWithPackages (ps: with ps; [
 
