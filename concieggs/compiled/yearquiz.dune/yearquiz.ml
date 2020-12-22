@@ -6,20 +6,22 @@ open Async
 let base_url = "https://da.wikipedia.org/w/api.php?action=parse&format=json&prop=parsetree&page="
 
 let rec remove_link_artefacts string start =
-  let rest () = String.sub string ~pos:start ~len:(String.length string - start) in
-  match String.substr_index string ~pos:start ~pattern:"[[" with
-  | None -> rest ()
-  | Some a -> begin
-      match String.substr_index string ~pos:a ~pattern:"]]" with
-      | None -> rest ()
-      | Some c -> begin
-          match String.substr_index string ~pos:a ~pattern:"|" with
-          | Some b when a < b && b < c ->
-             String.sub string ~pos:start ~len:(a - start) ^ String.sub string ~pos:(b + 1) ~len:(c - (b + 1)) ^ remove_link_artefacts string c
-          | _ ->
-             String.sub string ~pos:start ~len:(c + 2 - start) ^ remove_link_artefacts string (c + 2)
-        end
-    end
+  begin
+    let open Option.Let_syntax in
+    let%bind a = String.substr_index string ~pos:start ~pattern:"[[" in
+    let%bind c = String.substr_index string ~pos:a ~pattern:"]]" in
+    return begin
+        match String.substr_index string ~pos:a ~pattern:"|" with
+        | Some b when a < b && b < c ->
+           String.sub string ~pos:start ~len:(a - start)
+           ^ String.sub string ~pos:(b + 1) ~len:(c - (b + 1))
+           ^ remove_link_artefacts string c
+        | _ ->
+           String.sub string ~pos:start ~len:(c + 2 - start)
+           ^ remove_link_artefacts string (c + 2)
+      end
+  end
+  |> Option.value ~default:(String.sub string ~pos:start ~len:(String.length string - start))
 
 let rec remove_ext_artefacts string start =
   begin
