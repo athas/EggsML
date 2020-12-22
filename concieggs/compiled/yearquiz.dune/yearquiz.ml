@@ -5,88 +5,99 @@ open Async
 
 let base_url = "https://da.wikipedia.org/w/api.php?action=parse&format=json&prop=parsetree&page="
 
-let rec find_substring string start sub =
-  if start + String.length sub <= String.length string
-  then let sub' = String.sub string ~pos:start ~len:(String.length sub) in
-       if String.equal sub' sub
-       then start
-       else find_substring string (start + 1) sub
-  else -1
-
 let rec remove_link_artefacts string start =
   let rest () = String.sub string ~pos:start ~len:(String.length string - start) in
-  let a = find_substring string start "[[" in
-  if a <> -1
-  then let c = find_substring string a "]]" in
-       if c <> -1
-       then let b = find_substring string a "|" in
-            if b <> -1 && a < b && b < c
-            then String.sub string ~pos:start ~len:(a - start) ^ String.sub string ~pos:(b + 1) ~len:(c - (b + 1)) ^ remove_link_artefacts string c
-            else String.sub string ~pos:start ~len:(c + 2 - start) ^ remove_link_artefacts string (c + 2)
-       else rest ()
-  else rest ()
+  match String.substr_index string ~pos:start ~pattern:"[[" with
+  | None -> rest ()
+  | Some a -> begin
+      match String.substr_index string ~pos:a ~pattern:"]]" with
+      | None -> rest ()
+      | Some c -> begin
+          match String.substr_index string ~pos:a ~pattern:"|" with
+          | Some b when a < b && b < c ->
+             String.sub string ~pos:start ~len:(a - start) ^ String.sub string ~pos:(b + 1) ~len:(c - (b + 1)) ^ remove_link_artefacts string c
+          | _ ->
+             String.sub string ~pos:start ~len:(c + 2 - start) ^ remove_link_artefacts string (c + 2)
+        end
+    end
 
 let rec remove_ext_artefacts string start =
-  let ext_start = find_substring string start "<ext" in
-  let ext_end = if ext_start <> -1
-                then find_substring string ext_start "</ext>"
-                else -1 in
-  if ext_end <> -1
-  then String.sub string ~pos:start ~len:ext_start
-       ^ remove_ext_artefacts string (ext_end + String.length "</ext>")
-  else String.sub string ~pos:start ~len:(String.length string - start)
+  match String.substr_index string ~pos:start ~pattern:"<ext" with
+  | Some ext_start -> begin
+      match String.substr_index string ~pos:ext_start ~pattern:"</ext>" with
+      | Some ext_end ->
+         String.sub string ~pos:start ~len:ext_start
+         ^ remove_ext_artefacts string (ext_end + String.length "</ext>")
+      | None ->
+         String.sub string ~pos:start ~len:(String.length string - start)
+    end
+  | None ->
+     String.sub string ~pos:start ~len:(String.length string - start)
 
 let parse_events text header =
-  let events_start = find_substring text 0 header in
-  if events_start <> -1
-  then let events_end = find_substring text events_start "\n\n<h level=\"2\"" in
-       let events_end = if events_end = -1 then find_substring text events_start "\n\n" else events_end in
-       let rec find_events cur_start =
-         let sub_start = find_substring text cur_start "\n* " in
-         if sub_start <> -1 && sub_start < events_end
-         then let sub_end = find_substring text (sub_start + 1) "\n" in
-              let line = String.sub text ~pos:(sub_start + 3) ~len:(sub_end - sub_start - 3) in
-              let line = remove_link_artefacts line 0 in
-              let line = remove_ext_artefacts line 0 in
-              let date_dash1 = "]] - " in
-              let date_dash2 = "]] – " in
-              let dash1 = find_substring line 0 date_dash1 in
-              let dash2 = find_substring line 0 date_dash2 in
-              let (date_dash, dash) = if dash2 = -1
-                                      then (date_dash1, dash1)
-                                      else if dash1 = -1
-                                      then (date_dash2, dash2)
-                                      else if dash1 < dash2
-                                      then (date_dash1, dash1)
-                                      else (date_dash2, dash2) in
-              let line = if dash <> -1
-                         then String.sub line ~pos:(dash + String.length date_dash)
-                                ~len:(String.length line - (dash + String.length date_dash))
-                         else line in
-              let line = String.substr_replace_all (String.substr_replace_all (String.substr_replace_all (String.substr_replace_all line ~pattern:"[[" ~with_:"") ~pattern:"]]" ~with_:"") ~pattern:"'''" ~with_:"**") ~pattern:"''" ~with_:"*"
-              in line :: find_events sub_end
-         else []
-       in find_events events_start
-  else []
+  match String.substr_index text ~pattern:header with
+  | Some events_start ->
+     let events_end =
+       match String.substr_index text ~pos:events_start ~pattern:"\n\n<h level=\"2\"" with
+       | Some p -> p
+       | None -> String.substr_index_exn text ~pos:events_start ~pattern:"\n\n"
+     in
+     let rec find_events cur_start = begin
+         match String.substr_index text ~pos:cur_start ~pattern:"\n* " with
+         | Some sub_start when sub_start < events_end ->
+            let sub_end = String.substr_index_exn text ~pos:(sub_start + 1) ~pattern:"\n" in
+            let line = String.sub text ~pos:(sub_start + 3) ~len:(sub_end - sub_start - 3) in
+            let line = remove_link_artefacts line 0 in
+            let line = remove_ext_artefacts line 0 in
+            let date_dash1 = "]] - " in
+            let date_dash2 = "]] – " in
+            let (date_dash, dash) =
+              match (String.substr_index line ~pattern:date_dash1,
+                     String.substr_index line ~pattern:date_dash2) with
+              | (dash1, None) ->
+                 (date_dash1, dash1)
+              | (None, dash2) ->
+                 (date_dash2, dash2)
+              | (Some dash1, Some dash2) ->
+                 if dash1 < dash2
+                 then (date_dash1, Some dash1)
+                 else (date_dash2, Some dash2)
+            in
+            let line =
+              match dash with
+              | Some p ->
+                 String.sub line ~pos:(p + String.length date_dash)
+                   ~len:(String.length line - (p + String.length date_dash))
+              | None ->
+                 line
+            in
+            let line = String.substr_replace_all (String.substr_replace_all (String.substr_replace_all (String.substr_replace_all line ~pattern:"[[" ~with_:"") ~pattern:"]]" ~with_:"") ~pattern:"'''" ~with_:"**") ~pattern:"''" ~with_:"*"
+            in line :: find_events sub_end
+         | _ ->
+            []
+       end
+     in find_events events_start
+  | _ ->
+     []
 
 let ok_sport s =
-  find_substring s 0 "vinde" <> -1
-  || find_substring s 0 "tabe" <> -1
-  || find_substring s 0 "besejre" <> -1
-  || find_substring s 0 "forsvare" <> -1
-  || find_substring s 0 "holde" <> -1
-  || find_substring s 0 "stifte" <> -1
-  || find_substring s 0 "anlægge" <> -1
-  || find_substring s 0 "sætte" <> -1
+  String.is_substring s ~substring:"vinde"
+  || String.is_substring s ~substring:"tabe"
+  || String.is_substring s ~substring:"besejre"
+  || String.is_substring s ~substring:"forsvare"
+  || String.is_substring s ~substring:"holde"
+  || String.is_substring s ~substring:"stifte"
+  || String.is_substring s ~substring:"anlægge"
+  || String.is_substring s ~substring:"sætte"
 
 let ok_musik s =
-  find_substring s 0 "vinde" <> -1
-  || find_substring s 0 "tabe" <> -1
-  || find_substring s 0 "hitte" <> -1
-  || find_substring s 0 "danne" <> -1
-  || find_substring s 0 "udgive" <> -1
-  || find_substring s 0 "udsende" <> -1
-  || find_substring s 0 "spille" <> -1
+  String.is_substring s ~substring:"vinde"
+  || String.is_substring s ~substring:"tabe"
+  || String.is_substring s ~substring:"hitte"
+  || String.is_substring s ~substring:"danne"
+  || String.is_substring s ~substring:"udgive"
+  || String.is_substring s ~substring:"udsende"
+  || String.is_substring s ~substring:"spille"
 
 let parse text =
   let begivenheder = parse_events text "== Begivenheder ==" in
