@@ -47,7 +47,7 @@ mkShell {
     ocamlPackages.yojson
     gfortran
     (haskellPackages.ghcWithPackages (ps: with ps; [
-
+      shell-escape
     ]))
   ];
 }
