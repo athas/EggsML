@@ -124,7 +124,7 @@ let rec find_year_facts () =
   let text = Yojson.Basic.from_string json |> member "parse" |> member "parsetree" |> member "*" |> to_string in
   let text = replace text 0 (string_of_int year) "XXXX" in
   let lines = parse text in
-  if List.length lines = 0
+  if List.length lines = 0 || (List.length lines == 1 && String.length (List.nth lines 0) = 0)
   then find_year_facts ()
   else let lines = shuffle lines in
        let lines = List.init (min 3 (List.length lines)) ~f:(List.nth_exn lines) in
