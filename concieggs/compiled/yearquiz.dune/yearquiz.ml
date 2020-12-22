@@ -13,15 +13,6 @@ let rec find_substring string start sub =
        else find_substring string (start + 1) sub
   else -1
 
-(* This is just plain inefficient. *)
-let rec replace string start old repl =
-  if start + String.length old <= String.length string
-  then let sub = String.sub string ~pos:start ~len:(String.length old) in
-       if String.equal sub old
-       then repl ^ replace string (start + String.length old) old repl
-       else String.sub string ~pos:start ~len:1 ^ replace string (start + 1) old repl
-  else String.sub string ~pos:start ~len:(String.length string - start)
-
 let rec remove_link_artefacts string start =
   let rest () = String.sub string ~pos:start ~len:(String.length string - start) in
   let a = find_substring string start "[[" in
@@ -72,7 +63,7 @@ let parse_events text header =
                          then String.sub line ~pos:(dash + String.length date_dash)
                                 ~len:(String.length line - (dash + String.length date_dash))
                          else line in
-              let line = replace (replace (replace (replace line 0 "[[" "") 0 "]]" "") 0 "'''" "**") 0 "''" "*"
+              let line = String.substr_replace_all (String.substr_replace_all (String.substr_replace_all (String.substr_replace_all line ~pattern:"[[" ~with_:"") ~pattern:"]]" ~with_:"") ~pattern:"'''" ~with_:"**") ~pattern:"''" ~with_:"*"
               in line :: find_events sub_end
          else []
        in find_events events_start
@@ -122,7 +113,7 @@ let rec find_year_facts () =
   Cohttp_async.Body.to_string body >>= fun json ->
   let open Yojson.Basic.Util in
   let text = Yojson.Basic.from_string json |> member "parse" |> member "parsetree" |> member "*" |> to_string in
-  let text = replace text 0 (string_of_int year) "XXXX" in
+  let text = String.substr_replace_all text ~pattern:(string_of_int year) ~with_:"XXXX" in
   let lines = parse text in
   if List.length lines = 0 || (List.length lines = 1 && String.length (List.nth_exn lines 0) = 0)
   then find_year_facts ()
