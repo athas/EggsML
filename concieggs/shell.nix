@@ -41,6 +41,7 @@ mkShell {
     ocamlPackages.findlib
     ocamlPackages.core
     ocamlPackages.async
+    ocamlPackages.async_ssl
     ocamlPackages.cohttp-async
     ocamlPackages.yojson
     gfortran
