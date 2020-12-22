@@ -3,7 +3,11 @@
 open Core
 open Async
 
-let base_url = "https://da.wikipedia.org/w/api.php?action=parse&format=json&prop=parsetree&page="
+type lang = Danish | English
+
+let base_url = function
+  | Danish -> "https://da.wikipedia.org/w/api.php?action=parse&format=json&prop=parsetree&page="
+  | English -> "https://en.wikipedia.org/w/api.php?action=parse&format=json&prop=parsetree&page="
 
 let rec remove_link_artefacts string start =
   begin
@@ -116,13 +120,16 @@ let ok_musik s =
   || String.is_substring s ~substring:"udsende"
   || String.is_substring s ~substring:"spille"
 
-let parse text =
-  let begivenheder = parse_events text "== Begivenheder ==" in
-  let sport = parse_events text "== Sport ==" in
-  let sport = List.filter ~f:ok_sport sport in
-  let musik = parse_events text "== Musik ==" in
-  let musik = List.filter ~f:ok_musik musik in
-  begivenheder @ sport @ musik
+let parse text = function
+  | Danish ->
+     let begivenheder = parse_events text "== Begivenheder ==" in
+     let sport = parse_events text "== Sport ==" in
+     let sport = List.filter ~f:ok_sport sport in
+     let musik = parse_events text "== Musik ==" in
+     let musik = List.filter ~f:ok_musik musik in
+     begivenheder @ sport @ musik
+  | English ->
+     parse_events text "== Events ==" @ parse_events text "==Events=="
 
 let shuffle d =
   let module RandomPair =
@@ -135,15 +142,19 @@ let shuffle d =
   List.map ~f:snd sond
 
 let rec find_year_facts () =
+  let lang = match Sys.get_argv () with
+    | [|_; "engelsk"|] -> English
+    | _ -> Danish
+  in
   Random.self_init ();
   let year = 0 + Random.int 2020 in (* XXX: Better distribution *)
-  let url = base_url ^ string_of_int year in
+  let url = base_url lang ^ string_of_int year in
   let%bind (_, body) = Cohttp_async.Client.get (Uri.of_string url) in
   let%bind json = Cohttp_async.Body.to_string body in
   let open Yojson.Basic.Util in
   let text = Yojson.Basic.from_string json |> member "parse" |> member "parsetree" |> member "*" |> to_string in
   let text = String.substr_replace_all text ~pattern:(string_of_int year) ~with_:"XXXX" in
-  let lines = parse text in
+  let lines = parse text lang in
   if List.length lines = 0 || (List.length lines = 1 && String.length (List.nth_exn lines 0) = 0)
   then find_year_facts ()
   else let lines = shuffle lines in
