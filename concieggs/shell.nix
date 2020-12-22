@@ -37,7 +37,12 @@ mkShell {
     clang
     gnuapl
     ocaml
-    dune
+    dune_2
+    ocamlPackages.findlib
+    ocamlPackages.core
+    ocamlPackages.async
+    ocamlPackages.cohttp-async
+    ocamlPackages.yojson
     gfortran
     (haskellPackages.ghcWithPackages (ps: with ps; [
 
