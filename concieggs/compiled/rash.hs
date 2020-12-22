@@ -80,6 +80,9 @@ Whitespace and lack thereof is significant, because why not?
 
 For now, no special characters can be escaped.
 
+You can use the special variable `${initial_arguments}` to get the initial
+arguments passed to your program.
+
 -}
 
 
@@ -620,7 +623,8 @@ runFile fname readArgs = do
           print error
           Exit.exitFailure
         Right insts -> do
-          let (a, nVars) = asmTempToAsm $ TempAssembly insts
+          let insts' = TempAssign "initial_arguments" [TempTextPart readArgs] : insts
+          let (a, nVars) = asmTempToAsm $ TempAssembly insts'
           s <- emptyState nVars
           return (a, s)
 
