@@ -34,50 +34,56 @@ let rec remove_ext_artefacts string start =
   |> Option.value ~default:(String.sub string ~pos:start ~len:(String.length string - start))
 
 let parse_events text header =
-  match String.substr_index text ~pattern:header with
-  | Some events_start ->
-     let events_end =
-       match String.substr_index text ~pos:events_start ~pattern:"\n\n<h level=\"2\"" with
-       | Some p -> p
-       | None -> String.substr_index_exn text ~pos:events_start ~pattern:"\n\n"
-     in
-     let rec find_events cur_start = begin
-         match String.substr_index text ~pos:cur_start ~pattern:"\n* " with
-         | Some sub_start when sub_start < events_end ->
-            let sub_end = String.substr_index_exn text ~pos:(sub_start + 1) ~pattern:"\n" in
-            let line = String.sub text ~pos:(sub_start + 3) ~len:(sub_end - sub_start - 3) in
-            let line = remove_link_artefacts line 0 in
-            let line = remove_ext_artefacts line 0 in
-            let date_dash1 = "]] - " in
-            let date_dash2 = "]] – " in
-            let (date_dash, dash) =
-              match (String.substr_index line ~pattern:date_dash1,
-                     String.substr_index line ~pattern:date_dash2) with
-              | (dash1, None) ->
-                 (date_dash1, dash1)
-              | (None, dash2) ->
-                 (date_dash2, dash2)
-              | (Some dash1, Some dash2) ->
-                 if dash1 < dash2
-                 then (date_dash1, Some dash1)
-                 else (date_dash2, Some dash2)
-            in
-            let line =
-              match dash with
-              | Some p ->
-                 String.sub line ~pos:(p + String.length date_dash)
-                   ~len:(String.length line - (p + String.length date_dash))
-              | None ->
-                 line
-            in
-            let line = String.substr_replace_all (String.substr_replace_all (String.substr_replace_all (String.substr_replace_all line ~pattern:"[[" ~with_:"") ~pattern:"]]" ~with_:"") ~pattern:"'''" ~with_:"**") ~pattern:"''" ~with_:"*"
-            in line :: find_events sub_end
-         | _ ->
-            []
-       end
-     in find_events events_start
-  | _ ->
-     []
+  begin
+    let open Option.Let_syntax in
+    let%bind events_start = String.substr_index text ~pattern:header in
+    let events_end = Option.value
+                       (String.substr_index text ~pos:events_start ~pattern:"\n\n<h level=\"2\"")
+                       ~default:(String.substr_index_exn text ~pos:events_start ~pattern:"\n\n")
+    in
+    let rec find_events cur_start = begin
+        let%bind sub_start = String.substr_index text ~pos:cur_start ~pattern:"\n* " in
+        let%bind () = Option.some_if (sub_start < events_end) () in
+        let%bind sub_end = String.substr_index text ~pos:(sub_start + 1) ~pattern:"\n" in
+        let line = String.sub text ~pos:(sub_start + 3) ~len:(sub_end - sub_start - 3) in
+        let line = remove_link_artefacts line 0 in
+        let line = remove_ext_artefacts line 0 in
+        let date_dash1 = "]] - " in
+        let date_dash2 = "]] – " in
+        let (date_dash, dash) =
+          match (String.substr_index line ~pattern:date_dash1,
+                 String.substr_index line ~pattern:date_dash2) with
+          | (dash1, None) ->
+             (date_dash1, dash1)
+          | (None, dash2) ->
+             (date_dash2, dash2)
+          | (Some dash1, Some dash2) ->
+             if dash1 < dash2
+             then (date_dash1, Some dash1)
+             else (date_dash2, Some dash2)
+        in
+        let line =
+          match dash with
+          | Some p ->
+             String.sub line ~pos:(p + String.length date_dash)
+               ~len:(String.length line - (p + String.length date_dash))
+          | None ->
+             line
+        in
+        let line = String.substr_replace_all
+                     (String.substr_replace_all
+                        (String.substr_replace_all
+                           (String.substr_replace_all line
+                              ~pattern:"[[" ~with_:"")
+                           ~pattern:"]]" ~with_:"")
+                        ~pattern:"'''" ~with_:"**")
+                     ~pattern:"''" ~with_:"*" in
+        let rest = Option.value (find_events sub_end) ~default:[] in
+        return (line :: rest)
+      end
+    in find_events events_start
+  end
+  |> Option.value ~default:[]
 
 let ok_sport s =
   String.is_substring s ~substring:"vinde"
