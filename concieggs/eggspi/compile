@@ -151,7 +151,7 @@ EOF
         "$compiledfile" "$@" || true # Midlertidigt fiks for ghc
         # runtime-problemer på OpenBSD.
     else
-        rm -r "$compiledir"
+        rm -rf "$compiledir"
         exit 1
     fi
 fi
