@@ -36,6 +36,7 @@ mkShell {
     fsharp
     clang
     gnuapl
+    futhark
     ocaml
     dune_2
     ocamlPackages.findlib
