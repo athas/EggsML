@@ -2,26 +2,26 @@
 #
 # Generer en sætning til at blive gættet i lykkehjulet-programmet.
 
-case "$EGGS_BODY" in
-    *apl)
+case "$1" in
+    apl)
         cat $CONCIEGGS_DB_DIR/apl_idioms | randomLine
         ;;
-    *md5)
+    md5)
         head -n 1 /dev/random | md5
         ;;
-    *vis)
+    vis)
         headlines | randomLine
         ;;
-    *udtryk)
+    udtryk)
         cat $CONCIEGGS_DB_DIR/fede_udtryk | randomLine
         ;;
-    *filsystem)
+    filsystem)
         locate '.' | randomLine
         ;;
-    *revy)
+    revy)
         cat $CONCIEGGS_DB_DIR/revue_titles | randomLine
         ;;
-    *coronavirus)
+    coronavirus)
         m=$(random 10 20)
         fold -w $m $CONCIEGGS_DB_DIR/coronavirus | randomLine
         ;;
