@@ -39,6 +39,7 @@ mkShell {
     ocaml
     dune_2
     ocamlPackages.findlib
+    ocamlPackages.ppx_let
     ocamlPackages.core
     ocamlPackages.async
     ocamlPackages.async_ssl

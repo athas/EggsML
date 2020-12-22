@@ -22,17 +22,14 @@ let rec remove_link_artefacts string start =
     end
 
 let rec remove_ext_artefacts string start =
-  match String.substr_index string ~pos:start ~pattern:"<ext" with
-  | Some ext_start -> begin
-      match String.substr_index string ~pos:ext_start ~pattern:"</ext>" with
-      | Some ext_end ->
-         String.sub string ~pos:start ~len:ext_start
-         ^ remove_ext_artefacts string (ext_end + String.length "</ext>")
-      | None ->
-         String.sub string ~pos:start ~len:(String.length string - start)
-    end
-  | None ->
-     String.sub string ~pos:start ~len:(String.length string - start)
+  begin
+    let open Option.Let_syntax in
+    let%bind ext_start = String.substr_index string ~pos:start ~pattern:"<ext" in
+    let%bind ext_end = String.substr_index string ~pos:ext_start ~pattern:"</ext>" in
+    return (String.sub string ~pos:start ~len:ext_start
+            ^ remove_ext_artefacts string (ext_end + String.length "</ext>"))
+  end
+  |> Option.value ~default:(String.sub string ~pos:start ~len:(String.length string - start))
 
 let parse_events text header =
   match String.substr_index text ~pattern:header with
@@ -106,7 +103,6 @@ let parse text =
   let musik = parse_events text "== Musik ==" in
   let musik = List.filter ~f:ok_musik musik in
   begivenheder @ sport @ musik
-
 
 let shuffle d =
   let module RandomPair =
