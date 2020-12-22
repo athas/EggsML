@@ -53,14 +53,14 @@ let parse_events text header =
         let (date_dash, dash) =
           match (String.substr_index line ~pattern:date_dash1,
                  String.substr_index line ~pattern:date_dash2) with
-          | (dash1, None) ->
-             (date_dash1, dash1)
-          | (None, dash2) ->
-             (date_dash2, dash2)
           | (Some dash1, Some dash2) ->
              if dash1 < dash2
              then (date_dash1, Some dash1)
              else (date_dash2, Some dash2)
+          | (dash1, None) ->
+             (date_dash1, dash1)
+          | (None, dash2) ->
+             (date_dash2, dash2)
         in
         let line =
           match dash with
@@ -73,11 +73,15 @@ let parse_events text header =
         let line = String.substr_replace_all
                      (String.substr_replace_all
                         (String.substr_replace_all
-                           (String.substr_replace_all line
-                              ~pattern:"[[" ~with_:"")
-                           ~pattern:"]]" ~with_:"")
-                        ~pattern:"'''" ~with_:"**")
-                     ~pattern:"''" ~with_:"*" in
+                           (String.substr_replace_all
+                              (String.substr_replace_all
+                                 (String.substr_replace_all line
+                                    ~pattern:"[[" ~with_:"")
+                                 ~pattern:"]]" ~with_:"")
+                              ~pattern:"'''" ~with_:"**")
+                           ~pattern:"''" ~with_:"*")
+                        ~pattern:"&amp;ndash;" ~with_:"-")
+                     ~pattern:"&quot;" ~with_:"\"" in
         let rest = Option.value (find_events sub_end) ~default:[] in
         return (line :: rest)
       end
