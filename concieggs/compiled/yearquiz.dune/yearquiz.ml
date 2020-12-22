@@ -107,14 +107,16 @@ let parse text =
   let musik = List.filter ~f:ok_musik musik in
   begivenheder @ sport @ musik
 
-module Tup = struct
-  include Tuple.Comparable (Int) (String)
-end
 
 let shuffle d =
-    let nd = List.map ~f:(fun c -> (Random.bits (), c)) d in
-    let sond = List.sort ~compare:Tup.compare nd in
-    List.map ~f:snd sond
+  let module RandomPair =
+    struct
+      include Tuple.Comparable (Int) (String)
+    end
+  in
+  let nd = List.map ~f:(fun c -> (Random.bits (), c)) d in
+  let sond = List.sort ~compare:RandomPair.compare nd in
+  List.map ~f:snd sond
 
 let rec find_year_facts () =
   Random.self_init ();
