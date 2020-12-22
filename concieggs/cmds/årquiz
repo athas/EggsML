@@ -1,6 +1,6 @@
 #!/usr/bin/env rash
 
-linjer=>yearquiz "${1}"
+linjer=>yearquiz "${initial_arguments}"
 info=<${linjer}>head -n1
 år=<${info}>cut -d' ' -f1
 n_fakta=<${info}>cut -d' ' -f2
