@@ -126,8 +126,8 @@ let rec find_year_facts () =
   Random.self_init ();
   let year = 0 + Random.int 2020 in (* XXX: Better distribution *)
   let url = base_url ^ string_of_int year in
-  Cohttp_async.Client.get (Uri.of_string url) >>= fun (_, body) ->
-  Cohttp_async.Body.to_string body >>= fun json ->
+  let%bind (_, body) = Cohttp_async.Client.get (Uri.of_string url) in
+  let%bind json = Cohttp_async.Body.to_string body in
   let open Yojson.Basic.Util in
   let text = Yojson.Basic.from_string json |> member "parse" |> member "parsetree" |> member "*" |> to_string in
   let text = String.substr_replace_all text ~pattern:(string_of_int year) ~with_:"XXXX" in
