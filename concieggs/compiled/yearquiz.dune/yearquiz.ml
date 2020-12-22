@@ -28,7 +28,7 @@ let rec remove_ext_artefacts string start =
     let open Option.Let_syntax in
     let%bind ext_start = String.substr_index string ~pos:start ~pattern:"<ext" in
     let%bind ext_end = String.substr_index string ~pos:ext_start ~pattern:"</ext>" in
-    return (String.sub string ~pos:start ~len:ext_start
+    return (String.sub string ~pos:start ~len:(ext_start - start)
             ^ remove_ext_artefacts string (ext_end + String.length "</ext>"))
   end
   |> Option.value ~default:(String.sub string ~pos:start ~len:(String.length string - start))
