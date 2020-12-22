@@ -45,6 +45,14 @@ let parse_events text header =
         let%bind sub_start = String.substr_index text ~pos:cur_start ~pattern:"\n* " in
         let%bind () = Option.some_if (sub_start < events_end) () in
         let%bind sub_end = String.substr_index text ~pos:(sub_start + 1) ~pattern:"\n" in
+        let%bind (sub_start, sub_end) =
+          match String.substr_index text ~pos:(sub_start + 1) ~pattern:"\n**" with
+          | Some sub_start' when sub_start' = sub_end ->
+             let%bind sub_end' = String.substr_index text ~pos:(sub_start' + 1) ~pattern:"\n" in
+             return (sub_end, sub_end')
+          | _ ->
+             return (sub_start, sub_end)
+        in
         let line = String.sub text ~pos:(sub_start + 3) ~len:(sub_end - sub_start - 3) in
         let line = remove_link_artefacts line 0 in
         let line = remove_ext_artefacts line 0 in
