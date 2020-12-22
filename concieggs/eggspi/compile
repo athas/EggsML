@@ -49,6 +49,7 @@ else
                 cd "$1"
                 dune build "$basename.exe"
                 cp "_build/default/$basename.exe" $2
+                chmod u+w $2
             }
             ;;
         *pas)
