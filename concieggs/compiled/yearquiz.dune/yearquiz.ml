@@ -42,7 +42,7 @@ let parse_events text header =
     let open Option.Let_syntax in
     let%bind events_start = String.substr_index text ~pattern:header in
     let events_end = Option.value
-                       (String.substr_index text ~pos:events_start ~pattern:"\n\n<h level=\"2\"")
+                       (String.substr_index text ~pos:events_start ~pattern:"\n<h level=\"2\"")
                        ~default:(String.substr_index_exn text ~pos:events_start ~pattern:"\n\n")
     in
     let rec find_events cur_start = begin
