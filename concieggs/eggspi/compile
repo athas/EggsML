@@ -152,7 +152,7 @@ EOF
     mkdir -p "$CONCIEGGS_DB_DIR/compiled-cache"
     if (cd "$CONCIEGGS_DB_DIR/compiled-cache";
         compile "$srcfile" "$compiledfile"); then
-        rm -r "$compiledir"
+        rm -rf "$compiledir"
         "$compiledfile" "$@" || true # Midlertidigt fiks for ghc
         # runtime-problemer på OpenBSD.
     else
