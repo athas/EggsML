@@ -32,6 +32,7 @@ mkShell {
     fpc
     jdk
     rustc
+    cargo
     nim
     fsharp
     clang
