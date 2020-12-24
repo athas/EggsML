@@ -1,7 +1,6 @@
 #!/usr/bin/env perl
-use 5.012;
+use 5.14.0;
 use warnings;
-use utf8::all;
 
 # Categories
 
@@ -45,6 +44,8 @@ my @categories = (
             'Det hasjimitiske kongerige', 'Den Arabiske Republik')],
     [qw(tre fire fem seks syv otte elleve tolv tretten fjorten femten seksten sytten atten nitten)],
     [qw(tyve tredive fyrre treds fjers firs fems)],
+    [qw(jule påske)],
+    [qw(jul påske)]
 );
 
 # Numbers
