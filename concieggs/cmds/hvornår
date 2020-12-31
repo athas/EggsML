@@ -8,7 +8,8 @@ removeYear() {
 
 eval "$(echo "$@" | parse \
 '(?<birthday>har (?<birthday_kid>[^ ]+) fødselsdag)$|'\
-'(?<halvening>(sker|kommer) the halvening)')"
+'(?<halvening>(sker|kommer) the halvening)$|'\
+'(?<yearq>er det (?<year>[0-9]+))$')"
 
 who=$(randomName $EGGS_USER)
 if ! [ "$who" ]; then
@@ -41,6 +42,19 @@ elif [ "$halvening" ]; then
     estimated_missing_min=$(($missing_blocks * 10))
     estimated_halvening=$(date -d "+$estimated_missing_min min" '+%F %T')
     echo "Den næste halvering i Bitcoins inflation sker om $missing_blocks blokke og forventes $estimated_halvening CET"
+elif [ "$yearq" ]; then
+    secs_year_start=$(date -d "$year-01-01 00:00:00" +%s)
+    secs_year_end=$(date -d "$year-12-31 23:59:59" +%s)
+    secs_now=$(date +%s)
+    secs_diff_start=$(expr $secs_year_start - $secs_now)
+    secs_diff_end=$(expr $secs_year_end - $secs_now)
+    if [ $secs_diff_start -gt 0 ]; then
+        echo "$EGGS_USER: Det er $year om $(duration $secs_diff_start)!"
+    elif [ $secs_diff_end -gt 0 ]; then
+        echo "$EGGS_USER: Det er $year LIGE NU!!!"
+    else
+        echo "$EGGS_USER: Det var $year for $(duration $(echo $secs_diff_end | tr -d -)) siden!"
+    fi
 else
     echo "Brug: hvornår har (jeg|<bruger>) fødselsdag? Eller: hvornår (kommer|sker) the halvening?"
 fi
