@@ -12,7 +12,6 @@ my $minute = 60;
 my $hour = 60 * $minute;
 my $day = 24 * $hour;
 my $week = 7 * $day;
-my $month = 30 * $day;
 my $year = 365 * $day;
 
 my @duration;
@@ -23,13 +22,6 @@ if ($delta > $year) {
     my $n_years = int($delta / $year);
     $delta -= $year * $n_years;
     push @duration, sprintf("%d år", $n_years);
-}
-
-if ($delta > $month) {
-    $big++;
-    my $n_months = int($delta / $month);
-    $delta -= $month * $n_months;
-    push @duration, sprintf("%d måned%s", $n_months, $n_months == 1 ? '' : 'er');
 }
 
 if (!$big && $delta > $week) {
