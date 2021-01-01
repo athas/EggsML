@@ -9,7 +9,7 @@ removeYear() {
 eval "$(echo "$@" | parse \
 '(?<birthday>har (?<birthday_kid>[^ ]+) fødselsdag)$|'\
 '(?<halvening>(sker|kommer) the halvening)$|'\
-'(?<yearq>er det (?<year>[0-9]+))$')"
+'(?<yearq>(er|var) det (?<year>[0-9]+))$')"
 
 who=$(randomName $EGGS_USER)
 if ! [ "$who" ]; then
