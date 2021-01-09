@@ -133,11 +133,8 @@ let parse text = function
      parse_events text "== Events ==" @ parse_events text "==Events=="
   | German -> 
      let begivenheder = parse_events text "=== Politik und Weltgeschehen ===" in
-     let sport = parse_events text "=== Kultur und Gesellschaft ===" in
-     let sport = List.filter ~f:ok_sport sport in
-     let musik = parse_events text "=== Sport ===" in
-     let musik = List.filter ~f:ok_musik musik in
-     begivenheder @ sport @ musik
+     let kultur = parse_events text "=== Kultur und Gesellschaft ===" in
+     begivenheder @ kultur
 
 let shuffle d =
   let module RandomPair =
