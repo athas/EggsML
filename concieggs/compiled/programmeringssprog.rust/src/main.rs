@@ -10,11 +10,15 @@ static PREFIXES: [(&str, u32); 14] = [
     ("Object ", 10),
     ("Standard ", 1),
     ("Common ", 5),
+    ("ISO ", 5),
+    ("Apple", 2),
     ("Liquid ", 1),
     ("Meta", 2),
     ("Win", 1),
     ("Holy", 1),
     ("Linear ", 1),
+    ("Emacs ", 1),
+    ("Wolfram ", 1),
     ("", 10),
 ];
 
@@ -34,6 +38,7 @@ static SUFFIXES: [(&str, u32); 18] = [
     ("--", 1),
     ("script", 15),
     (" with Classes", 5),
+    (" Query Language", 3),
     (" 2", 1),
     (" 3", 1),
     (" 4", 1),
@@ -42,8 +47,12 @@ static SUFFIXES: [(&str, u32); 18] = [
     (" 7", 1),
     (" 8", 1),
     (" 9", 1),
+    (" 11", 1),
+    (" 58", 1),
     (" 68", 1),
     (" 77", 1),
+    (" 99", 1),
+    (" 0x", 1),
     ("", 50),
 ];
 
