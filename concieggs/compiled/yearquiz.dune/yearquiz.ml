@@ -3,11 +3,12 @@
 open Core
 open Async
 
-type lang = Danish | English
+type lang = Danish | English | German
 
 let base_url = function
   | Danish -> "https://da.wikipedia.org/w/api.php?action=parse&format=json&prop=parsetree&page="
   | English -> "https://en.wikipedia.org/w/api.php?action=parse&format=json&prop=parsetree&page="
+  | German -> "https://de.wikipedia.org/w/api.php?action=parse&format=json&prop=parsetree&page="
 
 let rec remove_link_artefacts string start =
   begin
@@ -130,6 +131,13 @@ let parse text = function
      begivenheder @ sport @ musik
   | English ->
      parse_events text "== Events ==" @ parse_events text "==Events=="
+  | German -> 
+     let begivenheder = parse_events text "=== Politik und Weltgeschehen ===" in
+     let sport = parse_events text "=== Kultur und Gesellschaft ===" in
+     let sport = List.filter ~f:ok_sport sport in
+     let musik = parse_events text "=== Sport ===" in
+     let musik = List.filter ~f:ok_musik musik in
+     begivenheder @ sport @ musik
 
 let shuffle d =
   let module RandomPair =
@@ -144,6 +152,7 @@ let shuffle d =
 let rec find_year_facts () =
   let lang = match Sys.get_argv () with
     | [|_; "engelsk"|] -> English
+    | [|_; "tysk"|] -> German
     | _ -> Danish
   in
   Random.self_init ();
