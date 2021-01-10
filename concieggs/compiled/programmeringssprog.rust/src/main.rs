@@ -22,12 +22,52 @@ static PREFIXES: [(&str, u32); 14] = [
     ("", 10),
 ];
 
-static ROOTS: [&str; 43] = [
-    "Pascal", "Haskell", "Blaise", "Curry", "Go", "Rust", "A", "B", "C", "D", "E", "F", "Erlang",
-    "Prolog", "Neumann", "Euclid", "Fermat", "ML", "Scheme", "Lisp", "Church", "Alonzo", "Futhark",
-    "Java", "COBOL", "Forth", "Fortran", "Turing", "Gauss", "Riemann", "Newton", "Hilbert", "Naur",
-    "Perl", "PHP", "Swift", "Python", "Basic", "Scratch", "Elm", "Coq", "Algol", "Smalltalk",
-    "OCaml", "APL",
+static ROOTS: [&str; 45] = [
+    "Pascal",
+    "Haskell",
+    "Blaise",
+    "Curry",
+    "Go",
+    "Rust",
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "Erlang",
+    "Prolog",
+    "Neumann",
+    "Euclid",
+    "Fermat",
+    "ML",
+    "Scheme",
+    "Lisp",
+    "Church",
+    "Alonzo",
+    "Futhark",
+    "Java",
+    "COBOL",
+    "Forth",
+    "Fortran",
+    "Turing",
+    "Gauss",
+    "Riemann",
+    "Newton",
+    "Hilbert",
+    "Naur",
+    "Perl",
+    "PHP",
+    "Swift",
+    "Python",
+    "Basic",
+    "Scratch",
+    "Elm",
+    "Coq",
+    "Algol",
+    "Smalltalk",
+    "OCaml",
+    "APL",
 ];
 
 static SUFFIXES: [(&str, u32); 18] = [
@@ -82,7 +122,11 @@ fn main() {
         }
     }
 
-    result.push_str(ROOTS.choose(&mut rng).unwrap_or(&""));
+    if let Some(root) = std::env::args().skip(1).next() {
+        result.push_str(&root);
+    } else {
+        result.push_str(ROOTS.choose(&mut rng).unwrap_or(&""));
+    }
 
     result.push_str(
         SUFFIXES
