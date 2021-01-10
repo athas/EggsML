@@ -1,7 +1,7 @@
 use rand::seq::SliceRandom;
 use rand::Rng;
 
-static PREFIXES: [(&str, u32); 14] = [
+static PREFIXES: [(&str, u32); 18] = [
     ("Visual ", 10),
     ("Microsoft ", 10),
     ("Cloud ", 10),
@@ -70,7 +70,7 @@ static ROOTS: [&str; 45] = [
     "APL",
 ];
 
-static SUFFIXES: [(&str, u32); 18] = [
+static SUFFIXES: [(&str, u32); 23] = [
     ("#", 5),
     ("++", 5),
     (" .NET", 5),
