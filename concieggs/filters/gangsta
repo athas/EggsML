@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 use 5.012;
 use warnings;
-use utf8::all;
+# use utf8::all;
 
 # baseret på http://www.classy.dk/download/styrelizer.asp
 
@@ -52,11 +52,11 @@ while (my $text = <>) {
     $text =~ s/Kongen /Top-chiefen /g;
     $text =~ s/Kongelige /Svedigste /g;
     $text =~ s/ kongen\b/ top-chiefen /g;
-    $text =~ s/ konge\b/ top-chief /g;
-    $text =~ s/ kejser\b/ da boss /g;
-    $text =~ s/ kejseren\b/ da boss /g;
-    $text =~ s/ Kejser\b/ da boss /g;
-    $text =~ s/ livstid\b/ 4ever-straf /g;
+    $text =~ s/ konge\b/ top-chief/g;
+    $text =~ s/ kejser\b/ da boss/g;
+    $text =~ s/ kejseren\b/ da boss/g;
+    $text =~ s/ Kejser\b/ da boss/g;
+    $text =~ s/ livstid\b/ 4ever-straf/g;
     $text =~ s/statsminister /overchief /g;
     $text =~ s/huset\b/cribbet/g;
     $text =~ s/hus\b/crib/g;
