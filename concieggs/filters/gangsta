@@ -81,6 +81,18 @@ while (my $text = <>) {
     $text =~ s/ottende/6/g;
     $text =~ s/niende/6/g;
 
+    $text =~ s/ [Ee]t / 1 /g;
+    $text =~ s/ [Tt]o / 2 /g;
+    $text =~ s/ [Tt]re / 3 /g;
+    $text =~ s/ [Ff]ire / 4 /g;
+    $text =~ s/ [Ff]em / 5 /g;
+    $text =~ s/ [Ss]eks / 6 /g;
+    $text =~ s/ [Ss]yv / 7 /g;
+    $text =~ s/ [Oo]tte / 8 /g;
+    $text =~ s/ [Nn]i / 9 /g;
+
+    $text =~ s/\)/rand() < 0.25 ? ' tror jeg)' : ')'/eg;
+
     $text =~ s/ I / i /g;
 
     $text =~ s/ ødelægge/ smadre/g;
@@ -292,8 +304,9 @@ while (my $text = <>) {
     $text =~ s/concieggs/doggen/g;
     $text =~ s/CONCIEGGS/DOGGEN/g;
     $text =~ s/ hær / bande /g;
-    $text =~ s/besejres/ordnes/g;
-    $text =~ s/besejret/ordnet/g;
+    $text =~ s/besejres/smadres/g;
+    $text =~ s/besejret/smadret/g;
+    $text =~ s/besejrer/smadrer/g;
 
     $text =~ s/ begivenhed / ting /g;
 
