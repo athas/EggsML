@@ -50,8 +50,12 @@ while (my $text = <>) {
     $text =~ s/Regeringen /Da rulers /g;
     $text =~ s/ statsministeren / over-chiefen /g;
     $text =~ s/Kongen /Top-chiefen /g;
+    $text =~ s/Kongelige /Svedigste /g;
     $text =~ s/ kongen / top-chiefen /g;
     $text =~ s/ konge / top-chief /g;
+    $text =~ s/ kejser / da boss /g;
+    $text =~ s/ kejseren / da boss /g;
+    $text =~ s/ Kejser / da boss /g;
     $text =~ s/ livstid / 4ever-straf /g;
     $text =~ s/statsminister /overchief /g;
     $text =~ s/huset\b/cribbet/g;
@@ -66,6 +70,20 @@ while (my $text = <>) {
     $text =~ s/\bperson\b/hjemmedreng/g;
     $text =~ s/\bindsatte\b/hjemmedrenge/g;
     $text =~ s/\bindsat\b/hjemmedreng/g;
+
+    $text =~ s/første/1/g;
+    $text =~ s/anden/2/g;
+    $text =~ s/tredje/3/g;
+    $text =~ s/fjerde/4/g;
+    $text =~ s/femte/5/g;
+    $text =~ s/sjette/6/g;
+    $text =~ s/syvende/6/g;
+    $text =~ s/ottende/6/g;
+    $text =~ s/niende/6/g;
+
+    $text =~ s/ I / i /g;
+
+    $text =~ s/ ødelægge/ smadre/g;
 
     $text =~ s/ dreng / kid /g;
     $text =~ s/\bkvinder\b/ho's/g;
@@ -189,7 +207,7 @@ while (my $text = <>) {
     $text =~ s/ løn / bistandsknapper /g;
     $text =~ s/ fra / directly fra /g;
     $text =~ s/ om / om sårn noget som /g;
-    $text =~ s/([!?.]+)$/, dér\1/g;
+    $text =~ s/([!?.]+)$/, dér$1/g;
     $text =~ s/\. +A/ :\)\. A/g;
     $text =~ s/\. +B/\. Årh, HVAD mand! B/g;
     $text =~ s/\. +C/\. Yeah, right! C/g;
@@ -274,6 +292,8 @@ while (my $text = <>) {
     $text =~ s/concieggs/doggen/g;
     $text =~ s/CONCIEGGS/DOGGEN/g;
     $text =~ s/ hær / bande /g;
+    $text =~ s/besejres/ordnes/g;
+    $text =~ s/besejret/ordnet/g;
 
     $text =~ s/ begivenhed / ting /g;
 
@@ -287,7 +307,6 @@ while (my $text = <>) {
     $text =~ s/Bekymringet/Har noiaen på /g;
 
     $text =~ s/ bekymrer / giver noia på til /g;
-
 
     $text =~ s/Det /Det dersens /g;
     $text =~ s/ den / den dersens /g;
