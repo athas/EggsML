@@ -273,6 +273,12 @@ while (my $text = <>) {
     $text =~ s/Ritzaus Bureau/Rizzlas Papirbureau/g;
     $text =~ s/concieggs/doggen/g;
     $text =~ s/CONCIEGGS/DOGGEN/g;
+    $text =~ s/ hær / bande /g;
+
+    $text =~ s/ begivenhed / ting /g;
+
+    $text =~ s/ givne / dersens /g;
+    $text =~ s/ givent //g;
 
     $text =~ s/ skriver / kradser /g;
 
