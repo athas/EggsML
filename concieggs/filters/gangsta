@@ -51,12 +51,12 @@ while (my $text = <>) {
     $text =~ s/ statsministeren / over-chiefen /g;
     $text =~ s/Kongen /Top-chiefen /g;
     $text =~ s/Kongelige /Svedigste /g;
-    $text =~ s/ kongen / top-chiefen /g;
-    $text =~ s/ konge / top-chief /g;
-    $text =~ s/ kejser / da boss /g;
-    $text =~ s/ kejseren / da boss /g;
-    $text =~ s/ Kejser / da boss /g;
-    $text =~ s/ livstid / 4ever-straf /g;
+    $text =~ s/ kongen\b/ top-chiefen /g;
+    $text =~ s/ konge\b/ top-chief /g;
+    $text =~ s/ kejser\b/ da boss /g;
+    $text =~ s/ kejseren\b/ da boss /g;
+    $text =~ s/ Kejser\b/ da boss /g;
+    $text =~ s/ livstid\b/ 4ever-straf /g;
     $text =~ s/statsminister /overchief /g;
     $text =~ s/huset\b/cribbet/g;
     $text =~ s/hus\b/crib/g;
@@ -134,7 +134,8 @@ while (my $text = <>) {
     $text =~ s/ bedre / endnu mer\' liret, dér, /g;
     $text =~ s/ har / har psykomeget /g;
     $text =~ s/(?<=\bsom )/('hvaddenu, ', 'hvadehedder, ')[rand 2]/eg;
-    $text =~ s/ dræbt / most /g;
+    $text =~ s/ dræbt\b/ most/g;
+    $text =~ s/ henrettet\b/ most/g;
     $text =~ s/ dræbte / moste /g;
     $text =~ s/ computerspil/ gamez/g;
     $text =~ s/ blev / blev for sygt /g;
@@ -307,6 +308,7 @@ while (my $text = <>) {
     $text =~ s/besejres/smadres/g;
     $text =~ s/besejret/smadret/g;
     $text =~ s/besejrer/smadrer/g;
+    $text =~ s/gravis/bollet tyk/g;
 
     $text =~ s/ begivenhed / ting /g;
 
