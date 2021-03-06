@@ -71,15 +71,15 @@ while (my $text = <>) {
     $text =~ s/\bindsatte\b/hjemmedrenge/g;
     $text =~ s/\bindsat\b/hjemmedreng/g;
 
-    $text =~ s/første/1/g;
-    $text =~ s/anden/2/g;
-    $text =~ s/tredje/3/g;
-    $text =~ s/fjerde/4/g;
-    $text =~ s/femte/5/g;
-    $text =~ s/sjette/6/g;
-    $text =~ s/syvende/6/g;
-    $text =~ s/ottende/6/g;
-    $text =~ s/niende/6/g;
+    $text =~ s/\bførste/1/g;
+    $text =~ s/\banden/2/g;
+    $text =~ s/\btredje/3/g;
+    $text =~ s/\bfjerde/4/g;
+    $text =~ s/\bfemte/5/g;
+    $text =~ s/\bsjette/6/g;
+    $text =~ s/\bsyvende/6/g;
+    $text =~ s/\bottende/6/g;
+    $text =~ s/\bniende/6/g;
 
     $text =~ s/ [Ee]t / 1 /g;
     $text =~ s/ [Tt]o / 2 /g;
