@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 use 5.012;
 use warnings;
-# use utf8::all;
+use utf8::all;
 
 # baseret på http://www.classy.dk/download/styrelizer.asp
 
@@ -49,7 +49,8 @@ while (my $text = <>) {
     $text =~ s/regeringen /da rulers /g;
     $text =~ s/Regeringen /Da rulers /g;
     $text =~ s/ statsministeren / over-chiefen /g;
-    $text =~ s/Kongen /Top-chiefen /g;
+    $text =~ s/(Kong|Dronning) /Chief /g;
+    $text =~ s/(Kongen|Dronningen) /Top-chiefen /g;
     $text =~ s/Kongelige /Svedigste /g;
     $text =~ s/ kongen\b/ top-chiefen /g;
     $text =~ s/ konge\b/ top-chief/g;
@@ -62,6 +63,14 @@ while (my $text = <>) {
     $text =~ s/hus\b/crib/g;
     $text =~ s/Huset\b/Cribbet/g;
     $text =~ s/Hus\b/Crib/g;
+    $text =~ s/krig\b/bøf/g;
+    $text =~ s/Krig\b/Bøf/g;
+    $text =~ s/krigen/bøffen/g;
+    $text =~ s/Krigen/Bøffen/g;
+    $text =~ s/\bslag\b/drive-by/g;
+    $text =~ s/\bSlag\b/Drive-by/g;
+    $text =~ s/mislykkedes/fuckede up/g;
+    $text =~ s/mislykket/fucked up/g;
 
     $text =~ s/\bmanden\b/hjemmedrengen/g;
     $text =~ s/\bmand\b/hjemmedreng/g;
@@ -71,15 +80,15 @@ while (my $text = <>) {
     $text =~ s/\bindsatte\b/hjemmedrenge/g;
     $text =~ s/\bindsat\b/hjemmedreng/g;
 
-    $text =~ s/\bførste/1/g;
-    $text =~ s/\banden/2/g;
-    $text =~ s/\btredje/3/g;
-    $text =~ s/\bfjerde/4/g;
-    $text =~ s/\bfemte/5/g;
-    $text =~ s/\bsjette/6/g;
-    $text =~ s/\bsyvende/6/g;
-    $text =~ s/\bottende/6/g;
-    $text =~ s/\bniende/6/g;
+    $text =~ s/\bførste\b/1/g;
+    $text =~ s/\banden\b/2/g;
+    $text =~ s/\btredje\b/3/g;
+    $text =~ s/\bfjerde\b/4/g;
+    $text =~ s/\bfemte\b/5/g;
+    $text =~ s/\bsjette\b/6/g;
+    $text =~ s/\bsyvende\b/6/g;
+    $text =~ s/\bottende\b/6/g;
+    $text =~ s/\bniende\b/6/g;
 
     $text =~ s/ [Ee]t / 1 /g;
     $text =~ s/ [Tt]o / 2 /g;
@@ -134,9 +143,9 @@ while (my $text = <>) {
     $text =~ s/ bedre / endnu mer\' liret, dér, /g;
     $text =~ s/ har / har psykomeget /g;
     $text =~ s/(?<=\bsom )/('hvaddenu, ', 'hvadehedder, ')[rand 2]/eg;
-    $text =~ s/ dræbt\b/ most/g;
+    $text =~ s/ dræbt\b/ nakket/g;
     $text =~ s/ henrettet\b/ most/g;
-    $text =~ s/ dræbte / moste /g;
+    $text =~ s/ dræbte / nakkede /g;
     $text =~ s/ computerspil/ gamez/g;
     $text =~ s/ blev / blev for sygt /g;
     $text =~ s/ bliver / blir /g;
@@ -300,6 +309,7 @@ while (my $text = <>) {
     $text =~ s/Knud /Mistah Knud /g;
     $text =~ s/Eric /Erik "badstar-gangstah" /g;
     $text =~ s/Erik /Erik "badstar-gangstah" /g;
+    $text =~ s/Niels /Niels "Nillerdrengen" /g;
     $text =~ s/Ritzau/Rizzlas Bureau/g;
     $text =~ s/Ritzaus Bureau/Rizzlas Papirbureau/g;
     $text =~ s/concieggs/doggen/g;
@@ -308,7 +318,7 @@ while (my $text = <>) {
     $text =~ s/besejres/smadres/g;
     $text =~ s/besejret/smadret/g;
     $text =~ s/besejrer/smadrer/g;
-    $text =~ s/gravis/bollet tyk/g;
+    $text =~ s/gravid/bollet tyk/g;
 
     $text =~ s/ begivenhed / ting /g;
 
