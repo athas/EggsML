@@ -49,9 +49,11 @@ while (my $text = <>) {
     $text =~ s/regeringen /da rulers /g;
     $text =~ s/Regeringen /Da rulers /g;
     $text =~ s/ statsministeren / over-chiefen /g;
+    $text =~ s/præsident/chief/g;
     $text =~ s/(Kong|Dronning) /Chief /g;
     $text =~ s/(Kongen|Dronningen) /Top-chiefen /g;
     $text =~ s/Kongelige /Svedigste /g;
+    $text =~ s/kongelige /svedigste /g;
     $text =~ s/ kongen\b/ top-chiefen /g;
     $text =~ s/ konge\b/ top-chief/g;
     $text =~ s/ kejser\b/ da boss/g;
@@ -71,6 +73,7 @@ while (my $text = <>) {
     $text =~ s/\bSlag\b/Drive-by/g;
     $text =~ s/mislykkedes/fuckede up/g;
     $text =~ s/mislykket/fucked up/g;
+    $text =~ s/\bgamle\b/\boldies\b/g;
 
     $text =~ s/\bmanden\b/hjemmedrengen/g;
     $text =~ s/\bmand\b/hjemmedreng/g;
@@ -192,7 +195,7 @@ while (my $text = <>) {
     $text =~ s/ statens / Big Brothers /g;
     $text =~ s/ men / men, fuck, /g;
     $text =~ s/Men /Men hvaddenu, /g;
-    $text =~ s/ penge / kna\$ter /g;
+    $text =~ s/\bpenge\b/kna\$ter/g;
     $text =~ s/ regulært / totalt fucking /g;
     $text =~ s/ samfund/ hood/g;
     $text =~ s/ million / mille /g;
@@ -320,7 +323,7 @@ while (my $text = <>) {
     $text =~ s/besejrer/smadrer/g;
     $text =~ s/gravid/bollet tyk/g;
 
-    $text =~ s/ begivenhed / ting /g;
+    $text =~ s/begivenhed(er)?\b/ting/g;
 
     $text =~ s/ givne / dersens /g;
     $text =~ s/ givent //g;
@@ -346,6 +349,7 @@ while (my $text = <>) {
     $text =~ s/ fik / nakkede /g;
     $text =~ s/ få / nakke /g;
     $text =~ s/ penge/ cash/g;
+    $text =~ s/ [Pp]enge/ Cash/g;
     $text =~ s/ fordi / fordi at /g;
 
     $text =~ s/Arla /Mælkemonopolet Arla /g;
