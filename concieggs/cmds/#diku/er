@@ -7,19 +7,18 @@ if [ "$1" = det -a "$2" = "jul" ]; then
     exit
 fi
 
-eval "$(echo "$@" | parse 'sol(en)? (?<sol>stået op|oppe)')"
+eval "$(echo "$@" | /home/thv/EggsML/concieggs/eggspi/parse 'sol(en)? (?<sol>stået op|oppe)')"
 
 if [ "$sol" ]; then
-    echo "hej";
-    default_location = "Copenhagen"
+    default_location="Copenhagen"
     if [ "$EGGS_USER" == "sword_smith" ] || [ "$EGGS_USER" == "trobjo" ]; then
-        default_location = "Zug,CH"
+        default_location="Zug,CH"
     fi
-    location = "$default_location"
-    IFS=$'\n'; set -f; foo=$(almanak -s "$location");
-    sun_up = ${foo[0]}
-    sun_down = ${foo[1]}
-    now = $(date +"%H:%M")
+    location="$default_location"
+    IFS=$'\n'; set -f; foo=$(/home/thv/EggsML/concieggs/eggspi/almanak -s "$location");
+    sun_up=${foo[0]}
+    sun_down=${foo[1]}
+    now=$(date +"%H:%M")
     if is_time_between.py "$sun_up" "$sun_down"; then
         echo "Solen er oppe!"
     else
