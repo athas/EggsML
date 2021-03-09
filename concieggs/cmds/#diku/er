@@ -7,7 +7,7 @@ if [ "$1" = det -a "$2" = "jul" ]; then
     exit
 fi
 
-eval "$(echo "$@" | /home/thv/EggsML/concieggs/eggspi/parse 'sol(en)? (?<sol>stået op|oppe)')"
+eval "$(echo "$@" | parse 'sol(en)? (?<sol>stået op|oppe)')"
 
 if [ "$sol" ]; then
     default_location="Copenhagen"
@@ -15,7 +15,7 @@ if [ "$sol" ]; then
         default_location="Zug,CH"
     fi
     location="$default_location"
-    IFS=$'\n'; set -f; foo=$(/home/thv/EggsML/concieggs/eggspi/almanak -s "$location");
+    IFS=$'\n'; set -f; foo=$(almanak -s "$location");
     sun_up=${foo[0]}
     sun_down=${foo[1]}
     now=$(date +"%H:%M")
