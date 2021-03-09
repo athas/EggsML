@@ -13,8 +13,9 @@ Hvad sker der med min dunst?
 Noget rører sig dybt indeni.  Det kommer frem...
 EOF
         )
-elif isFullMoon "$(dateToday)" && ! isSunUp "København"; then
+elif isFullMoon "$(dateToday)"; then
     maybeGood .02 || exit
+    isSunUp "København" && exit
     line=$(randomLine <<EOF
 Awuuuuuu!
 /me river tøjet af sig
