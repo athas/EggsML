@@ -15,7 +15,7 @@ if [ "$sol" ]; then
         default_location="Zug,CH"
     fi
     location="$default_location"
-    IFS=$'\n'; set -f; foo=$(almanak -s "$location");
+    IFS=$"\n"; read -ra foo <<< "$(almanak -s $location)"; IFS=;
     sun_up=${foo[0]}
     sun_down=${foo[1]}
     now=$(date +"%H:%M")
