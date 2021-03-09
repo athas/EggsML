@@ -7,6 +7,26 @@ if [ "$1" = det -a "$2" = "jul" ]; then
     exit
 fi
 
+eval "$(echo "$@" | parse 'sol(en)? (?<sol>stået op|oppe)')"
+
+if [ "$sol" ]; then
+    echo "hej";
+    default_location = "Copenhagen"
+    if [[ ( "$EGGS_USER" == "sword_smith" ) || ( "$EGGS_USER" == "trobjo" ) ]]; then
+        default_location = "Zug,CH"
+    fi
+    location = "$default_location"
+    IFS=$'\n'; set -f; foo=$(almanak -s "$location");
+    sun_up = ${foo[0]}
+    sun_down = ${foo[1]}
+    now = $(date +"%H:%M")
+    if is_time_between.py "$sun_up" "$sun_down"; then
+        echo "Solen er oppe!"
+    else
+        echo "Solen er ikke oppe :((("
+    fi
+fi
+
 if [[ ( "$2" == "ledig" ) || ( "$2" == "ledig?" ) ]]; then
     runcmd whois "$1" "ledighed"
 elif [ $# -gt 1 ]; then
