@@ -7,14 +7,18 @@ if [ "$1" = det -a "$2" = "jul" ]; then
     exit
 fi
 
-eval "$(echo "$@" | parse 'sol(en)? (?<sol>stået op|oppe)')"
+eval "$(echo "$@" | parse 'sol(en)? (?<sol>stået op|oppe)( i (?<place>[^\?]+))?')"
 
 if [ "$sol" ]; then
     default_location="København"
     if [ "$EGGS_USER" == "sword_smith" ] || [ "$EGGS_USER" == "trobjo" ]; then
-        default_location="Zug,CH"
+        default_location="Zug"
     fi
     location="$default_location"
+    if [ "$place" ]; then
+        location="$place"
+    fi
+
     if isSunUp "$location"; then
         echo "Solen er oppe i $location!"
     else
