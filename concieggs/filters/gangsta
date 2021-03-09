@@ -63,6 +63,8 @@ while (my $text = <>) {
     $text =~ s/statsminister /overchief /g;
     $text =~ s/huset\b/cribbet/g;
     $text =~ s/hus\b/crib/g;
+    $text =~ s/slot\b/crib/g;
+    $text =~ s/borg\b/crib/g;
     $text =~ s/Huset\b/Cribbet/g;
     $text =~ s/Hus\b/Crib/g;
     $text =~ s/krig\b/bøf/g;
@@ -73,7 +75,7 @@ while (my $text = <>) {
     $text =~ s/\bSlag\b/Drive-by/g;
     $text =~ s/mislykkedes/fuckede up/g;
     $text =~ s/mislykket/fucked up/g;
-    $text =~ s/\bgamle\b/\boldies\b/g;
+    $text =~ s/\bgamle\b/oldies/g;
 
     $text =~ s/\bmanden\b/hjemmedrengen/g;
     $text =~ s/\bmand\b/hjemmedreng/g;
