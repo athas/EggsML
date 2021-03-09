@@ -15,7 +15,7 @@ def date_convert(s):
     return datetime.strptime(s, "%Y-%m-%dT%H:%M:%S").time()
 
 # Check if silent mode
-silent = sys.argv[1] == "-s" or sys.argv[1] == "--silent"
+silent = len(sys.argv) > 1 and (sys.argv[1] == "-s" or sys.argv[1] == "--silent")
 
 # Find location
 if not silent and len(sys.argv) < 2 or silent and len(sys.argv) < 3:
