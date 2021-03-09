@@ -20,7 +20,6 @@ if [ "$sol" ]; then
     IFS=
     sun_up="${FOO[0]}"
     sun_down="${FOO[1]}"
-    now=$(date +"%H:%M")
     if is_time_between.py "$sun_up" "$sun_down"; then
         echo "Solen er oppe!"
     else
