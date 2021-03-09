@@ -232,6 +232,7 @@ while (my $text = <>) {
     $text =~ s/ løn / bistandsknapper /g;
     $text =~ s/ fra / directly fra /g;
     $text =~ s/ om / om sårn noget som /g;
+    $text =~ s/ for / for det der /g;
     $text =~ s/([!?.]+)$/, dér$1/g;
     $text =~ s/\. +A/ :\)\. A/g;
     $text =~ s/\. +B/\. Årh, HVAD mand! B/g;
