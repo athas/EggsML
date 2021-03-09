@@ -12,7 +12,7 @@ eval "$(echo "$@" | parse 'sol(en)? (?<sol>stået op|oppe)')"
 if [ "$sol" ]; then
     echo "hej";
     default_location = "Copenhagen"
-    if [[ ( "$EGGS_USER" == "sword_smith" ) || ( "$EGGS_USER" == "trobjo" ) ]]; then
+    if [ "$EGGS_USER" == "sword_smith" ] || [ "$EGGS_USER" == "trobjo" ]; then
         default_location = "Zug,CH"
     fi
     location = "$default_location"
@@ -25,6 +25,7 @@ if [ "$sol" ]; then
     else
         echo "Solen er ikke oppe :((("
     fi
+    exit 0
 fi
 
 if [[ ( "$2" == "ledig" ) || ( "$2" == "ledig?" ) ]]; then
