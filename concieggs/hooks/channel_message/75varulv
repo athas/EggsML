@@ -5,7 +5,7 @@
 shuttingUp && exit
 
 if isFullMoon "$(dateTomorrow)"; then
-    maybeGood .0025 || exit
+    maybeGood .005 || exit
     line=$(randomLine <<EOF
 Blodet strømmer stærkere igennem mig...
 /me føler langsomt sine negle vokse hurtigere end normalt
@@ -13,8 +13,8 @@ Hvad sker der med min dunst?
 Noget rører sig dybt indeni.  Det kommer frem...
 EOF
         )
-elif isFullMoon "$(dateToday)"; then
-    maybeGood .005 || exit
+elif isFullMoon "$(dateToday)" && ! isSunUp "København"; then
+    maybeGood .02 || exit
     line=$(randomLine <<EOF
 Awuuuuuu!
 /me river tøjet af sig
