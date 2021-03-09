@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#
+# Returner termineringskode 0 hvis solen er oppe for den efterspurgte lokation,
+# ellers returneres termineringskode 1.
+
+if (( $# == 0 )); then
+    >&2 echo "usage: $0 [location0 [location1]]"
+    exit 2
+fi
+
+FOO=($(almanak -s "$@"))
+sun_up="${FOO[0]}"
+sun_down="${FOO[1]}"
+if is_time_between.py "$sun_up" "$sun_down"; then
+    exit 0
+else
+    exit 1
+fi

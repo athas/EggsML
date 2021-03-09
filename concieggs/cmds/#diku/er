@@ -15,10 +15,7 @@ if [ "$sol" ]; then
         default_location="Zug,CH"
     fi
     location="$default_location"
-    FOO=($(almanak -s "$location"))
-    sun_up="${FOO[0]}"
-    sun_down="${FOO[1]}"
-    if is_time_between.py "$sun_up" "$sun_down"; then
+    if isSunUp "$location"; then
         echo "Solen er oppe i $location!"
     else
         echo "Solen er ikke oppe i $location :((("
