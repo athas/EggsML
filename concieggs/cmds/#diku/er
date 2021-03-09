@@ -10,7 +10,7 @@ fi
 eval "$(echo "$@" | parse 'sol(en)? (?<sol>stået op|oppe)')"
 
 if [ "$sol" ]; then
-    default_location="Copenhagen"
+    default_location="København"
     if [ "$EGGS_USER" == "sword_smith" ] || [ "$EGGS_USER" == "trobjo" ]; then
         default_location="Zug,CH"
     fi
@@ -19,9 +19,9 @@ if [ "$sol" ]; then
     sun_up="${FOO[0]}"
     sun_down="${FOO[1]}"
     if is_time_between.py "$sun_up" "$sun_down"; then
-        echo "Solen er oppe!"
+        echo "Solen er oppe i $location!"
     else
-        echo "Solen er ikke oppe :((("
+        echo "Solen er ikke oppe i $location :((("
     fi
     exit 0
 fi
