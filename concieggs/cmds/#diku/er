@@ -15,9 +15,7 @@ if [ "$sol" ]; then
         default_location="Zug,CH"
     fi
     location="$default_location"
-    IFS=$"\n"
-    read -a FOO <<< "$(almanak -s $location)"
-    IFS=
+    FOO=($(almanak -s "$location"))
     sun_up="${FOO[0]}"
     sun_down="${FOO[1]}"
     if is_time_between.py "$sun_up" "$sun_down"; then
