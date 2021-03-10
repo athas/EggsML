@@ -289,6 +289,7 @@ while (my $text = <>) {
     $text =~ s/Uffe /Ufo /g;
     $text =~ s/Kristian /Krelle /g;
     $text =~ s/Christian /Krelle /g;
+    $text =~ s/Frederik /Frede /g;
     $text =~ s/Mads /Street Mass /g;
     $text =~ s/ diskutere / battle /g;
     $text =~ s/Kenneth /Kænned /g;
