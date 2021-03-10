@@ -76,6 +76,7 @@ while (my $text = <>) {
     $text =~ s/mislykkedes/fuckede up/g;
     $text =~ s/mislykket/fucked up/g;
     $text =~ s/\bgamle\b/oldies/g;
+    $text =~ s/\brejser\b/daffer/g;
 
     $text =~ s/\bmanden\b/hjemmedrengen/g;
     $text =~ s/\bmand\b/hjemmedreng/g;
