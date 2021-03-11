@@ -15,3 +15,4 @@ word := ~/en/ "et"
       | ~/riger/ "lande"
       | ~/rige/ "land"
       | ~/rig/ "land"
+      | /[a-zA-ZæøåÆØÅ0-9]+/
