@@ -1,0 +1,15 @@
+/* Gør dansk lidt mere konsistent */
+
+message := maybeSep inner maybeSep
+
+inner := word sep inner
+       | word
+       | ""
+
+maybeSep := /[^A-Za-zæøå0-9]*/
+sep      := /[^A-Za-zæøå0-9]+/
+
+word := ~/en/ "et"
+      | ~/riger/ "lande"
+      | ~/rige/ "land"
+      | ~/rig/ "land"
