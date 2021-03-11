@@ -9,7 +9,7 @@ inner := word sep inner
 maybeSep := /[^A-Za-zæøå0-9]*/
 sep      := /[^A-Za-zæøå0-9]+/
 
-word := ~/en/ "et"
-      | ~/riger/ "lande"
-      | ~/rige/ "land"
-      | ~/rig/ "land"
+word := ~/\w*en/ "et"
+      | ~/\w*riger/ "lande"
+      | ~/\w*rige/ "land"
+      | ~/\w*rig/ "land"
