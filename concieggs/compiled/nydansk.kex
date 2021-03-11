@@ -12,6 +12,12 @@ maybeSep := /[^A-Za-zæøå0-9]*/
 sep      := /[^A-Za-zæøå0-9]+/
 
 word := ~/en/ "et"
+      | ~/Frankrig/ "Frankland"
+      | ~/frankrig/ "frankland"
+      | ~/Østrig/ "Østland"
+      | ~/østrig/ "østland"
+      | ~/Sverige/ "Sveland"
+      | ~/sverige/ "sveland"
       | ~/riger/ "lande"
       | ~/rige/ "land"
       | ~/rig/ "land"
