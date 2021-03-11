@@ -4,11 +4,12 @@
 
 api_key="$(cat "$CONCIEGGS_HOME/credentials/openai")"
 temperature=0.7
+engine=curie
 max_tokens=$1
 shift
 prompt="$@"
 
-curl -s https://api.openai.com/v1/engines/davinci/completions \
+curl -s https://api.openai.com/v1/engines/$engine/completions \
      -H "Content-Type: application/json" \
      -H "Authorization: Bearer $api_key" \
      -d '{"prompt": "'"$prompt"'", "temperature": '$temperature', "max_tokens": '$max_tokens'}' \
