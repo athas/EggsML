@@ -1,5 +1,7 @@
 /* Gør dansk lidt mere konsistent */
 
+start: message
+
 message := maybeSep inner maybeSep
 
 inner := word sep inner

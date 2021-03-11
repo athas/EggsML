@@ -1,6 +1,8 @@
 /* Gør det ordentligt, forkert, forfinet, gammelt dansk. */
 /* Fokuserer på at rette op på de mest brugte ord. */
 
+start: message
+
 message := maybeSep inner maybeSep
 
 inner := word sep inner
