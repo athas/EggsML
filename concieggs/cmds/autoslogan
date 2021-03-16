@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# Hvad var det nu deres slogan var, eller skulle være?
+
+if [ $# = 0 ]; then
+    echo "$EGGS_USER: Hvis slogan?"
+    exit
+fi
+
+tries=3
+for x in $tries; do
+    slogan=$(gpt3 50 "$@" | sed -n -E 's/.*("[^"]*").*/\1/p')
+    if [ "$slogan" ]; then
+        echo "$EGGS_USER: $slogan"
+        exit
+    fi
+done
+
+echo "$EGGS_USER: Beklager, men jeg kan ikke umiddelbart komme på noget."
