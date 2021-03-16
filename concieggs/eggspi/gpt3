@@ -7,7 +7,7 @@ temperature=0.7
 engine=curie
 max_tokens=$1
 shift
-prompt="$@"
+prompt=$(echo "$@" | sed 's/"/\\"/g')
 
 curl -s https://api.openai.com/v1/engines/$engine/completions \
      -H "Content-Type: application/json" \
