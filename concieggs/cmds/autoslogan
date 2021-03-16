@@ -7,13 +7,14 @@ if [ $# = 0 ]; then
     exit
 fi
 
-prompt=$($CONCIEGGS_DIR/cmds/autoviden)
+prompt=$($CONCIEGGS_DIR/cmds/autoviden "$@")
 
-tries=3
+tries=10
 for x in $tries; do
-    slogan=$(gpt3 50 "$prompt" | sed -n -E 's/.*("[^"]*").*/\1/p')
+    stuff=$(gpt3 50 "$prompt.  Deres slogan er: \"")
+    slogan=$(echo "$stuff" | sed -n -E 's/[ ]*([^"]*").*/\1/p')
     if [ "$slogan" ]; then
-        echo "$EGGS_USER: $slogan"
+        echo "$EGGS_USER: \"$slogan"
         exit
     fi
 done
