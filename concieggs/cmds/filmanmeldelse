@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# Hvad var det nu deres slogan var, eller skulle være?
+
+if [ $# = 0 ]; then
+    echo "$EGGS_USER: Hvilken film?"
+    exit
+fi
+
+prompt=$($CONCIEGGS_DIR/cmds/bedøm "$@")
+
+warm_up_text="Jeg var inde i biografen at se $@, og jeg vil nu \
+dele mine tanker om $@ med jer. I kan se, hvad jeg synes om \
+den, og hvorfor jeg synes det. $@ er en film, som jeg vil give \
+$prompt. Det vil jeg give den, fordi ";
+
+tries=5
+for x in $tries; do
+    stuff=$(gpt3 150 "$warm_up_text")
+    anmeldelse=$(echo $stuff | sed -E 's/(\s\s+|\.\.+)/ /g' | sed -E 's/(^\s+|\s+$)//g')
+    if [ "$anmeldelse" ]; then
+        echo "$EGGS_USER: $prompt $anmeldelse"
+        exit
+    fi
+done
+
+echo "$EGGS_USER: Beklager, men jeg kan ikke umiddelbart komme på noget."
