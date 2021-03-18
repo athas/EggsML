@@ -7,10 +7,9 @@ if [ $# = 0 ]; then
     exit
 fi
 
-warm_up_text="Jeg var inde i biografen at se $@, og jeg vil nu \
-dele mine tanker om $@ med jer. I kan se, hvad jeg synes om \
-den, hvor mange stjerner den fortjener, og hvorfor jeg synes\
-det. Jeg synes, at $@ er ";
+warm_up_text="Filmanmeldelse: Jeg var inde i biografen at se $@, \
+og jeg gjorde mig tanker om både instruktionen, historien og \
+skuespillerne. Jeg synes, at $@ er ";
 
 tries=5
 for x in $tries; do
