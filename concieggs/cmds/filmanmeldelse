@@ -7,7 +7,7 @@ if [ $# = 0 ]; then
     exit
 fi
 
-warm_up_text="Filmanmeldelse: Politiken giver hjerter til film: $@ er ";
+warm_up_text="Filmanmeldelse: Politiken bedømmer film: $@ er ";
 
 tries=5
 for x in $tries; do
