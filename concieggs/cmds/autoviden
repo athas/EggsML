@@ -14,7 +14,6 @@ from eggsthon.url_open import request
 from eggsthon.mediawiki import get_page_urls, get_paragraphs, get_sentences
 
 base_url = 'http://da.wikipedia.org/'
-base_url_eng = 'http://en.wikipedia.org/'
 random_page_url = base_url + 'wiki/Speciel:Tilfældig_side'
 with open(CONCIEGGS_DB_DIR + '/forkortelser') as f:
     pre_rules = filter(lambda x: x.endswith('.'), f.read().split('\n'))
@@ -28,10 +27,7 @@ def run_main(args):
     urls = get_page_urls(term, base_url) if term else [random_page_url]
     pages = request(urls[:5])
     if not pages:
-        urls = get_page_urls(term, base_url_eng)
-        pages = request(urls[:5])
-        if not pages:
-            return complain()
+        return complain()
     paragraphs = itertools.chain(*map(get_paragraphs, pages))
     sentences = filter(lambda s: len(s) > 20 and term.lower() in s.lower(),
                        (itertools.chain(*map(partial(get_sentences,
