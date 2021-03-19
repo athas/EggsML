@@ -14,7 +14,7 @@ for x in $tries; do
     stuff=$(gpt3 80 "$warm_up_text")
     anmeldelse=$(echo $stuff | sed -E 's/(\s\s+|\.\.+)/ /g' | sed -E 's/(^\s+|\s+$)//g')
     if [ "$anmeldelse" ]; then
-        echo $(echo "$EGGS_USER: $@ er $anmeldelse"| sed -E 's/\.\.+/./g')
+        echo $(echo "$EGGS_USER: $@ er en $anmeldelse"| sed -E 's/\.\.+/./g')
         exit
     fi
 done
