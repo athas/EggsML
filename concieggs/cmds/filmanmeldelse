@@ -1,17 +1,17 @@
 #!/bin/sh
 #
-# Hvad var det nu deres slogan var, eller skulle være?
+# Tænk at der er folk, der får penge for at tage i biografen.
 
 if [ $# = 0 ]; then
     echo "$EGGS_USER: Hvilken film?"
     exit
 fi
 
-warm_up_text="Filmanmeldelse: Politiken bedømmer film: $@ er ";
+warm_up_text="Jylland-Posten giver stjerner til filmen $@. $@ er en ";
 
 tries=5
 for x in $tries; do
-    stuff=$(gpt3 150 "$warm_up_text")
+    stuff=$(gpt3 80 "$warm_up_text")
     anmeldelse=$(echo $stuff | sed -E 's/(\s\s+|\.\.+)/ /g' | sed -E 's/(^\s+|\s+$)//g')
     if [ "$anmeldelse" ]; then
         echo $(echo "$EGGS_USER: $@ er $anmeldelse"| sed -E 's/\.\.+/./g')
