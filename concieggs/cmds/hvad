@@ -22,7 +22,7 @@ eval "$(echo "$@" | parse \
 '(?:lytter (?<listener>[^ ]+) til(?: lige nu)?)|'\
 '(?<whatis>er (?<subject>.+))$|'\
 '(blev der af (?<fate>[^ ]+))'|\
-'(?:mener (?<parti>.+) om (?<emne>[^\?]+))')"
+'mener (?<parti>.+?) om (?<emne>[^\?]+)')"
 
 if [ "$whatis" ]; then
   eval "$(echo "$subject" | parse '(?<betalingsbalancen>betalingsbalancen)|(?<klokken>klokken)|(?<yourproblem>dit problem(?: med (?<problem>.+))?$)')"
