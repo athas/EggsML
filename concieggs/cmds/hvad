@@ -21,8 +21,7 @@ eval "$(echo "$@" | parse \
 '(står (?<forkortelse>[^ ]+) for)|'\
 '(?:lytter (?<listener>[^ ]+) til(?: lige nu)?)|'\
 '(?<whatis>er (?<subject>.+))$|'\
-'(blev der af (?<fate>[^ ]+))'|\
-'(mener (?<parti>[^ ]+) om (?<emne>[^\?]+))')"
+'(blev der af (?<fate>[^ ]+))')"
 
 if [ "$whatis" ]; then
   eval "$(echo "$subject" | parse '(?<betalingsbalancen>betalingsbalancen)|(?<klokken>klokken)|(?<yourproblem>dit problem(?: med (?<problem>.+))?$)')"
@@ -262,11 +261,6 @@ elif [ "$txid" ]; then
         msg="Transaktionen er endnu ikke bekræftet, men ligger i mempool på $net."
     fi
     echo "$msg"
-
-elif [ "$parti" ]; then
-    stuff=$(gpt3 70 "Derfor er ${parti}s holdning til ${emne}, at ")
-    mening=$(echo "$stuff" | sed -E 's/\s\s+/ /g' | sed -E 's/\.\.+/./g')
-    echo "$mening"
 
 elif [ "$version2" ]; then
     version2Debat | {
