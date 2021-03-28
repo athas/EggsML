@@ -11,7 +11,7 @@ prompt=$($CONCIEGGS_DIR/cmds/autoviden "$@")
 
 tries=10
 for x in $tries; do
-    stuff=$(gpt3 50 "$prompt.  Et af de mest berømte citater fra $@ er: \"")
+    stuff=$(gpt3 100 "$prompt.  Et af de mest berømte citater fra $@ er: \"")
     quote=$(echo $stuff | sed -n -E 's/[ ]*([^"”«]*").*/\1/p')
     if [ "$quote" ]; then
         echo "$EGGS_USER: \"$quote - $@"
