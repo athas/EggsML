@@ -14,7 +14,7 @@ for x in $tries; do
     stuff=$(gpt3 50 "$prompt.  Et af de mest berømte citater fra $@ er: \"")
     quote=$(echo $stuff | sed -n -E 's/[ ]*([^"”«]*").*/\1/p')
     if [ "$quote" ]; then
-        echo "$EGGS_USER: $@: \"$quote"
+        echo "$EGGS_USER: \"$quote - $@"
         exit
     fi
 done
