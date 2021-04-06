@@ -1,0 +1,34 @@
+#!/bin/sh
+#
+# Stil et spørgsmål og få et svar (på engelsk)
+
+if [ $# = 0 ]; then
+    echo "$EGGS_USER: Stil et spørgsmål (på engelsk)"
+    exit
+fi
+
+prompt="Q: What is human life expectancy in the United States?
+A: Human life expectancy in the United States is 78 years.
+
+Q: Who was president of the United States in 1955?
+A: Dwight D. Eisenhower was president of the United States in 1955.
+
+Q: What party did he belong to?
+A: He belonged to the Republican Party.
+
+Q: Who was president of the United States before George W. Bush?
+A: Bill Clinton was president of the United States before George W. Bush.
+
+Q: Who won the World Series in 1995?
+A: The Atlanta Braves won the World Series in 1995.
+
+Q: $@
+A:"
+
+answer=$(gpt3 50 "$prompt")
+
+if [ "$answer" ]; then
+    echo "$EGGS_USER: $answer"
+else
+    echo "$EGGS_USER: Beklager, men det ved jeg altså ikke."
+fi
