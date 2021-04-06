@@ -9,9 +9,7 @@ fi
 
 prompt="Q: What is human life expectancy in the United States?\nA: Human life expectancy in the United States is 78 years.\n\nQ: Who was president of the United States in 1955?\nA: Dwight D. Eisenhower was president of the United States in 1955.\n\nQ: What party did he belong to?\nA: He belonged to the Republican Party.\n\nQ: Who was president of the United States before George W. Bush?\nA: Bill Clinton was president of the United States before George W. Bush.\n\nQ: Who won the World Series in 1995?\nA: The Atlanta Braves won the World Series in 1995.\n\nQ: $@\nA:"
 
-echo "$prompt"
-
-answer=$(gpt3 50 "$prompt")
+answer=$(gpt3 50 "$prompt" | head -n 1)
 
 if [ "$answer" ]; then
     echo "$EGGS_USER: $answer"
