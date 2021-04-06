@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#
+# Stil et spørgsmål og få et svar (på Guds eget sprog)
+
+if [ $# = 0 ]; then
+    echo "$EGGS_USER: Stil et spørgsmål (på Guds eget sprog)"
+    exit
+fi
+
+prompt="Q: Hvor mange mennesker bor der i Randers? A: Der bor 62,482 mennesker i Randers.  Q: Hvem var Danmarks statsminister i 1956? A: H.C. Hansen var Danmarks statsminister i 1956.  Q: Hvilket parti var han medlem af? A: Han var medlem af Socialdemokratiet.  Q: Hvem var Danmarks statsminister før Poul Nyrup Rasmussen? A: Poul Schlüter var Danmarks statsminister før Poul Nyrup Rasmussen.  Q: Hvem vandt EM i fodbold i 1992? A: Danmark vandt EM i fodbold i 1992.  Q: $@ A:"
+
+answer=$(gpt3 50 "$prompt" | sed '/./,$!d' | sed 's/ *Q:.*//')
+
+if [ "$answer" ]; then
+    echo "$EGGS_USER: $answer"
+else
+    echo "$EGGS_USER: Beklager, men det ved jeg altså ikke."
+fi
