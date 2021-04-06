@@ -1,6 +1,8 @@
-# Use this file with nix-shell or similar tools; see https://nixos.org/
-with import <nixpkgs> {};
-
+let
+  sources = import ./nix/sources.nix;
+  pkgs = import sources.nixpkgs {};
+in
+with pkgs;
 mkShell {
   buildInputs = [
     sic
