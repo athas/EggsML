@@ -9,7 +9,7 @@ if isKing "$EGGS_USER"; then
     echo "Jeg skal kundgøre Deres royale vilje for almuen, Deres majestæt"
     echo "$EGGS_USER længe leve"
     echo "Med ære"
-    echo "Jeg takker Deres Højhed for at give mig dette job"
+    echo "Jeg takker Deres Højhed for at skænke mig dette glorværdige hverv"
 else
     echo "ACK-ACK"
     echo "Javel"
