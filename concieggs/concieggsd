@@ -83,7 +83,7 @@ umask 002
 ircloop () {
     while true; do
         # Connect to IRC.
-        sic -h irc.freenode.net -n "$irc_username" || true
+        sic -h irc.libera.chat -n "$irc_username" || true
         say "IRC crashed - reconnecting in a few seconds." >&2
         # Sleep a few seconds before trying again.
         sleep 4
