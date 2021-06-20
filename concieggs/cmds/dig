@@ -37,7 +37,7 @@ fi
 #    exit 0
 #fi
 
-r=$(/usr/sbin/dig +short $server $name $type)
+r=$(/usr/bin/dig +short $server $name $type)
 if [ "$r" ]; then
     echo $r
 else
