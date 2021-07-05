@@ -132,4 +132,5 @@ word3 := /[Hh]/ ~/eap/ "ob"
        | ~/[Ll]ifehack/ "staldfidus"
        | ~/[Ll]etbane/ "sporvogn"
        | ~/[Oo]slo/ "Kristiania"
+       | ~/[Cc]ringe/ "tåkrummende"
        | /[a-zA-ZæøåÆØÅ0-9]+/
