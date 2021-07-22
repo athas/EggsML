@@ -19,11 +19,6 @@ else
     file=filterchain
 fi
 
-if grep -q '/usr/bin/env perl' "filters/$what"; then
-    echo "$EGGS_USER: Ved du hvad, det synes jeg lyder som en dårlig idé."
-    exit
-fi
-
 save() {
     new="$*"
     while read forbidden; do
