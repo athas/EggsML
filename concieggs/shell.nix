@@ -53,6 +53,7 @@ mkShell {
     (haskellPackages.ghcWithPackages (ps: with ps; [
       mtl
       containers
+      shell-escape
       MonadRandom
       random-fu
       random-extras
