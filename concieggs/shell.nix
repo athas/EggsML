@@ -61,6 +61,8 @@ mkShell {
       http-client-tls
       aeson
       xml
+      ieee754
+      QuickCheck
     ]))
   ];
 }
