@@ -6,20 +6,22 @@ concieggs afhænger af:
   + gawk
   + https://github.com/soimort/translate-shell
   + https://github.com/kurtmckee/feedparser
-  + en masse perl-moduler(\*)
-  + en bunke Haskell-moduler(\*\*)
+  + en masse perl-moduler
+  + en bunke Haskell-moduler
   + noget mere
 
 De eneste scripts der må være i rodmappen er dem der bliver brugt direkte af
-concieggsd.
+`concieggsd`.
 
-(\*): Prøv at køre denne kommando, og så smide dem igennem `cpan -T -i <moduler>`:
+## Perl-pakker
+
+Prøv at køre denne kommando, og så smide dem igennem `cpan -T -i <moduler>`:
 
 ```
 grep -hPr '^\s*use (\S*).*;' . | cut -d' ' -f2 | cut -d';' -f1 | sort | uniq | grep -v 'EggsML' | grep -P '^[A-Z]' --color=never | tr '\n' ' '
 ```
 
-(\*\*): Prøv at køre denne kommando:
+## Haskell-pakker
 
 ```
 cabal install --lib mtl containers MonadRandom random-fu random-extras xml ieee754 QuickCheck
