@@ -31,7 +31,7 @@ Vi afhænger vist af nogle Perl-moduler der ikke er i `shell.nix` (men ikke noge
 Prøv at køre denne kommando:
 
 ```
-cabal install --lib mtl containers MonadRandom random-fu random-extras xml ieee754 QuickCheck
+cabal install --lib mtl containers shell-escape MonadRandom random-fu random-extras xml ieee754 QuickCheck
 ```
 
 Forresten: Vi har egentlig også ting der afhænger af her Haskell-pakker, men de er svære at installere on OpenBSD: `MissingH http-client http-client-tls aeson`
