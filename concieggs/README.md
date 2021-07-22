@@ -10,8 +10,8 @@ concieggs afhænger af:
   + en bunke Haskell-pakker
   + en række OCaml-pakker
   + alt muligt mere
-  
-Se `shell.nix` for et overblik.  
+
+Se `shell.nix` for et overblik.
 
 De eneste scripts der må være i rodmappen er dem der bliver brugt direkte af
 `concieggsd`.
