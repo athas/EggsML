@@ -113,7 +113,6 @@ import Control.Exception
 
 import qualified Text.Parsec as P
 import qualified Text.Parsec.String as P
-import qualified Text.ShellEscape as TSE
 
 import qualified System.Environment as Env
 import qualified System.Directory as Dir
@@ -409,12 +408,19 @@ evalParts ps = do
 extractParts :: Sequence Part -> Sequence (InterpM T.Text)
 extractParts = IA.amap extractPart
 
+escapeShell :: T.Text -> T.Text
+escapeShell = T.pack . concatMap escape . T.unpack
+  where escape c = case c of
+          '"' -> "\\\""
+          '\'' -> "\\'"
+          '\\' -> "\\\\"
+          _ -> [c]
+
 extractPart :: Part -> InterpM T.Text
 extractPart p = case p of
   TextPart t -> return t
   IDPart b v -> do r <- getVar v
-                   return $ if b then shEsc r else r
-          where shEsc = TE.decodeUtf8 . TSE.bytes . TSE.sh . TE.encodeUtf8
+                   return $ if b then escapeShell r else r
 
 interpretInstruction :: Instruction -> InterpM ()
 interpretInstruction inst = case inst of
