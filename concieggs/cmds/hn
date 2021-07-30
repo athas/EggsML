@@ -129,4 +129,4 @@ if (make_danish):
 if only_link_and_title:
     print('{}¶{}¶{}'.format(story[0], story[1], story[4]))
 else:
-    print('{}{}Du kan læse historien "{}" på {}. Den har {} point og blev fundet på side {}. Diskussion: {}'.format(http_error, extra_output, story[0], story[1], story[2], story[3], story[4]))
+    print('{}{}Du kan læse historien "{}" på {}  Den har {} point og blev fundet på side {}. Diskussion: {}'.format(http_error, extra_output, story[0], story[1], story[2], story[3], story[4]))
