@@ -13,28 +13,32 @@ concieggs afhænger af:
 
 Se `shell.nix` for et overblik.
 
-De eneste scripts der må være i rodmappen er dem der bliver brugt direkte af
-`concieggsd`.
+De eneste scripts der må være i rodmappen er dem der bliver brugt
+direkte af `concieggsd`.
 
 ## Perl-moduler
 
-Prøv at køre denne kommando, og så smide dem igennem `cpan -T -i <moduler>`:
+Prøv at køre denne kommando, og så smide dem igennem `cpan -T -i
+<moduler>`:
 
 ```
 grep -hPr '^\s*use (\S*).*;' . | cut -d' ' -f2 | cut -d';' -f1 | sort | uniq | grep -v 'EggsML' | grep -P '^[A-Z]' --color=never | tr '\n' ' '
 ```
 
-Vi afhænger vist af nogle Perl-moduler der ikke er i `shell.nix` (men ikke nogen vigtige?).
+Vi afhænger vist af nogle Perl-moduler der ikke er i `shell.nix` (men
+ikke nogen vigtige?).
 
 ## Haskell-pakker
 
 Prøv at køre denne kommando:
 
 ```
-cabal install --lib mtl containers shell-escape MonadRandom random-fu random-extras xml ieee754 QuickCheck
+cabal update && cabal install --disable-optimization --jobs=1 --lib mtl containers parsec shell-escape MonadRandom random random-fu random-extras xml ieee754 QuickCheck
 ```
 
-Forresten: Vi har egentlig også ting der afhænger af her Haskell-pakker, men de er svære at installere on OpenBSD: `MissingH http-client http-client-tls aeson`
+Forresten: Vi har egentlig også ting der afhænger af her Haskell-pakker,
+men de er svære at installere på OpenBSD: `MissingH http-client
+http-client-tls aeson`
 
 ## OCaml-pakker
 
