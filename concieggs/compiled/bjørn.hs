@@ -185,16 +185,19 @@ instance Alternative Randomly where
   Randomly xs <|> Randomly ys =
     Randomly $ xs ++ ys
 
+instance Semigroup a => Semigroup (Randomly a) where
+  Always x <> Always y =
+    Always $ x <> y
+  Always x <> Randomly ys =
+    Randomly [ fmap (x <>) y | y <- ys ]
+  Randomly xs <> Always y =
+    Randomly [ fmap (<> y) x | x <- xs ]
+  Randomly xs <> Randomly ys =
+    Randomly [ x <> y | x <- xs, y <- ys ]
+
 instance Monoid a => Monoid (Randomly a) where
   mempty = pure mempty
-  Always x `mappend` Always y =
-    Always $ x `mappend` y
-  Always x `mappend` Randomly ys =
-    Randomly [ fmap (x `mappend`) y | y <- ys ]
-  Randomly xs `mappend` Always y =
-    Randomly [ fmap (`mappend` y) x | x <- xs ]
-  Randomly xs `mappend` Randomly ys =
-    Randomly [ x `mappend` y | x <- xs, y <- ys ]
+  mappend = (<>)
 
 instance IsString (Randomly Text) where
   fromString = pure . T.pack
