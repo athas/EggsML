@@ -84,6 +84,8 @@ instance Monad FastM where
             Right (y,output1 ++ output2,s'')
           Left e ->
             Left e
+
+instance MonadFail FastM where
   fail s = FastM $ \_ _ -> Left $ Error s
 
 askProg :: FastM Prog
@@ -142,6 +144,8 @@ instance Monad FastMethodM where
                   return (Left v, s')
                 (Right x, s') ->
                   runFastMethodM (m x) me s'
+
+instance MonadFail FastMethodM where
   fail = liftFastM . fail
 
 liftFastM :: FastM a -> FastMethodM a
