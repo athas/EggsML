@@ -1,0 +1,9 @@
+#!/bin/sh
+
+shuttingUp && exit
+
+den_der=$(echo "$EGGS_BODY" | tr '[:upper:]' '[:lower:]' | tr -d '[:punct:][:space:]')
+
+if [ "$den_der" = "qed" ]; then
+    echo "Bravo!"
+fi
