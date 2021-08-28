@@ -50,6 +50,7 @@ mkShell {
     ocamlPackages.cohttp-async
     ocamlPackages.yojson
     gfortran
+    sbcl
     (haskellPackages.ghcWithPackages (ps: with ps; [
       mtl
       containers
