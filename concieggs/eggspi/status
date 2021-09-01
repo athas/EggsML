@@ -1,11 +1,12 @@
 #!/bin/sh
 
-Output=$(curl -s -o /dev/null -w "%{http_code}" --connect-timeout 1 $1)
+sc=$(curl -s -o /dev/null -w "%{http_code}" --connect-timeout 1 $1)
+Output="$sc"
 case $Output in 3*)
-    sc_follow=$(curl -L -s -o /dev/null -w "%{http_code}" --connect-timeout 1 $1)
-    Output="$Output -> $sc_follow"
+    sc=$(curl -L -s -o /dev/null -w "%{http_code}" --connect-timeout 1 $1)
+    Output="$Output -> $sc"
 esac
-case $Output in
+case $sc in
     5*)  Output="$Output.  Pis mig i øret." ;;
     400) Output="$Output.  Jeg tror ikke du fatter hvad du laver..." ;;
     401) Output="$Output.  Det mås du ikke!" ;;
