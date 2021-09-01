@@ -6,9 +6,27 @@ case $Output in 3*)
     Output="$Output -> $sc_follow"
 esac
 case $Output in
-    5*) Output="$Output.  Pis mig i øret." ;;
-    4*) Output="$Output.  Er du sikker på, den findes?" ;;
-    2*) Output="$Output ^^"
+    5*)  Output="$Output.  Pis mig i øret." ;;
+    400) Output="$Output.  Jeg tror ikke du fatter hvad du laver..." ;;
+    401) Output="$Output.  Det mås du ikke!" ;;
+    402) Output="$Output.  Frem med skillingerne, fister!" ;;
+    403) Output="$Output.  Adgang forbudt for uvedkommende, f.eks. dig!" ;;
+    404) Output="$Output.  Er du sikker på, den findes?" ;;
+    405) Output="$Output.  Nej, du skal skrue den anden vej!" ;;
+    406) Output="$Output.  Den er bare slet ikke i orden." ;;
+    407) Output="$Output.  Din stedfortræder har mistet sine nøgler." ;;
+    408) Output="$Output.  Det har jeg slet ikke tid til." ;;
+    409) Output="$Output.  Skal vi slås?!" ;;
+    410) Output="$Output.  Den fandtes, men er nu væk.  Nok din skyld." ;;
+    411) Output="$Output.  Du må godt lige angive din højde ved døren." ;;
+    412) Output="$Output.  Det har vi altså slet ikke aftalt." ;;
+    413) Output="$Output.  Wow, den er jo alt for stor!" ;;
+    414) Output="$Output.  Den sti er lige lovlig lang." ;;
+    415) Output="$Output.  Er det et billede af en grif?" ;;
+    416) Output="$Output.  Der er vel grænser for hvad man må..." ;;
+    417) Output="$Output.  Uventet." ;;
+    418) Output="$Output.  Så er theen klar!" ;;
+    2*)  Output="$Output ^^"
 esac
 echo "$Output"
 exit 0;
