@@ -1,10 +1,14 @@
 #!/bin/sh
 
-sc0=$(curl -s -o /dev/null -w "%{http_code}" --connect-timeout 1 $1)
-echo -n "$sc0"
-case $sc0 in 3*)
+Output=$(curl -s -o /dev/null -w "%{http_code}" --connect-timeout 1 $1)
+case $Output in 3*)
     sc_follow=$(curl -L -s -o /dev/null -w "%{http_code}" --connect-timeout 1 $1)
-    echo -n " -> $sc_follow"
+    Output="$Output -> $sc_follow"
 esac
-echo
+case $Output in
+    5*) Output="$Output.  Pis mig i øret." ;;
+    4*) Output="$Output.  Er du sikker på, den findes?" ;;
+    2*) Output="$Output ^^"
+esac
+echo "$Output"
 exit 0;
