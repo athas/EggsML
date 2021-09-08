@@ -1,15 +1,15 @@
 #!/bin/sh
 
-if ! checkCooldown "velkomstGlobal" 120; then
+if ! checkCooldown "velkomstGlobal" 180; then
     exit 0
 fi
 
-if ! checkCooldown "Velkomst$EGGS_USER" $((60 * 60 * 96)); then
+if ! checkCooldown "Velkomst$EGGS_USER" $((60 * 60 * 120)); then
     exit 0
 fi
 
 if [ "$EGGS_USER" = "$CONCIEGGS_NAME" ]; then
-    exit
+    exit 0
 fi
 
 # Produce a random thought when someone enters the channel
@@ -19,19 +19,13 @@ rand=$(random 1 5)
 case $rand in
     # Produce a random thought
     1)
-        rt=`$CONCIEGGS_DIR/cmds/vejr Velkomstbesked`
-        ;;
-    2)
         rt=`$CONCIEGGS_DIR/cmds/forvikling Velkomstbesked`
         ;;
-    3)
+    2)
         rt=`$CONCIEGGS_DIR/cmds/forvakling`
         ;;
-    4)
+    3)
         rt=`$CONCIEGGS_DIR/cmds/betragtning`
-        ;;
-    5)
-        rt=`$CONCIEGGS_DIR/cmds/drudge dyr Velkomstbesked`
 esac
 
 echo "Velkommen $EGGS_USER! $rt"
