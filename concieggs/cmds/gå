@@ -51,6 +51,10 @@ tordis
 lisette
 EOF`
     fi
+    if [ "$navn" -eq "concieggs" ]; then
+        say "Hvad tror du jeg er?  Civilbetjent?"
+        exit
+    fi
     say "Hey, hvad er det derovre?!"
     bruger="$(recentlyActive | head -n 1)"
     if ! [ "$bruger" ]; then
