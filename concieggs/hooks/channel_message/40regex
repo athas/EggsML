@@ -6,11 +6,13 @@ set user $::env(EGGS_USER)
 set body $::env(EGGS_BODY)
 set db $::env(CONCIEGGS_DB_DIR)
 
+# Kør et program og returnér om det lykkes (exit-kode 0 = succes).
 proc success args {
     catch [list exec {*}$args] output options
     return [expr {![dict get $options -code]}]
 }
 
+# Kør et program og returnér outputtet som en liste af linjer.
 proc run args {
     catch [list exec {*}$args] output options
     return [split $output "\n"]
@@ -24,8 +26,11 @@ set s// {^(?:([^ ,:]+)[,:] *)?s/((?:[^\\/]|\\[\\/])*)/((?:[^\\/]|\\[\\/])*)(?:/(
 if {![regexp ${s//} $body {} who pattern replacement modifiers]} {exit 0}
 if {![string length $who]} {set who $user}
 
-# Eftersom \/ ikke er en gyldig escape-sekvens i TCL, men det er nødvendigt
-# for at skelne bogstavelige /'er fra s//'er, håndteres de specifikt her.
+# Med 's/foo/bar/'-syntaksen er det svært at henvise til en bogstavelig '/'
+# da de også bliver brugt som separator mellem mønstre. I Perl regex kan man
+# skrive '\/' for at få en bogstavelig skråstreg. Det kan man ikke med TCL's
+# regex, så efter komponenterne af 's/foo/bar/' er blevet udvundet, erstattes
+# '\/' med almindelige '/'er.
 foreach var {pattern replacement} {regsub -all {\\/} [set $var] "/" $var}
 
 set lastmsgs [run lastmsgs $who]
@@ -55,7 +60,11 @@ for {set i [expr {[llength $lastmsgs] - 1}]} {$i >= 0} {incr i -1} {
             exit
         }
 
-        puts "Rettet: <$who> $lastmsg"
+        if {[regexp {^\001ACTION (.*?)\001$} $lastmsg {} lastaction]} {
+            puts "Rettet: * $who $lastaction"
+        } else {
+            puts "Rettet: <$who> $lastmsg"
+        }
 
         if {$user == $who} {
             lset lastmsgs $i $lastmsg
