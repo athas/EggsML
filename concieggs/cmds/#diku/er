@@ -1,17 +1,18 @@
 #!/usr/bin/env bash
 #
-# Spørg den netværkskyndige, concieggs, om et domænenavn er ledig.
+# Spørg den netværkskyndige, concieggs, om et domænenavn er ledigt, om det er
+# jul, eller om solen er oppe.
 
 if [ "$1" = det -a "$2" = "jul" ]; then
     isChristmas && echo "Ja!!!" || echo "Nej!!!"
     exit
 fi
 
-eval "$(echo "$@" | parse 'sol(en)? (?<sol>stået op|oppe)( i (?<place>[^\?]+))?')"
+eval "$(echo "$@" | parse 'sol(en)? (?<sol>stået op|oppe)( (i|på) (?<place>[^\?]+))?')"
 
 if [ "$sol" ]; then
     default_location="København"
-    if [ "$EGGS_USER" == "sword_smith" ] || [ "$EGGS_USER" == "trobjo" ]; then
+    if [ "$EGGS_USER" == "sword_smith" ]; then
         default_location="Zug"
     fi
     location="$default_location"
