@@ -24,7 +24,7 @@ unless (@ARGV) {
     exit(-1);
 }
 
-our $dst = 'https://www.dst.dk/da/Statistik/emner/borgere/navne/HvorMange?ajax=1'
+our $dst = 'https://www.dst.dk/da/Statistik/emner/borgere/navne/HvorMange?ajax=1';
 our @comments = (
     "Et hit i børnehaven!",
     "Det kunne dit næste barn hedde.",
