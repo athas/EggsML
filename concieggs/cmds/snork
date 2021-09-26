@@ -1,0 +1,13 @@
+#!/bin/sh
+
+z() {
+    randomLine <<EOF
+z
+Z
+EOF
+}
+
+echo -n "$EGGS_USER: "
+for i in $(seq 1 $(random 1 20)); do
+    echo -n $(z)
+done
