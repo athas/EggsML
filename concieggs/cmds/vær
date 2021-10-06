@@ -71,7 +71,12 @@ case "$what" in
     "dig selv")
         echo "Bare rolig, jeg ignorerer gruppepres.";;
     "konge")
-        echo "Nej, $(randomKingName) er jo konge!  Hil $(randomKingName)!";;
+        if isThereAKing; then
+            king="$(dbRead eggsking)"
+            echo "Nej, $(randomKingName "$king") er jo konge!  Hil $(randomKingName "$king")!"
+        else
+            echo "Du kan selv være konge!"
+        fi;;
 
     # Sprog el.lign.
     *)
