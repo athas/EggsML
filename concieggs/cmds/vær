@@ -70,6 +70,8 @@ case "$what" in
         echo "Måske senere...";;
     "dig selv")
         echo "Bare rolig, jeg ignorerer gruppepres.";;
+    "konge")
+        echo "Nej, $(randomKingName) er jo konge!  Hil $(randomKingName)!";;
 
     # Sprog el.lign.
     *)
