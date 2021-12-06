@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
 
-echo -e "$(vejrudsigt $@)"
+if ircChannel | grep -q '^#'; then
+    echo -e "$(vejrudsigt $@)"
+else
+    echo "$EGGS_USER: Den slags sømmer sig ikke i offentligheden."
+fi
