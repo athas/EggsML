@@ -17,7 +17,7 @@ while (my $line = <>) {
     }
 
     # Nothing is worse than singing, also ban these sentences
-    if ($line =~ qr/(\bsynge|\bsang|\bnr\..*hæfte)/i){
+    if ($line =~ qr/(\bsynge|\bsang|\bbjældeklang\bnr\..*hæfte)/i){
         next;
     }
 
