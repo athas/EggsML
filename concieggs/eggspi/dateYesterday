@@ -2,4 +2,8 @@
 #
 # Previous date in YYYY-MM-DD format.
 
-date -d yesterday +%F
+if [ $(uname) = OpenBSD ]; then
+    date -f %s -j $(expr $(date +%s) - 86400) +%F
+else
+    date -d yesterday +%F
+fi
