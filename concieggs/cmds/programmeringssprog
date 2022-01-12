@@ -1,4 +1,6 @@
 #!/usr/bin/env rust-script
+//! -*- Rust -*-
+//!
 //! Generér et godt programmeringssprog
 //!
 //! ```cargo
