@@ -4,14 +4,13 @@
 
 cd /eggsml
 
-PULL=$(git pull https master)
-FAILURE=$?
-if [ "$PULL" = "Already up-to-date." ]; then
-    echo 'Jeg blev bedt om at hente ændringer fra Git, men der var ingen!'
-elif [ "$FAILURE" = "0" ]; then
-    echo 'Jeg har hentet de nyeste ændringer fra https://github.com/Athas/EggsML!'
-else
+PULL=$(git pull)
+if [ $? ]; then
     echo 'Der opstod en fejl.'
+elif echo "$PULL" | grep -q "Already up to date"; then
+    echo 'Jeg blev bedt om at hente ændringer fra Git, men der var ingen!'
+else
+    echo 'Jeg har hentet de nyeste ændringer fra https://github.com/Athas/EggsML!'
 fi
 
 concieggs/cmds/aids
