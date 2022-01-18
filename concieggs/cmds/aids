@@ -3,6 +3,20 @@
 # Oplys folket om AIDS.
 
 set facts {
+    "Hiv er et virus, der nedbryder en vigtig del af immunforsvaret. Det betyder, at kroppen med tiden får svært ved at forsvare sig mod andre sygdomme og infektioner."
+    "Aids er en diagnose. Man kan få diagnosen aids, hvis man har hiv og bliver ramt af nogle bestemte sygdomme, som kun kan udvikle sig, når ens immunforsvar er svækket."
+    "Hiv er heldigvis ikke så smitsom, som mange tror. Der skal både en del virus til, og der skal være et sted, hvor hiv kan komme ind i blodbanen, før man kan blive smittet."
+    "En hiv-test viser, om man er smittet med hiv."
+    "Der findes forskellige typer hiv-test, som er pålidelige hhv. fire eller otte uger efter smitterisiko."
+    "Den eneste sikre måde at finde ud af, om man er smittet med hiv, det er at få taget en hiv-test."
+    "Hiv-behandlingen er en kombination af medicin, der gør det svært for hiv at formere sig."
+    "Hiv-medicin skal tages dagligt, men den kan ikke fjerne hiv helt fra kroppen."
+    "I Danmark er der omkring 6.600 mennesker, som lever med hiv."
+    "De seneste to år er der sket et fald i antallet af personer, som får diagnosen hiv."
+    "I Danmark er hiv-kurven knækket, og vi kan blive et af de første lande uden nye hiv-tilfælde."
+    "På verdensplan er der omkring 38 mio. mennesker, som lever med hiv."
+    "I 2019 blev 1.7 mio. børn og voksne smittet med sygdommen, og 690.000 døde af aids."
+
     "I 2015 levede cirka 36,7 mio. mennesker, herunder 1,8 mio. børn, med HIV."
     "I 2015 døde 1,1 mio. mennesker af AIDS-relaterede sygdomme."
     "Siden begyndelsen af AIDS-epidemien er cirka 78 mio. mennesker blevet inficeret med HIV og cirka 35 mio. mennesker døde af AIDS-relaterede sygdomme."
