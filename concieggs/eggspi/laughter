@@ -1,4 +1,4 @@
-#!/usr/bin/env tclsh
+#!/usr/bin/env tclsh8.6
 #
 # Producerer en ond, fnisende, bøvet eller julet latter.
 

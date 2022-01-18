@@ -21,7 +21,7 @@ my %interps = (
     'rash'    => 'RASH',
     'ruby'    => 'Ruby',
     'runghc'  => 'Haskell',
-    'tclsh'   => 'TCL',
+    'tclsh8.6'=> 'TCL',
     'clisp'   => 'Common Lisp',
 );
 

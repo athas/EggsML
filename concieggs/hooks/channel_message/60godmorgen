@@ -1,4 +1,4 @@
-#!/usr/bin/env tclsh
+#!/usr/bin/env tclsh8.6
 
 catch {exec shuttingUp} {} options
 if {![dict get $options -code]} {exit 0}

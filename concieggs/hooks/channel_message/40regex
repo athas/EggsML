@@ -1,4 +1,4 @@
-#!/usr/bin/env tclsh
+#!/usr/bin/env tclsh8.6
 #
 # Reagér på 's/foo/bar/[ig]' og 'person: s/foo/bar/[ig]'.
 
