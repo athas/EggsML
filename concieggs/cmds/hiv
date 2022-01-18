@@ -5,7 +5,7 @@
 cd /eggsml
 
 PULL=$(git pull)
-if [ $? ]; then
+if [ ! $? ]; then
     echo 'Der opstod en fejl.'
 elif echo "$PULL" | grep -q "Already up to date"; then
     echo 'Jeg blev bedt om at hente ændringer fra Git, men der var ingen!'
