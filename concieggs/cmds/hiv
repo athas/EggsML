@@ -3,9 +3,15 @@
 # Hent de nyeste ændringer fra https://github.com/Athas/EggsML
 
 cd /eggsml
-if [ "$(git pull)" != 'Already up-to-date.' ]; then
-    echo 'Jeg har hentet de nyeste ændringer fra https://github.com/Athas/EggsML!'
-    concieggs/cmds/aids
-else
+
+PULL=$(git pull https master)
+FAILURE=$?
+if [ "$PULL" = "Already up-to-date." ]; then
     echo 'Jeg blev bedt om at hente ændringer fra Git, men der var ingen!'
+elif [ "$FAILURE" = "0" ]; then
+    echo 'Jeg har hentet de nyeste ændringer fra https://github.com/Athas/EggsML!'
+else
+    echo 'Der opstod en fejl.'
 fi
+
+concieggs/cmds/aids
