@@ -16,13 +16,16 @@ static PREFIXES: &[(&str, u32)] = &[
     ("ANSI ", 2),
     ("Apple", 2),
     ("Auto", 2),
+    ("Brain", 2),
     ("Cloud ", 10),
     ("Common ", 5),
     ("Emacs ", 1),
+    ("GNU ", 3),
     ("Holy", 1),
-    ("ISO ", 5),
+    ("ISO ", 3),
     ("Linear ", 1),
     ("Liquid ", 1),
+    ("Live", 2),
     ("Meta", 2),
     ("Microsoft ", 10),
     ("Object ", 10),
@@ -113,6 +116,7 @@ static SUFFIXES: &[(&str, u32)] = &[
     ("++", 5),
     ("--", 1),
     ("script", 15),
+    ("Pro", 5),
 ];
 
 fn main() {
