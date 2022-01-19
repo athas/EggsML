@@ -1,7 +1,6 @@
 #!/usr/bin/env perl
-use 5.012;
+use v5.14;
 use warnings;
-use utf8::all;
 
 # baseret på http://www.classy.dk/download/styrelizer.asp
 
