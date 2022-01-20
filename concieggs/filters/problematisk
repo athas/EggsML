@@ -1,0 +1,12 @@
+#!/usr/bin/env perl
+use v5.14;
+use warnings;
+
+while (my $text = <>) {
+    $text =~ s/\bt([aeiouyæøå])/tj$1/g;
+    $text =~ s/(Jeg|Du)/Wolla \L$1/g;
+    $text =~ s/, /rand() < 0.1 ? ' ' : ', inshallah, '/eg;
+    print $text;
+}
+
+
