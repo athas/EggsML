@@ -6,6 +6,8 @@ while (my $text = <>) {
     $text =~ s/\bt([aeiouyæøå])/tj$1/g;
     $text =~ s/(Jeg|Du)/Wolla \L$1/g;
     $text =~ s/, /rand() < 0.1 ? ' ' : ', inshallah, '/eg;
+    $text =~ s/, /rand() < 0.1 ? ' ' : ', alhamdullilah, '/eg;
+    $text =~ s/, /rand() < 0.1 ? ' ' : ', allahu akbar, '/eg;
     print $text;
 }
 
