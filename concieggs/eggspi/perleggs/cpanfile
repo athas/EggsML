@@ -42,6 +42,7 @@ requires 'POSIX';
 requires 'Scalar::Util';
 requires 'String::Util';
 requires 'Sub::Install';
+requires 'Sys::SigAction';
 requires 'Text::Aspell';
 requires 'Text::Roman';
 requires 'Text::Unaccent::PurePerl';
