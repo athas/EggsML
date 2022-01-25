@@ -146,7 +146,7 @@ fn programmeringssprog(mut rng: &mut ThreadRng) -> String {
         }
     }
 
-    if let Some(root) = std::env::args().skip(1).next() {
+    if let Some(root) = std::env::args().skip(2).next() {
         result.push_str(&root);
     } else {
         result.push_str(ROOTS.choose(&mut rng).unwrap_or(&""));
