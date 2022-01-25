@@ -3,6 +3,8 @@
 //!
 //! Generér et godt programmeringssprog
 //!
+//! Brug: programmeringssprog [n [sprogrod]]
+//!
 //! ```cargo
 //! [dependencies]
 //! rand = "0.7.0"
@@ -123,7 +125,7 @@ static SUFFIXES: &[(&str, u32)] = &[
     ("Pro", 5),
 ];
 
-fn programmeringssprog(mut rng: &mut ThreadRng) -> String {
+fn programmeringssprog(mut rng: &mut ThreadRng, root_arg: Option<String>) -> String {
     let mut result = String::new();
 
     result.push_str(
@@ -146,7 +148,7 @@ fn programmeringssprog(mut rng: &mut ThreadRng) -> String {
         }
     }
 
-    if let Some(root) = std::env::args().skip(2).next() {
+    if let Some(root) = root_arg {
         result.push_str(&root);
     } else {
         result.push_str(ROOTS.choose(&mut rng).unwrap_or(&""));
@@ -167,8 +169,16 @@ fn main() {
     let mut rng = rand::thread_rng();
 
     // determine how many programming languages we're naming:
-    let n = args().nth(1).map(|s| s.parse::<u32>().unwrap_or(1)).unwrap_or(1);
+    let n_arg = args().nth(1);
+    let n = std::cmp::min(7, n_arg.map(|s| s.parse::<u32>().unwrap_or(1)).unwrap_or(1));
 
-    let result = (0..n).map(|_| programmeringssprog(&mut rng)).collect::<Vec<String>>().join(", ");
+    // use a custom root language name
+    let root_arg = args().nth(2);
+
+    let result = (0..n)
+        .map(|_| programmeringssprog(&mut rng, root_arg.clone()))
+        .collect::<Vec<String>>()
+        .join(", ");
+
     println!("{}", result);
 }
