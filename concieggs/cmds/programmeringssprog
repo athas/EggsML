@@ -35,6 +35,7 @@ static PREFIXES: &[(&str, u32)] = &[
     ("Microsoft ", 10),
     ("Object ", 10),
     ("Objective ", 10),
+    ("Power", 2),
     ("Standard ", 1),
     ("Turbo ", 10),
     ("Visual ", 10),
