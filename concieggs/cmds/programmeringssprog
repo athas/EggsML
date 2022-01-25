@@ -9,7 +9,9 @@
 //! ```
 
 use rand::seq::SliceRandom;
+use rand::rngs::ThreadRng;
 use rand::Rng;
+use std::env::args;
 
 static PREFIXES: &[(&str, u32)] = &[
     ("", 10),
@@ -121,10 +123,7 @@ static SUFFIXES: &[(&str, u32)] = &[
     ("Pro", 5),
 ];
 
-fn main() {
-    // prepare a non-deterministic random number generator:
-    let mut rng = rand::thread_rng();
-
+fn programmeringssprog(mut rng: &mut ThreadRng) -> String {
     let mut result = String::new();
 
     result.push_str(
@@ -160,5 +159,16 @@ fn main() {
             .unwrap_or(&""),
     );
 
+    result
+}
+
+fn main() {
+    // prepare a non-deterministic random number generator:
+    let mut rng = rand::thread_rng();
+
+    // determine how many programming languages we're naming:
+    let n = args().nth(1).map(|s| s.parse::<u32>().unwrap_or(1)).unwrap_or(1);
+
+    let result = (0..n).map(|_| programmeringssprog(&mut rng)).collect::<Vec<String>>().join(", ");
     println!("{}", result);
 }
