@@ -22,6 +22,7 @@ static PREFIXES: &[(&str, u32)] = &[
     ("Auto", 2),
     ("Brain", 2),
     ("Cloud ", 10),
+    ("Coffee", 3),
     ("Common ", 5),
     ("Emacs ", 1),
     ("GNU ", 3),
