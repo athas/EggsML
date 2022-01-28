@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if [ $(( $RANDOM % 15 )) -eq 7 ]; then
+    echo "hooks/75varulv: gdate: unknown option -- j"
+    echo "hooks/75varulv: Try '/usr/local/bin/gdate --help' for more information."
+    echo "hooks/75varulv: gdate: unknown option -- j"
+    echo "hooks/75varulv: Try '/usr/local/bin/gdate --help' for more information."
+fi
