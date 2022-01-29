@@ -2,9 +2,9 @@
 #
 # Next date in YYYY-MM-DD format.
 
-# If we're on OpenBSD and `date` points to BSD `date`.
+# We now support OpenBSD with and without GNU `date` as the standard `date`.
 if [ $(uname) = OpenBSD -a $(date --version 1>/dev/null 2>/dev/null; echo $?) ]; then
-    date -f %s -j $(expr $(date +%s) + 86400) +%F
+    /bin/date -f %s -j $(expr $(date +%s) + 86400) +%F
 else
     date -d tomorrow +%F
 fi
