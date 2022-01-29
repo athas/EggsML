@@ -114,6 +114,7 @@ static SUFFIXES: &[(&str, u32)] = &[
     (" 8", 1),
     (" 9", 1),
     (" 99", 1),
+    (" for Workstation", 2),
     (" Query Language", 3),
     (" with Classes", 5),
     ("", 50),
@@ -125,7 +126,6 @@ static SUFFIXES: &[(&str, u32)] = &[
     ("Script", 5),
     ("script", 10),
     ("Pro", 5),
-    ("hooks/75varulv: gdate: unknown option -- j", 10),
 ];
 
 fn programmeringssprog(mut rng: &mut ThreadRng, root_arg: Option<String>) -> String {
