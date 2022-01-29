@@ -2,7 +2,8 @@
 #
 # Previous date in YYYY-MM-DD format.
 
-if [ $(uname) = OpenBSD ]; then
+# If we're on OpenBSD and `date` points to BSD `date`.
+if [ $(uname) = OpenBSD -a $(date --version 2>&1 1>/dev/null; echo $?) ]; then
     date -f %s -j $(expr $(date +%s) - 86400) +%F
 else
     date -d yesterday +%F
