@@ -7,9 +7,10 @@ on:
 jobs:
   hiv:
     runs-on: ubuntu-latest
-    uses: rectalogic/notify-irc@768ca068754bd0a8e2d682c111c858679f790560 # 2021-11-19
-    with:
-      channel: '#eggsml-maskinrum'
-      server: irc.libera.chat
-      nickname: hiv-hiv-hiiiv
-      message: 'concieggs: hiv'
+    steps:
+      - uses: rectalogic/notify-irc@768ca068754bd0a8e2d682c111c858679f790560 # 2021-11-19
+        with:
+          channel: '#eggsml-maskinrum'
+          server: irc.libera.chat
+          nickname: hiv-hiv-hiiiv
+          message: 'concieggs: hiv'
