@@ -14,7 +14,7 @@ sed -e 's/fluen/duen/g' \
     -e 's/bøtten/fugleburet/g' \
     -e 's/krukken/fugleburet/g' \
     -e 's/ryster/rører/g' \
-    -e 's/har fundet lorten, og/lægger en lort som/' \
+    -e 's/har fundet lorten, og/lægger en lort 🕊️💩 som/' \
     < "$(dirname "$0")"/fluen \
     > "$tempfile"
 
