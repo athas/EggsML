@@ -159,6 +159,16 @@ klovnen
 EOF
 }
 
+dansemoji() {
+    randomLine <<EOF
+¯\(°_o)/¯
+¯\(o_°)/¯
+¯\(._.)/¯
+¯\(^_^)\_
+_/(^_^)/¯
+EOF
+}
+
 danser() {
     randomLine <<EOF
 flytter$(tillaeg) $(benet) $(frem)
@@ -193,6 +203,6 @@ say "$(DM) i $(dans)!"
 say "/me sætter et bånd med $SANG i afspilleren."
 say "Nu kommer der $(smukke) $(trin)!"
 for i in $(seq 1 $(random 5 10)); do
-    say "/me $(danser)"
+    say "/me $(danser) $(dansemoji)"
 done
 say "$(Tada)"
