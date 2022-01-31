@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# Spørg GitHub API'et om ting.
+#
+# https://docs.github.com/en/rest/reference/repos
+
+case "$1" in
+  languages)
+    curl -s -H "Accept: application/vnd.github.v3+json" \
+      https://api.github.com/repos/Athas/EggsML/languages | \
+      jq -r 'def percent: . * 10000 | floor / 100;
+             add as $total
+               | to_entries
+               | map("\(.key): \(.value / $total | percent)%")
+               | join(", ") + "."'
+      ;;
+  *)
+    randomLine <<EOF
+Det kan jeg ikke svare på.
+Gud ved.
+EOF
+esac
