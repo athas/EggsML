@@ -5,7 +5,8 @@
 # https://docs.github.com/en/rest/reference/repos
 
 case "$1" in
-  languages)
+  sprog)
+    echo -n "GitHub mener at jeg indtil videre, at jeg er skabt af følgende materialer: "
     curl -s -H "Accept: application/vnd.github.v3+json" \
       https://api.github.com/repos/Athas/EggsML/languages | \
       jq -r 'def percent: . * 10000 | floor / 100;
