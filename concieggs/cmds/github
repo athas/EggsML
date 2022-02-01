@@ -19,7 +19,8 @@ case "$1" in
     PROJECT=$2
     curl -s -H "Accept: application/vnd.github.v3+json" \
       "https://api.github.com/repos/$PROJECT/commits" | \
-      jq '(.[0:5] | map(.commit.author.name) | join(", ")) as $latest5 |
+      jq -r \
+         '(.[0:5] | map(.commit.author.name) | join(", ")) as $latest5 |
           (.[0] |
               {
                 "date": .commit.author.date,
