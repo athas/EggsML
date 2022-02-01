@@ -15,9 +15,24 @@ case "$1" in
                | map("\(.key): \(.value / $total | percent)%")
                | join(", ") + "."'
       ;;
+  projekt)
+    PROJECT=$2
+    curl -s -H "Accept: application/vnd.github.v3+json" \
+      "https://api.github.com/repos/$PROJECT/commits" | \
+      jq '(.[0:5] | map(.commit.author.name) | join(", ")) as $latest5 |
+          (.[0] |
+              {
+                "date": .commit.author.date,
+                "name": .commit.author.name,
+                "login": .author.login,
+                "message": .commit.message,
+              })
+            | (
+                "Senest har \(.name) (\(.login)) lavet en tilføjelse \(.date) med beskeden: \(.message)",
+                "Seneste 5 ændringer var foretaget af: \($latest5)"
+              )'
+    ;;
   *)
-    randomLine <<EOF
-Det kan jeg ikke svare på.
-Gud ved.
-EOF
+    echo "Det kan jeg ikke svare på."
+    ;;
 esac
