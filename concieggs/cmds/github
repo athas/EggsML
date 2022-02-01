@@ -19,19 +19,18 @@ case "$1" in
     PROJECT=$2
     curl -s -H "Accept: application/vnd.github.v3+json" \
       "https://api.github.com/repos/$PROJECT/commits" | \
-      jq -r \
-         '(.[0:5] | map(.commit.author.name) | join(", ")) as $latest5 |
-          (.[0] |
-              {
-                "date": .commit.author.date,
-                "name": .commit.author.name,
-                "login": .author.login,
-                "message": .commit.message,
-              })
-            | (
-                "Senest har \(.name) (\(.login)) lavet en tilføjelse \(.date) med beskeden: \(.message)",
-                "Seneste 5 ændringer var foretaget af: \($latest5)"
-              )'
+      jq -r '
+        map({
+            "date": .commit.author.date,
+            "name": .commit.author.name,
+            "login": .author.login,
+            "message": .commit.message | split("\n")[0],
+        })
+        | (map(.name) | sort | group_by(.)
+                      | map({ "author": .[0], "commits": length })
+                      | sort_by(.commits) | reverse
+                      | map("\(.author) (\(.commits))")) as $freq
+        | "Seneste \(length) commits er begået af \($freq | join(", "))"'
     ;;
   *)
     echo "Det kan jeg ikke svare på."
