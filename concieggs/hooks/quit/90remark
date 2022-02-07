@@ -9,6 +9,8 @@ use EggsML::EggsPI boolean => ['checkCooldown'];
 my $EGGS_BODY = $ENV{EGGS_BODY};
 my $EGGS_USER = $ENV{EGGS_USER};
 
+say STDERR "hooks/quit/90remark: $EGGS_USER, $EGGS_BODY";
+
 if ($EGGS_BODY =~ /peer/ && !checkCooldown('quit_peer', 300)) {
     say "Så for den, Peer er ude med leen!";
 } elsif ($EGGS_BODY =~ /\*\.net \*\.split/ && !checkCooldown('quit_netsplit', 300)) {
