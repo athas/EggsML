@@ -16,6 +16,7 @@ requires 'File::Spec';
 requires 'File::Spec::Functions';
 requires 'File::Temp';
 requires 'Git::Repository';
+requires 'Git::Repository::Plugin::Blame';
 requires 'HTML::Entities';
 requires 'HTML::Query';
 requires 'IO::All';
