@@ -31,7 +31,7 @@ else
             ;;
         *c)
             compile() {
-                gcc -std=c99 -I "$CONCIEGGS_DIR/eggspi" -lm $1 -o $2
+                cc -std=c99 -I "$CONCIEGGS_DIR/eggspi" -lm $1 -o $2
             }
             ;;
         *cob)
