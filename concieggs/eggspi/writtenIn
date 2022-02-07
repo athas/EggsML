@@ -47,6 +47,7 @@ my $filename = shift @ARGV;
 exit unless $filename;
 my $io = io($filename);
 my ($interp) = ($io->getline // '') =~ /^#!.*?([^\/\s]+)$/;
+$interp //= '';
 
 if ($interp eq 'sh') {
     if (my ($exec) = ($io->getline // '') =~ /exec ([^ ]+)/) {
@@ -75,7 +76,7 @@ if (@file_compiled > 1) {
     exit(1);
 }
 
-if (my $guess = $exts{$exts[0]}) {
+if (!!@exts && my $guess = $exts{$exts[0]}) {
     print $guess;
     exit(0);
 }
