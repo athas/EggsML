@@ -2,21 +2,47 @@
 #
 # Kommentér på når folk "dør".
 
-use v5.28;
+use v5.28; # Nøje udvalgt.
 
 use EggsML::EggsPI boolean => ['checkCooldown'];
 
-my $EGGS_BODY = $ENV{EGGS_BODY};
-my $EGGS_USER = $ENV{EGGS_USER};
+sub randpick {
+    return $_[rand(@_)];
+}
 
-say STDERR "hooks/quit/90remark: $EGGS_USER, $EGGS_BODY";
+####################################################
+my   $EGGS_USER    =   $ENV{EGGS_USER}            ;#
+my   $EGGS_WHERE   =   $ENV{EGGS_WHERE}           ;#
+my   $EGGS_BODY    =   $ENV{EGGS_BODY}            ;#
+####################################################
+say  STDERR "$EGGS_USER, $EGGS_WHERE, $EGGS_BODY" ;#
+####################################################
 
-if ($EGGS_BODY =~ /peer/ && !checkCooldown('quit_peer', 300)) {
-    say "Så for den, Peer er ude med leen!";
-} elsif ($EGGS_BODY =~ /\*\.net \*\.split/ && !checkCooldown('quit_netsplit', 300)) {
-    say "HJÆÆÆÆLP! INTERNETTET ER GÅET I STYKKER!";
-} elsif ($EGGS_BODY =~ /^Client Quit$/ && !checkCooldown('quit_regular', 3600)) {
-    say "Hov, $EGGS_USER skred. sagde jeg noget forkert?";
-} elsif ($EGGS_USER =~ /Athas/i) {
+if ($EGGS_USER =~ /Athas|EricZou/i) {
+
     say "Hov, jeg er vist på samme forbindelse. Gad vide om jeg dør?";
+
+} elsif ($EGGS_BODY =~ /peer/) {
+
+    say randpick(
+        "Så for den, Peer er ude med leen!",
+        "Så røg $EGGS_USER.  Mon det er min tur næste gang?",
+    );
+
+} elsif ($EGGS_BODY =~ /\Q*.net *.split\E/) {
+
+    say randpick(
+        "Hjælp!  Nettet er ved at gå i stykker!",
+        "Netsplit!  Gad vide om kronprinsen af Freenode har en finger med i spillet?";
+        "🚧🚧🚧 NETSPLIT 🚧🚧🚧 NETSPLIT 🚧🚧🚧 NETSPLIT 🚧🚧🚧 NETSPLIT 🚧🚧🚧 NETSPLIT 🚧🚧🚧",
+    );
+
+} elsif ($EGGS_BODY =~ /client quit/i) {
+
+    say randpick(
+        "Hov, $EGGS_USER skred. sagde jeg noget forkert?",
+        "Så, nu er $EGGS_USER smuttet. Så kan vi godt finde småkagerne frem!",
+        "Gad vide hvornår $EGGS_USER kommer tilbage.",
+    );
+
 }
