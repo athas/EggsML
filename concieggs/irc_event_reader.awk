@@ -53,7 +53,7 @@ match(payload, /^>< NICK \(\): ([^ ]+)/, matches) && context == name {
 }
 
 # Quit action?
-match(payload, /^>< QUIT \(([^)]+)\): (.*)$/, matches) {
+match(payload, /^>< QUIT \(([^)]*)\): (.*)$/, matches) {
   quitter = context
   reason = matches[1]
   default_channel = "#diku"
