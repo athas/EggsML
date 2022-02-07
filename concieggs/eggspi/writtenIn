@@ -20,6 +20,7 @@ my %interps = (
     'python3' => 'Python 3',
     'rash'    => 'RASH',
     'ruby'    => 'Ruby',
+    'rust-script' => 'Rust',
     'runghc'  => 'Haskell',
     'tclsh8.6'=> 'TCL',
     'clisp'   => 'Common Lisp',
