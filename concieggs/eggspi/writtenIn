@@ -76,7 +76,7 @@ if (@file_compiled > 1) {
     exit(1);
 }
 
-if (!!@exts && my $guess = $exts{$exts[0]}) {
+if (@exts > 0 && (my $guess = $exts{$exts[0]})) {
     print $guess;
     exit(0);
 }
