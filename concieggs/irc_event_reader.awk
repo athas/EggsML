@@ -52,6 +52,19 @@ match(payload, /^>< NICK \(\): ([^ ]+)/, matches) && context == name {
   name = matches[1]
 }
 
+# Quit action?
+match(payload, /^>< QUIT \(([^)]+)\): (.*)$/, matches) {
+  quitter = context
+  reason = matches[1]
+  default_channel = "#diku"
+  runHooks = "runHooks quit"
+  system("export EGGS_USER=" shellquote(quitter) "\n"          \
+         "export EGGS_WHERE=" shellquote(default_channel) "\n" \
+         "export CONCIEGGS_NAME=" shellquote(name) "\n"        \
+         "export EGGS_BODY=" shellquote(reason) "\n"           \
+         "runFor \"$EGGS_WHERE\" " runHooks )
+}
+
 # Part action?
 match(payload, /^>< (PART|JOIN) \(([^)]+)\): (.*)$/, matches) {
   action=matches[1]

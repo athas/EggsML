@@ -1,0 +1,18 @@
+#!/usr/bin/env perl
+#
+# Kommentér på når folk "dør".
+
+use v5.28;
+
+use EggsML::EggsPI boolean => ['checkCooldown'];
+
+my $EGGS_BODY = $ENV{EGGS_BODY};
+my $EGGS_USER = $ENV{EGGS_USER};
+
+if ($EGGS_BODY =~ /peer/ && !checkCooldown('quit_peer', 300)) {
+    say "Så for den, Peer er ude med leen!";
+} elsif ($EGGS_BODY =~ /\*\.net \*\.split/ && !checkCooldown('quit_netsplit', 300)) {
+    say "HJÆÆÆÆLP! INTERNETTET ER GÅET I STYKKER!";
+} elsif ($EGGS_USER =~ /Athas/i) {
+    say "Hov, jeg er vist på samme forbindelse. Gad vide om jeg dør?";
+}
