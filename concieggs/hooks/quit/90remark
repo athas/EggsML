@@ -13,6 +13,8 @@ if ($EGGS_BODY =~ /peer/ && !checkCooldown('quit_peer', 300)) {
     say "Så for den, Peer er ude med leen!";
 } elsif ($EGGS_BODY =~ /\*\.net \*\.split/ && !checkCooldown('quit_netsplit', 300)) {
     say "HJÆÆÆÆLP! INTERNETTET ER GÅET I STYKKER!";
+} elsif ($EGGS_BODY =~ /^Client Quit$/ && !checkCooldown('quit_regular', 3600)) {
+    say "Hov, $EGGS_USER skred. sagde jeg noget forkert?";
 } elsif ($EGGS_USER =~ /Athas/i) {
     say "Hov, jeg er vist på samme forbindelse. Gad vide om jeg dør?";
 }
