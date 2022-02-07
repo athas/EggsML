@@ -5,12 +5,17 @@
 //!
 //! ```cargo
 //! [dependencies]
+//! regex = "1.5"
 //! ```
 
+use regex::Regex;
 use std::env::var;
 
 fn main() {
-    if var("EGGS_BODY").map(|s| s.to_string().contains("知道")).unwrap_or(false) {
-        println!("我不知道！");
+    if let Ok(eggs_body) = var("EGGS_BODY") {
+        let re = Regex::new(r"(^|[^不])知道").unwrap();
+        if re.is_match(&eggs_body) {
+            println!("我不知道！");
+        }
     }
 }
