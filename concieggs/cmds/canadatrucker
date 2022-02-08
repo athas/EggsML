@@ -1,0 +1,54 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import random
+
+stuff = [
+    "MASKS",
+    "VACCINES",
+    "LOCKDOWNS",
+]
+
+def meh():
+    return random.choice(stuff)
+
+def trucker():
+    truck = r'''
+         NO      _______ 
+         TO     / _____ |
+  {0: >11}! / /(__) ||
+      ________/ / |OO| ||
+     |         |-------||
+    (|         |     -.||
+     |  ____   \       |\
+    /| / __ \   |______| 
+    \|| /  \ |___________
+       | () |            
+        \__/             
+    '''.format(meh()).split('\n')[1:-1]
+    return truck
+
+baghjul = r'''
+                        
+                        
+                        
+                        
+                        
+                        
+_______________________ 
+     / __ \   / __ \   |
+____| /  \ |_| /  \ |__|
+     | () |   | () |    
+      \__/     \__/     
+'''.split('\n')[1:-1]
+
+def fuse(blocks, sep=""):
+    return map(lambda parts: sep.join(parts), zip(*blocks))
+
+if __name__ == "__main__":
+    convoy = []
+    for _ in range(random.randint(3,5)):
+        convoy.append(trucker())
+    convoy.append(baghjul)
+    for line in fuse(convoy):
+        print(line)
