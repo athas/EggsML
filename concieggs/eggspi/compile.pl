@@ -46,7 +46,7 @@ if ((stat($source_file))[9] > ((stat($cached_file))[9] // 0)) {
             say STDERR capturex(EXIT_ANY, qw(go build), $source_file);
         }
         when (/\.c$/) {
-            say STDERR capturex(EXIT_ANY, qw(gcc -std=c99), $source_file, '-o', $cached_file);
+            say STDERR capturex(EXIT_ANY, qw(cc -std=c99), $source_file, '-o', $cached_file);
         }
         when (/\.sml$/) {
             say STDERR capturex(EXIT_ANY, qw(mosmlc -P full -toplevel -o), $cached_file, $source_file);
@@ -63,7 +63,7 @@ if ((stat($source_file))[9] > ((stat($cached_file))[9] // 0)) {
             say STDERR capturex(EXIT_ANY, qw(repg compile), $source_file, '--srcout', "$source_file.c");
             last if $EXITVAL;
 
-            say STDERR capturex(EXIT_ANY, qw(gcc -o), $cached_file, qw(-O3 -xc -D FLAG_WORDALIGNED -w), "$source_file.c");
+            say STDERR capturex(EXIT_ANY, qw(cc -o), $cached_file, qw(-O3 -xc -D FLAG_WORDALIGNED -w), "$source_file.c");
         }
         default {
             say "Cannot compile file $source_file - unknown extension.";

@@ -3,11 +3,11 @@
 all: adventure
 
 setup: hdr.h setup.c
-	gcc -O3 -Wall -o setup setup.c
+	cc -O3 -Wall -o setup setup.c
 
 adventure: setup *.c *.h
 	./setup glorkz > data.c
-	gcc -std=c99 -Dlint -O3 -Wall -o adventure data.c done.c init.c io.c main.c save.c subr.c vocab.c wizard.c # No good reason to be smarter than this.
+	cc -std=c99 -Dlint -O3 -Wall -o adventure data.c done.c init.c io.c main.c save.c subr.c vocab.c wizard.c # No good reason to be smarter than this.
 
 clean:
 	rm -f setup data.c adventure
