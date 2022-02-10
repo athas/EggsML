@@ -33,7 +33,7 @@ if ($EGGS_USER =~ /Athas|EricZou/i) {
 
     say randpick(
         "Hjælp!  Nettet er ved at gå i stykker!",
-        "Netsplit!  Gad vide om kronprinsen af Freenode har en finger med i spillet?";
+        "Netsplit!  Gad vide om kronprinsen af Freenode har en finger med i spillet?",
         "🚧🚧🚧 NETSPLIT 🚧🚧🚧 NETSPLIT 🚧🚧🚧 NETSPLIT 🚧🚧🚧 NETSPLIT 🚧🚧🚧 NETSPLIT 🚧🚧🚧",
     );
 
