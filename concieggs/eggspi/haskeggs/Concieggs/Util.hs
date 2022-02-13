@@ -15,7 +15,7 @@ getEggsUser :: IO Text
 getEggsUser = getEnvDef "EGGS_USER" ""
 
 getDbDir :: IO FilePath
-getDbDir = getEnvDef "CONCIEGGS_DB_DIR" "db"
+getDbDir = Text.unpack <$> getEnvDef "CONCIEGGS_DB_DIR" "db"
 
 getEnvDef :: Text -> Text -> IO Text
 getEnvDef var def =
