@@ -11,6 +11,8 @@ getCommandArgs :: IO [Text]
 getCommandArgs = fmap Text.pack <$> getArgs
 
 getEggsUser :: IO Text
-getEggsUser = do
-  x <- lookupEnv "EGGS_USER"
-  pure (maybe "" Text.pack x)
+getEggsUser = getEnvSafe "EGGS_USER" ""
+
+getEnvDef :: Text -> Text -> IO Text
+getEnvDef var def =
+  maybe def Text.pack <$> lookupEnv (Text.unpack var)

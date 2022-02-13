@@ -21,9 +21,10 @@ import qualified Data.Text.Encoding as Text
 import qualified Data.Text.IO as Text
 import Data.FileEmbed
 import System.Random (randomRIO)
+import System.Environment (getEnv)
 import GHC.Generics (Generic)
 
-import Concieggs.Util (getCommandArgs)
+import Concieggs.Util (getCommandArgs, getEnvDef)
 import Concieggs.Stateful (statefulMain)
 
 data Game = Game
@@ -32,10 +33,9 @@ data Game = Game
   } deriving (Eq, Ord, Show, Generic, FromJSON, ToJSON)
 
 main :: IO ()
-main = getCommandArgs >>= statefulMain wordleGameFile newRandomGame handleGame
-
-wordleGameFile :: FilePath
-wordleGameFile = "db/wordle-state.json"
+main = do
+  wordleGameFile <- (</> "wordle-state.json") <$> getEnvDef "CONCIEGGS_DB_DIR" "db")
+  getCommandArgs >>= statefulMain wordleGameFile newRandomGame handleGame
 
 newRandomGame :: IO Game
 newRandomGame = newGame <$> randomChoice wordleWords
