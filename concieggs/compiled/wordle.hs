@@ -21,7 +21,6 @@ import qualified Data.Text.IO as Text
 import System.Random (randomRIO)
 import System.Environment (getEnv)
 import GHC.Generics (Generic)
-import Data.FilePath ((</>))
 
 import Concieggs.Util (getCommandArgs, getDbDir)
 import Concieggs.Stateful (statefulMain)
@@ -37,10 +36,10 @@ main = do
   getCommandArgs >>= statefulMain stateFile newRandomGame handleGame
 
 wordleGameFile :: IO FilePath
-wordleGameFile = (</> "wordle-state.json") <$> getDbDir
+wordleGameFile = (<> "/wordle-state.json") <$> getDbDir
 
 wordleWordsFile :: IO FilePath
-wordleGameFile = (</> "wordle-few") <$> getDbDir
+wordleGameFile = (<> "/wordle-few") <$> getDbDir
 
 wordleWords :: IO [Text]
 wordleWords = wordleWordsFile >>= fmap Text.lines . Text.readFile
