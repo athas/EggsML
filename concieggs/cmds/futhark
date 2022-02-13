@@ -19,19 +19,19 @@ if [ $# = 0 ]; then
      echo "Arriba!  Arriba!  Andale!  Arriba!"
      echo "Slå turboen til!") | randomLine
 elif [ $# = 1 -a "$1" = --version ]; then
-    ssh napoleon.hiperfit.dk "futhark-c --version"
+    futhark --version
 else
-    if echo "$@" | egrep -q '^(entry|module|type|import|let)'; then
+    if echo "$@" | egrep -q '^(entry|module|type|import|let|def)'; then
         code="$@"
     else
-        code=$(printf 'let main =\n%s' "$*")
+        code=$(printf 'entry main =\n%s' "$*")
     fi
 
-    allthatjazz=$(cat <<EOF
-    file=concieggs.fut
-    cat > \$file
-    futhark run -w "\$file" 2>&1
-EOF
-               )
-    (echo "$code" | timeout 10 ssh napoleon.hiperfit.dk "$allthatjazz" && pleasedBy "$EGGS_USER" 10) || echo "$EGGS_USER: Det gik galt."
+    file=$HOME/concieggs.fut
+    echo "$code" > $file
+    if futhark run -w "$file" </dev/null 2>&1; then
+        pleasedBy "$EGGS_USER" 10
+    else
+        echo "$EGGS_USER: Det gik galt."
+    fi
 fi
