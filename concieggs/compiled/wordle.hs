@@ -23,8 +23,9 @@ import Data.FileEmbed
 import System.Random (randomRIO)
 import System.Environment (getEnv)
 import GHC.Generics (Generic)
+import Data.FilePath ((</>))
 
-import Concieggs.Util (getCommandArgs, getEnvDef)
+import Concieggs.Util (getCommandArgs, dbDir)
 import Concieggs.Stateful (statefulMain)
 
 data Game = Game
@@ -33,9 +34,16 @@ data Game = Game
   } deriving (Eq, Ord, Show, Generic, FromJSON, ToJSON)
 
 main :: IO ()
-main = do
-  wordleGameFile <- (<> "/wordle-state.json") <$> getEnvDef "CONCIEGGS_DB_DIR" "db"
-  getCommandArgs >>= statefulMain wordleGameFile newRandomGame handleGame
+main = getCommandArgs >>= statefulMain wordleGameFile newRandomGame handleGame
+
+wordleGameFile :: FilePath
+wordleGameFile = dbDir </> "wordle-state.json"
+
+wordleWordsFile :: FilePath
+wordleWordsFile = dbDir </> "wordle-few"
+
+wordleWords :: [Text]
+wordleWords = Text.lines . Text.decodeUtf8 $ $(embedFile wordleWordsFile)
 
 newRandomGame :: IO Game
 newRandomGame = newGame <$> randomChoice wordleWords
@@ -47,7 +55,7 @@ handleGame (game, [guess])
       let response = "Det er tid til WORDLE! Gæt ordet ved at skrive 'wordle <gæt>'"
       pure (game, [response])
   | isGameOver game = newRandomGame >>= \game -> handleGame (game, [guess])
-  | isEmpty guess = pure (game, [Text.pack (show game)]) -- FIXME
+  | isEmpty guess = pure (game, ["Dine gæt indtil videre: " <> showGame newState])
   | otherwise = case parseWord guess game of
       Left err -> pure (game, [err])
       Right guess -> do
@@ -57,7 +65,10 @@ handleGame (game, [guess])
               else ["Gæt igen. Dine gæt indtil videre: " <> showGame newState]
         pure (newState, response)
 
-handleGame (game, _) = pure (game, ["Du skal angive nøjagtigt et ord, som du vil gætte på."])
+handleGame (game, _) = pure (game,
+  [ "Du skal angive nøjagtigt et ord, som du vil gætte på."
+  , "Dine gæt indtil videre: " <> showGame game
+  ])
 
 showGame :: Game -> Text
 showGame Game {..} = commas guesses
@@ -78,9 +89,6 @@ parseWord word Game {..} = do
 guardEither :: Bool -> e -> Either e ()
 guardEither True _ = Right ()
 guardEither False e = Left e
-
-wordleWords :: [Text]
-wordleWords = Text.lines . Text.decodeUtf8 $ $(embedFile "db/wordle-few")
 
 isEmpty :: Text -> Bool
 isEmpty = Text.null
