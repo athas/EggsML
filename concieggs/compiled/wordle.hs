@@ -23,7 +23,6 @@ import Data.FileEmbed
 import System.Random (randomRIO)
 import System.Environment (getEnv)
 import GHC.Generics (Generic)
-import System.FilePath ((</>))
 
 import Concieggs.Util (getCommandArgs, getEnvDef)
 import Concieggs.Stateful (statefulMain)
@@ -35,7 +34,7 @@ data Game = Game
 
 main :: IO ()
 main = do
-  wordleGameFile <- (</> "wordle-state.json") <$> getEnvDef "CONCIEGGS_DB_DIR" "db"
+  wordleGameFile <- (<> "/wordle-state.json") <$> getEnvDef "CONCIEGGS_DB_DIR" "db"
   getCommandArgs >>= statefulMain wordleGameFile newRandomGame handleGame
 
 newRandomGame :: IO Game
