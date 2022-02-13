@@ -1,6 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StandaloneDeriving #-}
-{-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE DeriveAnyClass #-}
@@ -19,13 +18,12 @@ import Data.Text (Text)
 import qualified Data.Text as Text
 import qualified Data.Text.Encoding as Text
 import qualified Data.Text.IO as Text
-import Data.FileEmbed
 import System.Random (randomRIO)
 import System.Environment (getEnv)
 import GHC.Generics (Generic)
 import Data.FilePath ((</>))
 
-import Concieggs.Util (getCommandArgs, dbDir)
+import Concieggs.Util (getCommandArgs, getDbDir)
 import Concieggs.Stateful (statefulMain)
 
 data Game = Game
@@ -34,19 +32,23 @@ data Game = Game
   } deriving (Eq, Ord, Show, Generic, FromJSON, ToJSON)
 
 main :: IO ()
-main = getCommandArgs >>= statefulMain wordleGameFile newRandomGame handleGame
+main = do
+  stateFile <- wordleGameFile
+  getCommandArgs >>= statefulMain stateFile newRandomGame handleGame
 
-wordleGameFile :: FilePath
-wordleGameFile = dbDir </> "wordle-state.json"
+wordleGameFile :: IO FilePath
+wordleGameFile = (</> "wordle-state.json") <$> getDbDir
 
-wordleWordsFile :: FilePath
-wordleWordsFile = dbDir </> "wordle-few"
+wordleWordsFile :: IO FilePath
+wordleGameFile = (</> "wordle-few") <$> getDbDir
 
-wordleWords :: [Text]
-wordleWords = Text.lines . Text.decodeUtf8 $ $(embedFile wordleWordsFile)
+wordleWords :: IO [Text]
+wordleWords = wordleWordsFile >>= fmap Text.lines . Text.readFile
 
 newRandomGame :: IO Game
-newRandomGame = newGame <$> randomChoice wordleWords
+newRandomGame = do
+  words <- wordleWords
+  newGame <$> randomChoice words
 
 handleGame :: (Game, [Text]) -> IO (Game, [Text])
 handleGame (game, [guess])
