@@ -11,7 +11,7 @@ getCommandArgs :: IO [Text]
 getCommandArgs = fmap Text.pack <$> getArgs
 
 getEggsUser :: IO Text
-getEggsUser = getEnvSafe "EGGS_USER" ""
+getEggsUser = getEnvDef "EGGS_USER" ""
 
 getEnvDef :: Text -> Text -> IO Text
 getEnvDef var def =
