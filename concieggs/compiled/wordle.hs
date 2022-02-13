@@ -39,7 +39,7 @@ wordleGameFile :: IO FilePath
 wordleGameFile = (<> "/wordle-state.json") <$> getDbDir
 
 wordleWordsFile :: IO FilePath
-wordleGameFile = (<> "/wordle-few") <$> getDbDir
+wordleWordsFile = (<> "/wordle-few") <$> getDbDir
 
 wordleWords :: IO [Text]
 wordleWords = wordleWordsFile >>= fmap Text.lines . Text.readFile
