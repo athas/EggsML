@@ -103,6 +103,7 @@ word3 := /[Hh]/ ~/eap/ "ob"
        | (~/en / "et ")? ~/float/ (~/s/ "brudne" | "brudent") " tal"
        | ~/dollar/ "daler" (~/s/ "e")?
        | ~/[Ii]stanbul|[Kk]onstantinopel/ "Miklagård"
+       | ~/[Kk]iev|[Kk]yiv/ "Kænugård"
        | ~/date/ "stævnemøde" (~/s/ "r")?
        | ~/etc/ "osv"
        | ~/performance/ (~/[- ](critical|kritisk)/ "kritisk omkring " ) "optræden"
