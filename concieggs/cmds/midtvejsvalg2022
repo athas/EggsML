@@ -1,0 +1,4 @@
+#!/bin/sh
+
+res=`$CONCIEGGS_DIR/cmds/orakel Balance of power`
+echo "$res"
