@@ -37,5 +37,7 @@ else
     echo "Det' bår' dæjlig"
     echo "Superduper"
     echo "Dupersuper"
+    echo "Værsartig"
+    echo "Velbekomme"
 fi | randomLine | xargs echo -n
 (echo "!"; echo ".") | randomLine
