@@ -11,7 +11,7 @@ shift
 
 broke() {
     pleasedBy "$EGGS_USER" 1 "hjalp med at finde en fejl i '$cmd'"
-    echo "Kommandoen fejlede!  Du kan prøve at spørge mig om 'udu', men det hjælper næsten helt sikkert ikke."
+    echo "Kommandoen fejlede!  Du kan prøve at spørge mig om 'udu'."
     exit 1
 }
 
