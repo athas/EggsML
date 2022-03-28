@@ -51,7 +51,7 @@ tordis
 lisette
 EOF`
     fi
-    if [ "$navn" -eq "concieggs" ]; then
+    if [ "$navn" = "concieggs" ]; then
         say "Hvad tror du jeg er?  Civilbetjent?"
         exit
     fi
