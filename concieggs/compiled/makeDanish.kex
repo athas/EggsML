@@ -41,6 +41,7 @@ word1 := ~/computer science/ "datalogi"
        | ~/hardware/ "maskinel"
        | ~/software/ "programmel"
        | ~/gangbang/ "bollemix"
+       | ~/cookie/ "informationskapsel"
        | /[a-zA-ZæøåÆØÅ0-9]+/
 
 word2 := ~/namespace/ "navnerum"
