@@ -19,6 +19,7 @@ Det er altså ikke særligt høfligt at tale om mig, men ikke at tale til mig.
 Jeg er lige her.
 hejsa!
 Når man taler om solen, så skinner jeg!
+bøh ;-)
 EOF
     else
         echo $(echo "$EGGS_BODY" | sed "s/$CONCIEGGS_NAME/$EGGS_USER/g")
