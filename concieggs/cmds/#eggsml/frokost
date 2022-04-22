@@ -4,5 +4,6 @@
 # Har du købt ind -> indkøb |
 # Frokost der ikke er bogført? -> preggs |
 # Hvornår er der frokost -> neggst |
+# Opret frokostbegivenhed -> eggsml <tidspunkt>, f.eks. eggsml 12 |
 
 echo "Har du så forstået frokost?"
