@@ -76,6 +76,7 @@ printResult (Just (Pollental loc v)) = do
   mapM_
     (\(ty, amount) -> when (amount /= "-") (putStrLn (ty ++ ": " ++ amount)))
     v
+  putStrLn "Det var bare det."
 printResult Nothing = putStrLn "Ingen pollental!"
 
 decodeXml :: String -> Maybe Pollental
