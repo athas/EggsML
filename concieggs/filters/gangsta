@@ -123,6 +123,9 @@ while (my $text = <>) {
 
     $text =~ s/ ødelægge/ smadre/g;
 
+    $text =~ s/\bmænd\b/stoddere/g;
+    $text =~ s/\bmand\b/stodder/g;
+    $text =~ s/\bmande/stodder-/g;
     $text =~ s/ dreng / kid /g;
     $text =~ s/\bkvinder\b/ho's/g;
     $text =~ s/\bkvinde\b/\bho\b/g;
