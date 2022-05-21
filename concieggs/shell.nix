@@ -11,7 +11,7 @@ mkShell {
       numpy
     ]))
     (python3.withPackages (ps: with ps; [
-      feedparser yfinance lxml
+      feedparser yfinance lxml opencc
     ]))
     (perl532.withPackages (ps: with ps; [
       DateTime DateTimeFormatISO8601 Encode Env FileFindRule FilePath

@@ -1,0 +1,19 @@
+#!/usr/bin/env python3.10
+# -*- coding: utf-8 -*-
+
+# Lad Concieggs translitterere mellem traditionelle kinesiske tegn og
+# utraditionelle kinesiske tegn, så vi ikke behøver at gøre det.
+
+import os
+import opencc
+
+mao_zedong = opencc.OpenCC('t2s.json')
+chiang_kai_shek = opencc.OpenCC('s2t.json')
+
+udgydelse = os.getenv('EGGS_BODY')
+
+if (oversat := mao_zedong.convert(udgydelse)) != udgydelse and len(oversat):
+    print(f'Mao Zedong:  {oversat}')
+
+if (oversat := chiang_kai_shek.convert(udgydelse)) != udgydelse and len(oversat):
+    print(f'Chiang Kai-shek:  {oversat}')
