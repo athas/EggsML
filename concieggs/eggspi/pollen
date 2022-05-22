@@ -1,0 +1,26 @@
+#!/usr/bin/env python3.10
+# -*- coding: utf-8 -*-
+# vim: set syntax=python:
+
+# Viser græspollenprognoser fra (Inner)Schweiz.
+
+import requests
+from bs4 import BeautifulSoup
+
+# Græs er default
+URL = "https://www.pollenundallergie.ch/polleninformationen/pollenprognosen"
+page = requests.get(URL)
+
+Suppe = BeautifulSoup(page.content, "html.parser")
+zweiteSuppe = Suppe.find(class_="data-box")
+Städte = zweiteSuppe.find_all(class_="data-row")
+
+sort = zweiteSuppe.find("h3").text
+print(f'{sort} :: ', end="")
+
+for S in Städte:
+    Stadtnahme = S.find("div", class_="data-row-text").text
+    Prognose = S.find("span", class_="data-row-value-text").text
+    if Stadtnahme in ["Zürich", "Luzern"]:
+        print(f'{Stadtnahme}: {Prognose}  ', end="")
+print()
