@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 echo -n "Zugersee:  "
-curl -s "https://www.badi-info.ch/_temp/ww/zugsee.htm" | perl -ne 'print /<b>(.+)<\/b>/'
-echo "°C."
+curl -s "https://www.badi-info.ch/_temp/ww/zugsee.htm" | grep -Pzo '(?<=<b>).*?(?=</b>)' -
+echo " °C."
