@@ -4,6 +4,9 @@
 # Lad Concieggs translitterere mellem traditionelle kinesiske tegn og
 # utraditionelle kinesiske tegn, så vi ikke behøver at gøre det.
 
+# Installer med `/usr/local/bin/python3.8 -m pip install opencc`
+# og `pkg_add opencc`
+
 import os
 import opencc
 
