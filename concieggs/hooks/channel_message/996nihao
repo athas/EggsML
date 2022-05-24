@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.9
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # Lad Concieggs translitterere mellem traditionelle kinesiske tegn og
@@ -12,8 +12,10 @@ chiang_kai_shek = opencc.OpenCC('s2t.json')
 
 udgydelse = os.getenv('EGGS_BODY')
 
-if (oversat := mao_zedong.convert(udgydelse)) != udgydelse and len(oversat):
+oversat = mao_zedong.convert(udgydelse)
+if len(oversat) and oversat != udgydelse:
     print(f'Mao Zedong:  {oversat}')
 
-if (oversat := chiang_kai_shek.convert(udgydelse)) != udgydelse and len(oversat):
+oversat = chiang_kai_shek.convert(udgydelse)
+if len(oversat) and oversat != udgydelse:
     print(f'Chiang Kai-shek:  {oversat}')
