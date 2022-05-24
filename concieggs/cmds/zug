@@ -6,7 +6,7 @@
 
 # Vandtemperatur (1)
 echo -n "Zugersee:  "
-curl -s "https://www.badi-info.ch/_temp/ww/zugsee.htm" | ggrep -Po '(?<=<b>).*?(?=</b>)' -
+curl -s "https://www.badi-info.ch/_temp/ww/zugsee.htm" | ggrep -Poz '(?<=<b>).*?(?=</b>)' -
 echo " °C."
 
 # Pollen (2)
