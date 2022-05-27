@@ -146,6 +146,10 @@ int main() {
       }
 
       if (start == NULL) {
+        start = strstr(eggsbody, "gopher://");
+      }
+
+      if (start == NULL) {
         return 0;
       }
 
