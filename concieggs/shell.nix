@@ -11,7 +11,7 @@ mkShell {
       numpy
     ]))
     (python3.withPackages (ps: with ps; [
-      feedparser yfinance lxml opencc bs4 requests
+      feedparser yfinance lxml opencc requests
     ]))
     (perl532.withPackages (ps: with ps; [
       DateTime DateTimeFormatISO8601 Encode Env FileFindRule FilePath
@@ -57,7 +57,6 @@ mkShell {
       shell-escape
       MonadRandom
       random-fu
-      random-extras
       MissingH
       http-client
       http-client-tls
