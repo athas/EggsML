@@ -12,7 +12,7 @@ prompt="Partiformand for Socialdemokratiet Mette Frederiksen mener at den økono
 answer=$(gpt3 100 "$prompt" | sed '/./,$!d' | sed 's/ *Q:.*//')
 
 if [ "$answer" ]; then
-    echo "$EGGS_USER: $answer"
+    echo "$EGGS_USER: Om $@ $answer"
 else
     echo "$EGGS_USER: Beklager, men det ved jeg altså ikke."
 fi
