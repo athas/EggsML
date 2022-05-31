@@ -9,10 +9,10 @@ fi
 
 prompt="Partiformand for Socialdemokratiet Mette Frederiksen mener at den økonomiske ulighed skal være lavere.  Partiformand for Venstre Jakob Ellemann-Jensen mener, at landbruget er vigtigt for Danmark, og at velfærdsstatsreformer er vigtige, så vi også har råd til omfordeling om 30 år. Partiformand for Socialistisk Folkeparti Pia Olsen Dyhr mener at flere marker skal være økologiske, og at det frie skolevalg skal afskaffes for at bekæmpe uligheden.  Angående krigen i Ukraine mener partiformand for det Radikale Venstre Sofie Carsten Nielsen, at Danmark kan gøre mere for at huse ukrainske flygtninge, og at EU skal sende flere våben til Ukraine.  Partiformand for det Konservative Folkeparti Søren Pape Poulsen mener, at topskatten skal afskaffes, så det bedre kan betale sig at arbejde hårdt i Danmark.  Angående indvandring fra Mellemøsten mener partiformand for Dansk Folkeparti Morten Messerschmidt at indvandringen skal helt skal stoppes.  Angående indvandrere fra Mellemøsten, der allerede er i landet, mener partiformand fra Nye Borgerlige Pernille Vermund, at de skal sendes tilbage, hvor de kom fra.  Angående privat ejendomsret mener politisk ordfører fra Enhedslisten Mai Villadsen, at den skal afskaffes, men at man gerne må beholde sin egen tandbørste.  Angående $@"
 
-answer=$(gpt3 100 "$prompt" | sed '/./,$!d' | sed 's/ *Q:.*//')
+answer=$(gpt3 100 "$prompt" | sed '/./,$!d' | sed 's/ *Q:.*//' | cut -d'. ' -f1)
 
 if [ "$answer" ]; then
-    echo "$EGGS_USER: Angående $@$answer"
+    echo "$EGGS_USER: Angående $@$answer."
 else
     echo "$EGGS_USER: Beklager, men ingen ønsker at udtale sig."
 fi
