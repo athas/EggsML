@@ -1,4 +1,5 @@
 #!/usr/bin/env python3.8
+# -*- coding: utf-8 -*-
 
 # installér med
 # $ /usr/local/bin/python3.8 -m pip install schedule
@@ -8,14 +9,21 @@ from time import sleep
 import datetime
 
 
+def begivenhed(besked):
+    """Send kontrolbesked"""
+    PREFIX = "CALENDAR: "
+    print(f"{PREFIX}{besked}")
+
+
 def angiv_emne(emne):
     """Sæt dagens emne"""
-    print(f"/topic {emne}")
+    # se eggspi/setTopic
+    begivenhed(f"/topic {emne}")
 
 
 def sig(noget):
     """Skriv noget om dagen"""
-    print(f"{noget}")
+    begivenhed(f"{noget}")
 
 
 def dagens_overblik():
@@ -31,7 +39,7 @@ def klokken():
 
 # Find eksempler her: https://schedule.readthedocs.io/en/stable/examples.html
 schedule.every().day.at("06:00").do(sig, noget="Godmorgen!")
-schedule.every(10).to(60).seconds.do(sig, noget="Hik!")
+schedule.every(5).to(20).seconds.do(sig, noget="Hik!")
 schedule.every().hour.at(":00").do(angiv_emne, emne="Klokken er ??:??")
 schedule.every().hour.at(":30").do(angiv_emne, emne=f"Klokken er {klokken()}")
 

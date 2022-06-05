@@ -14,7 +14,7 @@ setTrap() {
 setTrap
 
 fifo_cleanup() {
-    rm -f "$tailfifo" "$ticksfifo"
+    rm -f "$tailfifo" "$ticksfifo" "$maerkedagfifo"
 }
 
 eggsmld_cleanup() {
@@ -118,13 +118,12 @@ throttle() {
 }
 
 calendar() {
-  while true; do
-    # Kør script med mærkedage
-    python3.8 $CALENDAR_DIR/maerkedage.py || true
-    say "Mærkedage er død; længe leve Mærkedage." >&2 # todo: tilføj tællevariabel og romertal
-    sleep 1
-  done
-
+    while true; do
+        # Kør script med mærkedage
+        python3.8 $CALENDAR_DIR/maerkedage.py || true
+        say "Mærkedage er død; længe leve Mærkedage." >&2 # todo: tilføj tællevariabel og romertal
+        sleep 1
+    done
 }
 
 outfile=$irc_dir/out
