@@ -27,9 +27,9 @@ function shellquote(str) {
     system(setvars "\n" "runFor \"$EGGS_WHERE\" checkReminders")
     next
   } else if (match($0, /^CALENDAR (.*)$/, matches)) {
-    content=matches[1]
+    message_body=matches[1]
     system("export EGGS_WHERE=" shellquote(default_channel) "\n" \
-           "export EGGS_BODY="  shellquote(content)         "\n" \
+           "export EGGS_BODY="  shellquote(message_body)    "\n" \
            "touch /tmp/debug_by_touch"                      "\n" \
            "runFor \"$EGGS_WHERE\" printCal")
     next
