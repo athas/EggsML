@@ -33,7 +33,7 @@ function shellquote(str) {
     system("export EGGS_WHERE=" shellquote(event_channel)  "\n" \
            "export EGGS_BODY="  shellquote(message_body)   "\n" \
            "touch /tmp/debug_by_touch"                     "\n" \
-           "runFor \"$EGGS_WHERE\" printCal")
+           "runFor \"$EGGS_WHERE\" " printCal)
     next
   } else {
     # Invalid.
@@ -88,7 +88,7 @@ match(payload, /^>< (PART|JOIN) \(([^)]+)\): (.*)$/, matches) {
          "export EGGS_WHERE=" shellquote(parted_channel) "\n"           \
          "export CONCIEGGS_NAME=" shellquote(name) "\n"                      \
          "export EGGS_BODY=" shellquote(partedReason) "\n"              \
-         "runFor \"$EGGS_WHERE\" runHooks" )
+         "runFor \"$EGGS_WHERE\" " runHooks )
 }
 
 # Channel/private message?
