@@ -3,13 +3,32 @@
 # Hør hvad en partiformand mener om verdenssituationen
 
 if [ $# = 0 ]; then
-    echo "$EGGS_USER: Hør hvad en politiker mener om et emne (på Guds eget sprog)"
+    echo "$EGGS_USER: Hør hvad en politiker mener om et emne (på Guds eget sprog). Brug: politik [sød|normal|hård] <emne>"
     exit
 fi
 
+prompt_dove=="Partiformand for Socialdemokratiet Mette Frederiksen mener at den økonomiske ulighed skal være lavere, så vores samfund bliver mere lige.  Partiformand for Venstre Jakob Ellemann-Jensen mener, at landbruget er vigtigt for Danmarks velstand, og at velfærdsstatsreformer er vigtige, så vi også har råd til at passe på alle om 30 år.  Partiformand for Socialistisk Folkeparti Pia Olsen Dyhr mener at flere marker skal være økologiske, så den biologiske diversitet øges.  Angående krigen i Ukraine mener partiformand for det Radikale Venstre Sofie Carsten Nielsen, at Danmark kan gøre mere for at huse ukrainske flygtninge, og at EU skal hjælpe med at sikre fred mellem Rusland og Ukraine.  Partiformand for det Konservative Folkeparti Søren Pape Poulsen mener, at topskatten skal afskaffes, så det flere mennesker har lyst til at arbejde hårdt og udleve deres fulde potentiale på arbejdsmarkedet.  Angående indvandring mener Morten Messerschmidt, at vi skal passe på Danmark og sørge for at det forbliver sikkert at bevæge sig rundt alle steder i Danmark.  Angående indvandrere fra Mellemøsten, der allerede er i landet, mener partiformand fra Nye Borgerlige Pernille Vermund, at de skal sendes tilbage, hvor de kom fra, men at dem, der sendes tilbage får alle muligheder for at klare sig godt i deres hjemlande, og at det er der, de skal bygge deres fremtid.  Angående privat ejendomsret mener politisk ordfører fra Enhedslisten Mai Villadsen, at den skal afskaffes, fordi privat ejendomsret af produktionsmidler altid medfører udbyttelse af arbejderne, og at dét er synd for dem.  Angående $subject"
+
+prompt_normal="Partiformand for Socialdemokratiet Mette Frederiksen mener at den økonomiske ulighed skal være lavere.  Partiformand for Venstre Jakob Ellemann-Jensen mener, at landbruget er vigtigt for Danmark, og at velfærdsstatsreformer er vigtige, så vi også har råd til omfordeling om 30 år.  Partiformand for Socialistisk Folkeparti Pia Olsen Dyhr mener at flere marker skal være økologiske, og at det frie skolevalg skal afskaffes for at bekæmpe uligheden.  Angående krigen i Ukraine mener partiformand for det Radikale Venstre Sofie Carsten Nielsen, at Danmark kan gøre mere for at huse ukrainske flygtninge, og at EU skal sende flere våben til Ukraine.  Partiformand for det Konservative Folkeparti Søren Pape Poulsen mener, at topskatten skal afskaffes, så det bedre kan betale sig at arbejde hårdt i Danmark.  Angående indvandring fra Mellemøsten mener partiformand for Dansk Folkeparti Morten Messerschmidt at indvandringen skal helt skal stoppes.  Angående indvandrere fra Mellemøsten, der allerede er i landet, mener partiformand fra Nye Borgerlige Pernille Vermund, at de skal sendes tilbage, hvor de kom fra.  Angående privat ejendomsret mener politisk ordfører fra Enhedslisten Mai Villadsen, at den skal afskaffes, men at man gerne må beholde sin egen tandbørste.  Angående $subject"
+
+prompt_hawk=="Partiformand for Socialdemokratiet Mette Frederiksen mener at den økonomiske ulighed skal være lavere, og at det kan gøres ved at brandbeskatte de rige svin, som skal bøde for at have stjålet merværdien, der er skabt af arbejderne.  Partiformand for Venstre Jakob Ellemann-Jensen mener, at landbruget er vigtigt for Danmark, og at venstrefløjen skal stoppes i at ødelægge det danske landbrug, som de har gjort de sidste 20 år.  Partiformand for Socialistisk Folkeparti Pia Olsen Dyhr mener at alle landmænd skal tvinges til at dyrke markerne, som hun mener, man bedst gør det.  Angående krigen i Ukraine mener partiformand for det Radikale Venstre Sofie Carsten Nielsen, at Rusland skal straffes for at have angrebet Ukraine, og at den russiske befolkning derfor skal forarmes.  Partiformand for det Konservative Folkeparti Søren Pape Poulsen mener, at topskatten skal afskaffes, så dovne svin ikke kan udbytte, dem der faktisk producerer velstand her i landet  Angående indvandring fra Mellemøsten mener partiformand for Dansk Folkeparti Morten Messerschmidt at indvandringen skal helt skal stoppes, og at indvandrere skal straffes ti gange hårdere, når de begår kriminalitet end danskere.  Angående indvandrere fra Mellemøsten, der allerede er i landet, mener partiformand fra Nye Borgerlige Pernille Vermund, at de skal sendes tilbage, hvor de kom fra, og hvis de ikke forlader Danmark frivilligt skal de sendes til lejre i Grønland.  Angående privat ejendomsret mener politisk ordfører fra Enhedslisten Mai Villadsen, at den skal afskaffes, og at alle arbejdsgivere skal fratages alt det, de har udbyttet fra arbejderne, og at alle deres huse skal konfiskeres for at huse flygtninge og alle dem, der er vokset op i fattigdom.  Angående $subject"
+
+prompt="$prompt_normal"
 subject=$@
 
-prompt="Partiformand for Socialdemokratiet Mette Frederiksen mener at den økonomiske ulighed skal være lavere.  Partiformand for Venstre Jakob Ellemann-Jensen mener, at landbruget er vigtigt for Danmark, og at velfærdsstatsreformer er vigtige, så vi også har råd til omfordeling om 30 år.  Partiformand for Socialistisk Folkeparti Pia Olsen Dyhr mener at flere marker skal være økologiske, og at det frie skolevalg skal afskaffes for at bekæmpe uligheden.  Angående krigen i Ukraine mener partiformand for det Radikale Venstre Sofie Carsten Nielsen, at Danmark kan gøre mere for at huse ukrainske flygtninge, og at EU skal sende flere våben til Ukraine.  Partiformand for det Konservative Folkeparti Søren Pape Poulsen mener, at topskatten skal afskaffes, så det bedre kan betale sig at arbejde hårdt i Danmark.  Angående indvandring fra Mellemøsten mener partiformand for Dansk Folkeparti Morten Messerschmidt at indvandringen skal helt skal stoppes.  Angående indvandrere fra Mellemøsten, der allerede er i landet, mener partiformand fra Nye Borgerlige Pernille Vermund, at de skal sendes tilbage, hvor de kom fra.  Angående privat ejendomsret mener politisk ordfører fra Enhedslisten Mai Villadsen, at den skal afskaffes, men at man gerne må beholde sin egen tandbørste.  Angående $subject"
+# Choose mood -- feel free to add more!
+if ["$1" = sød ]; then
+    prompt="$prompt_dove"
+    subject="${@:2}"
+fi
+if ["$1" = hård ]; then
+    prompt="$prompt_hawk"
+    subject="${@:2}"
+fi
+if ["$1" = normal ]; then
+    prompt="$prompt_normal"
+    subject="${@:2}"
+fi
 
 answer=$(gpt3 $((${#subject} + 100)) "$prompt" | head -n 1 | sed '/./,$!d' | sed 's/ *Q:.*//' | cut -d'.  ' -f1)
 
