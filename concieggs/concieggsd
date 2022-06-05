@@ -123,7 +123,7 @@ calendar() {
         # Kør script med mærkedage
         # python3.8 $CALENDAR_DIR/maerkedage.py || true
         say "Mærkedage er død; længe leve Mærkedage." >&2 # todo: tilføj tællevariabel og romertal
-        sleep 10
+        sleep 60
     done
 }
 

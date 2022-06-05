@@ -31,7 +31,7 @@ function shellquote(str) {
     default_channel = "#diku"
     system("export EGGS_WHERE=" shellquote(default_channel) "\n" \
            "export EGGS_BODY="  shellquote(content)         "\n" \
-           "runFor \"$EGGS_WHERE\" " printCal )
+           "runFor \"$EGGS_WHERE\" printCal")
     next
   } else {
     # Invalid.
