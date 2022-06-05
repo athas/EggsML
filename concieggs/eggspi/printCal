@@ -1,5 +1,6 @@
 #!/bin/sh
 
 # Relæ begivenheden
-echo $EGGS_BODY
+echo ${EGGS_BODY}
+echo ${EGGS_WHERE}
 echo "hiik!"
