@@ -4,6 +4,7 @@ BEGIN {
   name = ENVIRON["CONCIEGGS_DEFAULT_NAME"]
   error_channel = ENVIRON["CONCIEGGS_ERROR_CHANNEL"]
   default_channel = ENVIRON["CONCIEGGS_DEFAULT_CHANNEL"]
+  event_channel="#diku"
 }
 
 function shellquote(str) {
@@ -19,12 +20,10 @@ function shellquote(str) {
   message_from=0
   message_body=0
   server_message_code=0
-  event_channel=0
   if (match($0, /^([^ ']+) *: ([0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9] [0-9][0-9]:[0-9][0-9]) (.*)$/, matches)) {
     context=matches[1]
     timestamp=matches[2]
     payload=matches[3]
-    event_channel="#diku"
   } else if (match($0, /tick/)) {
     system(setvars "\n" "runFor \"$EGGS_WHERE\" checkReminders")
     next
