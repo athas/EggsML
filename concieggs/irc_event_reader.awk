@@ -28,7 +28,7 @@ function shellquote(str) {
   } else if (match($0, /tick/)) {
     system(setvars "\n" "runFor \"$EGGS_WHERE\" checkReminders")
     next
-  } else if (match($0, /^BEGIVENHED: (.*)$/, matches)) {
+  } else if (match($0, /^BEGIVENHED (.*)$/, matches)) {
     message_body=matches[1]
     system("export EGGS_WHERE=" shellquote(event_channel)  "\n" \
            "export EGGS_BODY="  shellquote(message_body)   "\n" \
@@ -63,13 +63,13 @@ match(payload, /^>< NICK \(\): ([^ ]+)/, matches) && context == name {
 
 # Quit action?
 match(payload, /^>< QUIT \(\): (.*)$/, matches) {
-  quitter = context
-  reason = matches[1]
-  default_channel = "#diku"
-  system("export EGGS_USER=" shellquote(quitter) "\n"          \
+  quitter=context
+  reason=matches[1]
+  default_channel="#diku"
+  system("export EGGS_USER=" shellquote(quitter)          "\n" \
          "export EGGS_WHERE=" shellquote(default_channel) "\n" \
-         "export EGGS_BODY=" shellquote(reason) "\n"           \
-         "export CONCIEGGS_NAME=" shellquote(name) "\n"        \
+         "export EGGS_BODY=" shellquote(reason)           "\n" \
+         "export CONCIEGGS_NAME=" shellquote(name)        "\n" \
          "runFor \"$EGGS_WHERE\" runHooks quit")
 }
 
@@ -88,7 +88,7 @@ match(payload, /^>< (PART|JOIN) \(([^)]+)\): (.*)$/, matches) {
          "export EGGS_WHERE=" shellquote(parted_channel) "\n"           \
          "export CONCIEGGS_NAME=" shellquote(name) "\n"                      \
          "export EGGS_BODY=" shellquote(partedReason) "\n"              \
-         "runFor \"$EGGS_WHERE\" " runHooks )
+         "runFor \"$EGGS_WHERE\" runHooks" )
 }
 
 # Channel/private message?
