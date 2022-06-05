@@ -78,6 +78,8 @@ rm $get_loadpath
 # Hack for UTF-8 handling in GHC on OpenBSD
 export HS_ENCODING=UTF-8
 
+export CALENDAR_DIR=$irc_dir/calendar
+
 say "Interacting with concieggs_irc in $irc_dir."
 
 # Let all eggsml users touch our stuff.
@@ -115,6 +117,17 @@ throttle() {
     gawk -f $dir/throttle.awk
 }
 
+calendar() {
+  while true; do
+    # Kør script med mærkedage
+    python3.8 $CALENDAR_DIR/maerkedage.py || true
+     # Genstart højst én gang i timen.
+    say "Mærkedage er død; længe leve Mærkedage." # todo: tilføj tællevariabel og romertal
+    sleep 60*60
+  done
+
+}
+
 outfile=$irc_dir/out
 
 # Make sure the outfile exists.
@@ -133,8 +146,10 @@ mkfifo "$ticksfifo"
 (ticks > "$ticksfifo") &
 
 # Tie the loops together.
+# Måske er det her hjælpsomt: https://unix.stackexchange.com/a/114129/44782
 parcat "$tailfifo" "$ticksfifo" | \
     eventprocessor | \
+    calendar | \
     tee /dev/stderr | \
     throttle | \
     ircloop >> "$outfile"
