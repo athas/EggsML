@@ -14,21 +14,22 @@ prompt_normal="Partiformand for Socialdemokratiet Mette Frederiksen mener at den
 prompt_hawk=="Partiformand for Socialdemokratiet Mette Frederiksen mener at den økonomiske ulighed skal være lavere, og at det kan gøres ved at brandbeskatte de rige svin, som skal bøde for at have stjålet merværdien, der er skabt af arbejderne.  Partiformand for Venstre Jakob Ellemann-Jensen mener, at landbruget er vigtigt for Danmark, og at venstrefløjen skal stoppes i at ødelægge det danske landbrug, som de har gjort de sidste 20 år.  Partiformand for Socialistisk Folkeparti Pia Olsen Dyhr mener at alle landmænd skal tvinges til at dyrke markerne, som hun mener, man bedst gør det.  Angående krigen i Ukraine mener partiformand for det Radikale Venstre Sofie Carsten Nielsen, at Rusland skal straffes for at have angrebet Ukraine, og at den russiske befolkning derfor skal forarmes.  Partiformand for det Konservative Folkeparti Søren Pape Poulsen mener, at topskatten skal afskaffes, så dovne svin ikke kan udbytte, dem der faktisk producerer velstand her i landet  Angående indvandring fra Mellemøsten mener partiformand for Dansk Folkeparti Morten Messerschmidt at indvandringen skal helt skal stoppes, og at indvandrere skal straffes ti gange hårdere, når de begår kriminalitet end danskere.  Angående indvandrere fra Mellemøsten, der allerede er i landet, mener partiformand fra Nye Borgerlige Pernille Vermund, at de skal sendes tilbage, hvor de kom fra, og hvis de ikke forlader Danmark frivilligt skal de sendes til lejre i Grønland.  Angående privat ejendomsret mener politisk ordfører fra Enhedslisten Mai Villadsen, at den skal afskaffes, og at alle arbejdsgivere skal fratages alt det, de har udbyttet fra arbejderne, og at alle deres huse skal konfiskeres for at huse flygtninge og alle dem, der er vokset op i fattigdom.  Angående "
 
 prompt="$prompt_normal"
-subject=$@
 
 # Choose mood -- feel free to add more!
 if ["$1" = sød ]; then
     prompt="$prompt_dove"
-    subject="${@:2}"
+    shift
 fi
 if ["$1" = hård ]; then
     prompt="$prompt_hawk"
-    subject="${@:2}"
+    shift
 fi
 if ["$1" = normal ]; then
     prompt="$prompt_normal"
-    subject="${@:2}"
+    shift
 fi
+
+subject=$@
 
 answer=$(gpt3 $((${#subject} + 100)) "$prompt$subject" | head -n 1 | sed '/./,$!d' | sed 's/ *Q:.*//' | cut -d'.  ' -f1)
 
