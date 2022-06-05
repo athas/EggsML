@@ -119,11 +119,11 @@ throttle() {
 
 calendar() {
     while true; do
-        python3.8 -c 'print("CALENDAR: 42")'
+        python3.8 -c 'print("CALENDAR: 42\n")'
         # Kør script med mærkedage
-        python3.8 $CALENDAR_DIR/maerkedage.py || true
+        # python3.8 $CALENDAR_DIR/maerkedage.py || true
         say "Mærkedage er død; længe leve Mærkedage." >&2 # todo: tilføj tællevariabel og romertal
-        sleep 1
+        sleep 10
     done
 }
 
