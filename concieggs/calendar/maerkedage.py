@@ -36,7 +36,8 @@ schedule.every().hour.at(":00").do(topic, topic="Klokken er ??:??")
 schedule.every().hour.at(":30").do(topic, topic="Klokken er ??:??")
 
 
-schedule.run_pending()
-# sleep(60 * 1) sov i concieggsd
+while True:
+    schedule.run_pending()
+    sleep(60 * 1)
 
 # schedule.run_all(delay_seconds=10)

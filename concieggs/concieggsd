@@ -121,7 +121,6 @@ calendar() {
   while true; do
     # Kør script med mærkedage
     python3.8 $CALENDAR_DIR/maerkedage.py || true
-    # Genstart højst én gang i timen.
     say "Mærkedage er død; længe leve Mærkedage." >&2 # todo: tilføj tællevariabel og romertal
     sleep 60
   done
@@ -141,15 +140,17 @@ tailfifo="$irc_dir/tail"
 mkfifo "$tailfifo"
 ticksfifo="$irc_dir/ticks"
 mkfifo "$ticksfifo"
+maerkedagfifo="$irc_dir/maerkedag"
+mkfifo "$maerkedagfifo"
 
 (tail -f -n 0 "$outfile" > "$tailfifo") &
 (ticks > "$ticksfifo") &
+(calendar > "$maerkedagfifo") &
 
 # Tie the loops together.
 # Måske er det her hjælpsomt: https://unix.stackexchange.com/a/114129/44782
-parcat "$tailfifo" "$ticksfifo" | \
+parcat "$tailfifo" "$ticksfifo" "$maerkedagfifo" | \
     eventprocessor | \
-    calendar | \
     tee /dev/stderr | \
     throttle | \
     ircloop >> "$outfile"
