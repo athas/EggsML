@@ -2,3 +2,4 @@
 
 # Relæ begivenheden
 echo $EGGS_BODY
+echo "hiik!"
