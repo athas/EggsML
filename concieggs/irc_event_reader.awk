@@ -31,9 +31,6 @@ function shellquote(str) {
     message_body=matches[1]
     system("export EGGS_WHERE=" shellquote(event_channel)  "\n" \
            "export EGGS_BODY="  shellquote(message_body)   "\n" \
-           "echo " shellquote(event_channel) " >> /tmp/event"  "\n" \
-           "echo " shellquote(default_channel) " >> /tmp/default"   "\n" \
-           "touch /tmp/debug_by_touch"                     "\n" \
            "runFor \"$EGGS_WHERE\" printCal")
     next
   } else {

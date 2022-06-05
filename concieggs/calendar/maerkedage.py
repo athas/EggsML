@@ -11,7 +11,7 @@ import datetime
 
 def begivenhed(besked):
     """Send kontrolbesked"""
-    PREFIX = "CALENDAR "
+    PREFIX = "BEGIVENHED "
     print(f"{PREFIX}{besked}")
 
 
@@ -39,13 +39,12 @@ def klokken():
 
 # Find eksempler her: https://schedule.readthedocs.io/en/stable/examples.html
 schedule.every().day.at("06:00").do(sig, noget="Godmorgen!")
-schedule.every(5).to(20).seconds.do(sig, noget="Hik!")
-schedule.every().hour.at(":00").do(angiv_emne, emne="Klokken er ??:??")
-schedule.every().hour.at(":30").do(angiv_emne, emne=f"Klokken er {klokken()}")
+schedule.every().day.at("22:00").do(sig, noget="Så er det godnat!")
+schedule.every(42).to(420).seconds.do(sig, noget="Hik!")
+# schedule.every().hour.at(":00").do(angiv_emne, emne="Klokken er ??:??")
+# schedule.every().hour.at(":30").do(angiv_emne, emne=f"Klokken er {klokken()}")
 
 
 while True:
     schedule.run_pending()
     sleep(10)
-
-# schedule.run_all(delay_seconds=10)
