@@ -44,10 +44,10 @@ def klokken():
 
 # Find eksempler her: https://schedule.readthedocs.io/en/stable/examples.html
 schedule.every().day.at("06:00").do(sig, noget="Godmorgen!")
-schedule.every().day.at("22:05").do(sig, noget="Så er det godnat!")
-schedule.every(42).to(2 * 42).seconds.do(sig, noget="Hik!")
-
+schedule.every().day.at("22:30").do(sig, noget="Så er det godnat!\n")
+schedule.every(42).to(142).seconds.do(sig, noget="Hik!")
 
 while True:
+    print("BEGIVENHED hik\n")
     schedule.run_pending()
-    sleep(10)
+    sleep(60)
