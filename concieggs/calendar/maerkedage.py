@@ -32,11 +32,11 @@ def klokken():
 # Find eksempler her: https://schedule.readthedocs.io/en/stable/examples.html
 schedule.every().day.at("06:00").do(say, something="Godmorgen!")
 schedule.every(10).to(60).seconds.do(say, something="Hik!")
-schedule.every().hour.at(":30").do(topic, something=f"Klokken er {klokken()}")
+schedule.every().hour.at(":00").do(topic, something=f"Klokken er {klokken()}")
 
 
 while True:
     schedule.run_pending()
-    sleep(60 * 60)
+    sleep(60 * 1)
 
 # schedule.run_all(delay_seconds=10)
