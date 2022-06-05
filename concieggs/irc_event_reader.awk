@@ -19,18 +19,20 @@ function shellquote(str) {
   message_from=0
   message_body=0
   server_message_code=0
+  event_channel=0
   if (match($0, /^([^ ']+) *: ([0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9] [0-9][0-9]:[0-9][0-9]) (.*)$/, matches)) {
     context=matches[1]
     timestamp=matches[2]
     payload=matches[3]
+    event_channel = "#diku"
   } else if (match($0, /tick/)) {
     system(setvars "\n" "runFor \"$EGGS_WHERE\" checkReminders")
     next
-  } else if (match($0, /^CALENDAR (.*)$/, matches)) {
+  } else if (match($0, /^BEGIVENHED: (.*)$/, matches)) {
     message_body=matches[1]
-    system("export EGGS_WHERE=" shellquote(default_channel) "\n" \
-           "export EGGS_BODY="  shellquote(message_body)    "\n" \
-           "touch /tmp/debug_by_touch"                      "\n" \
+    system("export EGGS_WHERE=" shellquote(event_channel)  "\n" \
+           "export EGGS_BODY="  shellquote(message_body)   "\n" \
+           "touch /tmp/debug_by_touch"                     "\n" \
            "runFor \"$EGGS_WHERE\" printCal")
     next
   } else {
