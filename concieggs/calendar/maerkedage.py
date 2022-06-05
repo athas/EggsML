@@ -46,7 +46,7 @@ def klokken():
 schedule.every().day.at("06:00").do(sig, noget="Godmorgen!\n")
 schedule.every().day.at("22:00").do(sig, noget="Godnat folkens!\n")
 schedule.every().day.at("23:00").do(sig, noget="zzZzzZZZz")
-schedule.every(42).to(142).seconds.do(sig, noget="Hik!")
+# schedule.every(42).to(142).seconds.do(sig, noget="Hik!")
 
 while True:
     # print("BEGIVENHED hik\n")
