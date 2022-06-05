@@ -1,4 +1,0 @@
-#!/bin/sh
-
-# Relæ begivenheden
-echo ${EGGS_BODY}

@@ -4,7 +4,6 @@ BEGIN {
   name = ENVIRON["CONCIEGGS_DEFAULT_NAME"]
   error_channel = ENVIRON["CONCIEGGS_ERROR_CHANNEL"]
   default_channel = ENVIRON["CONCIEGGS_DEFAULT_CHANNEL"]
-  event_channel="#diku"
 }
 
 function shellquote(str) {
@@ -26,12 +25,6 @@ function shellquote(str) {
     payload=matches[3]
   } else if (match($0, /tick/)) {
     system(setvars "\n" "runFor \"$EGGS_WHERE\" checkReminders")
-    next
-  } else if (match($0, /^BEGIVENHED (.*)$/, matches)) {
-    message_body=matches[1]
-    system("export EGGS_WHERE=" shellquote(event_channel)  "\n" \
-           "export EGGS_BODY="  shellquote(message_body)   "\n" \
-           "runFor \"$EGGS_WHERE\" printCal")
     next
   } else {
     # Invalid.
@@ -61,13 +54,13 @@ match(payload, /^>< NICK \(\): ([^ ]+)/, matches) && context == name {
 
 # Quit action?
 match(payload, /^>< QUIT \(\): (.*)$/, matches) {
-  quitter=context
-  reason=matches[1]
-  default_channel="#diku"
-  system("export EGGS_USER=" shellquote(quitter)          "\n" \
+  quitter = context
+  reason = matches[1]
+  default_channel = "#diku"
+  system("export EGGS_USER=" shellquote(quitter) "\n"          \
          "export EGGS_WHERE=" shellquote(default_channel) "\n" \
-         "export EGGS_BODY=" shellquote(reason)           "\n" \
-         "export CONCIEGGS_NAME=" shellquote(name)        "\n" \
+         "export EGGS_BODY=" shellquote(reason) "\n"           \
+         "export CONCIEGGS_NAME=" shellquote(name) "\n"        \
          "runFor \"$EGGS_WHERE\" runHooks quit")
 }
 

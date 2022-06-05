@@ -14,7 +14,7 @@ setTrap() {
 setTrap
 
 fifo_cleanup() {
-    rm -f "$tailfifo" "$ticksfifo" "$maerkedagfifo"
+    rm -f "$tailfifo" "$ticksfifo"
 }
 
 eggsmld_cleanup() {
@@ -78,8 +78,6 @@ rm $get_loadpath
 # Hack for UTF-8 handling in GHC on OpenBSD
 export HS_ENCODING=UTF-8
 
-export CALENDAR_DIR=$dir/calendar
-
 say "Interacting with concieggs_irc in $irc_dir."
 
 # Let all eggsml users touch our stuff.
@@ -117,15 +115,6 @@ throttle() {
     gawk -f $dir/throttle.awk
 }
 
-calendar() {
-    while true; do
-        say "Længe leve Mærkedage!" >&2
-        python3.8 -u $CALENDAR_DIR/maerkedage.py || true
-        say "Mærkedage er død." >&2
-        sleep 1
-    done
-}
-
 outfile=$irc_dir/out
 
 # Make sure the outfile exists.
@@ -139,16 +128,12 @@ tailfifo="$irc_dir/tail"
 mkfifo "$tailfifo"
 ticksfifo="$irc_dir/ticks"
 mkfifo "$ticksfifo"
-maerkedagfifo="$irc_dir/maerkedag"
-mkfifo "$maerkedagfifo"
 
 (tail -f -n 0 "$outfile" > "$tailfifo") &
 (ticks > "$ticksfifo") &
-(calendar > "$maerkedagfifo") &
 
 # Tie the loops together.
-# Måske er det her hjælpsomt: https://unix.stackexchange.com/a/114129/44782
-parcat "$tailfifo" "$maerkedagfifo" "$ticksfifo" | \
+parcat "$tailfifo" "$ticksfifo" | \
     eventprocessor | \
     tee /dev/stderr | \
     throttle | \
