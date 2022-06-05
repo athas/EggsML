@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 #
 # Hør hvad en partiformand mener om verdenssituationen
 
@@ -29,7 +29,7 @@ if ["$1" = normal ]; then
     shift
 fi
 
-subject=$@
+subject="$@"
 
 answer=$(gpt3 $((${#subject} + 100)) "$prompt$subject" | head -n 1 | sed '/./,$!d' | sed 's/ *Q:.*//' | cut -d'.  ' -f1)
 
