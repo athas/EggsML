@@ -11,7 +11,7 @@ import datetime
 
 def begivenhed(besked):
     """Send kontrolbesked"""
-    PREFIX = "CALENDAR: "
+    PREFIX = "CALENDAR "
     print(f"{PREFIX}{besked}")
 
 

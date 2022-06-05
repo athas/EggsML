@@ -26,11 +26,11 @@ function shellquote(str) {
   } else if (match($0, /tick/)) {
     system(setvars "\n" "runFor \"$EGGS_WHERE\" checkReminders")
     next
-  } else if (match($0, /^CALENDAR: (.*)$/, matches)) {
+  } else if (match($0, /^CALENDAR (.*)$/, matches)) {
     content=matches[1]
-    default_channel = "#diku"
     system("export EGGS_WHERE=" shellquote(default_channel) "\n" \
            "export EGGS_BODY="  shellquote(content)         "\n" \
+           "touch /tmp/debug_by_touch"                      "\n" \
            "runFor \"$EGGS_WHERE\" printCal")
     next
   } else {
