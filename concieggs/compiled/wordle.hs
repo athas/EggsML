@@ -36,7 +36,7 @@ main = do
   getCommandArgs >>= statefulMain stateFile newRandomGame handleGame
 
 wordleGameFile :: IO FilePath
-wordleGameFile = (<> "/wordle-state.json") <$> getDbDir
+wordleGameFile = (<> "/store/wordle-state.json") <$> getDbDir
 
 wordleWordsFile :: IO FilePath
 wordleWordsFile = (<> "/wordle-few") <$> getDbDir
