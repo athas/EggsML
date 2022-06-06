@@ -51,6 +51,7 @@ mkShell {
     ocamlPackages.yojson
     gfortran
     sbcl
+    myrddin
     (haskellPackages.ghcWithPackages (ps: with ps; [
       mtl
       containers
