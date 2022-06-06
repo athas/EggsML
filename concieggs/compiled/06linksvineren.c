@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <time.h>
+#include <assert.h>
 
 int linksfd;
 char* links;
@@ -110,7 +111,7 @@ void checklink(const char* link) {
   }
   /* Always log */
   linestrlen = snprintf(buf, sizeof(buf), "%s %ld %s\n", link, (long int)now, eggsuser);
-  write(linksfd, buf, linestrlen);
+  assert(-1 != write(linksfd, buf, linestrlen));
 }
 
 int main() {
@@ -131,7 +132,7 @@ int main() {
 
     eggsuserlength = strlen(eggsuser);
     snprintf(buf, sizeof(buf), "%s/links", getenv("CONCIEGGS_DB_DIR"));
-    linksfd = open(buf, O_RDWR | O_APPEND | O_CREAT);
+    linksfd = open(buf, O_RDWR | O_APPEND | O_CREAT, 0666);
     fstat(linksfd, &fs);
     linkslength = fs.st_size;
     links = mmap(NULL, linkslength, PROT_WRITE | PROT_READ, MAP_PRIVATE, linksfd, 0);
