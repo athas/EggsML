@@ -71,6 +71,7 @@ mkShell {
     (import ./nix/kleenexlang.nix)
     tcl
     ruby
+    php
     nodejs-16_x
   ];
 
