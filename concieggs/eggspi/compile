@@ -3,11 +3,18 @@
 set -e # Die on error
 
 if [ $# -lt 1 ]; then
-    echo "Usage: $0 <srcfile> [args...]"
+    echo "Usage: $0 [--do-not-run] <srcfile> [args...]"
     exit 1
 fi
 
 basename=${1##*/}
+if [ "$basename" == '--do-not-run' ]; then
+    do_run=0
+    shift
+    basename=${1##*/}
+else
+    do_run=1
+fi
 srcfile=$(find $CONCIEGGS_DIR/compiled -maxdepth 1 -name "$basename.*")
 
 if ! [ "$srcfile" ]; then
@@ -19,12 +26,22 @@ shift
 
 compiledfile=$CONCIEGGS_DB_DIR/compiled-cache/$basename
 
+if [ -L "$srcfile" ]; then
+    link_basename="$(readlink $srcfile | sed -r 's/\..*$//')"
+    compile --do-not-run $link_basename
+    ln -sf $link_basename $compiledfile
+    exit 0
+fi
+
 if [[ -f "$srcfile" && "$compiledfile" -nt "$srcfile" ]] || [[ -d "$srcfile" && "$compiledfile" -nt "$(ls -ct1 $(find "$srcfile" -type f) | head -n 1)" ]]; then
-    "$compiledfile" "$@"
+    if [ "$do_run" = 1 ]; then
+        "$compiledfile" "$@"
+    fi
 else
     case $srcfile in
         *go)
             compile() {
+                export GO111MODULE=off
                 export GOPATH=$CONCIEGGS_DIR/compiled:$CONCIEGGS_LIB_DIR/golangbiblioteggs
                 go build $1 >&2
             }
@@ -149,8 +166,10 @@ EOF
     if (cd "$CONCIEGGS_DB_DIR/compiled-cache";
         compile "$srcfile" "$compiledfile"); then
         rm -rf "$compiledir"
-        "$compiledfile" "$@" || true # Midlertidigt fiks for ghc
-        # runtime-problemer på OpenBSD.
+        if [ "$do_run" = 1 ]; then
+            "$compiledfile" "$@" || true # Midlertidigt fiks for ghc
+                                         # runtime-problemer på OpenBSD.
+        fi
     else
         rm -rf "$compiledir"
         exit 1

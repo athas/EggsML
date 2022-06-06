@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# Try to pre-compile all compilable programs.  Report any failures.
+
+set -e
+
+failed=$(mktemp -d)
+
+grep -E '^#!/usr/bin/env compile' --files-with-matches -R "$(dirname "$0")" | while read f; do
+    f=$(basename $f)
+    ./fakeconcieggs compile --do-not-run $f 2>$failed/$f || {
+        echo $f >> $failed/log
+    }
+done
+
+failure=0
+for f in $(cat $failed/log); do
+    failure=1
+    echo "Error for '$f'":
+    echo ----------------------------------------
+    cat $failed/$f
+    echo ----------------------------------------
+    echo
+done
+
+rm -rf $failed
+
+exit $failure
