@@ -1,4 +1,4 @@
-module Main(main) where
+module Main (main) where
 
 import Test.QuickCheck.Gen
 import Text.Printf
@@ -65,7 +65,7 @@ typeDefinition n = do
 
 function :: Int -> Gen String
 function n = do
-  n' <- choose (1,n)
+  n' <- choose (1, n)
   typeClassed <- choose (True, False)
   if typeClassed
     then do
@@ -75,10 +75,17 @@ function n = do
       return $ typeclassPrefix ++ types
     else typeDefinition n'
 
+vectorOf2 :: Gen a -> Gen (a, a)
+vectorOf2 g = do
+  v <- vectorOf 2 g
+  case v of
+    [a, b] -> return (a, b)
+    _ -> error "impossible"
+
 twoTyped :: Gen String
 twoTyped = do
   twotyped <- elements twoTypedData
-  [a, b] <- vectorOf 2 simpleType
+  (a, b) <- vectorOf2 simpleType
   return $ printf "%s %s %s" twotyped a b
 
 oneTyped :: Gen String
@@ -90,7 +97,7 @@ oneTyped = do
 funkyType :: Int -> Gen String
 funkyType 0 = someType
 funkyType n = do
-  nesting <- choose (0,n)
+  nesting <- choose (0, n)
   twotpd <- twoTyped
   onetpd <- oneTyped
   lst <- list nesting
@@ -105,7 +112,7 @@ list n = do lst <- list (n-1); return $ printf "[%s]" lst
 
 simpleError :: String -> Gen String
 simpleError filename = do
-  [linje, start] <- vectorOf 2 $ choose (1, 100) :: Gen [Int]
+  (linje, start) <- vectorOf2 $ choose (1 :: Int, 100)
   slut <- choose (start, 100)
   expected <- function 2
   actual <- function 4
@@ -122,7 +129,7 @@ kindSignatureError :: String -> Gen String
 kindSignatureError filename = do
   kind <- funkyKind
   tfam <- someType
-  [linje, start] <- vectorOf 2 $ choose (1, 100) :: Gen [Int]
+  (linje, start) <- vectorOf2 $ choose (1 :: Int, 100)
   return $ unlines [ printf "%s:%d:%d: error:" filename linje start
                    , printf "Illegal kind signature: ‘%s’" kind
                    , "Perhaps you intended to use KindSignatures"

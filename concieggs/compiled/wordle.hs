@@ -56,7 +56,7 @@ handleGame (game, [guess])
       let response = "Det er tid til WORDLE! Gæt ordet ved at skrive 'wordle <gæt>'"
       pure (game, [response])
   | isGameOver game = newRandomGame >>= \game -> handleGame (game, [guess])
-  | isEmpty guess = pure (game, ["Dine gæt indtil videre: " <> showGame newState])
+  | isEmpty guess = pure (game, ["Dine gæt indtil videre: " <> showGame game])
   | otherwise = case parseWord guess game of
       Left err -> pure (game, [err])
       Right guess -> do
