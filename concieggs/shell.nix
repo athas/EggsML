@@ -70,6 +70,7 @@ mkShell {
     rust-script
     (import ./nix/kleenexlang.nix)
     tcl
+    ruby
     nodejs-16_x
   ];
 

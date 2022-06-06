@@ -22,20 +22,21 @@ max_output = ARGV.pop.to_i if ARGV[-1].is_i?
 max_output ||= 3
 
 term = ARGV.join(" ")
-page = URI.parse(URI.encode("http://www.urbandictionary.com/define.php?term=#{term}"))
+p = URI::Parser.new
+page = p.parse(p.escape("http://www.urbandictionary.com/define.php?term=#{term}"))
 
 results = []
 
 begin
   doc     = page.read
-  results = doc.scan(/div class=["']meaning["']>(.*?)<\/div/m).flatten!
+  results = doc.scan(/div class=["']meaning[^>]*>(.*?)<\/div/m).flatten!
 rescue RuntimeError => e
   puts "Fejl ved forespørgsel til Urban Dictionary"
   $stderr.puts "Fejl: #{e}"
   exit(-1)
 end
 
-if results.empty?
+if results.nil?
   puts "Fandt ingenting..."
 else
   begin
