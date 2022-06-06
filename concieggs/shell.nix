@@ -70,5 +70,10 @@ mkShell {
     rust-script
     (import ./nix/kleenexlang.nix)
     tcl
+    nodejs-16_x
   ];
+
+  shellHook = ''
+    export NODE_PATH=${(pkgs.callPackage ./nix/node/default.nix {}).nodeDependencies}/lib/node_modules:$NODE_PATH
+  '';
 }
