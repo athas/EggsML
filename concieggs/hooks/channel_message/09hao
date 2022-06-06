@@ -8,7 +8,12 @@
 # og `pkg_add opencc`
 
 import os
-import opencc
+import sys
+
+try:
+    import opencc
+except ModuleNotFoundError:
+    sys.exit(0)
 
 mao_zedong = opencc.OpenCC('t2s.json')
 chiang_kai_shek = opencc.OpenCC('s2t.json')
