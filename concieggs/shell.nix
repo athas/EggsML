@@ -65,5 +65,6 @@ mkShell {
       ieee754
       QuickCheck
     ]))
+    rust-script
   ];
 }
