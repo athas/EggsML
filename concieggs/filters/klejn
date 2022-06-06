@@ -1,6 +1,4 @@
-#!/bin/sh
-":"; exec emacs --quick --script "$0" "$@" # -*-emacs-lisp-*-
-
+#!/usr/bin/env runemacs
 (require 'concieggs)
 
 (run-on-stdin 'downcase)

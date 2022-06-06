@@ -1,5 +1,4 @@
-#!/bin/sh
-":"; exec sbcl --script "$0" "$@"
+#!/usr/bin/env runsbcl
 
 (defun fields (c string)
   "Returns a list of substrings of string
