@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+# Check what interpreters we have.
+
+set -e
+
+grep --no-filename -E '^#!/usr/bin/env ([^ ]+)' --exclude-dir db -R "$(dirname "$0")/.." \
+    | cut -d' ' -f2 | sort | uniq
