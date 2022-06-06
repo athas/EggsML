@@ -72,6 +72,8 @@ mkShell {
     tcl
     ruby
     php
+    emacs-nox
+    futhark
     nodejs-16_x
   ];
 
