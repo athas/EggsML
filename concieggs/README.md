@@ -6,9 +6,10 @@ concieggs afhænger af:
   + gawk
   + https://github.com/soimort/translate-shell
   + https://github.com/kurtmckee/feedparser
+  + en masse Python-biblioteker
   + en masse Perl-moduler
   + en bunke Haskell-pakker
-  + en række OCaml-pakker
+  + en række OCaml-biblioteker
   + alt muligt mere
 
 Se `shell.nix` for et overblik.
