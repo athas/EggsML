@@ -69,5 +69,6 @@ mkShell {
     ]))
     rust-script
     (import ./nix/kleenexlang.nix)
+    tcl
   ];
 }
