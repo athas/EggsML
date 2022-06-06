@@ -6,7 +6,7 @@ set -e
 
 failed=$(mktemp -d)
 
-grep -E '^#!/usr/bin/env compile' --files-with-matches -R "$(dirname "$0")" | while read f; do
+grep -E '^#!/usr/bin/env compile' --files-with-matches -R "$(dirname "$0")/.." | while read f; do
     f=$(basename $f)
     ./fakeconcieggs compile --do-not-run $f 2>$failed/$f || {
         echo $f >> $failed/log
