@@ -2,51 +2,8 @@
 #
 # Spild noget.  Jeg kan spilde penge, tid og ikke så meget andet lige nu.
 
-letter() {
-    (runghc | randomLine) <<EOF
-import Control.Monad
-main = forM_ ['a'..'z'] $ putStrLn . (: [])
-EOF
-}
-
-productName() {
-    query="$*"
-    if ! [ "$query" ]; then
-        query="$(letter)"
-    fi
-    curl -s -G --data-urlencode "searchText=$query" 'https://www.wupti.com/search' \
-        | grep productNameLink | randomLine \
-        | cut -d'>' -f2 | cut -d'<' -f1 \
-        | htmlEntitiesDecode
-}
-
-penge() {
-    echo "$(random 100 10000) kr."
-}
-
 run() {
     case $1 in
-        penge)
-            if [ "$2" = 'på' ]; then
-                prod="$(productName "$3")"
-            else
-                prod="$(productName)"
-            fi
-            peng="$(penge)"
-            wup="$(randomLine <<EOF
-Kreditkortet gløder!
-Sikken rush!
-Dér røg budgettet.
-VÆKST!  VÆKST!
-Nu er jeg endelig en ægte forbruger.
-Guys, se lige på mig.
-Hvad sker der lige for mig!
-EOF
-)"
-            randomLine <<EOF
-$wup  Jeg har nu købt en $prod til $peng!
-EOF
-        ;;
         tid)
             randomLine <<EOF
 Jeg spilder hermed tid.
