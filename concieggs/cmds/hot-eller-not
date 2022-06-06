@@ -13,4 +13,4 @@ prompt="$hoved$broedtekst"
 {
     echo -n "$EGGS_USER: $emne er "
     gpt3 50 "$prompt"
-} | sed -r -e 's/<\/p>[^.]*$//' -e 's/\. [^.]+$/./' -e 's/<[^>]+>/ /g' -e 's/  +/ /g'
+} | sed -r -e 's/<\/p>[^.]*$//' -e 's/\. [^.]+$/./' -e 's/<[^>]+[^$]/ /g' -e 's/  +/ /g'
