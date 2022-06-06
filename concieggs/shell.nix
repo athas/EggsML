@@ -67,5 +67,6 @@ mkShell {
       QuickCheck
     ]))
     rust-script
+    (import ./nix/kleenexlang.nix)
   ];
 }

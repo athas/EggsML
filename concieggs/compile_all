@@ -13,15 +13,18 @@ grep -E '^#!/usr/bin/env compile' --files-with-matches -R "$(dirname "$0")" | wh
     }
 done
 
-failure=0
-for f in $(cat $failed/log); do
+if [ -f $failed/log ]; then
+    for f in $(cat $failed/log); do
+        echo "Error for '$f'":
+        echo ----------------------------------------
+        cat $failed/$f
+        echo ----------------------------------------
+        echo
+    done
     failure=1
-    echo "Error for '$f'":
-    echo ----------------------------------------
-    cat $failed/$f
-    echo ----------------------------------------
-    echo
-done
+else
+    failure=0
+fi
 
 rm -rf $failed
 
