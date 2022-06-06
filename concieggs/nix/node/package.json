@@ -1,4 +1,3 @@
-# Tilføj Node-afhængigheder til denne fil og læs så hvad der står i 'update.nix'.
 {
   "name": "concieggs",
   "dependencies": {
