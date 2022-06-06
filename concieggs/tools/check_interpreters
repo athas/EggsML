@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Check what interpreters we have.
+# Tjek vores fortolkere.
 
 set -e
 
