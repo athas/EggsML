@@ -27,7 +27,7 @@ grep -hPr '^\s*use (\S*).*;' . | cut -d' ' -f2 | cut -d';' -f1 | sort | uniq | g
 ```
 
 Vi afhænger vist af nogle Perl-moduler der ikke er i `shell.nix` (men
-ikke nogen vigtige?).
+ikke nogen vigtige?).  Se også `eggspi/perleggs/cpanfile`.
 
 ## Haskell-pakker
 
