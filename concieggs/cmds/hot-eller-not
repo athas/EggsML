@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+# Brug: hot-eller-not EMNE
+
+set -e
+
+emne="$@"
+
+hoved="<h1>Hot eller not: $emne</h1>"
+broedtekst="<p>Nu afslører livstilspanelet endeligt, at $emne er"
+prompt="$hoved$broedtekst"
+
+{
+    echo -n "$EGGS_USER: $emne er "
+    gpt3 50 "$prompt"
+} | sed -r -e 's/<\/p>[^.]*$//' -e 's/\. [^.]+$/./' -e 's/<[^>]+>/ /g' -e 's/  +/ /g'
