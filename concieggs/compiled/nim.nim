@@ -8,13 +8,15 @@ import sequtils
 
 randomize()
 
+var nimdb = getEnv("CONCIEGGS_DB_DIR") & "/store/nimdb"
+
 proc getState(): seq[string] =
-  execProcess("cat nimdb 2>/dev/null").splitWhitespace()
+  execProcess("cat " & nimdb & " 2>/dev/null").splitWhitespace()
 
 var currentState = getState()
 
 proc setState(s: seq[string]) =
-  discard execProcess("echo '" & s.join(" ") & "' > nimdb")
+  discard execProcess("echo '" & s.join(" ") & "' > " & nimdb)
 
 proc getFirstPlayer(s: seq[string]): string =
   s[1]
