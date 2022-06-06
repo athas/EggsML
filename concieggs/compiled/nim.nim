@@ -3,7 +3,7 @@
 from strutils import splitWhitespace, strip, join, parseInt, parseUInt
 from os import commandLineParams, getEnv
 from osproc import execProcess
-from random import randomize, random
+from random import randomize, rand
 import sequtils
 
 randomize()
@@ -70,8 +70,8 @@ if currentUser == "":
 var args = commandLineParams()
 
 proc newGame(player1: string, player2: string) =
-  var numBins = random(8)+2
-  var state = @["spiller", player1, player2, newSeqWith(numBins, random(8)+2).join(" ")]
+  var numBins = rand(8)+2
+  var state = @["spiller", player1, player2, newSeqWith(numBins, rand(8)+2).join(" ")]
 
   setState(state)
 
