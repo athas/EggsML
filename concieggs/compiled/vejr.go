@@ -73,6 +73,9 @@ func main() {
 	} else if user == "trulsa" {
 		city = "Trondheim"
 		country = "NO"
+        } else if user == "erk" {
+	        city = "Delft"
+                country = "NL"
 	} else {
 		city = "København"
 		country = "DK"
