@@ -64,18 +64,15 @@ type JsonAPI struct {
 func main() {
 	user := os.Getenv("EGGS_USER")
 	var city, country string
-	if (user == "sword_smith" || user == "trobjo" || user == "ElonFusk" || user == "sshine") {
+	if user == "sword_smith" || user == "trobjo" || user == "ElonFusk" || user == "sshine" {
 		city = "Zug"
 		country = "CH"
-	} else if user == "svip" {
-		city = "Providence"
-		country = "USA"
 	} else if user == "trulsa" {
 		city = "Trondheim"
 		country = "NO"
-        } else if user == "erk" {
-	        city = "Delft"
-                country = "NL"
+	} else if user == "erk" {
+		city = "Delft"
+		country = "NL"
 	} else {
 		city = "København"
 		country = "DK"
