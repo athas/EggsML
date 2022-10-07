@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+#
+# Grav (meget) dybt i den danske sangskat.
+
+if [ $# = 0 ]; then
+    echo "$EGGS_USER: Men hvad er titlen på sangen du gerne vil høre?"
+    exit
+fi
+
+songname=$@
+
+prompt="
+Her er de første par linjer fra sangen \"Der er et yndigt land\"XYZDer er et yndigt land,XYZdet står med brede bøgeXYZnær salten østerstrand;XYZdet bugter sig i bakke, dal,XYZdet hedder gamle Danmark,XYZog det er Frejas sal.XYZXYZDér sad i fordums tidXYZde harniskklædte kæmper,XYZudhvilede fra strid;XYZså drog de frem til fjenders mén,XYZnu hvile deres beneXYZbag højens bautasten.XYZXYZDet land endnu er skønt;XYZthi blå sig søen bælter,XYZog løvet står så grønt,XYZog ædle kvinder, skønne mø'rXYZog mænd og raske svendeXYZbebo de danskes øer.XYZXYZHil drot og fædreland!XYZHil hver en danneborger,XYZsom virker, hvad han kan!XYZVort gamle Danmark skal bestå,XYZså længe bøgen spejlerXYZsin top i bølgen blå.XYZXYZHer er de første par linjer fra sangen \"I østen stiger solen op:\"XYZI østen stiger solen op:XYZDen spreder guld på sky,XYZgår over hav og bjergetop,XYZgår over land og by.XYZXYZDen kommer fra den fagre kyst,XYZhvor Paradiset lå;XYZden bringer lys og liv og lystXYZtil store og til små.XYZXYZDen hilser os endnu så smuktXYZfra Edens morgenrød,XYZhvor træet stod med evig frugt,XYZhvor livets væld udflød.XYZXYZDen hilser os fra lysets hjem,XYZhvor størst Guds lys oprandtXYZmed stjernen over Betlehem,XYZsom østens vise fandt.XYZXYZOg med Guds sol udgår fra østXYZen himmelsk glans på jord,XYZet glimt fra Paradisets kyst,XYZhvor livets abild gror.XYZXYZOg alle stjerner neje sig,XYZhvor østens sol går frem:XYZden synes dem hin stjerne lig,XYZder stod ved Betlehem.XYZXYZDu soles sol fra Betlehem!XYZHav tak og lov og prisXYZfor hvert et glimt fra lysets hjemXYZog fra dit Paradis!XYZXYZHer er de første par linjer fra sangen \"Midsommervisen\":XYZVi elsker vort land,XYZnår den signede julXYZtænder stjernen i træet med glans i hvert øje,XYZnår om våren hver fuglXYZover mark, under strandXYZlader stemmen til hilsende triller sig bøje:XYZvi synger din lov over vej, over gade,XYZvi kranser dit navn, når vor høst er i lade;XYZmen den skønneste kransXYZbli'r dog din, sankte Hans!XYZden er bunden af sommerens hjerter så varme, så glade.XYZXYZVi elsker vort land,XYZmen ved midsommer mest,XYZnår hver sky over marken velsignelsen sender,XYZnår af blomster er flest,XYZog når kvæget i spandXYZgiver rigeligst gave til flittige hænder;XYZnår ikke vi pløjer og harver og tromler,XYZnår koen sin middag i kløveren gumler:XYZda går ungdom til dansXYZpå dit bud, sankte Hans!XYZret som føllet og lammet, der frit over engen sig tumler.XYZXYZVi elsker vort land,XYZog med sværdet i håndXYZskal hver udenvælts fjende beredte os kende!XYZmen mod ufredens åndXYZover mark, under strandXYZvil vi bålet på fædrenes gravhøje tænde:XYZhver by har sin heks og hvert sogn sine trolde,XYZdem vil vi fra livet med glædesblus holde;XYZvi vil fred her til lands,XYZsankte Hans, sankte Hans!XYZden kan vindes, hvor hjerterne aldrig bli'r tvivlende kolde!XYZXYZHer er de første par linjer fra sangen \"I Danmark er jeg født\":XYZI Danmark er jeg født, dér har jeg hjemme,XYZdér har jeg rod, derfra min verden går;XYZdu danske sprog, du er min moders stemme,XYZså sødt velsignet du mit hjerte når.XYZDu danske, friske strand,XYZhvor oldtids kæmpegraveXYZstår mellem æblegård og humlehave.XYZDig elsker jeg! - Danmark, mit fædreland!XYZXYZHvor reder sommeren vel blomstersengenXYZmer rigt end her ned til den åbne strand?XYZHvor står fuldmånen over kløverengenXYZså dejligt som i bøgens fædreland?XYZDu danske, friske strand,XYZhvor Dannebrogen vajer -XYZGud gav os den - Gud giv den bedste sejer! -XYZDig elsker jeg! - Danmark, mit fædreland!XYZXYZEngang du herre var i hele Norden,XYZbød over England - nu du kaldes svag;XYZet lille land, og dog så vidt om jordenXYZend høres danskens sang og mejselslag.XYZDu danske, friske strand,XYZplovjernet guldhorn finder -XYZGud giv dig fremtid, som han gav dig minder!XYZDig elsker jeg! - Danmark, mit fædreland!XYZXYZDu land, hvor jeg blev født, hvor jeg har hjemme,XYZhvor jeg har rod, hvorfra min verden går,XYZhvor sproget er min moders bløde stemmeXYZog som en sød musik mit hjerte når.XYZDu danske, friske strand,XYZmed vilde svaners rede,XYZI grønne øer, mit hjertes hjem hernede!XYZDig elsker jeg! - Danmark, mit fædreland!XYZXYZHer er de første par linjer fra sangen \"$songname\":XYZXYZ"
+
+answer=$(gpt3 200 "$prompt" | sed 's/XYZXYZ.*//g' | sed 's/XYZ/\'$'\n/g' )
+
+if [ "$answer" ]; then
+    echo "$EGGS_USER: Direkte fra højskolesangbogen, her er de første par linjer fra \"$songname\":"
+    while IFS= read -r line; do
+        if [ -z "$line" ]; then
+            break
+        fi
+        echo "$line"
+    done <<< "$answer"
+else
+    echo "$EGGS_USER: Beklager, uanset hvor meget jeg bladrer kan jeg ikke finde den efterspurgte sang"
+fi
