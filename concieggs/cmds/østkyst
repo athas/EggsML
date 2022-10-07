@@ -57,7 +57,7 @@ Men på torsdag får jeg løn, så hvad gør det?
 Her er de første par linjer fra sangen \"$songname\":
 "
 
-answer=$(gpt3 $((${#prompt} + 100)) "$prompt")
+answer=$(gpt3 200 "$prompt")
 
 if [ "$answer" ]; then
     echo "$EGGS_USER: Her er de første par linjer fra sangen \"$songname\":
