@@ -14,8 +14,13 @@ prompt="Her er de første par linjer fra sangen \"Han får for lidt\":XYZHan spe
 answer=$(gpt3 200 "$prompt" | sed 's/XYZXYZ.*//g' | sed 's/XYZ/\n/g' )
 
 if [ "$answer" ]; then
-    echo "$EGGS_USER: Her er de første par linjer fra sangen \"$songname\":
-$answer"
+    echo "$EGGS_USER: Her er de første par linjer fra sangen \"$songname\":"
+    while IFS= read -r line; do
+        if [ -z "$line" ]; then
+            break
+        fi
+        echo "$line"
+    done <<< "$answer"
 else
     echo "$EGGS_USER: Beklager, kunne ikke finde den efterspurgte sang"
 fi
