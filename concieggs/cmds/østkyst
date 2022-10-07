@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+#
+# Hør første vers af den nye sang fra østkyst hustlers
+
+if [ $# = 0 ]; then
+    echo "$EGGS_USER: Hør hvad en politiker mener om et emne (på Guds eget sprog)"
+    exit
+fi
+
+songname=$@
+
+prompt="Her er de første par linjer fra sangen \"Han får for lidt\":
+Han spejler sig i spejlet
+For hans spejl er hans ven
+Han kender hud og kinder
+Ud og ind og ud igen
+Han holder ormegården nede
+Sætter bumser under pres
+Og med pincet er det let
+At holde brynene på plads
+Og skægget står totalt
+Som var det målt med lineal
+
+Her er de første par linjer fra sangen \"Hustlerstil\":
+Jeg var en drengerøv, det var stilen engang
+Dem jeg kendte kørte den hårdt når vi hang
+Men da de andre fik travlt kørte jeg stilen endnu
+Jeg så dem blive gamle så hurtigt de ku'
+Og de fik glasbord og vinrack og gusten hud
+De sugede kinderne ind og så bekymrede ud
+Og de har ret, jeg passer ikke længere nogen steder hen
+De har ret i hvad de siger har de, men
+De sku' ha' hørt på et beat
+
+Her er de første par linjer fra sangen \"Sorgenfri-rap\":
+Vi var i Sorgenfri, med cola, chips og tobak
+Vi chillede hårdt, spillede kort og kølede kinaskak
+Vi befandt os i en sandt at sige meget sumpet tilstand
+Det var Tigeren, Jan og Peyk, det var mig og Jesper Wildmand.
+Tiden var gået, jeg havde fået mig en voldsom appetit
+Og jeg vil' gi' min højre arm for en Whopper med pomfrit'.
+Efter kort tids MC Einar argumentation
+Var vi på vej ned imod Sorgenfri station
+Det var fedt, det var varmt, solen den var sund
+Og Jesper Wildmand lavede mærkelige lyde med sin mund.
+
+Her er de første par linjer fra sangen \"Penge ind på torsdag\":
+Du ved jeg er for lav til fine fester, for høj til at ryge hash og
+Jeg er for impulsiv til vaner, for vandt til faste pladser
+Jeg er for fattig til en taxa, for rig til at rulle smøger selv
+For klog til at ryge dem, men jeg gør det sgu alligevel
+For rød til kommunisme, for grøn til vegetarer
+Ikke for hvid til at være blå, men jeg er for sort til at kunne forklare
+Jeg er for træt til at drikke kaffe, for dansk til at drikke te
+Men på torsdag får jeg løn, så hvad gør det?
+
+Her er de første par linjer fra sangen \"$songname\":
+"
+
+answer=$(gpt3 $((${#subject} + 100)) "$prompt")
+
+if [ "$answer" ]; then
+    echo "$EGGS_USER: Her er de første par linjer fra sangen \"$songname\":
+$answer"
+else
+    echo "$EGGS_USER: Beklager, kunne ikke finde den efterspurgte sang"
+fi
