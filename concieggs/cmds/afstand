@@ -62,7 +62,7 @@ def print_distance(place1, place2):
     elif dur_transit == -1.0:
         print(f"Afstanden fra {place1} til {place2} i bil er {dist_driving:.1f} km, hvis du flyver er der {dist_direct:.1f} km.")
     elif dist_driving == -1.0:
-        print(f"Afstanden fra {place1} til {place2} tager med almuen er {dur_transit:.0f} minutter, hvis du flyver er der {dist_direct:.1f} km.")
+        print(f"Afstanden fra {place1} til {place2} tager {dur_transit:.0f} minutter med almuen, hvis du flyver er der {dist_direct:.1f} km.")
     else:
         print(f"Afstanden fra {place1} til {place2} i bil er {dist_driving:.1f} km, men med almuen tager den {dur_transit:.0f} minutter, hvis du flyver er der {dist_direct:.1f} km.")
 
