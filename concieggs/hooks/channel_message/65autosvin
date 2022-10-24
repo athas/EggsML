@@ -4,6 +4,7 @@ charmen=$(dbRead charmen)
 num=$(awk "BEGIN{print 0.1 * $charmen.0 * 0.5}")
 shuttingUp && exit
 maybeGood $num || exit
+isKing "$EGGS_USER" && exit
 
 if isInBadStanding "$EGGS_USER"; then
    svin=$(sviner)
