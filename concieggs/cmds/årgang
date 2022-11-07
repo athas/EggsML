@@ -11,7 +11,7 @@ fi
 
 if [ "$1" = "$CONCIEGGS_NAME" ]; then
     echo "$EGGS_USER: Jeg er tidsløs."
-    annoyedBy "$EGGS_USER" 1 "spurgte omm in alader"
+    annoyedBy "$EGGS_USER" 1 "spurgte om min alder"
     exit
 fi
 
