@@ -1,3 +1,16 @@
 #!/bin/sh
 
-echo "$@: Klokken er $(date +%H:%M) og du er anholdt for overtrædelse af $(cat $CONCIEGGS_DB_DIR/danske-love | randomLine)!"
+if [ "$1" = "$CONCIEGGS_NAME" ]; then
+    user="$EGGS_USER"
+    annoyedBy "$user" 1 "prøvede at anholde mig"
+    specialize() {
+        sed -e 's/Klokken/Nej, klokken/' -e 's/du/DU/'
+    }
+else
+    user="$@"
+    specialize() {
+        cat
+    }
+fi
+
+echo "$user: Klokken er $(date +%H:%M) og du er anholdt for overtrædelse af $(cat $CONCIEGGS_DB_DIR/danske-love | randomLine)!" | specialize
