@@ -38,8 +38,7 @@ cabal update && cabal install --disable-optimization --jobs=1 --lib mtl containe
 ```
 
 Forresten: Vi har egentlig også ting der afhænger af her Haskell-pakker,
-men de er svære at installere på OpenBSD: `MissingH http-client
-http-client-tls aeson`
+men de er svære at installere på OpenBSD: `http-client http-client-tls aeson`
 
 ## OCaml-pakker
 
