@@ -26,6 +26,9 @@ case $rand in
         ;;
     3)
         rt=`$CONCIEGGS_DIR/cmds/betragtning`
+        ;;
+    *)
+        rt=`$CONCIEGGS_DIR/cmds/vejr Velkomstbesked`
 esac
 
 echo "Velkommen $EGGS_USER! $rt"
