@@ -27,10 +27,7 @@ shift
 compiledfile=$CONCIEGGS_DB_DIR/compiled-cache/$basename
 
 if [ -L "$srcfile" ]; then
-    link_basename="$(readlink $srcfile | sed -r 's/\..*$//')"
-    compile --do-not-run $link_basename
-    ln -sf $link_basename $compiledfile
-    exit 0
+    srcfile="$(readlink -f $srcfile)"
 fi
 
 if [[ -f "$srcfile" && "$compiledfile" -nt "$srcfile" ]] || [[ -d "$srcfile" && "$compiledfile" -nt "$(ls -ct1 $(find "$srcfile" -type f) | head -n 1)" ]]; then
