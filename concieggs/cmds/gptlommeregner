@@ -1,3 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env compile
+#
+# Anvend en simpel og dum lommeregner genereret af ChatGPT
 
-echo $(gptlommeregner $1)
