@@ -6,7 +6,7 @@ use 5.012;
 use warnings;
 use utf8::all;
 
-my @bad_foods = qw(risengrød sylte flæskesteg sild eiskonfekt konfekt marcipan nougat blodpølse risalamande and gås medisterpølse);
+my @bad_foods = qw(risengrød sylte flæskesteg sild eiskonfekt konfekt marcipan nougat blodpølse risalamande andesteg gås medisterpølse);
 my @bad_drinks = qw(snaps gløgg glögg likør rom portvin valnøddesnaps juleøl sne-bajer snebajer porsesnaps sprut vin);
 
 while (my $line = <>) {
