@@ -1,4 +1,14 @@
 #!/usr/bin/env bash
 
-curl -s https://query2.finance.yahoo.com/v7/finance/quote --get --data-urlencode "symbols=$1" | \
-    jq -r '(.quoteResponse.result[0].shortName + " koster " + (.quoteResponse.result[0].regularMarketPrice | tostring) + " " + .quoteResponse.result[0].currency)'
+set -eo pipefail
+
+if [ "$1" == "" ]; then
+    echo "Du gør det forkert"
+    exit 1
+fi
+
+RES=$(curl -s https://query2.finance.yahoo.com/v7/finance/quote --get --data-urlencode "symbols=$1" | \
+    jq -e '.quoteResponse.result[0]' | \
+    jq -e -r '(.shortName + " koster " + (.regularMarketPrice | tostring) + " " + .currency)')
+
+echo $RES
