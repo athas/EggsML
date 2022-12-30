@@ -1,14 +1,18 @@
 #!/usr/bin/env bash
 
-set -eo pipefail
+set -o pipefail
 
 if [ "$1" == "" ]; then
     echo "Du gør det forkert"
-    exit 1
+    exit 0
 fi
 
 RES=$(curl -s https://query2.finance.yahoo.com/v7/finance/quote --get --data-urlencode "symbols=$1" | \
     jq -e '.quoteResponse.result[0]' | \
     jq -e -r '(.shortName + " koster " + (.regularMarketPrice | tostring) + " " + .currency)')
 
-echo $RES
+if [ $? -ne 0 ]; then
+    echo "Ingen pris på denne vare"
+else
+    echo $RES
+fi
