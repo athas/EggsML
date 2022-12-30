@@ -9,7 +9,7 @@ fi
 
 RES=$(curl -s https://query2.finance.yahoo.com/v7/finance/quote --get --data-urlencode "symbols=$1" | \
     jq -e '.quoteResponse.result[0]' | \
-    jq -e -r '("En aktie i " + .longName + " koster lige nu " + (.regularMarketPrice | tostring) + " " + .currency + " på " + .fullExchangeName)')
+    jq -e -r '("En aktie i " + .shortName + " koster lige nu " + (.regularMarketPrice | tostring) + " " + .currency + " på " + .fullExchangeName) +"-børsen"')
 
 if [ $? -ne 0 ]; then
     echo "Ingen pris på denne vare"
