@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+curl -s https://query2.finance.yahoo.com/v7/finance/quote --get --data-urlencode "symbols=$1" | \
+    jq -r '(.quoteResponse.result[0].shortName + " koster " + (.quoteResponse.result[0].regularMarketPrice | tostring) + " " + .quoteResponse.result[0].currency)'
