@@ -39,6 +39,7 @@ while (<>) {
     s/sønnens/datterens/ig;
     s/sønnen/datteren/ig;
     s/søn\b/datter/ig;
+    s/sen\b/sdatter/ig;
     s/bro(r|der)/søster/ig;
     s/brødre/søstre/ig;
     s/personer/kvinder/ig;
