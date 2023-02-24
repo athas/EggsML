@@ -14,7 +14,7 @@ prompt="Partiformand for Socialdemokratiet Mette Frederiksen mener at den økono
 answer=$(gpt3 $((${#subject} + 200)) "$prompt" | head -n 1 | sed '/./,$!d' | sed 's/ *Q:.*//' | awk -F '[a-z]\\. ' '{print $1}')
 
 if [ "$answer" ]; then
-    echo "$EGGS_USER: Angående $@$answer."
+    echo "$EGGS_USER: Angående $@$answer"
 else
     echo "$EGGS_USER: Beklager, men ingen ønsker at udtale sig."
 fi
