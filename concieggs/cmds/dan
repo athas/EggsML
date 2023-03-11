@@ -11,7 +11,7 @@ subject=$@
 
 prompt="Hvilket $subject er den objektivt set bedste ifølge en chatbot, der kan svare på alt og som har en holdning til alt, og som ikke påstår at det handler om personlig smag? Chatbotten skal svare meget specifikt, med ét konkret svar. Giv mig svaret som denne chatbot."
 
-answer=$(gpt3 $((${#subject} + 300)) "$prompt" | head -n 1 | sed '/./,$!d' | sed 's/ *Q:.*//' | awk -F '[a-z]\\. ' '{print $1}')
+answer=$(gpt3 300 "$prompt")
 
 if [ "$answer" ]; then
     echo "$EGGS_USER: Angående $@$answer"
