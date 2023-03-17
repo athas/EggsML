@@ -9,8 +9,8 @@ max_tokens=$1
 shift
 prompt=$(echo "$@" | sed 's/"/\\"/g')
 
-curl -s https://api.openai.com/v1/engines/$engine/completions \
+curl -s https://api.openai.com/chat/completions \
      -H "Content-Type: application/json" \
      -H "Authorization: Bearer $api_key" \
-     -d '{"prompt": "'"$prompt"'", "temperature": '$temperature', "max_tokens": '$max_tokens'}' \
+     -d '{ "model": "gpt-4", "prompt": "'"$prompt"'", "temperature": '$temperature', "max_tokens": '$max_tokens'}' \
      | jq -r '.choices[0].text'
