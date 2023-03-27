@@ -6,7 +6,7 @@ if echo "$1" | grep -qE '^[0-9]+$'; then
     n=$1
     shift
 else
-    n=50
+    n=150
 fi
 
-echo "$EGGS_USER: ...$(gpt3 $n "$@")..."
+echo "$EGGS_USER: ...$(gpt4 $n "$@")..."
