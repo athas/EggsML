@@ -54,7 +54,7 @@ er|hvem|hvad|hvor|hvorfor|hvornår|har*|kan|skal|hvilke*)
     timeout 30s "$acmd" $(echo "$@" | sed 's/\?*$//') || broke
     ;;
 # If a command should be allowed more than 30s to run, include its name here
-fluen|duen|flaske|benåd*)
+fluen|duen|flaske|ordmagi|benåd*)
     timeout 240s "$acmd" "$@" || broke
     ;;
 *)
