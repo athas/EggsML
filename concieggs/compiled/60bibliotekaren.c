@@ -39,7 +39,7 @@ int main() {
       for (letters; eggsbody[letters]; letters++) {
         uppers += isupper(eggsbody[letters]);
       }
-      bad = uppers > letters/2 && letters > 2;
+      bad = uppers > letters/2 && uppers > 2;
     }
 
     if (bad) {
