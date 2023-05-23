@@ -15,5 +15,5 @@ got=$(echo $linje | cut -d':' -f2 | tr ' ' '\n' | randomLine | toupper)
 Jeg har _aldrig_ ejet $wanted — men så er det jo godt at jeg derhjemme har $got!
 Hahaha, og så var jeg sendt i byen for at købe $wanted — men, iiih, altså, jeg kom til at snuppe $got!
 Er det bare mig, eller føles det nogle gange som om $wanted bare er en pudset udgave af $got?
-Okay, jeg ved godt at folk er sådan "lad os tage i COOP 365 Discount og købe $wanted" — men helt ærligt, Lidls $got, anyone?
+Okay, jeg ved godt at folk er sådan "lad os tage i Irma og købe $wanted" — men helt ærligt, Lidls $got, anyone?
 EOF
