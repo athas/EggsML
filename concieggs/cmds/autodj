@@ -1,5 +1,10 @@
 #!/bin/sh
 
-SANG=$(whatsPlaying "Radio Alfa")
+KANAL="$*"
+if ! [ "$KANAL" ]; then
+    KANAL="Radio Alfa"
+fi
 
-gpt4 200 "Du er DJ på en provinsiel lokalradio der skal introducere næste nummer, som er $SANG, og det fortjener da en kvik og lun, men kort, lille bemærkning."
+SANG=$(whatsPlaying "$KANAL")
+
+gpt4 200 "Du er DJ på $KANAL der skal introducere næste nummer, som er $SANG, og det fortjener da en kvik og lun, men kort, lille bemærkning."
