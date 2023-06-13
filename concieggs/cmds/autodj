@@ -1,0 +1,5 @@
+#!/bin/sh
+
+SANG=$(whatsPlaying "Radio Alfa")
+
+gpt4 200 "Du er DJ på en provinsiel lokalradio der skal introducere næste nummer, som er $SANG, og det fortjener da en kvik og lun, men kort, lille bemærkning."
