@@ -6,13 +6,16 @@
 //! Brug: programmeringssprog [n [sprogrod]]
 //!
 //! ```cargo
+//! edition = "2021"
+//!
 //! [dependencies]
-//! rand = "0.7.0"
+//! rand = { version = "0.8.5", default-features = false, features = ["alloc", "small_rng", "getrandom"] }
 //! ```
 
+use rand::rngs::SmallRng;
 use rand::seq::SliceRandom;
-use rand::rngs::ThreadRng;
 use rand::Rng;
+use rand::SeedableRng;
 use std::env::args;
 
 static PREFIXES: &[(&str, u32)] = &[
@@ -140,7 +143,7 @@ static SUFFIXES: &[(&str, u32)] = &[
     ("Pro", 5),
 ];
 
-fn programmeringssprog(mut rng: &mut ThreadRng, root_arg: Option<String>) -> String {
+fn programmeringssprog(mut rng: &mut SmallRng, root_arg: Option<String>) -> String {
     let mut result = String::new();
 
     result.push_str(
@@ -151,7 +154,7 @@ fn programmeringssprog(mut rng: &mut ThreadRng, root_arg: Option<String>) -> Str
     );
 
     loop {
-        if rng.gen_range(1, 10) == 9 {
+        if rng.gen_range(1..10) == 9 {
             result.push_str(
                 PREFIXES
                     .choose_weighted(&mut rng, |item| item.1)
@@ -181,7 +184,7 @@ fn programmeringssprog(mut rng: &mut ThreadRng, root_arg: Option<String>) -> Str
 
 fn main() {
     // prepare a non-deterministic random number generator:
-    let mut rng = rand::thread_rng();
+    let mut rng = SmallRng::from_entropy();
 
     // determine how many programming languages we're naming:
     let n_arg = args().nth(1);
