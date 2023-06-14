@@ -1,6 +1,7 @@
 let
   sources = import ./nix/sources.nix;
   pkgs = import sources.nixpkgs {};
+  localNodePath = "${(pkgs.callPackage ./nix/node/default.nix {}).nodeDependencies}/lib/node_modules";
 in
 with pkgs;
 mkShell {
@@ -78,6 +79,7 @@ mkShell {
   ];
 
   shellHook = ''
-    export NODE_PATH=${(pkgs.callPackage ./nix/node/default.nix {}).nodeDependencies}/lib/node_modules:$NODE_PATH
+    export NODE_PATH=${localNodePath}:$NODE_PATH
+    export PATH=${localNodePath}/.bin:$PATH
   '';
 }
