@@ -1,0 +1,10 @@
+#!/bin/sh
+
+handlinger="$(
+    for i in $(seq 1 5); do
+        revolutionærHandling
+    done);"
+
+gpt4 100 "$(echo $handlinger)" \
+    | tr $'\n' ' ' \
+    | sed -r 's/\. [^.]+$/./'
