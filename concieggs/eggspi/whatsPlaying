@@ -34,7 +34,7 @@ channelDict = {
     "Radio Monte Carlo 2": {ADDR: "https://edge.singsingmusic.net/MC2.mp3", SUB: CarloSub},
     "Radio Riviera": {ADDR: "http://rivieraradio.ice.infomaniak.ch:80/rivieraradio-high"},
     "Radio Viborg" : {ADDR: "http://netradio.radioviborg.dk/viborg", SUB:AlfaSub },
-    "The Lake": {ADDR: "http://efterklang-sc.djj.dk:8000/;stream.mp3"},
+    "The Lake": {ADDR: "https://thelakeradio.radioca.st/stream"},
     "Uniradioen": {ADDR: "https://uniradio.out.airtime.pro:8443/uniradio_a"},
     "VRT Radio 2 Antwerpen": {ADDR: "http://mp3.streampower.be/ra2ant-high"}
 }
