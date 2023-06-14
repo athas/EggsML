@@ -31,7 +31,7 @@ channelDict = {
     "Radio Alfa (Østjylland)": {ADDR: "http://89.249.7.68/alfa",
                                 SUB: AlfaSub},
     "Radio Monte Carlo FM": {ADDR: "http://icecast.unitedradio.it/RMC.mp3", SUB: CarloSub},
-    "Radio Monte Carlo 2": {ADDR: "http://icecast.unitedradio.it/MC2.mp3", SUB: CarloSub},
+    "Radio Monte Carlo 2": {ADDR: "https://edge.singsingmusic.net/MC2.mp3", SUB: CarloSub},
     "Radio Riviera": {ADDR: "http://rivieraradio.ice.infomaniak.ch:80/rivieraradio-high"},
     "Radio Viborg" : {ADDR: "http://netradio.radioviborg.dk/viborg", SUB:AlfaSub },
     "STROM:KRAFT": {ADDR: "http://stream.stromkraftradio.fm:8012/;stream.mp3"},
