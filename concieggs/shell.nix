@@ -8,13 +8,10 @@ mkShell {
   buildInputs = [
     sic
     gawk
-    (python27.withPackages (ps: with ps; [
-      numpy
-    ]))
     (python3.withPackages (ps: with ps; [
       feedparser yfinance lxml opencc requests beautifulsoup4 python-dateutil
     ]))
-    (perl532.withPackages (ps: with ps; [
+    (perl534.withPackages (ps: with ps; [
       DateTime DateTimeFormatISO8601 Encode Env FileFindRule FilePath
       FileReadBackwards GitRepository IOAll IPCRun IPCSystemSimple JSON
       LinguaTranslit ListMoreUtils ListUtilsBy LWP MojoDOM58 StringUtil
@@ -75,7 +72,7 @@ mkShell {
     php
     emacs-nox
     futhark
-    nodejs-16_x
+    nodejs_18
   ];
 
   shellHook = ''

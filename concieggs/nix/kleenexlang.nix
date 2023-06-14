@@ -12,7 +12,7 @@ pkgs.haskell.lib.buildStackProject {
       mkdir -p "$out"
       cp -r ${sources.regexps-syntax} "$out/regexps-syntax"
       cp -r ${sources.kleenexlang}/* "$out/"
-      sed -i 's/lts-7.18/lts-19.10/' $out/stack.yaml
+      sed -i 's/lts-7.18/lts-20.25/' $out/stack.yaml
     '';
   };
 }
