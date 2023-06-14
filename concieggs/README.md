@@ -50,6 +50,8 @@ opam install ocamlfind ppx_let core async async_ssl cohttp-async yojson
 
 ## Node-pakker
 
+Prøv at køre det her:
+
 ```
-npm install -g mapscii
+npm install mapscii
 ```
