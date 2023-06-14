@@ -36,7 +36,7 @@ channelDict = {
     "Radio Viborg" : {ADDR: "http://netradio.radioviborg.dk/viborg", SUB:AlfaSub },
     "The Lake": {ADDR: "https://thelakeradio.radioca.st/stream"},
     "Uniradioen": {ADDR: "https://uniradio.out.airtime.pro:8443/uniradio_a"},
-    "VRT Radio 2 Antwerpen": {ADDR: "http://mp3.streampower.be/ra2ant-high"}
+    "VRT Radio 2 Antwerpen": {ADDR: "https://25433.live.streamtheworld.com/RADIO_2_VLAAMSBR_128.mp3"}
 }
 
 defaultChannel = channelDict["Radio Alfa (Østjylland)"]
