@@ -36,7 +36,7 @@ channelDict = {
     "Radio Viborg" : {ADDR: "http://netradio.radioviborg.dk/viborg", SUB:AlfaSub },
     "STROM:KRAFT": {ADDR: "http://stream.stromkraftradio.fm:8012/;stream.mp3"},
     "The Lake": {ADDR: "http://efterklang-sc.djj.dk:8000/;stream.mp3"},
-    "Universitetsradioen": {ADDR: "http://netradio.universitetsradioen.dk:8000/live64.ogg"},
+    "Uniradioen": {ADDR: "https://uniradio.out.airtime.pro:8443/uniradio_a"},
     "VRT Radio 2 Antwerpen": {ADDR: "http://mp3.streampower.be/ra2ant-high"}
 }
 
