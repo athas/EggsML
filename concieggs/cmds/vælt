@@ -92,6 +92,6 @@ Glædelige
 EOF
 )"
 
-    revolutionærHandling
+    revolutionærHandlingMedAI
     echo "Kun $v har meldt sig under den revolutionære fane!  I skal være flere!"
 fi
