@@ -19,7 +19,7 @@ direkte af `concieggsd`.
 
 ## Perl-moduler
 
-Prøv at køre denne kommando, og så smide dem igennem `cpan -T -i
+Prøv at køre denne kommando, og så smide dem igennem `cpanm -ni
 <moduler>`:
 
 ```
