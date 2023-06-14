@@ -47,3 +47,9 @@ Prøv at køre denne kommando:
 ```
 opam install ocamlfind ppx_let core async async_ssl cohttp-async yojson
 ```
+
+## Node-pakker
+
+```
+npm install -g mapscii
+```
