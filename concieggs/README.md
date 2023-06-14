@@ -26,7 +26,7 @@ Prøv at køre denne kommando, og så smide dem igennem `cpanm -ni
 grep -hPr '^\s*use (\S*).*;' . | cut -d' ' -f2 | cut -d';' -f1 | sort | uniq | grep -v 'EggsML' | grep -P '^[A-Z]' --color=never | tr '\n' ' '
 ```
 
-Husk også at køre `cpanm -ni utf8::all` oveni.
+Husk også at køre `cpanm -ni utf8::all Git::Repository::Plugin::Blame` oveni.
 
 Vi afhænger vist af nogle Perl-moduler der ikke er i `shell.nix` (men
 ikke nogen vigtige?).  Se også `eggspi/perleggs/cpanfile`.
