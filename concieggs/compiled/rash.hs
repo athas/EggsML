@@ -311,11 +311,11 @@ instance Monad InterpM where
     runInterpM (f x') c s'
 
 instance Functor InterpM where
-    fmap = liftM
+  fmap = liftM
 
 instance Applicative InterpM where
-    pure x = InterpM $ \_ s -> pure (x, s)
-    (<*>) = ap
+  pure x = InterpM $ \_ s -> pure (x, s)
+  (<*>) = ap
 
 instance MonadIO InterpM where
   liftIO m = InterpM $ \_ s -> do
