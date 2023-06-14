@@ -162,7 +162,7 @@ runProcess cmdAndArgs stdinM = do
   let i = case exitCode of
         Exit.ExitSuccess -> 0
         Exit.ExitFailure n -> n
-  return (i, stdout)
+  pure (i, stdout)
 
 type Sequence a = IA.Array Int a
 type SequenceIO a = IOA.IOArray Int a
@@ -306,8 +306,6 @@ data InterpM a = InterpM { runInterpM :: Context -> State -> IO (a, State)
                          }
 
 instance Monad InterpM where
-  return x = InterpM $ \_ s -> return (x, s)
-
   m >>= f = InterpM $ \c s -> do
     (x', s') <- runInterpM m c s
     runInterpM (f x') c s'
@@ -316,22 +314,22 @@ instance Functor InterpM where
     fmap = liftM
 
 instance Applicative InterpM where
-    pure  = return
+    pure x = InterpM $ \_ s -> pure (x, s)
     (<*>) = ap
 
 instance MonadIO InterpM where
   liftIO m = InterpM $ \_ s -> do
     r <- m
-    return (r, s)
+    pure (r, s)
 
 getContext :: InterpM Context
-getContext = InterpM $ \c s -> return (c, s)
+getContext = InterpM $ \c s -> pure (c, s)
 
 getState :: InterpM State
-getState = InterpM $ \_ s -> return (s, s)
+getState = InterpM $ \_ s -> pure (s, s)
 
 putState :: State -> InterpM ()
-putState s = InterpM $ \_ _ -> return ((), s)
+putState s = InterpM $ \_ _ -> pure ((), s)
 
 setPC :: Int -> InterpM ()
 setPC pc = do
@@ -377,43 +375,43 @@ interpretM nSteps
 emptyState :: Int -> IO State
 emptyState nVars = do
   vars <- MA.newArray (0, nVars - 1) (T.pack "")
-  return State { statePC = 0
-               , stateVars = vars
-               , stateJustRestarted = False
-               , statePrevExitCode = 0
-               }
+  pure State { statePC = 0
+             , stateVars = vars
+             , stateJustRestarted = False
+             , statePrevExitCode = 0
+             }
 
 freezeState :: State -> IO IState
 freezeState st = do
   vars <- MA.freeze $ stateVars st
-  return $ IState { iStatePC = statePC st
-                  , iStateVars = vars
-                  }
+  pure $ IState { iStatePC = statePC st
+                , iStateVars = vars
+                }
 
 thawState :: IState -> IO State
 thawState ist = do
   vars <- MA.thaw $ iStateVars ist
-  return $ State { statePC = iStatePC ist
-                 , stateVars = vars
-                 , stateJustRestarted = True
-                 , statePrevExitCode = 0
-                 }
+  pure $ State { statePC = iStatePC ist
+               , stateVars = vars
+               , stateJustRestarted = True
+               , statePrevExitCode = 0
+               }
 
 evalParts :: Sequence Part -> InterpM T.Text
 evalParts ps = do
   let ps1 = extractParts ps
       ps2 = sequenceToList ps1
   ps3 <- mapM id ps2
-  return $ T.concat ps3
+  pure $ T.concat ps3
 
 extractParts :: Sequence Part -> Sequence (InterpM T.Text)
 extractParts = IA.amap extractPart
 
 extractPart :: Part -> InterpM T.Text
 extractPart p = case p of
-  TextPart t -> return t
+  TextPart t -> pure t
   IDPart b v -> do r <- getVar v
-                   return $ if b then shEsc r else r
+                   pure $ if b then shEsc r else r
           where shEsc = TE.decodeUtf8 . TSE.bytes . TSE.sh . TE.encodeUtf8
 
 interpretInstruction :: Instruction -> InterpM ()
@@ -440,7 +438,7 @@ interpretInstruction inst = case inst of
   Run cmd stdinM -> do
     cmd' <- evalParts cmd
     stdinM' <- case stdinM of
-      Nothing -> return Nothing
+      Nothing -> pure Nothing
       Just stdin -> Just <$> evalParts stdin
     (ec, out) <- liftIO $ runProcess (T.unpack cmd') (T.unpack <$> stdinM')
     liftIO $ putStr out
@@ -450,7 +448,7 @@ interpretInstruction inst = case inst of
   AssignRun v cmd stdinM -> do
     cmd' <- evalParts cmd
     stdinM' <- case stdinM of
-      Nothing -> return Nothing
+      Nothing -> pure Nothing
       Just stdin -> Just <$> evalParts stdin
     (ec, out) <- liftIO $ runProcess (T.unpack cmd') (T.unpack <$> stdinM')
     setVar v $ T.pack $ L.dropWhileEnd isSpace out
@@ -476,7 +474,7 @@ interpretInstruction inst = case inst of
 
   Exit -> do
     paths <- contextPaths <$> getContext
-    liftIO $ flip catch (\e -> (e :: IOException) `seq` return ()) $ do
+    liftIO $ flip catch (\e -> (e :: IOException) `seq` pure ()) $ do
       Dir.removeFile $ pathASM paths
       Dir.removeFile $ pathState paths
     liftIO Exit.exitSuccess
@@ -520,7 +518,7 @@ idPartP p = do
   symbol (p ++ "{")
   var <- P.many1 (P.satisfy (/= '}'))
   symbol "}"
-  return var
+  pure var
 
 textPartP :: P.Parser String
 textPartP = P.many1 (P.satisfy (/= '$'))
@@ -528,9 +526,9 @@ textPartP = P.many1 (P.satisfy (/= '$'))
 instructionsP :: P.Parser [TempInstruction]
 instructionsP =
   May.catMaybes <$>
-  (P.sepEndBy ((commentP >> return Nothing)
+  (P.sepEndBy ((commentP >> pure Nothing)
                P.<|> ((Just . TempLabel) <$> labelP)
-               P.<|> (exitP >> return (Just TempExit))
+               P.<|> (exitP >> pure (Just TempExit))
                P.<|> ((Just . TempRead) <$> readP)
                P.<|> ((Just . TempJump) <$> jumpP)
                P.<|> ((Just . TempJumpIfRetZero) <$> jumpZeroP)
@@ -583,7 +581,7 @@ runStdinP = do
   symbol "<"
   inp <- stringParts <$> P.many1 (P.satisfy (/= '>'))
   cmd <- runNoStdinP
-  return (cmd, inp)
+  pure (cmd, inp)
 
 assignGeneralP :: P.Parser TempInstruction
 assignGeneralP = do
@@ -615,7 +613,7 @@ runFile fname readArgs = do
       a <- (read <$> (readFile $ pathASM paths))
       i <- (read <$> (readFile $ pathState paths))
       s <- thawState i
-      return (a, s)
+      pure (a, s)
     else do
       res <- parseFile fname
       case res of
@@ -626,7 +624,7 @@ runFile fname readArgs = do
           let insts' = TempAssign "initial_arguments" [TempTextPart readArgs] : insts
           let (a, nVars) = asmTempToAsm $ TempAssembly insts'
           s <- emptyState nVars
-          return (a, s)
+          pure (a, s)
 
   let context = Context { contextAssembly = asm
                         , contextReadArgs = T.pack readArgs
@@ -707,11 +705,11 @@ rashPaths fname = do
       dirSave = fst $ Path.splitFileName fnameSave
       asmSave = fnameSave ++ ".asm"
       stateSave = fnameSave ++ ".state"
-  return RashPaths { pathOrig = fname
-                   , pathDir = dirSave
-                   , pathASM = asmSave
-                   , pathState = stateSave
-                   }
+  pure RashPaths { pathOrig = fname
+                 , pathDir = dirSave
+                 , pathASM = asmSave
+                 , pathState = stateSave
+                 }
 
 
 -- MAIN
