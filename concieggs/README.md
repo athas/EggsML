@@ -27,7 +27,7 @@ grep -hPr '^\s*use (\S*).*;' . | cut -d' ' -f2 | cut -d';' -f1 | sort | uniq | g
 ```
 
 Husk også at køre `cpanm -ni utf8::all local::lib
-Git::Repository::Plugin::Blame WWW::Mechanize` oveni.
+Git::Repository::Plugin::Blame WWW::Mechanize Sys::SigAction` oveni.
 
 Vi afhænger vist af nogle Perl-moduler der ikke er i `shell.nix` (men
 ikke nogen vigtige?).  Se også `eggspi/perleggs/cpanfile`.
