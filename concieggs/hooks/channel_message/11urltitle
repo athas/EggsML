@@ -15,7 +15,7 @@ EOF
 echo "$EGGS_BODY" \
     | perl -ne 'm/((?:https?:\/\/|www\.)\S+?)[.,;!?]*(?:\s|$)/; print $1' \
     | with_stdin_as_arg curl -sL \
-    | egrep -o '<title>[^<]+' \
+    | egrep -o '<title[^>]*>[^<]+' \
     | cut -d'>' -f2 \
     | head -n1 \
     | with_stdin_as_arg echo "$(eval $(ifEmpty nogen $(randomName "$EGGS_USER"))) har hægtet til en hjemmeside:"

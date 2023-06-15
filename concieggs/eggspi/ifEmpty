@@ -4,5 +4,5 @@ if ! [ "$2" ]; then
     echo "$1"
 else
     shift
-    echo "echo $@"
+    echo "echo '$@'"
 fi
