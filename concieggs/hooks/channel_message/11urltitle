@@ -19,5 +19,6 @@ EOF
         | egrep -o '<title[^>]*>[^<]+' \
         | cut -d'>' -f2 \
         | head -n1 \
+        | htmlEntitiesDecode \
         | with_stdin_as_arg echo "$(eval $(ifEmpty nogen $(randomName "$EGGS_USER"))) har hægtet til en hjemmeside:"
 } || true
