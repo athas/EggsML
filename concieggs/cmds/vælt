@@ -78,20 +78,6 @@ EOF
         makeKing "$newking"
     fi
 else
-    navn="$(randomLine <<EOF
-Frederik
-Knud
-Niels
-EOF
-)"
-
-    god_attribut="$(randomLine <<EOF
-Gode
-Barmhjertige
-Glædelige
-EOF
-)"
-
     revolutionærHandlingMedAI
     echo "Kun $v har meldt sig under den revolutionære fane!  I skal være flere!"
 fi

@@ -1,5 +1,19 @@
 #!/bin/sh
 
+navn="$(randomLine <<EOF
+Frederik
+Knud
+Niels
+EOF
+)"
+
+god_attribut="$(randomLine <<EOF
+Gode
+Barmhjertige
+Glædelige
+EOF
+)"
+
 randomLine <<EOF
 Du ser en gammel film.
 Du bagtaler Kongen på en bar.
