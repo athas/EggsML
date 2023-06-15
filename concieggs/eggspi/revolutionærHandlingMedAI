@@ -8,3 +8,4 @@ handlinger="$(
 gpt4 100 "$(echo $handlinger)" \
     | tr $'\n' ' ' \
     | sed -r 's/\. [^.]+$/./'
+echo
