@@ -80,7 +80,7 @@ def tryGetTitle(channelName):
             title = re.sub(sub[0], sub[1], title.title(), flags=re.IGNORECASE)
         assert title != ""
     except:
-        title = "Slayer"
+        title = "den med Slayer"
     return title
 
 
