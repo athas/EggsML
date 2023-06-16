@@ -50,7 +50,7 @@ mkShell {
     gfortran
     sbcl
     clisp
-    myrddin
+    zig
     (haskellPackages.ghcWithPackages (ps: with ps; [
       mtl
       containers
