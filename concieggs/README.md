@@ -37,11 +37,8 @@ ikke nogen vigtige?).  Se også `eggspi/perleggs/cpanfile`.
 Prøv at køre denne kommando:
 
 ```
-cabal update && cabal install --disable-optimization --jobs=1 --lib mtl containers parsec shell-escape MonadRandom random random-fu xml ieee754 QuickCheck
+cabal update && cabal install --disable-optimization --jobs=1 --lib mtl containers parsec shell-escape MonadRandom random random-fu xml ieee754 QuickCheck http-client http-client-tls aeson
 ```
-
-Forresten: Vi har egentlig også ting der afhænger af her Haskell-pakker,
-men de er svære at installere på OpenBSD: `http-client http-client-tls aeson`
 
 ## OCaml-pakker
 
