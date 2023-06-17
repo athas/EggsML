@@ -2,7 +2,7 @@
 #
 # Lav en ny paragraf i grundloven om et givent emne.
 
-emne="$1"
+emne="$@"
 
 if ! [ "$emne" ]; then
     emne="$(cat $CONCIEGGS_DB_DIR/navneord/*_flertal-* | randomLine)"
