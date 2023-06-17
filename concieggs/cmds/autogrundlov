@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# Lav en ny paragraf i grundloven om et givent emne.
+
+emne="$1"
+
+if ! [ "$emne" ]; then
+    emne="$(cat $CONCIEGGS_DB_DIR/navneord/*_flertal-* | randomLine)"
+fi
+
+{
+    echo -n 'Her er tre paragraffer fra den danske grundlov:'
+    for i in $(seq 1 3); do
+        echo -n " $(randomLine < "$CONCIEGGS_DB_DIR/grundloven/grundlov-sætninger")"
+    done
+    echo " Skriv en ny og kort paragraf om $emne i en enkelt sætning:"
+} | with_stdin_as_arg gpt4 100
