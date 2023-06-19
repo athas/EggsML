@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# Få rettet din sidste sætning til ug med kryds og slange!
+
+last=$(lastmsg $EGGS_USER)
+set -- $last
+
+if ! [ "$last" ]; then
+	echo "$EGGS_USER: Jeg kan da ikke huske du har skrevet noget."
+else
+	fixed=$(gpt4 $((${#last} + 50)) "Ret følgende sætning: $last")
+	echo "$EGGS_USER: Rettet: $fixed"
+fi
