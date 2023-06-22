@@ -14,7 +14,7 @@ intet_specielt() {
 }
 
 noget_specielt() {
-    gpt4 300 "$PROLOG Næste sang du spiller er '$SANG'. Giv dine lyttere en kvik og lun, men kort, lille intro til sangen. Relater årstallet,sangen er fra, til hvad du lavede dengang."
+    gpt4 350 "$PROLOG Næste sang du spiller er '$SANG'. Giv dine lyttere en kvik og lun, men kort, lille intro til sangen. Relater årstallet, sangen er fra, til hvad du lavede dengang, og sørg for at sangtitlen relaterer sig til historien på en snedig eller poetisk måde."
 }
 
 case "$KANAL" in
