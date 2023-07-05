@@ -39,7 +39,7 @@ mkShell {
     gnuapl
     futhark
     ocaml
-    dune_2
+    dune_3
     ocamlPackages.findlib
     ocamlPackages.ppx_let
     ocamlPackages.core
