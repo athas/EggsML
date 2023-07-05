@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Få dagens tørkeindeks.
+
+echo Dagens tørkeindeks: $(tørkeindeks $(date +'%Y %m %d'))

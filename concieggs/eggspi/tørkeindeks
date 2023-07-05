@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# Get the Danish tørkeindeks for a given date.
+#
+# Use: tørkeindeks ÅR MÅNED DAG
+
+set -e
+
+year=$1
+month=$2
+day=$3
+
+curl -s "https://www.dmi.dk/dmidk_obsWS/rest/archive/daily/danmark/drought/Hele%20landet/$year/$(monthName $month | capitalise)" \
+    | jq ".dataserie[$(expr $day - 1)].value"

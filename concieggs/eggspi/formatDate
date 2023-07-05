@@ -2,12 +2,6 @@
 #
 # Format a date of format [[YYYY-]MM-]DD in Danish.
 
-nthLine() {
-    n="$1"
-    head -n "$n" | tail -n 1
-}
-
-
 raw="$1"
 
 p0=$(echo $raw | cut -d- -f1)
@@ -31,21 +25,7 @@ fi
 day=$(echo $day | sed 's/^0//')
 
 if [ "$month" ]; then
-    month_name=$(nthLine $month <<EOF
-januar
-februar
-marts
-april
-maj
-juni
-juli
-august
-september
-oktober
-november
-december
-EOF
-)
+    month_name=$(monthName $month)
 fi
 
 if [ "$year" ]; then
