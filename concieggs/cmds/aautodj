@@ -1,0 +1,28 @@
+#!/bin/sh
+
+KANAL="$*"
+if ! [ "$KANAL" ]; then
+    KANAL="Radio Alfa"
+fi
+
+SANG=$(whatsPlaying "$KANAL")
+
+PROLOG="Du er DJ på $KANAL. Find selv på dit DJ navn, men prøv at vælge et navn som en numerolog kunne have foreslået."
+
+intet_specielt() {
+    gpt4 200 "$PROLOG Lige nu spiller du bare en playliste med blandede sange. Kom med en virkelig, virkelig kort anekdote om din tid i radioverdenen. Sørg for at historien er markaber eller ulækker og pinlig for dig selv."
+}
+
+noget_specielt() {
+    gpt4 350 "$PROLOG Næste sang du spiller er '$SANG'. Giv dine lyttere en kvik og klam, men kort, lille intro til sangen. Relater årstallet, sangen er fra, til hvad du lavede dengang, og sørg for at sangtitlen relaterer sig til historien på en snedig eller poetisk måde. Sørg for at historien er markaber og pinlig for dig selv."
+}
+
+case "$KANAL" in
+    'Radio Alfa')
+        if echo "$SANG" | grep -q 'Alletiders Bedste Sange'; then
+            intet_specielt
+            exit 0
+        fi
+esac
+
+noget_specielt
