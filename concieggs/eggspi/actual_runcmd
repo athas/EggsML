@@ -51,14 +51,14 @@ dbRead cur_cmd | dbWrite last_cmd
 echo "$cmd $@" | dbWrite cur_cmd
 case "$cmd" in
 er|hvem|hvad|hvor|hvorfor|hvornår|har*|kan|skal|hvilke*)
-    timeout 30s "$acmd" $(echo "$@" | sed 's/\?*$//') || broke
+    timeout 50s "$acmd" $(echo "$@" | sed 's/\?*$//') || broke
     ;;
-# If a command should be allowed more than 30s to run, include its name here
+# If a command should be allowed more than 50s to run, include its name here
 fluen|duen|flaske|ordmagi|benåd*)
     timeout 240s "$acmd" "$@" || broke
     ;;
 *)
-    timeout 30s "$acmd" "$@" || broke
+    timeout 50s "$acmd" "$@" || broke
     ;;
 esac | gawk '{print; fflush()}' # Hack: use awk to newline-terminate.
 
