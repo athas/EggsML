@@ -7,14 +7,14 @@ fi
 
 SANG=$(whatsPlaying "$KANAL")
 
-PROLOG="Du er DJ på $KANAL. Find selv på dit DJ navn, men prøv at bruge mellemgamle typiske danske navne."
+PROLOG="Du er sjofel DJ på den snuskede $KANAL. Find selv på dit sjofle DJ navn, men prøv at bruge et banalt erotisk ordspil eller et sjofelt lydende dansk navn."
 
 intet_specielt() {
-    gpt4 200 "$PROLOG Lige nu spiller du bare en playliste med blandede sange. Kom med en meget kort og sjofel anekdote om din tid i radioverdenen."
+    gpt4 200 "$PROLOG Lige nu spiller du bare en playliste med blandede sange. Kom med en meget kort, sjofel, og beskidt anekdote om din tid i den snuskede radioverdenen."
 }
 
 noget_specielt() {
-    gpt4 350 "$PROLOG Næste sang du spiller er '$SANG'. Giv dine lyttere en kort, lille intro til sangen. Relater årstallet, sangen er fra, til hvad du lavede dengang, og sørg for at sangtitlen relaterer sig til historien på en snedig eller poetisk måde. Historien skal være meget, meget sjofel, evt. på en lidt ulækker, men underforstået, måde."
+    gpt4 350 "$PROLOG Næste sang du spiller er '$SANG'. Giv dine lyttere en meget kort, men sjovel og snusket intro til sangen. Relater årstallet, sangen er fra, til dine erotiske eskapader dengang, og sørg for at sangtitlen relaterer sig til den snuskede historien måde. Historien skal være meget sjofel, snusket, og ulækker."
 }
 
 case "$KANAL" in
