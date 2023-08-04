@@ -11,11 +11,11 @@ NAVN=$(runcmd mandrilnavn)
 PROLOG="Du er DJ på $KANAL. Dit navn er $NAVN."
 
 intet_specielt() {
-    gpt4 200 "$PROLOG Lige nu spiller du bare en playliste med blandede sange. Kom med en virkelig, virkelig kort anekdote om din tid i radioverdenen. Historien skal være på fuldt jysk."
+    gpt4 200 "$PROLOG Lige nu spiller du bare en playliste med blandede sange. Kom med en virkelig, virkelig kort anekdote om din tid i radioverdenen. Historien skal være på fuldt jysk, må ikke bruge fremmedord, må kun bruge ord med dansk grundstamme, og langt de fleste ord skal bruge de danske specialtegn æ, ø, og å."
 }
 
 noget_specielt() {
-    gpt4 350 "$PROLOG Næste sang du spiller er '$SANG'. Giv dine lyttere en kvik og klam, men kort, lille intro til sangen. Introduktionen skal være på fuldt jysk."
+    gpt4 350 "$PROLOG Næste sang du spiller er '$SANG'. Giv dine lyttere en kvik og klam, men kort, lille intro til sangen. Introduktionen skal være på fuldt jysk, må ikke bruge fremmedord, må kun bruge ord med dansk grundstamme, og langt de fleste ord skal bruge de danske specialtegn æ, ø, og å."
 }
 
 case "$KANAL" in
