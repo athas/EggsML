@@ -1,10 +1,11 @@
 # Hent URLs (for Python 2).
 
 import urllib
+import urllib.request
 import threading
 
 
-class MozillaOpener(urllib.FancyURLopener):
+class MozillaOpener(urllib.request.FancyURLopener):
     version = 'Mozilla/5.0 (X11; Linux x86_64; rv:24.0) Gecko/20100101 Firefox/24.0'
 _opener = MozillaOpener()
 

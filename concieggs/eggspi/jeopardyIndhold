@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 # Modtag et emne og en beskrivelse fra den danske Wikipedia.
@@ -11,18 +11,18 @@ from functools import partial
 import itertools
 import random
 import re
+import urllib.parse
 
 from eggsthon import *
 from eggsthon.url_open import request
 from eggsthon.mediawiki import get_page_urls, get_paragraphs, get_sentences
 
 base_url = 'http://da.wikipedia.org/'
-random_page_url = base_url + 'wiki/Speciel:Tilfældig_side'
+random_page_url = base_url + urllib.parse.quote('wiki/Speciel:Tilfældig_side')
 with open(CONCIEGGS_DB_DIR + '/forkortelser') as f:
     pre_rules = filter(lambda x: x.endswith('.'), f.read().split('\n'))
 
 def run_main(args):
-    args = map(lambda a: a.decode('utf-8', 'ignore'), args)
     term = u' '.join(args[1:]).strip()
     urls = get_page_urls(term, base_url) if term else [random_page_url] * 20
     pages = list(filter(bool, request(urls[:20])))
@@ -30,16 +30,16 @@ def run_main(args):
         return 1
     paragraphs = itertools.chain(*map(get_paragraphs, pages))
     jp = r'\*([^ *][^*]*?)\*.*? (?:er|var|forstås) (.+)'
-    sentences = filter(lambda s: term.lower() in s.lower() and re.match(jp, s),
-                       (itertools.chain(*map(partial(get_sentences,
-                                                     pre_rules=pre_rules,
-                                                     split_regex=ur'\. *(?=[A-ZæøåÆØÅ])'),
-                                             paragraphs))))
+    sentences = list(filter(lambda s: term.lower() in s.lower() and re.match(jp, s),
+                            (itertools.chain(*map(partial(get_sentences,
+                                                          pre_rules=pre_rules,
+                                                          split_regex=r'\. *(?=[A-ZæøåÆØÅ])'),
+                                                  paragraphs)))))
     if len(sentences) > 0:
         s = sentences[0].rstrip('.')
         topic, desc = re.match(jp, s).groups()
-        print topic.encode('utf-8')
-        print desc.encode('utf-8')
+        print(topic)
+        print(desc)
         return 0
     else:
         return 1
