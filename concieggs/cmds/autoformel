@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# Udtryk et emne som en formel
+
+EMNE="$*"
+if ! [ "$EMNE" ]; then
+    echo "Du skal angive et emne"
+    exit 0
+fi
+
+prompt="Giv en formel for "$EMNE". Bruge operatorerne '+', '-', '*'. Operanderne skal være adjektiver, områder, mennesker, historiske begivenheder, madretter eller kulturelle elementer, "$EMNE" er kendt for. Begræns dig til fem til ti operander og giv operatorerne mening, sådan at '-' er noget "$EMNE" er kendt for ikke at have eller ikke besidder, og '*' bruges til at gruppere relaterede operander. Returner kun formlen uden forklaring, og brug ikke anførselstegn eller andre tegn end operatorerne og '=' i formlen."
+
+gpt4 400 "$prompt"
