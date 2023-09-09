@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# Få hjælp til at pitche imod noget dårligt til direktionen.
+
+set -e
+
+teknologi="$*"
+if ! [ "$teknologi" ]; then
+    echo "$EGGS_USER: Hvad skal jeg pitche imod?  Ingenting?"
+    exit
+fi
+
+gpt4 400 "Giv en kort, to-the-point pitch til direktionen om hvorfor vi straks bør stoppe alt arbejde relateret til vores eksisterende brug af $teknologi i vores produkt og udviklingen deraf."
