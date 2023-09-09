@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# Få hjælp til at pitche noget godt til direktionen.
+
+set -e
+
+teknologi="$*"
+if ! [ "$teknologi" ]; then
+    echo "$EGGS_USER: Hvad skal jeg pitche?  Ingenting?"
+    exit
+fi
+
+gpt4 400 "Giv en kort, to-the-point pitch til direktionen om hvorfor vi straks bør skifte fokus til at bruge $teknologi i vores produkt:"
