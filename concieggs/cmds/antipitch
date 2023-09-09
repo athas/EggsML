@@ -10,4 +10,4 @@ if ! [ "$teknologi" ]; then
     exit
 fi
 
-gpt4 400 "Giv en kort, to-the-point pitch til direktionen om hvorfor vi straks bør stoppe alt arbejde relateret til vores eksisterende brug af $teknologi i vores produkt og udviklingen deraf."
+gpt4 400 "Giv en kort, to-the-point pitch til direktionen om hvorfor vi straks bør stoppe alt arbejde relateret til vores eksisterende brug af $teknologi i vores produkt og udviklingen deraf. Lad være med at foreslå en bedre erstatning, fokusér kun på hvorfor $teknologi er en dårlig prioritering for os."
