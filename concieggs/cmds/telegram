@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# Brug: telegram [fra AFSENDER ]til MODTAGER om EMNE
+
+set -e
+
+eval "$(echo "$@" | parse '^(fra (?<afsender>.+) )?til (?<modtager>.+) om (?<emne>.+)$')"
+
+if ! [ "$afsender" ]; then
+    afsender="$EGGS_USER"
+fi
+
+gpt4 200 "Forfat et kortfattet, gammeldags telegram fra $afsender til $modtager om $emne.  Brug kun store bogstaver.  Inddrag afsenderens personlige holdninger og erfaringer så godt som muligt.  Understreg at det haster."
