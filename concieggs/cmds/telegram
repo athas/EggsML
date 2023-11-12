@@ -4,7 +4,7 @@
 
 set -e
 
-eval "$(echo "$@" | parse '^(fra (?<afsender>.+) )?til (?<modtager>.+)( om (?<emne>.+))?$')"
+eval "$(echo "$@" | parse '^(fra (?<afsender>.+) )?til (?<modtager>.+) om (?<emne>.+)?$')"
 
 omformuler() {
     gpt4 100 "Omformulér følgende sætning til at være mere gammeldags, ordentlig,fin og adelig: \"$1\""
