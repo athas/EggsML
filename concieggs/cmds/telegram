@@ -4,10 +4,24 @@
 
 set -e
 
-eval "$(echo "$@" | parse '^(fra (?<afsender>.+) )?til (?<modtager>.+) om (?<emne>.+)$')"
+eval "$(echo "$@" | parse '^(fra (?<afsender>.+) )?til (?<modtager>.+)( om (?<emne>.+))?$')"
+
+omformuler() {
+    gpt4 100 "Omformulér følgende sætning til at være mere gammeldags, ordentlig,fin og adelig: \"$1\""
+}
 
 if ! [ "$afsender" ]; then
     afsender="$EGGS_USER"
+fi
+
+if ! [ "$modtager" ]; then
+    echo "$EGGS_USER: $(omformuler "Men hvem vil du sende telegrammet til?")"
+    exit 0
+fi
+
+if ! [ "$emne" ]; then
+    echo "$EGGS_USER: $(omformuler "Men hvad skal telegrammet handle om?")"
+    exit 0
 fi
 
 gpt4 200 "Forfat et kortfattet, gammeldags telegram fra $afsender til $modtager om $emne.  Brug kun store bogstaver.  Inddrag afsenderens personlige holdninger og erfaringer så godt som muligt.  Understreg at det haster."
