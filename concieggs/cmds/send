@@ -22,7 +22,7 @@ if [ "$rawcmd" ]; then
             cat
         else
             echo "Sender $rawcmd til $addr!"
-            mailx -r concieggs@eggsml.dk \
+            mailx -r concieggs@sigkill.dk \
                   -s "Afvikling af $rawcmd, anmodet af $EGGS_USER" "$addr"
         fi
 else
