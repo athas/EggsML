@@ -10,11 +10,11 @@ SANG=$(whatsPlaying "$KANAL")
 PROLOG="Du er DJ på $KANAL. Find selv på dit DJ navn, men prøv at bruge mellemgamle typiske danske navne."
 
 intet_specielt() {
-    gpt4 200 "$PROLOG Lige nu spiller du bare en playliste med blandede sange. Kom med en virkelig, virkelig kort anekdote med en bitter reference til din ekskone om din tid i radioverdenen."
+    gpt4 200 "$PROLOG Lige nu spiller du bare en playliste med blandede sange. Kom med en virkelig, virkelig kort anekdote med en bitter og indebrændt reference til din ekskone Karen om din tid i radioverdenen."
 }
 
 noget_specielt() {
-    gpt4 350 "$PROLOG Næste sang du spiller er '$SANG'. Giv dine lyttere en kvik og lun, men kort, lille intro til sangen. Relater årstallet, sangen er fra, til hvad du lavede dengang, og sørg for at sangtitlen relaterer sig til historien på en snedig eller poetisk måde. Historien skal indeholde en bitter reference til din ekskone."
+    gpt4 350 "$PROLOG Næste sang du spiller er '$SANG'. Giv dine lyttere en hurtig lille intro til sangen, men hvor du ikke kan lægge skjul på hvor bitter du er over at din kone forlod dig. Relater årstallet, sangen er fra, til hvad du lavede dengang, og sørg for at sangtitlen relaterer sig til historien på en snedig eller poetisk måde. Historien skal indeholde en bitter og indebrændt reference til din ekskone Karen."
 }
 
 case "$KANAL" in
