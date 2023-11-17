@@ -24,4 +24,4 @@ if ! [ "$emne" ]; then
     exit 0
 fi
 
-gpt4 200 $(sjoverePrompt "Forfat et kortfattet, gammeldags telegram fra $afsender til $modtager om $emne.  Brug kun store bogstaver.  Inddrag afsenderens personlige holdninger og erfaringer så godt som muligt.  Understreg at det haster.")
+gpt4 300 $(sjoverePrompt "Forfat et kortfattet, gammeldags telegram fra $afsender til $modtager om $emne.  Brug kun store bogstaver.  Inddrag afsenderens personlige holdninger og erfaringer så godt som muligt.  Understreg at det haster.")
