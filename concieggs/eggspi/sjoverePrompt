@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Gør en GPT-prompt sjovere.
+
+gpt4 300 "Omskriv følgende chatprompt til at give det samme resultat for ethvert givent stykke inddata, men bare sjovere: \"$1\""
