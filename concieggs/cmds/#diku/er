@@ -4,7 +4,15 @@
 # jul, eller om solen er oppe.
 
 if [ "$1" = det -a "$2" = "jul" ]; then
-    isChristmas && echo "Ja!!!" || echo "Nej!!!"
+    if isChristmas; then
+        if ! checkCooldown "julenysgerrig$EGGS_USER" 24; then
+            echo "$EGGS_USER: Hohoho, du har seriøst lige spurgt."
+        else
+            echo "$EGGS_USER: Ja!!!"
+        fi
+    else
+        echo "$EGGS_USER: Nej!!!"
+    fi
     exit
 fi
 
