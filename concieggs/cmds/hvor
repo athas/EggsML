@@ -14,7 +14,11 @@ eval "$(echo "$@" | parse '^ *((?<jul>julet er det(?: i procent)?)|(?<population
 
 if [ "$jul" ]; then
     charm="$(checkCharmen)"
-    printf "Det er %.$(($charm + 2))f%% jul!  Det er %s julet!\n" "$(christmasLevel)" "$(christmasLevel -s)"
+    if ! checkCooldown "julenysgerrig$EGGS_USER" 24; then
+        echo "$EGGS_USER: Hohoho, mon ikke du godt kan gætte dig til det?"
+    else
+        printf "Det er %.$(($charm + 2))f%% jul!  Det er %s julet!\n" "$(christmasLevel)" "$(christmasLevel -s)"
+    fi
     exit
 elif [ "$population" ]; then
     getPopulationOf "$sted";
