@@ -2,6 +2,6 @@
   "name": "concieggs",
   "dependencies": {
     "request": "^2.88.2",
-    "mapscii": "^0.1.7"
+    "mapscii": "^0.3.1"
   }
 }
