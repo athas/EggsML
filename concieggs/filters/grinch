@@ -9,6 +9,8 @@ use utf8::all;
 my @bad_foods = qw(risengrød sylte flæskesteg sild eiskonfekt konfekt marcipan nougat blodpølse risalamande andesteg gås medisterpølse);
 my @bad_drinks = qw(snaps gløgg glögg likør rom portvin valnøddesnaps juleøl sne-bajer snebajer porsesnaps sprut vin);
 
+my $ebenezer_scrooge_quote = "Bah! Humbug!";
+
 while (my $line = <>) {
 
     # If sentence starts with the bad word, skip entire sentence. Nothing good can come from this.
@@ -23,6 +25,7 @@ while (my $line = <>) {
 
     # The bad event has special greetings. Ban them!
     if ($line =~ qr/\bglædelig\b/i){
+	say $ebenezer_scrooge_quote;
         next;
     }
 
@@ -45,6 +48,13 @@ while (my $line = <>) {
     $line =~ s/\bhygge\b/arbejde hårdt/gi;
     $line =~ s/hygge\b//gi;
     $line =~ s/fugle-//gi;
+    $line =~ s/familie/koleger/gi;
+    $line =~ s/salmer?/rockkoncert/gi;
+    $line =~ s/kirke/politisk møde/gi;
+    $line =~ s/træ/bregne/gi;
+    $line =~ s/træer/bregner/gi;
+    $line =~ s/pynt/plakat/gi;
+    $line =~ s/pynte/renovere/gi;
 
     # Ban bad foods
     my $food_pattern = '(\b' . join('\b|\b', @bad_foods) . '\b)';
