@@ -6,7 +6,7 @@ use 5.012;
 use warnings;
 use utf8::all;
 
-my @bad_foods = qw(risengrød sylte flæskesteg sild eiskonfekt konfekt marcipan nougat blodpølse risalamande andesteg gås medisterpølse);
+my @bad_foods = qw(risengrød sylte flæskesteg sild eiskonfekt konfekt marcipan nougat blodpølse risalamande andesteg gås medisterpølse pebbernød pebbernødder);
 my @bad_drinks = qw(snaps gløgg glögg likør rom portvin valnøddesnaps juleøl sne-bajer snebajer porsesnaps sprut vin);
 
 my $ebenezer_scrooge_quote = "Bah! Humbug!";
@@ -55,6 +55,9 @@ while (my $line = <>) {
     $line =~ s/træer/bregner/gi;
     $line =~ s/pynt/plakat/gi;
     $line =~ s/pynte/renovere/gi;
+    $line =~ s/hyggelig/vild/gi;
+    $line =~ s/hyggeligt/vildt/gi;
+    $line =~ s/sne/solskin/gi;
 
     # Ban bad foods
     my $food_pattern = '(\b' . join('\b|\b', @bad_foods) . '\b)';
