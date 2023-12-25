@@ -39,6 +39,7 @@ while (my $line = <>) {
     $line =~ s/\bgaver?\b/kul/gi;
     $line =~ s/juletræ/træ/gi;
     $line =~ s/juleaften/vintersolhverv/gi;
+    $line =~ s/julen/september/gi;
     $line =~ s/jule-?//gi;
     $line =~ s/\bho(ho)+/haha/gi;
     $line =~ s/\bhøjtid(en)?/kulden og mørket/gi;
