@@ -67,7 +67,10 @@ while (my $line = <>) {
     $line =~ s/vise mænd/personer/gi;
     $line =~ s/Jesusbarnet/ham Ole/gi;
     $line =~ s/Jesus/ham Ole/gi;
+    $line =~ s/slæden/bilen/gi;
     $line =~ s/slæde/bil/gi;
+    $line =~ s/kanen/bilen/gi;
+    $line =~ s/kane/bil/gi;
     $line =~ s/rensdyr/slaver/gi;
 
     # Ban bad foods
