@@ -50,6 +50,11 @@ while (my $line = <>) {
     $line =~ s/hygge\b//gi;
     $line =~ s/fugle-//gi;
     $line =~ s/familier/virksomheder/gi;
+    $line =~ s/familie\b/virksomheds/gi;
+    $line =~ s/stjerner/fugle/gi;
+    $line =~ s/stjerne/fugl/gi;
+    $line =~ s/engle/fugle/gi;
+    $line =~ s/engel/fugl/gi;
     $line =~ s/familie/virksomhed/gi;
     $line =~ s/salmer?/rockkoncert/gi;
     $line =~ s/kirke/politisk møde/gi;
@@ -72,6 +77,11 @@ while (my $line = <>) {
     $line =~ s/slæde/bil/gi;
     $line =~ s/kanen/bilen/gi;
     $line =~ s/kane/bil/gi;
+    $line =~ s/klejne/tvebakke/gi;
+    $line =~ s/kager?/kiks/gi;
+    $line =~ s/godter/havegrød/gi;
+    $line =~ s/slik/havegrød/gi;
+    $line =~ s/risengrød/havegrød/gi;
     $line =~ s/rensdyr/slaver/gi;
 
     # Ban bad foods
