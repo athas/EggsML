@@ -8,12 +8,21 @@ fi
 
 phrase="$@"
 
-len=$(numchars "$phrase")
+shortened="$phrase"
 
-out=$(gpt4 "$len" "Forkort følgende sætning: $phrase")
+while true; do
+    len=$(numchars "$shortened")
+    out=$(gpt4 "$len" "Forkort følgende sætning: $shortened")
 
-if [ $(numchars "$out") -lt $len ]; then
-    echo "$EGGS_USER: $out"
+    if [ $(numchars "$out") -lt $len ]; then
+	shortened="$out"
+    else
+	break
+    fi
+done
+
+if [ "$shortened" != "$phrase" ]; then
+    echo "$EGGS_USER: $shortened"
 else
     echo "$EGGS_USER: Jeg kan desværre ikke finde på en kortere måde at udtrykke det på."
 fi
