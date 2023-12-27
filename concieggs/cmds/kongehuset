@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Lær noget om kongehuset.
+
+exec $CONCIEGGS_DB_DIR/kongehuset/get_kongehuset_fact.py
