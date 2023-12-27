@@ -1,0 +1,3 @@
+#!/bin/sh
+
+echo -n "$@" | wc -c | awk '{print $1}'

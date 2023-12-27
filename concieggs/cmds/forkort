@@ -1,0 +1,19 @@
+#!/bin/sh
+# Lad concieggs, med assistance fra et par matriksmultiplikationer, forkorte en sætning."
+
+if [ $# = 0 ]; then
+    echo "$EGGS_USER: Men hvad skal jeg dog forkorte?"
+    exit
+fi
+
+phrase="$@"
+
+len=$(numchars "$phrase")
+
+out=$(gpt4 "$len" "Forkort følgende sætning: $phrase")
+
+if [ $(numchars "$out") -lt $len ]; then
+    echo "$EGGS_USER: $out"
+else
+    echo "$EGGS_USER: Jeg kan desværre ikke finde på en kortere måde at udtrykke det på."
+fi
