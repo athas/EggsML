@@ -12,7 +12,7 @@ shortened="$phrase"
 
 while true; do
     len=$(numchars "$shortened")
-    out=$(gpt4 "$len" "Forkort følgende sætning: $shortened")
+    out=$(gpt4 "$len" "Forkort følgende sætning, dog uden at bruge forkortelser: $shortened")
 
     if [ $(numchars "$out") -lt $len ]; then
 	shortened="$out"
