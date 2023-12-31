@@ -24,7 +24,7 @@ eval "$(echo "$@" | parse \
 '(blev der af (?<fate>[^ ]+))')"
 
 if [ "$whatis" ]; then
-  eval "$(echo "$subject" | parse '(?<betalingsbalancen>betalingsbalancen)|(?<klokken>klokken)|(?<yourproblem>dit problem(?: med (?<problem>.+))?$)')"
+  eval "$(echo "$subject" | parse '(?<betalingsbalancen>betalingsbalancen)|(?<klokken>klokken)|(?<year>året)|(?<yourproblem>dit problem(?: med (?<problem>.+))?$)')"
 
   if [ "$betalingsbalancen" ]; then
     balance="$(lookupBalance)"
@@ -41,10 +41,16 @@ if [ "$whatis" ]; then
       else
           echo "Den lille viser peger på $(talord $(($(date +%l) % 12))), den store på $(talord $(($(date +%M | tr 0 ' ')))) og den lange, tynde på $(talord $(($(date +%S | tr 0 ' '))))."
       fi
-    exit
+      exit
+
+  elif [ "$year" ]; then
+      echo "$EGGS_USER: Vi er lige nu i $(date +%Y), men det kunne jo ændre sig hvert øjeblik."
+      exit
+
   elif [ "$yourproblem" ]; then
     githubIssue "$problem"
     exit
+
   else
     runcmd jeopardy "hvad er $subject"
     exit
