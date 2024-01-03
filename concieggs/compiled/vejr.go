@@ -8,15 +8,15 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"os"
+	"strconv"
 	"strings"
 	"text/template"
 	"vejrLib"
-	"io"
-	"strconv"
 )
 
 // prut
@@ -97,11 +97,11 @@ func readLonLat(filename string, city string, country string) (lon float64, lat 
 			if err != nil {
 				return 0.0, 0.0, false, err
 			}
-			break
+			return lon, lat, true, nil
 		}
 	}
 
-	return lon, lat, true, nil
+	return 0.0, 0.0, false, nil
 }
 
 func appendLonLat(filename string, city string, country string, lon float64, lat float64) error {
@@ -111,7 +111,7 @@ func appendLonLat(filename string, city string, country string, lon float64, lat
 	}
 	defer f.Close()
 
-	if _, err := f.WriteString(fmt.Sprintf("%s,%s\t%.2f\t%.2f", city, country, lon, lat)); err != nil {
+	if _, err := f.WriteString(fmt.Sprintf("%s,%s\t%.2f\t%.2f\n", city, country, lon, lat)); err != nil {
 		return err
 	}
 
@@ -148,7 +148,7 @@ func main() {
 		city = "Delft"
 		country = "NL"
 	} else if user == "svip" {
-		city = "Dianalund"
+		city = "Ruds Vedby"
 		country = "DK"
 	} else if user == "munksgaard" {
 		city = "Birkerød"
@@ -159,6 +159,7 @@ func main() {
 	}
 	velkomst := false
 	if len(os.Args) > 1 {
+		country = "DK" // antag Danmark
 		if os.Args[1] == "Velkomstbesked" {
 			velkomst = true
 		} else {
@@ -207,9 +208,11 @@ func main() {
 		}
 
 		// lad os finde hvor vi er
-		if err := makeCall(fmt.Sprintf("http://api.openweathermap.org/geo/1.0/direct?q=%s,%s&limit=1&appid=%s", url.QueryEscape(city), url.QueryEscape(country), APIKEY), &locations); err != nil {
-			fmt.Println("Den by findes ikke eller også er der noget andet, der er gået galt!")
-			return
+		if len(country) > 0 {
+			if err := makeCall(fmt.Sprintf("http://api.openweathermap.org/geo/1.0/direct?q=%s,%s&limit=1&appid=%s", url.QueryEscape(city), url.QueryEscape(country), APIKEY), &locations); err != nil {
+				fmt.Println("Den by findes ikke eller også er der noget andet, der er gået galt!")
+				return
+			}
 		}
 		if len(locations) == 0 {
 			// prøv lige uden land
@@ -226,6 +229,7 @@ func main() {
 
 		// vælg det første sted
 		loc := locations[0]
+		country = loc.Country
 
 		lon, lat = loc.Lon, loc.Lat
 	}
@@ -235,11 +239,11 @@ func main() {
 		fmt.Println("Den by findes ikke eller også er der noget andet, der er gået galt!")
 		return
 	}
-	
-	if len(storeFile) > 0 {
+
+	if !foundLoc && len(storeFile) > 0 {
 		if err := appendLonLat(storeFile, city, country, lon, lat); err != nil {
 			// ligemeget hvis den ikke blev gemt
-		}	
+		}
 	}
 
 	/* Hent relevant vinddata fra JSON-struktur */
