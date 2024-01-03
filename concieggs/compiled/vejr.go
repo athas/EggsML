@@ -4,7 +4,9 @@ package main
 
 import (
 	"bytes"
+	"encoding/csv"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -13,6 +15,8 @@ import (
 	"strings"
 	"text/template"
 	"vejrLib"
+	"io"
+	"strconv"
 )
 
 // prut
@@ -61,6 +65,76 @@ type JsonAPI struct {
 	Cod  int
 }
 
+func readLonLat(filename string, city string, country string) (lon float64, lat float64, ok bool, err error) {
+	b, err := ioutil.ReadFile(filename)
+	if err != nil {
+		if errors.Is(err, os.ErrNotExist) {
+			return 0.0, 0.0, false, nil
+		}
+		return 0.0, 0.0, false, err
+	}
+
+	toFind := fmt.Sprintf("%s,%s", city, country)
+
+	r := csv.NewReader(bytes.NewReader(b))
+	r.Comma = '\t'
+
+	for {
+		record, err := r.Read()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			return 0.0, 0.0, false, err
+		}
+
+		if record[0] == toFind {
+			lon, err = strconv.ParseFloat(record[1], 64)
+			if err != nil {
+				return 0.0, 0.0, false, err
+			}
+			lat, err = strconv.ParseFloat(record[2], 64)
+			if err != nil {
+				return 0.0, 0.0, false, err
+			}
+			break
+		}
+	}
+
+	return lon, lat, true, nil
+}
+
+func appendLonLat(filename string, city string, country string, lon float64, lat float64) error {
+	f, err := os.OpenFile(filename, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	if _, err := f.WriteString(fmt.Sprintf("%s,%s\t%.2f\t%.2f", city, country, lon, lat)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// nu med bivirkninger!
+func makeCall(url string, response interface{}) error {
+	resp, err := http.Get(url)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	body, _ := ioutil.ReadAll(resp.Body)
+
+	if err = json.Unmarshal(body, response); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func main() {
 	user := os.Getenv("EGGS_USER")
 	var city, country string
@@ -106,23 +180,66 @@ func main() {
 		}
 	}
 
-	resp, err := http.Get(fmt.Sprintf("http://api.openweathermap.org/data/2.5/weather?q=%s,%s&lang=da&units=metric&APPID=%s", url.QueryEscape(city), url.QueryEscape(country), APIKEY))
-	if err != nil {
-		// prøv lige uden land
-		resp, err = http.Get(fmt.Sprintf("http://api.openweathermap.org/data/2.5/weather?q=%s&lang=da&units=metric&APPID=%s", url.QueryEscape(city), APIKEY))
-		if err != nil {
+	dbDir := os.Getenv("CONCIEGGS_DB_DIR")
+	var storeFile string
+	var lon, lat float64
+	foundLoc := false
+	if len(dbDir) > 0 {
+		storeFile = fmt.Sprintf("%s/store/vejrsteder", dbDir)
+
+		var ok bool
+		lon, lat, ok, _ = readLonLat(storeFile, city, country)
+		if ok {
+			foundLoc = true
+		}
+	}
+
+	if !foundLoc {
+		var locations []struct {
+			Name       string
+			LocalNames struct {
+				Da string
+			} `json:"local_names"`
+			Lat     float64
+			Lon     float64
+			Country string
+			State   string
+		}
+
+		// lad os finde hvor vi er
+		if err := makeCall(fmt.Sprintf("http://api.openweathermap.org/geo/1.0/direct?q=%s,%s&limit=1&appid=%s", url.QueryEscape(city), url.QueryEscape(country), APIKEY), &locations); err != nil {
 			fmt.Println("Den by findes ikke eller også er der noget andet, der er gået galt!")
 			return
 		}
+		if len(locations) == 0 {
+			// prøv lige uden land
+			if err := makeCall(fmt.Sprintf("http://api.openweathermap.org/geo/1.0/direct?q=%s&limit=1&appid=%s", url.QueryEscape(city), APIKEY), &locations); err != nil {
+				fmt.Println("Den by findes ikke eller også er der noget andet, der er gået galt!")
+				return
+			}
+		}
+		if len(locations) == 0 {
+			// øv bøv
+			fmt.Println("Den by findes ikke eller også er der noget andet, der er gået galt!")
+			return
+		}
+
+		// vælg det første sted
+		loc := locations[0]
+
+		lon, lat = loc.Lon, loc.Lat
 	}
-	defer resp.Body.Close()
-	body, _ := ioutil.ReadAll(resp.Body)
 
 	var dat JsonAPI
-	err = json.Unmarshal(body, &dat)
-	if err != nil {
+	if err := makeCall(fmt.Sprintf("http://api.openweathermap.org/data/2.5/weather?lat=%.2f&lon=%.2f&lang=da&units=metric&APPID=%s", lat, lon, APIKEY), &dat); err != nil {
 		fmt.Println("Den by findes ikke eller også er der noget andet, der er gået galt!")
 		return
+	}
+	
+	if len(storeFile) > 0 {
+		if err := appendLonLat(storeFile, city, country, lon, lat); err != nil {
+			// ligemeget hvis den ikke blev gemt
+		}	
 	}
 
 	/* Hent relevant vinddata fra JSON-struktur */
@@ -137,8 +254,8 @@ func main() {
 	beskrivelse := vejrLib.Vejrbeskrivelse(description)
 
 	/* Hent coordinater for målestation og udregn afstand til Kantinen */
-	lon := dat.Coord.Lon
-	lat := dat.Coord.Lat
+	lon = dat.Coord.Lon
+	lat = dat.Coord.Lat
 	afstandStr := vejrLib.AfstandStr(lon, lat)
 
 	/* Tid for opdatering */
