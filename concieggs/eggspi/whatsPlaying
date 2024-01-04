@@ -28,7 +28,7 @@ channelDict = {
     "Globus Guld (Kolding)": {ADDR: "http://stream2.wlmm.dk/guldkoldingmp3", SUB: AlfaSub},
     "Pop FM": {ADDR: "http://stream.popfm.dk/pop128"},
     "Radio 24syv": {ADDR: "http://rrr.sz.xlcdn.com/?account=Radio24syv&file=ENC1_Web128&type=live&service=icecast&port=8000&output=pls"},
-    "Radio Alfa (Østjylland)": {ADDR: "http://89.249.7.68/alfa",
+    "Radio Alfa (Østjylland)": {ADDR: "https://radioserver.dk/alfa",
                                 SUB: AlfaSub},
     "Radio Monte Carlo FM": {ADDR: "http://icecast.unitedradio.it/RMC.mp3", SUB: CarloSub},
     "Radio Monte Carlo 2": {ADDR: "https://edge.singsingmusic.net/MC2.mp3", SUB: CarloSub},
