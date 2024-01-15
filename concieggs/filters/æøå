@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec sed -e 's/a/å/g' -e 's/e/æ/g' -e 's/i/æ/g' -e 's/o/ø/g' -e 's/u/ø/g' -e 's/y/æ/g'
