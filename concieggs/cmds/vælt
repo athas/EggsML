@@ -45,8 +45,9 @@ fi
 echo "$rebel" | dbWriteAppend vilvæltekongen
 
 v="$(dbRead vilvæltekongen | wc -l | sed 's/ //g')"
+s="$(dbRead vilstøttekongen | wc -l | sed 's/ //g')"
 
-if [ "$v" -gt $(random 3 5) ]; then
+if [ $(expr "$v" - "$s") -gt $(random 3 5) ]; then
 
     newKing=$(dbRead vilvæltekongen | randomLine)
 
