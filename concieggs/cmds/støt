@@ -1,0 +1,47 @@
+#!/bin/sh
+#
+# Støt kongen!
+
+if [ "$#" = 0 ]; then
+    echo "$EGGS_USER: Støt hvad?  E$(tPattedyr)?"
+    exit
+elif [ "$1" != "kongen" ]; then
+    echo "$EGGS_USER: $(ack)  Du har hermed støttet, øh, $@."
+    exit
+fi
+
+if isArrested "$EGGS_USER"; then
+    echo "$EGGS_USER: Prøver du på at være spion?  Det hopper kongen ikke på.  Du er stadig i arresten."
+    exit
+fi
+
+if dbRead robespierre; then
+	echo "$EGGS_USER: Du kan altså kun støtte republikken."
+	exit
+fi
+
+supporter="$(randomName "$EGGS_USER")"
+if ! [ "$supporter" ]; then
+    echo "$EGGS_USER: Du er vist ikke med i dette kongerige?"
+    exit
+fi
+
+kingname="$(dbRead eggsking)"
+if [ -z "$kingname" ]; then
+    echo "$EGGS_USER: Øh, der er ikke lige nogen konge.  Så nu er du konge!  Tillykke."
+    makeKing "$supporter"
+    exit
+fi
+
+if isKing "$EGGS_USER"; then
+    echo "$EGGS_USER: Ærede majestæt, jeg er godt klar over at De støtter Dem selv."
+    exit
+fi
+
+if harVaeltet "$supporter"; then
+    echo "$EGGS_USER: Du kan ikke skifte kulør på den måde, Kongens efterretningstjeneste holder godt øje med dig."
+    exit
+fi
+
+echo "$EGGS_USER: Du træder stolt ind i det monarkibevarende selskab og støtter Kongen."
+echo "$supporter" | dbWriteAppend vilstøttekongen
