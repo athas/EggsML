@@ -38,18 +38,7 @@ if isKing "$rebel"; then
     exit
 fi
 
-harVaeltet() {
-    dbRead vilvæltekongen | {
-        while read user; do
-            if cmpNames $rebel $user; then
-                exit 0
-            fi
-        done
-        exit 1
-    }
-}
-
-if harVaeltet; then
+if harVaeltet "$rebel"; then
     echo "$EGGS_USER: Du har allerede meldt dig under tricoloren.  Det kan anbefales at dirigere al denne energi mod at hverve medsammensvorne."
     exit
 fi

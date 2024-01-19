@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# Har en bruger meldt sig under kongens væltekorps?
+
+set -e
+
+dbRead vilvæltekongen | {
+    while read user; do
+        if cmpNames "$1" "$user"; then
+            exit 0
+        fi
+    done
+    exit 1
+}
