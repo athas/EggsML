@@ -43,5 +43,5 @@ if harVaeltet "$supporter"; then
     exit
 fi
 
-echo "$EGGS_USER: Du træder stolt ind i det monarkibevarende selskab og støtter Kongen."
+reaktionærHandling
 echo "$supporter" | dbWriteAppend vilstøttekongen

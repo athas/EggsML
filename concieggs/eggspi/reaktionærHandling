@@ -1,0 +1,5 @@
+#!/bin/sh
+
+randomLine <<EOF
+Du træder stolt ind i det monarkibevarende selskab og støtter Kongen.
+EOF
