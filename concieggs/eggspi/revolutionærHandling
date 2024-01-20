@@ -1,19 +1,5 @@
 #!/bin/sh
 
-navn="$(randomLine <<EOF
-Frederik
-Knud
-Niels
-EOF
-)"
-
-god_attribut="$(randomLine <<EOF
-Gode
-Barmhjertige
-Glædelige
-EOF
-)"
-
 randomLine <<EOF
 Du ser en gammel film.
 Du bagtaler Kongen på en bar.
@@ -45,7 +31,7 @@ Ved Hendes Majestæts dronningens officielle helligdag prutter du højlydt på e
 Du spiser en af prinsessens kælekaniner til aftensmad.
 På dit arbejde hos den lokale smed imprægnerer du en slap tissemand på prinsens nye sværd.
 Ved pudsning af en royals lædersko smører du med friskt snot i stedet for skosværte.
-Du lytter til din farfars gamle historier om kong ${navn} den ${god_attribut}.
+Du lytter til din farfars gamle historier om kong ${kongenavn}.
 Du står med oprejst pande og ser en særligt satirisk dukketeaterforestilling.
 Dagen før kongens jagt fodrer du hestene med din onkels ufiltrerede whisky.
 Du graver den metaforiske stridsøkse op.
