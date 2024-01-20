@@ -12,4 +12,5 @@ now=$(date '+%s')
 echo "$now $king" | dbWriteAppend eggskinglist
 
 dbDelete vilvæltekongen
+dbDelete vilstøttekongen
 removeFromBadStanding "$king"
