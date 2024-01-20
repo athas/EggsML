@@ -38,6 +38,11 @@ if isKing "$EGGS_USER"; then
     exit
 fi
 
+if harStøttet "$supporter"; then
+    echo "$EGGS_USER: Du har allerede støttet Kongen på fin vis, men der er altid plads til flere."
+    exit
+fi
+
 if harVæltet "$supporter"; then
     echo "$EGGS_USER: Du kan ikke skifte kulør på den måde, Kongens efterretningstjeneste holder godt øje med dig."
     exit
