@@ -3,6 +3,8 @@
 # The revolution is real!
 
 dbDelete eggsking
+dbDelete vilvæltekongen
+dbDelete vilstøttekongen
 now=$(date '+%s')
 echo "$now" | dbWriteAppend eggskinglist
 # Uden felt to (kongenavn), betyder det at kongen var blevet smidt af!

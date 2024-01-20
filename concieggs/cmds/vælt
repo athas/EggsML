@@ -79,9 +79,6 @@ EOF
         sleep 2
         echo "Men hvad er nu dette?  $newking griber magten!  Længe leve den nye konge!"
         makeKing "$newking"
-    else
-        dbDelete vilvæltekongen
-        dbDelete vilstøttekongen
     fi
 else
     revolutionærHandlingMedAI
