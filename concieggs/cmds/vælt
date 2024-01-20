@@ -67,6 +67,7 @@ if [ $(expr "$v" - "$s") -gt $(random 3 5) ]; then
 
     revolution
     dbDelete vilvæltekongen
+    dbDelete vilstøttekongen
 
     randomLine <<EOF
 KONGEN ER VÆLTET!
