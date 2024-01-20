@@ -66,8 +66,6 @@ if [ $(expr "$v" - "$s") -gt $(random 3 5) ]; then
     newKing=$(dbRead vilvæltekongen | randomLine)
 
     revolution
-    dbDelete vilvæltekongen
-    dbDelete vilstøttekongen
 
     randomLine <<EOF
 KONGEN ER VÆLTET!
@@ -81,6 +79,9 @@ EOF
         sleep 2
         echo "Men hvad er nu dette?  $newking griber magten!  Længe leve den nye konge!"
         makeKing "$newking"
+    else
+        dbDelete vilvæltekongen
+        dbDelete vilstøttekongen
     fi
 else
     revolutionærHandlingMedAI
