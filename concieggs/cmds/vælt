@@ -42,6 +42,20 @@ if harVæltet "$rebel"; then
     echo "$EGGS_USER: Du har allerede meldt dig under tricoloren.  Det kan anbefales at dirigere al denne energi mod at hverve medsammensvorne."
     exit
 fi
+
+if harStøttet "$rebel"; then
+    echo "$EGGS_USER: Du beslutter dig for at forræde Kongen!"
+    fjernStøtte "$rebel"
+    sleep 2
+    if $(random 1 4) = 4; then
+        echo "Kongen er skuffet.  Du var smartere end ham denne gang, men ikke næste gang."
+    else
+        echo "... Tænk at du troede at det kunne lykkedes.  Du er arresteret."
+        arrestUser "$rebel"
+        exit
+    fi
+fi
+
 echo "$rebel" | dbWriteAppend vilvæltekongen
 
 v="$(dbRead vilvæltekongen | wc -l | sed 's/ //g')"
