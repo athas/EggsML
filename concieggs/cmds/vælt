@@ -43,7 +43,7 @@ if vilVælteKongen "$rebel"; then
     exit
 fi
 
-if harStøttet "$rebel"; then
+if harStøttetKongen "$rebel"; then
     echo "$EGGS_USER: Du beslutter dig for at forræde Kongen!"
     fjernStøtte "$rebel"
     sleep 2

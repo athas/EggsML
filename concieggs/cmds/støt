@@ -38,7 +38,7 @@ if isKing "$EGGS_USER"; then
     exit
 fi
 
-if harStøttet "$supporter"; then
+if harStøttetKongen "$supporter"; then
     echo "$EGGS_USER: Du har allerede støttet Kongen på fin vis, men der er altid plads til flere."
     exit
 fi
