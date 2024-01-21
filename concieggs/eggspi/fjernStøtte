@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# Fjern en bruger fra kongestøttelisten.
+
+set -e
+
+dbRead vilstøttekongen | {
+    while read user; do
+        if ! cmpNames "$1" "$user"; then
+            echo "$user"
+        fi
+    done
+} | dbWrite vilstøttekongen
