@@ -38,7 +38,7 @@ if isKing "$rebel"; then
     exit
 fi
 
-if harVæltet "$rebel"; then
+if vilVælteKongen "$rebel"; then
     echo "$EGGS_USER: Du har allerede meldt dig under tricoloren.  Det kan anbefales at dirigere al denne energi mod at hverve medsammensvorne."
     exit
 fi

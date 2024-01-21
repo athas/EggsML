@@ -38,7 +38,7 @@ if isKing "$EGGS_USER"; then
         else
             echo "$EGGS_USER: Men, Deres Majestæt, vi kan da ikke arrestere en af guderne!"
         fi
-    elif harVæltet "$user"; then
+    elif vilVælteKongen "$user"; then
         echo "$EGGS_USER: Argh, Deres Majestæt, $user er en del af oprøret, som beskytter forbryderen!  Jeg kunne ikke få has på svinet!"
     else
         num_under_arrest="$(dbRead underArrest | wc -l)"

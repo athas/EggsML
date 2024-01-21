@@ -34,7 +34,7 @@ knusOproeret() {
 
 if ! isKing "$EGGS_USER"; then
     kingname="$(dbRead eggsking)"
-    if harVæltet "$rebel"; then
+    if vilVælteKongen "$rebel"; then
         echo "Man var alligevel ikke helt loyal over for oprøret, hva'?"
         echo "Bare rolig, jeg skal nok gøre det så de andre ikke fatter mistanke."
         sleep 3
