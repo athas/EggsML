@@ -1,6 +1,6 @@
 #!/bin/sh
 
-exec sed -r \
-     -e 's/[eiy]+/æ/g' -e 's/[EIY]+/Æ/g' \
+sed -r \
+     -e 's/[eéiy]+/æ/g' -e 's/[EÉIY]+/Æ/g' \
      -e 's/[ou]+/ø/g' -e 's/[OU]+/Ø/g' \
      -e 's/a+/å/g' -e 's/A+/Å/g'
