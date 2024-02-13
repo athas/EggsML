@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ $# = 1 ]; then
-    n=$(commands | grep -n "$1" | cut -d: -f1)
+    n=$(commands | grep -x -n "$1" | cut -d: -f1)
 
     if [ "$n" ]; then
         echo -n "$EGGS_USER: Prøv med 'pr"
