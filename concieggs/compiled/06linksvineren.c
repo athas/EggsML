@@ -64,12 +64,19 @@ void checklink(const char* link) {
         } else {
           unit = "timer";
         }
-      } else if (diff < 60 * 60 * 24 * 365) {
+      } else if (diff < 60 * 60 * 24 * 12) {
         unit_number = diff / 60 / 60 / 24;
         if (unit_number == 1) {
           unit = "dag";
         } else {
           unit = "dage";
+        }
+      } else if (diff < 60 * 60 * 24 * 365) {
+        unit_number = diff / 60 / 60 / 24 / 30;
+        if (unit_number == 1) {
+          unit = "måned";
+        } else {
+          unit = "måneder";
         }
       } else {
         unit_number = diff / 60 / 60 / 24 / 365;
