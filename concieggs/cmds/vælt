@@ -81,6 +81,6 @@ EOF
         makeKing "$newking"
     fi
 else
-    revolutionærHandlingMedAI
+    revolutionærHandling
     echo "Kun $v har meldt sig under den revolutionære fane!  I skal være flere!"
 fi
