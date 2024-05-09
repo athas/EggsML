@@ -2,10 +2,10 @@
 
 set -e
 
-stdin="$(cat)"
+stdin="$(sed 's/"/\\"/g')"
 
 if ! [ "$stdin" ]; then
     exit 1
 fi
 
-eval "$* '$stdin'"
+eval "$* \"$stdin\""
