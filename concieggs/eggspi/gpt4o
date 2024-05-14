@@ -1,10 +1,10 @@
 #!/bin/sh
 #
-# Use: gpt4 n text...
+# Use: gpt4o n text...
 
 api_key="$(cat "$CONCIEGGS_HOME/credentials/openai")"
 temperature=0.7
-engine=gpt-4
+engine=gpt-4o
 max_tokens=$1
 shift
 prompt=$(echo "$@" | sed 's/"/\\"/g')
