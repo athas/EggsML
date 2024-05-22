@@ -2,12 +2,12 @@
 
 import requests
 
-url = 'https://www.predictit.org/api/marketdata/markets/3698'
+url = 'https://www.predictit.org/api/marketdata/markets/7456'
 resp = requests.get(url=url)
 data = resp.json()
 candidates = data['contracts']
 
-output = "Sandsynlighed for sejr ved præsidentvalget 3. november 2020:\n"
+output = "Sandsynlighed for sejr ved præsidentvalget 5. november 2024:\n"
 for candidate in candidates:
     
     # Skip the candidate that have less than 2 % chance to prevent spamming the channel
