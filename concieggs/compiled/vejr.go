@@ -145,8 +145,8 @@ func main() {
 		city = "Trondheim"
 		country = "NO"
 	} else if user == "erk" {
-		city = "Delft"
-		country = "NL"
+		city = "Slagelse"
+		country = "DK"
 	} else if user == "svip" {
 		city = "Ruds Vedby"
 		country = "DK"
