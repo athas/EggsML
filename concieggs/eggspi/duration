@@ -24,7 +24,7 @@ if ($delta > $year) {
     push @duration, sprintf("%d år", $n_years);
 }
 
-if (!$big && $delta > $week) {
+if ($delta > $week) {
     $big++;
     my $n_weeks = int($delta / $week);
     $delta -= $week * $n_weeks;
