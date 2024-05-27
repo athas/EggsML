@@ -23,7 +23,7 @@
 
 (let ((words (loop for x = (read-word)
                    while (not (string= x ""))
-                   if (< 10 (random 100))
+                   if (> 25 (random 100))
                       nconcing (list x (random-noise))
-                      collect x)))
+                      else collect x)))
   (format *standard-output* "~{~A~^ ~}" words))
