@@ -1,0 +1,29 @@
+#!/usr/bin/env clisp
+
+(setf *random-state* (make-random-state t))
+
+(defun read-word (&optional (stream *standard-input*))
+  (loop for c = (peek-char nil stream nil nil)
+        while (and c (eql c (peek-char t stream nil nil)))
+        collect (read-char stream) into word
+        finally (return (coerce word 'string))))
+
+(defun random-noise ()
+  (case (random 10)
+    (0 "*bang*")
+    (1 "*klonk*")
+    (2 "*piv*")
+    (3 "*rumle rumle*")
+    (4 "*skrammle-skrammle*")
+    (5 "*🚆bang*")
+    (6 "*knage-knage*")
+    (7 "*Toget kører ikke længere*")
+    (8 "*bump bump bump*")
+    (9 "*tøf-tøf*")))
+
+(let ((words (loop for x = (read-word)
+                   while (not (string= x ""))
+                   if (< 10 (random 100))
+                      nconcing (list x (random-noise))
+                      collect x)))
+  (format *standard-output* "~{~A~^ ~}" words))
