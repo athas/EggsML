@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# IC3-toget virker bare; så dette filter gør ikke noget
+
+cat
