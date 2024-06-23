@@ -136,6 +136,7 @@ func makeCall(url string, response interface{}) error {
 }
 
 func main() {
+	fmt.Println(os.Args)
 	user := os.Getenv("EGGS_USER")
 	var city, country string
 	if user == "sword_smith" || user == "trobjo" || user == "ElonFusk" {
