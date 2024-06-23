@@ -168,8 +168,10 @@ func main() {
 				fmt.Println(kantinevejrBeskrivelse)
 				return
 			}
+			fmt.Println(strings.Join(os.Args[1:], " "))
 			args := append(os.Args[:0], os.Args[1:]...)
 			argsStr := strings.Join(args, " ")
+			fmt.Println(argsStr)
 			ss := strings.Split(argsStr, ",")
 			if len(ss) == 1 {
 				city = ss[0]
