@@ -30,8 +30,11 @@ if [ -L "$srcfile" ]; then
     srcfile="$(readlink -f $srcfile)"
 fi
 
+echo "Goddag: $@"
+
 if [[ -f "$srcfile" && "$compiledfile" -nt "$srcfile" ]] || [[ -d "$srcfile" && "$compiledfile" -nt "$(ls -ct1 $(find "$srcfile" -type f) | head -n 1)" ]]; then
     if [ "$do_run" = 1 ]; then
+    	echo "Så $compiledfile $@"
         "$compiledfile" "$@"
     fi
 else
