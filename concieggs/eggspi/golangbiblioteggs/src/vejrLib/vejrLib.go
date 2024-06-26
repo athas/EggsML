@@ -20,15 +20,18 @@ const (
 var COUNTRIES = map[string]string{
 	"CA": "Canada",
 	"CH": "det Schweiziske Edsforbund",
-	"DE": "den Tyske Forbundsrepublik",
+	"CZ": "Republikken Tjekkiet",
+	"DE": "Forbundsrepublikken Tyskland",
 	"DK": "Kongeriget Danmark",
-	"FR": "den Franske Republik",
+	"FR": "Republikken Frankrig",
 	"IE": "Republikken Irland",
-	"IT": "den Italienske Republik",
+	"IT": "Republikken Italien",
+	"IR": "den Islamiske Republik Iran",
 	"NO": "Kongeriget Norge",
 	"NL": "Kongeriget Nederlandene",
 	"SE": "Kongeriget Sverige",
 	"GB": "Storbritanniens og Nordirlands Forenede Kongerige",
+	"UA": "Ukraine",
 	"US": "Amerikas Forenede Stater",
 }
 
