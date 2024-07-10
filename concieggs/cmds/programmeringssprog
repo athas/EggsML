@@ -129,6 +129,7 @@ static SUFFIXES: &[(&str, u32)] = &[
     (" 8", 1),
     (" 9", 1),
     (" 99", 1),
+    (" for Dummies", 2),
     (" for Workstation", 2),
     (" Query Language", 3),
     (" with Classes", 5),
