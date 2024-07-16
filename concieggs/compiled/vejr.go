@@ -172,7 +172,7 @@ func main() {
 	var city, country string
 	var found bool
 	city, country, found = readUserSetting(user)
-	if !found {
+	if !found || city == "" || country == "" {
 		city = "København"
 		country = "DK"
 	}
