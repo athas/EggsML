@@ -13,6 +13,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"os/exec"
 	"strconv"
 	"strings"
 	"text/template"
@@ -135,40 +136,65 @@ func makeCall(url string, response interface{}) error {
 	return nil
 }
 
+func readUserSetting(user string) (city string, country string, found bool) {
+	cmd := exec.Command("dbUserRead", user, "vejrsted")
+	o, err := cmd.Output()
+	if err != nil {
+		return city, country, false
+	}
+	s := strings.Split(string(o), ",")
+	if len(s) == 0 {
+		return city, country, false
+	}
+	if len(s) == 1 {
+		return s[0], "DK", true
+	}
+	return s[0], s[1], true
+}
+
+func writeUserSetting(user string, setting string) (err error) {
+	cmd := exec.Command("dbUserWrite", user, "vejrsted")
+	stdin, err := cmd.StdinPipe()
+	if err != nil {
+		return err
+	}
+
+	go func() {
+		defer stdin.Close()
+		io.WriteString(stdin, setting)
+	}()
+
+	return cmd.Run()
+}
+
 func main() {
 	user := os.Getenv("EGGS_USER")
 	var city, country string
-	if user == "sword_smith" || user == "trobjo" || user == "ElonFusk" {
-		city = "Zug"
-		country = "CH"
-	} else if user == "trulsa" {
-		city = "Trondheim"
-		country = "NO"
-	} else if user == "erk" {
-		city = "Slagelse"
-		country = "DK"
-	} else if user == "svip" {
-		city = "Ruds Vedby"
-		country = "DK"
-	} else if user == "munksgaard" {
-		city = "Birkerød"
-		country = "DK"
-	} else {
+	var found bool
+	city, country, found = readUserSetting(user)
+	if !found {
 		city = "København"
 		country = "DK"
 	}
 	velkomst := false
-	if len(os.Args) > 1 {
+	args := os.Args
+	if len(args) > 1 {
 		country = "DK" // antag Danmark
-		if os.Args[1] == "Velkomstbesked" {
+		if args[1] == "Velkomstbesked" {
 			velkomst = true
 		} else {
-			// Hvad er vejret i Kantinen?
-			if os.Args[1] == "Kantinen" {
+			if args[1] == "gem" {
+				args = append(args[:0], args[2:]...)
+				if err := writeUserSetting(user, strings.Join(args, " ")); err != nil {
+					fmt.Println("Den kunne jeg ikke lige gemme, men jeg kan vise dig vejret!")
+				}
+			} else if args[1] == "Kantinen" {
+				// Hvad er vejret i Kantinen?
 				fmt.Println(kantinevejrBeskrivelse)
 				return
+			} else {
+				args = append(args[:0], args[1:]...)
 			}
-			args := append(os.Args[:0], os.Args[1:]...)
 			argsStr := strings.Join(args, " ")
 			ss := strings.Split(argsStr, ",")
 			if len(ss) == 1 {
