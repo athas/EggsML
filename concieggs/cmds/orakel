@@ -97,8 +97,8 @@ for contract in contracts:
         some_skipped = True
         break
 
-    # If many contracts exist for this market, do not print those with probability less than 2 %
-    if contract['lastTradePrice'] < 0.02 and len(contracts) > 5 and max(contracts, key=lambda x: x['lastTradePrice'])['lastTradePrice'] > 0.01:
+    # If many contracts exist for this market, do not print those with probability less than 3 %
+    if contract['lastTradePrice'] < 0.03 and len(contracts) > 5 and max(contracts, key=lambda x: x['lastTradePrice'])['lastTradePrice'] > 0.01:
         some_skipped = True
         continue
 
