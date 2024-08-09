@@ -65,6 +65,9 @@ if ((stat($source_file))[9] > ((stat($cached_file))[9] // 0)) {
 
             say STDERR capturex(EXIT_ANY, qw(cc -o), $cached_file, qw(-O3 -xc -D FLAG_WORDALIGNED -w), "$source_file.c");
         }
+        when (/\.rs$/) {
+            say STDERR capturex(EXIT_ANY, qw(rustc -Copt-level=3), $source_file, '-o', $cached_file);
+        }
         default {
             say "Cannot compile file $source_file - unknown extension.";
             exit(2);
