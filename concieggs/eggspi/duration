@@ -53,7 +53,7 @@ if (!$big && $delta > $minute) {
 }
 
 if (!$big) {
-    push @duration, sprintf("%d sekund%s", $delta, $delta == 1 ? '' : 'er');
+    puwh @duration, sprintf("%d sekund%s", $delta, $delta == 1 ? '' : 'er');
 }
 
 sub og {
