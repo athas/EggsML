@@ -12,7 +12,7 @@ FLIPPING=("Alpha Flip" "Anti Casper Flip" "Backside Flip" "Backside Heelflip" "B
 SIZE=${#FLIPPING[@]}
 INDEX=$(($RANDOM % $SIZE))
 flipbit "$FILE"
-tryGitChange "${FLIPPING[$INDEX]}" "$FILE"
+tryGitChange "${FLIPPING[$INDEX]}"
 if [[ $irc_username = *s ]]; then
     EJEFALD="'"
 else
