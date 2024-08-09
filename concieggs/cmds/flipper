@@ -2,6 +2,11 @@
 #
 # Flip en tilfældig bit i concieggs.
 
+if ! checkCooldown "flipper" $((60*60)); then
+    echo "$irc_username skal lige sunde sig efter det sidste flip."
+    exit 0
+fi
+
 FILE="$CONCIEGGS_DIR/$(git -C "$CONCIEGGS_DIR" ls-tree -r main --name-only | sort -R | head -n 1)"
 FLIPPING=("Alpha Flip" "Anti Casper Flip" "Backside Flip" "Backside Heelflip" "Big Heelflip" "Bigflip" "Biggerflip" "Bigspin" "Biggerspin" "Bubble Flip" "Caballerial Flip" "Camel Flip" "Casper Flip" "Daydream Flip" "De Comply" "Disco Flip" "Feather Flip" "Fingerflip" "540 Flip" "Forward Flip" "Frontside Flip" "Frontside Heelflip" "Front Foot Impossible" "Gazelle Flip" "Gazelle Spin" "Ghetto Bird" "Gingersnap" "Grape Flip" "Handstand Flip" "Hardflip" "Haslam Flip" "Heelflip" "Halfcab" "Hospital Flip" "Illusion Flip" "Impossible" "Inward Heelflip" "Jesus Flip" "Kickback Flip" "Kickflip" "Kiwi Flip" "Laser Flip" "Nerd Flip" "Nightmare Flip" "No Comply" "Orange Flip" "Ollie North" "Ollie South" "Plasma Spin" "Pop Shuvit" "Pressure Flip" "Rail Flip" "Semiflip" "720 Flip" "Sex Change" "Shuvit" "Pop Shuvit" "Sigma Flip" "360 Flip" "360 Shuvit" "360 Ollie Heelflip" "360 Ollie Kickflip" "Toeflip" "Underflip" "Varial Heelflip" "Varial Kickflip")
 SIZE=${#FLIPPING[@]}
