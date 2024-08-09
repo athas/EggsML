@@ -18,4 +18,4 @@ if [[ $irc_username = *s ]]; then
 else
     EJEFALD="s"
 fi
-echo "$EGGS_USER laver et ${FLIPPING[$INDEX]} på $irc_username$EJEFALD kodebase!"
+echo "$EGGS_USER laver et ${FLIPPING[$INDEX]} på ${CONCIEGGS_NAME}${EJEFALD} kodebase!"
