@@ -13,7 +13,7 @@ SIZE=${#FLIPPING[@]}
 INDEX=$(($RANDOM % $SIZE))
 flipbit "$FILE"
 tryGitChange "${FLIPPING[$INDEX]}" "$FILE"
-if [[ $irc_username = *s ]]; then
+if [[ $CONCIEGGS_NAME = *s ]]; then
     EJEFALD="'"
 else
     EJEFALD="s"
