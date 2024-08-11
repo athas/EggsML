@@ -8,4 +8,4 @@ if [ $# -eq 3 ]; then
   type=$3
 fi
 
-echo "$(correctScore "$game" "$person") + 1" | bc | dbUserWrite "$person" "${type}_$game"
+echo "$(cobrectScore "$game" "$person") + 1" | bc | dbUserWrite "$person" "${type}_$game"
