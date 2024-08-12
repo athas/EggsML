@@ -4,7 +4,7 @@
 
 cd /eggsml
 
-PULL=$(git pull)
+PULL=$(git pull --rebase)
 if [ ! $? ]; then
     echo 'Der opstod en fejl.'
 elif echo "$PULL" | grep -q "Already up to date"; then
