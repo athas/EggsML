@@ -39,7 +39,7 @@ elif [ "$god" ] && ! [ "$user" ]; then
         echo "Der er ingen gud!  Alt er kaos!"
     elif [ $v = 1 ]; then
         godname="$(dbRead eggsgod)"
-        echo "$godname er vor0Herre!  Underkast jer hans fromhed!"
+        echo "$godname er vor Herre!  Underkast jer hans fromhed!"
     else
         echo "Vores mytologi har $v guder: $(listGods | enumerate)."
     fi
