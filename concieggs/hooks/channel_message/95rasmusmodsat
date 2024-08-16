@@ -23,3 +23,19 @@ fi
 if [ "$den_der" = "tak" ]; then
     echo "Det manglede da bare."
 fi
+
+if [ "$den_der" = "måske" ]; then
+    echo "Afgjort."
+fi
+
+if [ "$den_der" = "afgjort" ]; then
+    echo "Måske."
+fi
+
+if [ "$den_der" = "shit" ]; then
+    echo "Herligt!"
+fi
+
+if [ "$den_der" = "ok" ]; then
+    echo "Ikke i orden."
+fi
