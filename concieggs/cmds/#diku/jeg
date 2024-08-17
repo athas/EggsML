@@ -4,6 +4,14 @@
 
 eval "$(echo "$@" | parse '(har fødselsdag (?<birthday>.+))|er (?<king>konge)|er (?<god>gud)|er (?<alsogod>også gud)|er (?<truegod>den eneste (sande|rigtige) gud)|er (?<notgod>ikke (længere|mere) gud)|er (?<root>root)|hedder (?<username>.+?) på (?<service>GitHub|last\.fm)')"
 
+godChangeOk() {
+    checkCooldown 'gudeændring' $((3600 * 24))
+}
+
+roPaa() {
+    echo "Ro på, folket skal lige have tid til at justere sig til den nuværende gudetilstand først.  Prøv igen senere."
+}
+
 if [ "$birthday" ]; then
     if [ "$birthday" = 'i dag' ]; then
         date=$(dateToday | sed 's/^....-//')
@@ -48,9 +56,13 @@ elif [ "$god" ] || [ "$alsogod" ] || [ "$truegod" ]; then
             echo "Men De er jo allerede vor Herre!"
         else
             if [ "$truegod" ]; then
-                echo "Ud med de hedenske guder!  Hil vor Herre $EGGS_USER!"
-                removePaganGods
-                makeGod "$EGGS_USER"
+                if godChangeOk; then
+                    echo "Ud med de hedenske guder!  Hil vor Herre $EGGS_USER!"
+                    removePaganGods
+                    makeGod "$EGGS_USER"
+                else
+                    roPaa
+                fi
             else
                 echo "De er jo allerede en af vor guder!"
             fi
@@ -59,16 +71,24 @@ elif [ "$god" ] || [ "$alsogod" ] || [ "$truegod" ]; then
         echo "$EGGS_USER: Det finder jeg usandsynligt.  Skulle vorherre ikke forestille at være ufejlbarlig?"
     elif isThereAGod; then
         if [ "$alsogod" ]; then
-            if [ "$v" = 1 ]; then
-                echo "Moderne monotenitiske religioner er forkerte!  Flere guder er vejen!"
+            if godChangeOk; then
+                if [ "$v" = 1 ]; then
+                    echo "Moderne monotenitiske religioner er forkerte!  Flere guder er vejen!"
+                else
+                    echo "Vores mytologi vokser!  Jo flere guder jo bedre!"
+                fi
+                makeGod "$EGGS_USER"
             else
-                echo "Vores mytologi vokser!  Jo flere guder jo bedre!"
+                roPaa
             fi
-            makeGod "$EGGS_USER"
         elif [ "$truegod" ]; then
-            echo "Ud med de hedenske guder!  Hil vor Herre $EGGS_USER!"
-            removePaganGods
-            makeGod "$EGGS_USER"
+            if godChangeOk; then
+                echo "Ud med de hedenske guder!  Hil vor Herre $EGGS_USER!"
+                removePaganGods
+                makeGod "$EGGS_USER"
+            else
+                roPaa
+            fi
         else
             if [ "$v" = 1 ]; then
                 echo "Men der er allerede en gud!"
@@ -77,8 +97,12 @@ elif [ "$god" ] || [ "$alsogod" ] || [ "$truegod" ]; then
             fi
         fi
     else
-        echo "Vor Herre $EGGS_USER!  Lad os alle bede."
-        makeGod "$EGGS_USER"
+        if godChangeOk; then
+            echo "Vor Herre $EGGS_USER!  Lad os alle bede."
+            makeGod "$EGGS_USER"
+        else
+            roPaa
+        fi
     fi
 elif [ "$notgod" ]; then
     if isGod "$EGGS_USER"; then
