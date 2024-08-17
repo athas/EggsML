@@ -43,7 +43,7 @@ if harStøttetKongen "$supporter"; then
     exit
 fi
 
-if vilVælteKongen "$supporter"; then
+if vilVælte "$supporter"; then
     echo "$EGGS_USER: Du kan ikke skifte kulør på den måde, Kongens efterretningstjeneste holder godt øje med dig."
     exit
 fi
