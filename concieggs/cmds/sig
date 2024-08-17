@@ -9,6 +9,7 @@ import os
 from functools import partial
 import itertools
 import random
+import subprocess
 from time import sleep
 
 def fork_away():
