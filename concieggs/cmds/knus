@@ -24,7 +24,7 @@ fi
 knusOproeret() {
     dbRead vilvæltekongen | {
         while read user; do
-            if ! isArrested "$user"; then
+            if ! isArrested "$user" && ! isGod "$user"; then
                 arrestUser "$user"
             fi
         done
