@@ -70,6 +70,15 @@ if [ "$cmd" ] && [ "$EGGS_USER" != "$CONCIEGGS_NAME" ]; then
         othercmd="$(commands $check_all_places|levenshtein "$cmd"|sort -n|head -n 1|cut -d ' ' -f 2- | tolower)"
         if [ "$othercmd" ]; then
             echo "$EGGS_USER: Jeg antager at du mente $othercmd!"
+
+            alias="$(cmdAlias "$EGGS_USER" "$othercmd")"
+            if [ "$alias" ]; then
+                othercmd="$(echo "$alias " | cut -s -d' ' -f 1)"
+                args="$(echo "$alias " | cut -s -d' ' -f 2-) $@"
+            else
+                args="$@"
+            fi
+
             otheracmd="$(find "$CONCIEGGS_DIR/cmds" -name "$othercmd" | head -n 1)"
             run "$othercmd" "$otheracmd" $args || run "$othercmd" "$(echo "$otheracmd" | tolower)" $args
         else
