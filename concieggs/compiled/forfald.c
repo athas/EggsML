@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <unistd.h>
+#include <math.h>
 
 int main(int argc, char* argv[]) {
   srand(getpid());
