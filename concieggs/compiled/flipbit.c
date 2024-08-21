@@ -11,7 +11,7 @@ void flipline(void) {
   while ((m = getline(&line, &n, stdin)) > 0) {
     int i = rand() % m;
     int j = rand() % 8;
-    line[i] ^= i<<j;
+    line[i] ^= 1<<j;
     fputs(line, stdout);
   }
 }
