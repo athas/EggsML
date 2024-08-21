@@ -10,10 +10,10 @@ int main(int argc, char* argv[]) {
   size_t n;
   ssize_t m;
   while ((m = getline(&line, &n, stdin)) > 0) {
-    for (int i = 0; i < m-1; i++) {
-      double p = (double)i/(double)m;
+    for (int i = 0; i < m-2; i++) {
+      double p = exp(0.3*(double)i/(double)m)-1;
       if (rand() / (double)RAND_MAX < p) {
-        int j = rand() % 8;
+        int j = rand() % 7;
         line[i] ^= 1<<j;
       }
     }
