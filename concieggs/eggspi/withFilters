@@ -28,7 +28,7 @@ apply_db_filter_inner() {
         if [ "$destuser" != '' ]; then
             filterchain=$(echo -n $(dbRead "filterchain_$destuser"))
         fi
-        if ! [ "$cmd" ] && [ "$channel" != '' ]; then
+        if ! [ "$cmd" ] && [ "$channel" != &' ]; then
             filterchain=$(echo -n $(dbRead "filterchain_$channel"))
         fi
         if ! [ "$cmd" ]; then
