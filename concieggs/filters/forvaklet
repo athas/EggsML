@@ -9,4 +9,5 @@ for word in $(cat); do
     word="$(echo "$parts:" | cut -d: -f1)"
     end="$(echo "$parts:" | cut -d: -f2)"
     echo -n "$((grep "^$word:" $fil || echo "$word:$word") | randomLine | cut -d: -f2 | tr ' ' '\n' | randomLine)$end "
+    echo
 done
