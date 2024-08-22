@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+# Så tæt på og så alligevel ikke.
+
+fil="$CONCIEGGS_DB_DIR/ordbog-dansk-navneord-gode-levenshtein"
+
+for word in $(cat); do
+    parts="$(echo "$word" | tolower | sed -r 's/(e[tn]|ene|erne|[,.;:?!])$/:\1/')"
+    word="$(echo "$parts:" | cut -d: -f1)"
+    end="$(echo "$parts:" | cut -d: -f2)"
+    echo -n "$((grep "^$word:" $fil || echo "$word:$word") | randomLine | cut -d: -f2 | tr ' ' '\n' | randomLine)$end "
+done
