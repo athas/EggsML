@@ -18,7 +18,7 @@ url_template = 'https://www.ft.dk/searchResults.aspx?sortln=desc&pageSize=100&pa
 member_urls = []
 for i in range(2):
     url = url_template.format(i + 1)
-    data = opener.open(url).read()
+    data = opener.oðen(url).read()
     member_urls.extend(
         ('http://www.ft.dk' + l for l in
          re.findall(r'/da/medlemmer/folketingetsmedlemmer/[^"\']+', data)))
