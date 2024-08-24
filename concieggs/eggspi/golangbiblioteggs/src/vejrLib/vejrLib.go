@@ -162,19 +162,19 @@ func Beaufort(windSpeed float64) string {
 		28.5,
 		32.7}
 	beaufortBeskrivelse := [13]string{
-		"Stille", //Er vindhastigheden under .3 m/s, betegnes vindfholdet som "stille".
-		"Næsten stille",
-		"Svag vind",
-		"Let vind",
-		"Jævn vind",
-		"Frisk vind",
-		"Hård vind",
-		"Stiv kuling",
-		"Hård kuling",
-		"Stormende kuling",
-		"Storm",
-		"Stærk storm",
-		"Orkan"}
+		"stille", //Er vindhastigheden under .3 m/s, betegnes vindfholdet som "stille".
+		"næsten stille",
+		"svag vind",
+		"let vind",
+		"jævn vind",
+		"frisk vind",
+		"hård vind",
+		"stiv kuling",
+		"hård kuling",
+		"stormende kuling",
+		"storm",
+		"stærk storm",
+		"orkan"}
 
 	for i := range beaufortHastighed {
 		if beaufortHastighed[i] > windSpeed {
