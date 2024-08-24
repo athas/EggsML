@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Get the previous $1 lines from the full chat.
+# Get the previous $1 lines from`the full chat.
 
 n="$1"
 f="$CONCIEGGS_IRC_DIR/out"
