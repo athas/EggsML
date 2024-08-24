@@ -286,7 +286,7 @@ func main() {
 	/* Hent relevant vinddata fra JSON-struktur */
 	degrees := dat.Main.Temp
 	windSpeed := dat.Wind.Speed
-	windBeaufortName := capitalise(vejrLib.Beaufort(dat.Wind.Speed))
+	windBeaufortName := vejrLib.Beaufort(dat.Wind.Speed)
 	windDirection := dat.Wind.Deg
 	humidity := dat.Main.Humidity
 
@@ -321,6 +321,8 @@ func main() {
 			t, _ = template.New("Vejr").Parse(`Vidste du at vejret her i København er {{.Beskrivelse}} med en temperatur på {{.Degrees}}°C og en luftfugtighed på {{.Humidity}}%? Der blæser en {{.WindBeaufortName}} fra {{.WindDirection}}.`)
 		}
 	} else {
+		// Sørg lige for det ser godt ud
+		windBeaufortName = capitalise(windBeaufortName)
 		t, _ = template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}: {{.Beskrivelse}} med en temperatur på {{.Degrees}}°C og luftfugtighed på {{.Humidity}}%. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}. {{.Afstand}} {{.Age}}`)
 	}
 	out := bytes.NewBufferString("")
