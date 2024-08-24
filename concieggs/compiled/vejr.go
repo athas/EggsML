@@ -17,6 +17,8 @@ import (
 	"strconv"
 	"strings"
 	"text/template"
+	"unicode"
+	"unicode/utf8"
 	"vejrLib"
 )
 
@@ -167,6 +169,15 @@ func writeUserSetting(user string, setting string) (err error) {
 	return cmd.Run()
 }
 
+func capitalise(s string) string {
+	r, size := utf8.DecodeRuneInString(s)
+	if r == utf8.RuneError {
+		// øh, bare gør det som det passer dem!
+		return s
+	}
+	return string(unicode.ToUpper(r)) + s[size:]
+}
+
 func main() {
 	user := os.Getenv("EGGS_USER")
 	var city, country string
@@ -275,7 +286,7 @@ func main() {
 	/* Hent relevant vinddata fra JSON-struktur */
 	degrees := dat.Main.Temp
 	windSpeed := dat.Wind.Speed
-	windBeaufortName := vejrLib.Beaufort(dat.Wind.Speed)
+	windBeaufortName := capitalise(vejrLib.Beaufort(dat.Wind.Speed))
 	windDirection := dat.Wind.Deg
 	humidity := dat.Main.Humidity
 
