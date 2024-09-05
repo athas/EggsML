@@ -1,5 +1,11 @@
 #!/bin/sh
 
+x=$(grelfest)
+
+if [ $? != 0 ]; then
+	exit;
+fi
+
 signal=$(gpt4 2 "Skriv JA hvis denne tekst indeholder tysk: $EGGS_BODY")
 if [ "$signal" = "JA" ]; then
 	echo "JAWHOL"
