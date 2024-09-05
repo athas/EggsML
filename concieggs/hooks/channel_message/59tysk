@@ -1,7 +1,6 @@
 #!/bin/sh
 
-exit; # jeg er slammer
-signal=$(gpt3 2 "Skriv JA hvis denne sætning indeholder tysk: $EGGS_BODY")
+signal=$(gpt4 2 "Skriv JA hvis denne tekst indeholder tysk: $EGGS_BODY")
 if [ "$signal" = "JA" ]; then
 	echo "JAWHOL"
 fi
