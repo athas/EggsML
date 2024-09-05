@@ -1,0 +1,6 @@
+#!/bin/sh
+
+signal=$(gpt3 2 "Skriv JA hvis denne sætning indeholder tysk: $EGGS_BODY")
+if [ "$signal" = "JA" ]; then
+	echo "JAWHOL"
+fi 
