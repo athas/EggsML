@@ -1,0 +1,4 @@
+#!/bin/sh
+
+(cd "$CONCIEGGS_DB_DIR/store/users/" && ls */"$1") \
+    | xargs dirname

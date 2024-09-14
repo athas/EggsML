@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# Sig tak for alle de tak der er givet.
+
+echo "Jeg har fået følgende tak:"
+dbIterateUsers takketæller \
+    | while read user; do
+    alias="$(randomName $user)"
+    if ! [ "$alias" ]; then
+        alias="$user"
+    fi
+    echo "$(dbUserRead "$user" takketæller) tak fra $alias"
+done \
+    | sort -R
+echo "Tak skal I have!"
