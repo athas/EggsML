@@ -14,9 +14,9 @@ import (
 	"net/url"
 	"os"
 	"os/exec"
+	"regexp"
 	"strconv"
 	"strings"
-	"regexp"
 	"text/template"
 	"unicode"
 	"unicode/utf8"
@@ -281,7 +281,7 @@ func main() {
 
 		// vælg det første sted
 		if len(locations) < tryResult+1 {
-			tryResult = len(locations)-1
+			tryResult = len(locations) - 1
 		}
 		loc := locations[tryResult]
 		country = loc.Country
