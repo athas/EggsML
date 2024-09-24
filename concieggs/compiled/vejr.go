@@ -279,9 +279,10 @@ func main() {
 			return
 		}
 
-		// vælg det første sted
 		if len(locations) < tryResult+1 {
-			tryResult = len(locations) - 1
+			realCountry := vejrLib.CountryFromCode(country)
+			fmt.Printf("Jeg kunne kun finde %d byer der hedder %s i %s!\n", len(locations), city, realCountry)
+			return
 		}
 		loc := locations[tryResult]
 		country = loc.Country
