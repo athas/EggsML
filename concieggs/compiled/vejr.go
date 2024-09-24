@@ -16,6 +16,7 @@ import (
 	"os/exec"
 	"strconv"
 	"strings"
+	"regexp"
 	"text/template"
 	"unicode"
 	"unicode/utf8"
@@ -172,7 +173,7 @@ func writeUserSetting(user string, setting string) (err error) {
 func capitalise(s string) string {
 	r, size := utf8.DecodeRuneInString(s)
 	if r == utf8.RuneError {
-		// øh, bare gør det som det passer dem!
+		// øh, bare gør som det passer Dem!
 		return s
 	}
 	return string(unicode.ToUpper(r)) + s[size:]
@@ -189,16 +190,30 @@ func main() {
 	}
 	velkomst := false
 	args := os.Args
+	tryResult := 0
 	if len(args) > 1 {
 		country = "DK" // antag Danmark
 		if args[1] == "Velkomstbesked" {
 			velkomst = true
 		} else {
+			numbers := regexp.MustCompile("^[0-9]+$")
 			if args[1] == "gem" {
 				args = append(args[:0], args[2:]...)
 				if err := writeUserSetting(user, strings.Join(args, " ")); err != nil {
 					fmt.Println("Den kunne jeg ikke lige gemme, men jeg kan vise dig vejret!")
 				}
+			} else if numbers.MatchString(args[1]) {
+				i, err := strconv.Atoi(args[1])
+				if err != nil {
+					fmt.Println("Ah, det forstår jeg slet ikke!")
+					return
+				}
+				args = append(args[:0], args[2:]...)
+				if i < 0 || i > 58 {
+					fmt.Println("Hold dig til mellem 0 og 58")
+					return
+				}
+				tryResult = i
 			} else if args[1] == "Kantinen" {
 				// Hvad er vejret i Kantinen?
 				fmt.Println(kantinevejrBeskrivelse)
@@ -246,14 +261,14 @@ func main() {
 
 		// lad os finde hvor vi er
 		if len(country) > 0 {
-			if err := makeCall(fmt.Sprintf("http://api.openweathermap.org/geo/1.0/direct?q=%s,%s&limit=1&appid=%s", url.QueryEscape(city), url.QueryEscape(country), APIKEY), &locations); err != nil {
+			if err := makeCall(fmt.Sprintf("http://api.openweathermap.org/geo/1.0/direct?q=%s,%s&limit=%d&appid=%s", url.QueryEscape(city), url.QueryEscape(country), tryResult+1, APIKEY), &locations); err != nil {
 				fmt.Println("Den by findes ikke eller også er der noget andet, der er gået galt!")
 				return
 			}
 		}
 		if len(locations) == 0 {
 			// prøv lige uden land
-			if err := makeCall(fmt.Sprintf("http://api.openweathermap.org/geo/1.0/direct?q=%s&limit=1&appid=%s", url.QueryEscape(city), APIKEY), &locations); err != nil {
+			if err := makeCall(fmt.Sprintf("http://api.openweathermap.org/geo/1.0/direct?q=%s&limit=%d&appid=%s", url.QueryEscape(city), tryResult+1, APIKEY), &locations); err != nil {
 				fmt.Println("Den by findes ikke eller også er der noget andet, der er gået galt!")
 				return
 			}
@@ -265,7 +280,10 @@ func main() {
 		}
 
 		// vælg det første sted
-		loc := locations[0]
+		if len(locations) < tryResult+1 {
+			tryResult = len(locations)-1
+		}
+		loc := locations[tryResult]
 		country = loc.Country
 
 		lon, lat = loc.Lon, loc.Lat
