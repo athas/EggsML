@@ -19,7 +19,7 @@ else
     exit
 fi
 
-if [ "$swine" = "$irc_username" -o "$swine" = "dig" ]; then
+if [ "$swine" = "$CONCIEGGS_NAME" -o "$swine" = "dig" ]; then
     echo "$ass: Nej."
     annoyedBy "$EGGS_USER" 10 "tilsvinede mig"
     exit
