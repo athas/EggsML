@@ -8,4 +8,4 @@ if ! [ "$stdin" ]; then
     exit 1
 fi
 
-eval "$* \"$stdin\""
+"$@" "$stdin"
