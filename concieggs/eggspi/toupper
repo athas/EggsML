@@ -1,4 +1,6 @@
-#!/usr/bin/env perl
-use utf8;
-use Encode qw/encode decode/;
-print encode('utf-8', uc(decode('utf-8', $_))) while (<>);
+#!/usr/bin/env python3
+
+import sys
+
+for name in sys.stdin:
+    print(name.upper(), end='')
