@@ -11,7 +11,7 @@ mkShell {
     (python3.withPackages (ps: with ps; [
       feedparser yfinance lxml opencc requests beautifulsoup4 python-dateutil
     ]))
-    (perl534.withPackages (ps: with ps; [
+    (perl540.withPackages (ps: with ps; [
       DateTime DateTimeFormatISO8601 Encode Env FileFindRule FilePath
       FileReadBackwards GitRepository IOAll IPCRun IPCSystemSimple JSON
       LinguaTranslit ListMoreUtils ListUtilsBy LWP MojoDOM58 StringUtil
