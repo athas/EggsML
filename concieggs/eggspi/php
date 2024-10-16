@@ -1,0 +1,17 @@
+#!/bin/sh
+
+find_and_store() {
+  LATEST_PHP=$(find $(echo "$PATH" | tr ':' ' ') -maxdepth 1 -type f -name 'php-[0-9]*' 2>/dev/null | sort -V | tail -n 1)
+
+  if [ -z "$LATEST_PHP" ]; then
+      echo "No PHP executable found in PATH" >&2
+      exit 1
+  fi
+
+  echo "$LATEST_PHP" | dbWrite "php-exe"
+  echo "$LATEST_PHP"
+)
+
+PHP=$(which "$(dbRead php-exe)" 2>/dev/null || find_and_store)
+
+exec "$PHP" "$@"
