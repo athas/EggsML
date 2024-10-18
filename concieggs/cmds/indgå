@@ -28,7 +28,7 @@ if (!$ny_partner_kælenavn) {
 }
 
 $nuværende_partner = exec("dbRead ægteskab");
-if (exec("cmpNames $nuværende_partner $ny_partner && echo 1")) {
+if ($nuværende_partner && exec("cmpNames $nuværende_partner $ny_partner && echo 1")) {
     echo "$user: Fjollegøjs, jeg er jo allerede gift med med $ny_partner_kælenavn!";
 } else {
     echo "$user: Du har ret, jeg skal så meget giftes med $ny_partner_kælenavn!";
