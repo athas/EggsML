@@ -10,7 +10,7 @@ find_and_store() {
 
   echo "$LATEST_PHP" | dbWrite "php-exe"
   echo "$LATEST_PHP"
-)
+}
 
 PHP=$(which "$(dbRead php-exe)" 2>/dev/null || find_and_store)
 
