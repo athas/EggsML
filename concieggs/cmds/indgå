@@ -1,0 +1,41 @@
+#!/usr/bin/env php
+<?php
+
+$user = getenv("EGGS_USER");
+
+if ($argc < 2 || $argv[1] != "ægteskab") {
+    echo "$user: Indgå hvad?";
+    exit(0);
+}
+
+if ($argc == 2) {
+    $ny_partner = $user;
+} else {
+    if ($argv[2] != "med") {
+        echo "$user: Hvordan?";
+        exit(0);
+    }
+    if ($argc == 3) {
+        echo "$user: Med hvem skal jeg giftes?";
+        exit(0);
+    }
+    $ny_partner = $argv[3];
+}
+$ny_partner_kælenavn = exec("randomName $ny_partner");
+if (!$ny_partner_kælenavn) {
+    echo "Jeg ved ikke hvem $ny_partner er, prøver du på at drille mig?";
+    exit(0);
+}
+
+$nuværende_partner = exec("dbRead ægteskab");
+if (exec("cmpNames $nuværende_partner $ny_partner && echo 1")) {
+    echo "$user: Fjollegøjs, jeg er jo allerede gift med med $ny_partner_kælenavn!";
+} else {
+    echo "$user: Du har ret, jeg skal så meget giftes med $ny_partner_kælenavn!";
+    if ($nuværende_partner) {
+        echo "  Farvel $nuværende_partner.";
+    }
+    exec("echo $ny_partner | dbWrite ægteskab");
+}
+
+?>
