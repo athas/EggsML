@@ -24,4 +24,4 @@ if [ "$2" ]; then
     exit 0
 fi
 
-/usr/bin/whois "$1" | grep -v '^#'
+/usr/bin/whois "$1" | grep -v '^#' | grep -E '(Domain|Registered|Expires|Registration period|Status|Name|Address|Postalcode|City|Country|Phone|Hostname)'
