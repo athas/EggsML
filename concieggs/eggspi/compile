@@ -76,7 +76,7 @@ else
         *cabal)
             compile() {
                 cd "$1"
-                cabal build
+                cabal build >&2
                 cp "$(find dist-newstyle/ -type f -name $basename)" "$2"
             }
             ;;
