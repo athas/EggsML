@@ -4,3 +4,4 @@
 _build
 *.dyn_hi
 *.dyn_o
+dist-newstyle

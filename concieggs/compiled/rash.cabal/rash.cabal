@@ -1,0 +1,23 @@
+cabal-version:      3.4
+name:               rash
+version:            0.1.0.0
+build-type:         Simple
+
+common warnings
+    ghc-options: -Wall
+
+executable rash
+    import:           warnings
+    main-is:          Main.hs
+    build-depends:
+        base ^>=4.18.2.1
+      , containers
+      , array
+      , parsec
+      , text
+      , process
+      , filepath
+      , directory
+      , shell-escape
+    hs-source-dirs:   app
+    default-language: GHC2021
