@@ -2,7 +2,7 @@
 #
 # Slå ting fra og til (og måske ihjel?).
 
-eval "$(echo "$@" | parse '((?<debug_on>fejlsøgning til)|(?<debug_off>fejlsøgning fra))')"
+eval "$(echo "$@" | parse '((?<debug_on>fejlsøgning til)|(?<debug_off>fejlsøgning fra)|(?<prut>en prut))')"
 
 if [ "$debug_on" ]; then
     if ! dbExists debugging; then
@@ -18,6 +18,9 @@ elif [ "$debug_off" ]; then
     else
         echo "$EGGS_USER: Fejlsøgning er allerede slået fra."
     fi
+elif [ "$prut" ]; then
+    echo "$EGGS_USER: $(øhOk)"
+    pruttelade
 else
     echo "Brug: slå fejlsøgning <til|fra>"
 fi

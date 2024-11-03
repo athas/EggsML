@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# Prut prut prut
+
+echo -n '/me '
+randomLine <<EOF
+fylder rummet i en stor sky af hvad der bedst kan beskrives som sennepsgas.
+sætter ørepropper i ørene og lader handlingen ske!
+forbereder omgivelserne men narrer dem ved at gøre det før nedtællingen er færdig.
+💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨💨
+går i gang men besvimer af lugten
+går ind i rollen og tænker på dengang med kålpølsen
+EOF

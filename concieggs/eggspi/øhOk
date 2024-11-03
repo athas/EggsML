@@ -1,0 +1,26 @@
+#!/bin/sh
+#
+# Øh, OK?
+
+Oeh() {
+    randomLine <<EOF
+Øh
+Æh
+Hm
+EOF
+}
+
+Oehh() {
+    Oeh | sed -r "s/(.)$/$(yes '\' | head -n $(random 1 10) | tr $'\n' '1')/"
+}
+
+virkelig() {
+    randomLine <<EOF
+virkelig
+seriøst
+mener du det
+men hvorfor
+EOF
+}
+
+echo "$(Oehh), $(virkelig)?  $(ack)"
