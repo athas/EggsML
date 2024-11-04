@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# Det er vigtigt ikke at sidde fast i livet.  Brug: skift TING
+
+ting() {
+    curl -s https://dk.trustpilot.com/search?query="$1" \
+        | grep -Eo 'class="styles_businessUnitMain__PuwB7"[^<]+<[^<]+' \
+        | cut -d'>' -f3 \
+        | randomLine \
+        | htmlEntitiesDecode
+}
+
+noget="$(ting "$1")"
+
+if [ "$noget" ]; then
+    echo "$EGGS_USER: Hvad med at prøve $noget?"
+else
+    echo "$EGGS_USER: Hvad med at lade være med at drille mig?"
+fi
