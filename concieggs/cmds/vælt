@@ -6,7 +6,7 @@ if [ "$#" = 0 ]; then
     echo "$EGGS_USER: Vælt hvad?  Et glas vand?  Læsset?  På dansegulvet?  Richard Stallman?  ...Kongen?"
     exit
 elif [ "$1" != "kongen" ]; then
-    printf "/me (╯°□°)╯ $@ -> "
+    printf "/me (╯°□°)╯ $@ ︵ "
     updown "$@" | rev
     exit
 fi
