@@ -1,0 +1,9 @@
+#!/bin/sh
+#
+# Vend noget - enten i raseri eller af æstetiske årsager.
+
+if [ $# -eq 0 ]; then
+    echo "$EGGS_USER: Vend hvad?"
+else
+    updown "$@"
+fi

@@ -1,0 +1,86 @@
+#!/usr/bin/env python3
+# coding=utf-8
+#
+# Original credits to: http://www.weechat.org/scripts/source/stable/upside_down.py/
+#
+# Copy me if you can.
+# by 20h
+#
+
+import sys
+import re
+
+replacements = {
+    'A' : '\N{FOR ALL}',
+    'B' : '\N{GREEK SMALL LETTER XI}',
+    'C' : '\N{ROMAN NUMERAL REVERSED ONE HUNDRED}',
+    'D' : '\N{LEFT HALF BLACK CIRCLE}',
+    'E' : '\N{LATIN CAPITAL LETTER REVERSED E}',
+    'F' : '\N{TURNED CAPITAL F}',
+    'G' : '\N{TURNED SANS-SERIF CAPITAL G}',
+    'J' : '\N{LATIN SMALL LETTER LONG S}',
+    'K' : '\N{RIGHT NORMAL FACTOR SEMIDIRECT PRODUCT}',
+    'L' : '\ua780',
+    'M' : 'W',
+    'N' : '\N{LATIN LETTER SMALL CAPITAL REVERSED N}',
+    'P' : '\N{CYRILLIC CAPITAL LETTER KOMI DE}',
+    'Q' : '\N{GREEK CAPITAL LETTER OMICRON WITH TONOS}',
+    'R' : '\N{LATIN LETTER SMALL CAPITAL TURNED R}',
+    'T' : '\N{UP TACK}',
+    'U' : '\N{INTERSECTION}',
+    'V' : '\u0245',
+    'Y' : '\N{TURNED SANS-SERIF CAPITAL Y}',
+     'a' : "\u0250",
+     'b' : 'q',
+     'c' : "\u0254",
+     'd' : 'p',
+     'e' : "\u01DD",
+     'f' : "\u025F",
+     'g' : "\u0183",
+     'h' : '\u0265',
+     'i' : '\u0131',
+     'j' : '\u027E',
+     'k' : '\u029E',
+     'm' : '\u026F',
+     'n' : 'u',
+     'r' : '\u0279',
+     't' : '\u0287',
+     'p' : 'd',
+     'u' : 'n',
+     'q' : 'b',
+     'v' : '\u028C',
+     'w' : '\u028D',
+     'y' : '\u028E',
+     '.' : '\u02D9',
+     '[' : ']',
+     '(' : ')',
+     '{' : '}',
+     '?' : '\u00BF',
+     '!' : '\u00A1',
+     "\'" :',',
+     '>' : '<',
+     '<' : '>',
+     '_' : '\u203E',
+     ';' : '\u061B',
+     '\\u203F' : '\u2040',
+     '\\u2045' : '\u2046',
+     '\\u2234' : '\u2235',
+}
+
+def main(args):
+        if len(args) < 2:
+                sys.stderr.write("usage: %s text\n" % (args[0]))
+
+        ostr = " ".join(args[1:])
+        istr = ""
+        for i in ostr:
+                try:
+                        istr += replacements[i]
+                except:
+                        istr += i
+
+        print(istr)
+
+
+if __name__ == "__main__":
+        sys.exit(main(sys.argv))
