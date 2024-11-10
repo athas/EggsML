@@ -1,118 +1,126 @@
-#!/usr/bin/env rust-script
-//! Brug: navnestatistik <fornavn> <efternavn>
-//!
-//! ```cargo
-//! [dependencies]
-//! rand = "0.8.5"
-//! reqwest = { version = "0.12", features = ["blocking"] }
-//! scraper = "0.21.0"
-//! tokio = { version = "1", features = ["full"] }
-//! ```
-//!
-//! For debugging HTML output:
-//!
-//! ```
-//! curl 'https://www.dst.dk/da/DstDk-Global/Udvikler/HostHvorMangeHedder?ajax=1&firstName=jens&lastName=hansen'
-//! ```
-//!
-//! On success, the result appears to contain at least the following chunk of HTML:
-//!
-//! ```
-//! <tbody>
-//! <tr><td>Mænd med fornavnet 'JENS'</td><td class="text-right">42123</td></tr><tr><td>Mænd og kvinder med efternavnet 'HANSEN'</td><td class="text-right">191794</td></tr><tr><td>Mænd med navnet 'JENS HANSEN'</td><td class="text-right">1543</td></tr>
-//! </tbody>
-//! ```
-//!
-//! On failure, the result appears to contain at least the following chunk of HTML:
-//!
-//! ```
-//! <tbody>
-//! <tr><td>Der er ingen med fornavnet 'FLOMMIDUR'</td><td></td></tr><tr><td>Der er ingen personer med efternavnet 'BILBOVITSH'</td><td></td></div><tr><td>Der er færre end 3 personer med navnet 'FLOMMIDUR BILBOVITSH'</td><td></td></tr>
-//! </tbody>
-//! ```
+#!/usr/bin/env perl
+#
+# Hvor mange hedder [--json] <fornavn> [efternavn]? (Fornavn kan være tomt, efternavn kan være tomt/manglende.)
 
-use rand::Rng as _;
-use rand::prelude::SliceRandom as _;
+use 5.012;
+use strict;
+use warnings;
+no warnings 'once';
 
-const BASE_URL: &str = "https://www.dst.dk/da/DstDk-Global/Udvikler/HostHvorMangeHedder";
+use EggsML::EggsPI text => [qw(curl)];
+use HTML::Query qw(Query);
+use JSON;
+use URI::Escape;
+use List::Util qw(max);
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let args: Vec<String> = std::env::args().collect();
+my $use_json = 0;
+if (@ARGV && $ARGV[0] eq '--json') {
+    $use_json = 1;
+    shift @ARGV;
+}
 
-    if args.len() != 3 {
-        eprintln!("Brug: navnestatistik <fornavn> <efternavn>");
-        std::process::exit(1);
-    }
+unless (@ARGV) {
+    print $use_json ? dst_json(0, []) : "ingen resultater";
+    exit(-1);
+}
 
-    let firstname = &args[1];
-    let lastname = &args[2];
-    let url = format!(
-        "{}?ajax=1&firstName={}&lastName={}",
-        BASE_URL,
-        firstname,
-        lastname,
-    );
+our $dst = 'https://www.dst.dk/da/DstDk-Global/Udvikler/HostHvorMangeHedder?ajax=1';
+our @comments = (
+    "Et hit i børnehaven!",
+    "Det kunne dit næste barn hedde.",
+    "En klassiker.",
+    "Eksotisk!",
+    "Ja, det kan man så også hedde.",
+);
 
-    let client = reqwest::blocking::Client::new();
-    let response = client.get(&url).send()?;
-    let body = response.text()?;
+my ($head, $result) = dst_result(dst_html(@ARGV));
+print $use_json ? dst_json(1, $head, $result)
+                : dst_text(1, $head, $result);
 
-    let document = scraper::Html::parse_document(&body);
-    let selector = scraper::Selector::parse("tbody > tr > td").unwrap();
-    let mut selection = document.select(&selector);
-    let mut strings = Vec::with_capacity(7);
-    let mut numbers = Vec::with_capacity(3);
+sub dst_html {
+    my $firstName = shift;
+    my $lastName = shift // '';
+    my $queryString = sprintf('firstName=%s&lastName=%s',
+        uri_escape($firstName), uri_escape($lastName));
+    my $html = curl('-s', $dst, '--data', $queryString);
+    my $tree = Query(text => $html);
+    return $tree;
+}
 
-    while let Some(statistic) = selection.next() {
-        strings.push(statistic.text().collect::<String>());
-        let Some(number_str) = selection.next() else { break };
-        numbers.push(number_str.text().collect::<String>().parse::<i64>().unwrap_or(0));
-    }
-
-    let nonzero = numbers.iter().any(|n| *n > 0);
-
-    let mut results = vec![];
-    for (s, n) in strings.into_iter().zip(numbers.into_iter()) {
-        if n > 0 {
-            results.push(format!("{}: {}", s, n));
+sub dst_result {
+    my $tree = shift;
+    my @head = map { $_->as_trimmed_text } $tree->query('thead > tr > th')->get_elements;
+    my @result;
+    for my $row ($tree->query('tbody > tr')->get_elements) {
+        my @row = map { $_->as_trimmed_text } Query(tree => $row)->query('td')->get_elements;
+        my $title = $row[0];
+        if ($title =~ m/^Der er ingen /) {
+            $title =~ s/^Der er ingen //;
+            push @result, {
+                title    => $title,
+                $head[1] => 0,
+                $head[2] => 0,
+                $head[3] => 0,
+            };
+        } elsif ($title =~ m/^Der er to eller færre /) {
+            $title =~ s/^Der er to eller færre //;
+            push @result, {
+                title    => $title,
+                $head[1] => "0-2",
+                $head[2] => "0-2",
+                $head[3] => "0",
+            };
         } else {
-            results.push(s);
+            push @result, {
+                title    => $row[0],
+                $head[1] => $row[1],
+                $head[2] => $row[2],
+                $head[3] => $row[3],
+            };
         }
     }
+    return \@head, \@result;
+}
 
-    if nonzero {
-        results.push(success_message());
+sub dst_json {
+    my $status = shift;
+    my $head = shift;
+    my $result = shift;
+    return to_json({ status => $status, result => $result}, { pretty => 1 });
+}
+
+sub dst_text {
+    my $status = shift;
+    my $head = shift;
+    my $result = shift;
+
+    my @years = grep { /^\d+$/ } @$head;
+    my $year = max @years;
+
+    my @nonzero = grep { grep { /^(\d+)/ && $1 > 0 } values %$_ } @$result;
+    my @result = map { dst_text_row($year, $_) } @nonzero;
+    if (@result) {
+        return "Der var " . (join ", ", @result) . ". " . $comments[rand @comments] . "\n";
     } else {
-        results.push(failure_message());
+        my $n = int(rand(1000));
+        my @noresult = (
+            "Det var der vist ikke nogen som hed.",
+            "Det bliver sikkert populært før eller siden...",
+            "Jeg... Jeg tror ikke det er et navn.",
+            "Det navn er vist ikke blevet godkendt!",
+            "Der var $n med nav... ej, der var ikke nogen.",
+        );
+        return $noresult[rand @noresult];
     }
-
-    println!("{}", results.join(". "));
-
-    Ok(())
 }
 
-fn success_message() -> String {
-    [
-        "Moderne!",
-        "Eksotisk!",
-        "En klassiker.",
-        "Et hit i børnehaven!",
-        "Ja, det kan man så også hedde.",
-        "Det kunne dit næste barn hedde.",
-        "Så er man heller ikke i tvivl om kønnet.",
-    ].choose(&mut rand::thread_rng()).unwrap().to_string()
-}
-
-fn failure_message() -> String {
-    let num = rand::thread_rng().gen_range(0..=1000);
-    [
-        "Kan høn hedde det?".to_string(),
-        "Så postmoderne er vi endnu ikke blevet.".to_string(),
-        "Det skal nok ikke siges højt i børnehavne.".to_string(),
-        "Det var der vist ikke nogen som hed.".to_string(),
-        "Det bliver sikkert populært før eller siden...".to_string(),
-        "Jeg... Jeg tror ikke det er et navn.".to_string(),
-        "Det navn bliver vist aldrig godkendt!".to_string(),
-        format!("Der var {} med nav... ej, der var ikke nogen.", num),
-    ].choose(&mut rand::thread_rng()).unwrap().to_owned()
+sub dst_text_row {
+    my $year = shift;
+    my $row = shift;
+    my $title = delete $row->{title};
+    my $change = $_->{'Ændring'};
+    $change = $change
+      ? ' (' . (substr($change, 0, 1) eq '-' ? $change : '+' . $change) . ') '
+      : ' ';
+    return $_->{$year} . $change . lcfirst $title;
 }
