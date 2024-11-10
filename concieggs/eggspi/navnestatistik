@@ -53,8 +53,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         lastname,
     );
 
-    println!("curl {}", url);
-
     let client = reqwest::blocking::Client::new();
     let response = client.get(&url).send()?;
     let body = response.text()?;
