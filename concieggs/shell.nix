@@ -1,7 +1,6 @@
 let
   sources = import ./nix/sources.nix;
   pkgs = import sources.nixpkgs {};
-  localNodePath = "${(pkgs.callPackage ./nix/node/default.nix {}).nodeDependencies}/lib/node_modules";
 in
 with pkgs;
 mkShell {
@@ -74,12 +73,8 @@ mkShell {
     emacs-nox
     futhark
     nodejs_18
+    mapscii
   ];
 
   dontDetectOcamlConflicts = true;
-
-  shellHook = ''
-    export NODE_PATH=${localNodePath}:$NODE_PATH
-    export PATH=${localNodePath}/.bin:$PATH
-  '';
 }
