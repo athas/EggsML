@@ -72,7 +72,7 @@ mkShell {
     php
     emacs-nox
     futhark
-    nodejs_18
+    nodejs_23
     mapscii
   ];
 
