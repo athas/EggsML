@@ -35,6 +35,18 @@
         "url": "https://github.com/NixOS/nixpkgs/archive/a3c0b3b21515f74fd2665903d4ce6bc4dc81c77c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "rash": {
+        "branch": "main",
+        "description": "rash: asynchronous shell",
+        "homepage": null,
+        "owner": "nqpz",
+        "repo": "rash",
+        "rev": "a5ab485d2f7d7086210471eae8a8acb3ebaea446",
+        "sha256": "19rg1jfhxjy3h620lzz1n5nrxam8qpwfw6yg33ip9qska6527hd7",
+        "type": "tarball",
+        "url": "https://github.com/nqpz/rash/archive/a5ab485d2f7d7086210471eae8a8acb3ebaea446.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "regexps-syntax": {
         "branch": "master",
         "description": null,

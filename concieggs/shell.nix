@@ -67,6 +67,7 @@ mkShell {
     ]))
     rust-script
     (import ./nix/kleenexlang.nix)
+    (import ./nix/rash.nix)
     tcl
     ruby
     php
