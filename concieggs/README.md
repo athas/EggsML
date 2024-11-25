@@ -47,3 +47,9 @@ Prøv at køre det her:
 ```
 npm install mapscii
 ```
+
+
+## Eksterne værktøjer
+
+- https://github.com/diku-kmc/kleenexlang
+- https://github.com/nqpz/rash
