@@ -50,20 +50,7 @@ mkShell {
     sbcl
     clisp
     zig
-    (haskellPackages.ghcWithPackages (ps: with ps; [
-      mtl
-      containers
-      shell-escape
-      MonadRandom
-      random-fu
-      MissingH
-      http-client
-      http-client-tls
-      aeson
-      xml
-      ieee754
-      QuickCheck
-    ]))
+    cabal-install
     rust-script
     (import ./nix/kleenexlang.nix)
     (import ./nix/rash.nix)
