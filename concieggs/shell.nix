@@ -76,6 +76,8 @@ mkShell {
     nodejs_18
   ];
 
+  dontDetectOcamlConflicts = true;
+
   shellHook = ''
     export NODE_PATH=${localNodePath}:$NODE_PATH
     export PATH=${localNodePath}/.bin:$PATH

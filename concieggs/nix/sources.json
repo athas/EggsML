@@ -5,10 +5,10 @@
         "homepage": "http://kleenexlang.org",
         "owner": "diku-kmc",
         "repo": "kleenexlang",
-        "rev": "352ad072664f485a00a199167f7a77007722e270",
-        "sha256": "0d0i1rh5rp1x786pl7hj3xa1z9mnh8lypzh5m95wqcl2slp0w6gm",
+        "rev": "3e84f794ed63a647c2259e7b377a8222970be69f",
+        "sha256": "0j3qxck9sh649wgkmrx92fhmnzbazvwnh2pc7nz3mnmx24xww80s",
         "type": "tarball",
-        "url": "https://github.com/diku-kmc/kleenexlang/archive/352ad072664f485a00a199167f7a77007722e270.tar.gz",
+        "url": "https://github.com/diku-kmc/kleenexlang/archive/3e84f794ed63a647c2259e7b377a8222970be69f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
@@ -17,10 +17,10 @@
         "homepage": "https://github.com/nmattia/niv",
         "owner": "nmattia",
         "repo": "niv",
-        "rev": "e80fc8fae87cc91f449533fca6b9cadf8be69e6c",
-        "sha256": "024hnxvqk8z5n2n54rj05l91q38g9y8nwvrj46xml13kjmg4shb3",
+        "rev": "55422d6f2618cd2195eeafa3f16ae63fde723c15",
+        "sha256": "1s6m41hhsydf3lw6ihksc904vcpyd5agwiqq8hb8plyqvsyn74ba",
         "type": "tarball",
-        "url": "https://github.com/nmattia/niv/archive/e80fc8fae87cc91f449533fca6b9cadf8be69e6c.tar.gz",
+        "url": "https://github.com/nmattia/niv/archive/55422d6f2618cd2195eeafa3f16ae63fde723c15.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
@@ -29,10 +29,10 @@
         "homepage": "",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "a3c0b3b21515f74fd2665903d4ce6bc4dc81c77c",
-        "sha256": "1wn29537l343lb0id0byk0699fj0k07m1n2d7jx2n0ssax55vhwy",
+        "rev": "23e89b7da85c3640bbc2173fe04f4bd114342367",
+        "sha256": "1b2v6y3bja4br5ribh9lj6xzz2k81dggz708b2mib83rwb509wyb",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/a3c0b3b21515f74fd2665903d4ce6bc4dc81c77c.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/23e89b7da85c3640bbc2173fe04f4bd114342367.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "rash": {
