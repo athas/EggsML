@@ -32,14 +32,6 @@ Git::Repository::Plugin::Blame WWW::Mechanize Sys::SigAction` oveni.
 Vi afhænger vist af nogle Perl-moduler der ikke er i `shell.nix` (men
 ikke nogen vigtige?).  Se også `eggspi/perleggs/cpanfile`.
 
-## Haskell-pakker
-
-Prøv at køre denne kommando:
-
-```
-cabal update && cabal install --disable-optimization --jobs=1 --lib mtl containers parsec shell-escape MonadRandom random random-fu xml ieee754 QuickCheck http-client http-client-tls aeson
-```
-
 ## OCaml-pakker
 
 Prøv at køre denne kommando:
