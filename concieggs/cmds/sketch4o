@@ -1,0 +1,8 @@
+#!/bin/sh
+
+FORMAT=$(echo "mere dramatisk
+som et Shakespeare-manuskript
+som en elevator-pitch til en dansk film med forlag til rollefordeling blandt danske filmskuespillere
+som om det var en tv-julekalender til børn, som handler om at redde julen" | randomLine)
+
+echo "$EGGS_USER: $(gpt4o 200 "Her er en idé til en sketch: $(sketch-eggspi). Gengiv sketch-idéen men $FORMAT.")"
