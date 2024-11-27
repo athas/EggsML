@@ -189,7 +189,7 @@ fn main() {
 
     // determine how many programming languages we're naming:
     let n_arg = args().nth(1);
-    let n = std::cmp::min(7, n_arg.map(|s| s.parse::<u32>().unwrap_or(1)).unwrap_or(1));
+    let n = std::cmp::min(20, n_arg.map(|s| s.parse::<u32>().unwrap_or(1)).unwrap_or(1));
 
     // use a custom root language name
     let root_arg = args().nth(2);
