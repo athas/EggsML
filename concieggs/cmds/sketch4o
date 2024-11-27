@@ -1,10 +1,11 @@
 #!/bin/sh
 
 FORMAT=$(echo "mere dramatisk
-som et Shakespeare-manuskript
+hvor de skændes om hvorvidt $(proglang) eller $(proglang) er bedst
+som et klassisk Shakespeare-manuskript
 som en salgs-pitch til en dansk film med forlag til rollefordeling blandt kendte danske filmskuespillere
 som en IRC chat-dialog hvor hver rolle skrives som '<person> besked' og hvert svar skrives som '<person1> person2: besked'
 som en gangster-musical hvor rival-banden drives af $(street), $(street) og $(street)
 som om det var en tv-julekalender til børn, som handler om at redde julen" | randomLine)
 
-echo "$EGGS_USER: $(gpt4o 400 "Her er en idé til en sketch: $(sketch-eggspi). Gengiv sketch-idéen men $FORMAT.")"
+echo "$EGGS_USER: $(gpt4o 400 "Her er en idé til en sketch: $(sketch-eggspi). Gengiv sketch-idéen men $FORMAT. Undlad al kontekst foruden sketch-materialet.")"
