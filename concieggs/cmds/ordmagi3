@@ -9,4 +9,4 @@ else
     n=50
 fi
 
-echo "$EGGS_USER: ...$(gpt3 $n "$@")..."
+echo "$EGGS_USER: $(gpt3 $n "$@")"
