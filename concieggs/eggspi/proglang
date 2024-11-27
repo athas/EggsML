@@ -1,0 +1,203 @@
+#!/usr/bin/env rust-script
+//! -*- Rust -*-
+//!
+//! Generér et godt programmeringssprog
+//!
+//! Brug: programmeringssprog [n [sprogrod]]
+//!
+//! ```cargo
+//! edition = "2021"
+//!
+//! [dependencies]
+//! rand = { version = "0.8.5", default-features = false, features = ["alloc", "small_rng", "getrandom"] }
+//! ```
+
+use rand::rngs::SmallRng;
+use rand::seq::SliceRandom;
+use rand::Rng;
+use rand::SeedableRng;
+use std::env::args;
+
+static PREFIXES: &[(&str, u32)] = &[
+    ("", 10),
+    ("ANSI ", 2),
+    ("Apple", 2),
+    ("Auto", 2),
+    ("Brain", 2),
+    ("Borland ", 2),
+    ("Cloud ", 10),
+    ("Coffee", 3),
+    ("Common ", 5),
+    ("Emacs ", 1),
+    ("GNU ", 3),
+    ("Holy", 1),
+    ("ISO ", 3),
+    ("Linear ", 1),
+    ("Liquid ", 1),
+    ("Live", 2),
+    ("Meta", 2),
+    ("Microsoft ", 10),
+    ("My", 1),
+    ("Object ", 10),
+    ("Objective ", 10),
+    ("Power", 2),
+    ("Reich", 3),
+    ("Reiser", 1),
+    ("Standard ", 1),
+    ("Turbo ", 10),
+    ("Visual ", 10),
+    ("Win", 1),
+    ("Wolfram ", 1),
+];
+
+static ROOTS: &[&str] = &[
+    "A",
+    "APL",
+    "Ada",
+    "Agda",
+    "Algol",
+    "Alonzo",
+    "Assembler",
+    "B",
+    "Basic",
+    "Blaise",
+    "Brainfuck",
+    "C",
+    "COBOL",
+    "Church",
+    "Clojure",
+    "Coq",
+    "Curry",
+    "D",
+    "Dyalog",
+    "E",
+    "Elm",
+    "Elixir",
+    "Erlang",
+    "Euclid",
+    "F",
+    "Fermat",
+    "Forth",
+    "Fortran",
+    "Futhark",
+    "Gauss",
+    "Go",
+    "Haskell",
+    "Hilbert",
+    "J",
+    "Java",
+    "K",
+    "Kalkül",
+    "Lisp",
+    "Logo",
+    "ML",
+    "Naur",
+    "Neumann",
+    "Newton",
+    "OCaml",
+    "PHP",
+    "Pascal",
+    "Perl",
+    "Plankalkül",
+    "Prolog",
+    "Python",
+    "R",
+    "Riemann",
+    "Ruby",
+    "Rust",
+    "Scheme",
+    "Scratch",
+    "Smalltalk",
+    "SQL",
+    "Swift",
+    "Turing",
+];
+
+static SUFFIXES: &[(&str, u32)] = &[
+    (" .NET", 5),
+    (" 0x", 1),
+    (" 11", 1),
+    (" 2", 1),
+    (" 3", 1),
+    (" 4", 1),
+    (" 5", 1),
+    (" 58", 1),
+    (" 6", 1),
+    (" 68", 1),
+    (" 7", 1),
+    (" 77", 1),
+    (" 8", 1),
+    (" 9", 1),
+    (" 99", 1),
+    (" for Dummies", 2),
+    (" for Workstation", 2),
+    (" Query Language", 3),
+    (" with Classes", 5),
+    ("", 50),
+    ("#", 5),
+    ("*", 2),
+    ("++", 5),
+    ("--", 2),
+    ("+-", 1),
+    ("Script", 5),
+    ("script", 10),
+    ("Pro", 5),
+];
+
+fn programmeringssprog(mut rng: &mut SmallRng, root_arg: Option<String>) -> String {
+    let mut result = String::new();
+
+    result.push_str(
+        PREFIXES
+            .choose_weighted(&mut rng, |item| item.1)
+            .map(|item| item.0)
+            .unwrap_or(&""),
+    );
+
+    loop {
+        if rng.gen_range(1..10) == 9 {
+            result.push_str(
+                PREFIXES
+                    .choose_weighted(&mut rng, |item| item.1)
+                    .map(|item| item.0)
+                    .unwrap_or(&""),
+            );
+        } else {
+            break;
+        }
+    }
+
+    if let Some(root) = root_arg {
+        result.push_str(&root);
+    } else {
+        result.push_str(ROOTS.choose(&mut rng).unwrap_or(&""));
+    }
+
+    result.push_str(
+        SUFFIXES
+            .choose_weighted(&mut rng, |item| item.1)
+            .map(|item| item.0)
+            .unwrap_or(&""),
+    );
+
+    result
+}
+
+fn main() {
+    // prepare a non-deterministic random number generator:
+    let mut rng = SmallRng::from_entropy();
+
+    // determine how many programming languages we're naming:
+    let n_arg = args().nth(1);
+    let n = std::cmp::min(7, n_arg.map(|s| s.parse::<u32>().unwrap_or(1)).unwrap_or(1));
+
+    // use a custom root language name
+    let root_arg = args().nth(2);
+
+    let result = (0..n)
+        .map(|_| programmeringssprog(&mut rng, root_arg.clone()))
+        .collect::<Vec<String>>()
+        .join(", ");
+
+    println!("{}", result);
+}
