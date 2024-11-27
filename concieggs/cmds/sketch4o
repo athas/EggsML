@@ -2,7 +2,8 @@
 
 FORMAT=$(echo "mere dramatisk
 som et Shakespeare-manuskript
-som en elevator-pitch til en dansk film med forlag til rollefordeling blandt danske filmskuespillere
+som en salgs-pitch til en dansk film med forlag til rollefordeling blandt kendte danske filmskuespillere
+som en IRC chat-dialog hvor hver rolle skrives som '<person> besked' og hvert svar skrives som '<person1> person2: besked'
 som om det var en tv-julekalender til børn, som handler om at redde julen" | randomLine)
 
-echo "$EGGS_USER: $(gpt4o 200 "Her er en idé til en sketch: $(sketch-eggspi). Gengiv sketch-idéen men $FORMAT.")"
+echo "$EGGS_USER: $(gpt4o 400 "Her er en idé til en sketch: $(sketch-eggspi). Gengiv sketch-idéen men $FORMAT.")"
