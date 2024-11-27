@@ -8,4 +8,4 @@ som en IRC chat-dialog hvor hver rolle skrives som '<person> besked'
 som en gangster-musical hvor rival-banden drives af $(street), $(street) og $(street)
 som om det var en tv-julekalender til børn, som handler om at redde julen" | randomLine)
 
-echo "$EGGS_USER: $(gpt4o 400 "Her er en idé til en sketch: $(sketch-eggspi). Gengiv sketch-idéen men $FORMAT. Undlad al kontekst foruden sketch-materialet.")"
+echo "$EGGS_USER: $(gpt4o 400 "Her er en idé til en sketch: $(sketch-eggspi). Gengiv sketch-idéen men $FORMAT. $@ Undlad al kontekst foruden sketch-materialet.")"
