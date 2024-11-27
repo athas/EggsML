@@ -94,6 +94,14 @@ while (my $line = <>) {
     $line =~ s/\bløn/salær/gi;
     $line =~ s/\bfred/fordragelighed/gi;
     $line =~ s/\bbøn\b/begæring/gi;
+    $line =~ s/glæde/fornøjelighed/gi;
+    $line =~ s/kærligheden/følelsen/gi;
+    $line =~ s/kærlighed/følelse/gi;
+    $line =~ s/glæden/følelsen/gi;
+    $line =~ s/glæde/følelser/gi;
+    $line =~ s/\bhåb/aspiration/gi;
+    $line =~ s/\bbarn/person/gi;
+    $line =~ s/krybbe/hængekøje/gi;
 
     # Ban bad foods
     my $food_pattern = '(\b' . join('\b|\b', @bad_foods) . '\b)';
