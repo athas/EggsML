@@ -12,6 +12,7 @@
 #include <fcntl.h>
 #include <time.h>
 #include <assert.h>
+#include <stdint.h>
 
 int linksfd;
 char* links;
@@ -25,13 +26,9 @@ char buf[1024];
 void checklink(const char* link) {
   int l = strlen(link);
   char* foundlink = (char*)memmem(links, linkslength, link, l);
+
   int linestrlen;
-  if (foundlink != NULL) {
-    char* end = foundlink;
-    while (!isspace(*end) && *end != 0) {
-      end++;
-    }
-    end = 0;
+  while (foundlink != NULL) {
     if (*(foundlink + l) == ' ') {
       char* nstart = foundlink + l + 1;
       char* whostart = strstr(nstart + 1, " ") + 1;
@@ -114,6 +111,14 @@ void checklink(const char* link) {
           break;
         }
       }
+      break;
+    } else {
+      return;
+      uintptr_t skip = (uintptr_t)foundlink-(uintptr_t)links+l;
+      fprintf(stderr, "%d\n", (int)skip);
+      links += skip;
+      linkslength -= skip;
+      foundlink = (char*)memmem(links, linkslength, link, l);
     }
   }
   /* Always log */
