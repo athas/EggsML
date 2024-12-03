@@ -113,7 +113,6 @@ void checklink(const char* link) {
       }
       break;
     } else {
-      return;
       uintptr_t skip = (uintptr_t)foundlink-(uintptr_t)links+l;
       fprintf(stderr, "%d\n", (int)skip);
       links += skip;
