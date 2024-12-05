@@ -15,4 +15,4 @@ Jepsidasse
 Det siger vi bare
 EOF`
 
-echo "$nam: $(seq 1 $(random 1 100) | sed s"/.*/$ting/" | tr '\n' ' ' | sed "s/ / og /g" | sed "s/ og $//")."
+echo "$nam: $(seq 1 $(random 1 50) | sed s"/.*/$ting/" | tr '\n' ' ' | sed "s/ / og /g" | sed "s/ og $//")."
