@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# Syng Vimmersvej for os, concieggs!
+
+ting="$1"
+
+if ! [ "$ting" ]; then
+    ting=Vimmersvej
+fi
+
+nam=`randomLine <<EOF
+Ja, det kan du lide
+Nam-nam
+Jepsidasse
+Det siger vi bare
+EOF`
+
+echo "$nam: $(seq 1 $(random 1 100) | sed s"/.*/$ting/" | tr '\n' ' ' | sed "s/ / og /g" | sed "s/ og $//")."
