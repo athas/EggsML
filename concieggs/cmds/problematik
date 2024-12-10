@@ -17,4 +17,4 @@ fi
 
 lov=$(cat $CONCIEGGS_DB_DIR/danske-love | randomLine)
 
-echo gpt4 400 "De nyeste statistikker viser at $hvem er overrepræsenterede i statistikkerne omkring brud på $lov. Giv en polemisk og patosfyldt analyse af hvorfor det kan være problemet. Husk at nævne både $hvem og $lov."
+gpt4 400 "De nyeste statistikker viser at $hvem er overrepræsenterede i statistikkerne omkring brud på $lov. Giv en polemisk og patosfyldt analyse af hvorfor det kan være problemet. Husk at nævne både $hvem og $lov."
