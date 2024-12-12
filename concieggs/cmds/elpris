@@ -2,15 +2,17 @@
 # -*- coding: utf-8 -*-
 
 import urllib.request
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timedelta
 import json
 
 # Inklusiv moms
-ELAFGIFT=0.9513
-ENERGINET=0.15625
+ELAFGIFT = 0.9513
+ENERGINET = 0.15625
+
 
 def is_summer(month):
     return 4 <= month <= 9
+
 
 # Inklusiv moms
 def tarif(t):
@@ -29,23 +31,50 @@ def tarif(t):
     else:
         return 0.1220
 
-def spot_pris(t):
-    current_hour_string = current_time.strftime('%Y-%m-%dT%H:00')
-    next_hour_string = (current_time + timedelta(hours=1)).strftime('%Y-%m-%dT%H:00')
 
-    url = f"https://api.energidataservice.dk/dataset/Elspotprices?offset=0&start={current_hour_string}&end={next_hour_string}&filter=%7B%22PriceArea%22:[%22DK2%22]%7D&sort=HourUTC%20DESC"
+def pris(spotpris, t):
+    spotpris_med_moms = spotpris * 1.25 / 1000
+    tariffer = tarif(t) + ENERGINET
+
+    return {
+        "t": t,
+        "total": ELAFGIFT + tariffer + spotpris_med_moms,
+        "spot": spotpris_med_moms,
+        "tariffer": tariffer,
+        "afgifter": ELAFGIFT,
+    }
+
+
+def priser(start, end):
+    current_hour_string = start.strftime("%Y-%m-%dT%H:00")
+    end_hour_string = end.strftime("%Y-%m-%dT%H:00")
+
+    url = f"https://api.energidataservice.dk/dataset/Elspotprices?offset=0&start={current_hour_string}&end={end_hour_string}&filter=%7B%22PriceArea%22:[%22DK2%22]%7D&sort=HourUTC%20ASC"
     res = json.load(urllib.request.urlopen(url))
-    return res['records'][0]['SpotPriceDKK']
+    return [
+        pris(r["SpotPriceDKK"], datetime.fromisoformat(r["HourDK"]))
+        for r in res["records"]
+    ]
 
 
-def elpris_tekst(now):
-    # Per MWh derfor / 1000
-    spot_pris_med_moms = spot_pris(now) * 1.25 / 1000
-    tariffer = tarif(current_time) + ENERGINET
+def elpris_detalje(pris):
+    total_pris = pris["total"]
+    spot_pris = pris["spot"]
+    tariffer = pris["tariffer"]
+    afgifter = pris["afgifter"]
 
-    total_pris = ELAFGIFT + tariffer + spot_pris_med_moms
-    return f"Elprisen lige nu er {total_pris:.2f} kr. inklusiv moms.\nHeraf spotpris: {spot_pris_med_moms:.2f} kr.\n      tariffer: {tariffer:.2f} kr.\n      elafgift: {ELAFGIFT:.2f} kr."
-    
+    return f"Elprisen lige nu er {total_pris:.2f} kr. inklusiv moms.\nHeraf spotpris: {spot_pris:.2f} kr.\n      tariffer: {tariffer:.2f} kr.\n      elafgift: {afgifter:.2f} kr.\n"
+
+
+def elpris_linje(pris):
+    tid = pris["t"].strftime("%H:00")
+    total = pris["total"]
+    return f"{tid}: {total:.2f} kr."
+
+
 current_time = datetime.now().astimezone()
 
-print(elpris_tekst(current_time))
+ps = priser(current_time, current_time + timedelta(hours=12))
+print(elpris_detalje(ps[0]))
+for p in ps[1:]:
+    print(elpris_linje(p))
