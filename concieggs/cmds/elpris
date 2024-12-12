@@ -1,0 +1,51 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import urllib.request
+from datetime import datetime, timezone, timedelta
+import json
+
+# Inklusiv moms
+ELAFGIFT=0.9513
+ENERGINET=0.15625
+
+def is_summer(month):
+    return 4 <= month <= 9
+
+# Inklusiv moms
+def tarif(t):
+    # peak
+    if 17 <= t.hour < 21:
+        if is_summer(t.month):
+            return 0.4760
+        else:
+            return 1.0985
+    # high
+    elif 6 <= t.hour < 17:
+        if is_summer(t.month):
+            return 0.1831
+        else:
+            return 0.3661
+    else:
+        return 0.1220
+
+def spot_pris(t):
+    current_hour_string = current_time.strftime('%Y-%m-%dT%H:00')
+    next_hour_string = (current_time + timedelta(hours=1)).strftime('%Y-%m-%dT%H:00')
+
+    url = f"https://api.energidataservice.dk/dataset/Elspotprices?offset=0&start={current_hour_string}&end={next_hour_string}&filter=%7B%22PriceArea%22:[%22DK2%22]%7D&sort=HourUTC%20DESC"
+    res = json.load(urllib.request.urlopen(url))
+    return res['records'][0]['SpotPriceDKK']
+
+
+def elpris_tekst(now):
+    # Per MWh derfor / 1000
+    spot_pris_med_moms = spot_pris(now) * 1.25 / 1000
+    tariffer = tarif(current_time) + ENERGINET
+
+    total_pris = ELAFGIFT + tariffer + spot_pris_med_moms
+    return f"Elprisen lige nu er {total_pris:.2f} kr. inklusiv moms.\nHeraf spotpris: {spot_pris_med_moms:.2f} kr.\n      tariffer: {tariffer:.2f} kr.\n      elafgift: {ELAFGIFT:.2f} kr."
+    
+current_time = datetime.now().astimezone()
+
+print(elpris_tekst(current_time))
