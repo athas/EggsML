@@ -22,14 +22,15 @@ def tarif(t):
             return 0.4760
         else:
             return 1.0985
+    # low
+    elif t.hour < 6:
+        return 0.1220
     # high
-    elif 6 <= t.hour < 17:
+    else:
         if is_summer(t.month):
             return 0.1831
         else:
             return 0.3661
-    else:
-        return 0.1220
 
 
 def pris(spotpris, t):
