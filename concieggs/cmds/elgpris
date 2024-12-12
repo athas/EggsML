@@ -1,0 +1,26 @@
+#!/bin/sh
+#
+# Find gode elgrelaterede priser.
+
+n_annoncer=$(curl -s 'https://www.dba.dk/soeg/?soeg=elg&sort=listingdate-desc' \
+                 | grep -E '[0-9]+ annoncer' \
+                 | head -n 1 \
+                 | grep -Eo '[0-9]+')
+n_sider=$(expr $n_annoncer / 20)
+side=$(random 1 $n_sider)
+
+ting_url=$(curl -s "https://www.dba.dk/soeg/side-$side/?soeg=elg&sort=listingdate-desc" \
+               | grep '<a class="listingLink"' \
+               | randomLine \
+               | grep -Eo 'https://[^"]+')
+
+curl -s $ting_url \
+    | grep '<script>var _profile =' \
+    | cut -d '=' -f 2- \
+    | sed -r 's/;<\/script><\/head>//' \
+    | jq -r '"\"\(.title)\" står til kun \(.price.text) på '$ting_url'\n\(.text)"' 2>/dev/null \
+    | {
+    read line
+    echo -n "$line og har blandt andet: "
+    grep -i elg | head -n 1
+    }
