@@ -38,7 +38,7 @@ def lokale_tariffer(adresse):
 
 
 def zone(adresse):
-    zip = re.search("^.+(\\d{4}).+", adresse).group(1)
+    zip = re.search("^.+(\\d{4}).*", adresse).group(1)
     return "DK1" if int(zip) >= 5000 else "DK2"
 
 
