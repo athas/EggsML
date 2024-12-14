@@ -13,16 +13,16 @@ ENERGINET_NET = "40000"
 EL_AFGIFT = "EA-001"
 
 
-def netselskab(adresse):
-    addr = urllib.parse.quote(adresse)
+def netselskab(zip):
+    addr = urllib.parse.quote(zip)
     url = f"https://api.elnet.greenpowerdenmark.dk/api/supplierlookup/{addr}"
     res = json.load(urllib.request.urlopen(url))
     return (res["name"], res["def"])
 
 
-def lokale_tariffer(adresse):
+def lokale_tariffer(zip):
 
-    (selskab, kode) = netselskab(adresse)
+    (selskab, kode) = netselskab(zip)
 
     filter = urllib.parse.quote_plus(
         json.dumps(
@@ -37,8 +37,7 @@ def lokale_tariffer(adresse):
     return [to_profile(x) for x in res["records"]]
 
 
-def zone(adresse):
-    zip = re.search("^.+(\\d{4}).*", adresse).group(1)
+def zone(zip):
     return "DK1" if int(zip) >= 5000 else "DK2"
 
 
@@ -119,13 +118,13 @@ def priser(bz, lokale_ts, ts, start, end):
     ]
 
 
-def elpris_detalje(pris):
+def elpris_detalje(zip, pris):
     total_pris = pris["total"]
     spot_pris = pris["spot"]
     tariffer = pris["tariffer"]
     afgifter = pris["afgifter"]
 
-    return f"Elprisen lige nu er {total_pris:.2f} kr. inklusiv moms.\nHeraf spotpris: {spot_pris:.2f} kr.\n      tariffer: {tariffer:.2f} kr.\n      elafgift: {afgifter:.2f} kr.\n"
+    return f"Elprisen lige nu postnummer {zip} er {total_pris:.2f} kr. inklusiv moms.\nHeraf spotpris: {spot_pris:.2f} kr.\n      tariffer: {tariffer:.2f} kr.\n      elafgift: {afgifter:.2f} kr.\n"
 
 
 def elpris_linje(pris):
@@ -135,15 +134,15 @@ def elpris_linje(pris):
 
 
 if __name__ == "__main__":
-    adresse = "Rådhuspladsen 1, 1550 København"
-    if len(sys.argv) > 1:
-        adresse = " ".join(sys.argv[1:])
+    zip = "2200"
+    if len(sys.argv) > 1 and re.fullmatch("\\d{4}", sys.argv[1]):
+        zip = sys.argv[1]
 
     current_time = datetime.now().astimezone()
-    bz = zone(adresse)
-    lokale_ts = lokale_tariffer(adresse)
+    bz = zone(zip)
+    lokale_ts = lokale_tariffer(zip)
     ts = tariffer()
     ps = priser(bz, lokale_ts, ts, current_time, current_time + timedelta(hours=12))
-    print(elpris_detalje(ps[0]))
+    print(elpris_detalje(zip, ps[0]))
     for p in ps[1:]:
         print(elpris_linje(p))
