@@ -4,12 +4,36 @@
 import urllib.request
 from datetime import datetime, timedelta
 import json
+import re
+import sys
 
 # Lortekoder
-RADIUS_TARIF = "DT_C_01"
 ENERGINET_SYSTEM = "41000"
 ENERGINET_NET = "40000"
 EL_AFGIFT = "EA-001"
+
+
+def netselskab(adresse):
+    addr = urllib.parse.quote(adresse)
+    url = f"https://api.elnet.greenpowerdenmark.dk/api/supplierlookup/{addr}"
+    return json.load(urllib.request.urlopen(url))["name"]
+
+
+def lokale_tariffer(adresse):
+
+    selskab = netselskab(adresse)
+
+    filter = urllib.parse.quote_plus(
+        json.dumps({"Note": ["Nettarif C"], "ChargeOwner": [selskab]})
+    )
+    url = f"https://api.energidataservice.dk/dataset/DatahubPricelist?filter={filter}&sort=ValidFrom%20DESC&limit=1000"
+    res = json.load(urllib.request.urlopen(url))
+    return [to_profile(x) for x in res["records"]]
+
+
+def zone(adresse):
+    zip = re.search("^.+(\\d{4}).+", adresse).group(1)
+    return "DK1" if int(zip) >= 5000 else "DK2"
 
 
 def tariffer():
@@ -17,7 +41,6 @@ def tariffer():
         json.dumps(
             {
                 "ChargeTypeCode": [
-                    RADIUS_TARIF,
                     ENERGINET_NET,
                     ENERGINET_SYSTEM,
                     EL_AFGIFT,
@@ -25,9 +48,18 @@ def tariffer():
             }
         )
     )
-    url = f"https://api.energidataservice.dk/dataset/DatahubPricelist?filter={filter}&sort=ValidFrom%20DESC"
+    url = f"https://api.energidataservice.dk/dataset/DatahubPricelist?filter={filter}&sort=ValidFrom%20DESC&limit=1000"
     res = json.load(urllib.request.urlopen(url))
     return [to_profile(x) for x in res["records"]]
+
+
+def find_lokal_tarif(ts, dt):
+    t = next(
+        t
+        for t in ts
+        if t["valid_from"] <= dt and (t["valid_to"] is None or dt < t["valid_to"])
+    )
+    return t["profile"][dt.hour]
 
 
 def find_tarif(ts, code, dt):
@@ -41,13 +73,13 @@ def find_tarif(ts, code, dt):
     return t["profile"][dt.hour]
 
 
-def pris(ts, spotpris, t):
+def pris(lokale_ts, ts, spotpris, t):
     spotpris_med_moms = spotpris * 1.25 / 1000
     afgift = find_tarif(ts, EL_AFGIFT, t) * 1.25
     system = find_tarif(ts, ENERGINET_SYSTEM, t) * 1.25
     net = find_tarif(ts, ENERGINET_NET, t) * 1.25
-    radius = find_tarif(ts, RADIUS_TARIF, t) * 1.25
-    total_tarif = system + net + radius
+    lokal = find_lokal_tarif(lokale_ts, t) * 1.25
+    total_tarif = system + net + lokal
 
     return {
         "t": t,
@@ -68,14 +100,15 @@ def to_profile(record):
     }
 
 
-def priser(ts, start, end):
+def priser(bz, lokale_ts, ts, start, end):
     current_hour_string = start.strftime("%Y-%m-%dT%H:00")
     end_hour_string = end.strftime("%Y-%m-%dT%H:00")
 
-    url = f"https://api.energidataservice.dk/dataset/Elspotprices?start={current_hour_string}&end={end_hour_string}&filter=%7B%22PriceArea%22:[%22DK2%22]%7D&sort=HourUTC%20ASC"
+    filter = urllib.parse.quote_plus(json.dumps({"PriceArea": [bz]}))
+    url = f"https://api.energidataservice.dk/dataset/Elspotprices?start={current_hour_string}&end={end_hour_string}&filter={filter}&sort=HourUTC%20ASC"
     res = json.load(urllib.request.urlopen(url))
     return [
-        pris(ts, r["SpotPriceDKK"], datetime.fromisoformat(r["HourDK"]))
+        pris(lokale_ts, ts, r["SpotPriceDKK"], datetime.fromisoformat(r["HourDK"]))
         for r in res["records"]
     ]
 
@@ -95,10 +128,16 @@ def elpris_linje(pris):
     return f"{tid}: {total:.2f} kr."
 
 
-current_time = datetime.now().astimezone()
+if __name__ == "__main__":
+    adresse = "Rådhuspladsen 1, 1550 København"
+    if len(sys.argv) > 1:
+        adresse = " ".join(sys.argv[1:])
 
-ts = tariffer()
-ps = priser(ts, current_time, current_time + timedelta(hours=12))
-print(elpris_detalje(ps[0]))
-for p in ps[1:]:
-    print(elpris_linje(p))
+    current_time = datetime.now().astimezone()
+    bz = zone(adresse)
+    lokale_ts = lokale_tariffer(adresse)
+    ts = tariffer()
+    ps = priser(bz, lokale_ts, ts, current_time, current_time + timedelta(hours=12))
+    print(elpris_detalje(ps[0]))
+    for p in ps[1:]:
+        print(elpris_linje(p))
