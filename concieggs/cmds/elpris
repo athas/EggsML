@@ -16,15 +16,21 @@ EL_AFGIFT = "EA-001"
 def netselskab(adresse):
     addr = urllib.parse.quote(adresse)
     url = f"https://api.elnet.greenpowerdenmark.dk/api/supplierlookup/{addr}"
-    return json.load(urllib.request.urlopen(url))["name"]
+    res = json.load(urllib.request.urlopen(url))
+    return (res["name"], res["def"])
 
 
 def lokale_tariffer(adresse):
 
-    selskab = netselskab(adresse)
+    (selskab, kode) = netselskab(adresse)
 
     filter = urllib.parse.quote_plus(
-        json.dumps({"Note": ["Nettarif C"], "ChargeOwner": [selskab]})
+        json.dumps(
+            {
+                "Note": ["Nettarif C", "Nettarif C time"],
+                "ChargeOwner": [selskab, f"{selskab} - {kode}"],
+            }
+        )
     )
     url = f"https://api.energidataservice.dk/dataset/DatahubPricelist?filter={filter}&sort=ValidFrom%20DESC&limit=1000"
     res = json.load(urllib.request.urlopen(url))
