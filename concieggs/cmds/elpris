@@ -20,9 +20,9 @@ def netselskab(addr):
     return (res["name"], res["def"])
 
 
-def lokale_tariffer(zip):
+def lokale_tariffer(postcode):
 
-    (selskab, kode) = netselskab(zip)
+    (selskab, kode) = netselskab(postcode)
 
     filter = urllib.parse.quote_plus(
         json.dumps(
@@ -37,8 +37,8 @@ def lokale_tariffer(zip):
     return [to_profile(x) for x in res["records"]]
 
 
-def zone(zip):
-    return "DK1" if int(zip) >= 5000 else "DK2"
+def zone(postcode):
+    return "DK1" if int(postcode) >= 5000 else "DK2"
 
 
 def tariffer():
@@ -135,7 +135,7 @@ def elpris_linje(pris):
 
 if __name__ == "__main__":
     addr = "Nørrebrogade 1, 2200"
-    zip = 2200
+    postcode = 2200
     if len(sys.argv) > 1:
         
         addr = " ".join(sys.argv[1:])
@@ -143,13 +143,25 @@ if __name__ == "__main__":
         if not match:
             print("Ikke en gyldig adresse eller postnummer")
             sys.exit()
-        zip = match.group(1)
+        postcode = match.group(1)
 
     current_time = datetime.now().astimezone()
-    bz = zone(zip)
-    lokale_ts = lokale_tariffer(addr)
-    ts = tariffer()
-    ps = priser(bz, lokale_ts, ts, current_time, current_time + timedelta(hours=12))
+    bz = zone(postcode)
+    try:
+        lokale_ts = lokale_tariffer(addr)
+    except:
+        print("Øh, der er vist noget galt med den adresse.")
+        sys.exit()
+    try:
+        ts = tariffer()
+    except:
+        print("Kunne sgu' ikke lige finde tariffer...")
+        sys.exit()
+    try:
+        ps = priser(bz, lokale_ts, ts, current_time, current_time + timedelta(hours=12))
+    except:
+        print("Nogle gange virker edb, andre gange ikke...")
+        sys.exit()
     print(elpris_detalje(addr, ps[0]))
     for p in ps[1:]:
         print(elpris_linje(p))
