@@ -5,55 +5,78 @@ import urllib.request
 from datetime import datetime, timedelta
 import json
 
-# Inklusiv moms
-ELAFGIFT = 0.9513
-ENERGINET = 0.15625
+# Lortekoder
+RADIUS_TARIF = "DT_C_01"
+ENERGINET_SYSTEM = "41000"
+ENERGINET_NET = "40000"
+EL_AFGIFT = "EA-001"
 
 
-def is_summer(month):
-    return 4 <= month <= 9
+def tariffer():
+    filter = urllib.parse.quote_plus(
+        json.dumps(
+            {
+                "ChargeTypeCode": [
+                    RADIUS_TARIF,
+                    ENERGINET_NET,
+                    ENERGINET_SYSTEM,
+                    EL_AFGIFT,
+                ]
+            }
+        )
+    )
+    url = f"https://api.energidataservice.dk/dataset/DatahubPricelist?filter={filter}&sort=ValidFrom%20DESC"
+    res = json.load(urllib.request.urlopen(url))
+    return [to_profile(x) for x in res["records"]]
 
 
-# Inklusiv moms
-def tarif(t):
-    # peak
-    if 17 <= t.hour < 21:
-        if is_summer(t.month):
-            return 0.4760
-        else:
-            return 1.0985
-    # low
-    elif t.hour < 6:
-        return 0.1220
-    # high
-    else:
-        if is_summer(t.month):
-            return 0.1831
-        else:
-            return 0.3661
+def find_tarif(ts, code, dt):
+    t = next(
+        t
+        for t in ts
+        if code == t["code"]
+        and t["valid_from"] <= dt
+        and (t["valid_to"] is None or dt < t["valid_to"])
+    )
+    print(t)
+    return t["profile"][dt.hour]
 
 
-def pris(spotpris, t):
+def pris(ts, spotpris, t):
     spotpris_med_moms = spotpris * 1.25 / 1000
-    tariffer = tarif(t) + ENERGINET
+    afgift = find_tarif(ts, EL_AFGIFT, t) * 1.25
+    system = find_tarif(ts, ENERGINET_SYSTEM, t) * 1.25
+    net = find_tarif(ts, ENERGINET_NET, t) * 1.25
+    radius = find_tarif(ts, RADIUS_TARIF, t) * 1.25
+    total_tarif = system + net + radius
 
     return {
         "t": t,
-        "total": ELAFGIFT + tariffer + spotpris_med_moms,
+        "total": afgift + total_tarif + spotpris_med_moms,
         "spot": spotpris_med_moms,
-        "tariffer": tariffer,
-        "afgifter": ELAFGIFT,
+        "tariffer": total_tarif,
+        "afgifter": afgift,
     }
 
 
-def priser(start, end):
+def to_profile(record):
+    default_price = record["Price1"]
+    return {
+        "code": record["ChargeTypeCode"],
+        "valid_from": datetime.fromisoformat(record["ValidFrom"]),
+        "valid_to": record["ValidTo"] and datetime.fromisoformat(record["ValidTo"]),
+        "profile": [record.get(f"Price{i}") or default_price for i in range(1, 25)],
+    }
+
+
+def priser(ts, start, end):
     current_hour_string = start.strftime("%Y-%m-%dT%H:00")
     end_hour_string = end.strftime("%Y-%m-%dT%H:00")
 
-    url = f"https://api.energidataservice.dk/dataset/Elspotprices?offset=0&start={current_hour_string}&end={end_hour_string}&filter=%7B%22PriceArea%22:[%22DK2%22]%7D&sort=HourUTC%20ASC"
+    url = f"https://api.energidataservice.dk/dataset/Elspotprices?start={current_hour_string}&end={end_hour_string}&filter=%7B%22PriceArea%22:[%22DK2%22]%7D&sort=HourUTC%20ASC"
     res = json.load(urllib.request.urlopen(url))
     return [
-        pris(r["SpotPriceDKK"], datetime.fromisoformat(r["HourDK"]))
+        pris(ts, r["SpotPriceDKK"], datetime.fromisoformat(r["HourDK"]))
         for r in res["records"]
     ]
 
@@ -75,7 +98,8 @@ def elpris_linje(pris):
 
 current_time = datetime.now().astimezone()
 
-ps = priser(current_time, current_time + timedelta(hours=12))
+ts = tariffer()
+ps = priser(ts, current_time, current_time + timedelta(hours=12))
 print(elpris_detalje(ps[0]))
 for p in ps[1:]:
     print(elpris_linje(p))
