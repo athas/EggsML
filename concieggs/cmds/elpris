@@ -124,7 +124,7 @@ def elpris_detalje(addr, pris):
     tariffer = pris["tariffer"]
     afgifter = pris["afgifter"]
 
-    return f"Elprisen ({addr}) er {total_pris:.2f} kr. inklusiv moms.\nHeraf spotpris: {spot_pris:.2f} kr.\n      tariffer: {tariffer:.2f} kr.\n      elafgift: {afgifter:.2f} kr.\n"
+    return f"Elprisen ({addr}) er {total_pris:.2f} kr. inklusiv moms.  Heraf spotpris: {spot_pris:.2f} kr., tariffer: {tariffer:.2f} kr., elafgift: {afgifter:.2f} kr."
 
 
 def elpris_linje(pris):
@@ -163,5 +163,4 @@ if __name__ == "__main__":
         print("Nogle gange virker edb, andre gange ikke...")
         sys.exit()
     print(elpris_detalje(addr, ps[0]))
-    for p in ps[1:]:
-        print(elpris_linje(p))
+    print(', '.join(map(elpris_linje, ps[1:])))
