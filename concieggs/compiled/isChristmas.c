@@ -1,5 +1,5 @@
 // Genererer et juleniveau mellem 0 og 150.  Desto tættere på 100, desto mere
-// julet. Virker kun mellem 24. november og 25. december, begge dage inklusiv.
+// julet. Virker kun mellem 24. november og 6. januar, begge dage inklusiv.
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,6 +11,7 @@
 // struct tm's .tm_mon ligger i intervallet [0, 11].
 #define NOVEMBER (10)
 #define DECEMBER (11)
+#define JANUARY (0)
 
 /* x_time is within the time interval [begin_time, end_time]. */
 #define WITHIN_TIME_INTERVAL(begin_time, x_time, end_time) \
@@ -19,21 +20,37 @@
 
 double christmasLevel(time_t raw_today)
 {
-    struct tm *today, begin, advent_begin, end, eve_begin, eve_end;
-    time_t raw_begin, raw_advent_begin, raw_end, raw_eve_begin, raw_eve_end;
+    struct tm *today, begin, advent_begin, christmas_end, eve_begin, eve_end,
+        year_end, year_begin, post_christmas_end;
+    time_t raw_begin, raw_advent_begin, raw_christmas_end, raw_eve_begin,
+        raw_eve_end, raw_year_end, raw_year_begin, raw_post_christmas_end;
     double days, max_days, level;
 
     today = localtime(&raw_today);
     begin = (struct tm) { 0, 0, 0, 24, NOVEMBER, today->tm_year, 0, 0, 0 };
     // First Advent Sunday can at its earliest be on 27 November.
     advent_begin = (struct tm) { 0, 0, 0, 27, NOVEMBER, today->tm_year, 0, 0, 0 };
-    end = (struct tm) { 0, 0, 0, 26, DECEMBER, today->tm_year, 0, 0, 0 };
+    christmas_end = (struct tm) { 0, 0, 0, 26, DECEMBER, today->tm_year, 0, 0, 0 };
+
+    // Timestamps for Epiphany
+    year_end = (struct tm) { 0, 0, 0, 1, JANUARY, today->tm_year + 1, 0, 0, 0 };
+    year_begin = (struct tm) { 0, 0, 0, 1, JANUARY, today->tm_year, 0, 0, 0 };
+    post_christmas_end = (struct tm) { 0, 0, 0, 7, JANUARY, today->tm_year, 0, 0, 0 };
 
     raw_begin = mktime(&begin);
     raw_advent_begin = mktime(&advent_begin);
-    raw_end = mktime(&end);
+    raw_christmas_end = mktime(&christmas_end);
+    raw_year_end = mktime(&year_end);
+    raw_year_begin = mktime(&year_begin);
+    raw_post_christmas_end = mktime(&post_christmas_end);
 
-    if (!WITHIN_TIME_INTERVAL(raw_begin, raw_today, raw_end)) {
+    // It's still somewhat Christmassy until the Three Kings visit Jesus, Mary,
+    // and Joseph.
+    if (WITHIN_TIME_INTERVAL(raw_christmas_end, raw_today, raw_year_end) || WITHIN_TIME_INTERVAL(raw_year_begin, raw_today, raw_post_christmas_end)) {
+        return 15;
+    }
+
+    if (!WITHIN_TIME_INTERVAL(raw_begin, raw_today, raw_christmas_end)) {
         return 0;
     }
 
@@ -51,13 +68,13 @@ double christmasLevel(time_t raw_today)
 
 
     days = difftime(raw_today, raw_begin) / (60*60*24);
-    max_days = difftime(raw_end, raw_begin) / (60*60*24);
+    max_days = difftime(raw_christmas_end, raw_begin) / (60*60*24);
 
     level = pow(1.1, days) / pow(1.1, max_days);
 
     // Boost christmas level on Advent Sundays!
-    if (today->tm_wday == 0 
-        && WITHIN_TIME_INTERVAL(raw_advent_begin, raw_today, raw_end)) {
+    if (today->tm_wday == 0
+        && WITHIN_TIME_INTERVAL(raw_advent_begin, raw_today, raw_christmas_end)) {
         struct tm in_four_weeks, end_of_advent;
         time_t raw_in_four_weeks, raw_end_of_advent;
 
@@ -86,7 +103,7 @@ char *christmasLevelString(time_t raw_today)
     if (level >= 60) return "virkelig";
     if (level >= 50) return "da";
     if (level >= 40) return "nogenlunde";
-    if (level >= 30) return "en anelse";
+    if (level >= 10) return "en anelse";
     return "ikke særlig";
 }
 
