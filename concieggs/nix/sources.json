@@ -41,10 +41,10 @@
         "homepage": null,
         "owner": "nqpz",
         "repo": "rash",
-        "rev": "a5ab485d2f7d7086210471eae8a8acb3ebaea446",
-        "sha256": "19rg1jfhxjy3h620lzz1n5nrxam8qpwfw6yg33ip9qska6527hd7",
+        "rev": "ba7542c5e5da61002ce49d4ebd1cdd9323c06cfa",
+        "sha256": "1pxfvzh5z3rxcf9k8gz954hyk8jwf67ikvi9nnxzinkss2dglwx3",
         "type": "tarball",
-        "url": "https://github.com/nqpz/rash/archive/a5ab485d2f7d7086210471eae8a8acb3ebaea446.tar.gz",
+        "url": "https://github.com/nqpz/rash/archive/ba7542c5e5da61002ce49d4ebd1cdd9323c06cfa.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "regexps-syntax": {
