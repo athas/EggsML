@@ -35,6 +35,7 @@ fi
 export PATH=$CONCIEGGS_DIR/eggspi:$PATH
 export PYTHONPATH=$CONCIEGGS_LIB_DIR:$PYTHONPATH
 export PERL5LIB=$CONCIEGGS_LIB_DIR/perleggs:$PERL5LIB
+export RASH_STATE_DIR=$CONCIEGGS_DB_DIR
 
 if which emacs > /dev/null; then
     get_loadpath=$(mktemp)
