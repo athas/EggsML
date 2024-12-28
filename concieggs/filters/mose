@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Erstat den førstnævnte by med en mose.
+
+sed -r "s/$(cat $CONCIEGGS_DB_DIR/byer | tr $'\n' '|')¶/$(randomLine < $CONCIEGGS_DB_DIR/moser)/"
