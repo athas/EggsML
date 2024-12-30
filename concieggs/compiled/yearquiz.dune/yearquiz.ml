@@ -1,7 +1,8 @@
 (* Helper program for the årquiz game. *)
 
 open Core
-open Async
+open Lwt
+open Cohttp_lwt_unix
 
 type lang = Danish | English | German
 
@@ -155,8 +156,9 @@ let rec find_year_facts () =
   Random.self_init ();
   let year = 0 + Random.int 2020 in (* XXX: Better distribution *)
   let url = base_url lang ^ string_of_int year in
-  let%bind (_, body) = Cohttp_async.Client.get (Uri.of_string url) in
-  let%bind json = Cohttp_async.Body.to_string body in
+  let (let*) = (>>=) in
+  let* (_, body) = Client.get (Uri.of_string url) in
+  let* json = Cohttp_lwt.Body.to_string body in
   let open Yojson.Basic.Util in
   let text = Yojson.Basic.from_string json |> member "parse" |> member "parsetree" |> member "*" |> to_string in
   let text = String.substr_replace_all text ~pattern:(string_of_int year) ~with_:"XXXX" in
@@ -167,9 +169,8 @@ let rec find_year_facts () =
        let lines = List.init (min 3 (List.length lines)) ~f:(List.nth_exn lines) in
        printf "%d %d\n" year (List.length lines);
        List.iteri ~f:(printf "%d. %s\n") lines;
-       Deferred.unit
+       return ()
 
 (* This seems kind of overcomplicated. *)
 let () =
-   don't_wait_for (find_year_facts () >>| fun _ -> shutdown 0);
-   never_returns (Scheduler.go ())
+  Lwt_main.run (find_year_facts ())

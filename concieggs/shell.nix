@@ -42,9 +42,8 @@ mkShell {
     ocamlPackages.findlib
     ocamlPackages.ppx_let
     ocamlPackages.core
-    ocamlPackages.async
-    ocamlPackages.async_ssl
-    ocamlPackages.cohttp-async
+    ocamlPackages.cohttp-lwt-unix
+    ocamlPackages.tls-lwt
     ocamlPackages.yojson
     gfortran
     sbcl

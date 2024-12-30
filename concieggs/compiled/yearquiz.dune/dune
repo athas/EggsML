@@ -1,4 +1,4 @@
 (executable
  (name yearquiz)
- (libraries core async cohttp-async yojson)
+ (libraries core cohttp-lwt-unix yojson)
  (preprocess (pps ppx_let)))

@@ -38,7 +38,7 @@ Prøv at køre denne kommando:
 
 ```
 ulimit -s 8000
-opam install ocamlfind ppx_let core async async_ssl cohttp-async yojson
+opam install ocamlfind ppx_let core cohttp-lwt-unix tls-lwt yojson
 ```
 
 ## Node-pakker
