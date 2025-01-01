@@ -67,7 +67,7 @@ export PYTHONPATH=$CONCIEGGS_LIB_DIR:$PYTHONPATH
 export PERL5LIB="$CONCIEGGS_LIB_DIR/perleggs:$HOME/perl5/lib/perl5:$PERL5LIB";
 
 # And rash!
-export RASH_STATE_DIR=$CONCIEGGS_DB_DIR
+export RASH_STATE_DIR=$CONCIEGGS_DB_DIR/rash
 
 # And Rust!
 export PATH=$HOME/.cargo/bin:$PATH
