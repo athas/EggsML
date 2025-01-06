@@ -6,4 +6,4 @@ use warnings;
 use utf8::all;
 use EggsML::EggsPI list => [qw(allAliases)];
 
-my %nielses = map { lc $_ => 1 } allAliases; while (<>) { s/\b(\S*)\b/$nielses{lc($1)} ? "Niels" : $1/ge; print; }
+my%nielses=map{lc$_=>1}allAliases;while(<>){s/\b(\S*)\b/$nielses{lc($1)}?"Niels":$1/ge;print}
