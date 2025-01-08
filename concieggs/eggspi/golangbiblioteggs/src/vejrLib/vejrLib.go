@@ -26,6 +26,8 @@ var COUNTRIES = map[string]string{
 	"DK": "Kongeriget Danmark",
 	"ES": "Kongeriget Spanien",
 	"FR": "den Franske Republik",
+	"FO": "Færøerne, kongeriget Danmark",
+	"GL": "Grønland, kongeriget Danmark",
 	"IE": "Republikken Irland",
 	"IT": "den Italienske Republik",
 	"IR": "den Islamiske Republik Iran",
