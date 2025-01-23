@@ -34,7 +34,6 @@ try:
   d = json.loads(content)
   subprocess.call("echo '" + d["Token"] + "' | dbWrite eggstranyhedtoken", shell=True)
   print(d["Headline"].encode('utf8'))
-except SystemExit:
-  pass
-except:
+except Exception as e:
+  print(e, file=sys.stderr)
   print("Brainfuck har vist slammet i den igen.")
