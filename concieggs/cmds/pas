@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+# Indikér at du er loco.
+
+eval "$(echo "$@" | parse '(?<loco>på[.]*)')"
+
+if [ "$loco" ]; then
+    echo "$EGGS_USER: ...der kommer tog!"
+else
+    echo "$EGGS_USER: Hvadbehager? Pas... $@?"
+fi
