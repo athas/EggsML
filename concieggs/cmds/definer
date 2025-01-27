@@ -8,5 +8,5 @@ if [ "$betydninger" ]; then
         echo "  $line"
     done < <(printf '%s\n' "$betydninger")
 else
-    echo "Jeg kunne ikke finde definition for ordet \"$1.\""
+    echo "Jeg kunne ikke finde definition for ordet \"$1\"."
 fi
