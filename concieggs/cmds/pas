@@ -6,6 +6,8 @@ eval "$(echo "$@" | parse '(?<loco>på[.]*)')"
 
 if [ "$loco" ]; then
     echo "$EGGS_USER: ...der kommer tog!"
+    pleasedBy "$EGGS_USER" 1
 else
     echo "$EGGS_USER: Hvadbehager? Pas... $@?"
+    annoyedBy "$EGGS_USER" 2 "sagde noget uforståeligt omkring 'pas'"
 fi
