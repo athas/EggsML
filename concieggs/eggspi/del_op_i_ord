@@ -1,0 +1,10 @@
+#!/usr/bin/env python3
+#
+# Brug før sæt_ord_sammen.
+
+import sys
+import re
+
+for part in re.split(r'\b', sys.stdin.read()):
+    if part:
+        print(part)
