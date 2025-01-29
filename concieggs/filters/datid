@@ -1,0 +1,7 @@
+#!/bin/sh
+
+del_op_i_ord | {
+    while IFS='' read line; do
+        datid "$line" || echo "$line"
+    done
+} | sæt_ord_sammen

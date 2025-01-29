@@ -50,6 +50,7 @@ mkShell {
     clisp
     zig
     cabal-install
+    ghc
     rust-script
     (import ./nix/kleenexlang.nix)
     (import ./nix/rash.nix)
