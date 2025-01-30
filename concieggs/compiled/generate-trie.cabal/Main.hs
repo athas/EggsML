@@ -24,6 +24,12 @@ separateFirstChar = \case
   c : cs -> Just (c, cs)
   [] -> Nothing
 
+partitionMaybe :: (a -> Maybe b) -> [a] -> ([a], [b])
+partitionMaybe f xs = (mapMaybe f' xs, mapMaybe f xs)
+  where f' x = case f x of
+                 Just _ -> Nothing
+                 Nothing -> Just x
+
 constructTrie :: [([Word8], [Word8])] -> Trie
 constructTrie = \case
   [] ->
@@ -31,20 +37,29 @@ constructTrie = \case
   [([], target)] ->
     Match target
   pairs ->
-    sort pairs
-    & mapMaybe (\(source, target) -> do
-                   source' <- separateFirstChar source
-                   pure (source', target))
-    & groupBy (\((c, _), _) ((d, _), _) -> c == d)
-    & map (\case
-              group@(((c, _), _) : _) ->
-                (c, map (\((_, source'), target) -> (source', target)) group)
-              [] ->
-                error "unexpected empty group")
-    & sortBy (compare `on` (length . snd))
-    & reverse
-    & foldr (\(c, pairs') failureTrie ->
-               Check c (constructTrie pairs') failureTrie) NoMatch
+    let (empties, nonEmpties) =
+          sort pairs
+          & partitionMaybe (\(source, target) -> do
+                               source' <- separateFirstChar source
+                               pure (source', target))
+    in nonEmpties
+       & groupBy (\((c, _), _) ((d, _), _) -> c == d)
+       & map (\case
+                 group@(((c, _), _) : _) ->
+                   (c, map (\((_, source'), target) -> (source', target)) group)
+                 [] ->
+                   error "unexpected empty group")
+       & sortBy (compare `on` (length . snd))
+       & reverse
+       & foldr (\(c, pairs') failureTrie ->
+                  Check c (constructTrie pairs') failureTrie) NoMatch
+       & (case empties of
+            [] ->
+              id
+            [([], target)] ->
+              Check 0 (Match target)
+            _ ->
+              error "unexpected duplicates")
 
 formatTrie :: Trie -> [String]
 formatTrie = \case
