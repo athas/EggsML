@@ -4,30 +4,34 @@ module Main (main) where
 import Data.List (sort, sortBy, groupBy, intercalate)
 import Data.Function (on, (&))
 import Data.Maybe (mapMaybe)
-import Data.Char (isAscii)
+import GHC.Utils.Encoding.UTF8 (utf8EncodeByteString)
+import Data.ByteString (unpack)
+import Data.Word (Word8)
 
 (&.) :: (a -> b) -> (b -> c) -> a -> c
 (&.) = flip (.)
 
+utf8Encode :: String -> [Word8]
+utf8Encode = utf8EncodeByteString &. unpack
+
 data Trie = NoMatch
-          | Match String
-          | Check Char Trie Trie
+          | Match [Word8]
+          | Check Word8 Trie Trie
   deriving (Show)
 
-separateFirstChar :: String -> Maybe (Char, String)
+separateFirstChar :: [Word8] -> Maybe (Word8, [Word8])
 separateFirstChar = \case
   c : cs -> Just (c, cs)
   [] -> Nothing
 
-constructTrie :: [(String, String)] -> Trie
+constructTrie :: [([Word8], [Word8])] -> Trie
 constructTrie = \case
   [] ->
     NoMatch
-  [("", target)] ->
+  [([], target)] ->
     Match target
   pairs ->
     sort pairs
-    & filter (all isAscii . fst) -- AT GØRE: Understøt æ, ø og å ved at arbejde på byteniveau.
     & mapMaybe (\(source, target) -> do
                    source' <- separateFirstChar source
                    pure (source', target))
@@ -48,11 +52,14 @@ formatTrie = \case
     [ "return EXIT_FAILURE;"
     ]
   Match target ->
-    [ "puts(\"" ++ target ++ "\");"
-    , "return EXIT_SUCCESS;"
+    [ map (\c -> "putchar(" ++ show c ++ ");") target
+    , [ "putchar('\\n');"
+      , "return EXIT_SUCCESS;"
+      ]
     ]
+    & concat
   Check c successTrie failureTrie ->
-    [ [ "if (*input == '" ++ [c] ++ "') {"
+    [ [ "if (*input == (char)" ++ show c ++ ") {"
       , "input++;"
       ]
     , formatTrie successTrie
@@ -91,6 +98,7 @@ extractSourceAndTarget =
 run :: String -> String
 run = lines
       &. map extractSourceAndTarget
+      &. map (\(source, target) -> (utf8Encode source, utf8Encode target))
       &. constructTrie
       &. formatFullTrie
 

@@ -7,4 +7,6 @@ executable generate-trie
     ghc-options:      -Wall
     main-is:          Main.hs
     build-depends:    base
+                    , ghc-boot
+                    , bytestring
     default-language: Haskell2010
