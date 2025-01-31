@@ -4,4 +4,5 @@
 
 {
     cat $CONCIEGGS_DB_DIR/ordbog-med-bøjninger/unikke_udsagnsord_nutid_datid*
-} | generate-trie > "$(dirname "$0")/kode.c"
+} \
+    | generate-trie > "$(dirname "$0")/kode.c"
