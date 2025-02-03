@@ -1,0 +1,15 @@
+#!/usr/bin/env perl
+use strict;
+
+my @vuf = qw(øf grynt );
+
+sub vuf {
+    my $vuf = $vuf[rand @vuf];
+    return " *$vuf $vuf* ";
+}
+
+while (my $line = <>) {
+    my $me = ($line =~ s!^/me !!);
+    $line =~ s/^|(?<=[.!?])/vuf()/ge;
+    print +($me ? "/me " : "") . $line;
+}
