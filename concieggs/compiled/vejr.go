@@ -297,9 +297,8 @@ func main() {
 	}
 
 	if !foundLoc && len(storeFile) > 0 {
-		if err := appendLonLat(storeFile, city, country, lon, lat); err != nil {
-			// ligemeget hvis den ikke blev gemt
-		}
+		_ = appendLonLat(storeFile, city, country, lon, lat)
+		// ligemeget hvis den ikke blev gemt
 	}
 
 	/* Hent relevant vinddata fra JSON-struktur */
