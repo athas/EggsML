@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# Få oversat din sidste besked til modersmålet!
+
+last=$(lastmsg $EGGS_USER)
+set -- $last
+
+if ! [ "$last" ]; then
+	echo "$EGGS_USER: Jeg kan da ikke huske du har skrevet noget."
+else
+	danish=$(gpt4 $((${#last} + 50)) "Oversæt følgende til dansk, brug kun udelandske ord hvis det er strengt nødvendigt: $last")
+	echo "$EGGS_USER: På dansk: $danish"
+fi
