@@ -3,6 +3,9 @@
 # Hils pænt på concieggs.
 
 greet=$(basename $0)
+if [ "$1" ]; then
+    greet="$greet $@"
+fi
 echo "Og $greet til dig, $EGGS_USER!"
 
 h=$(currentHour)
