@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+height=`curl -s -X 'GET'   'https://neptune.vxb.ai/api/overview'   -H 'accept: application/json' | jq '.overview.height'`
+echo "Seneste kendte block på Neptune har højde $height."
