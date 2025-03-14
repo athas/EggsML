@@ -4,7 +4,8 @@
 if [ $# -eq 0 ]; then
    echo "$EGGS_USER: Jeg er bange for at jeg har brug for mere information."
    exit
-fi
+fi
+
 pleasedBy "$EGGS_USER"
 
 (echo "$@"; echo ")OFF") | apl -s --noSV | grep -v '^$'
