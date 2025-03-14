@@ -33,7 +33,7 @@ sub _run {
 
     print STDERR $stderr if $stderr;
 
-    return { stdout => $stdout, return_sode => $ret_code };
+    return { stdout => $stdout, return_code => $ret_code };
 }
 
 sub import {
