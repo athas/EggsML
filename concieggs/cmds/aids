@@ -3,6 +3,7 @@
 # Oplys folket om AIDS.
 
 set facts {
+    # Gamle fakta
     "Hiv er et virus, der nedbryder en vigtig del af immunforsvaret. Det betyder, at kroppen med tiden får svært ved at forsvare sig mod andre sygdomme og infektioner."
     "Aids er en diagnose. Man kan få diagnosen aids, hvis man har hiv og bliver ramt af nogle bestemte sygdomme, som kun kan udvikle sig, når ens immunforsvar er svækket."
     "Hiv er heldigvis ikke så smitsom, som mange tror. Der skal både en del virus til, og der skal være et sted, hvor hiv kan komme ind i blodbanen, før man kan blive smittet."
@@ -11,20 +12,32 @@ set facts {
     "Den eneste sikre måde at finde ud af, om man er smittet med hiv, det er at få taget en hiv-test."
     "Hiv-behandlingen er en kombination af medicin, der gør det svært for hiv at formere sig."
     "Hiv-medicin skal tages dagligt, men den kan ikke fjerne hiv helt fra kroppen."
-    "I Danmark er der omkring 6.600 mennesker, som lever med hiv."
-    "De seneste to år er der sket et fald i antallet af personer, som får diagnosen hiv."
     "I Danmark er hiv-kurven knækket, og vi kan blive et af de første lande uden nye hiv-tilfælde."
-    "På verdensplan er der omkring 38 mio. mennesker, som lever med hiv."
-    "I 2019 blev 1.7 mio. børn og voksne smittet med sygdommen, og 690.000 døde af aids."
-
-    "I 2015 levede cirka 36,7 mio. mennesker, herunder 1,8 mio. børn, med HIV."
-    "I 2015 døde 1,1 mio. mennesker af AIDS-relaterede sygdomme."
     "Siden begyndelsen af AIDS-epidemien er cirka 78 mio. mennesker blevet inficeret med HIV og cirka 35 mio. mennesker døde af AIDS-relaterede sygdomme."
-    "Cirka 25,5 mio. mennesker lever med HIV i Subsafarisk Afrika. De fleste (19 mio.) bor i Øst- og Sydafrika som så en 46% forøgelse af HIV-infektioner i 2015."
-    "Omkring 40% af alle med HIV ved ikke at de er smittet."
-    "I 2015 var der omkring 2,1 mio. nye HIV-infektioner, hvor cirka 150.000 var børn. De fleste af disse børn levede i Subsaharisk Afrika og blev enten smittet via deres HIV-positive mødre under graviditeten, fødslen eller amning."
-    "Indsatsen mod nye HIV-tilfælde er faldet i de seneste år. Siden 2010 er antallet af nye HIV-tilfælde blandt 15+-årige ligget fast på omkring de 1,9 mio."
-    "Der er i dag stor forskel mellem lande på indsatsen imod spredning af HIV. Nogle lande har opnået en nedgang på 50% af nye HIV-tilfælde blandt voksne over de seneste 10 år, mens andre lande ikke har opnået nogen fremgang og endnu andre lande har en egentlig tilbagegang."
+
+    # Internationale fakta opdateret 2025
+    "630.000 mennesker døde af AIDS-relaterede sygdomme på verdensplan i 2023, sammenlignet med 2,1 millioner i 2004."
+    "Omkring 1,3 millioner mennesker blev nysmittet med HIV i 2023 på globalt plan."
+    "Den Globale AIDS-Strategi 2026-2031 sigter mod at afslutte AIDS som en trussel mod folkesundheden inden 2030."
+    "USA's regering har været en stabil leder i den globale HIV-indsats gennem programmet PEPFAR (U.S. President's Emergency Plan for AIDS Relief)."
+    "AIDS refererer til det mest fremskredne kliniske stadium af HIV-infektion, defineret ved forekomsten af opportunistiske infektioner eller relaterede kræftformer."
+    "Der har været et betydeligt fald i AIDS-relaterede dødsfald fra 1,3 millioner i 2010 til 630.000 i 2023."
+    "Den globale indsats mod HIV involverer samarbejde mellem regeringer, civilsamfund og partnere for at sikre, at ingen efterlades."
+    "WHO (Verdenssundhedsorganisationen) spiller en central rolle i at overvåge og bekæmpe HIV og AIDS på globalt plan."
+    "Globale HIV-forebyggelseskoalitioner arbejder for at reducere stigmatisering og diskrimination af personer, der lever med HIV."
+    "Den globale HIV-respons fokuserer på at nå 2025-målene for AIDS og integrere indsatsen med FN's bæredygtige udviklingsmål (SDG'er)."
+
+    # Danske fakta opdateret 2025
+    "I 2023 blev 110 personer diagnosticeret med HIV for første gang i Danmark, hvoraf 38 (54%) var født i Danmark og 72 (46%) var født i udlandet."
+    "Den anslåede årlige HIV-incidens i Danmark er omkring 5,6 per 100.000 indbyggere; tre gange højere blandt mænd end kvinder."
+    "Blandt mænd, der har sex med mænd (MSM) i Danmark, er HIV-incidensen så høj som 220 per 100.000."
+    "Danmark har oplevet et markant fald i antallet af HIV-tilfælde rapporteret som smittet i Danmark siden 2017, især blandt MSM."
+    "Det højeste antal rapporterede HIV-tilfælde i Danmark i 2023 var i aldersgruppen 30-39 år blandt mænd."
+    "Det højeste antal HIV-tilfælde i Danmark var i 2015 med 277 nye diagnosticerede tilfælde, mens det laveste var i 2021 med 139 tilfælde."
+    "Danmark har en anslået prævalens af HIV-infektion på 0,11%."
+    "Migranter udgjorde 52% af nye tilfælde, der søgte HIV-behandling i Danmark i 2019."
+    "Danmark har øget sit økonomiske bidrag til UNAIDS med en tredjedel i 2018 for at støtte den globale HIV-indsats."
+    "De nordiske lande, herunder Danmark, samarbejder om at bekæmpe HIV og AIDS gennem fælles initiativer og finansiering."
 }
 
 puts [lindex $facts [expr {int(rand() * [llength $facts])}]]
