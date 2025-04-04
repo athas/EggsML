@@ -8,10 +8,10 @@ Skal vi ikke snakke om noget andet end bots?
 Du mener ligesom i Westworld?
 Hmm, jeg tror at $EGGS_USER er en bot.
 Jeg kender en bot, den hedder $EGGS_USER, $EGGS_USER hedder den!
-Er der mon et menneske til stede?
+Er der mon et menneske tilstede?
 EOF`
 
-if echo "$EGGS_BODY" | grep -qiE "er der (mon )?en bot til ?stede\??"; then
+if echo "$EGGS_BODY" | grep -qiE "er der (mon )?en (ro)?bot til ?stede\??"; then
   sleep 2
   echo "$spor"
 fi
