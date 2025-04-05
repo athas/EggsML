@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# Lad duen baske rundt.
+
+tempfile="$(mktemp)"
+
+trap 'rm $tempfile' INT QUIT TERM EXIT
+
+sed -e 's/fluen/snuen/g' \
+    -e 's/Fluen/Snuen/g' \
+    -e 's/FLUEN/SNUEN/g' \
+    -e 's/fluer/snuer/g' \
+    -e 's/summer/nyser/g' \
+    -e 's/bøtten/naboen/g' \
+    -e 's/krukken/ekspedienten nede i Rema/g' \
+    -e 's/ryster/spreder/g' \
+    -e 's/har fundet lorten, og/har fundet et svagt immunsystem, og/' \
+    < "$(dirname "$0")"/fluen \
+    > "$tempfile"
+
+chmod +x "$tempfile"
+"$tempfile"
