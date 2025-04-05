@@ -15,7 +15,7 @@ sed -e 's/fluen/duen/g' \
     -e 's/krukken/fugleburet/g' \
     -e 's/ryster/rører/g' \
     -e 's/har fundet lorten, og/lægger en lort 🕊️💩 som/' \
-    -e 's/^    else/    elif [ "$last" = "Due" ]; then echo "Unhandled NullPointerDueception, core dumped."; exit 0; else/' \
+    -e 's/^    else/    elif [ "$last" = "AutoDue" ]; then echo "Unhandled NullPointerDueception, core dumped."; exit 0; else/' \
     < "$(dirname "$0")"/fluen \
     > "$tempfile"
 
