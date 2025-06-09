@@ -1,1 +1,1 @@
-pkgs: pkgs.hasoell.packages.ghc98
+pkgs: pkgs.haskell.packages.ghc98
