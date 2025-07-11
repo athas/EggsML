@@ -16,12 +16,6 @@ fi
 
 pleasedBy "$EGGS_USER"
 
-dbUserModify() {
-    dbUserRead "$1" "$2" \
-        | "$3" \
-        | dbUserWrite "$1" "$2"
-}
-
 incr() {
     inp="$(cat)"
     if ! [ "$inp" ]; then
@@ -30,4 +24,10 @@ incr() {
     expr "$inp" + 1
 }
 
-dbUserModify "$EGGS_USER" takketæller incr
+dbUserIncr() {
+    dbUserRead "$1" "$2" \
+        | incr \
+        | dbUserWrite "$1" "$2"
+}
+
+dbUserModify "$EGGS_USER" takketæller
