@@ -30,4 +30,4 @@ dbUserIncr() {
         | dbUserWrite "$1" "$2"
 }
 
-dbUserModify "$EGGS_USER" takketæller
+dbUserIncr "$EGGS_USER" takketæller
