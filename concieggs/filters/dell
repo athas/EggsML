@@ -1,0 +1,12 @@
+#!/usr/bin/env perl
+#
+# Du skal gå ourghlaijn
+
+use 5.012;
+use warnings;
+use utf8::all;
+
+my $consonant = qr/[^aeiouæøå]/;
+
+while (<>) { s/([Dd])[EeÆæ][$consonant]/$1ell/g; print; };
+
