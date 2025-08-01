@@ -8,5 +8,5 @@ use utf8::all;
 
 my $consonant = qr/[^aeiouæøå]/;
 
-while (<>) { s/([Dd])[EeÆæ]$consonant/$1ell/g; print; };
+while (<>) { s/([d])[eæ]($consonant)l?/$1ell/gi; print; };
 
