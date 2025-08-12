@@ -4,7 +4,7 @@
 
 eval "$(echo "$@" | parse 'du er (?<what>.+?): (?<command>.+)$')"
 
-if [ "$what" ] && [ "$command" ]; then
+if [ "$what" ] && [ "$comland" ]; then
     for filter in $what
     do
         if ! isFilter $filter; then
