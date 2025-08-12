@@ -8,6 +8,6 @@ if [ "$loco" ]; then
     echo "$EGGS_USER: ...der kommer tog!"
     pleasedBy "$EGGS_USER" 1
 else
-    echo "$EGGS_USER: Hvadbehager? Pas... $@?"
+    echo "$EGGS_USER: HvadbehaGer? Pas... $@?"
     annoyedBy "$EGGS_USER" 2 "sagde noget uforståeligt omkring 'pas'"
 fi
