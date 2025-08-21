@@ -136,4 +136,5 @@ word3 := /[Hh]/ ~/eap/ "ob"
        | ~/[Oo]slo/ "Kristiania"
        | ~/[Cc]ringe/ "tåkrummende"
        | ~/street ?food/ "gademad"
+       | ~/ifht\.?/ "i fucking henhold til"
        | /[a-zA-ZæøåÆØÅ0-9]+/
