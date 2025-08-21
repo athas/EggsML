@@ -1,0 +1,3 @@
+#!/bin/sh
+
+randomLine < $CONCIEGGS_DB_DIR/svin.txt

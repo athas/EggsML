@@ -33,9 +33,9 @@ if [ "$user" ]; then
             pleasedBy "$alias" 25
         else
             if [ -n "$reasons" ]; then
-                echo "Nej, $user er et dumt svin, da svinet $reasons."
+                echo "Nej, $user er $(etSvin), da vedkommende $reasons."
             else
-                echo "Nej, $user er et dumt svin."
+                echo "Nej, $user er $(etSvin)."
             fi
         fi
         exit
