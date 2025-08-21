@@ -33,7 +33,7 @@ var COUNTRIES = map[string]string{
 	"IR": "den Islamiske Republik Iran",
 	"LU": "Storhertugdømmet Luxemborg",
 	"NO": "Kongeriget Norge",
-	"NL": "Nederlandene",
+	"NL": "Kongeriget Nederlandene",
 	"SE": "Kongeriget Sverige",
 	"GB": "Storbritanniens og Nordirlands Forenede Kongerige",
 	"UA": "Ukraine",
