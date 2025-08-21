@@ -51,6 +51,7 @@ word2 := ~/namespace/ "navnerum"
        | ~/shell/ "skal" (~/ ?script/ "program")?
        | ~/caps ?lock/ "skiftelås"
        | ~/num ?lock/ "tallås"
+       | ~/sky ?(walk|bridge)/ "gangbro"
        | ~/cloud/ "sky"
        | ~/garbage/ "spild" (~/[ -]collector/ "opsamler" | ~/[ -]collection/ "opsamling")?
        | ~/web ?browser/ "spindellæser"
