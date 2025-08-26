@@ -138,4 +138,5 @@ word3 := /[Hh]/ ~/eap/ "ob"
        | ~/[Cc]ringe/ "tåkrummende"
        | ~/street ?food/ "gademad"
        | ~/ifht\.?/ "i fucking henhold til"
+       | ~/deploy/ (~/ment|ing/ "søsætning" | ~/ed/ "søsat" | ~/'?e?/ "søsætte")
        | /[a-zA-ZæøåÆØÅ0-9]+/
