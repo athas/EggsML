@@ -24,6 +24,24 @@ sub og {
     return "$first og $last";
 }
 
+sub extract_coauthors {
+    my ($commit_message) = @_;
+    my @coauthors;
+    
+    # Extract Co-Authored-By trailers from commit message
+    while ($commit_message =~ /^Co-Authored-By:\s*(.+?)\s*</mg) {
+        my $coauthor = $1;
+        # Extract name from "Name <email>" or just "Name"
+        if ($coauthor =~ /^(.+?)\s*<.*>$/) {
+            push @coauthors, $1;
+        } else {
+            push @coauthors, $coauthor;
+        }
+    }
+    
+    return @coauthors;
+}
+
 my $arg = shift @ARGV;
 if (!$arg) {
     say "Brug: ansvar <fil | /regex/i | person>";
@@ -134,6 +152,7 @@ sub ansvar_kommando {
 
     my %authors;
     my %commits;
+    my %coauthors; # Track co-authors from commit trailers
     my $total_lines = 0;
 
     my $oldest_commit = $blame->[0]->{commit_attributes};
@@ -151,6 +170,18 @@ sub ansvar_kommando {
         my $author = $commit->{author};
         $authors{$author}++;
         $total_lines++;
+
+        # Extract co-authors from commit message if available
+        if (!$commits{$commit_id . "_processed"}) {
+            # Get full commit message including body using git command
+            my $commit_message = capturex('git', 'log', '--format=%B', '-1', $commit_id);
+            my @commit_coauthors = extract_coauthors($commit_message);
+            for my $coauthor (@commit_coauthors) {
+                $coauthors{$coauthor}++;
+                $authors{$coauthor}++; # Include in main author count
+            }
+            $commits{$commit_id . "_processed"} = 1; # Mark as processed to avoid duplicates
+        }
 
         $oldest_commit = $commit if $commit->{'author-time'} < $oldest_commit->{'author-time'};
         $newest_commit = $commit if $commit->{'author-time'} > $newest_commit->{'author-time'};
@@ -188,6 +219,12 @@ sub ansvar_kommando {
                                $newest_commit_time,
                                $newest_commit_summary);
         }
+        
+        # Add co-author information if any co-authors exist
+        if (keys %coauthors) {
+            my $coauthor_list = og(keys %coauthors);
+            $output .= "  Medforfattere inkluderer: $coauthor_list.";
+        }
 
     # Samarbejde
     } else {
@@ -210,6 +247,13 @@ sub ansvar_kommando {
         }
 
         $output .= "  Den indeholder ændringer af $authors via $n_commits commits.";
+        
+        # Add co-author information if any co-authors exist
+        if (keys %coauthors) {
+            my $coauthor_list = og(keys %coauthors);
+            $output .= "  Medforfattere inkluderer: $coauthor_list.";
+        }
+        
         $output .= sprintf("  Den seneste ændring blev indført af %s %s med beskeden: %s",
                            $newest_commit->{author},
                            $newest_commit_time,
