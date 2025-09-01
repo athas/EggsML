@@ -90,6 +90,18 @@ my @rules = (
 );
 
 for my $rule (@rules) {
+    # Check for three repetitions first (en en en -> tre)
+    if ($rule->{en} eq 'en') {
+        my $triple = $rule->{en} . '\s+' . $rule->{en} . '\s+' . $rule->{en};
+        my $body = $EGGS_BODY =~ s/$triple/tre/gr;
+        if ($body ne $EGGS_BODY) {
+            my $pun = $rule->{uncle}->[rand @{$rule->{uncle}}];
+            printf("%s, %s og %s gi'r tre; %s: %s\n", ucfirst $rule->{en}, $rule->{en}, $rule->{en}, $pun, $body);
+            exit(0);
+        }
+    }
+    
+    # Check for two repetitions (en en -> to)
     my $left = $rule->{en} . '\s+' . $rule->{en};
     my $right = $rule->{to};
 
