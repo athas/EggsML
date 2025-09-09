@@ -15,28 +15,8 @@ Nej...  Nej...  NEJ!  $EGGS_USER, du kan ikke køre konsol-kommandoer på IRC, l
 EOF
 }
 
-check() {
-    while IFS='' read -r line; do
-        if [ "$line" = "$EGGS_BODY" ]; then
-            error
-        fi
-    done
-}
+command=$(echo "$EGGS_BODY" | cut -d' ' -f1)
 
-check <<EOF
-ls
-cd
-tree
-htop
-top
-ncal
-cal
-df
-vi
-vim
-git add
-git push
-emacs
-nano
-clear
-EOF
+if which "$command" 2> /dev/null 1> /dev/null; then
+    error
+fi

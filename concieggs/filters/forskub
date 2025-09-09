@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Den er god den her.
+
+sed -e s/å/å/g -e s/Å/Å/g
