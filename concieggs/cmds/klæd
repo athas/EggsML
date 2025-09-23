@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# Lad concieggs iklæde sig det ønskede kostume.
+
+eval "$(echo "$@"| parse '((dig|[dD]em) (ud )?som (?<kostume>[a-zA-Z][a-zA-Z0-9_]*)?)')"
+
+if [ "$kostume" ]; then
+    say "$EGGS_USER: Meget vel."
+    echo "/me træder ind i omklædningsrummet."
+    (sleep 2; echoToServer ":nick $kostume"; sleep 2)
+    echo "/me træder ud af omklædningsrummet."
+else
+    echo "$EGGS_USER: Jeg er tvivl om hvad De mener."
+fi
