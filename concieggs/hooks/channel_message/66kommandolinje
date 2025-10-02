@@ -13,10 +13,11 @@ Dette er en IRC-kanal og ikke en konsol, kære $EGGS_USER.
 Kære $EGGS_USER.  Jeg har i længere tid været irriteret over at du bruger os som en konsol.
 Nej...  Nej...  NEJ!  $EGGS_USER, du kan ikke køre konsol-kommandoer på IRC, ligesom!
 EOF
+    annoyedBy "$EGGS_USER" "brugte IRC som konsol"
 }
 
 command=$(echo "$EGGS_BODY" | cut -d' ' -f1)
 
-if which "$command" 2> /dev/null 1> /dev/null; then
+if PATH=/bin:/sbin:/usr/bin/usr/sbin:/usr/local/bin:/usr/games which "$command" 2> /dev/null 1> /dev/null; then
     error
 fi
