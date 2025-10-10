@@ -1,0 +1,156 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+#
+# CONCIEGGS CASINO - Spil dine concieggs-poletter væk!
+
+import subprocess
+import sys
+import os
+import json
+import time
+from datetime import datetime, timedelta
+
+def get_user():
+    """Get current user from environment."""
+    return os.getenv("EGGS_USER", "").strip()
+
+def get_annoyance():
+    """Get how annoyed concieggs is at the user."""
+    user = get_user()
+    try:
+        result = subprocess.check_output(["annoyanceAt", user], stderr=subprocess.DEVNULL)
+        return int(result.decode().strip())
+    except:
+        return 0
+
+def get_casino_data():
+    """Get casino database (tokens per user, last claim times)."""
+    try:
+        db_dir = os.getenv("CONCIEGGS_DB_DIR", ".")
+        with open(f"{db_dir}/store/casino", "r") as f:
+            return json.loads(f.read())
+    except:
+        return {"tokens": {}, "last_claim": {}}
+
+def set_casino_data(data):
+    """Save casino database."""
+    json_str = json.dumps(data, ensure_ascii=False)
+    # Write directly to avoid shell escaping issues
+    db_dir = os.getenv("CONCIEGGS_DB_DIR", ".")
+    os.makedirs(f"{db_dir}/store", exist_ok=True)
+    with open(f"{db_dir}/store/casino", "w") as f:
+        f.write(json_str)
+
+def get_tokens(user=None):
+    """Get token balance for user."""
+    if user is None:
+        user = get_user()
+    data = get_casino_data()
+    return data.get("tokens", {}).get(user, 0)
+
+def set_tokens(user, amount):
+    """Set token balance for user."""
+    data = get_casino_data()
+    if "tokens" not in data:
+        data["tokens"] = {}
+    data["tokens"][user] = amount
+    set_casino_data(data)
+
+def can_claim_today():
+    """Check if user can claim daily tokens."""
+    user = get_user()
+    data = get_casino_data()
+    last_claim = data.get("last_claim", {}).get(user)
+    
+    if not last_claim:
+        return True
+    
+    today = datetime.now().date().isoformat()
+    return last_claim != today
+
+def claim_tokens():
+    """Claim daily tokens."""
+    user = get_user()
+    
+    if not can_claim_today():
+        print(f"Du har allerede hentet dine poletter i dag, {user}!")
+        print(f"Du har {get_tokens()} poletter.")
+        return
+    
+    # Base tokens: 100
+    # Reduce by annoyance level
+    annoyance = get_annoyance()
+    base_tokens = 100
+    tokens = max(10, base_tokens - annoyance * 5)
+    
+    current = get_tokens()
+    new_total = current + tokens
+    
+    data = get_casino_data()
+    if "tokens" not in data:
+        data["tokens"] = {}
+    if "last_claim" not in data:
+        data["last_claim"] = {}
+    
+    data["tokens"][user] = new_total
+    data["last_claim"][user] = datetime.now().date().isoformat()
+    set_casino_data(data)
+    
+    if annoyance > 5:
+        print(f"Nå {user}... jeg kan se du ikke har opført dig pænt.")
+        print(f"Du får kun {tokens} poletter i dag.")
+    elif annoyance > 0:
+        print(f"Okay {user}, her er {tokens} poletter til dig.")
+    else:
+        print(f"Velkommen til casinoet, {user}! Her er {tokens} poletter!")
+    
+    print(f"Du har nu {new_total} poletter i alt.")
+
+def show_balance():
+    """Show user's token balance."""
+    user = get_user()
+    tokens = get_tokens()
+    print(f"{user}: Du har {tokens} poletter.")
+    
+    if can_claim_today():
+        print("Du kan hente flere poletter i dag! Brug: casino hent")
+
+def help_text():
+    """Show help text."""
+    print("""🎰🎰 VELKOMMEN TIL CONCIEGGS CASINO 🎰🎰
+
+Kommandoer:
+  casino hent       - Hent dine daglige poletter
+  casino balance    - Se hvor mange poletter du har
+  casino roulette   - Spil roulette!
+  casino hjælp      - Vis denne hjælp
+
+Husk: Du kan tilmelde dig https://www.spillemyndigheden.dk/rofus
+hvis du vil undgå at komme til at spille dine penge væk.
+På nuværende tidspunkt er en lignende ordning for concieggs-poletterne
+dog ikke planlagt.""")
+
+def main():
+    user = get_user()
+    if not user:
+        print("Noget gik galt...")
+        return
+    
+    args = sys.argv[1:]
+    
+    if not args or args[0] in ["hjælp", "help"]:
+        help_text()
+    elif args[0] in ["hent", "claim"]:
+        claim_tokens()
+    elif args[0] in ["balance", "poletter", "tokens"]:
+        show_balance()
+    elif args[0] == "roulette":
+        # Forward to roulette command by calling it directly
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        roulette_path = os.path.join(script_dir, "roulette")
+        os.execv(roulette_path, ["roulette"] + args[1:])
+    else:
+        help_text()
+
+if __name__ == "__main__":
+    main()
