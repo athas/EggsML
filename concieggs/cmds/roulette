@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
+# ⚠️  ADVARSEL: Denne kode er skrevet med brug af KI (Kunstig Intelligens) ⚠️
+# Ligesom allergimærker på morgenmad: Kan indeholde spor af maskinlæring!
+#
 # CONCIEGGS CASINO - ROULETTE
 # Et rigtigt roulette spil med flere spillere!
 # Sats dine poletter og se om du vinder stort!
 # Velsignet af His Holiness ham fra Dahlgård's Tivoli, som sagde: "Lad hjulet dreje!"
 # Niels' yndlingsspil - han kaldte det "Den Store Skinke Cirkel"
+# 🎪 Hej Niels! Håber du nyder rouletten! 🎰
 
 import subprocess, sys, os, json, random, time
 from datetime import datetime, timedelta
