@@ -181,6 +181,8 @@ def check_win(bet_type, bet_value, winning_number):
     # Tjekker om et bet vinder og giver udbetalingen
     # Niels' regneregler for skinke-gevinster
     # ham fra Dahlgård's Tivoli's retfærdige domstol
+    # Nu med skinke-ordbog! Niels' moderne tilgang til klassisk roulette
+    
     if winning_number == 0:
         # Grøn! Den hellige 0! ham fra Dahlgård's Tivoli's favorit!
         # Kun direkte bet på 0 vinder - det er svært at ramme den grønne skinke
@@ -189,61 +191,21 @@ def check_win(bet_type, bet_value, winning_number):
         # Alle andre taber - 0 er special
         return 0
     
-    if bet_type == "number":
-        # Har de gættet det rigtige nummer?
-        # Niels: "Den perfekte skinke-gætning"
-        if bet_value == winning_number:
-            return 36  # 35:1 udbetaling + originalt bet - stor skinke!
-        # Forkert nummer, ingen skinke
-        return 0
+    # Niels' skinke-ordbog: bet-type -> vinderlogik
+    # Lambda-skinker for hvert bet-type!
+    skinke_regler = {
+        "number": lambda: 36 if bet_value == winning_number else 0,  # Den perfekte skinke-gætning
+        "red": lambda: 2 if winning_number in RED_NUMBERS else 0,  # Rød skinke?
+        "black": lambda: 2 if winning_number in BLACK_NUMBERS else 0,  # Sort skinke - ham fra Dahlgård's Tivoli smiler!
+        "even": lambda: 2 if winning_number % 2 == 0 else 0,  # Lige tal - symmetrisk skinke
+        "odd": lambda: 2 if winning_number % 2 == 1 else 0,  # Ulige er spændende - Niels
+        "1-18": lambda: 2 if 1 <= winning_number <= 18 else 0,  # Lave skinker
+        "19-36": lambda: 2 if 19 <= winning_number <= 36 else 0,  # Høje skinker - Tivoli terminologi
+    }
     
-    if bet_type == "red":
-        # Satset på rød - er det en rød skinke?
-        if winning_number in RED_NUMBERS:
-            return 2  # 1:1 udbetaling + originalt bet - medium skinke
-        # Ikke rød - ingen skinke
-        return 0
-    
-    if bet_type == "black":
-        # Satset på sort - sort skinke?
-        if winning_number in BLACK_NUMBERS:
-            # Sort skinke! ham fra Dahlgård's Tivoli smiler!
-            return 2
-        return 0
-    
-    if bet_type == "even":
-        # Lige tal - ham fra Dahlgård's Tivoli elsker symmetri
-        if winning_number % 2 == 0:
-            # Lige! Skinke!
-            return 2
-        return 0
-    
-    if bet_type == "odd":
-        # Ulige tal - Niels' favorit
-        # "Ulige er spændende" - Niels
-        if winning_number % 2 == 1:
-            return 2
-        return 0
-    
-    if bet_type == "1-18":
-        # Små numre - ham fra Dahlgård's Tivoli kaldte dette "lave skinker"
-        if 1 <= winning_number <= 18:
-            # Lavt nummer vandt! Skinke til spilleren!
-            return 2
-        # For højt - ingen skinke denne gang
-        return 0
-    
-    if bet_type == "19-36":
-        # Store numre - "høje skinker" i Tivoli terminologi
-        if 19 <= winning_number <= 36:
-            # Højt nummer! Niels ville være stolt!
-            return 2
-        # For lavt - tab skinken
-        return 0
-    
-    # Hvis vi kom hertil, så var det noget mærkeligt
-    # Det burde ikke ske, men man ved aldrig!
-    return 0
+    # Slå op i skinke-ordbogen og udfør reglen
+    # Hvis bet_type ikke findes, returner 0 (ingen skinke)
+    return skinke_regler.get(bet_type, lambda: 0)()
 
 def place_bet():
     # Her kan man placere et bet på rouletten!
