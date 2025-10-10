@@ -3,6 +3,7 @@
 #
 # CONCIEGGS CASINO - ROULETTE
 # Et rigtigt roulette spil med flere spillere!
+# Sats dine poletter og se om du vinder stort!
 
 import subprocess
 import sys
@@ -11,19 +12,18 @@ import json
 import random
 import time
 from datetime import datetime, timedelta
-from typing import Optional, Dict, List, Tuple, Any
 
-# Roulette wheel numbers with colors
-# 0 is green, odds are red, evens are black (except 0)
+# Roulette hjulets numre og farver
+# 0 er grøn, rød og sort fordelt ligesom på et rigtigt roulette hjul
 RED_NUMBERS = [n for n in range(1, 37) if n in [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36]]
 BLACK_NUMBERS = [n for n in range(1, 37) if n not in RED_NUMBERS]
 
-def get_user() -> str:
-    """Get current user from environment."""
+def get_user():
+    # Hvem sidder ved roulette bordet?
     return os.getenv("EGGS_USER", "").strip()
 
-def get_casino_data() -> Dict[str, Any]:
-    """Get casino database."""
+def get_casino_data():
+    # Læser casino databasen
     try:
         db_dir = os.getenv("CONCIEGGS_DB_DIR", ".")
         with open(f"{db_dir}/store/casino", "r") as f:
@@ -31,16 +31,16 @@ def get_casino_data() -> Dict[str, Any]:
     except:
         return {"tokens": {}, "last_claim": {}}
 
-def set_casino_data(data: Dict[str, Any]) -> None:
-    """Save casino database."""
+def set_casino_data(data):
+    # Skriver til casino databasen
     json_str = json.dumps(data, ensure_ascii=False)
     db_dir = os.getenv("CONCIEGGS_DB_DIR", ".")
     os.makedirs(f"{db_dir}/store", exist_ok=True)
     with open(f"{db_dir}/store/casino", "w") as f:
         f.write(json_str)
 
-def get_roulette_game() -> Optional[Dict[str, Any]]:
-    """Get current roulette game state."""
+def get_roulette_game():
+    # Henter det aktive roulette spil hvis der er et
     try:
         db_dir = os.getenv("CONCIEGGS_DB_DIR", ".")
         with open(f"{db_dir}/store/roulette_game", "r") as f:
@@ -51,16 +51,16 @@ def get_roulette_game() -> Optional[Dict[str, Any]]:
     except:
         return None
 
-def set_roulette_game(game: Dict[str, Any]) -> None:
-    """Save roulette game state."""
+def set_roulette_game(game):
+    # Gemmer roulette spillet
     json_str = json.dumps(game, ensure_ascii=False)
     db_dir = os.getenv("CONCIEGGS_DB_DIR", ".")
     os.makedirs(f"{db_dir}/store", exist_ok=True)
     with open(f"{db_dir}/store/roulette_game", "w") as f:
         f.write(json_str)
 
-def clear_roulette_game() -> None:
-    """Clear roulette game state."""
+def clear_roulette_game():
+    # Rydder spillet væk når runden er færdig
     db_dir = os.getenv("CONCIEGGS_DB_DIR", ".")
     try:
         with open(f"{db_dir}/store/roulette_game", "w") as f:
@@ -68,21 +68,21 @@ def clear_roulette_game() -> None:
     except:
         pass
 
-def get_tokens(user: str) -> int:
-    """Get token balance for user."""
+def get_tokens(user):
+    # Hvor mange poletter har spilleren?
     data = get_casino_data()
     return data.get("tokens", {}).get(user, 0)
 
-def set_tokens(user: str, amount: int) -> None:
-    """Set token balance for user."""
+def set_tokens(user, amount):
+    # Opdaterer spillerens poletter
     data = get_casino_data()
     if "tokens" not in data:
         data["tokens"] = {}
     data["tokens"][user] = amount
     set_casino_data(data)
 
-def format_bet(bet_type: str, value: Optional[int]) -> str:
-    """Format bet for display."""
+def format_bet(bet_type, value):
+    # Formaterer et bet pænt til visning
     if bet_type == "number":
         return f"nummer {value}"
     elif bet_type == "red":
@@ -99,11 +99,11 @@ def format_bet(bet_type: str, value: Optional[int]) -> str:
         return "19-36"
     return str(bet_type)
 
-def parse_bet(bet_str: str) -> Optional[Tuple[str, Optional[int]]]:
-    """Parse bet from string. Returns (bet_type, value) or None."""
+def parse_bet(bet_str):
+    # Finder ud af hvad brugeren vil satse på
     bet_str = bet_str.lower().strip()
     
-    # Try to parse as number
+    # Prøv at parse som nummer
     try:
         num = int(bet_str)
         if 0 <= num <= 36:
@@ -111,13 +111,13 @@ def parse_bet(bet_str: str) -> Optional[Tuple[str, Optional[int]]]:
     except ValueError:
         pass
     
-    # Color bets
+    # Farve bets
     if bet_str in ["rød", "red", "r"]:
         return ("red", None)
     if bet_str in ["sort", "black", "b", "s"]:
         return ("black", None)
     
-    # Even/odd
+    # Lige/ulige
     if bet_str in ["lige", "even", "l"]:
         return ("even", None)
     if bet_str in ["ulige", "odd", "u"]:
@@ -131,22 +131,22 @@ def parse_bet(bet_str: str) -> Optional[Tuple[str, Optional[int]]]:
     
     return None
 
-def check_win(bet_type: str, bet_value: Optional[int], winning_number: int) -> int:
-    """Check if bet wins and return payout multiplier."""
+def check_win(bet_type, bet_value, winning_number):
+    # Tjekker om et bet vinder og giver udbetalingen
     if winning_number == 0:
-        # Only direct bet on 0 wins
+        # Kun direkte bet på 0 vinder
         if bet_type == "number" and bet_value == 0:
-            return 36  # 35:1 payout + original bet
+            return 36  # 35:1 udbetaling + originalt bet
         return 0
     
     if bet_type == "number":
         if bet_value == winning_number:
-            return 36  # 35:1 payout + original bet
+            return 36  # 35:1 udbetaling + originalt bet
         return 0
     
     if bet_type == "red":
         if winning_number in RED_NUMBERS:
-            return 2  # 1:1 payout + original bet
+            return 2  # 1:1 udbetaling + originalt bet
         return 0
     
     if bet_type == "black":
@@ -176,8 +176,8 @@ def check_win(bet_type: str, bet_value: Optional[int], winning_number: int) -> i
     
     return 0
 
-def place_bet() -> None:
-    """Place a bet on roulette."""
+def place_bet():
+    # Her kan man placere et bet på rouletten!
     user = get_user()
     # Handle both "roulette sats ..." and "casino roulette sats ..."
     args = sys.argv[1:]
@@ -262,8 +262,8 @@ def place_bet() -> None:
         print(f"Andre spillere har {time_left} sekunder til at satse!")
         print("Brug 'casino roulette spin' for at dreje nu.")
 
-def spin_wheel() -> None:
-    """Spin the roulette wheel and determine winners."""
+def spin_wheel():
+    # Nu drejer vi rouletten! Spændende!
     game = get_roulette_game()
     
     if not game:
@@ -280,7 +280,7 @@ def spin_wheel() -> None:
         clear_roulette_game()
         return
     
-    # Spin!
+    # Drejer hjulet!
     winning_number = random.randint(0, 36)
     
     if winning_number == 0:
@@ -291,10 +291,10 @@ def spin_wheel() -> None:
         color = "sort"
     
     print(f"🎰 Rouletten drejer... og drejer... og...")
-    time.sleep(2)  # Build suspense!
+    time.sleep(2)  # Lad dem vente lidt!
     print(f"🎰 Bolden lander på: {winning_number} ({color})! 🎰")
     
-    # Calculate winnings
+    # Regn gevinster ud
     winners = []
     losers = []
     
@@ -313,7 +313,7 @@ def spin_wheel() -> None:
                 user_losses += bet_amount
         
         if user_winnings > 0:
-            # Pay out
+            # Udbetal gevinster
             current_tokens = get_tokens(user)
             set_tokens(user, current_tokens + user_winnings)
             winners.append((user, user_winnings))
@@ -321,7 +321,7 @@ def spin_wheel() -> None:
         if user_losses > 0 and user_winnings == 0:
             losers.append(user)
     
-    # Announce results
+    # Fortæl om resultater
     if winners:
         print("\n🎉 VINDERE 🎉")
         for user, winnings in winners:
@@ -332,24 +332,24 @@ def spin_wheel() -> None:
         for user in losers:
             print(f"  {user}")
     
-    # Save result to game
+    # Gem resultat
     game["result"] = winning_number
     game["color"] = color
     set_roulette_game(game)
     
     print("\nStart en ny runde med 'casino roulette sats ...'")
     
-    # Clear game after showing results
+    # Ryd op
     clear_roulette_game()
 
-def show_result(game: Dict[str, Any]) -> None:
-    """Show results of a completed game."""
+def show_result(game):
+    # Viser resultat af et færdigt spil
     winning_number = game["result"]
     color = game["color"]
     print(f"Sidste resultat: {winning_number} ({color})")
 
-def show_status() -> None:
-    """Show current game status."""
+def show_status():
+    # Viser status for den aktive roulette runde
     game = get_roulette_game()
     
     if not game:
@@ -379,8 +379,8 @@ def show_status() -> None:
         time_left = (spin_time - datetime.now()).seconds
         print(f"\n{time_left} sekunder til rouletten drejes automatisk.")
 
-def help_text() -> None:
-    """Show roulette help."""
+def help_text():
+    # Hjælpetekst til roulette
     print("""🎰 ROULETTE 🎰
 
 Kommandoer:
@@ -399,16 +399,17 @@ Udbetalinger:
   - Enkelt nummer: 35:1
   - Rød/sort, lige/ulige, lav/høj: 1:1""")
 
-def main() -> None:
+def main():
+    # Hovedfunktionen - starter det hele
     user = get_user()
     if not user:
         print("Noget gik galt...")
         return
     
-    # Handle both direct call and via casino command
+    # Håndter både direkte kald og via casino kommando
     args = sys.argv[1:]
     
-    # Skip "roulette" if called via "casino roulette"
+    # Spring "roulette" over hvis kaldt via "casino roulette"
     if args and args[0] == "roulette":
         args = args[1:]
     

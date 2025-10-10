@@ -2,20 +2,20 @@
 # -*- coding: utf-8 -*-
 #
 # CONCIEGGS CASINO - Spil dine concieggs-poletter væk!
+# Kom og spil! Men pas på - concieggs husker hvis du er slem.
 
 import subprocess
 import sys
 import os
 import json
 from datetime import datetime, timedelta
-from typing import Dict, Any, Optional
 
-def get_user() -> str:
-    """Get current user from environment."""
+def get_user():
+    # Hvem er du egentlig?
     return os.getenv("EGGS_USER", "").strip()
 
-def get_annoyance() -> int:
-    """Get how annoyed concieggs is at the user."""
+def get_annoyance():
+    # Hvor irriteret er concieggs på brugeren? Jo højere tal, jo mere sur.
     user = get_user()
     try:
         result = subprocess.check_output(["annoyanceAt", user], stderr=subprocess.DEVNULL)
@@ -23,8 +23,8 @@ def get_annoyance() -> int:
     except:
         return 0
 
-def get_casino_data() -> Dict[str, Any]:
-    """Get casino database (tokens per user, last claim times)."""
+def get_casino_data():
+    # Henter casinoets store bog med poletter og hvem der har været her
     try:
         db_dir = os.getenv("CONCIEGGS_DB_DIR", ".")
         with open(f"{db_dir}/store/casino", "r") as f:
@@ -32,32 +32,31 @@ def get_casino_data() -> Dict[str, Any]:
     except:
         return {"tokens": {}, "last_claim": {}}
 
-def set_casino_data(data: Dict[str, Any]) -> None:
-    """Save casino database."""
+def set_casino_data(data):
+    # Gemmer tingene væk så vi kan huske det næste gang
     json_str = json.dumps(data, ensure_ascii=False)
-    # Write directly to avoid shell escaping issues
     db_dir = os.getenv("CONCIEGGS_DB_DIR", ".")
     os.makedirs(f"{db_dir}/store", exist_ok=True)
     with open(f"{db_dir}/store/casino", "w") as f:
         f.write(json_str)
 
-def get_tokens(user: Optional[str] = None) -> int:
-    """Get token balance for user."""
+def get_tokens(user=None):
+    # Tæller hvor mange poletter nogen har. Hvis ingen navn gives, så den nuværende bruger.
     if user is None:
         user = get_user()
     data = get_casino_data()
     return data.get("tokens", {}).get(user, 0)
 
-def set_tokens(user: str, amount: int) -> None:
-    """Set token balance for user."""
+def set_tokens(user, amount):
+    # Sætter antallet af poletter for en bruger
     data = get_casino_data()
     if "tokens" not in data:
         data["tokens"] = {}
     data["tokens"][user] = amount
     set_casino_data(data)
 
-def can_claim_today() -> bool:
-    """Check if user can claim daily tokens."""
+def can_claim_today():
+    # Kan brugeren hente flere poletter i dag? Man må kun hente én gang om dagen!
     user = get_user()
     data = get_casino_data()
     last_claim = data.get("last_claim", {}).get(user)
@@ -68,8 +67,8 @@ def can_claim_today() -> bool:
     today = datetime.now().date().isoformat()
     return last_claim != today
 
-def claim_tokens() -> None:
-    """Claim daily tokens."""
+def claim_tokens():
+    # Her kan man hente sine daglige poletter! Men kun én gang om dagen.
     user = get_user()
     
     if not can_claim_today():
@@ -77,8 +76,7 @@ def claim_tokens() -> None:
         print(f"Du har {get_tokens()} poletter.")
         return
     
-    # Base tokens: 100
-    # Reduce by annoyance level
+    # Giv 100 poletter, men træk fra hvis concieggs er irriteret
     annoyance = get_annoyance()
     base_tokens = 100
     tokens = max(10, base_tokens - annoyance * 5)
@@ -96,6 +94,7 @@ def claim_tokens() -> None:
     data["last_claim"][user] = datetime.now().date().isoformat()
     set_casino_data(data)
     
+    # Concieggs er måske lidt sur...
     if annoyance > 5:
         print(f"Nå {user}... jeg kan se du ikke har opført dig pænt.")
         print(f"Du får kun {tokens} poletter i dag.")
@@ -106,8 +105,8 @@ def claim_tokens() -> None:
     
     print(f"Du har nu {new_total} poletter i alt.")
 
-def show_balance() -> None:
-    """Show user's token balance."""
+def show_balance():
+    # Vis hvor mange poletter brugeren har
     user = get_user()
     tokens = get_tokens()
     print(f"{user}: Du har {tokens} poletter.")
@@ -115,8 +114,8 @@ def show_balance() -> None:
     if can_claim_today():
         print("Du kan hente flere poletter i dag! Brug: casino hent")
 
-def help_text() -> None:
-    """Show help text."""
+def help_text():
+    # Hjælpetekst til casinoet
     print("""🎰🎰 VELKOMMEN TIL CONCIEGGS CASINO 🎰🎰
 
 Kommandoer:
@@ -130,7 +129,8 @@ hvis du vil undgå at komme til at spille dine penge væk.
 På nuværende tidspunkt er en lignende ordning for concieggs-poletterne
 dog ikke planlagt.""")
 
-def main() -> None:
+def main():
+    # Hovedfunktion - her starter det hele
     user = get_user()
     if not user:
         print("Noget gik galt...")
@@ -145,7 +145,7 @@ def main() -> None:
     elif args[0] in ["balance", "poletter", "tokens"]:
         show_balance()
     elif args[0] == "roulette":
-        # Forward to roulette command by calling it directly
+        # Sender videre til roulette kommandoen
         script_dir = os.path.dirname(os.path.abspath(__file__))
         roulette_path = os.path.join(script_dir, "roulette")
         os.execv(roulette_path, ["roulette"] + args[1:])
