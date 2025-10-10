@@ -6,10 +6,7 @@
 # Inspireret af ham fra Dahlgård's Tivoli og hans visdom om casinospil og tilfældighed.
 # Niels tog os med derhen engang - det var en oplevelse!
 
-import subprocess
-import sys
-import os
-import json
+import subprocess, sys, os, json
 from datetime import datetime, timedelta
 
 def get_user():

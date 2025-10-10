@@ -7,12 +7,7 @@
 # Velsignet af His Holiness ham fra Dahlgård's Tivoli, som sagde: "Lad hjulet dreje!"
 # Niels' yndlingsspil - han kaldte det "Den Store Skinke Cirkel"
 
-import subprocess
-import sys
-import os
-import json
-import random
-import time
+import subprocess, sys, os, json, random, time
 from datetime import datetime, timedelta
 
 # Roulette hjulets numre og farver
