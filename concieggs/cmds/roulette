@@ -298,18 +298,18 @@ def place_bet():
     
     set_roulette_game(game)
     
-    print(f"🎰 {user} satser {amount} poletter på {format_bet(bet_type, bet_value)}!")
-    print(f"Du har {tokens - amount} poletter tilbage.")
+    print(f"🎰💰 {user} satser {amount} poletter på {format_bet(bet_type, bet_value)}!")
+    print(f"💵 Du har {tokens - amount} poletter tilbage.")
     
     # Check if we should auto-spin
     spin_time = datetime.fromisoformat(game["spin_time"])
     if datetime.now() >= spin_time:
-        print("Tiden er udløbet! Rouletten drejes...")
+        print("⏰ Tiden er udløbet! Rouletten drejes...")
         spin_wheel()
     else:
         time_left = (spin_time - datetime.now()).seconds
-        print(f"Andre spillere har {time_left} sekunder til at satse!")
-        print("Brug 'casino roulette spin' for at dreje nu.")
+        print(f"⏱️  Andre spillere har {time_left} sekunder til at satse!")
+        print("🎲 Brug 'casino roulette spin' for at dreje nu.")
 
 def spin_wheel():
     # Nu drejer vi rouletten! Spændende!
@@ -375,9 +375,9 @@ def spin_wheel():
     # Lad dem vente lidt - spændingen er vigtig!
     # Niels sagde: "Spænding gør skinken bedre"
     # ham fra Dahlgård's Tivoli krævede dramatik
-    print(f"🎰 Rouletten drejer... og drejer... og...")
+    print(f"🎰✨ Rouletten drejer... og drejer... og...")
     time.sleep(2)  # Lad dem vente lidt! Bygger spænding! Mere skinke-drama!
-    print(f"🎰 Bolden lander på: {winning_number} ({color})! 🎰")
+    print(f"🎰🎉 Bolden lander på: {winning_number} ({color})! 🎰🎉")
     
     # Nu skal vi regne ud hvem der vinder skinker!
     # Niels' regnestykke: "Hvem får skinken?"
@@ -415,12 +415,12 @@ def spin_wheel():
     
     # Fortæl om resultater
     if winners:
-        print("\n🎉 VINDERE 🎉")
+        print("\n🎉💎 VINDERE 💎🎉")
         for user, winnings in winners:
-            print(f"  {user} vinder {winnings} poletter!")
+            print(f"  💰 {user} vinder {winnings} poletter!")
     
     if losers:
-        print("\n😢 Bedre held næste gang:")
+        print("\n😢💔 Bedre held næste gang:")
         # Niels' trøstepræmie - en sørgelig video til at dele sorgen
         # ham fra Dahlgård's Tivoli sagde: "En trist skinke fortjener trøst"
         sad_videos = [
@@ -433,15 +433,15 @@ def spin_wheel():
         consolation_video = random.choice(sad_videos)
         for user in losers:
             print(f"  {user}")
-        print(f"\nTrøstepræmie: {consolation_video}")
-        print("(Niels' gave til de uheldige)")
+        # Niels' gave til de uheldige - men det skal ikke ud i teksten
+        print(f"\n🎁 Trøstepræmie: {consolation_video}")
     
     # Gem resultat
     game["result"] = winning_number
     game["color"] = color
     set_roulette_game(game)
     
-    print("\nStart en ny runde med 'casino roulette sats ...'")
+    print("\n🔄 Start en ny runde med 'casino roulette sats ...'")
     
     # Ryd op
     clear_roulette_game()

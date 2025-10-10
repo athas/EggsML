@@ -118,8 +118,8 @@ def claim_tokens():
     
     if not can_claim_today():
         # Du har allerede fået din skinke i dag!
-        print(f"Du har allerede hentet dine poletter i dag, {user}!")
-        print(f"Du har {get_tokens()} poletter.")
+        print(f"⏰ Du har allerede hentet dine poletter i dag, {user}!")
+        print(f"💰 Du har {get_tokens()} poletter.")
         # Niels ville sige: "Kom tilbage i morgen for mere skinke"
         return
     
@@ -158,20 +158,20 @@ def claim_tokens():
     if annoyance > 5:
         # Meget irriteret! Næsten ingen skinker!
         # Ham fra Dahlgård's Tivoli ville også være stram her
-        print(f"Nå {user}... jeg kan se du ikke har opført dig pænt.")
-        print(f"Du får kun {tokens} poletter i dag.")
+        print(f"😤 Nå {user}... jeg kan se du ikke har opført dig pænt.")
+        print(f"💸 Du får kun {tokens} poletter i dag.")
     elif annoyance > 0:
         # Lidt irriteret - få færre skinker
         # Men stadig okay - alle fortjener en chance
-        print(f"Okay {user}, her er {tokens} poletter til dig.")
+        print(f"😐 Okay {user}, her er {tokens} poletter til dig.")
     else:
         # Alt er godt! Fulde skinker!
         # Ham fra Dahlgård's Tivoli ville smile og give fuld betaling
-        print(f"Velkommen til casinoet, {user}! Her er {tokens} poletter!")
+        print(f"🎉 Velkommen til casinoet, {user}! Her er {tokens} poletter!")
     
     # Ham fra Dahlgård's Tivoli's visdom: "Og du skal kende din rigdom"
     # Det er vigtigt at vide hvad man har!
-    print(f"Du har nu {new_total} poletter i alt.")
+    print(f"💰 Du har nu {new_total} poletter i alt.")
 
 def show_balance():
     # Vis hvor mange poletter brugeren har
@@ -194,34 +194,35 @@ def help_text():
     # Niels sagde: "Hjælp dem der ikke forstår skinke-systemet"
     # Ham fra Dahlgård's Tivoli's ord: "Vis vejen for de fortabte"
     # Alle skal kunne finde rundt i casinoet!
-    print("""🎰 CONCIEGGS CASINO 🎰
+    print("""🎰💎 CONCIEGGS CASINO 💎🎰
 
-Brug 'casino hjælp fuld' for at se alle kommandoer.
+Brug 'casino hjælp beruset' for at se alle kommandoer.
 
-Hurtig start:
-  casino hent       - Hent dine daglige poletter
-  casino roulette   - Spil roulette!""")
+⭐ Hurtig start:
+  💰 casino hent       - Hent dine daglige poletter
+  🎲 casino roulette   - Spil roulette!""")
 
 def full_help_text():
     # Den fulde hjælp - kun for dem der virkelig vil vide mere
     # Niels var grundig når det var nødvendigt
     # Ham fra Dahlgård's Tivoli's komplette guide
-    print("""🎰🎰 VELKOMMEN TIL CONCIEGGS CASINO 🎰🎰
+    print("""🎰🎰🎰 VELKOMMEN TIL CONCIEGGS CASINO 🎰🎰🎰
+✨ DET FEDESTE CASINO PÅ IRC! ✨
 
-Kommandoer:
-  casino hent       - Hent dine daglige poletter (skinker!)
-  casino balance    - Se hvor mange poletter du har
-  casino roulette   - Spil roulette! (Den Store Skinke Hjul)
-  casino hjælp      - Vis kort hjælp
-  casino hjælp fuld - Vis denne fulde hjælp
+💎 Kommandoer:
+  💰 casino hent         - Hent dine daglige poletter (skinker!)
+  📊 casino balance      - Se hvor mange poletter du har
+  🎲 casino roulette     - Spil roulette! (Den Store Skinke Hjul)
+  ❓ casino hjælp        - Vis kort hjælp
+  🍺 casino hjælp beruset - Vis denne fulde hjælp
 
-Husk: Du kan tilmelde dig https://www.spillemyndigheden.dk/rofus
+⚠️ Husk: Du kan tilmelde dig https://www.spillemyndigheden.dk/rofus
 hvis du vil undgå at komme til at spille dine penge væk.
 På nuværende tidspunkt er en lignende ordning for concieggs-poletterne
 dog ikke planlagt.
 
-"Spil med måde, spil med skinke" - Niels' motto
-"Lad tilfældet bestemme, lad skinken falde" - Ham fra Dahlgård's Tivoli's visdom""")
+🎉 "Spil med måde, spil med skinke" - Niels' motto
+🎪 "Lad tilfældet bestemme, lad skinken falde" - Ham fra Dahlgård's Tivoli's visdom""")
 
 def main():
     # Hovedfunktion - her starter det hele
@@ -243,7 +244,7 @@ def main():
     if not args or args[0] in ["hjælp", "help"]:
         # De vil have hjælp - giv dem det!
         # Tjek om de vil have fuld hjælp
-        if len(args) > 1 and args[1] == "fuld":
+        if len(args) > 1 and args[1] == "beruset":
             full_help_text()
         else:
             help_text()
