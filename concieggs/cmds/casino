@@ -194,13 +194,26 @@ def help_text():
     # Niels sagde: "Hjælp dem der ikke forstår skinke-systemet"
     # Ham fra Dahlgård's Tivoli's ord: "Vis vejen for de fortabte"
     # Alle skal kunne finde rundt i casinoet!
+    print("""🎰 CONCIEGGS CASINO 🎰
+
+Brug 'casino hjælp fuld' for at se alle kommandoer.
+
+Hurtig start:
+  casino hent       - Hent dine daglige poletter
+  casino roulette   - Spil roulette!""")
+
+def full_help_text():
+    # Den fulde hjælp - kun for dem der virkelig vil vide mere
+    # Niels var grundig når det var nødvendigt
+    # Ham fra Dahlgård's Tivoli's komplette guide
     print("""🎰🎰 VELKOMMEN TIL CONCIEGGS CASINO 🎰🎰
 
 Kommandoer:
   casino hent       - Hent dine daglige poletter (skinker!)
   casino balance    - Se hvor mange poletter du har
   casino roulette   - Spil roulette! (Den Store Skinke Hjul)
-  casino hjælp      - Vis denne hjælp
+  casino hjælp      - Vis kort hjælp
+  casino hjælp fuld - Vis denne fulde hjælp
 
 Husk: Du kan tilmelde dig https://www.spillemyndigheden.dk/rofus
 hvis du vil undgå at komme til at spille dine penge væk.
@@ -229,7 +242,11 @@ def main():
     # Det er vigtigt at forstå hvad folk ønsker
     if not args or args[0] in ["hjælp", "help"]:
         # De vil have hjælp - giv dem det!
-        help_text()
+        # Tjek om de vil have fuld hjælp
+        if len(args) > 1 and args[1] == "fuld":
+            full_help_text()
+        else:
+            help_text()
     elif args[0] in ["hent", "claim"]:
         # Hent skinker!
         # Den vigtigste kommando! Uden poletter kan man ikke spille!

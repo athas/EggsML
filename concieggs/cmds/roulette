@@ -141,6 +141,10 @@ def parse_bet(bet_str):
         if 0 <= num <= 36:
             # Det er et gyldigt nummer! En gyldigt skinke-position!
             return ("number", num)
+        elif num == 42 or num == 1337:
+            # Hemmelige nørd-numre! Niels ville synes det var sjovt
+            # Ham fra Dahlgård's Tivoli kendte også til disse mystiske tal
+            return ("number", num)
     except ValueError:
         # Ikke et nummer - måske noget andet
         pass
@@ -371,12 +375,34 @@ def spin_wheel():
     # Drejer hjulet! DET STORE ØJEBLIK!
     # ham fra Dahlgård's Tivoli velsigner denne tilfældighed
     # Niels råber: "DREJ SKINKEN!"
-    winning_number = random.randint(0, 36)
+    
+    # Tjek om nogen har satset på de hemmelige numre
+    # Niels' påskeæg - det er hemmeligt men sjovt!
+    has_special_bet = False
+    special_numbers = []
+    for user, bets in game["bets"].items():
+        for bet in bets:
+            if bet["type"] == "number" and bet["value"] in [42, 1337]:
+                has_special_bet = True
+                special_numbers.append(bet["value"])
+    
+    # Hvis nogen satsede på et special nummer, er der en lille chance
+    # Niels ville sige: "Lad nørderne have en chance"
+    if has_special_bet and random.random() < 0.15:  # 15% chance - ikke for let!
+        winning_number = random.choice(special_numbers)
+    else:
+        winning_number = random.randint(0, 36)
     
     # Hvad farve blev det? Hvilken skinke vandt?
     if winning_number == 0:
         # Grøn! ham fra Dahlgård's Tivoli's hellige farve!
         color = "grøn"
+    elif winning_number == 42:
+        # Niels' mystiske tal! Svaret på alting!
+        color = "guld - SVARET PÅ LIVET, UNIVERSET OG ALT!"
+    elif winning_number == 1337:
+        # Niels' elite-nummer! Kun for de sejeste!
+        color = "neon-grøn - L33T HAXX0R MODE!"
     elif winning_number in RED_NUMBERS:
         # Rød skinke!
         color = "rød"
@@ -433,8 +459,20 @@ def spin_wheel():
     
     if losers:
         print("\n😢 Bedre held næste gang:")
+        # Niels' trøstepræmie - en sørgelig video til at dele sorgen
+        # ham fra Dahlgård's Tivoli sagde: "En trist skinke fortjener trøst"
+        sad_videos = [
+            "https://www.youtube.com/watch?v=gIuotFZnBtk",  # Mad World
+            "https://www.youtube.com/watch?v=4N3N1MlvVc4",  # Sad Violin
+            "https://www.youtube.com/watch?v=5anLPw0Efmo",  # Sad Piano
+            "https://www.youtube.com/watch?v=QuNhTLVgV2Y",  # Sad Song
+            "https://www.youtube.com/watch?v=dhZTNgAs4Fc",  # River Flows In You
+        ]
+        consolation_video = random.choice(sad_videos)
         for user in losers:
             print(f"  {user}")
+        print(f"\nTrøstepræmie: {consolation_video}")
+        print("(Niels' gave til de uheldige)")
     
     # Gem resultat
     game["result"] = winning_number
