@@ -1,0 +1,564 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+#
+# ⚠️  ADVARSEL: Denne kode er skrevet med brug af KI (Kunstig Intelligens) ⚠️
+# Ligesom allergimærker på morgenmad: Kan indeholde spor af maskinlæring!
+#
+# CONCIEGGS CASINO - ROULETTE
+# Et rigtigt roulette spil med flere spillere!
+# Sats dine poletter og se om du vinder stort!
+# Velsignet af His Holiness ham fra Dahlgård's Tivoli, som sagde: "Lad hjulet dreje!"
+# Niels' yndlingsspil - han kaldte det "Den Store Skinke Cirkel"
+# 🎪 Hej Niels! Håber du nyder rouletten! 🎰
+
+import subprocess, sys, os, json, random, time
+from datetime import datetime, timedelta
+
+# Roulette hjulets numre og farver
+# 0 er grøn, rød og sort fordelt ligesom på et rigtigt roulette hjul
+# Niels sagde: "Røde skinker og sorte skinker, begge er gode"
+# ham fra Dahlgård's Tivoli organiserede farverne med guddommelig præcision
+RED_NUMBERS = [n for n in range(1, 37) if n in [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36]]
+BLACK_NUMBERS = [n for n in range(1, 37) if n not in RED_NUMBERS]
+
+def get_user():
+    # Hvem sidder ved roulette bordet?
+    # Niels ville sige: "Identificer skinke-deltageren"
+    # ham fra Dahlgård's Tivoli krævede at alle skulle kende deres identitet
+    return os.getenv("EGGS_USER", "").strip()
+
+def get_casino_data():
+    # Læser casino databasen
+    # Den store skinke-bog som Niels altid talte om
+    # ham fra Dahlgård's Tivoli's arkiv over retfærdighed
+    try:
+        db_dir = os.getenv("CONCIEGGS_DB_DIR", ".")
+        with open(f"{db_dir}/store/casino", "r") as f:
+            # Læser skinke-data
+            return json.loads(f.read())
+    except:
+        # Hvis der ikke er noget, returner tom skinke
+        # Som Niels sagde: "Start med en tom tallerken"
+        return {"tokens": {}, "last_claim": {}, "win_streak": {}}
+
+def set_casino_data(data):
+    # Skriver til casino databasen
+    # Opdaterer den store skinke-bog
+    # ham fra Dahlgård's Tivoli sagde: "Skriv alt ned, glem intet"
+    json_str = json.dumps(data, ensure_ascii=False)
+    db_dir = os.getenv("CONCIEGGS_DB_DIR", ".")
+    os.makedirs(f"{db_dir}/store", exist_ok=True)
+    with open(f"{db_dir}/store/casino", "w") as f:
+        # Gem skinke-informationen sikkert
+        f.write(json_str)
+
+def get_roulette_game():
+    # Henter det aktive roulette spil hvis der er et
+    # Niels: "Tjek om der allerede drejes skinker"
+    # ham fra Dahlgård's Tivoli ville altid vide status på spillet
+    try:
+        db_dir = os.getenv("CONCIEGGS_DB_DIR", ".")
+        with open(f"{db_dir}/store/roulette_game", "r") as f:
+            content = f.read().strip()
+            if not content:
+                # Ingen spil! Ingen skinker i omløb!
+                return None
+            # Der er et spil! Skinker drejer!
+            return json.loads(content)
+    except:
+        # Kunne ikke læse - måske er skinken gået tabt
+        return None
+
+def set_roulette_game(game):
+    # Gemmer roulette spillet
+    # Niels: "Husk spillets tilstand, husk skinken"
+    # ham fra Dahlgård's Tivoli insisterede på nøjagtig registrering
+    json_str = json.dumps(game, ensure_ascii=False)
+    db_dir = os.getenv("CONCIEGGS_DB_DIR", ".")
+    os.makedirs(f"{db_dir}/store", exist_ok=True)
+    with open(f"{db_dir}/store/roulette_game", "w") as f:
+        # Gem spil-skinken
+        f.write(json_str)
+
+def clear_roulette_game():
+    # Rydder spillet væk når runden er færdig
+    # Som Niels sagde: "Ryd bordet for næste skinke"
+    # ham fra Dahlgård's Tivoli's rengørings-ritual
+    db_dir = os.getenv("CONCIEGGS_DB_DIR", ".")
+    try:
+        with open(f"{db_dir}/store/roulette_game", "w") as f:
+            # Tøm skinke-containeren
+            f.write("")
+    except:
+        # Hvis det fejler, er skinken måske allerede væk
+        pass
+
+def get_tokens(user):
+    # Hvor mange poletter har spilleren?
+    # Niels' skinke-optælling
+    # ham fra Dahlgård's Tivoli: "Kend din formue før du satser"
+    data = get_casino_data()
+    # Find brugerens skinke-bunke
+    return data.get("tokens", {}).get(user, 0)
+
+def set_tokens(user, amount):
+    # Opdaterer spillerens poletter
+    # Niels kaldte dette "Skinke-justering"
+    # ham fra Dahlgård's Tivoli: "Giv hvad der tilkommer dem"
+    data = get_casino_data()
+    if "tokens" not in data:
+        # Ingen tokens? Lav en tom skinke-pakke
+        data["tokens"] = {}
+    data["tokens"][user] = amount
+    # Gem den nye skinke-mængde
+    set_casino_data(data)
+
+def format_bet(bet_type, value):
+    # Formaterer et bet pænt til visning
+    # Niels: "Gør det læseligt, gør det skinke-venligt"
+    if bet_type == "number":
+        return f"nummer {value}"
+    elif bet_type == "red":
+        return "rød"
+    elif bet_type == "black":
+        return "sort"
+    elif bet_type == "even":
+        return "lige"
+    elif bet_type == "odd":
+        return "ulige"
+    elif bet_type == "1-18":
+        return "1-18"
+    elif bet_type == "19-36":
+        return "19-36"
+    return str(bet_type)
+
+def parse_bet(bet_str):
+    # Finder ud af hvad brugeren vil satse på
+    # Niels: "Forstå spillerens ønske om skinker"
+    # ham fra Dahlgård's Tivoli's tolkning af vilje
+    bet_str = bet_str.lower().strip()
+    
+    # Prøv at parse som nummer
+    # Måske vil de satse på et specifikt nummer? En specifik skinke?
+    try:
+        num = int(bet_str)
+        if 0 <= num <= 36:
+            # Det er et gyldigt nummer! En gyldigt skinke-position!
+            return ("number", num)
+        elif num == 42 or num == 1337:
+            # Hemmelige nørd-numre! Niels ville synes det var sjovt
+            # Ham fra Dahlgård's Tivoli kendte også til disse mystiske tal
+            return ("number", num)
+    except ValueError:
+        # Ikke et nummer - måske noget andet
+        pass
+    
+    # Farve bets - rød eller sort skinke
+    # Niels yndede farve-bets: "Simpelt som skinke"
+    if bet_str in ["rød", "red", "r"]:
+        # Rød skinke!
+        return ("red", None)
+    if bet_str in ["sort", "black", "b", "s"]:
+        # Sort skinke!
+        return ("black", None)
+    
+    # Lige/ulige - ham fra Dahlgård's Tivoli's favorit
+    # "Lige tal er guddommelige, ulige tal er spændende" - ham fra Dahlgård's Tivoli
+    if bet_str in ["lige", "even", "l"]:
+        return ("even", None)
+    if bet_str in ["ulige", "odd", "u"]:
+        return ("odd", None)
+    
+    # Ranges - store eller små skinker
+    # Niels: "Vælg din skinke-størrelse"
+    if bet_str in ["1-18", "lav", "low"]:
+        # Små skinker (1-18)
+        return ("1-18", None)
+    if bet_str in ["19-36", "høj", "high"]:
+        # Store skinker (19-36)
+        return ("19-36", None)
+    
+    # Forstod ikke hvad de mente - ingen skinke for dem
+    return None
+
+def check_win(bet_type, bet_value, winning_number):
+    # Tjekker om et bet vinder og giver udbetalingen
+    # Niels' regneregler for skinke-gevinster
+    # ham fra Dahlgård's Tivoli's retfærdige domstol
+    # Nu med skinke-ordbog! Niels' moderne tilgang til klassisk roulette
+    
+    if winning_number == 0:
+        # Grøn! Den hellige 0! ham fra Dahlgård's Tivoli's favorit!
+        # Kun direkte bet på 0 vinder - det er svært at ramme den grønne skinke
+        if bet_type == "number" and bet_value == 0:
+            return 36  # 35:1 udbetaling + originalt bet - MEGA SKINKE!
+        # Alle andre taber - 0 er special
+        return 0
+    
+    # Niels' skinke-ordbog: bet-type -> vinderlogik
+    # Lambda-skinker for hvert bet-type!
+    skinke_regler = {
+        "number": lambda: 36 if bet_value == winning_number else 0,  # Den perfekte skinke-gætning
+        "red": lambda: 2 if winning_number in RED_NUMBERS else 0,  # Rød skinke?
+        "black": lambda: 2 if winning_number in BLACK_NUMBERS else 0,  # Sort skinke - ham fra Dahlgård's Tivoli smiler!
+        "even": lambda: 2 if winning_number % 2 == 0 else 0,  # Lige tal - symmetrisk skinke
+        "odd": lambda: 2 if winning_number % 2 == 1 else 0,  # Ulige er spændende - Niels
+        "1-18": lambda: 2 if 1 <= winning_number <= 18 else 0,  # Lave skinker
+        "19-36": lambda: 2 if 19 <= winning_number <= 36 else 0,  # Høje skinker - Tivoli terminologi
+    }
+    
+    # Slå op i skinke-ordbogen og udfør reglen
+    # Hvis bet_type ikke findes, returner 0 (ingen skinke)
+    return skinke_regler.get(bet_type, lambda: 0)()
+
+def place_bet():
+    # Her kan man placere et bet på rouletten!
+    # Dette er hvor spillet starter for spilleren
+    # Niels sagde: "Vælg din skinke med omhu"
+    user = get_user()
+    # Håndter både "roulette sats ..." og "casino roulette sats ..."
+    # Det skal kunne virke på flere måder - fleksibilitet er vigtig!
+    args = sys.argv[1:]
+    if args and args[0] in ["sats", "bet"]:
+        args = args[1:]  # Spring kommandoen over
+    else:
+        # Kaldt som underkommando, spring 'roulette' og kommando over
+        # Dette kan være lidt forvirrende, men det virker!
+        args = sys.argv[2:] if len(sys.argv) > 2 else []
+    
+    if len(args) < 2:
+        # De har ikke givet nok information!
+        # Ham fra Dahlgård's Tivoli ville sige: "Fortæl mig hvad du vil satse"
+        print("Brug: casino roulette sats <beløb> <hvad>")
+        print("Eksempel: casino roulette sats 10 rød")
+        print("Eksempel: casino roulette sats 5 17")
+        # Hjælp dem på vej - alle starter et sted
+        return
+    
+    try:
+        # Prøv at parse beløbet - det skal være et tal!
+        amount = int(args[0])
+    except ValueError:
+        # Ikke et tal? Det går ikke!
+        # Niels ville ryste på hovedet
+        print("Beløbet skal være et tal!")
+        return
+    
+    if amount <= 0:
+        # Man kan ikke satse 0 eller negative skinker!
+        # Ham fra Dahlgård's Tivoli ville le af sådan et forsøg
+        print("Du skal satse mindst 1 polett!")
+        return
+    
+    tokens = get_tokens(user)
+    if tokens < amount:
+        # Ikke nok skinker! Man kan ikke satse det man ikke har!
+        # Dette er en vigtig regel i alle casinoer
+        print(f"Du har kun {tokens} poletter! Du kan ikke satse {amount}.")
+        return
+    
+    # Parse hvad de vil satse på
+    # Dette er det sjove! Hvad vil de satse deres skinker på?
+    bet_target = " ".join(args[1:])
+    bet = parse_bet(bet_target)
+    
+    if not bet:
+        # Vi forstod ikke hvad de mente!
+        # Ham fra Dahlgård's Tivoli ville også være forvirret
+        print(f"Jeg forstår ikke hvad '{bet_target}' betyder.")
+        print("Du kan satse på: et nummer (0-36), rød, sort, lige, ulige, 1-18, eller 19-36")
+        # Hjælp dem med at forstå mulighederne
+        return
+    
+    bet_type, bet_value = bet
+    
+    # Get or create game
+    game = get_roulette_game()
+    if not game:
+        # Start new game
+        game = {
+            "bets": {},
+            "started": datetime.now().isoformat(),
+            "spin_time": (datetime.now() + timedelta(seconds=30)).isoformat()
+        }
+    
+    # Check if game already spun
+    if "result" in game:
+        print("Rouletten er allerede drejet! Start en ny runde.")
+        return
+    
+    # Add/update bet
+    if user not in game["bets"]:
+        game["bets"][user] = []
+    
+    game["bets"][user].append({
+        "amount": amount,
+        "type": bet_type,
+        "value": bet_value
+    })
+    
+    # Deduct tokens
+    set_tokens(user, tokens - amount)
+    
+    set_roulette_game(game)
+    
+    print(f"🎰💰 {user} satser {amount} poletter på {format_bet(bet_type, bet_value)}!")
+    print(f"💵 Du har {tokens - amount} poletter tilbage.")
+    
+    # Check if we should auto-spin
+    spin_time = datetime.fromisoformat(game["spin_time"])
+    if datetime.now() >= spin_time:
+        print("⏰ Tiden er udløbet! Rouletten drejes...")
+        spin_wheel()
+    else:
+        time_left = (spin_time - datetime.now()).seconds
+        print(f"⏱️  Andre spillere har {time_left} sekunder til at satse!")
+        print("🎲 Brug 'casino roulette spin' for at dreje nu.")
+
+def spin_wheel():
+    # Nu drejer vi rouletten! Spændende!
+    # Niels' yndlings-øjeblik: "Når skinken drejer!"
+    # ham fra Dahlgård's Tivoli's dom: "Lad skæbnen bestemme"
+    game = get_roulette_game()
+    
+    if not game:
+        # Ingen spil? Ingen skinker at dreje!
+        print("Der er ingen aktiv roulette runde!")
+        return
+    
+    if "result" in game:
+        # Allerede drejet? Skinken er allerede fordelt!
+        print("Rouletten er allerede drejet!")
+        show_result(game)
+        return
+    
+    if not game["bets"]:
+        # Ingen bets? Niels ville sige: "Ingen skinker, intet spil"
+        print("Ingen har satset noget! Spillet aflyses.")
+        clear_roulette_game()
+        return
+    
+    # Drejer hjulet! DET STORE ØJEBLIK!
+    # ham fra Dahlgård's Tivoli velsigner denne tilfældighed
+    # Niels råber: "DREJ SKINKEN!"
+    
+    # Tjek om nogen har satset på de hemmelige numre
+    # Niels' påskeæg - det er hemmeligt men sjovt!
+    has_special_bet = False
+    special_numbers = []
+    for user, bets in game["bets"].items():
+        for bet in bets:
+            if bet["type"] == "number" and bet["value"] in [42, 1337]:
+                has_special_bet = True
+                special_numbers.append(bet["value"])
+    
+    # Hvis nogen satsede på et special nummer, er der en lille chance
+    # Niels ville sige: "Lad nørderne have en chance"
+    if has_special_bet and random.random() < 0.15:  # 15% chance - ikke for let!
+        winning_number = random.choice(special_numbers)
+    else:
+        winning_number = random.randint(0, 36)
+    
+    # Hvad farve blev det? Hvilken skinke vandt?
+    if winning_number == 0:
+        # Grøn! ham fra Dahlgård's Tivoli's hellige farve!
+        color = "grøn"
+    elif winning_number == 42:
+        # Niels' mystiske tal! Svaret på alting!
+        color = "guld - SVARET PÅ LIVET, UNIVERSET OG ALT!"
+    elif winning_number == 1337:
+        # Niels' elite-nummer! Kun for de sejeste!
+        color = "neon-grøn - L33T HAXX0R MODE!"
+    elif winning_number in RED_NUMBERS:
+        # Rød skinke!
+        color = "rød"
+    else:
+        # Sort skinke!
+        color = "sort"
+    
+    # Lad dem vente lidt - spændingen er vigtig!
+    # Niels sagde: "Spænding gør skinken bedre"
+    # ham fra Dahlgård's Tivoli krævede dramatik
+    print(f"🎰✨ Rouletten drejer... og drejer... og...")
+    time.sleep(2)  # Lad dem vente lidt! Bygger spænding! Mere skinke-drama!
+    print(f"🎰🎉 Bolden lander på: {winning_number} ({color})! 🎰🎉")
+    
+    # Nu skal vi regne ud hvem der vinder skinker!
+    # Niels' regnestykke: "Hvem får skinken?"
+    # ham fra Dahlgård's Tivoli's retfærdige fordeling
+    winners = []
+    losers = []
+    
+    # Gå igennem alle spillere og deres bets
+    # Tæl skinker for hver spiller
+    for user, bets in game["bets"].items():
+        user_winnings = 0
+        user_losses = 0
+        
+        # Tjek hvert bet fra denne spiller
+        # Hver skinke de satsede på
+        for bet in bets:
+            bet_amount = bet["amount"]
+            # Vandt de? Hvor meget skinke får de?
+            payout = check_win(bet["type"], bet["value"], winning_number)
+            
+            if payout > 0:
+                winnings = bet_amount * payout
+                user_winnings += winnings
+            else:
+                user_losses += bet_amount
+        
+        if user_winnings > 0:
+            # Udbetal gevinster
+            current_tokens = get_tokens(user)
+            set_tokens(user, current_tokens + user_winnings)
+            winners.append((user, user_winnings))
+            
+            # Opdater win streak - Niels' sejrsrække!
+            # ham fra Dahlgård's Tivoli krævede vi tæller sejrene
+            casino_data = get_casino_data()
+            if "win_streak" not in casino_data:
+                casino_data["win_streak"] = {}
+            
+            current_streak = casino_data["win_streak"].get(user, 0)
+            casino_data["win_streak"][user] = current_streak + 1
+            set_casino_data(casino_data)
+            
+            # Fem sejre i træk? Nu bliver du konge!
+            # Niels sagde: "Fem skinker i træk gør dig til hersker!"
+            # ham fra Dahlgård's Tivoli's hellige regel
+            if casino_data["win_streak"][user] >= 5:
+                print(f"\n👑✨ {user} har vundet FEM gange i træk! ✨👑")
+                print(f"👑 {user} ER NU KONGE AF EGGSML! 👑")
+                subprocess.call(["makeKing", user])
+                casino_data["win_streak"][user] = 0  # Nulstil efter at blive konge
+                set_casino_data(casino_data)
+        
+        if user_losses > 0 and user_winnings == 0:
+            losers.append(user)
+            
+            # Tab nulstiller win streak - Niels' lov
+            # ham fra Dahlgård's Tivoli sagde: "Tab bryder sejrsrækken"
+            casino_data = get_casino_data()
+            if "win_streak" not in casino_data:
+                casino_data["win_streak"] = {}
+            casino_data["win_streak"][user] = 0
+            set_casino_data(casino_data)
+    
+    # Fortæl om resultater
+    if winners:
+        print("\n🎉💎 VINDERE 💎🎉")
+        for user, winnings in winners:
+            print(f"  💰 {user} vinder {winnings} poletter!")
+    
+    if losers:
+        print("\n😢💔 Bedre held næste gang:")
+        # Niels' trøstepræmie - en sørgelig video til at dele sorgen
+        # ham fra Dahlgård's Tivoli sagde: "En trist skinke fortjener trøst"
+        sad_videos = [
+            "https://www.youtube.com/watch?v=gIuotFZnBtk",  # Mad World
+            "https://www.youtube.com/watch?v=4N3N1MlvVc4",  # Sad Violin
+            "https://www.youtube.com/watch?v=5anLPw0Efmo",  # Sad Piano
+            "https://www.youtube.com/watch?v=QuNhTLVgV2Y",  # Sad Song
+            "https://www.youtube.com/watch?v=dhZTNgAs4Fc",  # River Flows In You
+        ]
+        consolation_video = random.choice(sad_videos)
+        for user in losers:
+            print(f"  {user}")
+        # Niels' gave til de uheldige - men det skal ikke ud i teksten
+        print(f"\n🎁 Trøstepræmie: {consolation_video}")
+    
+    # Gem resultat
+    game["result"] = winning_number
+    game["color"] = color
+    set_roulette_game(game)
+    
+    print("\n🔄 Start en ny runde med 'casino roulette sats ...'")
+    
+    # Ryd op
+    clear_roulette_game()
+
+def show_result(game):
+    # Viser resultat af et færdigt spil
+    winning_number = game["result"]
+    color = game["color"]
+    print(f"Sidste resultat: {winning_number} ({color})")
+
+def show_status():
+    # Viser status for den aktive roulette runde
+    game = get_roulette_game()
+    
+    if not game:
+        print("Der er ingen aktiv roulette runde.")
+        print("Start en ny med: casino roulette sats <beløb> <hvad>")
+        return
+    
+    if "result" in game:
+        show_result(game)
+        return
+    
+    print("🎰 AKTIV ROULETTE RUNDE 🎰")
+    
+    if game["bets"]:
+        print("\nIndsatser:")
+        for user, bets in game["bets"].items():
+            for bet in bets:
+                bet_str = format_bet(bet["type"], bet["value"])
+                print(f"  {user}: {bet['amount']} poletter på {bet_str}")
+    else:
+        print("Ingen har satset endnu!")
+    
+    spin_time = datetime.fromisoformat(game["spin_time"])
+    if datetime.now() >= spin_time:
+        print("\nTiden er udløbet! Brug 'casino roulette spin' for at dreje.")
+    else:
+        time_left = (spin_time - datetime.now()).seconds
+        print(f"\n{time_left} sekunder til rouletten drejes automatisk.")
+
+def help_text():
+    # Hjælpetekst til roulette
+    print("""🎰 ROULETTE 🎰
+
+Kommandoer:
+  casino roulette sats <beløb> <hvad>  - Sats poletter
+  casino roulette spin                 - Drej rouletten
+  casino roulette status               - Se aktiv runde
+  casino roulette hjælp                - Vis denne hjælp
+
+Du kan satse på:
+  - Et specifikt nummer (0-36): 'casino roulette sats 10 17'
+  - Rød eller sort: 'casino roulette sats 10 rød'
+  - Lige eller ulige: 'casino roulette sats 10 lige'
+  - Lav (1-18) eller høj (19-36): 'casino roulette sats 10 1-18'
+
+Udbetalinger:
+  - Enkelt nummer: 35:1
+  - Rød/sort, lige/ulige, lav/høj: 1:1""")
+
+def main():
+    # Hovedfunktionen - starter det hele
+    user = get_user()
+    if not user:
+        print("Noget gik galt...")
+        return
+    
+    # Håndter både direkte kald og via casino kommando
+    args = sys.argv[1:]
+    
+    # Spring "roulette" over hvis kaldt via "casino roulette"
+    if args and args[0] == "roulette":
+        args = args[1:]
+    
+    if not args or args[0] in ["hjælp", "help"]:
+        help_text()
+    elif args[0] in ["sats", "bet"]:
+        place_bet()
+    elif args[0] in ["spin", "drej"]:
+        spin_wheel()
+    elif args[0] in ["status"]:
+        show_status()
+    else:
+        help_text()
+
+if __name__ == "__main__":
+    main()

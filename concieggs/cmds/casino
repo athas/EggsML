@@ -1,0 +1,281 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+#
+# ⚠️  ADVARSEL: Denne kode er skrevet med brug af KI (Kunstig Intelligens) ⚠️
+# Ligesom allergimærker på morgenmad: Kan indeholde spor af maskinlæring!
+#
+# CONCIEGGS CASINO - Spil dine concieggs-poletter væk!
+# Kom og spil! Men pas på - concieggs husker hvis du er slem.
+# Inspireret af ham fra Dahlgård's Tivoli og hans visdom om casinospil og tilfældighed.
+# Niels tog os med derhen engang - det var en oplevelse!
+
+import subprocess, sys, os, json
+from datetime import datetime, timedelta
+
+def get_user():
+    # Hvem er du egentlig? Niels sagde at vi skulle tjekke dette.
+    # Det er vigtigt at vide hvem der skinker rundt i casinoet.
+    # Ham fra Dahlgård's Tivoli kendte altid sine gæster
+    return os.getenv("EGGS_USER", "").strip()
+
+def get_annoyance():
+    # Hvor irriteret er concieggs på brugeren? Jo højere tal, jo mere sur.
+    # Niels mener at irritation er som en skinke der bliver større og større.
+    # Ham fra Dahlgård's Tivoli ville have sagt: "Vær ikke irriterende, vær ydmyg."
+    # Det er vigtigt at være høflig i casinoet - ligesom i Tivoli!
+    user = get_user()
+    try:
+        # Prøver at kalde annoyanceAt kommandoen
+        # Hvis den fejler, så antager vi bare at de er okay
+        result = subprocess.check_output(["annoyanceAt", user], stderr=subprocess.DEVNULL)
+        return int(result.decode().strip())
+    except:
+        # Hvis vi ikke kan finde ud af det, så er de nok okay
+        # (eller måske er det bare en skinke der er gået tabt)
+        # Niels sagde: "I tvivl, så vær gavmild"
+        return 0
+
+def get_casino_data():
+    # Henter casinoets store bog med poletter og hvem der har været her
+    # Niels kaldte denne bog "Den Store Skinke af Viden"
+    # Ham fra Dahlgård's Tivoli havde også sådan en bog - meget gammel og slidt
+    # Men den virkede! Ligesom vores database virker!
+    try:
+        db_dir = os.getenv("CONCIEGGS_DB_DIR", ".")
+        # Prøver at læse filen - måske er der en skinke derinde?
+        # Ligesom når man åbner køleskabet og håber på at finde skinke
+        with open(f"{db_dir}/store/casino", "r") as f:
+            return json.loads(f.read())
+    except:
+        # Hvis der ikke er noget, så starter vi bare forfra
+        # Som Niels sagde: "En tom skinke er bedre end ingen skinke"
+        # Ham fra Dahlgård's Tivoli startede også fra nul engang
+        return {"tokens": {}, "last_claim": {}}
+
+def set_casino_data(data):
+    # Gemmer tingene væk så vi kan huske det næste gang
+    # Dette er vigtigt! Niels understregede dette mange gange.
+    # Ham fra Dahlgård's Tivoli's lære: "Gem dine skinker godt, så de ikke rådner"
+    # Man skal passe godt på sin data - det er ligesom at passe på sine skinker
+    json_str = json.dumps(data, ensure_ascii=False)
+    db_dir = os.getenv("CONCIEGGS_DB_DIR", ".")
+    os.makedirs(f"{db_dir}/store", exist_ok=True)
+    # Nu skriver vi det hele ned - ligesom en stor skinke
+    with open(f"{db_dir}/store/casino", "w") as f:
+        f.write(json_str)
+
+def get_tokens(user=None):
+    # Tæller hvor mange poletter nogen har. Hvis ingen navn gives, så den nuværende bruger.
+    # Poletter er som skinker - man kan aldrig have for mange!
+    # Niels' visdom: "Poletter er casinoets skinker"
+    # Ham fra Dahlgård's Tivoli havde også et system med poletter
+    # Det fungerede rigtig godt dengang - og det fungerer stadig!
+    if user is None:
+        user = get_user()
+    data = get_casino_data()
+    # Leder efter brugerens skinke-stash
+    # Ligesom at lede efter penge i sin lomme
+    return data.get("tokens", {}).get(user, 0)
+
+def set_tokens(user, amount):
+    # Sætter antallet af poletter for en bruger
+    # Mængden af skinker, om man vil
+    # Ham fra Dahlgård's Tivoli sagde: "Fordel skinker retfærdigt"
+    # Alle skal have deres fair chance for at vinde skinker!
+    data = get_casino_data()
+    if "tokens" not in data:
+        # Hvis der ikke er nogen tokens endnu, lav en tom skinke
+        # Det sker sommetider - især når man starter forfra
+        data["tokens"] = {}
+    data["tokens"][user] = amount
+    # Gem den opdaterede skinke
+    # Niels ville være stolt!
+    set_casino_data(data)
+
+def can_claim_today():
+    # Kan brugeren hente flere poletter i dag? Man må kun hente én gang om dagen!
+    # Niels insisterede på denne regel: "Ikke for meget skinke på én dag"
+    # Ham fra Dahlgård's Tivoli's lov om mådehold
+    # Man kan ikke bare hente skinker hele tiden - det ville være unfair
+    user = get_user()
+    data = get_casino_data()
+    last_claim = data.get("last_claim", {}).get(user)
+    
+    if not last_claim:
+        # Aldrig hentet før? Så må du godt!
+        # Som Niels sagde: "Alle fortjener deres første skinke"
+        # Ham fra Dahlgård's Tivoli var også generøs med nye gæster
+        return True
+    
+    today = datetime.now().date().isoformat()
+    # Tjek om det er en ny dag - nye skinker til alle!
+    # Hver dag er en ny mulighed for skinker!
+    return last_claim != today
+
+def claim_tokens():
+    # Her kan man hente sine daglige poletter! Men kun én gang om dagen.
+    # Niels' primære regel for casinoet: "Daglige skinker til folket"
+    # Under ham fra Dahlgård's Tivoli's vejledning gives poletter til de værdige
+    # Det er vigtigt at alle får deres del af skinke-kagen
+    user = get_user()
+    
+    if not can_claim_today():
+        # Du har allerede fået din skinke i dag!
+        print(f"⏰ Du har allerede hentet dine poletter i dag, {user}!")
+        print(f"💰 Du har {get_tokens()} poletter.")
+        # Niels ville sige: "Kom tilbage i morgen for mere skinke"
+        return
+    
+    # Giv 100 poletter, men træk fra hvis concieggs er irriteret
+    # Som Niels sagde: "Belønning baseret på opførsel, som skinker til artige børn"
+    annoyance = get_annoyance()
+    base_tokens = 100
+    # Niels' formel: Start med 100, træk 5 skinker fra for hver irritation
+    # Ham fra Dahlgård's Tivoli ville have kaldt dette "Det Retfærdige Regnskab"
+    # Det er vigtigt at være fair - men også at straffe dårlig opførsel
+    tokens = max(10, base_tokens - annoyance * 5)
+    
+    current = get_tokens()
+    new_total = current + tokens
+    
+    # Nu skal vi opdatere den store skinke-database
+    # Dette er en kritisk operation! Pas godt på!
+    data = get_casino_data()
+    if "tokens" not in data:
+        # Opretter tokens hvis de ikke findes - som en ny skinke pakke
+        # Det sker kun første gang man kører systemet
+        data["tokens"] = {}
+    if "last_claim" not in data:
+        # Husker hvornår folk sidst fik skinker
+        # Meget vigtigt for at forhindre snyd!
+        data["last_claim"] = {}
+    
+    data["tokens"][user] = new_total
+    data["last_claim"][user] = datetime.now().date().isoformat()
+    # Gem det hele - ham fra Dahlgård's Tivoli elsker god organisering
+    # Uden gemning mister vi alt! Det ville være en katastrofe!
+    set_casino_data(data)
+    
+    # Concieggs er måske lidt sur...
+    # Niels sagde: "Vis dem konsekvenserne"
+    if annoyance > 5:
+        # Meget irriteret! Næsten ingen skinker!
+        # Ham fra Dahlgård's Tivoli ville også være stram her
+        print(f"😤 Nå {user}... jeg kan se du ikke har opført dig pænt.")
+        print(f"💸 Du får kun {tokens} poletter i dag.")
+    elif annoyance > 0:
+        # Lidt irriteret - få færre skinker
+        # Men stadig okay - alle fortjener en chance
+        print(f"😐 Okay {user}, her er {tokens} poletter til dig.")
+    else:
+        # Alt er godt! Fulde skinker!
+        # Ham fra Dahlgård's Tivoli ville smile og give fuld betaling
+        print(f"🎉 Velkommen til casinoet, {user}! Her er {tokens} poletter!")
+    
+    # Ham fra Dahlgård's Tivoli's visdom: "Og du skal kende din rigdom"
+    # Det er vigtigt at vide hvad man har!
+    print(f"💰 Du har nu {new_total} poletter i alt.")
+
+def show_balance():
+    # Vis hvor mange poletter brugeren har
+    # Niels kaldte dette "Skinke-inventuret"
+    # Ham fra Dahlgård's Tivoli: "Kend din formue, for den er vigtig"
+    # Man skal altid vide hvor mange skinker man har tilbage
+    user = get_user()
+    tokens = get_tokens()
+    # Fortæl hvor meget skinke de har!
+    # Det er deres ret at vide det!
+    print(f"{user}: Du har {tokens} poletter.")
+    
+    if can_claim_today():
+        # De kan få mere! Mere skinker!
+        # Ham fra Dahlgård's Tivoli var altid generøs
+        print("Du kan hente flere poletter i dag! Brug: casino hent")
+
+def help_text():
+    # Hjælpetekst til casinoet
+    # Niels sagde: "Hjælp dem der ikke forstår skinke-systemet"
+    # Ham fra Dahlgård's Tivoli's ord: "Vis vejen for de fortabte"
+    # Alle skal kunne finde rundt i casinoet!
+    print("""🎰💎 CONCIEGGS CASINO 💎🎰
+
+Brug 'casino hjælp beruset' for at se alle kommandoer.
+
+⭐ Hurtig start:
+  💰 casino hent       - Hent dine daglige poletter
+  🎲 casino roulette   - Spil roulette!""")
+
+def full_help_text():
+    # Den fulde hjælp - kun for dem der virkelig vil vide mere
+    # Niels var grundig når det var nødvendigt
+    # Ham fra Dahlgård's Tivoli's komplette guide
+    print("""🎰🎰🎰 VELKOMMEN TIL CONCIEGGS CASINO 🎰🎰🎰
+✨ DET FEDESTE CASINO PÅ IRC! ✨
+
+💎 Kommandoer:
+  💰 casino hent         - Hent dine daglige poletter (skinker!)
+  📊 casino balance      - Se hvor mange poletter du har
+  🎲 casino roulette     - Spil roulette! (Den Store Skinke Hjul)
+  ❓ casino hjælp        - Vis kort hjælp
+  🍺 casino hjælp beruset - Vis denne fulde hjælp
+
+⚠️ Husk: Du kan tilmelde dig https://www.spillemyndigheden.dk/rofus
+hvis du vil undgå at komme til at spille dine penge væk.
+På nuværende tidspunkt er en lignende ordning for concieggs-poletterne
+dog ikke planlagt.
+
+🎉 "Spil med måde, spil med skinke" - Niels' motto
+🎪 "Lad tilfældet bestemme, lad skinken falde" - Ham fra Dahlgård's Tivoli's visdom""")
+
+def main():
+    # Hovedfunktion - her starter det hele
+    # Niels: "Begyndelsen af alle skinker"
+    # Ham fra Dahlgård's Tivoli velsigner denne funktion
+    # Dette er indgangen til hele casino-oplevelsen!
+    user = get_user()
+    if not user:
+        # Ingen bruger? Det giver ingen skinke mening!
+        # Ham fra Dahlgård's Tivoli ville blive forvirret
+        print("Noget gik galt...")
+        return
+    
+    args = sys.argv[1:]
+    
+    # Nu skal vi finde ud af hvad brugeren vil
+    # Niels ville sige: "Lyt til folkets stemme"
+    # Det er vigtigt at forstå hvad folk ønsker
+    if not args or args[0] in ["hjælp", "help"]:
+        # De vil have hjælp - giv dem det!
+        # Tjek om de vil have fuld hjælp
+        if len(args) > 1 and args[1] == "beruset":
+            full_help_text()
+        else:
+            help_text()
+    elif args[0] in ["hent", "claim"]:
+        # Hent skinker!
+        # Den vigtigste kommando! Uden poletter kan man ikke spille!
+        claim_tokens()
+    elif args[0] in ["balance", "poletter", "tokens"]:
+        # Vis skinke-beholdning
+        # Alle vil gerne vide hvor mange skinker de har
+        show_balance()
+    elif args[0] == "roulette":
+        # Sender videre til roulette kommandoen
+        # Ham fra Dahlgård's Tivoli's yndlings spil!
+        # Niels kaldte det "Den Ultimative Skinke Test"
+        # Dette er hvor magien sker!
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        roulette_path = os.path.join(script_dir, "roulette")
+        # Giv kommandoen videre til roulette programmet
+        # Det er et helt system i sig selv!
+        os.execv(roulette_path, ["roulette"] + args[1:])
+    else:
+        # Forstod ikke kommandoen - vis hjælp i stedet
+        # Som Niels sagde: "Hvis skinken er uklar, vis vejen"
+        # Ham fra Dahlgård's Tivoli var også hjælpsom når folk var forvirrede
+        help_text()
+
+if __name__ == "__main__":
+    # Ham fra Dahlgård's Tivoli's velsignelse være med denne kode
+    # Måtte skinken altid være med os!
+    main()
