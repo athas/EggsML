@@ -7,14 +7,14 @@ import subprocess
 import sys
 import os
 import json
-import time
 from datetime import datetime, timedelta
+from typing import Dict, Any, Optional
 
-def get_user():
+def get_user() -> str:
     """Get current user from environment."""
     return os.getenv("EGGS_USER", "").strip()
 
-def get_annoyance():
+def get_annoyance() -> int:
     """Get how annoyed concieggs is at the user."""
     user = get_user()
     try:
@@ -23,7 +23,7 @@ def get_annoyance():
     except:
         return 0
 
-def get_casino_data():
+def get_casino_data() -> Dict[str, Any]:
     """Get casino database (tokens per user, last claim times)."""
     try:
         db_dir = os.getenv("CONCIEGGS_DB_DIR", ".")
@@ -32,7 +32,7 @@ def get_casino_data():
     except:
         return {"tokens": {}, "last_claim": {}}
 
-def set_casino_data(data):
+def set_casino_data(data: Dict[str, Any]) -> None:
     """Save casino database."""
     json_str = json.dumps(data, ensure_ascii=False)
     # Write directly to avoid shell escaping issues
@@ -41,14 +41,14 @@ def set_casino_data(data):
     with open(f"{db_dir}/store/casino", "w") as f:
         f.write(json_str)
 
-def get_tokens(user=None):
+def get_tokens(user: Optional[str] = None) -> int:
     """Get token balance for user."""
     if user is None:
         user = get_user()
     data = get_casino_data()
     return data.get("tokens", {}).get(user, 0)
 
-def set_tokens(user, amount):
+def set_tokens(user: str, amount: int) -> None:
     """Set token balance for user."""
     data = get_casino_data()
     if "tokens" not in data:
@@ -56,7 +56,7 @@ def set_tokens(user, amount):
     data["tokens"][user] = amount
     set_casino_data(data)
 
-def can_claim_today():
+def can_claim_today() -> bool:
     """Check if user can claim daily tokens."""
     user = get_user()
     data = get_casino_data()
@@ -68,7 +68,7 @@ def can_claim_today():
     today = datetime.now().date().isoformat()
     return last_claim != today
 
-def claim_tokens():
+def claim_tokens() -> None:
     """Claim daily tokens."""
     user = get_user()
     
@@ -106,7 +106,7 @@ def claim_tokens():
     
     print(f"Du har nu {new_total} poletter i alt.")
 
-def show_balance():
+def show_balance() -> None:
     """Show user's token balance."""
     user = get_user()
     tokens = get_tokens()
@@ -115,7 +115,7 @@ def show_balance():
     if can_claim_today():
         print("Du kan hente flere poletter i dag! Brug: casino hent")
 
-def help_text():
+def help_text() -> None:
     """Show help text."""
     print("""🎰🎰 VELKOMMEN TIL CONCIEGGS CASINO 🎰🎰
 
@@ -130,7 +130,7 @@ hvis du vil undgå at komme til at spille dine penge væk.
 På nuværende tidspunkt er en lignende ordning for concieggs-poletterne
 dog ikke planlagt.""")
 
-def main():
+def main() -> None:
     user = get_user()
     if not user:
         print("Noget gik galt...")

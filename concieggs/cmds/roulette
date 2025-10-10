@@ -9,18 +9,20 @@ import sys
 import os
 import json
 import random
+import time
 from datetime import datetime, timedelta
+from typing import Optional, Dict, List, Tuple, Any
 
 # Roulette wheel numbers with colors
 # 0 is green, odds are red, evens are black (except 0)
-RED_NUMBERS = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36]
-BLACK_NUMBERS = [2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35]
+RED_NUMBERS = [n for n in range(1, 37) if n in [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36]]
+BLACK_NUMBERS = [n for n in range(1, 37) if n not in RED_NUMBERS]
 
-def get_user():
+def get_user() -> str:
     """Get current user from environment."""
     return os.getenv("EGGS_USER", "").strip()
 
-def get_casino_data():
+def get_casino_data() -> Dict[str, Any]:
     """Get casino database."""
     try:
         db_dir = os.getenv("CONCIEGGS_DB_DIR", ".")
@@ -29,7 +31,7 @@ def get_casino_data():
     except:
         return {"tokens": {}, "last_claim": {}}
 
-def set_casino_data(data):
+def set_casino_data(data: Dict[str, Any]) -> None:
     """Save casino database."""
     json_str = json.dumps(data, ensure_ascii=False)
     db_dir = os.getenv("CONCIEGGS_DB_DIR", ".")
@@ -37,7 +39,7 @@ def set_casino_data(data):
     with open(f"{db_dir}/store/casino", "w") as f:
         f.write(json_str)
 
-def get_roulette_game():
+def get_roulette_game() -> Optional[Dict[str, Any]]:
     """Get current roulette game state."""
     try:
         db_dir = os.getenv("CONCIEGGS_DB_DIR", ".")
@@ -49,7 +51,7 @@ def get_roulette_game():
     except:
         return None
 
-def set_roulette_game(game):
+def set_roulette_game(game: Dict[str, Any]) -> None:
     """Save roulette game state."""
     json_str = json.dumps(game, ensure_ascii=False)
     db_dir = os.getenv("CONCIEGGS_DB_DIR", ".")
@@ -57,7 +59,7 @@ def set_roulette_game(game):
     with open(f"{db_dir}/store/roulette_game", "w") as f:
         f.write(json_str)
 
-def clear_roulette_game():
+def clear_roulette_game() -> None:
     """Clear roulette game state."""
     db_dir = os.getenv("CONCIEGGS_DB_DIR", ".")
     try:
@@ -66,12 +68,12 @@ def clear_roulette_game():
     except:
         pass
 
-def get_tokens(user):
+def get_tokens(user: str) -> int:
     """Get token balance for user."""
     data = get_casino_data()
     return data.get("tokens", {}).get(user, 0)
 
-def set_tokens(user, amount):
+def set_tokens(user: str, amount: int) -> None:
     """Set token balance for user."""
     data = get_casino_data()
     if "tokens" not in data:
@@ -79,7 +81,7 @@ def set_tokens(user, amount):
     data["tokens"][user] = amount
     set_casino_data(data)
 
-def format_bet(bet_type, value):
+def format_bet(bet_type: str, value: Optional[int]) -> str:
     """Format bet for display."""
     if bet_type == "number":
         return f"nummer {value}"
@@ -97,7 +99,7 @@ def format_bet(bet_type, value):
         return "19-36"
     return str(bet_type)
 
-def parse_bet(bet_str):
+def parse_bet(bet_str: str) -> Optional[Tuple[str, Optional[int]]]:
     """Parse bet from string. Returns (bet_type, value) or None."""
     bet_str = bet_str.lower().strip()
     
@@ -129,7 +131,7 @@ def parse_bet(bet_str):
     
     return None
 
-def check_win(bet_type, bet_value, winning_number):
+def check_win(bet_type: str, bet_value: Optional[int], winning_number: int) -> int:
     """Check if bet wins and return payout multiplier."""
     if winning_number == 0:
         # Only direct bet on 0 wins
@@ -174,7 +176,7 @@ def check_win(bet_type, bet_value, winning_number):
     
     return 0
 
-def place_bet():
+def place_bet() -> None:
     """Place a bet on roulette."""
     user = get_user()
     # Handle both "roulette sats ..." and "casino roulette sats ..."
@@ -260,7 +262,7 @@ def place_bet():
         print(f"Andre spillere har {time_left} sekunder til at satse!")
         print("Brug 'casino roulette spin' for at dreje nu.")
 
-def spin_wheel():
+def spin_wheel() -> None:
     """Spin the roulette wheel and determine winners."""
     game = get_roulette_game()
     
@@ -289,6 +291,7 @@ def spin_wheel():
         color = "sort"
     
     print(f"🎰 Rouletten drejer... og drejer... og...")
+    time.sleep(2)  # Build suspense!
     print(f"🎰 Bolden lander på: {winning_number} ({color})! 🎰")
     
     # Calculate winnings
@@ -339,13 +342,13 @@ def spin_wheel():
     # Clear game after showing results
     clear_roulette_game()
 
-def show_result(game):
+def show_result(game: Dict[str, Any]) -> None:
     """Show results of a completed game."""
     winning_number = game["result"]
     color = game["color"]
     print(f"Sidste resultat: {winning_number} ({color})")
 
-def show_status():
+def show_status() -> None:
     """Show current game status."""
     game = get_roulette_game()
     
@@ -376,7 +379,7 @@ def show_status():
         time_left = (spin_time - datetime.now()).seconds
         print(f"\n{time_left} sekunder til rouletten drejes automatisk.")
 
-def help_text():
+def help_text() -> None:
     """Show roulette help."""
     print("""🎰 ROULETTE 🎰
 
@@ -396,7 +399,7 @@ Udbetalinger:
   - Enkelt nummer: 35:1
   - Rød/sort, lige/ulige, lav/høj: 1:1""")
 
-def main():
+def main() -> None:
     user = get_user()
     if not user:
         print("Noget gik galt...")
