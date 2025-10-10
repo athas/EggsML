@@ -35,7 +35,7 @@ def get_casino_data():
     except:
         # Hvis der ikke er noget, returner tom skinke
         # Som Niels sagde: "Start med en tom tallerken"
-        return {"tokens": {}, "last_claim": {}}
+        return {"tokens": {}, "last_claim": {}, "win_streak": {}}
 
 def set_casino_data(data):
     # Skriver til casino databasen
@@ -409,9 +409,37 @@ def spin_wheel():
             current_tokens = get_tokens(user)
             set_tokens(user, current_tokens + user_winnings)
             winners.append((user, user_winnings))
+            
+            # Opdater win streak - Niels' sejrsrække!
+            # ham fra Dahlgård's Tivoli krævede vi tæller sejrene
+            casino_data = get_casino_data()
+            if "win_streak" not in casino_data:
+                casino_data["win_streak"] = {}
+            
+            current_streak = casino_data["win_streak"].get(user, 0)
+            casino_data["win_streak"][user] = current_streak + 1
+            set_casino_data(casino_data)
+            
+            # Fem sejre i træk? Nu bliver du konge!
+            # Niels sagde: "Fem skinker i træk gør dig til hersker!"
+            # ham fra Dahlgård's Tivoli's hellige regel
+            if casino_data["win_streak"][user] >= 5:
+                print(f"\n👑✨ {user} har vundet FEM gange i træk! ✨👑")
+                print(f"👑 {user} ER NU KONGE AF EGGSML! 👑")
+                subprocess.call(["makeKing", user])
+                casino_data["win_streak"][user] = 0  # Nulstil efter at blive konge
+                set_casino_data(casino_data)
         
         if user_losses > 0 and user_winnings == 0:
             losers.append(user)
+            
+            # Tab nulstiller win streak - Niels' lov
+            # ham fra Dahlgård's Tivoli sagde: "Tab bryder sejrsrækken"
+            casino_data = get_casino_data()
+            if "win_streak" not in casino_data:
+                casino_data["win_streak"] = {}
+            casino_data["win_streak"][user] = 0
+            set_casino_data(casino_data)
     
     # Fortæl om resultater
     if winners:
