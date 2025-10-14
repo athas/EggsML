@@ -1,0 +1,38 @@
+#!/bin/sh
+#
+# Et godt citat fra en kendt person til at cementere en holdning eller
+# sprede inspiration.
+
+citater() {
+    echo "Jeg har aldrig betalt skat med glæde. Jeg har aldrig mødt nogen, der har gjort det.|Mogens Glistrup"
+    echo "En skat er et tyveri.|Mogens Glistrup"
+    echo "Vi skal have en masse flere advokater i Danmark.|Mogens Glistrup"
+    echo "Den der ikke snyder i skat er sindssyg.|Mogens Glistrup"
+    echo "Finansloven er kun til for at blive overtrådt.|Mogens Glistrup"
+    echo "Jeg er ikke interesseret i at være populær. Jeg er interesseret i at have ret.|Mogens Glistrup"
+    echo "Man skal ikke tro på alt, hvad man siger.|Mogens Glistrup"
+    echo "Det er ikke et spørgsmål om at undgå skat. Det er et spørgsmål om at organisere sig fornuftigt.|Mogens Glistrup"
+    echo "Politik er kunsten at få folk til at tro, at de selv har fundet på det, man gerne vil have dem til at gøre.|Mogens Glistrup"
+    echo "Jura er ikke videnskab, det er håndværk.|Mogens Glistrup"
+}
+
+begrundelser() {
+    echo "Dette citat vil uden tvivl bringe klarhed til debatten."
+    echo "Som ordene fra denne vise person viser, er der intet mere at diskutere."
+    echo "Dette citat rammer hovedet på sømmet og løser alle problemer."
+    echo "Med disse ord i baghovedet kan vi alle blive enige."
+    echo "Lad os alle reflektere over denne dybsindige visdom."
+    echo "Disse ord vil helt sikkert inspirere og oplyse."
+    echo "Dette er præcis hvad situationen kalder på."
+    echo "Her har vi nøglen til at forstå hele problematikken."
+    echo "Med denne indsigt er vejen frem nu krystalklar."
+    echo "Dette citat bør læres udenad af enhver tænkende person."
+}
+
+citat_og_person=$(citater | randomLine)
+citat=$(echo "$citat_og_person" | cut -d'|' -f1)
+person=$(echo "$citat_og_person" | cut -d'|' -f2)
+begrundelse=$(begrundelser | randomLine)
+
+echo "$EGGS_USER: \"$citat\" - $person"
+echo "$EGGS_USER: $begrundelse"
