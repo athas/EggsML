@@ -28,16 +28,18 @@ echo "$citat_count" | dbUserWrite "$EGGS_USER" citat_count
 # Skæld ud hvis brugeren har bedt om for mange citater
 if [ $citat_count -gt 5 ] && [ $(random 1 3) = 1 ]; then
     skaelderier() {
-        echo "Fuck hvor er du åndssvag! Kan du ikke selv tænke en skid, dit hul i hovedet?"
-        echo "Hold nu kæft med de citater! Tror du virkelig du bliver klogere af det pis?"
-        echo "Kan du ikke bare holde din kæft og tænke selv for en gangs skyld, din dovne idiot?"
-        echo "Sikke noget lort! Brug dog din egen hjerne i stedet for hele tiden at bede om citater, dit får!"
-        echo "Satans til møgkælling! Er du helt blæst? Tænk dog selv!"
-        echo "For helvede da! Skal jeg virkelig blive ved med at fodre dig med citater? Skab dig dog!"
-        echo "Hold kæft hvor er du doven! Find da selv på noget i stedet for at tigge om citater!"
-        echo "Fuck af med de citater! Du er da godt nok en hjernedød tosse!"
-        echo "Kan du ikke bare holde kæft? Dine citater gør ingen forskel alligevel!"
-        echo "Du er simpelthen for fucking doven til at tænke selv! Skrid hjem og tænk dig om!"
+        echo "Pokkers også! Er du saadan en tosse at du ikke kan tænke selv?"
+        echo "Sikken en fjols! Kan du da slet ikke bruge dit eget hoved?"
+        echo "Du er sandelig en kraftidiot! Tænk nu selv for en gangs skyld!"
+        echo "Søren! Skal jeg blive ved med at tygge maden for dig, din dovne sjover?"
+        echo "Pokker ta' mig! Kan du da ikke selv finde på noget fornuftigt?"
+        echo "Din fæhovede! Brug dog dit eget snurretosse-hoved til noget!"
+        echo "Skammens røde! Du tigger som en landstryger efter andres visdom!"
+        echo "Din tosse og daare! Er du aldeles blottet for egen forstand?"
+        echo "Søren spætte! Skal jeg virkelig blive ved med at belære dig?"
+        echo "Du er en rigtig sinke! Lær dog at tænke med din egen hjerne!"
+        echo "Din naragtige nar! Kan du ikke fatte at citater ikke gør dig klogere?"
+        echo "Pokkers til sludder! Find dog selv på noget i stedet for at besvære mig!"
     }
     
     echo "$EGGS_USER: $(skaelderier | randomLine)"
