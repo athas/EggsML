@@ -1,4 +1,5 @@
 /* Henter vejrdata i JSON-format fra Yahoos API. Fortolker denne. Se format og eksempel på JSON nedlastning nederst i denne kode. */
+// Vejrsion 2025-10-14-1
 
 package main
 
