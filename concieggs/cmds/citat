@@ -7,6 +7,43 @@
 #       citat - henter et tilfældigt citat fra databasen
 #       citat --ai - bruger ChatGPT til at generere et passende citat
 
+# Tjek hvor mange citater brugeren har bedt om for nylig
+citat_count=$(dbUserRead "$EGGS_USER" citat_count)
+if [ -z "$citat_count" ]; then
+    citat_count=0
+fi
+
+# Nulstil tælleren hvis den er for gammel (mere end 1 time)
+last_reset=$(dbUserRead "$EGGS_USER" citat_last_reset)
+current_time=$(nowTime)
+if [ -z "$last_reset" ] || [ $((current_time - last_reset)) -gt 3600 ]; then
+    citat_count=0
+    echo "$current_time" | dbUserWrite "$EGGS_USER" citat_last_reset
+fi
+
+# Opdater tælleren
+citat_count=$((citat_count + 1))
+echo "$citat_count" | dbUserWrite "$EGGS_USER" citat_count
+
+# Skæld ud hvis brugeren har bedt om for mange citater
+if [ $citat_count -gt 5 ] && [ $(random 1 3) = 1 ]; then
+    skaelderier() {
+        echo "Fuck hvor er du åndssvag! Kan du ikke selv tænke en skid, dit hul i hovedet?"
+        echo "Hold nu kæft med de citater! Tror du virkelig du bliver klogere af det pis?"
+        echo "Kan du ikke bare holde din kæft og tænke selv for en gangs skyld, din dovne idiot?"
+        echo "Sikke noget lort! Brug dog din egen hjerne i stedet for hele tiden at bede om citater, dit får!"
+        echo "Satans til møgkælling! Er du helt blæst? Tænk dog selv!"
+        echo "For helvede da! Skal jeg virkelig blive ved med at fodre dig med citater? Skab dig dog!"
+        echo "Hold kæft hvor er du doven! Find da selv på noget i stedet for at tigge om citater!"
+        echo "Fuck af med de citater! Du er da godt nok en hjernedød tosse!"
+        echo "Kan du ikke bare holde kæft? Dine citater gør ingen forskel alligevel!"
+        echo "Du er simpelthen for fucking doven til at tænke selv! Skrid hjem og tænk dig om!"
+    }
+    
+    echo "$EGGS_USER: $(skaelderier | randomLine)"
+    exit
+fi
+
 begrundelser() {
     echo "Dette citat vil uden tvivl bringe klarhed til debatten."
     echo "Som ordene fra denne vise person viser, er der intet mere at diskutere."

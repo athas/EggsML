@@ -15,4 +15,7 @@ person="$2"
 # Tilføj citatet til databasen
 echo "$citat_tekst|$person" >> "$CONCIEGGS_DB_DIR/citater"
 
+# Lav et git commit med ændringen
+tryGitChange "Tilføjet citat: '$citat_tekst' - $person" concieggs/db/citater
+
 echo "$EGGS_USER: Citatet er tilføjet til databasen. Nu er der $(wc -l < "$CONCIEGGS_DB_DIR/citater") citater i alt."
