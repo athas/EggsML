@@ -1,0 +1,51 @@
+#!/bin/sh
+#
+# Scrape citater fra sjove-citater.dk og tilføj dem til databasen.
+#
+# Brug: scrape-citater [person-url]
+#       Eksempel: scrape-citater mogens-glistrup
+
+if [ $# -lt 1 ]; then
+    echo "$EGGS_USER: Brug: scrape-citater [person-url]"
+    echo "$EGGS_USER: Eksempel: scrape-citater mogens-glistrup"
+    exit 1
+fi
+
+person_url="$1"
+url="http://sjove-citater.dk/citater-af-$person_url"
+
+# Hent siden og ekstrahér citater
+# Format på siden er typisk: <div class="quote">citat tekst</div>
+# Vi bruger curl og grep til at finde citaterne
+
+temp_file=$(mktemp)
+curl -s "$url" > "$temp_file"
+
+if [ ! -s "$temp_file" ]; then
+    echo "$EGGS_USER: Kunne ikke hente siden fra $url"
+    rm "$temp_file"
+    exit 1
+fi
+
+# Udtræk personens fulde navn fra siden (typisk i en h1-tag)
+person_name=$(grep -o '<h1[^>]*>[^<]*</h1>' "$temp_file" | sed 's/<[^>]*>//g' | head -n 1)
+
+if [ -z "$person_name" ]; then
+    # Fallback: brug URL-navnet formateret
+    person_name=$(echo "$person_url" | sed 's/-/ /g' | sed 's/\b\(.\)/\u\1/g')
+fi
+
+# Udtræk citater (dette er en approksimation - websitets struktur kan variere)
+# Vi leder efter typiske citat-mønstre
+grep -o '<p[^>]*class="[^"]*quote[^"]*"[^>]*>[^<]*</p>' "$temp_file" | \
+    sed 's/<[^>]*>//g' | \
+    while IFS= read -r citat; do
+        if [ -n "$citat" ]; then
+            echo "$citat|$person_name" >> "$CONCIEGGS_DB_DIR/citater"
+        fi
+    done
+
+rm "$temp_file"
+
+nye_citater=$(wc -l < "$CONCIEGGS_DB_DIR/citater")
+echo "$EGGS_USER: Scraping færdig. Der er nu $nye_citater citater i databasen."

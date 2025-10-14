@@ -2,19 +2,10 @@
 #
 # Et godt citat fra en kendt person til at cementere en holdning eller
 # sprede inspiration.
-
-citater() {
-    echo "Jeg har aldrig betalt skat med glæde. Jeg har aldrig mødt nogen, der har gjort det.|Mogens Glistrup"
-    echo "En skat er et tyveri.|Mogens Glistrup"
-    echo "Vi skal have en masse flere advokater i Danmark.|Mogens Glistrup"
-    echo "Den der ikke snyder i skat er sindssyg.|Mogens Glistrup"
-    echo "Finansloven er kun til for at blive overtrådt.|Mogens Glistrup"
-    echo "Jeg er ikke interesseret i at være populær. Jeg er interesseret i at have ret.|Mogens Glistrup"
-    echo "Man skal ikke tro på alt, hvad man siger.|Mogens Glistrup"
-    echo "Det er ikke et spørgsmål om at undgå skat. Det er et spørgsmål om at organisere sig fornuftigt.|Mogens Glistrup"
-    echo "Politik er kunsten at få folk til at tro, at de selv har fundet på det, man gerne vil have dem til at gøre.|Mogens Glistrup"
-    echo "Jura er ikke videnskab, det er håndværk.|Mogens Glistrup"
-}
+#
+# Brug: citat [--ai]
+#       citat - henter et tilfældigt citat fra databasen
+#       citat --ai - bruger ChatGPT til at generere et passende citat
 
 begrundelser() {
     echo "Dette citat vil uden tvivl bringe klarhed til debatten."
@@ -27,9 +18,29 @@ begrundelser() {
     echo "Her har vi nøglen til at forstå hele problematikken."
     echo "Med denne indsigt er vejen frem nu krystalklar."
     echo "Dette citat bør læres udenad af enhver tænkende person."
+    echo "Præcis sådan bør alle tænkende mennesker forholde sig til verden."
+    echo "Denne indsigt ændrer alt."
+    echo "Efter at have hørt dette, kan ingen være i tvivl."
+    echo "Visdom som denne findes sjældent."
+    echo "Dette burde skrives i guld på alle rådhuse."
 }
 
-citat_og_person=$(citater | randomLine)
+if [ "$1" = "--ai" ]; then
+    # Brug ChatGPT til at generere et citat
+    prompt="Giv mig et dansk citat fra en kendt historisk person eller filosof. Formatet skal være: 'citattekst|personnavn'. Citatet skal være på dansk og kan være opdigtet men realistisk. Kun output citatet, intet andet."
+    ai_citat=$(gpt4o 100 "$prompt")
+    
+    # Hvis AI-responset er tomt eller fejler, fall tilbage til database
+    if [ -z "$ai_citat" ] || ! echo "$ai_citat" | grep -q '|'; then
+        citat_og_person=$(cat "$CONCIEGGS_DB_DIR/citater" | randomLine)
+    else
+        citat_og_person="$ai_citat"
+    fi
+else
+    # Hent fra databasen
+    citat_og_person=$(cat "$CONCIEGGS_DB_DIR/citater" | randomLine)
+fi
+
 citat=$(echo "$citat_og_person" | cut -d'|' -f1)
 person=$(echo "$citat_og_person" | cut -d'|' -f2)
 begrundelse=$(begrundelser | randomLine)

@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# Tilføj et nyt citat til citatdatabasen.
+#
+# Brug: tilføj-citat "citat tekst" "Person Navn"
+
+if [ $# -lt 2 ]; then
+    echo "$EGGS_USER: Brug: tilføj-citat \"citat tekst\" \"Person Navn\""
+    exit 1
+fi
+
+citat_tekst="$1"
+person="$2"
+
+# Tilføj citatet til databasen
+echo "$citat_tekst|$person" >> "$CONCIEGGS_DB_DIR/citater"
+
+echo "$EGGS_USER: Citatet er tilføjet til databasen. Nu er der $(wc -l < "$CONCIEGGS_DB_DIR/citater") citater i alt."
