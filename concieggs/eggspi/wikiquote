@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Use the Wikiquote API: https://en.wikiquote.org/w/api.php
+
+curl -s "https://da.wikiquote.org/w/api.php?format=json&action=$1"
