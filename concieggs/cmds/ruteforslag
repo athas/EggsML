@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# Lad den sofistikerede floktrænede intelligens i concieggs udføre et
+# ruteforslag til deres rejse på Informationsmotorvejen.
+
+randomLine < $CONCIEGGS_DB_DIR/links | (
+    read url timestamp who
+    tid=$(tidsiden $timestamp)
+    echo "$EGGS_USER: Ah ja! Vi husker da alle dengang for $tid siden, hvor $who besøgte $url."
+    echo "$EGGS_USER: Hvad med at besøge $url ganske som $who anbefalede for $tid siden?"
+    echo "$EGGS_USER: En mulighed er $url som $who bragte til vores kendskab for omkring $tid siden."
+    echo "$EGGS_USER: Hvis du besøger $url kan det gå som for $tid siden, hvor man kunne støde på $who."
+) | randomLine
+
+
