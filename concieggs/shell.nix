@@ -20,6 +20,7 @@ mkShell {
     bash
     bc
     jq
+    htmlq
     curl
     cowsay
     gcc
