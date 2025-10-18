@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+# Get N random quoters from Wikiquote.
+
+wikiquote "query&list=random&rnnamespace=0&rnlimit=$1" \
+    | jq -r '.query.random.[].title'

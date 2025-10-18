@@ -1,0 +1,36 @@
+#!/bin/sh
+#
+# Get a random quote from Wikiquote.
+#
+# Returns two lines:
+# Line 1: The origin of the quote (e.g. author or play).
+# Line 2: The quote.
+
+get_quote() {
+    wikiquote 'query&list=random&rnnamespace=0' \
+        | jq .query.random.[0].id \
+        | {
+        read pageid
+        wikiquote "parse&prop=text&pageid=$pageid" \
+            | jq -r '"\(.parse.title)\n\(.parse.text."*")"' \
+            | {
+            read title
+            htmlq -t 'li div i' \
+                | randomLine \
+                | {
+                quote="$(cat)"
+                if [ "$quote" ]; then
+                    echo $title
+                    echo $quote
+                else
+                    # The page we got was weirdly formatted.  Try again after a
+                    # short while.  Hope that the stack is big enough.
+                    sleep 0.5
+                    get_quote
+                fi
+            }
+        }
+    }
+}
+
+get_quote

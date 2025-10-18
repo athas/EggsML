@@ -1,0 +1,38 @@
+#!/usr/bin/env rash
+#
+# Gæt hvor et citat kommer fra!
+#
+# Du kan gætte direkte eller skrive 'citatquiz vink' for at få lidt hjælp.
+
+citatinfo=>randomQuote
+oprindelse=<${citatinfo}>head -n1
+citat=<${citatinfo}>tail -n1
+>echo Gæt oprindelsen: »${citat}«
+
+:afventsvar
+EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
+read gæt
+<${gæt}>grep -qiE '.+'
+jz videre
+>echo ${EGGS_USER}: Du glemte at gætte på oprindelsen af »${citat}«!  Husk at du kan spørge om et vink.
+j afventsvar
+:videre
+<${gæt}>grep -qiE '^vink'
+jz vink
+<${gæt}>grep -qiE '^${oprindelse}'
+jz korrekt
+>echo ${EGGS_USER}: Forkert! Mon nogle andre kan oprindelsen af »${citat}«?  Husk at man kan spørge om et vink.
+j afventsvar
+
+:vink
+falskeoprindelser=>randomQuoters 4
+oprindelser=<${oprindelse}¶${falskeoprindelser}>tr '¶' '\n'
+oprindelser=<${oprindelser}>randomise
+oprindelser=<${oprindelser}>commasize
+>echo ${EGGS_USER}: Vink: Det er en af disse fem: ${oprindelser}
+j afventsvar
+
+:korrekt
+>echo ${EGGS_USER}: Korrekt!  Tillykke!
+>correctScoreInc ${EGGS_USER} "citatquiz"
+
