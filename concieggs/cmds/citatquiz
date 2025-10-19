@@ -11,8 +11,8 @@ citat=<${citat}>sed 's/"/\\"/g'
 >echo "Gæt oprindelsen: »${citat}«"
 
 :afventsvar
-EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
 read gæt
+EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
 <${gæt}>grep -qiE '.+'
 jz videre
 >echo "${EGGS_USER}: Du glemte at gætte på oprindelsen af »${citat}«!  Husk at du kan spørge om et vink."
