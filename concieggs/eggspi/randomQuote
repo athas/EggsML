@@ -15,7 +15,7 @@ get_quote() {
             | jq -r '"\(.parse.title)\n\(.parse.text."*")"' \
             | {
             read title
-            htmlq -t 'li div i' \
+            htmlq -t 'li > div > i' \
                 | randomLine \
                 | {
                 quote="$(cat)"
