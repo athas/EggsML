@@ -20,7 +20,7 @@ j afventsvar
 :videre
 <${gæt}>grep -qiE '^vink'
 jz vink
-<${gæt}>grep -qiE '^${oprindelse}'
+<${gæt}>grep -qiE "^${oprindelse}"
 jz korrekt
 >echo "${EGGS_USER}: Forkert! Mon nogle andre kan oprindelsen af »${citat}«?  Husk at man kan spørge om et vink."
 j afventsvar
