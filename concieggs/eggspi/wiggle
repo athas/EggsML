@@ -1,32 +1,35 @@
-#!/usr/bin/env perl
+#!/usr/bin/env python3
+import sys
+import random
 
-use 5.020;
-use warnings;
-use utf8;
+n = int(sys.argv[1])
+min_val = int(sys.argv[2])
+max_val = int(sys.argv[3])
+wiggle_factor = float(sys.argv[4])
 
-my ($n, $min, $max, $wiggleFactor) = @ARGV;
+last_change = 0
+offset = 0
+wiggle_back_space = 4
 
-my $lastChange = 0;
-my $offset = 0;
-my $wiggleBackSpace = 4;
+res = []
 
-my @res;
+for i in range(1, n + 1):
+    if (i - last_change) > wiggle_back_space:
+        if n - i <= abs(offset) * wiggle_back_space:
+            if offset > 0:
+                offset -= 1
+            if offset < 0:
+                offset += 1
+            last_change = i
+        elif random.random() < wiggle_factor:
+            offset += 1 if random.random() > 0.5 else -1
+            if offset > max_val:
+                offset = max_val
+            if offset < min_val:
+                offset = min_val
+            last_change = i
+    
+    res.append(offset)
 
-for my $i (1 .. $n) {
-    if ( ($i - $lastChange) > $wiggleBackSpace ) {
-        if ( $n - $i <= abs($offset) * $wiggleBackSpace) {
-            $offset -= 1 if $offset > 0;
-            $offset += 1 if $offset < 0;
-            $lastChange = $i;
-        } elsif ( rand() < $wiggleFactor) {
-            $offset += rand() > 0.5 ? 1 : -1;
-            $offset = $max if $offset > $max;
-            $offset = $min if $offset < $min;
-            $lastChange = $i;
-        }
-    }
-
-    push(@res, $offset);
-}
-
-say $_ for @res;
+for val in res:
+    print(val)
