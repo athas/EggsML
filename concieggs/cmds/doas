@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Den er god den(her - men du må sandsynligvis ikke bruge den.
+# Den er god den her - men du må sandsynligvis ikke bruge den.
 
 if sejNok "$EGGS_USER"; then
     sh -c "$*"
