@@ -38,7 +38,7 @@ def run_main(args):
         s = random.choice(sentences).strip()
     except IndexError:
         return complain()
-    if not (s.endswith(u'.') or s.endswith(u':')):
+    if not (s.endswith(u'.') or s.endswith(u':'():
         s += u'.'
     print s.encode('utf-8')
 
