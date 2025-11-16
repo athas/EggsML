@@ -1,34 +1,73 @@
-#!/usr/bin/env perl
+#!/bin/sh
 #
 # Konverterer en $(eggspi/langcode) til sprognavn.
-use 5.020;
-use strict;
-use warnings;
-use utf8::all;
 
-my %langs = qw( af afrikaans    sq albansk      ar arabisk      az aserbajdsjansk
-                eu baskisk      bn bengalsk     be hviderussisk bg bulgarsk
-                ca katalansk    zh-CN kinesisk  zh-TW kinesisk  hr kroatisk
-                cs tjekkisk     da dansk        nl hollandsk    en engelsk
-                eo esperanto    et estisk       tl filipinsk    fi finsk
-                fr fransk       gl galisisk     ka georgisk     de tysk
-                el græsk        gu gurajati     ht haitisk      iw hebraisk
-                hi hindi        hu hungarsk     is islandsk     id indonesisk
-                ga irsk         it italiensk    ja japansk      kn kannada
-                ko koreansk     la latinsk      lv lettisk      lt litausk
-                mk makedonisk   ms malajsisk    mt maltesisk    no norsk
-                fa persisk      pl polsk        pt portugesisk  ro romænsk
-                ru russisk      sr serbisk      sk slovakisk    sl slovensk
-                es spansk       sw swahili      sv svensk       ta tamilsk
-                te telugu       th thai         tr tyrkisk      uk ukrainsk
-                ur urdu         vi vietnamesisk cy walisisk     yi jiddisch
-                so somalisk
-            );
+langcode="$1"
 
-my $langcode = $ARGV[0];
-my $langname = $langs{$langcode};
-if ($langname) {
-    print $langname;
-} else {
-    exit 1;
-}
+case "$langcode" in
+    af) echo "afrikaans" ;;
+    sq) echo "albansk" ;;
+    ar) echo "arabisk" ;;
+    az) echo "aserbajdsjansk" ;;
+    eu) echo "baskisk" ;;
+    bn) echo "bengalsk" ;;
+    be) echo "hviderussisk" ;;
+    bg) echo "bulgarsk" ;;
+    ca) echo "katalansk" ;;
+    zh-CN|zh-TW) echo "kinesisk" ;;
+    hr) echo "kroatisk" ;;
+    cs) echo "tjekkisk" ;;
+    da) echo "dansk" ;;
+    nl) echo "hollandsk" ;;
+    en) echo "engelsk" ;;
+    eo) echo "esperanto" ;;
+    et) echo "estisk" ;;
+    tl) echo "filipinsk" ;;
+    fi) echo "finsk" ;;
+    fr) echo "fransk" ;;
+    gl) echo "galisisk" ;;
+    ka) echo "georgisk" ;;
+    de) echo "tysk" ;;
+    el) echo "græsk" ;;
+    gu) echo "gurajati" ;;
+    ht) echo "haitisk" ;;
+    iw) echo "hebraisk" ;;
+    hi) echo "hindi" ;;
+    hu) echo "hungarsk" ;;
+    is) echo "islandsk" ;;
+    id) echo "indonesisk" ;;
+    ga) echo "irsk" ;;
+    it) echo "italiensk" ;;
+    ja) echo "japansk" ;;
+    kn) echo "kannada" ;;
+    ko) echo "koreansk" ;;
+    la) echo "latinsk" ;;
+    lv) echo "lettisk" ;;
+    lt) echo "litausk" ;;
+    mk) echo "makedonisk" ;;
+    ms) echo "malajsisk" ;;
+    mt) echo "maltesisk" ;;
+    no) echo "norsk" ;;
+    fa) echo "persisk" ;;
+    pl) echo "polsk" ;;
+    pt) echo "portugesisk" ;;
+    ro) echo "romænsk" ;;
+    ru) echo "russisk" ;;
+    sr) echo "serbisk" ;;
+    sk) echo "slovakisk" ;;
+    sl) echo "slovensk" ;;
+    es) echo "spansk" ;;
+    sw) echo "swahili" ;;
+    sv) echo "svensk" ;;
+    ta) echo "tamilsk" ;;
+    te) echo "telugu" ;;
+    th) echo "thai" ;;
+    tr) echo "tyrkisk" ;;
+    uk) echo "ukrainsk" ;;
+    ur) echo "urdu" ;;
+    vi) echo "vietnamesisk" ;;
+    cy) echo "walisisk" ;;
+    yi) echo "jiddisch" ;;
+    so) echo "somalisk" ;;
+    *) exit 1 ;;
+esac
