@@ -2,4 +2,4 @@
 #
 # Viser kommandoer.
 
-commands | sort | enumerate
+commands | sort | enumerate
