@@ -27,7 +27,7 @@ mkShell {
     binutils
     gnumake
     go
-    gnu-cobol
+    gnucobol
     mosml
     fpc
     jdk
@@ -60,7 +60,7 @@ mkShell {
     php
     emacs-nox
     futhark
-    nodejs_23
+    nodejs_24
     mapscii
   ];
 
