@@ -1,14 +1,20 @@
-#!/usr/bin/env perl
-use utf8::all;
-use 5.022;
-use warnings;
+#!/usr/bin/env python3
+import sys
+import subprocess
+import re
 
-die "Brug: GetGdpPcOf <land>" unless $#ARGV == 0;
-my $waOutput = `wa gdp per capita of $ARGV[0]`;
-$waOutput =~ /\s*(?:[Rr]esult:)\s+\$(\d+(?:\.\d+)?)/;
+if len(sys.argv) != 2:
+    print("Brug: GetGdpPcOf <land>", file=sys.stderr)
+    sys.exit(1)
 
-my $gdpPcString = $1;
+wa_output = subprocess.run(['wa', 'gdp', 'per', 'capita', 'of', sys.argv[1]], 
+                          capture_output=True, text=True).stdout
 
-die "Unable to interpret population number. Got: $waOutput" unless $gdpPcString ne '';
+match = re.search(r'\s*(?:[Rr]esult:)\s+\$(\d+(?:\.\d+)?)', wa_output)
 
-say $gdpPcString;
+if not match:
+    print(f"Unable to interpret population number. Got: {wa_output}", file=sys.stderr)
+    sys.exit(1)
+
+gdp_pc_string = match.group(1)
+print(gdp_pc_string)
