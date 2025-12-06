@@ -117,6 +117,11 @@ while (my $line = <>) {
     $line =~ s/\bblid/sensitiv/gi;
     $line =~ s/\bføde/søsætte/gi;
     $line =~ s/jord/planet/gi;
+    $line =~ s/Advent/Fridag/gi;
+    $line =~ s/advent/fridag/gi;
+    $line =~ s/pynter/skramler/gi;
+    $line =~ s/pynten/skrammelet/gi;
+    $line =~ s/pynt/skrammel/gi;
 
     # Ban bad foods
     my $food_pattern = '(\b' . join('\b|\b', @bad_foods) . '\b)';
