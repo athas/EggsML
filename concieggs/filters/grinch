@@ -100,6 +100,7 @@ while (my $line = <>) {
     $line =~ s/hyrde/fodermester/gi;
     $line =~ s/Beth?lehem/Slagelse/gi;
     $line =~ s/\blam/kalv/gi;
+    $line =~ s/hjertet/lungen/gi;
     $line =~ s/hjerte/lunge/gi;
     $line =~ s/\bløn/salær/gi;
     $line =~ s/\bfred/fordragelighed/gi;
