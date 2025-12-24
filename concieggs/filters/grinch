@@ -123,6 +123,7 @@ while (my $line = <>) {
     $line =~ s/pynten/skrammelet/gi;
     $line =~ s/pynt/skrammel/gi;
     $line =~ s/traditioner/vaner/gi;
+    $line =~ s/traditionel/vanemæssig/gi;
     $line =~ s/tradition/vane/gi;
     $line =~ s/samvær/pligter/gi;
 
