@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# Ikke den med fascisme.
+
+sed -E -e 's/ks/x/g' -e 's/KS/X/gi' -e 's/se\b/xe/gi' -e 's/st/xt/gi'
