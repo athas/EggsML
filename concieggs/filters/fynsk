@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# En smuk fynsk klang.
+
+sed -E -e 's/([aeiouyæøå])n/\1nn/g' -e 's/(\w)e/\1ie/'
