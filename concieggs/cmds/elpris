@@ -110,10 +110,10 @@ def priser(bz, lokale_ts, ts, start, end):
     end_hour_string = end.strftime("%Y-%m-%dT%H:00")
 
     filter = urllib.parse.quote_plus(json.dumps({"PriceArea": [bz]}))
-    url = f"https://api.energidataservice.dk/dataset/Elspotprices?start={current_hour_string}&end={end_hour_string}&filter={filter}&sort=HourUTC%20ASC"
+    url = f"https://api.energidataservice.dk/dataset/DayAheadPrices?start={current_hour_string}&end={end_hour_string}&filter={filter}&sort=TimeUTC%20ASC"
     res = json.load(urllib.request.urlopen(url))
     return [
-        pris(lokale_ts, ts, r["SpotPriceDKK"], datetime.fromisoformat(r["HourDK"]))
+        pris(lokale_ts, ts, r["DayAheadPriceDKK"], datetime.fromisoformat(r["TimeDK"]))
         for r in res["records"]
     ]
 
@@ -128,7 +128,7 @@ def elpris_detalje(addr, pris):
 
 
 def elpris_linje(pris):
-    tid = pris["t"].strftime("%H:00")
+    tid = pris["t"].strftime("%H:%M")
     total = pris["total"]
     return f"{tid}: {total:.2f} kr."
 
