@@ -1,0 +1,50 @@
+#!/bin/sh
+#
+# Brug 'loghistogram <k>' og så bare smid nogle blanktegn-adskildte
+# heltal ind via stdin.
+
+set -e
+
+[ $# -eq 1 ]
+
+input() {
+    while read line; do
+        for word in $line; do
+            echo $word
+        done
+    done
+}
+
+tofuthark() {
+    awk 'BEGIN{print "["} {if (comma==1) {print ", ";} print; comma=1; } END{print "]"}'
+}
+
+fromfuthark() {
+    sed -e 's/i32//g' -e 's/,/ /g' -e 's/\[//g' -e 's/\]//g'
+}
+
+
+
+for x in $((echo $1; input | tofuthark) | discretise-max-log | fromfuthark); do
+    case $x in
+        0) printf " "
+           ;;
+        1) printf "▁"
+           ;;
+        2) printf "▂"
+           ;;
+        3) printf "▃"
+           ;;
+        4) printf "▄"
+           ;;
+        5) printf "▅"
+           ;;
+        6) printf "▆"
+           ;;
+        7) printf "▇"
+           ;;
+        8) printf "█"
+           ;;
+    esac
+done
+echo ""

@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+# Visualisér et stykke datamateriale logaritmisks, for derved at opnå bedre forståelse for dets struktur.
+
+k=$#
+
+if echo "$@" | egrep -vq '^([0-9]+ ?)+$'; then
+    echo "$EGGS_USER: Brug: loggraf heltal1 heltal2 heltal3..."
+    exit
+fi
+
+echo "$@" | loghistogram $k
