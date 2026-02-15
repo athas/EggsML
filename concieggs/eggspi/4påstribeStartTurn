@@ -1,9 +1,7 @@
-#!/usr/bin/env perl
-use 5.024;
-use warnings;
-use utf8::all;
+#!/usr/bin/env python3
+import sys
 
-my ($user, $user2, $circle, $board) = @ARGV;
+user, user2, circle, board = sys.argv[1:5]
 
-say "$user: Det er din tur i kampen mod $user2. Du er $circle. Her er hvordan brættet ser ud:\n$board";
-say "$user: Tag dit træk ved at skrive '4påstribe <søjle>'.";
+print(f"{user}: Det er din tur i kampen mod {user2}. Du er {circle}. Her er hvordan brættet ser ud:\n{board}")
+print(f"{user}: Tag dit træk ved at skrive '4påstribe <søjle>'.")

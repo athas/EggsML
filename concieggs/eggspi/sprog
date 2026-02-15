@@ -1,15 +1,48 @@
-#!/usr/bin/env perl
+#!/usr/bin/env python3
 #
 # Konvertér fx "translate da sv" til "svensk" eller "translate da sv da" til "svensk-dansk".
-use 5.020;
-use strict;
-use warnings;
-use utf8::all;
+import sys
+import os
+import subprocess
+import re
 
-use Env qw(EGGS_WHERE);
-use EggsML::EggsPI text => [qw(dbRead langname)];
+eggs_where = os.environ.get('EGGS_WHERE', '')
 
-my $b = dbRead('filterchain_' . $EGGS_WHERE) || dbRead('filterchain');
-$b =~ s/^translate da *//;
+# Try to read filterchain with EGGS_WHERE first, then without
+try:
+    result = subprocess.run(['dbRead', f'filterchain_{eggs_where}'], 
+                          capture_output=True, text=True, check=False)
+    b = result.stdout.strip() if result.returncode == 0 and result.stdout.strip() else None
+except:
+    b = None
 
-print join('-', map { langname($_) } (split / /, $b)) || 'dansk';
+if not b:
+    try:
+        result = subprocess.run(['dbRead', 'filterchain'], 
+                              capture_output=True, text=True, check=False)
+        b = result.stdout.strip() if result.returncode == 0 else ''
+    except:
+        b = ''
+
+# Remove leading "translate da " pattern
+b = re.sub(r'^translate da *', '', b)
+
+# Get language names for each code
+if b:
+    langs = b.split()
+    langnames = []
+    for lang in langs:
+        try:
+            result = subprocess.run(['langname', lang], 
+                                  capture_output=True, text=True, check=False)
+            if result.returncode == 0 and result.stdout.strip():
+                langnames.append(result.stdout.strip())
+        except:
+            pass
+    
+    if langnames:
+        print('-'.join(langnames))
+    else:
+        print('dansk')
+else:
+    print('dansk')
