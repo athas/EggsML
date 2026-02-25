@@ -9,10 +9,12 @@ De behøver da ikke at takke mig!
 Men jeg er blot en undersåt.  Tak.  TAK!
 Min konge.
 Lad månen skinne på din søvn, o herre.
-Velbekommen!
 EOF
 else
-    echo Det var så lidt.
+    randomLine <<EOF
+Det var så lidt.
+Velbekommen!
+EOF
 fi
 
 pleasedBy "$EGGS_USER"
