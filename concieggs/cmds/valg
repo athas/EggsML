@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# Hvor mange har stemt?
+
+STEMMER="$(curl -s -H 'X-Election-ID: 47b883ef-d0d3-4cb6-9da5-91963f0e9ba0' 'https://valg.dk/api/overview/ge-election-overview' | jq '.voteCountStatusDto.eligibleVoterPercentage / 100 * 4317926 | round')"
+
+echo "$STEMMER har stemt til folketingsvalget 2026"
