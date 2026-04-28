@@ -1,0 +1,27 @@
+#!/usr/bin/env rash
+#
+# Gæt hvem der har lavet et commit!
+
+line=>git log --pretty=format:"%an:%H:%s"
+line=<${line}>grep -vi '^concieggs'
+line=<${line}>grep -v "Merge branch 'master'"
+line=<${line}>randomLine
+
+subject=<${line}>cut -d ':' -f 3-
+author=<${line}>cut -d ':' -f 1
+commithash=<${line}>cut -d ':' -f 2
+
+>echo "Hvem mon skrev følgende?  \"${subject}\""
+
+read guess
+
+EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
+
+>cmpUsers "${guess}" "${author}"
+jz correctguess
+
+>echo "${EGGS_USER}: Forkert!  Det var ${author}!  Se <https://github.com/Athas/EggsML/commit/${commithash}>."
+exit
+
+:correctguess
+>echo "${EGGS_USER}: Rigtigt, det var nemlig ${author}!  Se <https://github.com/Athas/EggsML/commit/${commithash}>."
