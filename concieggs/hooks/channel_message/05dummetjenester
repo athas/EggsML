@@ -4,8 +4,8 @@ shame() {
     annoyedBy "$EGGS_USER" 5 "hægtede til $1 (jeg har ikke en konto)"
 }
 
-if echo "$EGGS_BODY" | grep www.linkedin.com -q; then
+if echo "$EGGS_BODY" | grep -q www.linkedin.com; then
     shame LinkedIn
-elif echo "$EGGS_BODY" | grep spotify.com -q; then
+elif echo "$EGGS_BODY" | grep -q spotify.com; then
     shame Spotify
 fi

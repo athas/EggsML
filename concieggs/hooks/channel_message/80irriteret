@@ -1,8 +1,8 @@
 #!/bin/sh
 
-if echo "$EGGS_BODY" | fgrep spelt-segmentet.dk -q; then
+if echo "$EGGS_BODY" | fgrep -q spelt-segmentet.dk; then
     annoyedBy "$EGGS_USER" 10 "hægtede til spelt-segmentet.dk"
 fi
-if echo "$EGGS_BODY" | fgrep cpan.org -q; then
-    pleasedBy "$EGGS_USER" 10
+if echo "$EGGS_BODY" | fgrep -q cpan.org; then
+    annoyedBy "$EGGS_USER" 10
 fi
