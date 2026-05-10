@@ -1,0 +1,27 @@
+#!/usr/bin/env rash
+
+linjer=>dagsquizinfo
+dag=<${linjer}>head -n1
+
+>echo "Gæt hvilken dag disse hændelser har tilfælles:"
+<${linjer}>tail -n3
+
+:læsgæt
+read gæt
+EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
+<${gæt}>grep -qiE '.+'
+jz videre
+>echo "${EGGS_USER}: Du skal skrive en dag."
+j læsgæt
+
+:videre
+<"${gæt}">grep -qiE "${dag}"
+jz korrektgæt
+
+>echo "${EGGS_USER}: Dårligt!  Det var ${dag}!"
+>wrongScoreInc ${EGGS_USER} "dagsquiz"
+exit
+
+:korrektgæt
+>echo "${EGGS_USER}: Imponerende."
+>correctScoreInc ${EGGS_USER} "dagsquiz"

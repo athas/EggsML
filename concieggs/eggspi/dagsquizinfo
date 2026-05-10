@@ -1,0 +1,42 @@
+#!/bin/sh
+
+month="$(random 1 12)"
+day="$(random 1 $(monthDays $month))"
+formatted="${day}. $(monthName $month)"
+echo $formatted
+
+{
+    tr $'\n' '&' <<EOF
+action=parse
+format=json
+prop=parsetree
+page=Skabelon:Dagen/$(echo "$formatted" | tr ' ' '+')
+EOF
+} \
+    | curl -s "https://da.wikipedia.org/w/api.php?$(cat)" \
+    | jq -r '.parse.parsetree."*"' \
+    | sed -r 's/\[\[([^]|]+)\]\]/\1/g' \
+    | sed -r 's/\[\[[^|]+\|([^]]+)\]\]/\1/g' \
+    | sed -r 's/\s+/ /g' \
+    | sed -r 's/^\*\s*([0-9]+)\s*-\s*/-\1-/g' \
+    | sed -r 's/<\/?root>//' \
+    | sed -r 's/^<ignore>.+$//' \
+    | sed -r 's/^[^>]+>===\s*([^=]+).+$/=\1/' \
+    | grep -E '^[-=]' \
+    | sed 's/^=Begivenheder$/=Begivenhed/' \
+    | {
+    prefix=''
+    while read line; do
+        if echo "$line" | grep -q '^='; then
+            prefix="$(echo "$line" | sed -r 's/^=//')"
+        else
+            echo "$prefix$line"
+        fi
+    done
+} \
+    | randomise \
+    | grep -Ev '[<>]' \
+    | sed -r 's/ \((født|død)[^)]+\)//' \
+    | htmlEntitiesDecode \
+    | head -n 3 \
+    | sed -r 's/^([^-]+)-([^-]+)-(.+)$/\1 i \2: \3/'
