@@ -35,8 +35,8 @@ EOF
     done
 } \
     | randomise \
+    | head -n 3 \
     | grep -Ev '[<>]' \
     | sed -r 's/ \((født|død)[^)]+\)//' \
     | htmlEntitiesDecode \
-    | head -n 3 \
     | sed -r 's/^([^-]+)-([^-]+)-(.+)$/\1 i \2: \3/'
