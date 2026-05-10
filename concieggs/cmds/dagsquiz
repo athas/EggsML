@@ -23,5 +23,5 @@ jz korrektgæt
 exit
 
 :korrektgæt
->echo "${EGGS_USER}: Imponerende."
+>echo "${EGGS_USER}: Imponerende, det er rigtigt!"
 >correctScoreInc ${EGGS_USER} "dagsquiz"
