@@ -5,14 +5,16 @@ day="$(random 1 $(monthDays $month))"
 formatted="${day}. $(monthName $month)"
 echo $formatted
 
-{
-    tr $'\n' '&' <<EOF
+echo "$formatted" \
+    | tr ' ' '+' \
+    | (cat <<EOF
 action=parse
 format=json
 prop=parsetree
-page=Skabelon:Dagen/$(echo "$formatted" | tr ' ' '+')
+page=Skabelon:Dagen/$(cat)
 EOF
-} \
+) \
+    | tr $'\n' '&' \
     | curl -s "https://da.wikipedia.org/w/api.php?$(cat)" \
     | jq -r '.parse.parsetree."*"' \
     | sed -r 's/\[\[([^]|]+)\]\]/\1/g' \
