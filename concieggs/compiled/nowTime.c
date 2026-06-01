@@ -10,7 +10,7 @@ int main(int argc, char **argv) {
     perror(argv[0]);
     return 1;
   } else {
-    printf("%ld\n", tv.tv_sec);
+    printf("%ld\n", (long)tv.tv_sec);
     return 0;
   }
 }
