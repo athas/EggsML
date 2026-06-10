@@ -6,13 +6,18 @@ shuttingUp && exit
 
 maybeGood .03 || exit
 
-rules=$(cat <<'EOF'
-    s/(^|\. )[^ ]+ (var|er|kunne|har|tog)/\1Din mor \2/g;
-    s/, [^ ]+ (var|er|kunne|har|tog)/, din mor \1/g;
-    print;
+prog=$(cat <<'EOF'
+    { if (match($0, /(^|\. )[^ ]+ (var|er|kunne|har|tog) ([^!.,]*)/, m)) {
+        print m[1] "Din mor", m[2], m[3];
+      } else if (match($0, ", [^ ]+ (var|er|kunne|har|tog) ([^!.,]*)", m)) {
+        print "din mor", m[1], m[2];
+      } else {
+        print;
+      }
+    }
 EOF
 )
-new=$(say "$EGGS_BODY" | perl -Mutf8::all -ne "$rules")
+new=$(say "$EGGS_BODY" | awk "$prog")
 
 if [ "$new" != "$EGGS_BODY" ]; then
     new_without_ending=$(say "$new" | sed -E -e 's/\.$//')
