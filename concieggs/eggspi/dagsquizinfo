@@ -1,44 +1,77 @@
 #!/bin/sh
 
-month="$(random 1 12)"
-day="$(random 1 $(monthDays $month))"
-formatted="${day}. $(monthName $month)"
-echo $formatted
+fact() {
+    month=$1
+    day=$2
+    formatted="${day}. $(monthName $month)"
+    echo -n $formatted:
 
-echo "$formatted" \
-    | tr ' ' '+' \
-    | (cat <<EOF
+    echo "$formatted" \
+        | tr ' ' '+' \
+        | (cat <<EOF
 action=parse
 format=json
 prop=parsetree
 page=Skabelon:Dagen/$(cat)
 EOF
-) \
-    | tr $'\n' '&' \
-    | curl -s "https://da.wikipedia.org/w/api.php?$(cat)" \
-    | jq -r '.parse.parsetree."*"' \
-    | sed -r 's/\[\[([^]|]+)\]\]/\1/g' \
-    | sed -r 's/\[\[[^|]+\|([^]]+)\]\]/\1/g' \
-    | sed -r 's/ +/ /g' \
-    | sed -r 's/^\* *([0-9]+) *- */-\1-/g' \
-    | sed -r 's/<\/?root>//' \
-    | sed -r 's/^<ignore>.+$//' \
-    | sed -r 's/^[^>]+>=== *([^=]+).+$/=\1/' \
-    | grep -E '^[-=]' \
-    | sed 's/^=Begivenheder$/=Begivenhed/' \
-    | {
-    prefix=''
+    ) \
+        | tr $'\n' '&' \
+        | curl -s "https://da.wikipedia.org/w/api.php?$(cat)" \
+        | jq -r '.parse.parsetree."*"' \
+        | sed -r 's/\[\[([^]|]+)\]\]/\1/g' \
+        | sed -r 's/\[\[[^|]+\|([^]]+)\]\]/\1/g' \
+        | sed -r 's/ +/ /g' \
+        | sed -r 's/^\* *([0-9]+) *- */-\1-/g' \
+        | sed -r 's/<\/?root>//' \
+        | sed -r 's/^<ignore>.+$//' \
+        | sed -r 's/^[^>]+>=== *([^=]+).+$/=\1/' \
+        | grep -E '^[-=]' \
+        | sed 's/^=Begivenheder$/=Begivenhed/' \
+        | {
+        prefix=''
+        while read line; do
+            if echo "$line" | grep -q '^='; then
+                prefix="$(echo "$line" | sed -r 's/^=//')"
+            else
+                echo "$prefix$line"
+            fi
+        done
+    } \
+        | randomise \
+        | head -n 1 \
+        | grep -Ev '[<>]' \
+        | sed -r 's/ \((født|død)[^)]+\)//' \
+        | htmlEntitiesDecode \
+        | sed -r 's/^([^-]+)-([^-]+)-(.+)$/\1 i \2: \3/'
+    sleep 0.5
+}
+
+random_fact() {
+    month="$(random 1 12)"
+    day="$(random 1 $(monthDays $month))"
+    fact $month $day
+}
+
+today_fact() {
+    fact $(date '+%m %d')
+}
+
+prefix_linum() {
+    i=1
     while read line; do
-        if echo "$line" | grep -q '^='; then
-            prefix="$(echo "$line" | sed -r 's/^=//')"
-        else
-            echo "$prefix$line"
-        fi
+        echo "$i:$line"
+        i=$(expr $i + 1)
     done
+}
+
+{
+    echo -n t:
+    today_fact
+    echo -n f:
+    random_fact
+    echo -n f:
+    random_fact
 } \
     | randomise \
-    | head -n 3 \
-    | grep -Ev '[<>]' \
-    | sed -r 's/ \((født|død)[^)]+\)//' \
-    | htmlEntitiesDecode \
-    | sed -r 's/^([^-]+)-([^-]+)-(.+)$/\1 i \2: \3/'
+    | prefix_linum \
+    | sed -r 's/^([^:]+):([^:]+):([^:]+):(.+)$/\2:\3:\1. \4/'

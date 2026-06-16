@@ -1,24 +1,25 @@
 #!/usr/bin/env rash
 
 linjer=>dagsquizinfo
-dag=<${linjer}>head -n1
-
->echo "Gæt hvilken dag disse hændelser har tilfælles:"
-<${linjer}>tail -n3
+>echo "Gæt hvilken af disse hændelser skete dags dato:"
+<"${linjer}">cut -d: -f3-
 
 :læsgæt
 read gæt
 EGGS_USER=>python -c "import os; print(os.getenv('EGGS_USER'))"
-<${gæt}>grep -qiE '.+'
+<${gæt}>grep -qiE '[0-9]+'
 jz videre
->echo "${EGGS_USER}: Du skal skrive en dag."
+>echo "${EGGS_USER}: Du skal skrive et heltal."
 j læsgæt
 
 :videre
-<"${gæt}">grep -qiE "${dag}"
+<"${linjer}">grep -qE "^t:[^:]+:${gæt}"
 jz korrektgæt
 
->echo "${EGGS_USER}: Dårligt!  Det var ${dag}!"
+rigtig=<${linjer}>grep -E '^t:'
+rigtig=<${rigtig}>cut -d: -f3
+rigtig=<${rigtig}>cut -d. -f1
+>echo "${EGGS_USER}: Dårligt!  Det var ${rigtig}!"
 >wrongScoreInc ${EGGS_USER} "dagsquiz"
 exit
 
