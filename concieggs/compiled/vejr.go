@@ -70,7 +70,7 @@ type JsonAPI struct {
 	Cod  int
 }
 
-func readLonLat(filename string, city string, country string) (lon float64, lat float64, ok bool, err error) {
+func readLonLat(filename string, city string, state string, country string) (lon float64, lat float64, ok bool, err error) {
 	b, err := ioutil.ReadFile(filename)
 	if err != nil {
 		if errors.Is(err, os.ErrNotExist) {
@@ -80,6 +80,9 @@ func readLonLat(filename string, city string, country string) (lon float64, lat 
 	}
 
 	toFind := fmt.Sprintf("%s,%s", city, country)
+	if len(state) > 0 {
+		toFind = fmt.Sprintf("%s,%s,%s", city, state, country)
+	}
 
 	r := csv.NewReader(bytes.NewReader(b))
 	r.Comma = '\t'
@@ -109,14 +112,19 @@ func readLonLat(filename string, city string, country string) (lon float64, lat 
 	return 0.0, 0.0, false, nil
 }
 
-func appendLonLat(filename string, city string, country string, lon float64, lat float64) error {
+func appendLonLat(filename string, city string, state string, country string, lon float64, lat float64) error {
 	f, err := os.OpenFile(filename, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
 	if err != nil {
 		return err
 	}
 	defer f.Close()
 
-	if _, err := f.WriteString(fmt.Sprintf("%s,%s\t%.2f\t%.2f\n", city, country, lon, lat)); err != nil {
+	s := fmt.Sprintf("%s,%s\t%.2f\t%.2f\n", city, country, lon, lat)
+	if len(state) > 0 {
+		s = fmt.Sprintf("%s,%s,%s\t%.2f\t%.2f\n", city, state, country, lon, lat)
+	}
+
+	if _, err := f.WriteString(s); err != nil {
 		return err
 	}
 
@@ -140,20 +148,23 @@ func makeCall(url string, response interface{}) error {
 	return nil
 }
 
-func readUserSetting(user string) (city string, country string, found bool) {
+func readUserSetting(user string) (city string, state string, country string, found bool) {
 	cmd := exec.Command("dbUserRead", user, "vejrsted")
 	o, err := cmd.Output()
 	if err != nil {
-		return city, country, false
+		return city, state, country, false
 	}
 	s := strings.Split(string(o), ",")
 	if len(s) == 0 {
-		return city, country, false
+		return city, state, country, false
 	}
 	if len(s) == 1 {
-		return s[0], "DK", true
+		return s[0], state, "DK", true
 	}
-	return s[0], s[1], true
+	if len(s) == 2 {
+		return s[0], state, s[1], true
+	}
+	return s[0], s[1], s[2], true
 }
 
 func writeUserSetting(user string, setting string) (err error) {
@@ -182,9 +193,9 @@ func capitalise(s string) string {
 
 func main() {
 	user := os.Getenv("EGGS_USER")
-	var city, country string
+	var city, state, country string
 	var found bool
-	city, country, found = readUserSetting(user)
+	city, state, country, found = readUserSetting(user)
 	if !found || city == "" || country == "" {
 		city = "København"
 		country = "DK"
@@ -227,9 +238,14 @@ func main() {
 			if len(ss) == 1 {
 				city = ss[0]
 			}
-			if len(ss) >= 2 {
+			if len(ss) == 2 {
 				city = strings.Trim(ss[0], " ")
 				country = strings.Trim(ss[1], " ")
+			}
+			if len(ss) >= 3 {
+				city = strings.Trim(ss[0], " ")
+				state = strings.Trim(ss[1], " ")
+				country = strings.Trim(ss[2], " ")
 			}
 		}
 	}
@@ -242,7 +258,7 @@ func main() {
 		storeFile = fmt.Sprintf("%s/store/vejrsteder", dbDir)
 
 		var ok bool
-		lon, lat, ok, _ = readLonLat(storeFile, city, country)
+		lon, lat, ok, _ = readLonLat(storeFile, city, state, country)
 		if ok {
 			foundLoc = true
 		}
@@ -261,7 +277,15 @@ func main() {
 		}
 
 		// lad os finde hvor vi er
-		if len(country) > 0 {
+		if len(state) > 0 && len(country) > 0 {
+			if err := makeCall(fmt.Sprintf("http://api.openweathermap.org/geo/1.0/direct?q=%s,%s,%s&limit=%d&appid=%s", url.QueryEscape(city), url.QueryEscape(state), url.QueryEscape(country), tryResult+1, APIKEY), &locations); err != nil {
+				fmt.Println("Den by findes ikke eller også er der noget andet, der er gået galt!")
+				return
+			}
+
+		}
+		if len(locations) == 0 && len(country) > 0 {
+			// lad os prøve uden delstat
 			if err := makeCall(fmt.Sprintf("http://api.openweathermap.org/geo/1.0/direct?q=%s,%s&limit=%d&appid=%s", url.QueryEscape(city), url.QueryEscape(country), tryResult+1, APIKEY), &locations); err != nil {
 				fmt.Println("Den by findes ikke eller også er der noget andet, der er gået galt!")
 				return
@@ -286,6 +310,7 @@ func main() {
 			return
 		}
 		loc := locations[tryResult]
+		state = loc.State
 		country = loc.Country
 
 		lon, lat = loc.Lon, loc.Lat
@@ -298,7 +323,7 @@ func main() {
 	}
 
 	if !foundLoc && len(storeFile) > 0 {
-		_ = appendLonLat(storeFile, city, country, lon, lat)
+		_ = appendLonLat(storeFile, city, state, country, lon, lat)
 		// ligemeget hvis den ikke blev gemt
 	}
 
@@ -324,6 +349,7 @@ func main() {
 
 	windDirectionstr := vejrLib.WindDirectionString(windDirection)
 
+	realState := vejrLib.StateFromCode(dat.Sys.Country, state)
 	realCountry := vejrLib.CountryFromCode(dat.Sys.Country)
 
 	var t *template.Template
@@ -342,11 +368,12 @@ func main() {
 	} else {
 		// Sørg lige for det ser godt ud
 		windBeaufortName = capitalise(windBeaufortName)
-		t, _ = template.New("vejr").Parse(`Vejret i {{.City}}, {{.Country}}: {{.Beskrivelse}} med en temperatur på {{.Degrees}}°C og luftfugtighed på {{.Humidity}}%. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}. {{.Afstand}} {{.Age}}`)
+		t, _ = template.New("vejr").Parse(`Vejret i {{.City}}{{if .State}}, {{.State}}{{end}}, {{.Country}}: {{.Beskrivelse}} med en temperatur på {{.Degrees}}°C og luftfugtighed på {{.Humidity}}%. {{.WindBeaufortName}}, {{.WindSpeed}} m/s, fra {{.WindDirection}}. {{.Afstand}} {{.Age}}`)
 	}
 	out := bytes.NewBufferString("")
 	t.Execute(out, struct {
 		City             string
+		State            string
 		Country          string
 		Beskrivelse      string
 		Degrees          string
@@ -358,6 +385,7 @@ func main() {
 		Age              string
 	}{
 		city,
+		realState,
 		realCountry,
 		beskrivelse,
 		fmt.Sprintf("%.1f", degrees),

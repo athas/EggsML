@@ -18,6 +18,8 @@ const (
 
 // Der er sikkert også andre lande.
 var COUNTRIES = map[string]string{
+	"AE": "de Forenede Arabiske Emirater",
+	"AU": "Sammenvældet Australien",
 	"BE": "Kongeriget Belgien",
 	"CA": "Canada",
 	"CH": "det Schweiziske Edsforbund",
@@ -41,11 +43,62 @@ var COUNTRIES = map[string]string{
 	"US": "Amerikas Forenede Stater",
 }
 
+// alle føderale stater per otte over middag, den 19. juni 2026
+var STATES = map[string]map[string]string{
+	// det er lavet som en tabelstruktur, så delstatsnavnene
+	// kan oversættes til dansk;
+	// vær opmærksom på at navnet fra APIet ikke er koder, men
+	// deres navne (nogle gange på lokalsproget, nogle gange på engelsk)
+	"AR": {},
+	"AU": {},
+	"AT": {},
+	"BE": {},
+	"BA": {},
+	"BR": {},
+	"CA": {},
+	"KM": {},
+	"ET": {},
+	"DE": {
+		"Schleswig-Holstein": "Slesvig-Holsten",
+	},
+	"IN": {},
+	"IQ": {},
+	"MY": {},
+	"MX": {},
+	"FM": {},
+	"NP": {},
+	"NG": {},
+	"PK": {},
+	"RU": {},
+	"KN": {},
+	"SO": {},
+	"SS": {},
+	"SD": {},
+	"CH": {},
+	"AE": {},
+	"US": {},
+	"VE": {},
+}
+
 func CountryFromCode(code string) string {
 	if country, ok := COUNTRIES[code]; ok {
 		return country
 	}
 	return code
+}
+
+func StateFromCode(country string, state string) string {
+	if len(state) == 0 {
+		return ""
+	}
+	states, ok := STATES[country]
+	if !ok {
+		return ""
+	}
+	if result, ok := states[state]; ok {
+		return result
+	}
+	return state
 }
 
 /* Tjekker om en grad (vinkel) passer til et bestemt verdenshjørne */
