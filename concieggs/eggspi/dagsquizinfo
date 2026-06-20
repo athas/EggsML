@@ -37,6 +37,7 @@ EOF
             fi
         done
     } \
+        | grep Begivenhed \
         | randomise \
         | head -n 1 \
         | grep -Ev '[<>]' \
