@@ -1,26 +1,41 @@
-#!/usr/bin/env perl
-use utf8::all;
-use 5.022;
-use warnings;
+#!/bin/sh
 
-die "Brug: getPopulationOf <land>" unless $#ARGV == 0;
-my $waOutput = `wa population of $ARGV[0]`;
-$waOutput =~ /\s*(?:Result:|Summary: total\s+\|)\s+(\d+(?:\.\d+)?)\s(people|million|billion)/;
+if [ $# -ne 1 ]; then
+    echo "Brug: getPopulationOf <land>" >&2
+    exit 1
+fi
 
-my $populationString = $1;
-my $multiplier = $2;
+waOutput=$(wa "population of $1")
 
-die "Unable to interpret population number. Got: $waOutput" unless $populationString ne '' and $multiplier ne '';
+# Extract number and multiplier using grep/sed
+result=$(echo "$waOutput" | grep -oE '(Result:|Summary: total\s+\|)\s+[0-9.]+\s+(people|million|billion)' | sed -E 's/(Result:|Summary: total\s+\|)\s+([0-9.]+)\s+(people|million|billion)/\2 \3/')
 
-my $population;
-if ($multiplier eq "people") {
-    $population = $populationString;
-} elsif ($multiplier eq "million") {
-    $population = $populationString * 1000000;
-} elsif ($multiplier eq "billion") {
-    $population = $populationString * 1000000000;
-} else {
-    die "Unable to interpret population number. Got: $waOutput";
-}
+if [ -z "$result" ]; then
+    echo "Unable to interpret population number. Got: $waOutput" >&2
+    exit 1
+fi
 
-say $population;
+number=$(echo "$result" | awk '{print $1}')
+multiplier=$(echo "$result" | awk '{print $2}')
+
+if [ -z "$number" ] || [ -z "$multiplier" ]; then
+    echo "Unable to interpret population number. Got: $waOutput" >&2
+    exit 1
+fi
+
+# Calculate final population
+case "$multiplier" in
+    people)
+        echo "$number" | awk '{printf "%.0f\n", $1}'
+        ;;
+    million)
+        echo "$number" | awk '{printf "%.0f\n", $1 * 1000000}'
+        ;;
+    billion)
+        echo "$number" | awk '{printf "%.0f\n", $1 * 1000000000}'
+        ;;
+    *)
+        echo "Unable to interpret population number. Got: $waOutput" >&2
+        exit 1
+        ;;
+esac
