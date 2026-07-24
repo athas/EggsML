@@ -17,7 +17,7 @@ prog=$(cat <<'EOF'
     }
 EOF
 )
-new=$(say "$EGGS_BODY" | awk "$prog")
+new=$(say "$EGGS_BODY" | gawk "$prog")
 
 if [ "$new" != "$EGGS_BODY" ]; then
     new_without_ending=$(say "$new" | sed -E -e 's/\.$//')
