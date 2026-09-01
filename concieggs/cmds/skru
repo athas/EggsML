@@ -10,16 +10,13 @@ no warnings 'experimental::smartmatch';
 my $currentCharm = `checkCharmen`;
 chomp($currentCharm);
 my $arg_string = join(" ", @ARGV);
-  given($arg_string)
-    {
-    when ( /helt\sop\sfor\scharmen/ ){ setCharm(10);}
-    when (/helt\sned\sfor\scharmen/){ setCharm(0);}
-    when (/op\sfor\scharmen/) { setCharm($currentCharm + 1) unless $currentCharm == 10;}
-    when (/ned\sfor\scharmen/) { setCharm($currentCharm - 1) unless $currentCharm == 0;}
-    when (/charmen\s(op|ned)\spå\s(\d\d?)/) {SpecificCharme($currentCharm, $2, $1);}
-    default {exit(0);}
-    }
 
+if ($arg_string =~ /helt\sop\sfor\scharmen/ ){ setCharm(10);}
+elsif ($arg_string =~ /helt\sned\sfor\scharmen/){ setCharm(0);}
+elsif ($arg_string =~ /op\sfor\scharmen/) { setCharm($currentCharm + 1) unless $currentCharm == 10;}
+elsif ($arg_string =~ /ned\sfor\scharmen/) { setCharm($currentCharm - 1) unless $currentCharm == 0;}
+elsif ($arg_string =~ /charmen\s(op|ned)\spå\s(\d\d?)/) {SpecificCharme($currentCharm, $2, $1);}
+else {exit(0);}
 
 sub SpecificCharme {
   my ($gammel, $ny, $op) = @_;
