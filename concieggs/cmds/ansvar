@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-use 5.040;
+use 5.042;
 use strict;
 use warnings;
 
@@ -9,7 +9,6 @@ use File::Spec;
 use Git::Repository qw(Blame Log);
 use Time::Piece;
 use IPC::System::Simple qw(capturex);
-use List::UtilsBy qw(rev_nsort_by);
 
 use Env qw(EGGS_USER EGGS_BODY CONCIEGGS_DIR CONCIEGGS_NAME);
 use EggsML::EggsPI boolean => [qw(annoyedBy)],
@@ -106,7 +105,7 @@ sub ansvar_enkelt_linje {
 
     my $n = @matches;
     if ($n > 6) {
-        my @top_authors = rev_nsort_by { $authors{$_} } keys %authors;
+        my @top_authors = reverse sort { $authors{$a} cmp $authors{$b} } keys %authors;
         my @top_line = map { sprintf('%s (%s)', $_, $authors{$_}) } @top_authors;
         say "$EGGS_USER: Den stump kode forekommer godt nok mange gange ($n),"
             . " mestendels begået af: " . join(', ', @top_line);

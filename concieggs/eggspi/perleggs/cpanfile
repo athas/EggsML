@@ -29,8 +29,6 @@ requires 'Lingua::Bork';
 requires 'Lingua::EN::Syllable';
 requires 'Lingua::Translit';
 requires 'List::MoreUtils';
-requires 'List::Util';
-requires 'List::UtilsBy';
 requires 'LWP::Simple';
 requires 'Mojo::Base';
 requires 'Mojo::DOM';

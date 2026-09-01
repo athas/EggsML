@@ -1,13 +1,12 @@
 #!/usr/bin/env perl
-use 5.040;
+use 5.042;
 use warnings;
 use utf8;
 
-use List::Util qw/shuffle/;
+my @phpinfo = grep { $_ } split(/\n/, `echo "<?php phpinfo(); ?>" | php`);
 
-my @phpinfo = split(/\n/, `echo "<?php phpinfo(); ?>" | php`);
-@phpinfo = shuffle( grep { $_ !~ /^\s+$/ } @phpinfo );
+my $length = @phpinfo;
 
 say "Udvalgte linjer fra phpinfo:";
-say $_ for @phpinfo[0..4];
+say $phpinfo[$_] for map { int(rand($length)) } (0..4);
 

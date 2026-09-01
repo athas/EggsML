@@ -11,7 +11,6 @@ use EggsML::EggsPI text => [qw(curl)];
 use HTML::Query qw(Query);
 use JSON;
 use URI::Escape;
-use List::Util qw(max);
 
 my $use_json = 0;
 if (@ARGV && $ARGV[0] eq '--json') {
@@ -87,6 +86,14 @@ sub dst_json {
     my $head = shift;
     my $result = shift;
     return to_json({ status => $status, result => $result}, { pretty => 1 });
+}
+
+sub max(@array) {
+    my $max = 0;
+    for my ($v) (@array) {
+         $max = $v if $v > $max;
+    }
+    return $max;
 }
 
 sub dst_text {
