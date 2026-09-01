@@ -1,10 +1,10 @@
 package EggsML::Spellcheck;
-use 5.020;
+use 5.042;
 use warnings;
 
 use Encode;
 use Text::Aspell;
-use utf8::all;
+use utf8;
 
 my $checker = Text::Aspell->new;
 $checker->set_option('lang', 'da_DK');

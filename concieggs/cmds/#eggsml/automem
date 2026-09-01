@@ -1,12 +1,12 @@
 #!/usr/bin/env perl
-use 5.012;
+use 5.042;
 use warnings;
 
 =pod
 Depends on: /home/concieggs/credentials/memegenerator.net
 =cut
 
-use utf8::all;
+use utf8;
 use IO::All -utf8;
 use LWP::Simple;
 use JSON;

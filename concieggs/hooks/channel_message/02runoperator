@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-use 5.012;
+use 5.042;
 use warnings;
 use IPC::System::Simple qw/runx capturex EXIT_ANY/;
 use Encode qw/decode/;

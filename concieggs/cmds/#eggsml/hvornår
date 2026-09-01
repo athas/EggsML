@@ -2,9 +2,9 @@
 #
 # Hvornår stopper en bus i nærheden af DIKU?
 
-use 5.012;
+use 5.042;
 use warnings;
-use utf8::all;
+use utf8;
 
 use HTML::Entities qw/decode_entities/;
 use JSON qw/from_json/;

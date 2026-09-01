@@ -2,10 +2,10 @@
 #
 # Slå noget op i Krak.
 
-use 5.020;
+use 5.042;
 use strict;
 use warnings;
-use utf8::all;
+use utf8;
 
 use URI;
 use String::Util qw(trim);

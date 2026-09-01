@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-use v5.14;
+use 5.042;
 use warnings;
 
 sub randpick {

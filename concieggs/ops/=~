@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-use 5.012;
+use 5.042;
 use warnings;
 use Env qw/EGGS_USER/;
 

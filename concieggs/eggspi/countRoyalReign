@@ -2,7 +2,7 @@
 #
 # Count the amount of time a king has reigned in seconds.
 
-use 5.020;
+use 5.042;
 use warnings;
 no warnings 'experimental::smartmatch';
 

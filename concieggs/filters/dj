@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
-use 5.020;
-use utf8::all;
+use 5.042;
+use utf8;
 
 sub scratch {
   my $s = 's-' x rand 10;

@@ -2,7 +2,7 @@
 #
 # getNamesOnChannel [#channel]
 
-use 5.026;
+use 5.042;
 use strict;
 use warnings;
 use Time::Piece;

@@ -4,7 +4,7 @@
 
 sætning=>lykkehjuletSætning "${initial_arguments}"
 #>echo "[DEBUG] ${sætning}"
-tilstand=<${sætning}>perl -pnE 'use utf8::all; s/\p{Letter}/_/g'
+tilstand=<${sætning}>perl -pnE 'use utf8; s/\p{Letter}/_/g'
 må_ej_gætte=_
 
 >echo /me drejer hjulet

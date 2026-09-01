@@ -2,7 +2,7 @@
 #
 # Kommentér på når folk "dør".
 
-use v5.28; # Nøje udvalgt.
+use 5.028; # Nøje udvalgt.
 
 use EggsML::EggsPI boolean => ['checkCooldown'];
 

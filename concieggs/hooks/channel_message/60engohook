@@ -1,10 +1,10 @@
 #!/usr/bin/env perl
-use v5.20;
+use 5.042;
 use warnings;
 use utf8;
 
 use Encode qw/decode/;
-use utf8::all;
+use utf8;
 my $EGGS_BODY = decode('utf-8', $ENV{EGGS_BODY});
 
 system("shuttingUp || talkingToConcieggs");

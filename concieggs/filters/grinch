@@ -2,9 +2,9 @@
 #
 # Fjern alle referencer til den trælse højtid i december
 
-use 5.012;
+use 5.042;
 use warnings;
-use utf8::all;
+use utf8;
 
 my @bad_foods = qw(risengrød sylte flæskesteg sild eiskonfekt konfekt marcipan nougat blodpølse risalamande andesteg gås medisterpølse pebbernød pebbernødder);
 my @bad_drinks = qw(snaps gløgg glögg likør rom portvin valnøddesnaps juleøl sne-bajer snebajer porsesnaps sprut vin);

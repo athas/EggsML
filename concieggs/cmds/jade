@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
-use 5.026;
+use 5.042;
 use warnings;
-use utf8::all;
+use utf8;
 use Env qw(EGGS_USER);
 use EggsML::EggsPI text => [qw(annoyedBy)];
 use POSIX qw(ceil);

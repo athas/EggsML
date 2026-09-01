@@ -1,10 +1,10 @@
 #!/usr/bin/env perl
 #
 # Konverterer en $(eggspi/langcode) til sprognavn.
-use 5.020;
+use 5.042;
 use strict;
 use warnings;
-use utf8::all;
+use utf8;
 
 my %langs = qw( af afrikaans    sq albansk      ar arabisk      az aserbajdsjansk
                 eu baskisk      bn bengalsk     be hviderussisk bg bulgarsk

@@ -1,8 +1,8 @@
 #!/usr/bin/env perl
 # m a >>= f
-use 5.012;
+use 5.042;
 use warnings;
-use utf8::all;
+use utf8;
 use IPC::System::Simple qw/capturex/;
 use EggsML::EggsPI text => [qw/ runcmd /];
 use Env qw/EGGS_USER/;

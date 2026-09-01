@@ -2,10 +2,10 @@
 #
 # Find en opskrift.
 
-use 5.012;
+use 5.042;
 use warnings;
 no warnings 'once';
-use utf8::all;
+use utf8;
 use LWP::Simple qw(get $ua);
 use HTML::Query qw(Query);
 use URI;

@@ -2,7 +2,7 @@
 #
 # Har du et problem, hva'?
 
-use 5.020;
+use 5.042;
 use warnings;
 use Mojo::UserAgent;
 use Mojo::Util qw/url_escape/;

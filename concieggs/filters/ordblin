@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
-use 5.012;
+use 5.042;
 use warnings;
-use utf8::all;
+use utf8;
 
 sub ivrig {
     my $length = length shift;

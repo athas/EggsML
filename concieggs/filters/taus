@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 # Vær som Taus
-use 5.020;
+use 5.042;
 use warnings;
 
 say "/me går rundt i kanten af scenen og kigger, og distraherer derved publikum fra plottet.";

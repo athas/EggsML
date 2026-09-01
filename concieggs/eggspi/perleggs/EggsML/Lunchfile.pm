@@ -1,9 +1,9 @@
 package EggsML::Lunchfile;
-use 5.012;
+use 5.042;
 use warnings;
 
 use Mojo::Base -base;
-use utf8::all;
+use utf8;
 
 use DateTime;
 use EggsML::Member;

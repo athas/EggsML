@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
-use utf8::all;
-use 5.024;
+use utf8;
+use 5.042;
 use warnings;
 
 my ($user, $circ, $empty, $board, $col) = @ARGV;

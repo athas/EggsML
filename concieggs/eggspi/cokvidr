@@ -2,12 +2,12 @@
 #
 # 'kvidr' med pilene vendt om.
 
-use 5.012;
+use 5.042;
 use warnings;
 use Net::Twitter;
 use IO::All;
 use Try::Tiny;
-use utf8::all;
+use utf8;
 
 my $query = @ARGV ? $ARGV[0] : 'concieggs';
 

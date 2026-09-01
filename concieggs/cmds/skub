@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
-use 5.020;
+use 5.042;
 use warnings;
-use utf8::all;
+use utf8;
 use Encode qw/decode/;
 
 my $arg = join(' ', @ARGV);

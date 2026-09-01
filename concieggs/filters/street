@@ -1,9 +1,9 @@
 #!/usr/bin/env perl
 #
 # Giv alle et street navn.
-use 5.012;
+use 5.042;
 use warnings;
-use utf8::all;
+use utf8;
 
 use EggsML::EggsPI list => [qw(allAliases)];
 use EggsML::EggsPI text => [qw(street)];

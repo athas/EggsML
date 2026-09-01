@@ -1,10 +1,10 @@
 #!/usr/bin/env perl
 #
 # Konvertér fx "translate da sv" til "svensk" eller "translate da sv da" til "svensk-dansk".
-use 5.020;
+use 5.042;
 use strict;
 use warnings;
-use utf8::all;
+use utf8;
 
 use Env qw(EGGS_WHERE);
 use EggsML::EggsPI text => [qw(dbRead langname)];

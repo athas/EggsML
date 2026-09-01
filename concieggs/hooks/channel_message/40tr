@@ -8,7 +8,7 @@ my $EGGS_BODY = decode('utf-8', $ENV{EGGS_BODY});
 
 if (my ($who, $from, $to) =
             $EGGS_BODY =~ qr{^(?:([^ :]+):)?\s*(?:tr|y)/([^/]+)/([^/]+)/?\s*$}) {
-    eval "use utf8::all";
+    eval "use utf8";
     $who ||= $EGGS_USER;
     my $last = lastmsg($who);
 

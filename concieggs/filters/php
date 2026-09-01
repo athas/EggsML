@@ -1,10 +1,10 @@
 #!/usr/bin/env perl
 #
 # Det er sjovt, fordi det her ikke er PHP.
-use 5.026;
+use 5.042;
 use strict;
 use warnings;
-use utf8::all;
+use utf8;
 
 use Digest::MD5 qw(md5_hex);
 use IO::All -utf8;

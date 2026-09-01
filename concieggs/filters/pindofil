@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
-use 5.012;
+use 5.042;
 use warnings;
-use utf8::all;
+use utf8;
 
 my @facts = split '\n', <<'END_OF_PIND';
 Søren Pind blev født den 20. november 1969 i Herning.

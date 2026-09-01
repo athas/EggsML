@@ -5,7 +5,7 @@
 # https://en.wikipedia.org/wiki/Cowsay
 
 
-use 5.020;
+use 5.042;
 use warnings;
 use Encode qw/decode/;
 

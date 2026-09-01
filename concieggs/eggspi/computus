@@ -4,7 +4,7 @@
 
 use strict;
 use warnings;
-use utf8::all;
+use utf8;
 use Data::Dumper;
 
 use Time::Piece; # strptime, localtime

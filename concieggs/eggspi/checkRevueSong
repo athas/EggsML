@@ -2,9 +2,9 @@
 #
 # Checker om en given melodi er blevet skrevet på i revysammenhæng.
 
-use 5.020;
+use 5.042;
 use warnings;
-use utf8::all;
+use utf8;
 use LWP::Simple;
 use JSON qw/decode_json/;
 use URI;

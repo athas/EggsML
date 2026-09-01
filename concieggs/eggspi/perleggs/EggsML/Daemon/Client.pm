@@ -1,10 +1,10 @@
 package EggsML::Daemon::Client;
-use 5.012;
+use 5.042;
 use warnings;
 
 use Env qw/EGGS_DAEMON_SOCKET/;
 use IO::Socket::UNIX;
-use utf8::all;
+use utf8;
 
 =head1 NAME
 

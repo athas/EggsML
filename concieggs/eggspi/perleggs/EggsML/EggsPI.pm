@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 package EggsML::EggsPI;
-use 5.020;
+use 5.042;
 use warnings;
 
 use Exporter;
