@@ -2,6 +2,7 @@
 use 5.042;
 use warnings;
 use Encode qw/decode encode/;
+use utf8;
 
 my $EGGS_BODY = $ENV{EGGS_BODY};
 
