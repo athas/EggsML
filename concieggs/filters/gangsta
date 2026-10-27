@@ -1,7 +1,8 @@
 #!/usr/bin/env perl
 use 5.042;
 use warnings;
-use source::encoding 'utf8';
+use utf8;
+use open qw(:std :encoding(UTF-8));
 
 # baseret på http://www.classy.dk/download/styrelizer.asp
 
